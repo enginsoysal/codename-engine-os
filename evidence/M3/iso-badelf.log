@@ -1,4 +1,4 @@
 BdsDxe: loading Boot0001 "UEFI QEMU DVD-ROM QM00005 " from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x2,0xFFFF,0x0)
 BdsDxe: starting Boot0001 "UEFI QEMU DVD-ROM QM00005 " from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x2,0xFFFF,0x0)
-ENGINE_OS_LOADER build=7c391d82ba9f3ce6cb1bb927c23766fa
+ENGINE_OS_LOADER build=e8817b06d85455265507ca40c05c6fe6
 LOADER_REJECT: ELF validation

@@ -3,7 +3,7 @@
 #define SHARED UINT64_C(0xffff800000080000)
 static volatile uint32_t *apic;
 static volatile uint64_t *hpet;static uint64_t clock_divisor;
-static unsigned ids[M3_CPUS],cpu_count,bsp_id;
+static unsigned ids[M3_CPUS],cpu_count,bsp_id,use_rdtscp;
 static uint64_t retained,period,counter,pressure_ticks[M3_CPUS];
 static unsigned pressure_active,pressure_checks,early_completions;
 typedef struct {unsigned ready,request,done,command;uint64_t ticks,value,failures;} cpu_state;
@@ -24,7 +24,15 @@ static void ipi(unsigned id,unsigned value){
     unsigned n=0;while((reg(0x300)&0x1000)&&++n<1000000)__asm__ volatile("pause");if(n==1000000)bad("IPI send timeout");
     set(0x310,id<<24);set(0x300,value);
 }
-unsigned m3_cpu(void){unsigned id=reg(0x20)>>24;for(unsigned i=0;i<cpu_count;++i)if(ids[i]==id)return i;return M3_CPUS;}
+static void cpu_aux(unsigned index){
+    if(!use_rdtscp)return;uint32_t lo,hi;
+    __asm__ volatile("wrmsr"::"c"(0xc0000103u),"a"(index),"d"(0u));
+    __asm__ volatile("rdmsr":"=a"(lo),"=d"(hi):"c"(0xc0000103u));if(lo!=index||hi)bad("TSC_AUX setup");
+}
+unsigned m3_cpu(void){
+    if(use_rdtscp){uint32_t a,d,index;__asm__ volatile("rdtscp":"=a"(a),"=d"(d),"=c"(index)::"memory");if(index>=cpu_count)bad("TSC_AUX CPU index");return index;}
+    unsigned id=reg(0x20)>>24;for(unsigned i=0;i<cpu_count;++i)if(ids[i]==id)return i;bad("APIC CPU index");
+}
 unsigned m3_cpu_interrupt(uint64_t *frame){
     if(!apic)return 0;unsigned vector=(unsigned)frame[15];
     if(vector==255)return 1;
@@ -41,7 +49,7 @@ static void exercise(cpu_state *s){
 }
 static NORETURN void ap_main(unsigned index){
     uint64_t top=KERNEL_STACK+(uint64_t)index*0x10000+16384;
-    interrupts_ap(index,top,top+0x8000);set(0xf0,0x1ff);set(0x350,0x10000);set(0x360,0x10000);
+    cpu_aux(index);interrupts_ap(index,top,top+0x8000);set(0xf0,0x1ff);set(0x350,0x10000);set(0x360,0x10000);
     set(0x3e0,3);set(0x320,0x20000|241);set(0x380,(uint32_t)period);
     store(&cpus[index].ready,1);m3_ap_return(index);
 }
@@ -92,6 +100,7 @@ unsigned m3_smp_start(const os_boot_info_v0 *boot,uint64_t kernel_cr3){
     uint32_t lo,hi;__asm__ volatile("rdmsr":"=a"(lo),"=d"(hi):"c"(0x1bu));if(hi||(lo&0x400)||!(lo&0x800))bad("xAPIC required");
     apic=(volatile uint32_t*)(uintptr_t)(lo&0xfffff000u);bsp_id=reg(0x20)>>24;ids[0]=bsp_id;cpu_count=1;
     ((uint64_t*)(uintptr_t)kernel_pd(3))[((lo&0xfffff000u)>>21)&511]|=0x18;__asm__ volatile("movq %0,%%cr3"::"r"(kernel_cr3):"memory");
+    uint32_t a,b,c,d;__asm__ volatile("cpuid":"=a"(a),"=b"(b),"=c"(c),"=d"(d):"a"(0x80000001u),"c"(0));use_rdtscp=(d>>27)&1;cpu_aux(0);
     discover(boot);set(0xf0,0x1ff);set(0x3e0,3);set(0x320,0x10000|241);set(0x380,0xffffffff);delay(11932);period=0xffffffffu-reg(0x390);set(0x380,0);if(!period)bad("APIC calibration");
     if((uint64_t)(ap_trampoline_end-ap_trampoline)>0xf00)bad("trampoline size");
     uint64_t *low=(uint64_t*)(uintptr_t)kernel_low_pt();low[8]=0x8003;__asm__ volatile("invlpg (%0)"::"r"(UINT64_C(0x8000)):"memory");
@@ -124,7 +133,7 @@ void m3_smp_test(void){
     pt[(SHARED>>12)&511]=b|3|(UINT64_C(1)<<63);__asm__ volatile("invlpg (%0)"::"r"(SHARED):"memory");command(2);wait_all();
     for(unsigned i=1;i<cpu_count;++i)if(cpus[i].value!=0x222||!__atomic_load_n(&cpus[i].ticks,__ATOMIC_RELAXED)||cpus[i].failures)bad("TLB or CPU state");
     pt[(SHARED>>12)&511]=0;command(0);wait_all();__asm__ volatile("invlpg (%0)"::"r"(SHARED):"memory");page_free(a);page_free(b);
-    serial_text("M3_SMP_STATS cpus=");serial_hex(cpu_count);serial_text(" concurrent_allocations=");serial_hex(counter);serial_text(" early_mailbox_completions=");serial_hex(early_completions);serial_text(" pressure_checks=");serial_hex(pressure_checks);serial_text("\nM3_SMP_ALLOCATOR_TLB_TIMER_PASS\n");
+    serial_text("M3_SMP_STATS cpus=");serial_hex(cpu_count);serial_text(" concurrent_allocations=");serial_hex(counter);serial_text(" rdtscp_index=");serial_hex(use_rdtscp);serial_text(" early_mailbox_completions=");serial_hex(early_completions);serial_text(" pressure_checks=");serial_hex(pressure_checks);serial_text("\nM3_SMP_ALLOCATOR_TLB_TIMER_PASS\n");
 }
 void m3_smp_stop(void){command(3);wait_all();for(unsigned i=1;i<cpu_count;++i)if(load(&cpus[i].ready)!=2)bad("CPU quiesce");}
 uint64_t m3_smp_pages(void){return retained;}

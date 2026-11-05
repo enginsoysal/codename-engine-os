@@ -5,6 +5,7 @@ Scope: native x86-64 VM preemption, threads/TLS/x87/SSE, blocking waits/deadline
 - [Fresh acceptance](acceptance-results.json): full scoped gate, provenance and suite counts.
 - [Boot/runtime report](boot-results.json): 14 ISO/USB/RAM/SMP/repeat/error cases with exact resource, runtime and TSC measurements.
 - [Visual/idle/debugger report](visual-results.json), [all CPU idle registers](idle-registers.log), [normal log](normal-iso.log), [screenshot](boot-screen.png).
+- [Context-switch optimization and unchanged-benchmark comparison](history/context-switch-performance.md).
 - [Additional VMware 1/2/4-CPU serial/runtime qualification](vmware/README.md).
 - [Build provenance](build-manifest.json), [repository gates](repository-results.json), [M0 regressions](../M0/acceptance-results.json), [M2 regression](../M2/acceptance-results.json).
 
@@ -18,6 +19,6 @@ Run `python tests/m3/verify.py`. The report must explicitly have `passed: true` 
 
 ## Final measured resource sample
 
-The QEMU cases record 456 KiB peak managed pages plus 680 KiB retained boot reservations (1136 KiB combined, excluding firmware/devices/framebuffer/host). Retained managed pages are 60/92/156 KiB for 1/2/4 active CPUs. Native thread metadata is 800 bytes, plus separate 4 KiB stack and 4 KiB TLS backing: 8992 bytes/thread before shared process/code costs. Exact runtime-window peak and dispatch measurements are in the reports.
+The QEMU cases record 456 KiB peak managed pages plus 692 KiB retained boot reservations (1148 KiB combined, excluding firmware/devices/framebuffer/host). Retained managed pages are 60/92/156 KiB for 1/2/4 active CPUs. Native thread metadata is 800 bytes, plus separate 4 KiB stack and 4 KiB TLS backing: 8992 bytes/thread before shared process/code costs. Exact runtime-window peak and dispatch measurements are in the reports.
 
-The deterministic-clock case records zero late ticks; normal final QEMU cases record at most 1. The retained earlier failed development sample records 17. These are observations, not a hard real-time guarantee or hidden discarded failures. VMware's additional cases record zero late ticks and 676 KiB boot reservations in their own reports.
+The deterministic-clock case records zero late ticks; normal final QEMU cases record at most 0. The retained earlier failed development sample records 17. These are observations, not a hard real-time guarantee or hidden discarded failures. VMware's additional cases record zero late ticks and 688 KiB boot reservations in their own reports.

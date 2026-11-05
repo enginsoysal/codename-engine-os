@@ -4,6 +4,8 @@
 
 Preemptible native threads with guarded stacks, FS-base TLS and x87/SSE/MXCSR state; atomic event/mailbox waits, join/cancel/deadlines; HPET monotonic time across delayed interrupts; backed anonymous commit/decommit, COW CPU/copy-out paths and bounded OOM recovery. ACPI INIT/SIPI starts additional CPUs with per-CPU GDT/TSS/IST/stacks and APIC timers; native user execution is verified on 1/2/4 CPUs. Concurrent allocator and acknowledged TLB replacement/unmap are tested. M2 handle rights/mapping lifetime and earlier isolation regressions remain required.
 
+Feature-detected per-CPU identity, demand-driven hardware-clock reads and same-space CR3 reuse reduce avoidable switch overhead. An unchanged native two-thread round-trip benchmark and component timings are published with a before/after comparison.
+
 Current launcher/build/English contracts, roadmap, evidence and release instructions move to M3. Fixed affinity, serialized kernel dispatch, xAPIC/HPET VM scope, quotas and unsupported AVX/migration/file paging are explicit. No Windows apps, installer or desktop. [M3](../milestones/m3.md), [release notes](m3-v0.3.0.md).
 
 ## M3 first increment — 2026-11-05

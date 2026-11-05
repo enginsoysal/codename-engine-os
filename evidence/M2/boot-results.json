@@ -1,6 +1,6 @@
 {
   "scope": "M2 kernel boot and failure handling; no installer or Windows apps",
-  "build_id": "c982bcb0233e2c66d5cdf90c8d7f1b10",
+  "build_id": "737107fdb0610413870b2bfdf37ee8b2",
   "checks": [
     {
       "name": "iso-smoke",
@@ -11,7 +11,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "db46981fc5beaa4d519b0cc5218746e13bb5408a09b9b67007e461994e24c597"
+      "log_sha256": "2bbfaa930399d3fd4afd93d185808e7c0ca8e9dbf8c9dcfe38ddab5372d1dfdd"
     },
     {
       "name": "usb-smoke",
@@ -22,7 +22,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "8d5be275133308fd4c11cc9778edde0b875c66313bcf436964a40a9f7720f3b0"
+      "log_sha256": "eb9ac1d8be315e60fadcb4e2fcfc9ae6aa1c843a351cf868b3d9b1320e8e13b4"
     },
     {
       "name": "iso-lowram",
@@ -33,7 +33,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "a4771ed6b407b4341e8074af88e30fec413294466b73d7149f13ad1338468059"
+      "log_sha256": "b7735bd6b95c55b1cb9e680207d984ae96d498e126df9624a5c9728ad50aa0df"
     },
     {
       "name": "iso-large-guest",
@@ -44,7 +44,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "50b52835f53f2162c0b30cde87ecdb5157d6b3d8837d75f91e773f81d10658e0"
+      "log_sha256": "9a5afab2f314b9440b36844e9b3fcfca4bef752b301e6da37c67b6b541e470ad"
     },
     {
       "name": "iso-retry",
@@ -55,7 +55,7 @@
       "actual_exit": 33,
       "expected_marker": "EXIT_BOOT_SERVICES_RETRY",
       "stderr": "",
-      "log_sha256": "661fbccd65bc65f6009d37d05f4e2248925b70b62d84506f81dccbafb0469d43"
+      "log_sha256": "26243522cdd42f389b6ef2e021253fe2be7c73e81be461a7aeb50b06e7c39768"
     },
     {
       "name": "iso-panic",
@@ -66,7 +66,7 @@
       "actual_exit": 67,
       "expected_marker": "OWN_IDT_EXCEPTION_HANDLED",
       "stderr": "",
-      "log_sha256": "97f8d32fda638dc000bc77bee509830ee3ff2cd513d0d5099ada60d3cff8e415"
+      "log_sha256": "c1df80a72a08142b50dde0157080952f50a2a84c08aa7adde1c33270fe8b26d3"
     },
     {
       "name": "iso-badboot",
@@ -77,7 +77,7 @@
       "actual_exit": 71,
       "expected_marker": "KERNEL_REJECT: boot header",
       "stderr": "",
-      "log_sha256": "e2b84cb5587064fb075af3b7761c48cee5d559387d757b434341c019ef88f8df"
+      "log_sha256": "44a78a6dadc236c2364822a6467bd9cceeb109875332154003fac896aa3688dd"
     },
     {
       "name": "iso-badelf",
@@ -88,7 +88,7 @@
       "actual_exit": 69,
       "expected_marker": "LOADER_REJECT: ELF validation",
       "stderr": "",
-      "log_sha256": "73ae244c81526d540f90337be576ca4a6991aef0c8fed8d2bd937df893157620"
+      "log_sha256": "f1a4c08fdd83bf7a285aeb9cfd642a1b293e7acdd1c5bbc1855a1d523389b19b"
     }
   ],
   "memory_measurements": {

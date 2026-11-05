@@ -45,7 +45,7 @@ static void cpu_state_init(void){
         __asm__ volatile("rdmsr":"=a"(lo),"=d"(hi):"c"(0x174u));if(lo||hi)bad("unconfigured SYSENTER enabled");
     }
     uint64_t a;__asm__ volatile("movq %%cr0,%0":"=r"(a));a=(a|2)&~UINT64_C(12);__asm__ volatile("movq %0,%%cr0"::"r"(a));
-    __asm__ volatile("movq %%cr4,%0":"=r"(a));a=(a|0x600)&~((UINT64_C(1)<<18)|(UINT64_C(1)<<16));__asm__ volatile("movq %0,%%cr4"::"r"(a));
+    __asm__ volatile("movq %%cr4,%0":"=r"(a));a=(a|0x600)&~((UINT64_C(1)<<18)|(UINT64_C(1)<<16)|(UINT64_C(1)<<2));__asm__ volatile("movq %0,%%cr4"::"r"(a));
     configured_cpus|=UINT64_C(1)<<m3_cpu();
 }
 extern void timer_start(void),timer_stop(void),timer_acknowledge(void);
@@ -225,7 +225,7 @@ static trap_frame *select_thread(void){
     for(;;){
         for(unsigned n=1;n<=M3_THREADS;++n){unsigned i=(current[cpu]+n)%M3_THREADS;thread *t=&threads[i];if(t->state!=RUN||t->space->cpu!=cpu)continue;
             uint64_t start=m3_tsc();current[cpu]=i;user_cpu_mask|=UINT64_C(1)<<cpu;cr3(t->space->cr3);
-            if(!access(t->space,t->frame.rip,1,0)||(*leaf(t->space,t->frame.rip)&NX)||!access(t->space,t->frame.rsp,8,1)){if(t->role!=27)++unexpected;end(t,2);continue;}
+            if(!access(t->space,t->frame.rip,1,0)||(*leaf(t->space,t->frame.rip)&NX)||!access(t->space,t->frame.rsp,8,1)){tick_locked();if(t->role!=27)++unexpected;end(t,2);continue;}
             t->frame.cs=0x1b;t->frame.ss=0x23;t->frame.rflags=(t->frame.rflags&0xcd5)|0x202;
             uint64_t fs=TLS(i);__asm__ volatile("wrmsr"::"c"(0xc0000100u),"a"((uint32_t)fs),"d"((uint32_t)(fs>>32)));
             __asm__ volatile("fxrstor64 %0"::"m"(t->fx):"memory");
@@ -260,8 +260,14 @@ static trap_frame *select_thread(void){
     }
 }
 trap_frame *m3_trap(trap_frame *f){
-    thread *t=&threads[current[m3_cpu()]];__asm__ volatile("fxsave64 %0":"=m"(t->fx)::"memory");lock();memcpy(&t->frame,f,sizeof(*f));tick_locked();
-    if(f->vector==32){timer_acknowledge();tick_locked();}
+    thread *t=&threads[current[m3_cpu()]];__asm__ volatile("fxsave64 %0":"=m"(t->fx)::"memory");lock();memcpy(&t->frame,f,sizeof(*f));
+    if(f->vector!=128)tick_locked();
+    else switch(f->rax){
+        case S_TIME:case S_SLEEP:case S_WAIT:case S_JOIN:case S_RECEIVE_WAIT:case S_EVENT_SIGNAL:
+        case S_CLOSE:case S_THREAD_CANCEL:case S_THREAD_EXIT:case S_EXIT:case S_SEND:tick_locked();break;
+        default:break;
+    }
+    if(f->vector==32){timer_acknowledge();}
     else if(f->vector==241){}
     else if(f->vector==128)t->frame.rax=syscall(t);
     else if(f->vector==14){uint64_t va;__asm__ volatile("movq %%cr2,%0":"=r"(va));address_space *s=t->space;

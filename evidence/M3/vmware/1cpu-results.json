@@ -4,7 +4,7 @@
   "ram_mib": 128,
   "cpus": 1,
   "vmrun_sha256": "c3d4f24932037051765c479dc854b33a5d9ef0e9f6813e215ee6bc1bedebf0d6",
-  "iso_sha256": "117aa465548edc643a2e99e1d1a68e8bc63cb71574a5d9f81512563258075bc7",
+  "iso_sha256": "04ad8da5683b23c1fed6b83a5fe5aaec29faa57af1f8306723d9dc8af26ae2be",
   "checks": [
     {
       "name": "normal M3 runtime reaches complete/idle",
@@ -23,17 +23,18 @@
       "passed": true
     }
   ],
-  "build_id": "7c391d82ba9f3ce6cb1bb927c23766fa",
+  "build_id": "e8817b06d85455265507ca40c05c6fe6",
   "roundtrip_tsc": {
     "samples": 64,
-    "min": 161493,
-    "p50": 162138,
-    "p95": 199319,
-    "max": 252222
+    "min": 2876,
+    "p50": 2891,
+    "p95": 3081,
+    "max": 4326
   },
   "smp": {
     "cpus": 1,
     "concurrent_allocations": 512,
+    "rdtscp_index": 1,
     "early_mailbox_completions": 0,
     "pressure_checks": 5
   },
@@ -57,8 +58,8 @@
     "oom_faults": 1,
     "idle_halts": 134,
     "switches": 714,
-    "dispatch_tsc_total": 788025,
-    "dispatch_tsc_max": 21531,
+    "dispatch_tsc_total": 643873,
+    "dispatch_tsc_max": 16574,
     "deadline_late_ticks": 0,
     "runtime_peak_owned_bytes": 184320,
     "thread_resident_bytes": 8992,
@@ -68,11 +69,11 @@
   "dispatch_tsc": {
     "samples": 256,
     "min": 281,
-    "p50": 326,
-    "p95": 2095,
-    "max": 3139
+    "p50": 369,
+    "p95": 2345,
+    "max": 4155
   },
-  "boot_reserved_bytes": 692224,
+  "boot_reserved_bytes": 704512,
   "vmware_version": "26.0.1",
   "vmware_build": "25688693",
   "screenshot_captured": false,

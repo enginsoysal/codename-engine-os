@@ -50,7 +50,7 @@ def main():
             checks.append({'name':'normal 4-CPU M3 ISO remains online after runtime qualification','passed':True})
             registers=qmp('human-monitor-command',{'command-line':'info registers -a'})
             if registers.count('HLT=1')!=4:raise RuntimeError('Not all four CPUs halted at idle')
-            (evidence/'idle-registers.log').write_text(registers,encoding='utf-8')
+            (evidence/'idle-registers.log').write_bytes(('\n'.join(line.rstrip() for line in registers.splitlines())+'\n').encode())
             checks.append({'name':'all four CPU HLT states observed by QEMU','passed':True})
             import ctypes
             from ctypes import wintypes as w

@@ -53,6 +53,8 @@ A selected approach is not a runtime claim. [Status](../roadmap/status.md) and [
 | 047 | Acknowledged IPI invalidation before backing release | Avoid stale shared supervisor translations after replacement/unmap | Bare PTE writes do not invalidate remote TLBs | Warm/read/replace/read/unmap on APs; user spaces remain affinity-bound |
 | 048 | Measured bounded native M3 profile | Keep resource/latency claims reproducible and distinct from guest compatibility | Unbounded APIs or a splash screen conceal missing behavior | 8 threads, 2 spaces, 16 anonymous pages/space; exact counts/budgets, 256 warm dispatch samples |
 
+| 049 | Feature-detected RDTSCP/TSC_AUX CPU index and demand-driven HPET reads | Remove per-yield APIC/HPET MMIO overhead while retaining hardware-clock wait semantics | Cached clock ticks alone lose deadline accuracy; GS-based entry would add SWAPGS complexity | CPUID-gated MSR readback on each CPU, APIC fallback, unchanged 64-sample user round-trip benchmark and full regressions |
+
 ## Detailed contracts and remaining choices
 
 [Kernel](kernel-contracts.md), [filesystem](filesystem.md), [build/platform](build-platform.md), [compatibility](compatibility.md), [M2 implementation](../milestones/m2.md), [M3 implementation](../milestones/m3.md).
