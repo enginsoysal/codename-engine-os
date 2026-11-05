@@ -1,23 +1,24 @@
 # Contributing
 
-Codename: Engine OS has completed M0 and the virtual M1 own-kernel boot milestone. The kernel boots through UEFI ISO/USB in QEMU; there is no installer or application support yet.
+Codename: Engine OS is an early own-kernel project. Current scope is [M2 native isolation](docs/milestones/m2.md); there is no installer or Windows app support. Read [architecture](docs/architecture/overview.md), [decisions](docs/architecture/decisions.md), [status](docs/roadmap/status.md) and [agent instructions](AGENTS.md) first.
 
-Read the architecture, decisions and milestone acceptance criteria before proposing changes. Keep changes small enough to review and include their purpose, verification and limitations. Document third-party provenance and licenses; do not submit proprietary OS components, SDKs, installers or credentials.
+## Language, structure and documentation
 
-Original contributions are submitted under the repository's MIT license. Existing third-party notices remain applicable to their components.
+All current documents, code comments, UI strings and release notes are English. Keep code under its source subsystem, docs under architecture/roadmap/milestones/releases, and tests/evidence grouped by milestone. Do not add root-level planning files or put OS files in BrixCanvas. Never publish ignored local archives.
 
-## Current verification
+Every behavior/scope change updates contracts/status, user commands, tests/evidence and known limitations in the same coherent change. New findings supersede plans explicitly. Historical tags/reports retain their original identity; do not rewrite their hashes to match new source paths.
+
+## Verification and resources
 
 ```powershell
-python m0/probes/run_probes.py
-python m0/verify_m0.py
-python tests/verify_m1.py
+python tools/build/m2.py
+python tests/m2/verify.py
 ```
 
-The first command runs the original small suite. The second runs all fresh M0 gates, including Windows references, C validators and QEMU/OVMF ISO/USB firmware fixtures. Requires the pinned tools and project-local ISO library; see [setup](tools/README.md). Full M0 qualification currently requires a Windows host. These checks do not boot an OS kernel or establish application compatibility.
+Use the [pinned host tools](tools/README.md). Full qualification currently requires Windows-host reference checks, QEMU/OVMF and Pillow for screenshot conversion. Tests run on disposable images without host disk/directory exposure. M0 can be run separately through `python tests/m0/verify.py`; M1's historical path is `python tests/m1/verify.py`.
 
-The third command builds and boots the real M1 kernel, exercises negative/exception paths and captures the framebuffer. Its visual conversion uses Pillow (tested 12.3.0), a host-only test tool; it is not linked into the kernel. See [M1](M1.md) for artifacts and limits.
+CPU/RAM efficiency is a primary acceptance criterion. Bound allocations, queues and logging; share immutable code; measure peak/retained/boot categories separately and verify idle halting. Never equate configured guest memory with kernel consumption. Do not trade away correctness/isolation for a small reported number.
 
-Public reports redact host-specific paths. Retain the probe scope and known limitations when publishing results. Generated result files should be reviewed before committing.
+Include rationale, alternatives, verification and limits in changes. Test original app binaries only through lawful access; do not submit proprietary installers/SDKs or credentials. Record third-party revisions, provenance, licenses and host dependencies before ports. Original contributions use [MIT](LICENSE); third-party notices remain applicable.
 
-Use issues for reproducible defects or scoped proposals. Include tool versions, architecture and actual observed behavior. Avoid marking an entire application supported based on one successful startup.
+The project owner requests GitHub publication of every completed coherent update. Run appropriate checks, review, commit and push; never force-push others' work or claim synchronization after failure. Report actual failures and version/task-specific app support rather than invented global guarantees.

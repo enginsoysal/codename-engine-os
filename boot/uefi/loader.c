@@ -1,6 +1,6 @@
 #include "uefi.h"
 #include <engine/elf.h>
-#include "validate_v0.h"
+#include <engine/boot/validate_v0.h>
 #include "build.h"
 static efi_boot_services *bs;
 static os_boot_range reservations[32];
@@ -103,7 +103,14 @@ efi_status efi_main(efi_handle image,efi_system_table *system) {
         for(unsigned j=0;j<512;++j)tables[1024+i*512+j]=((uint64_t)i*512+j)*0x200000|0x83;
     }
     uint8_t *stack=allocate(8,2);
-    uint8_t *map=allocate(64,2);const uint64_t map_capacity=64*4096;
+    uint64_t map_pages=64;
+#ifdef ENGINE_M2
+    uint64_t needed=0,key_probe=0,stride_probe=0;uint32_t version_probe=0;
+    if(bs->memory_map(&needed,0,&key_probe,&stride_probe,&version_probe)!=EFI_BUFFER_TOO_SMALL ||
+       !stride_probe || stride_probe>4096 || needed>64*4096-stride_probe*32)fail("memory map sizing");
+    map_pages=(needed+stride_probe*32+4095)/4096;
+#endif
+    uint8_t *map=allocate(map_pages,2);const uint64_t map_capacity=map_pages*4096;
     uint8_t *reservation_bytes=(uint8_t*)boot+256;
     memcpy(reservation_bytes,reservations,reservation_count*sizeof(os_boot_range));
     boot->reservations=(os_boot_range){(uint64_t)(uintptr_t)reservation_bytes,reservation_count*sizeof(os_boot_range)};

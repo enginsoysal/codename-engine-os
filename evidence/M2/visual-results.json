@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "normal ISO remains online after isolated user faults",
+      "passed": true
+    },
+    {
+      "name": "CPU HLT observed by QEMU",
+      "passed": true
+    },
+    {
+      "name": "idle host CPU interval",
+      "passed": true,
+      "wall_seconds": 2.014999999999418,
+      "cpu_seconds": 0.015625,
+      "one_cpu_percent": 0.7754342431764026,
+      "scope": "QEMU TCG process; not a real-hardware or desktop benchmark"
+    },
+    {
+      "name": "own kernel framebuffer captured",
+      "passed": true,
+      "width": 1280,
+      "height": 800,
+      "conversion_tool": "Pillow 12.3.0"
+    },
+    {
+      "name": "loopback GDB RSP handshake",
+      "passed": true
+    }
+  ],
+  "screenshot_sha256": "85831525bd54c0e07b47e2ebed503327616f868f2042c6e47b4bfbeacd9ce6a6"
+}

@@ -130,7 +130,7 @@
         "-Wextra",
         "-Werror",
         "-I",
-        "<project-root>\\m0\\contracts",
+        "<project-root>\\include",
         "-fsyntax-only",
         "<temporary-probe-directory>\\layout.c"
       ],
@@ -148,7 +148,7 @@
         "-Wextra",
         "-Werror",
         "-I",
-        "<project-root>\\m0\\contracts",
+        "<project-root>\\include",
         "-fsyntax-only",
         "<temporary-probe-directory>\\layout.c"
       ],
@@ -166,7 +166,7 @@
         "-Wextra",
         "-Werror",
         "-I",
-        "<project-root>\\m0\\contracts",
+        "<project-root>\\include",
         "-fsyntax-only",
         "<temporary-probe-directory>\\layout.c"
       ],

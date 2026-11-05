@@ -1,6 +1,9 @@
 #include <engine/base.h>
-#include "validate_v0.h"
+#include <engine/boot/validate_v0.h>
 #include "build.h"
+#ifdef ENGINE_M2
+#include <engine/process.h>
+#endif
 void interrupts_init(void);
 void display_boot(const os_boot_info_v0*);
 void kernel_fault_probe(void);
@@ -53,6 +56,9 @@ NORETURN void kernel_main(const os_boot_info_v0 *boot) {
     serial_text("WINDOWS_95_11_PROFILES_RESERVED_NOT_IMPLEMENTED\n");
     uint32_t mode=os_read32(init+12);
     if(mode==2)kernel_fault_probe();
+#ifdef ENGINE_M2
+    process_start(boot,mode);
+#endif
     if(mode==1||mode==4)test_exit(0x10);
     halt_forever();
 }

@@ -1,22 +1,13 @@
-# M1 — acceptatiebewijs
+# M1 evidence
 
-De volledige verse suite staat in [acceptance-results.json](acceptance-results.json). De [buildmanifest](build-manifest.json) koppelt bronhashes en artefacten aan één build-id. Scope: eigen kernelboot en diagnostiek op de gepinde QEMU/UEFI-configuratie; geen installer of appcompatibiliteit.
+Historical M1 release qualification. [Acceptance](acceptance-results.json), [build manifest](build-manifest.json), [ELF parser](elf-results.json), [boot scenarios](boot-results.json), [visual/debugger report](visual-results.json).
 
-## Uitgevoerde routes
+The reports identify the original source paths/build ID at the [M1 tag](https://github.com/enginsoysal/codename-engine-os/tree/m1-v0.1.0). Current repository paths are reorganized; historical source hashes are not silently rewritten to pretend they came from today's code. Current development is [M2](../../docs/milestones/m2.md).
 
-- [ELF-parser](elf-results.json): 19 controles tegen de exacte C-parser uit de loader, inclusief afkapping, overflow, verkeerde architectuur, RWX en overlappende segmenten.
-- [Kernelboot](boot-results.json): ISO, echte USB-device-emulatie, 128 MiB RAM, stale-mapkey-retry, echte #UD-panic, corrupte bootheader en corrupt ELF. De successen eisen zowel firmware-exit als kernel-entry met dezelfde build-id.
-- [Normale VM en debugging](visual-results.json): de normale ISO blijft online, het eigen framebufferbeeld wordt via QMP opgenomen en de GDB-stub geeft een echte RSP-capabilityresponse.
-- [M0-regressie](../M0/acceptance-results.json): alle eerdere 51 technische controles blijven slagen.
+M1 passed 19 actual C ELF parser checks, seven kernel boot/error scenarios and three normal-screen/debugger checks, plus 51 M0 regressions. Firmware exit and kernel entry must carry the same build ID. A real #UD was symbolized; the screenshot comes from the actual framebuffer.
 
-## Logs en beeld
+[ISO](iso-smoke.log), [USB](usb-smoke.log), [128 MiB](iso-lowram.log), [retry](iso-retry.log), [panic](iso-panic.log), [bad header](iso-badboot.log), [bad ELF](iso-badelf.log), [persistent normal boot](normal-iso.log), [symbolized fault](panic-symbol.txt).
 
-[ISO](iso-smoke.log), [USB](usb-smoke.log), [lage RAM](iso-lowram.log), [mapkey-retry](iso-retry.log), [panic](iso-panic.log), [ongeldige bootheader](iso-badboot.log), [ongeldig ELF](iso-badelf.log), [normale blijvende boot](normal-iso.log), [gesymboliseerde fout](panic-symbol.txt).
+![M1 own kernel after firmware exit](boot-screen.png)
 
-![Eigen kernel na ExitBootServices](boot-screen.png)
-
-De screenshot komt uit de echte QEMU-framebuffer. Alleen formaatconversie PPM→PNG is toegepast. De tekst meldt uitdrukkelijk dat Windowscompatibiliteit gepland is en dat er geen installer is.
-
-## Grenzen
-
-Geen fysieke hardwarekwalificatie, BIOS/Secure Boot, ARM, scheduler, usermode, kernel-opslagdriver, installatieroute of Windows-apps. De tijdelijke identity-map is nog breed RWX; er worden geen onbetrouwbare apps uitgevoerd. Exceptions zijn met #UD getoetst; double-fault-IST is geconfigureerd, niet afzonderlijk geforceerd. Zie [M1-keuzes en grenzen](../../M1.md).
+Only PPM→PNG conversion was applied. This proves the tested virtual boot path, not installer/app support, physical hardware, ARM, Secure Boot, scheduler or kernel drivers. M1's broad supervisor RWX mapping is hardened by M2 before user execution. Double-fault IST was configured, not separately forced. [M1 choices](../../docs/milestones/m1.md).

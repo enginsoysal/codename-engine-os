@@ -1,69 +1,56 @@
 # Codename: Engine OS
 
-An independent, open-source operating system built around its own kernel and system services. The first application goal is installing and using unmodified Windows software; Linux, macOS, DOS and ARM support are staged roadmap goals.
+An independent, MIT-licensed operating system with its own UEFI loader, kernel and native user runtime. Windows 95–11 application compatibility is a long-term requirement, followed by Linux/macOS execution environments and ARM64. Those compatibility layers are not implemented yet.
 
-**Current state: M1 own-kernel boot implemented.** The UEFI loader exits firmware boot services and starts our ELF64 kernel with its own page tables, GDT/TSS/IDT and framebuffer output. ISO/USB VM boot and exception diagnostics are tested in QEMU. There is no installer or application support yet. [Download the M1 prerelease](https://github.com/enginsoysal/codename-engine-os/releases/tag/m1-v0.1.0), [run/build instructions](M1.md), [evidence](evidence/M1/README.md). Existing documentation is primarily in Dutch. Original project code and documentation use the [MIT license](LICENSE); third-party tools retain their respective licenses.
+**Current development milestone: M2 — protected native user processes.** M0 established the architecture/toolchain and M1 delivered kernel boot. M2 adds ring-3 isolation, rights-checked handles, bounded IPC/shared memory and measured page cleanup. See the [current status](docs/roadmap/status.md) for verified results. There is no installer, shell, desktop or existing Windows application support yet.
 
-Canonical repository: [enginsoysal/codename-engine-os](https://github.com/enginsoysal/codename-engine-os).
+## Boot in a VM
 
-## Architectuur en uitvoeringsplan
+[Download M2 prerelease](https://github.com/enginsoysal/codename-engine-os/releases/tag/m2-v0.2.0) · [M2 instructions](docs/milestones/m2.md) · [test evidence](evidence/M2/README.md)
 
-De aangescherpte productrichting is Windows-appcompatibiliteit over het Windows 95–11-tijdperk. Boot en installatie waren al gepland; volledige generatiedekking vraagt aanvullende trajecten. Zie [scope, ontbrekende onderdelen en kwaliteitscriteria](WINDOWS-COMPATIBILITY.md). Universele foutloosheid is geen bewezen of afgegeven garantie.
+```powershell
+python tools/build/m2.py
+python tools/vm/run.py
+```
 
-Vastgelegd: 5 november 2026. Documentversie: 0.4.
+Use a 64-bit UEFI VM with Secure Boot disabled. The default QEMU launcher uses one vCPU and 128 MiB guest RAM. Automated qualification uses the pinned QEMU/OVMF profile; a successful user-supplied VMware M1 screenshot is narrower evidence, not comprehensive VMware qualification. M2 is supplied as a new ISO for VMware testing.
 
-Status: M0 afgerond; M1 eigen-kernelboot geïmplementeerd en getoetst. [M1 starten](M1.md); installatie volgt in M5. Appcompatibiliteit blijft latere scope.
+## Repository layout
 
-## Doel
+```text
+boot/                  UEFI loader and firmware-to-kernel transition
+kernel/                Core, x86-64 exceptions, memory and process mechanisms
+include/engine/        Versioned boot/native ABI and shared headers
+runtime/               Minimal freestanding memory routines
+user/                  Native ring-3 verification programs and linker layout
+tools/build/           Separate M1/M2 build entry points and boot-media authoring
+tools/vm/              Pinned VM setup and user launcher
+tests/m0/              Architecture/toolchain and Windows-host references
+tests/m1/              Original kernel-boot/parser/visual regression tools
+tests/m2/              Isolation, cleanup, low-RAM and idle tests
+docs/architecture/     Design contracts and decision record
+docs/roadmap/          Milestones, current status and Windows generation inventory
+docs/milestones/       Per-milestone usage, implementation and handoff notes
+docs/releases/         Changelog and release notes
+evidence/M0..M2/       Public test reports, sanitized logs and screenshots
+build/, dist/          Generated files; ignored by Git
+tools/local/           Private/local dependencies and historical archive; ignored
+```
 
-Een zelfstandig besturingssysteem met een eigen kernel, eigen systeemdiensten en eigen desktop. De eerste gebruikersroute is een bestaande Windows-installer downloaden, installeren en de applicatie gebruiken. Daarna volgen bredere Windows-compatibiliteit, DOS, Linux en macOS. De codebasis moet later ook ARM64 en een geselecteerd Raspberry Pi-model ondersteunen.
+The repository is independent from BrixCanvas. Do not put OS sources or outputs in that unrelated project. The initial planning copy was moved to the ignored local archive; GitHub contains the canonical current source.
 
-De gebruiker bepaalt productrichting en acceptatie. De coding agent voert implementatie, diagnose, documentatie en beschikbare verificatie uit. Werken op echte hardware, firmware-instellingen en externe accounts kunnen menselijke handelingen vereisen; die worden concreet benoemd wanneer ze nodig zijn. M1-opdracht: eigen kernel via ISO booten, Windows 95–11-eisen behouden en updates naar GitHub publiceren.
+## Architecture and roadmap
 
-## Documenten
+- [Architecture](docs/architecture/overview.md), [decisions](docs/architecture/decisions.md), [kernel contracts](docs/architecture/kernel-contracts.md).
+- [OS directory namespace](docs/architecture/filesystem.md), [build/platform choices](docs/architecture/build-platform.md), [compatibility matrix](docs/architecture/compatibility.md).
+- [Detailed milestones](docs/roadmap/milestones.md), [Windows 95–11 requirement](docs/roadmap/windows-compatibility.md), [generation inventory](docs/roadmap/windows-targets.json).
+- [M0](docs/milestones/m0.md), [M1](docs/milestones/m1.md), [M2](docs/milestones/m2.md), [changelog](docs/releases/CHANGELOG.md).
+- [Contributing](CONTRIBUTING.md), [agent instructions](AGENTS.md), [host tools](tools/README.md).
 
-- [Architectuur](ARCHITECTURE.md): systeemgrenzen en technische bouwstenen.
-- [Ontwerpbesluiten](DECISIONS.md): gekozen aanpak, redenen, alternatieven en heroverwegingscriteria.
-- [Mijlpalen](MILESTONES.md): per mijlpaal wat, hoe, waarom, afhankelijkheden en bewijs.
-- [Voortgang](STATUS.md): actuele status en regels om voltooiing te registreren.
-- [M0-contracten en proeven](m0/README.md): concrete technische keuzes en resterende afsluitcriteria.
-- [M1 kernelboot](M1.md): ISO, startcommando, implementatiekeuzes en huidige grenzen.
-- [Windows 95–11-doel](WINDOWS-COMPATIBILITY.md): scopeaudit en aanvullende WC1–WC7-trajecten.
-- [Bijdragen](CONTRIBUTING.md) en [projectinstructies](AGENTS.md): verificatie en publicatieafspraken.
+## Development commitments
 
-## GitHub-publicatie
+All current documentation, comments, UI strings and new release notes are English. Behavior changes must update architecture/status, verification and user instructions together. After each coherent update, run relevant checks, review, commit and push to [GitHub](https://github.com/enginsoysal/codename-engine-os). Never publish credentials, raw host-user paths, proprietary installers or ignored local archives.
 
-Deze zelfstandige repository is vanaf 5 november 2026 de werkbron en staat buiten BrixCanvas. Afgeronde samenhangende updates worden gecontroleerd, gecommit en naar GitHub gepusht. De oude planningsmap is uit BrixCanvas verplaatst naar het lokaal genegeerde archief `tools/local/legacy-planning`; dat is geen actuele bron en wordt niet gepubliceerd. OS-bestanden en buildoutputs horen uitsluitend in deze OS-repository. Ruwe lokale paden en privégegevens horen niet in openbare bewijsbestanden.
+Resource efficiency is a primary requirement: shared immutable code, bounded allocation and queues, separate peak/retained/boot memory accounting, and HLT when idle. A small guest-RAM test does not establish a universal product minimum or remove application resource requirements.
 
-## Uitgangspunten
-
-1. Eigen kernel en systeemdiensten; geen Windows-, Linux- of macOS-kernel als onderlaag.
-2. Bestaande apps blijven waar mogelijk ongewijzigd. Hun verwachte interfaces worden geïmplementeerd.
-3. Directe CPU-uitvoering geldt voor passende processorarchitecturen. Andere instructiesets vereisen vertaling of emulatie.
-4. Compatibiliteit is aantoonbaar per app, versie, architectuur en taak. 'Alle apps' is richting, geen releasegarantie.
-5. Hardware wordt automatisch ontdekt; gebruik vereist een ondersteund protocol en driver.
-6. Lage permanente geheugenlast en bruikbaarheid onder druk zijn producteisen.
-7. USB-image, bootable ISO, installatie en herstel horen bij het product.
-8. Een eigen OS staat hergebruik van geschikte open-sourcecomponenten toe. Herkomst, licentie en portingkosten worden vooraf beoordeeld.
-
-## Volgorde en afhankelijkheden
-
-M0 → M1 → M2 → M3 → M4 → M5 → M6 → M7 → M8 is het eerste hoofdtraject.
-
-Daarna: M9 DOS; M10 graphics → M11 Steam → M12 games → M13 Adobe als productprioriteit. De feitelijke technische afhankelijkheid van Adobe van Steam is er niet. Linux M14 en macOS M15 bouwen op de core en eigen compatibiliteitsinfrastructuur, niet verplicht op Adobe. ARM64 M16 wordt vanaf M0 architectonisch voorbereid en kan na een stabiele core worden opgepakt.
-
-M0 omvat kleine uitvoerbaarheidsonderzoeken voor lastige ABI- en compatibiliteitsvragen. Daardoor ontdekken we fundamentele blokkades vóór jaren werk aan de desktop.
-
-## Wanneer telt een mijlpaal als klaar?
-
-- De bijbehorende acceptatiecriteria zijn uitgevoerd op benoemde configuraties.
-- Resultaten zijn reproduceerbaar met build-id, commando's en logs.
-- Relevante oudere acceptatietests blijven slagen.
-- Bekende beperkingen, resourcegebruik en herstelgedrag staan in het bewijsverslag.
-- De status is aangepast op basis van bewijs, niet op basis van geschreven code of een screenshot.
-
-Er zijn nog geen betrouwbare doorlooptijden of definitieve RAM-budgetten. Na M3 worden de eerste onderbouwde resourcebudgetten vastgesteld. Grote productmijlpalen krijgen vóór implementatie een versiegebonden testmatrix en kleinere werkpakketten.
-
-## Bewijslocatie tijdens implementatie
-
-Per mijlpaal bevat `evidence/Mxx/` een README, buildmanifest, testresultaten, logs, metingen en relevante beelden zodra beschikbaar. [M0 bevat de eerste proefresultaten](evidence/M0/README.md).
+Original contributions use the [MIT license](LICENSE). External build tools and future reused components retain their own licenses and require recorded provenance. Existing binaries remain unmodified compatibility targets; claims are qualified per version, architecture and task, never inferred from a boot screen.

@@ -1,5 +1,5 @@
 #include <engine/base.h>
-#include "boot_v0.h"
+#include <engine/boot/boot_v0.h>
 #include "build.h"
 /* Original 5x7 uppercase bitmap alphabet for this minimal boot console. */
 static const uint8_t letters[26][7]={
@@ -38,12 +38,42 @@ static void text(unsigned x,unsigned y,const char *s,unsigned scale,uint32_t rgb
 }
 void display_boot(const os_boot_info_v0 *boot) {
     screen=boot;if(!boot->framebuffer.byte_length)return;
-    for(unsigned y=0;y<boot->framebuffer_height;++y)for(unsigned x=0;x<boot->framebuffer_width;++x)pixel(x,y,y<8?0x39d5bb:0x101d2b);
+    uint32_t accent=color(0x39d5bb),background=color(0x101d2b);
+    for(unsigned y=0;y<boot->framebuffer_height;++y) {
+        volatile uint32_t *row=(volatile uint32_t*)(uintptr_t)(boot->framebuffer.physical_address+(uint64_t)y*boot->framebuffer_stride_bytes);
+        for(unsigned x=0;x<boot->framebuffer_width;++x)row[x]=y<8?accent:background;
+    }
     text(40,48,"CODENAME: ENGINE OS",3,0xffffff);
+#ifdef ENGINE_M2
+    text(40,110,"M2 KERNEL ONLINE",2,0x39d5bb);
+#else
     text(40,110,"M1 KERNEL ONLINE",2,0x39d5bb);
+#endif
     text(40,158,"BUILD",2,0x93aabe);text(112,158,BUILD_ID,2,0x93aabe);
     text(40,210,"OWN KERNEL - UEFI SERVICES STOPPED",2,0xffffff);
     text(40,254,"WINDOWS 95-11: PLANNED",2,0x93aabe);
     text(40,296,"NO INSTALLER YET",2,0x93aabe);
 }
 void kernel_panic_screen(void) {if(screen&&screen->framebuffer.byte_length)text(40,350,"KERNEL PANIC - SEE SERIAL LOG",2,0xff7070);}
+#ifdef ENGINE_M2
+static void number(unsigned x,unsigned y,uint64_t value) {
+    char out[24];unsigned n=0;do {out[n++]=(char)('0'+value%10);value/=10;}while(value&&n<23);
+    for(unsigned i=0;i<n/2;++i){char c=out[i];out[i]=out[n-i-1];out[n-i-1]=c;}out[n]=0;text(x,y,out,2,0x39d5bb);
+}
+void display_m2_result(unsigned failures,uint64_t peak,uint64_t retained,unsigned starts,unsigned faults) {
+    if(!screen||!screen->framebuffer.byte_length)return;
+    uint32_t background=color(0x101d2b);
+    for(unsigned y=200;y<screen->framebuffer_height;++y) {
+        volatile uint32_t *row=(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)y*screen->framebuffer_stride_bytes);
+        for(unsigned x=0;x<screen->framebuffer_width;++x)row[x]=background;
+    }
+    text(40,210,failures?"USERMODE ISOLATION: FAIL":"USERMODE ISOLATION: PASS",2,failures?0xff7070:0x39d5bb);
+    text(40,250,"PRIVATE MEMORY AND SHARED IPC: CHECKED",2,0xffffff);
+    text(40,290,"CONTAINED USER FAULTS:",2,0x93aabe);number(340,290,faults);
+    text(40,330,"PROCESS STARTS:",2,0x93aabe);number(340,330,starts);
+    text(40,370,"PEAK MANAGED RAM KIB:",2,0x93aabe);number(340,370,peak/1024);
+    text(40,410,"RETAINED MANAGED RAM KIB:",2,0x93aabe);number(360,410,retained/1024);
+    text(40,450,"IDLE: CPU HALTED - NO POLLING",2,0x39d5bb);
+    text(40,490,"WINDOWS 95-11: PLANNED",2,0x93aabe);text(40,530,"NO INSTALLER YET",2,0x93aabe);
+}
+#endif

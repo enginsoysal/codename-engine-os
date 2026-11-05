@@ -1,25 +1,25 @@
 {
   "schema": 1,
-  "time_utc": "2026-11-05T12:23:19.052169+00:00",
+  "time_utc": "2026-11-05T14:15:57.969544+00:00",
   "passed": true,
   "gates": [
     {
-      "suite": "probes/run_probes.py",
+      "suite": "toolchain.py",
       "passed": true,
       "checks": 11
     },
     {
-      "suite": "probes/contracts.py",
+      "suite": "contracts.py",
       "passed": true,
       "checks": 30
     },
     {
-      "suite": "probes/windows_reference.py",
+      "suite": "windows_reference.py",
       "passed": true,
       "checks": 8
     },
     {
-      "suite": "probes/environment.py",
+      "suite": "environment.py",
       "passed": true,
       "checks": 2
     },
@@ -30,22 +30,15 @@
   ],
   "scope": "M0 architecture/toolchain readiness, not kernel/app/install acceptance",
   "source_sha256": {
-    "m0/BUILD-PLATFORM.md": "61c4e1b59e0668270e1a15bcb25ca60d5377abf9bd967cc37dd10b661a3f0597",
-    "m0/COMPATIBILITY.md": "f3abc4ecaa7c745440d081ad7f79dfa549c278cd57c608f687a3a1a82bd722f4",
-    "m0/contracts/boot_v0.h": "3669e45d2541c2aa53268a0246e004865153b8f9100473c0680458a17580211a",
-    "m0/contracts/syscall_v0.h": "813dbfe6d652033754cfea1cf7f9c1420ffc35480d5931a21782279d006f6a16",
-    "m0/contracts/validate_v0.h": "1ec6718c899e508b3bf9aa12e5b406b8cd52c35e988c5296feb76e980a47c2f5",
-    "m0/FILESYSTEM.md": "aeb425fff6e59b699f71a4d6e4c5fe7dfd150d24f548239b62e654e3ec7feeb7",
-    "m0/KERNEL-CONTRACTS.md": "7f41a0fdee7e5dad8b2be9aa7c0f3ff604ea662862ccbad2ad3afd4c9c3f0746",
-    "m0/M1-HANDOFF.md": "486dc27c72c8b0bdda34084ffe8fd9281f23414470c00d4f8a04a770e16b6d88",
-    "m0/probes/contracts.py": "7ad13bdfd1674ba9c536009fd5dc114a2c19774b1fd4044c049c75f0edf54996",
-    "m0/probes/efi_environment.c": "5d9c5e482c4b63d7668dcff24a7978792092ab5263d3b664350be635a5940db2",
-    "m0/probes/environment.py": "202e1edde65d60880af7a0027929950f9aba499a60fca67c3a5ff4e3fe9401ee",
-    "m0/probes/run_probes.py": "fd19563cae7b2001aa0d8a981469d11433342afa9b29acb3b183d7425f6efe70",
-    "m0/probes/windows_reference.py": "b91a93466b12606f29429b16608d0c7720f1ab0bb6eb52dae25e5d392a760923",
-    "m0/README.md": "725d1a90df87c41ae5dc0ac45ce2126847ec1fc22cbd1049cd2f2661bd076d8f",
-    "m0/verify_m0.py": "180bbabc8d287f5d1c90a110ef69e50bbd35135f86c5f915342acd5ee4f16158",
-    "m0/windows-targets.json": "c3432d527f3bdc1ecdb5c9f3d43212a36b1219a7d9e3e532629f58996621b665"
+    "include/engine/abi/syscall_v0.h": "813dbfe6d652033754cfea1cf7f9c1420ffc35480d5931a21782279d006f6a16",
+    "include/engine/boot/boot_v0.h": "97a37818dccb8592acf64db339b8ea701c7dab978e0cb3f6331a3fa569583357",
+    "include/engine/boot/validate_v0.h": "a95a9f47577e7663b972a489d1fe61579bbd314330cf938c9836e5b16b5a91e9",
+    "tests/m0/contracts.py": "7d3ba134f79739cf1ca776d0f840a6d1f4b587a2a8b3238f8a8d253ee1cb4e88",
+    "tests/m0/efi_environment.c": "5d9c5e482c4b63d7668dcff24a7978792092ab5263d3b664350be635a5940db2",
+    "tests/m0/environment.py": "f4a22977ae864413567231a2bada850ee5b6b5a506dd2b318830dbadd61643cf",
+    "tests/m0/toolchain.py": "61fe224ac85ac136b9420e41c8c69bdf574b823d5f5f9eff7fac07c2a585af9d",
+    "tests/m0/verify.py": "5465f5c14203edb19398257ad180032399077ad3ce356388bc12c5b98d1d9303",
+    "tests/m0/windows_reference.py": "457d8c57914719a99d0f89231e4a2db9b7da33e10a2041b857627891d6a62845"
   },
   "technical_check_count": 51
 }

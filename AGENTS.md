@@ -4,10 +4,12 @@
 
 - This standalone repository is the canonical project. Never place Engine OS sources, plans, build outputs or evidence in the unrelated BrixCanvas repository.
 - The old planning copy has been moved out of BrixCanvas into this repository's ignored `tools/local/legacy-planning` archive. It is historical and must not be published or treated as current source. Use this repository root explicitly as the working directory even when the chat opens elsewhere.
-- Read README.md, STATUS.md and relevant M0 contracts before implementing changes.
+- Read README.md, docs/roadmap/status.md and relevant architecture contracts before implementing changes.
 - Build an independent OS and kernel. Windows application compatibility is the first product path; Linux, macOS and ARM remain planned extensions.
 - Keep milestone implementation and evidence separate from architecture claims. Never mark runtime behavior complete based on a stub, header or host reference test.
 - Record each substantial decision with how, why, alternatives, limitations and verification. Keep status and milestone documents consistent.
+- All committed documentation, code comments, UI strings and new release notes must be in English. Update architecture, status, tests/evidence and user instructions together whenever behavior or scope changes.
+- CPU/RAM efficiency is a primary requirement. Bound allocations/queues, share immutable code, measure peak and retained memory separately, and halt when idle instead of polling. Never equate configured guest RAM with kernel consumption or native probes with Windows compatibility.
 
 ## GitHub publication — explicit user instruction
 

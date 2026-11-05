@@ -1,0 +1,45 @@
+{
+  "time_utc": "2026-11-05T14:14:48.710513+00:00",
+  "scope": "native M2 isolation and resource qualification; no Windows apps/installer",
+  "passed": true,
+  "gates": [
+    {
+      "script": "tools/build/m2.py",
+      "passed": true,
+      "checks": 0
+    },
+    {
+      "script": "tests/m2/boot.py",
+      "passed": true,
+      "checks": 8
+    },
+    {
+      "script": "tests/m2/visual.py",
+      "passed": true,
+      "checks": 5
+    },
+    {
+      "script": "tests/check_repository.py",
+      "passed": true,
+      "checks": 5
+    },
+    {
+      "script": "tests/m0/verify.py",
+      "passed": true,
+      "checks": 0
+    }
+  ],
+  "build_id": "e534e478bdb1c4c3872f510917aa4e88",
+  "m2_gates": 18,
+  "m0_regression_checks": 51,
+  "native_workload": {
+    "process_starts": 45,
+    "clean_exits": 35,
+    "contained_faults": 10,
+    "repeated_object_cycles": 128,
+    "handle_limit": 16,
+    "message_limit": 4,
+    "minimum_tested_guest_mib": 64,
+    "active_cpus": 1
+  }
+}

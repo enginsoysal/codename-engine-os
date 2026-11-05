@@ -1,8 +1,8 @@
 __pycache__/
 *.py[cod]
 .venv/
-build/
-dist/
+/build/
+/dist/
 tools/local/
 *.iso
 *.img

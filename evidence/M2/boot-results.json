@@ -1,0 +1,152 @@
+{
+  "scope": "M2 kernel boot and failure handling; no installer or Windows apps",
+  "build_id": "e534e478bdb1c4c3872f510917aa4e88",
+  "checks": [
+    {
+      "name": "iso-smoke",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 512,
+      "expected_exit": 33,
+      "actual_exit": 33,
+      "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
+      "stderr": "",
+      "log_sha256": "3ed0a343ec06ee7a97d229f7accb428d2b0de1175021e83cf3643155d03b732d"
+    },
+    {
+      "name": "usb-smoke",
+      "passed": true,
+      "media": "usb",
+      "ram_mib": 512,
+      "expected_exit": 33,
+      "actual_exit": 33,
+      "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
+      "stderr": "",
+      "log_sha256": "ad09c757cda0d75c80d93ff06479f171d07b9251185794294fcf7667a5c58b77"
+    },
+    {
+      "name": "iso-lowram",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 64,
+      "expected_exit": 33,
+      "actual_exit": 33,
+      "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
+      "stderr": "",
+      "log_sha256": "0174b6ecc7180d311847f1ae47aa7226dfafd47d473d69ed46548bada08b91ed"
+    },
+    {
+      "name": "iso-large-guest",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 2048,
+      "expected_exit": 33,
+      "actual_exit": 33,
+      "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
+      "stderr": "",
+      "log_sha256": "cd0de15631967cfc135674b747e4074f8d05af93093ac119b801c3274fe790d8"
+    },
+    {
+      "name": "iso-retry",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 512,
+      "expected_exit": 33,
+      "actual_exit": 33,
+      "expected_marker": "EXIT_BOOT_SERVICES_RETRY",
+      "stderr": "",
+      "log_sha256": "3f70f10eeb7e25c4501ad4bf899a469b283f0612db575da38bd1a6d5f34a1a6a"
+    },
+    {
+      "name": "iso-panic",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 512,
+      "expected_exit": 67,
+      "actual_exit": 67,
+      "expected_marker": "OWN_IDT_EXCEPTION_HANDLED",
+      "stderr": "",
+      "log_sha256": "6be8e91bb830cb7978c90f2e776540e5a175e945ca2783aeeef8a651de666af8"
+    },
+    {
+      "name": "iso-badboot",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 512,
+      "expected_exit": 71,
+      "actual_exit": 71,
+      "expected_marker": "KERNEL_REJECT: boot header",
+      "stderr": "",
+      "log_sha256": "d0be9310da916294a63cc4aa05d76c291663d6867e0ec48b5fc4d1259db173b8"
+    },
+    {
+      "name": "iso-badelf",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 512,
+      "expected_exit": 69,
+      "actual_exit": 69,
+      "expected_marker": "LOADER_REJECT: ELF validation",
+      "stderr": "",
+      "log_sha256": "5edcaf6f5a38c35eb46f22c5bb27ec2f5de5a857fc9a328cbde859a12231b7ee"
+    }
+  ],
+  "memory_measurements": {
+    "iso-smoke": {
+      "starts": 45,
+      "exits": 35,
+      "isolated_faults": 10,
+      "peak_owned_bytes": 458752,
+      "retained_owned_bytes": 61440,
+      "switches": 79,
+      "syscalls": 1744,
+      "failures": 0,
+      "boot_reserved_bytes": 430080
+    },
+    "usb-smoke": {
+      "starts": 45,
+      "exits": 35,
+      "isolated_faults": 10,
+      "peak_owned_bytes": 458752,
+      "retained_owned_bytes": 61440,
+      "switches": 79,
+      "syscalls": 1744,
+      "failures": 0,
+      "boot_reserved_bytes": 430080
+    },
+    "iso-lowram": {
+      "starts": 45,
+      "exits": 35,
+      "isolated_faults": 10,
+      "peak_owned_bytes": 458752,
+      "retained_owned_bytes": 61440,
+      "switches": 79,
+      "syscalls": 1744,
+      "failures": 0,
+      "boot_reserved_bytes": 430080
+    },
+    "iso-large-guest": {
+      "starts": 45,
+      "exits": 35,
+      "isolated_faults": 10,
+      "peak_owned_bytes": 458752,
+      "retained_owned_bytes": 61440,
+      "switches": 79,
+      "syscalls": 1744,
+      "failures": 0,
+      "boot_reserved_bytes": 430080
+    },
+    "iso-retry": {
+      "starts": 45,
+      "exits": 35,
+      "isolated_faults": 10,
+      "peak_owned_bytes": 458752,
+      "retained_owned_bytes": 61440,
+      "switches": 79,
+      "syscalls": 1744,
+      "failures": 0,
+      "boot_reserved_bytes": 430080
+    }
+  },
+  "passed": true
+}
