@@ -1,0 +1,287 @@
+{
+  "scope": "cross-compile/link and Windows reference semantics; no OS runtime proof",
+  "tools": {
+    "clang": {
+      "path": "<user-home>\\AppData\\Local\\Programs\\Swift\\Toolchains\\6.4.1+Asserts\\usr\\bin\\clang.EXE",
+      "version": "clang version 21.1.6"
+    },
+    "ld.lld": {
+      "path": "<user-home>\\AppData\\Local\\Programs\\Swift\\Toolchains\\6.4.1+Asserts\\usr\\bin\\ld.lld.EXE",
+      "version": "LLD 21.1.6 (compatible with GNU linkers)"
+    },
+    "lld-link": {
+      "path": "<user-home>\\AppData\\Local\\Programs\\Swift\\Toolchains\\6.4.1+Asserts\\usr\\bin\\lld-link.EXE",
+      "version": "LLD 21.1.6"
+    },
+    "python": {
+      "path": "<user-home>\\AppData\\Local\\Programs\\Python\\Python310\\python.EXE",
+      "version": "Python 3.10.11"
+    },
+    "lldb": {
+      "path": "<user-home>\\AppData\\Local\\Programs\\Swift\\Toolchains\\6.4.1+Asserts\\usr\\bin\\lldb.EXE"
+    },
+    "qemu-system-x86_64": {
+      "path": null
+    },
+    "xorriso": {
+      "path": null
+    },
+    "rustc": {
+      "path": null
+    }
+  },
+  "checks": [
+    {
+      "name": "x86_64-unknown-none-elf contract layout assertions",
+      "passed": true,
+      "detail": "boot=160, request=24; fixed-width fields"
+    },
+    {
+      "name": "aarch64-unknown-none-elf contract layout assertions",
+      "passed": true,
+      "detail": "boot=160, request=24; fixed-width fields"
+    },
+    {
+      "name": "i686-unknown-none-elf contract layout assertions",
+      "passed": true,
+      "detail": "boot=160, request=24; fixed-width fields"
+    },
+    {
+      "name": "x86_64-unknown-none-elf ELF header",
+      "passed": true,
+      "detail": {
+        "machine": 62,
+        "sha256": "a88940e5f4fab2025d0b81e8d2184c3791ce204fa2f5fe74e513eb4213af4048",
+        "size": 4680
+      }
+    },
+    {
+      "name": "aarch64-unknown-none-elf ELF header",
+      "passed": true,
+      "detail": {
+        "machine": 183,
+        "sha256": "09b0105543a551e3db7f64d609102019ef0a5df5a511e0386bd14c8c33b24640",
+        "size": 66176
+      }
+    },
+    {
+      "name": "UEFI PE32+ image header",
+      "passed": true,
+      "detail": {
+        "sha256": "5238e231e6ea765ecc124830d22044b07c44c93e799ba9552fe8ed2ac3803b83",
+        "size": 1024,
+        "note": "format only; not loaded by firmware"
+      }
+    },
+    {
+      "name": "Windows auto-reset event",
+      "passed": true,
+      "detail": {
+        "first": 0,
+        "second": 258
+      }
+    },
+    {
+      "name": "Windows manual-reset event",
+      "passed": true,
+      "detail": {
+        "first": 0,
+        "second": 0
+      }
+    },
+    {
+      "name": "Windows multiwait any/all",
+      "passed": true,
+      "detail": {
+        "empty": 258,
+        "any_second": 1,
+        "all_partial": 258,
+        "all_ready": 0
+      }
+    },
+    {
+      "name": "Windows per-thread TLS",
+      "passed": true,
+      "detail": {
+        "worker": [
+          null,
+          true,
+          8738
+        ],
+        "main": 4369
+      }
+    },
+    {
+      "name": "Windows exclusive file sharing",
+      "passed": true,
+      "detail": {
+        "second_open_error": 32
+      }
+    }
+  ],
+  "commands": [
+    {
+      "argv": [
+        "<user-home>\\AppData\\Local\\Programs\\Swift\\Toolchains\\6.4.1+Asserts\\usr\\bin\\clang.EXE",
+        "--target=x86_64-unknown-none-elf",
+        "-std=c17",
+        "-ffreestanding",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I",
+        "<project-root>\\m0\\contracts",
+        "-fsyntax-only",
+        "<temporary-probe-directory>\\layout.c"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<user-home>\\AppData\\Local\\Programs\\Swift\\Toolchains\\6.4.1+Asserts\\usr\\bin\\clang.EXE",
+        "--target=aarch64-unknown-none-elf",
+        "-std=c17",
+        "-ffreestanding",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I",
+        "<project-root>\\m0\\contracts",
+        "-fsyntax-only",
+        "<temporary-probe-directory>\\layout.c"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<user-home>\\AppData\\Local\\Programs\\Swift\\Toolchains\\6.4.1+Asserts\\usr\\bin\\clang.EXE",
+        "--target=i686-unknown-none-elf",
+        "-std=c17",
+        "-ffreestanding",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I",
+        "<project-root>\\m0\\contracts",
+        "-fsyntax-only",
+        "<temporary-probe-directory>\\layout.c"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<user-home>\\AppData\\Local\\Programs\\Swift\\Toolchains\\6.4.1+Asserts\\usr\\bin\\clang.EXE",
+        "--target=x86_64-unknown-none-elf",
+        "-std=c17",
+        "-ffreestanding",
+        "-fno-stack-protector",
+        "-fno-pic",
+        "-fno-pie",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-mno-red-zone",
+        "-mgeneral-regs-only",
+        "-c",
+        "<temporary-probe-directory>\\probe.c",
+        "-o",
+        "<temporary-probe-directory>\\62.o"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<user-home>\\AppData\\Local\\Programs\\Swift\\Toolchains\\6.4.1+Asserts\\usr\\bin\\ld.lld.EXE",
+        "-e",
+        "probe",
+        "-Ttext=0x200000",
+        "<temporary-probe-directory>\\62.o",
+        "-o",
+        "<temporary-probe-directory>\\62.elf"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<user-home>\\AppData\\Local\\Programs\\Swift\\Toolchains\\6.4.1+Asserts\\usr\\bin\\clang.EXE",
+        "--target=aarch64-unknown-none-elf",
+        "-std=c17",
+        "-ffreestanding",
+        "-fno-stack-protector",
+        "-fno-pic",
+        "-fno-pie",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-mgeneral-regs-only",
+        "-c",
+        "<temporary-probe-directory>\\probe.c",
+        "-o",
+        "<temporary-probe-directory>\\183.o"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<user-home>\\AppData\\Local\\Programs\\Swift\\Toolchains\\6.4.1+Asserts\\usr\\bin\\ld.lld.EXE",
+        "-e",
+        "probe",
+        "-Ttext=0x200000",
+        "<temporary-probe-directory>\\183.o",
+        "-o",
+        "<temporary-probe-directory>\\183.elf"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<user-home>\\AppData\\Local\\Programs\\Swift\\Toolchains\\6.4.1+Asserts\\usr\\bin\\clang.EXE",
+        "--target=x86_64-pc-windows-msvc",
+        "-std=c17",
+        "-ffreestanding",
+        "-fno-stack-protector",
+        "-mno-red-zone",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-c",
+        "<temporary-probe-directory>\\efi.c",
+        "-o",
+        "<temporary-probe-directory>\\efi.obj"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<user-home>\\AppData\\Local\\Programs\\Swift\\Toolchains\\6.4.1+Asserts\\usr\\bin\\lld-link.EXE",
+        "/subsystem:efi_application",
+        "/entry:efi_main",
+        "/nodefaultlib",
+        "/machine:x64",
+        "/timestamp:0",
+        "/out:<temporary-probe-directory>\\probe.efi",
+        "<temporary-probe-directory>\\efi.obj"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "passed": true
+}
