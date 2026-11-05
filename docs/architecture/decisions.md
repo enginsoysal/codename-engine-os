@@ -62,6 +62,12 @@ A selected approach is not a runtime claim. [Status](../roadmap/status.md) and [
 | 056 | xHCI boot HID, MSI-X/MSI and high MMIO mapping | Own USB controller and event-driven input with bounded DMA | Hubs/hotplug/arbitrary reports and physical controllers widen lifetime/routing scope | Two devices/four attempts, supervisor/NX MMIO window, key/mouse reports and HLT observations |
 | 057 | Four-KiB DMA batches and temporary verification mappings | Reduce sector command overhead and retained test RAM | Permanent large buffers waste boot reservations | 16 KiB AHCI buffers; self-test payload/copy pages unmapped, TLB invalidated and reclaimed |
 
+| 058 | Original BIOS loader normalizes to the existing boot contract | Share one protected kernel without requiring UEFI firmware | Third-party bootloaders would reduce work but add an external runtime dependency | Dual El Torito ISO/GPT USB, EDD sector-size checks, bounded E820 and pre-copy memory validation; named runtime and negative reports |
+| 059 | Release temporary UEFI ELF input after segment copying | Remove duplicated retained file/image memory | Retaining the input simplifies loader lifetime but costs RAM | Exact reservation removal before ExitBootServices; signed-payload verification precedes the release |
+| 060 | Separate read-only protocol drivers and partition/filesystem parsers | Ordinary media inspection must not imply write authority | A marker-only driver hides usable disks; arbitrary write support is premature | AHCI/NVMe/ATA/VirtIO first-sector and boundary reads, GPT/MBR checks and unchanged ordinary backing hashes |
+| 061 | Small modern VirtIO split queues and MSI-X/HLT completion | Efficient virtual storage with bounded per-device DMA state | Packed queues and deeper concurrency expand ownership complexity | Eight descriptors, one request, explicit version/feature negotiation, 512/4096-byte reads and repeated queue wrap |
+| 062 | Owner-enrolled disposable VM trust qualification | Prove firmware-to-payload authentication without modifying host policy | Self-signing is not factory trust; production enrollment needs an explicit owner workflow | Valid signed loader, unsigned/tampered PE rejection and external kernel/init digest rejection; full M4.5 remains open |
+
 ## Detailed contracts and remaining choices
 
 [Kernel](kernel-contracts.md), [filesystem](filesystem.md), [build/platform](build-platform.md), [compatibility](compatibility.md), [M2 implementation](../milestones/m2.md), [M3 implementation](../milestones/m3.md).

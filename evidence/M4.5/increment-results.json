@@ -1,10 +1,20 @@
 {
   "passed": true,
   "full_m45_complete": false,
-  "scope": "ordinary AHCI/NVMe reads, partition/FAT32 validation, owner-enrolled VM trust chain; wider agreed tracks remain open",
+  "scope": "dual BIOS/UEFI media, ordinary AHCI/NVMe/ATA/VirtIO reads, partition/FAT32 validation, owner-enrolled VM trust chain; wider agreed tracks remain open",
   "gates": [
     {
       "script": "tools/build/m45.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/boot_matrix.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/bios_negative.py",
       "arguments": [],
       "passed": true
     },
@@ -55,7 +65,13 @@
       "script": "tests/m0/verify.py",
       "arguments": [],
       "passed": true
+    },
+    {
+      "script": "tests/m45/vmware.py",
+      "arguments": [],
+      "passed": true,
+      "execution": "additional sequential qualification after the aggregate QEMU suites on the same unchanged build"
     }
   ],
-  "build_id": "d57bd0cfd56bbc58aaca20dc4dc47bf5"
+  "build_id": "07857f19dcf197f039d029c6acbf7870"
 }

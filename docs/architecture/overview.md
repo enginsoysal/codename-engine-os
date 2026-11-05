@@ -62,3 +62,7 @@ M4 adds class-bound AHCI with one outstanding MSI/HLT request and 4 KiB DMA batc
 Cross-compile without a host CRT; retain symbols, build IDs, source/artifact hashes, negative tests and public sanitized logs. Record CPU/guest/host configuration and separate managed pages from retained boot memory and framebuffer reservations. The M3 preemption and SMP suite proves its specified native workloads, not universal starvation/race freedom or arbitrary-app security. Exact limits and resource measurements remain linked to fresh reports.
 
 Primary sources: [UEFI 2.11](https://uefi.org/specs/UEFI/2.11/), [Intel system programming](https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-3a-part-1-manual.pdf), [AMD system programming](https://docs.amd.com/v/u/en-US/24593_3.44_APM_Vol2), [Clang](https://clang.llvm.org/docs/UsersManual.html). These define interfaces; our tests establish only explicitly reported behavior.
+
+## M4.5 firmware increment
+
+The in-progress M4.5 build adds an original BIOS EDD/E820/VBE path beside UEFI. Both produce the same normalized boot contract and enter the same kernel. BIOS conventional E820 ranges are normalized to the existing allocator descriptor types; this does not require UEFI firmware on the BIOS path. M45 UEFI releases the temporary ELF file allocation after segment copying. See [boot design and tests](../milestones/m4.5-boot.md) and [storage/trust boundaries](../milestones/m4.5-storage.md). Earlier milestone reservation evidence remains historical.

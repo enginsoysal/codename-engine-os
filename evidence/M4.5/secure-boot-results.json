@@ -46,17 +46,17 @@
     }
   ],
   "provenance": {
-    "build_id": "d57bd0cfd56bbc58aaca20dc4dc47bf5",
+    "build_id": "07857f19dcf197f039d029c6acbf7870",
     "cryptography_version": "50.0.2",
     "signtool_sha256": "098b94694b1c30df75d872b9395e4aa1d80984b3a57e1bd88af8db0b6a8aef9a",
-    "public_certificate_sha256": "0f0b19da7c615b8129e89b48998a15127b11a2bc752f87161f71075d0554167a",
-    "signed_loader_sha256": "c5c8ef9c53ec5f14607233e995ff8d1af8169362afc27079936a5b19bde9290e",
-    "kernel_sha256": "31765c60b72aa5c2a6b3c396d4ca9745cce2f4070e7ec4118d3e9348186fa3fc",
-    "init_sha256": "7cb65de6dad99b288ce61afdd7fd3a0849c00842aed379c97b248a52e900eb11",
+    "public_certificate_sha256": "c645ecce8bc12a0c18c1f47f95304095ecd0f107c37c8725df864f537ce43911",
+    "signed_loader_sha256": "8ff2f74d7cda03443da122c011dff37a23ff8133e4444476a8aad4cff32297c2",
+    "kernel_sha256": "89114f43020aa2d9a3383076bae3cc69b3b7638fad658b5dfdaf543e234ea9fa",
+    "init_sha256": "3900ac040df51ed61ebccf39427a7e612522d31f1fe3734e3ead76d2a4cff78a",
     "test_source_sha256": {
       "tools/build/secure.py": "f8799c3a04cad202c000a78db9c2da87579b104862df2fe7f997e97f7d468fce",
       "tests/m45/firmware/enroll.c": "b9848b3179f64f5b13669206c52de5dc55763d3580f9eddfe0dba951acf18261",
-      "tests/m45/secure_boot.py": "c49739e6ae2cc80445ce2d56b58b7b2320ad70d62681b3b028e3c81fbc9ceb16"
+      "tests/m45/secure_boot.py": "df77baf06dad910b8b15415dc62dc1d93624ed070785e241985101c4b1351554"
     },
     "policy": "ephemeral owner-enrolled test key; no factory trust; enroller/private key never published",
     "secure_firmware_sha256": "32807682a9e5c0e2d192ecb6077941d4be8bcfa6b9cd6e60830c3a9f48c0555a"

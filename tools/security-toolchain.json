@@ -9,6 +9,10 @@
     "ovmf-secure-code": {
       "sha256": "32807682a9e5c0e2d192ecb6077941d4be8bcfa6b9cd6e60830c3a9f48c0555a",
       "bytes": 3653632
+    },
+    "seabios": {
+      "sha256": "ae6f6aa973aaccc143f57aa960fb035fd9de4daee4ad0cd713322f8c259e7650",
+      "bytes": 262144
     }
   }
 }

@@ -1,9 +1,14 @@
 {
   "milestone": "M45",
-  "build_id": "d57bd0cfd56bbc58aaca20dc4dc47bf5",
+  "build_id": "07857f19dcf197f039d029c6acbf7870",
   "source_sha256": {
+    "boot/bios/mbr.ld": "e1bfb5c0c62f26747f62fd94ecd7fd239e92fa6c4944dad294a634f7d6757452",
+    "boot/bios/mbr.S": "8b8155ed440fda9f277e4a5c1a520dc889647a563d2bb237782175d2f114f0bc",
+    "boot/bios/prepare.c": "7a5f7390e6cf6bbcec71364155a0a29416b98f37b960a1b8d7faeff69e6b0497",
+    "boot/bios/stage2.ld": "bb85684e27f6945c465c9398aa260d311a294fbd67bd38ec8ac3ebc28be33e50",
+    "boot/bios/stage2.S": "3c80a000cd19b1c4894b63a734b31fabc4aa9edc759e04c9c17ad453b9307d44",
     "boot/uefi/handoff.S": "4d3b9259c88e5b3e2b4d72fee29b82dc495758408c454a09e471f3d69e21c6e9",
-    "boot/uefi/loader.c": "770473a68a73814ad273532d25760f1e21a4dbf43b2b6ce58dbe92af1b8f8891",
+    "boot/uefi/loader.c": "7965ca528cb6bd6cedb420d8c64f80c81ff20bb4896285f0b788f8cb50275953",
     "boot/uefi/payload_trust.c": "0017c0dc4f2b6c27844690e7ccf7cb999bc37b20073cfd38be226afb3fc341ae",
     "boot/uefi/uefi.h": "123461b364cc1435528fff648c9a27c46486dbfdd643b6abe0e4bb215d53fa59",
     "include/engine/abi/syscall_v0.h": "813dbfe6d652033754cfea1cf7f9c1420ffc35480d5931a21782279d006f6a16",
@@ -16,20 +21,20 @@
     "include/engine/m4.h": "b26af663c448df9d4a36af23f358f72c1c01392ec1141be6f7ea7fa573d840bf",
     "include/engine/process.h": "6b2310a17b1410ec2bc864c79ad06de8bfbe1981c9870b5941246989b2a4a96b",
     "include/engine/sha256.h": "6c3f2b0fbcb01fe4b03ee872ea52360173d5aa513a16d07327978031e7a1b735",
-    "include/engine/storage.h": "a4c07f20594d12f68c188cab9c6f2c2a438f73acfd4bb55ca5b36dfa666c5aa5",
+    "include/engine/storage.h": "f4898b6f24071013f3a816637729312728414da95bb709f42fe382d0e566f8b2",
     "include/engine/user.h": "fc3afcdec20049fb5cd5692bd23f5119b16fd9ace64693571d7bef2e33778423",
     "kernel/arch/x86_64/ap.S": "42b2f18d6bbb596997e8b61ac905dcd72d82257dceef666d9dff08b2a0047321",
     "kernel/arch/x86_64/fault.S": "8f4651a65903c62fc21e3d0c964f28d65077fb86e5130f859ba2513903836abe",
-    "kernel/arch/x86_64/interrupts.c": "2e1ee33c5989fae5e2b65c9819b7d25658ef15cdb254ff2b1e78abf85f61d6ad",
+    "kernel/arch/x86_64/interrupts.c": "0b3bb09dfb015c2908a7c926be8370ddc8b862717a5312c2209569c73b77d0a4",
     "kernel/arch/x86_64/linker.ld": "e827271a22c548131fab027b4ee0ca68149bba8ef0c7917eac754d25733b02df",
     "kernel/arch/x86_64/smp.c": "0c74a195263b2c0d74e1290891cec98e4f73a0d77137ad43a37d839251d1171f",
     "kernel/arch/x86_64/timer.c": "0c95fe6e9cd535c81eebaa1a3e124b29c84bf0d3127ccb355b819e156b979455",
     "kernel/core/console.c": "4111de62192a46621e47295d4f1ad215db89f502d4fba55dc43ada74d6ca0e18",
-    "kernel/core/display.c": "c7b7b4a8d3ae1ffd809c7fda084ae13b59b5b53e2ec2e4a0f9a819c61b9ab3dd",
+    "kernel/core/display.c": "b00db939df29553e0fb8eafe5af721241f706fc4c7e8462ce85ca0a63c41aa82",
     "kernel/core/main.c": "f65b81f80cab51f4b6b846a9581cdb009859672fefc99ecd7cec056172680a98",
     "kernel/input/legacy.c": "c8fd03ea09a7f57c1d02e522bdc5fce2e20e0e0a23249777fd4eaa48263f5939",
     "kernel/input/xhci.c": "a874733569ae7b1a7d909cd764c43b00d2a1d6128d2b39799860fd946e5f6520",
-    "kernel/m4/main.c": "2b48b7298af6d506876dce1b4e2fc701d980ab84513191160a010517629f084d",
+    "kernel/m4/main.c": "967da3e4cc29d1f23db1d11d27e518425b64244ea8aa2fb7b55b1b75e79dbbca",
     "kernel/memory/pages.c": "aa32a9f3a5168ac9d6ab43eaab2f7a31d137a9eebccfd498ee2f3b44ff5e13d1",
     "kernel/memory/space.c": "6266e1f2242387cc3342a9e4004a992e5e29378a39c2a70c69455b3d04f72d8b",
     "kernel/process/process.c": "95f530d1b1eed5c20f19f4324b823385f49b6f01baa8390038b220e3ef88d35b",
@@ -40,46 +45,49 @@
     "kernel/storage/fat32.c": "1a0276b2a3fe2458fcab16e10d6b302f028140945a8e188035b55c299c74732a",
     "kernel/storage/fat_test.c": "08b7600005f00c51733ced8d861ce7877eb150d0a01d6144b69a2f6d1863c04b",
     "kernel/storage/fs_test.c": "4c27af1b7e1d069037abddc1b924b8464816dea44e818214b436cef1ad9c7dfa",
+    "kernel/storage/ide.c": "878094da97e45e5920ffd88b94a144e6b4d418956f0cb890b5b6af3c1e5208ea",
     "kernel/storage/nvme.c": "908820b84eb6529ddfa26c0779efd47667f784e4da48482ac70dd4ef21721d5a",
     "kernel/storage/partitions.c": "efca163b0bc5e63b751cbce68e18123d572d585b435643d2dd7fbb8597573578",
-    "kernel/storage/registry.c": "dd88051d5b60d0d3b1e6915e4f810578fdd748cd3a05a5a74e134f0d6768565f",
+    "kernel/storage/registry.c": "3ea40b57f83c1203c76f8545159966516b214409e3f08f0515d0807c37b4be35",
+    "kernel/storage/virtio_blk.c": "d7e78760db76d538d9a71c3751e129f60baf533de5d804ef33d9733d0aa45f20",
     "runtime/memory.c": "6d0a1ab7c130552c391beabb8a188b85521685e7d189a628224b99d802d65d25",
     "runtime/sha256.c": "2d841840e545776a025f28b9af6c57a458c9da729ecee34eede0f6aef8179012",
+    "tools/build/bios.py": "147380d9d8ab1fc0d1ee9d5996d4f5a38d834886d46e8e9929254b91e29cc401",
     "tools/build/data_image.py": "3bc9462dd6ac5d7a862ac5e84efdec4aec66e4828a609719b85b0672bcff5e26",
     "tools/build/ext2_image.py": "d7961e0233fab653a71f0152e0c6fd76d67931819f711c0e5e0775947d8e8c21",
     "tools/build/fsck.py": "924b9f663080066cb9f6ba34c6a3298ca58ef29a2edcfe8ca85b829e5cf2f671",
     "tools/build/m1.py": "6ec2a3d19a3e023ae8e503ff2fae5c835dd5e0ab8999423a7d9edae76d6ce1f3",
-    "tools/build/m2.py": "2e969b5203c1623239e66f236247c9e25618ed154b2c55535eb497f75cd3bece",
+    "tools/build/m2.py": "7cde7bc84cdfcbdce1b98e413fd87e4086be4f3c4f2b53f48f1e11da810cfa11",
     "tools/build/m3.py": "3fa633b9e45f6ec7df51bb3c658d00928808d42d0435c30b462aa0db21342dbe",
     "tools/build/m4.py": "413088a97c0876ed54961c2223f980b369bd0bcd35567476eece9b00bd1153be",
-    "tools/build/m45.py": "8d810fff90be0a05f98c107810490318b53879420fa667783777bf242105f541",
-    "tools/build/media.py": "5139ccce2d3ce16c87cd53465724ed454fec6154e0b45db7c245af4749d38b6a",
+    "tools/build/m45.py": "1065d997fc021a497898c216395a32c554dc8e8ed15211f62223e7664ed891fd",
+    "tools/build/media.py": "7819cc81b9da3c2ac328e51a5de5fd59bb0d6f04a5f82f8b2a207ce6e5118428",
     "tools/build/secure.py": "f8799c3a04cad202c000a78db9c2da87579b104862df2fe7f997e97f7d468fce",
-    "tools/security-toolchain.json": "ca7bf1ae38d68e9eb60f55738b87d2a9c7ea62c30ad7b49e03efa339b67d4b30",
+    "tools/security-toolchain.json": "e4bc4ba9c293c84f32490ed9d56e8ec89f05af3a43a8988e10b2beebb0d302c2",
     "user/linker.ld": "2c626b4359df6b1088f5027f972159e33e5337720c44a18ac0f1b47164ec32e8",
     "user/m3.c": "2c73776869dd74fd2045efc7eb1ce9f0f673d899b1bad2125375d7761737c76e",
     "user/probe.c": "a0307730363807ecb93ab0c48fc491e8be4c62c6d699a5645a7ff18ea765ed36"
   },
   "artifacts": {
     "EngineOS-M45-kernel.elf": {
-      "sha256": "31765c60b72aa5c2a6b3c396d4ca9745cce2f4070e7ec4118d3e9348186fa3fc",
-      "size": 588368
+      "sha256": "89114f43020aa2d9a3383076bae3cc69b3b7638fad658b5dfdaf543e234ea9fa",
+      "size": 624864
     },
     "EngineOS-M45-kernel.map": {
-      "sha256": "e2e7df6b14a1a5d18fbdf953ba5e48aafd42efff239e7e45a87099d4f2697768",
-      "size": 79384
+      "sha256": "25a0ddd9d2e9826c6be0b14458a31ee9628f1fcfc01ec0c154f76d7af25166fa",
+      "size": 82873
     },
     "EngineOS-M45-usb.img": {
-      "sha256": "5ff56c5fe7857fe0c39e8a570d04b31926d63841486aef40c2626e6b09d634e7",
-      "size": 69206016
+      "sha256": "eeaef6076039511078aebc0b469d90968a43ecf280b2050a64d8d69e911cd7e3",
+      "size": 72351744
     },
     "EngineOS-M45-user.elf": {
       "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f",
       "size": 68064
     },
     "EngineOS-M45.iso": {
-      "sha256": "11878a525fa37edfe19237a43a893272c8b4ed2bec297a46383fed61f749d21a",
-      "size": 67162112
+      "sha256": "5fb071678a64e6f610fb62bbc11f9e21ae37fa521ff2bc11b075c25e182013ad",
+      "size": 67590144
     }
   },
   "mode": "normal",
@@ -92,6 +100,36 @@
     "M4.5 remains in progress: ordinary AHCI/NVMe reads, GPT/MBR validation and read-only FAT32",
     "Existing marked 16 MiB M4 ext2 write path retained; ordinary disks are not formatted or mounted writable",
     "Secure Boot tests use owner-enrolled disposable TCG NVRAM and a separate signed/hash-pinned test loader, not factory trust",
-    "Legacy BIOS, USB/virtio storage, broader input/filesystems and physical qualification remain open"
-  ]
+    "BIOS EDD/E820/VBE and unsigned UEFI share the kernel; USB mass storage, broader input/filesystems and physical qualification remain open"
+  ],
+  "bios_media_layout": {
+    "kernel_sha256": "89114f43020aa2d9a3383076bae3cc69b3b7638fad658b5dfdaf543e234ea9fa",
+    "raw_kernel_sha256": "22796f6e675be6b8201ec9fe74b362b301de0b887da8f63ac6709d695b048b52",
+    "usb": {
+      "BIOS_SECTOR_BYTES": 512,
+      "BIOS_STAGE_BLOCKS": 64,
+      "BIOS_STAGE_LBA": 64,
+      "BIOS_KERNEL_LBA": 128,
+      "BIOS_KERNEL_CHUNKS": 12,
+      "BIOS_KERNEL_BYTES": 393216,
+      "BIOS_KERNEL_ENTRY": 2097152,
+      "BIOS_KERNEL_CRC": 1631119600,
+      "BIOS_VIDEO_MODE": 324,
+      "BIOS_BAD_BOOT": 0
+    },
+    "iso": {
+      "BIOS_SECTOR_BYTES": 2048,
+      "BIOS_STAGE_BLOCKS": 16,
+      "BIOS_STAGE_LBA": 27,
+      "BIOS_KERNEL_LBA": 43,
+      "BIOS_KERNEL_CHUNKS": 12,
+      "BIOS_KERNEL_BYTES": 393216,
+      "BIOS_KERNEL_ENTRY": 2097152,
+      "BIOS_KERNEL_CRC": 1631119600,
+      "BIOS_VIDEO_MODE": 324,
+      "BIOS_BAD_BOOT": 0
+    },
+    "iso_bios_extent": 26,
+    "scope": "original EDD/E820/VBE BIOS path; unsigned UEFI path shares the same kernel; Secure Boot applies only to separately signed UEFI media"
+  }
 }

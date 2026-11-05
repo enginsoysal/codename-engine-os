@@ -71,7 +71,11 @@ void display_boot(const os_boot_info_v0 *boot) {
     text(40,110,"M1 KERNEL ONLINE",2,0x39d5bb);
 #endif
     text(40,158,"BUILD",2,0x93aabe);text(112,158,BUILD_ID,2,0x93aabe);
+#ifdef ENGINE_M45
+    text(40,210,"OWN KERNEL - FIRMWARE HANDOFF COMPLETE",2,0xffffff);
+#else
     text(40,210,"OWN KERNEL - UEFI SERVICES STOPPED",2,0xffffff);
+#endif
     text(40,254,"WINDOWS 95-11: PLANNED",2,0x93aabe);
     text(40,296,"NO INSTALLER YET",2,0x93aabe);
 }

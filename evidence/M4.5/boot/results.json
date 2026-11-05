@@ -1,0 +1,90 @@
+{
+  "build_id": "07857f19dcf197f039d029c6acbf7870",
+  "full_m45_complete": false,
+  "checks": [
+    {
+      "managed_retained_bytes": 110592,
+      "managed_peak_bytes": 466944,
+      "boot_reserved_bytes": 491520,
+      "name": "uefi-iso",
+      "passed": true,
+      "firmware": "uefi",
+      "media": "iso",
+      "cpus": 2,
+      "ram_mib": 128,
+      "framebuffer_width": 1280,
+      "framebuffer_height": 800,
+      "error": ""
+    },
+    {
+      "managed_retained_bytes": 110592,
+      "managed_peak_bytes": 466944,
+      "boot_reserved_bytes": 532480,
+      "name": "bios-iso",
+      "passed": true,
+      "firmware": "bios",
+      "media": "iso",
+      "cpus": 2,
+      "ram_mib": 128,
+      "framebuffer_width": 1024,
+      "framebuffer_height": 768,
+      "error": ""
+    },
+    {
+      "managed_retained_bytes": 110592,
+      "managed_peak_bytes": 466944,
+      "boot_reserved_bytes": 491520,
+      "name": "uefi-usb",
+      "passed": true,
+      "firmware": "uefi",
+      "media": "usb",
+      "cpus": 2,
+      "ram_mib": 128,
+      "framebuffer_width": 1280,
+      "framebuffer_height": 800,
+      "error": ""
+    },
+    {
+      "managed_retained_bytes": 110592,
+      "managed_peak_bytes": 466944,
+      "boot_reserved_bytes": 532480,
+      "name": "bios-usb",
+      "passed": true,
+      "firmware": "bios",
+      "media": "usb",
+      "cpus": 2,
+      "ram_mib": 128,
+      "framebuffer_width": 1024,
+      "framebuffer_height": 768,
+      "error": ""
+    },
+    {
+      "managed_retained_bytes": 77824,
+      "managed_peak_bytes": 466944,
+      "boot_reserved_bytes": 532480,
+      "name": "bios-lowram",
+      "passed": true,
+      "firmware": "bios",
+      "media": "iso",
+      "cpus": 1,
+      "ram_mib": 64,
+      "framebuffer_width": 1024,
+      "framebuffer_height": 768,
+      "error": ""
+    },
+    {
+      "managed_retained_bytes": 176128,
+      "managed_peak_bytes": 466944,
+      "boot_reserved_bytes": 532480,
+      "name": "bios-smp4",
+      "passed": true,
+      "firmware": "bios",
+      "media": "iso",
+      "cpus": 4,
+      "ram_mib": 128,
+      "framebuffer_width": 1024,
+      "framebuffer_height": 768,
+      "error": ""
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 #define ENGINE_STORAGE_H
 #include <engine/m4.h>
 #define STORAGE_MAX 16u
-enum { STORAGE_AHCI=1,STORAGE_NVME,STORAGE_VIRTIO,STORAGE_USB };
+enum { STORAGE_AHCI=1,STORAGE_NVME,STORAGE_VIRTIO,STORAGE_USB,STORAGE_IDE };
 typedef struct {unsigned transport,bdf,unit,sector_bytes,readable,marked;uint64_t sectors;unsigned context,status;} storage_disk;
 typedef unsigned (*storage_reader)(unsigned,uint64_t,void*);
 unsigned storage_register(storage_disk,storage_reader);
@@ -19,5 +19,9 @@ void console_decimal(uint64_t);
 unsigned nvme_discover(void);
 unsigned nvme_irq(uint64_t*);
 void nvme_diagnostics(void);
+void virtio_diagnostics(void);
 void hardware_inventory(void);
+unsigned ide_discover(void);
+unsigned virtio_discover(void);
+unsigned virtio_storage_irq(uint64_t*);
 #endif

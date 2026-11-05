@@ -42,6 +42,7 @@ extern void kernel_fault_probe(void);
 uint64_t *exception_dispatch(uint64_t *frame) {
 #ifdef ENGINE_M4
 #ifdef ENGINE_M45
+    extern unsigned virtio_storage_irq(uint64_t*);if(virtio_storage_irq(frame))return frame;
     extern unsigned nvme_irq(uint64_t*);if(nvme_irq(frame))return frame;
 #endif
     if(block_irq(frame))return frame;

@@ -4,7 +4,7 @@
     {
       "name": "English current documentation",
       "passed": true,
-      "documents": 40
+      "documents": 42
     },
     {
       "name": "local links and Python commands exist",
@@ -13,7 +13,7 @@
     {
       "name": "all current Python sources parse",
       "passed": true,
-      "scripts": 40
+      "scripts": 44
     },
     {
       "name": "clean root and milestone/source directory boundaries",

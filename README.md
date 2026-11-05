@@ -20,7 +20,7 @@ Use a 64-bit UEFI VM with Secure Boot disabled. QEMU defaults to two vCPUs/128 M
 ## Repository layout
 
 ```text
-boot/                  UEFI loader and firmware-to-kernel transition
+boot/                  Original UEFI/BIOS loaders and firmware-to-kernel transition
 kernel/                Core, x86-64 exceptions, memory and process mechanisms
 include/engine/        Versioned boot/native ABI and shared headers
 runtime/               Minimal freestanding memory routines

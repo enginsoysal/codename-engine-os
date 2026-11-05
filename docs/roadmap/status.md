@@ -9,7 +9,7 @@ Updated 2026-11-05. Canonical project: [enginsoysal/codename-engine-os](https://
 | M2 protected native processes | Complete within native-only, single-active-CPU scope | [Current M2 evidence](../../evidence/M2/README.md), [fresh acceptance](../../evidence/M2/acceptance-results.json) |
 | M3 scheduling/general VM/concurrency | Complete within documented native VM scope | [Contracts and limits](../milestones/m3.md), [fresh acceptance](../../evidence/M3/acceptance-results.json); native execution on 1/2/4 CPUs, bounded threads/waits/COW/pressure |
 | M4 persistent storage/input | Complete within documented native filesystem/virtual-device scope | [Fresh acceptance](../../evidence/M4/acceptance-results.json), [AHCI/ext2/VFS and USB/PS/2 contracts](../milestones/m4-contract.md) |
-| M4.5 broader boot/hardware | In progress; required before M5 | [Agreed tracks and acceptance boundaries](../milestones/m4.5.md); Secure Boot, BIOS, general storage and physical qualification are not supplied by M4 |
+| M4.5 broader boot/hardware | In progress; required before M5 | [Agreed tracks and acceptance boundaries](../milestones/m4.5.md); Increment evidence covers dual BIOS/UEFI media, owner-key VM trust and broader read-only storage; USB mass storage, wider filesystem/input and physical qualification remain open |
 | M5 live/install/recovery | Not started | No installer in the current ISO |
 | M6 desktop/network/downloads | Not started | Boot console only |
 | M7 Windows binary foundation | Not started | No NT/Win32 APIs |

@@ -1,0 +1,52 @@
+{
+  "build_id": "07857f19dcf197f039d029c6acbf7870",
+  "full_m45_complete": false,
+  "existing_vm_inventory_unchanged": true,
+  "checks": [
+    {
+      "name": "efi-sata",
+      "passed": true,
+      "backing_unchanged": true,
+      "scope": "normal dual-firmware ISO; native completion and ordinary first-sector transfer only",
+      "error": "",
+      "vmware_version": "26.0.1",
+      "vmware_build": "25688693"
+    },
+    {
+      "name": "bios-sata",
+      "passed": true,
+      "backing_unchanged": true,
+      "scope": "normal dual-firmware ISO; native completion and ordinary first-sector transfer only",
+      "error": "",
+      "vmware_version": "26.0.1",
+      "vmware_build": "25688693"
+    },
+    {
+      "name": "efi-ide",
+      "passed": true,
+      "backing_unchanged": true,
+      "scope": "normal dual-firmware ISO; native completion and ordinary first-sector transfer only",
+      "error": "",
+      "vmware_version": "26.0.1",
+      "vmware_build": "25688693"
+    },
+    {
+      "name": "bios-ide",
+      "passed": true,
+      "backing_unchanged": true,
+      "scope": "normal dual-firmware ISO; native completion and ordinary first-sector transfer only",
+      "error": "",
+      "vmware_version": "26.0.1",
+      "vmware_build": "25688693"
+    },
+    {
+      "name": "efi-nvme",
+      "passed": true,
+      "backing_unchanged": true,
+      "scope": "normal dual-firmware ISO; native completion and ordinary first-sector transfer only",
+      "error": "",
+      "vmware_version": "26.0.1",
+      "vmware_build": "25688693"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "build_id": "07857f19dcf197f039d029c6acbf7870",
+  "full_m45_complete": false,
+  "checks": [
+    {
+      "name": "raw-800x600",
+      "passed": true,
+      "exit": 33,
+      "expected_exit": 33,
+      "error": ""
+    },
+    {
+      "name": "raw-640x480",
+      "passed": true,
+      "exit": 33,
+      "expected_exit": 33,
+      "error": ""
+    },
+    {
+      "name": "serial-fallback",
+      "passed": true,
+      "exit": 33,
+      "expected_exit": 33,
+      "error": ""
+    },
+    {
+      "name": "kernel-crc",
+      "passed": true,
+      "exit": 71,
+      "expected_exit": 71,
+      "error": ""
+    },
+    {
+      "name": "handoff-crc",
+      "passed": true,
+      "exit": 71,
+      "expected_exit": 71,
+      "error": ""
+    },
+    {
+      "name": "kernel-region",
+      "passed": true,
+      "exit": 71,
+      "expected_exit": 71,
+      "error": ""
+    },
+    {
+      "name": "sector-mismatch",
+      "passed": true,
+      "exit": 71,
+      "expected_exit": 71,
+      "error": ""
+    }
+  ]
+}

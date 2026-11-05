@@ -82,6 +82,13 @@ efi_status efi_main(efi_handle image,efi_system_table *system) {
         elf_segment p;memcpy(&p,elf+h.phoff+(uint64_t)i*56,sizeof(p));
         if(p.type==1)memcpy((void*)(uintptr_t)p.paddr,elf+p.offset,(size_t)p.filesz);
     }
+#ifdef ENGINE_M45
+    /* Loaded segments own their backing now; retain neither the file copy nor its reservation. */
+    uint64_t temporary_address=(uint64_t)(uintptr_t)elf,temporary_bytes=(elf_size+4095)&~UINT64_C(4095);unsigned removed=0;
+    if(EFI_ERROR(bs->free_pages(temporary_address,temporary_bytes/4096)))fail("release temporary kernel image");
+    for(unsigned i=0;i<reservation_count;++i)if(reservations[i].physical_address==temporary_address&&reservations[i].byte_length==temporary_bytes){for(unsigned j=i+1;j<reservation_count;++j)reservations[j-1]=reservations[j];--reservation_count;removed=1;break;}
+    if(!removed)fail("temporary reservation ownership");serial_text("UEFI_TEMP_KERNEL_BUFFER_RELEASED bytes=");serial_hex(temporary_bytes);serial_text("\n");elf=0;
+#endif
 #ifdef ENGINE_M3
     uint64_t trampoline=0x8000;
     if(EFI_ERROR(bs->allocate_pages(2,1,1,&trampoline)))fail("AP trampoline allocation");

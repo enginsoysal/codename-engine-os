@@ -26,7 +26,7 @@ def main():
             log=serial.read_text(encoding='utf-8',errors='replace') if serial.exists() else '';code=p.poll()
         finally:
             if p.poll() is None:p.terminate();p.wait(timeout=5)
-        err=p.stderr.read().decode(errors='replace').replace(str(ROOT),'<project-root>');clean=re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]','',log);(out/(name+'-secure.log')).write_bytes(clean.encode())
+        err=p.stderr.read().decode(errors='replace').replace(str(ROOT),'<project-root>');clean=re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]','',log);(out/(name+'-secure.log')).write_bytes(('\n'.join(line.rstrip() for line in clean.splitlines())+'\n').encode())
         return log,code,err
     log,code,error=launch('enroll','enroll-media')
     checks.append({'name':'TCG-only enroller accepts only empty SetupMode policy; writes disposable VM db/KEK/PK','passed':code==33 and 'ENROLL_TEST_POLICY_PASS' in log,'exit':code})

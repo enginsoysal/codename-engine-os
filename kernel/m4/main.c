@@ -28,12 +28,14 @@ NORETURN void m4_start(const os_boot_info_v0 *boot,unsigned mode){
     serial_text("M4_STORAGE_BEGIN\n");unsigned s=block_init();serial_text("M4_BLOCK_INIT status=");serial_hex(s);serial_text("\n");
 #ifdef ENGINE_M45
     (void)nvme_discover();
+    (void)ide_discover();
+    (void)virtio_discover();
 #endif
     page_stats memory=pages_stats();serial_text("M4_MEMORY retained_owned_bytes=");serial_hex(memory.current_pages*4096);serial_text(" peak_owned_bytes=");serial_hex(memory.peak_pages*4096);serial_text("\n");
     unsigned filesystem=s?F_IO:fs_mount();serial_text("M4_FS_MOUNT status=");serial_hex(filesystem);serial_text("\n");
 #ifdef ENGINE_M45
     if(mode==5){extern unsigned fat_selftest(void);console_begin(boot);storage_inventory();if(fat_selftest()){serial_text("M45_FAT32_PAYLOAD_FAIL\n");test_exit(0x32);}serial_text("M45_FAT32_PAYLOAD_PASS\n");test_exit(0x10);}
-    if(mode==1||mode==4){console_begin(boot);storage_inventory();if(storage_selftest()){serial_text("M45_DISCOVERY_FAIL\n");test_exit(0x32);}if(!filesystem){uint64_t before;if(load()){serial_text("M45_MARKED_WRITE_FAIL\n");test_exit(0x32);}memcpy(&before,record+8,8);if(fs_selftest(before)||store("ENGINE OS M45 MARKED REGRESSION")){serial_text("M45_MARKED_WRITE_FAIL\n");test_exit(0x32);}serial_text("M45_MARKED_WRITE_REGRESSION_PASS\n");}for(unsigned i=0;i<storage_count();++i){console_text("Partition inspection disk ");console_decimal(i);console_text("\n");unsigned status=storage_partitions(i);console_text("Partition status: ");console_decimal(status);console_text("\n");}nvme_diagnostics();serial_text("M45_DISCOVERY_PASS\n");test_exit(0x10);}
+    if(mode==1||mode==4){console_begin(boot);storage_inventory();if(storage_selftest()){serial_text("M45_DISCOVERY_FAIL\n");test_exit(0x32);}if(!filesystem){uint64_t before;if(load()){serial_text("M45_MARKED_WRITE_FAIL\n");test_exit(0x32);}memcpy(&before,record+8,8);if(fs_selftest(before)||store("ENGINE OS M45 MARKED REGRESSION")){serial_text("M45_MARKED_WRITE_FAIL\n");test_exit(0x32);}serial_text("M45_MARKED_WRITE_REGRESSION_PASS\n");}for(unsigned i=0;i<storage_count();++i){console_text("Partition inspection disk ");console_decimal(i);console_text("\n");unsigned status=storage_partitions(i);console_text("Partition status: ");console_decimal(status);console_text("\n");}nvme_diagnostics();virtio_diagnostics();serial_text("M45_DISCOVERY_PASS\n");test_exit(0x10);}
 #else
     if(mode==1||mode==4){
         uint8_t ignored[512];if(s||block_read(M4_SECTORS,ignored)!=B_DENIED||load()!=B_OK){serial_text("M4_STORAGE_UNAVAILABLE_OR_INVALID\n");test_exit(0x32);}
