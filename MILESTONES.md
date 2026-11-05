@@ -1,6 +1,12 @@
 # Mijlpalen — werk, aanpak en bewijs
 
-Versie 0.1 — 5 november 2026. Alle implementatiemijlpalen zijn nog te realiseren.
+Versie 0.2 — 5 november 2026. Alle implementatiemijlpalen zijn nog te realiseren.
+
+## Aangescherpte Windows-eis
+
+De bestaande M0–M16 dekken boot en installatie, maar geen volledige ondersteuning van alle Windows 95–11-apps. De gebruiker heeft die brede appcompatibiliteit als productdoel vastgesteld. [WC1–WC7](WINDOWS-COMPATIBILITY.md) vullen de roadmap aan met generatie-/installerregister, Win16, Windows 9x/NT-profielen, runtimes/pakketten, multimedia, driver-/dienstafhankelijkheden en kwalificatie. Deze trajecten zijn niet gestart en geen universele foutloosheidsgarantie.
+
+WC1 begint binnen M0; WC2–WC6 breiden vooral M7–M13 uit; WC7 geldt voor elke appmijlpaal. DOS in M9 dekt Win16 niet automatisch. M1/M5 blijven respectievelijk de boot- en installatiepoorten.
 
 Dit is het ontwikkelcontract per mijlpaal. Voor uitvoering worden versiegebonden taken en fixtures toegevoegd; geen enkele doelapp wordt zonder integratietest als ondersteund beschouwd. Volgorde en scopewijzigingen worden gekoppeld aan [ontwerpbesluiten](DECISIONS.md).
 

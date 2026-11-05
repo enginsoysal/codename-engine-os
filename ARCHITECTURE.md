@@ -35,6 +35,8 @@ Kritische objectsemantiek: atomair wachten en wekken, meerdere wachtobjecten, ti
 
 ## Proces- en ABI-model
 
+Het Windows-doel omvat het Windows 95–11-tijdperk. Daarom komen naast PE32/PE32+ ook Win16/NE, gemengde installerketens en generatiegebonden Windows 9x-/NT-semantiek expliciet in de scope. Win16 wordt als geïsoleerde legacyomgeving onderzocht; DOS alleen is onvoldoende. Moderne runtimes/pakketten en appgebonden kerneldrivers vragen afzonderlijke contracten. Zie [Windows-scope en aanvullende trajecten](WINDOWS-COMPATIBILITY.md). Geen van deze aanvullingen is reeds geïmplementeerd.
+
 De loader stelt formaat, architectuur, ABI, runtime en afhankelijkheden vast. PE/ELF/Mach-O herkennen is slechts het begin. Per proces wordt een uitvoeringsomgeving geregistreerd. Syscall-entry behandelt dat proces volgens zijn ABI; nummers van verschillende omgevingen mogen niet botsen.
 
 Kernelafhandeling verzorgt alleen noodzakelijke mechanismen. Complex beleid wordt naar de juiste server of bibliotheek gestuurd. Directe syscalls, TLS, exceptions/signalen, stacklayout, geheugenadressen, threadstart en herintreding worden apart gevalideerd. Geen methode die alleen DLL-imports onderschept wordt als volledige binaire compatibiliteit beschouwd.

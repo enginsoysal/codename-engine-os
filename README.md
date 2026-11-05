@@ -8,6 +8,8 @@ Canonical repository: [enginsoysal/codename-engine-os](https://github.com/engins
 
 ## Architectuur en uitvoeringsplan
 
+De aangescherpte productrichting is Windows-appcompatibiliteit over het Windows 95–11-tijdperk. Boot en installatie waren al gepland; volledige generatiedekking vraagt aanvullende trajecten. Zie [scope, ontbrekende onderdelen en kwaliteitscriteria](WINDOWS-COMPATIBILITY.md). Universele foutloosheid is geen bewezen of afgegeven garantie.
+
 Vastgelegd: 5 november 2026. Documentversie: 0.2.
 
 Status: M0 in uitvoering; architectuurcontracten en technische proeven toegevoegd. M1/OS-implementatie niet gestart.
@@ -25,6 +27,7 @@ De gebruiker bepaalt productrichting en acceptatie. De coding agent voert implem
 - [Mijlpalen](MILESTONES.md): per mijlpaal wat, hoe, waarom, afhankelijkheden en bewijs.
 - [Voortgang](STATUS.md): actuele status en regels om voltooiing te registreren.
 - [M0-contracten en proeven](m0/README.md): concrete technische keuzes en resterende afsluitcriteria.
+- [Windows 95–11-doel](WINDOWS-COMPATIBILITY.md): scopeaudit en aanvullende WC1–WC7-trajecten.
 - [Bijdragen](CONTRIBUTING.md) en [projectinstructies](AGENTS.md): verificatie en publicatieafspraken.
 
 ## GitHub-publicatie

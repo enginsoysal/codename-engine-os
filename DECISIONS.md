@@ -31,6 +31,8 @@ Status: baseline; 'gekozen' betekent richting voor implementatie, geen gemeten r
 
 ## Nog te besluiten vóór relevante implementatie
 
+Scopeaanvulling: [Windows 95–11](WINDOWS-COMPATIBILITY.md) is het brede appcompatibiliteitsdoel; M0–M16 alleen dekken dit niet volledig. WC1–WC7 zijn toegevoegd. ADR-015 beperkt uitsluitend de eerste release en sluit drivergebonden apps niet stilzwijgend uit het uiteindelijke doel. Geen universele startgarantie wordt afgegeven.
+
 - M0: hoofdtaal, toolchainroute, bootloaderstrategie en ontwikkelfilesystem zijn gekozen; concrete tool-/firmwarepins, boot-/ABI-headerlayouts en aanvullende referentieproeven staan nog open.
 - M0: eerste x86-64-testcomputer en beschikbare fysieke testmiddelen; onbekend blijft expliciet onbekend.
 - M0: 32-bitstrategie en ABI-routing zijn beschreven; uitvoering blijft te bewijzen. Zie [kernelcontracten](m0/KERNEL-CONTRACTS.md).

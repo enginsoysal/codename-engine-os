@@ -6,6 +6,8 @@ Architectuur en plan: versie 0.2. M0 gestart; elf layout-/compileer-/hostreferen
 
 Projectnaam: **Codename: Engine OS**. Canonieke werkbron: `enginsoysal/codename-engine-os`, openbaar, MIT-licentie. Afgeronde updates worden gecommit en gepusht volgens AGENTS.md.
 
+Scope-update: Windows 95–11-apps zijn het brede productdoel. De audit en aanvullende [WC1–WC7-trajecten](WINDOWS-COMPATIBILITY.md) zijn vastgelegd, niet geïmplementeerd. Boot/installatie blijven M1/M5. De elf eerdere M0-controles bewijzen geen Windows-appcompatibiliteit.
+
 | Mijlpaal | Status | Bewijs |
 |---|---|---|
 | M0 Architectuurcontracten | In uitvoering: contracten/keuzes en eerste layouts vastgelegd; elf controles geslaagd; toolpins en aanvullende validatie open | [Stand](m0/README.md), [bewijs](evidence/M0/README.md) |
