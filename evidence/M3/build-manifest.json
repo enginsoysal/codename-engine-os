@@ -1,6 +1,6 @@
 {
   "milestone": "M3",
-  "build_id": "d88b23600453da5121d5ff7d84597e23",
+  "build_id": "8739ae062ebde2646d4de6a83e6b013d",
   "source_sha256": {
     "boot/bios/mbr.ld": "e1bfb5c0c62f26747f62fd94ecd7fd239e92fa6c4944dad294a634f7d6757452",
     "boot/bios/mbr.S": "8b8155ed440fda9f277e4a5c1a520dc889647a563d2bb237782175d2f114f0bc",
@@ -34,7 +34,6 @@
     "kernel/core/main.c": "1c686f55a708224f193e5dfa4c5e9ee2f2d3aa9f832f5221db0d1e7a83c36e5d",
     "kernel/input/legacy.c": "c8fd03ea09a7f57c1d02e522bdc5fce2e20e0e0a23249777fd4eaa48263f5939",
     "kernel/input/xhci.c": "a874733569ae7b1a7d909cd764c43b00d2a1d6128d2b39799860fd946e5f6520",
-    "kernel/input/xhci45.c": "d21f1fa45dd29176bdc1608e1f4da611bcd000dc717ac4c7d89670a1145648a0",
     "kernel/m4/main.c": "76999c29c73e2a8d6381df7b4a13e2f0c028880dc29f5e99cf2b4817dac21dbd",
     "kernel/memory/pages.c": "aa32a9f3a5168ac9d6ab43eaab2f7a31d137a9eebccfd498ee2f3b44ff5e13d1",
     "kernel/memory/space.c": "6266e1f2242387cc3342a9e4004a992e5e29378a39c2a70c69455b3d04f72d8b",
@@ -53,6 +52,7 @@
     "kernel/storage/partitions.c": "efca163b0bc5e63b751cbce68e18123d572d585b435643d2dd7fbb8597573578",
     "kernel/storage/registry.c": "192e1433fd863c862a9dcb01525a4ab9032b321e65dfc97fea0c03ec36e13ee8",
     "kernel/storage/virtio_blk.c": "d7e78760db76d538d9a71c3751e129f60baf533de5d804ef33d9733d0aa45f20",
+    "kernel/usb/xhci.c": "94cae2cfe1f0b65eb44eab10c62ccfc2ae1b688fe7a02ba658fef7e8b42ecf3a",
     "runtime/memory.c": "6d0a1ab7c130552c391beabb8a188b85521685e7d189a628224b99d802d65d25",
     "runtime/sha256.c": "2d841840e545776a025f28b9af6c57a458c9da729ecee34eede0f6aef8179012",
     "tools/build/bios.py": "147380d9d8ab1fc0d1ee9d5996d4f5a38d834886d46e8e9929254b91e29cc401",
@@ -60,7 +60,7 @@
     "tools/build/ext2_image.py": "d7961e0233fab653a71f0152e0c6fd76d67931819f711c0e5e0775947d8e8c21",
     "tools/build/fsck.py": "924b9f663080066cb9f6ba34c6a3298ca58ef29a2edcfe8ca85b829e5cf2f671",
     "tools/build/m1.py": "6ec2a3d19a3e023ae8e503ff2fae5c835dd5e0ab8999423a7d9edae76d6ce1f3",
-    "tools/build/m2.py": "16c5be5dc141e4f520259de7bb4af8d07bae7afb0baa1839b30900f2b25feb98",
+    "tools/build/m2.py": "c3d4e610fbd08406ae14ae7e9deffe48cf67795e9dfee9eb1e11d732763eddb0",
     "tools/build/m3.py": "3fa633b9e45f6ec7df51bb3c658d00928808d42d0435c30b462aa0db21342dbe",
     "tools/build/m4.py": "413088a97c0876ed54961c2223f980b369bd0bcd35567476eece9b00bd1153be",
     "tools/build/m45.py": "fd9169b728214490ebbb368b05308cabd782e79b0b47a36c2a434f278069b8f4",
@@ -73,7 +73,7 @@
   },
   "artifacts": {
     "EngineOS-M3-kernel.elf": {
-      "sha256": "3c32a98503e1e382a7b1f71c449688a94343547bd8b739b7685d90c5b036ccaf",
+      "sha256": "261c53ac1bdc76768a9b30d96da638f4918352ee0d54a216db03f0c16fad1c41",
       "size": 348752
     },
     "EngineOS-M3-kernel.map": {
@@ -81,7 +81,7 @@
       "size": 51909
     },
     "EngineOS-M3-usb.img": {
-      "sha256": "f2a23531964b2c1e0a92581bcf439b705e26e6f3055681b0a50db2eab1574e47",
+      "sha256": "9c21714b843b31483d0792aa999aaa7f56b8025ff343de8e094491700fd96cef",
       "size": 69206016
     },
     "EngineOS-M3-user.elf": {
@@ -89,7 +89,7 @@
       "size": 68064
     },
     "EngineOS-M3.iso": {
-      "sha256": "fd452e1435a4b1e078fc0eb3be4c5ee6002b8a02130d56dd85255b39cfe821b6",
+      "sha256": "f2c5fcfcd7e53701cb64d0de1aaf3d7c355318f086ab3813ff15c00b8a99bf0c",
       "size": 67162112
     }
   },

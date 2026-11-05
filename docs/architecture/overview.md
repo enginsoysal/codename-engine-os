@@ -49,7 +49,7 @@ Kernel authorization must use object identity and explicit rights, not string al
 
 UEFI loads the original PE32+ loader. It validates firmware tables and a restricted ELF64 kernel, records allocations, loads a build-bound manifest, obtains a final memory map and exits boot services with bounded stale-key retry. Assembly adapts the MS-x64 caller to System V kernel entry, changes stack/page tables and establishes a GDT. Kernel diagnostics use direct serial/framebuffer access thereafter.
 
-USB GPT/FAT32 and optical EFI El Torito are distinct tested media. Live/installed/recovery should share the same kernel. A real installer, persistent system image, update activation and rollback are M5 work. Secure Boot requires a future trust-chain design; unsigned UEFI boot is the current scope.
+USB GPT/FAT32 and optical EFI El Torito are distinct tested media. Live/installed/recovery should share the same kernel. A real installer, persistent system image, update activation and rollback are M5 work. Normal preview media remain unsigned. M4.5 separately qualifies an owner-enrolled VM trust chain with a signed loader and SHA-256-pinned external payloads; factory trust and physical owner enrollment remain open.
 
 ## Graphics and hardware
 
@@ -66,3 +66,7 @@ Primary sources: [UEFI 2.11](https://uefi.org/specs/UEFI/2.11/), [Intel system p
 ## M4.5 firmware increment
 
 The in-progress M4.5 build adds an original BIOS EDD/E820/VBE path beside UEFI. Both produce the same normalized boot contract and enter the same kernel. BIOS conventional E820 ranges are normalized to the existing allocator descriptor types; this does not require UEFI firmware on the BIOS path. M45 UEFI releases the temporary ELF file allocation after segment copying. See [boot design and tests](../milestones/m4.5-boot.md) and [storage/trust boundaries](../milestones/m4.5-storage.md). Earlier milestone reservation evidence remains historical.
+
+## M4.5 USB topology and transport
+
+The shared original M45 USB stack is organized under `kernel/usb/`. Eight lazily allocated device contexts bound hub/HID/storage state. Class-9 hub routing, child-before-parent retirement and generation-tagged disk readers protect reconnect lifetime. Read-only UAS adds high-speed Ready/Sense and SuperSpeed stream handling with bounded command abort before DMA reclamation. See [protocol, memory and qualification boundaries](../milestones/m4.5-usb-topology.md).

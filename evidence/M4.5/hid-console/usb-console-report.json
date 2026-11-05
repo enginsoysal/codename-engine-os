@@ -1,5 +1,5 @@
 {
-  "build_id": "00f54048a402b8186e0a99847b1d61cf",
+  "build_id": "6d25105322c20dddf03910374c8f8060",
   "checks": [
     {
       "name": "USB IRQ command input, Shift, backspace, store/flush/read",
@@ -16,9 +16,9 @@
     {
       "name": "idle QEMU host CPU interval",
       "passed": true,
-      "wall_seconds": 2.0159999999959837,
-      "cpu_seconds": 0.03125,
-      "one_cpu_percent": 1.5500992063522945,
+      "wall_seconds": 2.0,
+      "cpu_seconds": 0.046875,
+      "one_cpu_percent": 2.34375,
       "scope": "two-second QEMU process sample, not a physical-hardware benchmark"
     },
     {
@@ -26,7 +26,7 @@
       "passed": true,
       "managed_current_bytes": 237568,
       "managed_peak_bytes": 466944,
-      "boot_reserved_bytes": 520192
+      "boot_reserved_bytes": 532480
     },
     {
       "name": "independent ext2 namespace, allocation and console file payload check",

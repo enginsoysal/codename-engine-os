@@ -1,0 +1,33 @@
+{
+  "build_id": "067a677b0cd1357683c5d90f9e66a9c2",
+  "full_m45_complete": false,
+  "checks": [
+    {
+      "name": "boot-attached UAS plus FAT32 file read",
+      "passed": true
+    },
+    {
+      "name": "USB mass disconnect/reconnect 1: stale disk denied, new generation readable, DMA reclaimed",
+      "passed": true,
+      "retained_bytes": 270336,
+      "disconnected_bytes": 237568
+    },
+    {
+      "name": "USB mass disconnect/reconnect 2: stale disk denied, new generation readable, DMA reclaimed",
+      "passed": true,
+      "retained_bytes": 270336,
+      "disconnected_bytes": 237568
+    },
+    {
+      "name": "USB mass disconnect/reconnect 3: stale disk denied, new generation readable, DMA reclaimed",
+      "passed": true,
+      "retained_bytes": 270336,
+      "disconnected_bytes": 237568
+    },
+    {
+      "name": "ordinary USB backing hash unchanged",
+      "passed": true
+    }
+  ],
+  "error": "{'class': 'GenericError', 'desc': 'Warning: speed mismatch trying to attach usb device \"USB Attached SCSI HBA\" (high+super speed) to bus \"xhci.0\", port \"4.1\" (full speed)'}"
+}

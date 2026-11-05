@@ -1,0 +1,35 @@
+{
+  "build_id": "55409d502f0955c1ef8756669a452f0b",
+  "full_m45_complete": false,
+  "checks": [
+    {
+      "name": "boot-attached UAS plus FAT32 file read",
+      "passed": true
+    },
+    {
+      "name": "USB mass disconnect/reconnect 1: stale disk denied, new generation readable, DMA reclaimed",
+      "passed": true,
+      "retained_bytes": 270336,
+      "disconnected_bytes": 237568
+    },
+    {
+      "name": "USB mass disconnect/reconnect 2: stale disk denied, new generation readable, DMA reclaimed",
+      "passed": true,
+      "retained_bytes": 270336,
+      "disconnected_bytes": 237568
+    },
+    {
+      "name": "USB mass disconnect/reconnect 3: stale disk denied, new generation readable, DMA reclaimed",
+      "passed": true,
+      "retained_bytes": 270336,
+      "disconnected_bytes": 237568
+    },
+    {
+      "name": "ordinary USB backing hash unchanged",
+      "passed": true
+    }
+  ],
+  "error": "Missing USB result: M45_USB_MASS_STORAGE_READY",
+  "emulator_exit": 3,
+  "emulator_error": "**\r\nERROR:../../../hw/usb/dev-uas.c:700:usb_uas_cancel_io: assertion failed: (!\"canceled usb packet not found\")\r\n"
+}

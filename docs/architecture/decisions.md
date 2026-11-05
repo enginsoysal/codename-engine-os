@@ -74,6 +74,9 @@ A selected approach is not a runtime claim. [Status](../roadmap/status.md) and [
 
 | 066 | Bounded interruptible AP pressure-response check | A brief delayed VM CPU must not be mistaken for a permanently missing CPU after only three ticks | An immediate timer-count assertion has a hidden host scheduling bound; unbounded waiting hides failure | Exact pre-fix source reproduction, short owned-AP pause succeeds, long pause still fails, no pages allocated and scheduler lock released across HLT |
 
+| 067 | Shared USB protocol folder, bounded hub tree and lazy device DMA | HID and storage share controller ownership; allocation should follow actual attached devices | Fixed eight-context admission and five route nibbles limit topology; physical TT/SS hubs remain unqualified | Direct/five-hub native reads and input, leaf/whole-tree reconnect, exact child-before-parent reclamation |
+| 068 | Serialized read-only UAS with independent data/status streams and explicit task abort | Support common UAS devices without unbounded queues or retained failed SCSI commands | A timeout alone does not release device/controller ownership; old USB transfers must stop before task cancellation | High/super-speed 512/4096 reads, queue wrap, EIO/deadline injection, abort response, safe replacement, exact eight-page lifetime and idle checks |
+
 ## Detailed contracts and remaining choices
 
 [Kernel](kernel-contracts.md), [filesystem](filesystem.md), [build/platform](build-platform.md), [compatibility](compatibility.md), [M2 implementation](../milestones/m2.md), [M3 implementation](../milestones/m3.md).

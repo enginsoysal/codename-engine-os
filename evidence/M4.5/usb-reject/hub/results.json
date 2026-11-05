@@ -1,0 +1,19 @@
+{
+  "build_id": "6d25105322c20dddf03910374c8f8060",
+  "checks": [
+    {
+      "name": "unsupported hub port refused; kernel reaches console",
+      "passed": true
+    },
+    {
+      "name": "healthy USB keyboard remains usable after failed enumeration",
+      "passed": true
+    },
+    {
+      "name": "both CPUs halt after command",
+      "passed": true
+    }
+  ],
+  "error": "",
+  "full_m45_complete": false
+}

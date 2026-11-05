@@ -65,3 +65,7 @@ Mailbox publication can precede IPI delivery. Each AP therefore performs the req
 ## Bounded pressure-response verification
 
 The privileged native pressure probe keeps its allocator admission budget active while checking fresh AP timer progress. Missing progress starts a bounded 100-tick wait; the scheduler releases its lock and halts interruptibly between checks. COW-OOM teardown uses the same path before restoring the budget. A brief delayed VM CPU is tolerated, while the deadline negative still fails. [Mechanism and causal evidence](../milestones/m4.5-smp-pressure.md). This is not a guest ABI or a hard real-time guarantee.
+
+## M4.5 USB DMA ownership
+
+The shared original stack is under `kernel/usb/`. Device contexts admit at most eight live devices with lazily owned pages. Hub descendants retire before their parent, and DMA pages are reclaimed only after successful Disable Slot. UAS timeout stops old USB transfers before task abort; failures retain ownership and quarantine rather than freeing uncertain memory. Old disk generation references cannot access replacement contexts. [Exact profiles and limits](../milestones/m4.5-usb-topology.md).

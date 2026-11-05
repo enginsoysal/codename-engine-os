@@ -1,0 +1,6 @@
+{
+  "original_log_sha256": "8a91fc80b16e1c1561a185078a92a1c131a3ceb44fab2d0c37fe30c1d746de2a",
+  "original_lines": 157647,
+  "repeated_attach_refusals": 157526,
+  "scope": "failed development test; repetitive trace compacted to first 125 and last 10 lines"
+}

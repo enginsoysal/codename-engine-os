@@ -1,11 +1,11 @@
 {
-  "build_id": "00f54048a402b8186e0a99847b1d61cf",
+  "build_id": "6d25105322c20dddf03910374c8f8060",
   "full_m45_complete": false,
   "checks": [
     {
       "managed_retained_bytes": 172032,
       "managed_peak_bytes": 466944,
-      "boot_reserved_bytes": 520192,
+      "boot_reserved_bytes": 532480,
       "name": "uefi-iso",
       "passed": true,
       "firmware": "uefi",
@@ -33,7 +33,7 @@
     {
       "managed_retained_bytes": 200704,
       "managed_peak_bytes": 466944,
-      "boot_reserved_bytes": 520192,
+      "boot_reserved_bytes": 532480,
       "name": "uefi-usb",
       "passed": true,
       "firmware": "uefi",

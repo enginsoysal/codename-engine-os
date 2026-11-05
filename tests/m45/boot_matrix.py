@@ -8,6 +8,8 @@ from visual import free_port,connect
 def main():
     files=qemu_tools();bios=files['ovmf-code'].parent/'bios-256k.bin';lock=json.loads((ROOT/'tools/security-toolchain.json').read_text(encoding='utf-8'));assert hashlib.sha256(bios.read_bytes()).hexdigest()==lock['files']['seabios']['sha256']
     out=ROOT/'evidence/M4.5/boot';out.mkdir(parents=True,exist_ok=True);manifest=json.loads((ROOT/'dist/m45-build-manifest.json').read_text(encoding='utf-8'));checks=[]
+    for source,expected in manifest['source_sha256'].items():
+        if hashlib.sha256((ROOT/source).read_bytes()).hexdigest()!=expected:raise RuntimeError('Source changed since build: '+source)
     for name,firmware,media,cpus,ram in [('uefi-iso','uefi','iso',2,128),('bios-iso','bios','iso',2,128),('uefi-usb','uefi','usb',2,128),('bios-usb','bios','usb',2,128),('bios-lowram','bios','iso',1,64),('bios-smp4','bios','iso',4,128)]:
         work=ROOT/'build/m45/boot-tests'/name;image=ROOT/'dist'/('EngineOS-M45.iso' if media=='iso' else 'EngineOS-M45-usb.img');argv,serial=arguments(files,media,image,work,ram=ram);argv[argv.index('-smp')+1]=str(cpus)
         if firmware=='bios':

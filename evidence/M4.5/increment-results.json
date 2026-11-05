@@ -1,7 +1,7 @@
 {
   "passed": true,
   "full_m45_complete": false,
-  "scope": "dual BIOS/UEFI media, ordinary AHCI/NVMe/ATA/VirtIO/USB reads, reconnect/EIO containment, partition/FAT32/extended ext2 validation, owner-enrolled VM trust chain; wider agreed tracks remain open",
+  "scope": "dual BIOS/UEFI media, ordinary AHCI/NVMe/ATA/VirtIO/USB reads, hub routing, UAS streams, reconnect/EIO/deadline containment, partition/FAT32/extended ext2 validation, owner-enrolled VM trust chain; wider agreed tracks remain open",
   "gates": [
     {
       "script": "tools/build/m45.py",
@@ -70,6 +70,57 @@
     {
       "script": "tests/m45/usb_timeout.py",
       "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/usb_reject.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/usb_reject.py",
+      "arguments": [
+        "--hub"
+      ],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/hubs.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/hubs.py",
+      "arguments": [
+        "--nested"
+      ],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/uas.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/uas.py",
+      "arguments": [
+        "--high-speed"
+      ],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/uas.py",
+      "arguments": [
+        "--timeout"
+      ],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/uas.py",
+      "arguments": [
+        "--high-speed",
+        "--timeout"
+      ],
       "passed": true
     },
     {
@@ -143,5 +194,5 @@
       "passed": true
     }
   ],
-  "build_id": "00f54048a402b8186e0a99847b1d61cf"
+  "build_id": "6d25105322c20dddf03910374c8f8060"
 }

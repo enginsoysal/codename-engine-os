@@ -1,0 +1,66 @@
+{
+  "build_id": "6d25105322c20dddf03910374c8f8060",
+  "full_m45_complete": false,
+  "checks": [
+    {
+      "name": "boot-attached USB BOT plus FAT32 file read",
+      "passed": true
+    },
+    {
+      "name": "USB mass disconnect/reconnect 1: stale disk denied, new generation readable, DMA reclaimed",
+      "passed": true,
+      "retained_bytes": 368640,
+      "disconnected_bytes": 339968
+    },
+    {
+      "name": "USB mass disconnect/reconnect 2: stale disk denied, new generation readable, DMA reclaimed",
+      "passed": true,
+      "retained_bytes": 368640,
+      "disconnected_bytes": 339968
+    },
+    {
+      "name": "USB mass disconnect/reconnect 3: stale disk denied, new generation readable, DMA reclaimed",
+      "passed": true,
+      "retained_bytes": 368640,
+      "disconnected_bytes": 339968
+    },
+    {
+      "name": "hot-attached USB sector-zero EIO contained; failed device removed and healthy device reads again",
+      "passed": true,
+      "fault_backing_unchanged": true
+    },
+    {
+      "name": "USB keyboard disconnect/reconnect then actual command input",
+      "passed": true
+    },
+    {
+      "name": "populated hub unplug retires children before parent; reconnect restores native reads and exact memory",
+      "passed": true,
+      "after_tree_disable_bytes": 196608,
+      "after_tree_reconnect_bytes": 368640
+    },
+    {
+      "name": "mouse remains active; all four CPUs halt at console idle",
+      "passed": true
+    },
+    {
+      "name": "idle QEMU host process sample after reconnect",
+      "passed": true,
+      "wall_seconds": 2.0159999999959837,
+      "cpu_seconds": 0.046875,
+      "one_cpu_percent": 2.3251488095284416,
+      "scope": "two-second emulator sample, not physical CPU measurement"
+    },
+    {
+      "name": "bounded native managed memory after repeated reconnect",
+      "passed": true,
+      "retained_bytes": 368640,
+      "peak_bytes": 466944
+    },
+    {
+      "name": "ordinary USB backing hash unchanged",
+      "passed": true
+    }
+  ],
+  "error": ""
+}

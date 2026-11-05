@@ -1,6 +1,6 @@
 {
   "milestone": "M45",
-  "build_id": "00f54048a402b8186e0a99847b1d61cf",
+  "build_id": "6d25105322c20dddf03910374c8f8060",
   "source_sha256": {
     "boot/bios/mbr.ld": "e1bfb5c0c62f26747f62fd94ecd7fd239e92fa6c4944dad294a634f7d6757452",
     "boot/bios/mbr.S": "8b8155ed440fda9f277e4a5c1a520dc889647a563d2bb237782175d2f114f0bc",
@@ -34,7 +34,6 @@
     "kernel/core/main.c": "1c686f55a708224f193e5dfa4c5e9ee2f2d3aa9f832f5221db0d1e7a83c36e5d",
     "kernel/input/legacy.c": "c8fd03ea09a7f57c1d02e522bdc5fce2e20e0e0a23249777fd4eaa48263f5939",
     "kernel/input/xhci.c": "a874733569ae7b1a7d909cd764c43b00d2a1d6128d2b39799860fd946e5f6520",
-    "kernel/input/xhci45.c": "d21f1fa45dd29176bdc1608e1f4da611bcd000dc717ac4c7d89670a1145648a0",
     "kernel/m4/main.c": "76999c29c73e2a8d6381df7b4a13e2f0c028880dc29f5e99cf2b4817dac21dbd",
     "kernel/memory/pages.c": "aa32a9f3a5168ac9d6ab43eaab2f7a31d137a9eebccfd498ee2f3b44ff5e13d1",
     "kernel/memory/space.c": "6266e1f2242387cc3342a9e4004a992e5e29378a39c2a70c69455b3d04f72d8b",
@@ -53,6 +52,7 @@
     "kernel/storage/partitions.c": "efca163b0bc5e63b751cbce68e18123d572d585b435643d2dd7fbb8597573578",
     "kernel/storage/registry.c": "192e1433fd863c862a9dcb01525a4ab9032b321e65dfc97fea0c03ec36e13ee8",
     "kernel/storage/virtio_blk.c": "d7e78760db76d538d9a71c3751e129f60baf533de5d804ef33d9733d0aa45f20",
+    "kernel/usb/xhci.c": "94cae2cfe1f0b65eb44eab10c62ccfc2ae1b688fe7a02ba658fef7e8b42ecf3a",
     "runtime/memory.c": "6d0a1ab7c130552c391beabb8a188b85521685e7d189a628224b99d802d65d25",
     "runtime/sha256.c": "2d841840e545776a025f28b9af6c57a458c9da729ecee34eede0f6aef8179012",
     "tools/build/bios.py": "147380d9d8ab1fc0d1ee9d5996d4f5a38d834886d46e8e9929254b91e29cc401",
@@ -60,7 +60,7 @@
     "tools/build/ext2_image.py": "d7961e0233fab653a71f0152e0c6fd76d67931819f711c0e5e0775947d8e8c21",
     "tools/build/fsck.py": "924b9f663080066cb9f6ba34c6a3298ca58ef29a2edcfe8ca85b829e5cf2f671",
     "tools/build/m1.py": "6ec2a3d19a3e023ae8e503ff2fae5c835dd5e0ab8999423a7d9edae76d6ce1f3",
-    "tools/build/m2.py": "16c5be5dc141e4f520259de7bb4af8d07bae7afb0baa1839b30900f2b25feb98",
+    "tools/build/m2.py": "c3d4e610fbd08406ae14ae7e9deffe48cf67795e9dfee9eb1e11d732763eddb0",
     "tools/build/m3.py": "3fa633b9e45f6ec7df51bb3c658d00928808d42d0435c30b462aa0db21342dbe",
     "tools/build/m4.py": "413088a97c0876ed54961c2223f980b369bd0bcd35567476eece9b00bd1153be",
     "tools/build/m45.py": "fd9169b728214490ebbb368b05308cabd782e79b0b47a36c2a434f278069b8f4",
@@ -73,15 +73,15 @@
   },
   "artifacts": {
     "EngineOS-M45-kernel.elf": {
-      "sha256": "76cb8654710d586083ad3ecb1072ee6bce7230fa1259b0f7ee9c0b4f6020d2ce",
-      "size": 703296
+      "sha256": "a890a602ca445edbf4f194e4c6b53a94ced3a9ce98e9a97b6f47c6d524736ffd",
+      "size": 746888
     },
     "EngineOS-M45-kernel.map": {
-      "sha256": "397ff216455835e47d7deb3c3ea1c479d33b8f38f3206425312ca4385b92890d",
-      "size": 88036
+      "sha256": "e995bdb017983e8fde582012bffcae86d6dbe8c4a903c2c98572904eba7c75e6",
+      "size": 89463
     },
     "EngineOS-M45-usb.img": {
-      "sha256": "2a08506928df07787d24d8309877504f8c2d74b86e1f94556754dbf2b24076c2",
+      "sha256": "8b89af376e408ca388402063130d3730e02994e506186da043ef6f6f5a9b9b84",
       "size": 72351744
     },
     "EngineOS-M45-user.elf": {
@@ -89,7 +89,7 @@
       "size": 68064
     },
     "EngineOS-M45.iso": {
-      "sha256": "53549b56eb6a9fdb02d7af809b26e3c4966535e1b29d2834e2429cc9cf838d22",
+      "sha256": "7bb3b1e9c93a08f1ca06ef65c6c07cbda9562b7ddfc3a919ce04b789c3e51676",
       "size": 67622912
     }
   },
@@ -106,8 +106,8 @@
     "BIOS EDD/E820/VBE and unsigned UEFI share the kernel; broader controller/input profiles, production key workflow and physical qualification remain open"
   ],
   "bios_media_layout": {
-    "kernel_sha256": "76cb8654710d586083ad3ecb1072ee6bce7230fa1259b0f7ee9c0b4f6020d2ce",
-    "raw_kernel_sha256": "00b519db208fb9fc70a9c714f6672d54937f1242c13e5195f9dacfb19fce8ab5",
+    "kernel_sha256": "a890a602ca445edbf4f194e4c6b53a94ced3a9ce98e9a97b6f47c6d524736ffd",
+    "raw_kernel_sha256": "964343aba346208de8470617c1aab6e9b8d888a2e4548b523c497709b75b362f",
     "usb": {
       "BIOS_SECTOR_BYTES": 512,
       "BIOS_STAGE_BLOCKS": 64,
@@ -116,7 +116,7 @@
       "BIOS_KERNEL_CHUNKS": 13,
       "BIOS_KERNEL_BYTES": 425984,
       "BIOS_KERNEL_ENTRY": 2097152,
-      "BIOS_KERNEL_CRC": 4140879180,
+      "BIOS_KERNEL_CRC": 1144806349,
       "BIOS_VIDEO_MODE": 324,
       "BIOS_BAD_BOOT": 0
     },
@@ -128,7 +128,7 @@
       "BIOS_KERNEL_CHUNKS": 13,
       "BIOS_KERNEL_BYTES": 425984,
       "BIOS_KERNEL_ENTRY": 2097152,
-      "BIOS_KERNEL_CRC": 4140879180,
+      "BIOS_KERNEL_CRC": 1144806349,
       "BIOS_VIDEO_MODE": 324,
       "BIOS_BAD_BOOT": 0
     },

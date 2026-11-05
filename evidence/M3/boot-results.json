@@ -1,6 +1,6 @@
 {
   "scope": "M3 native VM qualification: preemption, threads, waits, COW/pressure and active SMP",
-  "build_id": "d88b23600453da5121d5ff7d84597e23",
+  "build_id": "8739ae062ebde2646d4de6a83e6b013d",
   "checks": [
     {
       "name": "iso-clock-deterministic",
@@ -13,7 +13,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "591ea96517f75c354f4f68df31acf915b52830d82a66ff0ecf6e91b6d2f7265e"
+      "log_sha256": "e68bcb854ab8ff35493e3bce2ebf543ca30a230b4f996b56783c12f1bddedb13"
     },
     {
       "name": "iso-smoke",
@@ -26,7 +26,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "65fac8615c35eec62d2de4844ebd2038f7e75d90e44cf40aa06e5fa39a6b43c6"
+      "log_sha256": "8fbab1ebe5379d9a31b99ea3ec9b3b45d460685d106ac0b17c28352ce09d21a4"
     },
     {
       "name": "usb-smoke",
@@ -39,7 +39,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "68b79f25d6a20b802e3e523ab399db2a239a9cc14192809f61c4a90e1fab88c5"
+      "log_sha256": "1ac59f3cc191ed41474d53e672d3beb9ca70bfa70e50f721520a5531e83e8e8f"
     },
     {
       "name": "iso-lowram",
@@ -52,7 +52,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "9ab688fdd40ae26b342cdd7cd2589f5a2469a780b217ddbc4cd27a0f929b9967"
+      "log_sha256": "e956aab680b01ec5a487ee64f4848fb4d7c29a6d9718f92a3aa30d66b158256f"
     },
     {
       "name": "iso-smp2",
@@ -65,7 +65,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "6ace66623185e740d9941b7e3b434e449e59edb928d0a0ff3b82c1724fa9a245"
+      "log_sha256": "7771773cee116c394ee4cd0edb7425fddab220dc305600c7e78021b907062486"
     },
     {
       "name": "iso-smp4",
@@ -78,7 +78,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "225676a559acfa2b4f53a0fd8d9436687e9fe1f71b8fbcd50ba97d2a089e7d6b"
+      "log_sha256": "6cb67460758286fd2a969f5a44367e1dab28509f677beef7e4e78184d9388635"
     },
     {
       "name": "iso-smp4-repeat1",
@@ -91,7 +91,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "25307a6c279db17c2d9866069115d0ff1203d10c24540bc109212bbe762cb2f0"
+      "log_sha256": "c0040a126e77f964692d426d28c9c9f049480c738165fb7f2c89fe818ef7b927"
     },
     {
       "name": "iso-smp4-repeat2",
@@ -104,7 +104,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "6d255ad69aef242b4f7f55fc1e28ab55248cd595b91c47cafbb1e070f88ecf7f"
+      "log_sha256": "e13dea6c262ee1407b42ecd6c07d4eed32f96ba3fde6aed14647067270b1cf68"
     },
     {
       "name": "iso-large-guest",
@@ -117,7 +117,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "6d7ac4ee27194c1fb2a57b6d1f6af2c83aba2fb4d5e4580fef58be41df6d387e"
+      "log_sha256": "3bd1a508a122bd9c3eeb799a1da78b7a37436b90d3f1423a96ce19c1b3addff6"
     },
     {
       "name": "iso-retry",
@@ -130,7 +130,7 @@
       "actual_exit": 33,
       "expected_marker": "EXIT_BOOT_SERVICES_RETRY",
       "stderr": "",
-      "log_sha256": "e2b88587d41d2590a77880331ac995794efea533e6a1252174c4b99865be7f6d"
+      "log_sha256": "2990e4bb44573b459f2975f332a896c9a9ae600ef81c307bafeebfc2f0c8255c"
     },
     {
       "name": "iso-tlb-negative",
@@ -143,7 +143,7 @@
       "actual_exit": 99,
       "expected_marker": "M3_SMP_FAIL TLB or CPU state",
       "stderr": "",
-      "log_sha256": "949441e25b001b4a7830780ebe7c766bf1f9c62f60144ec905172df1c50a981e"
+      "log_sha256": "eb205fbe06e3cbb4abaa5e407771fde7b0b2c71b984e405c20138f34fe9119f4"
     },
     {
       "name": "iso-panic",
@@ -156,7 +156,7 @@
       "actual_exit": 67,
       "expected_marker": "OWN_IDT_EXCEPTION_HANDLED",
       "stderr": "",
-      "log_sha256": "4fc527290a3b0c1d5a5f4377a82a6aba8c1cadd1d12807b2bedc839905840b92"
+      "log_sha256": "a3fc9b2f1114f76fd32a115f7f00f92b3417e432b50316c529c1a71522477393"
     },
     {
       "name": "iso-badboot",
@@ -169,7 +169,7 @@
       "actual_exit": 71,
       "expected_marker": "KERNEL_REJECT: boot header",
       "stderr": "",
-      "log_sha256": "b11819bbd1cf1db05c3546b1501a33a55e3a62f1a121b4d3222cf6fbf82bb250"
+      "log_sha256": "4723ea06237c3786f0fa38324dc7e66cae624a4ca108e91159c3f69d7c917ff3"
     },
     {
       "name": "iso-badelf",
@@ -182,7 +182,7 @@
       "actual_exit": 69,
       "expected_marker": "LOADER_REJECT: ELF validation",
       "stderr": "",
-      "log_sha256": "a64b42b95258f5d741edc9e63cc506f67a1f7d79e192b51274963e35040ca7e2"
+      "log_sha256": "b1401bad44a075be753a56ba5dd816e3efb342996e96b6770560b540798639f5"
     }
   ],
   "runtime_measurements": {
@@ -237,10 +237,10 @@
         "cow_faults": 2,
         "copy_cow": 1,
         "oom_faults": 1,
-        "idle_halts": 135,
+        "idle_halts": 138,
         "switches": 714,
-        "dispatch_tsc_total": 7648060,
-        "dispatch_tsc_max": 1028381,
+        "dispatch_tsc_total": 8275475,
+        "dispatch_tsc_max": 1407952,
         "deadline_late_ticks": 0,
         "runtime_peak_owned_bytes": 184320,
         "thread_resident_bytes": 8992,
@@ -256,17 +256,17 @@
       },
       "dispatch_tsc": {
         "samples": 256,
-        "min": 1329,
-        "p50": 3174,
-        "p95": 29400,
-        "max": 1028381
+        "min": 878,
+        "p50": 3592,
+        "p95": 39625,
+        "max": 793673
       },
       "roundtrip_tsc": {
         "samples": 64,
-        "min": 35175,
-        "p50": 42965,
-        "p95": 53471,
-        "max": 625688
+        "min": 62591,
+        "p50": 63470,
+        "p95": 67090,
+        "max": 171783
       },
       "user_cpu_mask": 1
     },
@@ -279,10 +279,10 @@
         "cow_faults": 2,
         "copy_cow": 1,
         "oom_faults": 1,
-        "idle_halts": 152,
+        "idle_halts": 169,
         "switches": 714,
-        "dispatch_tsc_total": 9687134,
-        "dispatch_tsc_max": 1611911,
+        "dispatch_tsc_total": 11575554,
+        "dispatch_tsc_max": 2046353,
         "deadline_late_ticks": 0,
         "runtime_peak_owned_bytes": 217088,
         "thread_resident_bytes": 8992,
@@ -298,17 +298,17 @@
       },
       "dispatch_tsc": {
         "samples": 256,
-        "min": 1353,
-        "p50": 3053,
-        "p95": 45087,
-        "max": 1611911
+        "min": 1082,
+        "p50": 3509,
+        "p95": 39281,
+        "max": 1755072
       },
       "roundtrip_tsc": {
         "samples": 64,
-        "min": 36304,
-        "p50": 36959,
-        "p95": 53428,
-        "max": 63643
+        "min": 21036,
+        "p50": 28603,
+        "p95": 38533,
+        "max": 491019
       },
       "user_cpu_mask": 3
     },
@@ -321,10 +321,10 @@
         "cow_faults": 2,
         "copy_cow": 1,
         "oom_faults": 1,
-        "idle_halts": 135,
+        "idle_halts": 137,
         "switches": 714,
-        "dispatch_tsc_total": 7991001,
-        "dispatch_tsc_max": 1595638,
+        "dispatch_tsc_total": 8907941,
+        "dispatch_tsc_max": 1515036,
         "deadline_late_ticks": 0,
         "runtime_peak_owned_bytes": 184320,
         "thread_resident_bytes": 8992,
@@ -340,17 +340,17 @@
       },
       "dispatch_tsc": {
         "samples": 256,
-        "min": 1361,
-        "p50": 3297,
-        "p95": 30616,
-        "max": 672371
+        "min": 1026,
+        "p50": 3691,
+        "p95": 26771,
+        "max": 906457
       },
       "roundtrip_tsc": {
         "samples": 64,
-        "min": 46584,
-        "p50": 53740,
-        "p95": 59195,
-        "max": 63092
+        "min": 59290,
+        "p50": 60431,
+        "p95": 64894,
+        "max": 190796
       },
       "user_cpu_mask": 1
     },
@@ -363,10 +363,10 @@
         "cow_faults": 2,
         "copy_cow": 1,
         "oom_faults": 1,
-        "idle_halts": 151,
+        "idle_halts": 160,
         "switches": 714,
-        "dispatch_tsc_total": 10298916,
-        "dispatch_tsc_max": 2382069,
+        "dispatch_tsc_total": 10255016,
+        "dispatch_tsc_max": 1401727,
         "deadline_late_ticks": 0,
         "runtime_peak_owned_bytes": 217088,
         "thread_resident_bytes": 8992,
@@ -382,17 +382,17 @@
       },
       "dispatch_tsc": {
         "samples": 256,
-        "min": 1003,
-        "p50": 3686,
-        "p95": 38853,
-        "max": 633736
+        "min": 2289,
+        "p50": 3795,
+        "p95": 42236,
+        "max": 570179
       },
       "roundtrip_tsc": {
         "samples": 64,
-        "min": 51025,
-        "p50": 61758,
-        "p95": 63830,
-        "max": 164201
+        "min": 60476,
+        "p50": 61685,
+        "p95": 65047,
+        "max": 70569
       },
       "user_cpu_mask": 3
     },
@@ -405,11 +405,11 @@
         "cow_faults": 2,
         "copy_cow": 1,
         "oom_faults": 1,
-        "idle_halts": 178,
+        "idle_halts": 176,
         "switches": 714,
-        "dispatch_tsc_total": 7409931,
-        "dispatch_tsc_max": 967477,
-        "deadline_late_ticks": 1,
+        "dispatch_tsc_total": 8237616,
+        "dispatch_tsc_max": 1081431,
+        "deadline_late_ticks": 0,
         "runtime_peak_owned_bytes": 282624,
         "thread_resident_bytes": 8992,
         "thread_metadata_bytes": 800,
@@ -424,17 +424,17 @@
       },
       "dispatch_tsc": {
         "samples": 256,
-        "min": 848,
-        "p50": 2472,
-        "p95": 29908,
-        "max": 961736
+        "min": 1343,
+        "p50": 3759,
+        "p95": 31656,
+        "max": 1081431
       },
       "roundtrip_tsc": {
         "samples": 64,
-        "min": 30974,
-        "p50": 31619,
-        "p95": 32058,
-        "max": 38134
+        "min": 51036,
+        "p50": 52010,
+        "p95": 90024,
+        "max": 105898
       },
       "user_cpu_mask": 15
     },
@@ -447,10 +447,10 @@
         "cow_faults": 2,
         "copy_cow": 1,
         "oom_faults": 1,
-        "idle_halts": 168,
+        "idle_halts": 187,
         "switches": 714,
-        "dispatch_tsc_total": 7291714,
-        "dispatch_tsc_max": 883267,
+        "dispatch_tsc_total": 7569695,
+        "dispatch_tsc_max": 847648,
         "deadline_late_ticks": 0,
         "runtime_peak_owned_bytes": 282624,
         "thread_resident_bytes": 8992,
@@ -466,17 +466,17 @@
       },
       "dispatch_tsc": {
         "samples": 256,
-        "min": 1406,
-        "p50": 2787,
-        "p95": 31027,
-        "max": 883267
+        "min": 797,
+        "p50": 1934,
+        "p95": 31510,
+        "max": 798534
       },
       "roundtrip_tsc": {
         "samples": 64,
-        "min": 38476,
-        "p50": 39856,
-        "p95": 46735,
-        "max": 49266
+        "min": 23686,
+        "p50": 23864,
+        "p95": 24076,
+        "max": 26119
       },
       "user_cpu_mask": 15
     },
@@ -489,10 +489,10 @@
         "cow_faults": 2,
         "copy_cow": 1,
         "oom_faults": 1,
-        "idle_halts": 151,
+        "idle_halts": 180,
         "switches": 714,
-        "dispatch_tsc_total": 7939702,
-        "dispatch_tsc_max": 1733605,
+        "dispatch_tsc_total": 8557608,
+        "dispatch_tsc_max": 1337830,
         "deadline_late_ticks": 0,
         "runtime_peak_owned_bytes": 282624,
         "thread_resident_bytes": 8992,
@@ -508,17 +508,17 @@
       },
       "dispatch_tsc": {
         "samples": 256,
-        "min": 1261,
-        "p50": 2706,
-        "p95": 24689,
-        "max": 1055977
+        "min": 862,
+        "p50": 2071,
+        "p95": 35932,
+        "max": 1337830
       },
       "roundtrip_tsc": {
         "samples": 64,
-        "min": 49492,
-        "p50": 50092,
-        "p95": 50619,
-        "max": 54947
+        "min": 36411,
+        "p50": 36994,
+        "p95": 37669,
+        "max": 41240
       },
       "user_cpu_mask": 15
     },
@@ -531,11 +531,11 @@
         "cow_faults": 2,
         "copy_cow": 1,
         "oom_faults": 1,
-        "idle_halts": 155,
-        "switches": 714,
-        "dispatch_tsc_total": 8792153,
-        "dispatch_tsc_max": 897842,
-        "deadline_late_ticks": 0,
+        "idle_halts": 171,
+        "switches": 716,
+        "dispatch_tsc_total": 10943293,
+        "dispatch_tsc_max": 1599540,
+        "deadline_late_ticks": 1,
         "runtime_peak_owned_bytes": 217088,
         "thread_resident_bytes": 8992,
         "thread_metadata_bytes": 800,
@@ -550,17 +550,17 @@
       },
       "dispatch_tsc": {
         "samples": 256,
-        "min": 1048,
-        "p50": 3774,
-        "p95": 40963,
-        "max": 897842
+        "min": 1406,
+        "p50": 3993,
+        "p95": 47791,
+        "max": 920242
       },
       "roundtrip_tsc": {
         "samples": 64,
-        "min": 33451,
-        "p50": 64072,
-        "p95": 66742,
-        "max": 145135
+        "min": 62765,
+        "p50": 63343,
+        "p95": 64169,
+        "max": 69400
       },
       "user_cpu_mask": 3
     },
@@ -573,10 +573,10 @@
         "cow_faults": 2,
         "copy_cow": 1,
         "oom_faults": 1,
-        "idle_halts": 178,
+        "idle_halts": 180,
         "switches": 715,
-        "dispatch_tsc_total": 7400303,
-        "dispatch_tsc_max": 952468,
+        "dispatch_tsc_total": 8490955,
+        "dispatch_tsc_max": 1038094,
         "deadline_late_ticks": 1,
         "runtime_peak_owned_bytes": 282624,
         "thread_resident_bytes": 8992,
@@ -592,17 +592,17 @@
       },
       "dispatch_tsc": {
         "samples": 256,
-        "min": 1316,
-        "p50": 2973,
-        "p95": 32214,
-        "max": 507486
+        "min": 1207,
+        "p50": 2553,
+        "p95": 31862,
+        "max": 792727
       },
       "roundtrip_tsc": {
         "samples": 64,
-        "min": 56729,
-        "p50": 59444,
-        "p95": 80687,
-        "max": 87827
+        "min": 27285,
+        "p50": 28234,
+        "p95": 44945,
+        "max": 47028
       },
       "user_cpu_mask": 15
     }

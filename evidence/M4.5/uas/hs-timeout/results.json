@@ -1,0 +1,63 @@
+{
+  "build_id": "6d25105322c20dddf03910374c8f8060",
+  "full_m45_complete": false,
+  "checks": [
+    {
+      "name": "boot-attached UAS plus FAT32 file read",
+      "passed": true
+    },
+    {
+      "name": "USB mass disconnect/reconnect 1: stale disk denied, new generation readable, DMA reclaimed",
+      "passed": true,
+      "retained_bytes": 270336,
+      "disconnected_bytes": 237568
+    },
+    {
+      "name": "USB mass disconnect/reconnect 2: stale disk denied, new generation readable, DMA reclaimed",
+      "passed": true,
+      "retained_bytes": 270336,
+      "disconnected_bytes": 237568
+    },
+    {
+      "name": "USB mass disconnect/reconnect 3: stale disk denied, new generation readable, DMA reclaimed",
+      "passed": true,
+      "retained_bytes": 270336,
+      "disconnected_bytes": 237568
+    },
+    {
+      "name": "UAS read fault contained; failed device safely disabled and healthy device reads again",
+      "passed": true,
+      "fault_backing_unchanged": true,
+      "throttle_retained_through_disable_and_replacement": true
+    },
+    {
+      "name": "USB keyboard disconnect/reconnect then actual command input",
+      "passed": true
+    },
+    {
+      "name": "mouse remains active; all four CPUs halt at console idle",
+      "passed": true
+    },
+    {
+      "name": "idle QEMU host process sample after reconnect",
+      "passed": true,
+      "wall_seconds": 2.0159999999959837,
+      "cpu_seconds": 0.015625,
+      "one_cpu_percent": 0.7750496031761472,
+      "scope": "two-second emulator sample, not physical CPU measurement"
+    },
+    {
+      "name": "bounded native managed memory after repeated reconnect",
+      "passed": true,
+      "retained_bytes": 270336,
+      "peak_bytes": 466944
+    },
+    {
+      "name": "ordinary USB backing hash unchanged",
+      "passed": true
+    }
+  ],
+  "error": "",
+  "emulator_exit": 0,
+  "emulator_error": ""
+}

@@ -1,0 +1,46 @@
+{
+  "build_id": "db16a399c61efb6984bce72e87ff72ef",
+  "full_m45_complete": false,
+  "checks": [
+    {
+      "name": "uas-ss-512",
+      "transport": "USB",
+      "passed": true,
+      "exit": 33,
+      "size_mib": 64,
+      "logical_sector_bytes": 512,
+      "partition_status": 0,
+      "backing_unchanged": true
+    },
+    {
+      "name": "uas-ss-4k",
+      "transport": "USB",
+      "passed": true,
+      "exit": 33,
+      "size_mib": 64,
+      "logical_sector_bytes": 4096,
+      "partition_status": 0,
+      "backing_unchanged": true
+    },
+    {
+      "name": "uas-hs-512",
+      "transport": "USB",
+      "passed": true,
+      "exit": 33,
+      "size_mib": 64,
+      "logical_sector_bytes": 512,
+      "partition_status": 0,
+      "backing_unchanged": true
+    },
+    {
+      "name": "uas-hs-4k",
+      "transport": "USB",
+      "passed": true,
+      "exit": 33,
+      "size_mib": 64,
+      "logical_sector_bytes": 4096,
+      "partition_status": 0,
+      "backing_unchanged": true
+    }
+  ]
+}
