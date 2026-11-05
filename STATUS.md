@@ -2,7 +2,7 @@
 
 Bijgewerkt: 5 november 2026.
 
-Architectuur en plan: versie 0.2. M0 gestart; elf layout-/compileer-/hostreferentiecontroles geslaagd. OS-kernel: niet gebouwd.
+Architectuur en plan: versie 0.3. M0 afgerond als architectuur-/toolchainbaseline; 51 technische controles plus document-/inventariscontrole geslaagd. OS-kernel en installer: niet gebouwd.
 
 Projectnaam: **Codename: Engine OS**. Canonieke werkbron: `enginsoysal/codename-engine-os`, openbaar, MIT-licentie. Afgeronde updates worden gecommit en gepusht volgens AGENTS.md.
 
@@ -10,7 +10,7 @@ Scope-update: Windows 95–11-apps zijn het brede productdoel. De audit en aanvu
 
 | Mijlpaal | Status | Bewijs |
 |---|---|---|
-| M0 Architectuurcontracten | In uitvoering: contracten/keuzes en eerste layouts vastgelegd; elf controles geslaagd; toolpins en aanvullende validatie open | [Stand](m0/README.md), [bewijs](evidence/M0/README.md) |
+| M0 Architectuurcontracten | Voltooid binnen architectuur/toolchainscope; runtimepoorten overgedragen | [Acceptatie](evidence/M0/acceptance-results.json), [bewijs](evidence/M0/README.md) |
 | M1 Bootbare kernel | Niet gestart | — |
 | M2 Geïsoleerde processen | Niet gestart | — |
 | M3 Geheugen en concurrency | Niet gestart | — |
@@ -39,8 +39,10 @@ Voor elke mijlpaal worden tijdens uitvoering bijgehouden: werkpakketten, restere
 - Goedgekeurde eigen root en Windows/Linux/macOS-weergaven verwerkt.
 - C17/LLVM, eigen UEFI-loader, FAT32/ext2-ontwikkelroute en QEMU-profiel gekozen met redenen/alternatieven.
 - Kernelobjecten, rechten, IPC, syscallrouting, geheugencommit en 32-bitstrategie beschreven.
-- Elf lokale layout-/compileer-/Windows-referentiecontroles uitgevoerd; alle geslaagd.
+- 51 technische controles: 11 oorspronkelijke proeven, 30 contractchecks, 8 extra Windowsreferenties en 2 firmwareloads.
+- QEMU/firmware/compilerhashes en ISO-library gepind; ISO en GPT-USB fixture starten onder UEFI.
+- Windows 95–11-generatie-/kwalificatie-inventaris en M1-overdracht toegevoegd.
 
-## Eerstvolgende M0-afronding
+## Eerstvolgende mijlpaal
 
-Zie [M0-werkpakketten](m0/README.md). QEMU/OVMF/ISO-tools zijn nog niet gevalideerd; inhoudsvalidatie van de eerste headers en aanvullende referentieproeven staan open. Dit is een concrete resterende werklijst, geen claim dat M0 klaar is. M1 blijft niet gestart.
+M1: echte eigen UEFI-loader, kernel-entry, Boot Services-overdracht, diagnostiek en OS-bootmedia. Zie [werkvolgorde](m0/M1-HANDOFF.md). De M0-fixture is geen OS-/installatiemedium. Een VM voor kerneltests volgt bij M1; de installer volgt bij M5. M1 blijft niet gestart in deze update.

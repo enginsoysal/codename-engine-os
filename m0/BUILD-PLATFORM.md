@@ -18,7 +18,7 @@ Gecontroleerd: Clang/LLD 21.1.6 uit de bestaande Swift-toolchain. Python 3.10 be
 - Windows-runtime gebruikt Microsoft x64 aan de appzijde. Overgangen naar onze diensten zijn expliciete wrappers, geen cast van incompatibele functiepointers.
 - Compilergegenereerde helpers zoals geheugenfuncties worden zelf geleverd en op onbedoelde imports gecontroleerd.
 - Een klein Python-buildgereedschap orkestreert aanvankelijk expliciete compiler/linkercommando's; vermijd een vereiste op CMake/Ninja/WSL voordat die nodig is.
-- Toolmanifest legt versies en hashes vast vóór M1. De gedeelde Swift-installatie wordt niet vervangen of aangepast.
+- [Toolmanifest](../tools/toolchain-lock.json) legt waargenomen versies en hashes vast. De gedeelde Swift-installatie wordt niet vervangen of aangepast.
 
 Waarom: het hosttarget standaard gebruiken zou ongemerkt Windows-afhankelijkheden opleveren. [Clang cross-compilation](https://clang.llvm.org/docs/CrossCompilation.html), [freestanding documentatie](https://clang.llvm.org/docs/UsersManual.html).
 
@@ -52,9 +52,9 @@ Waarom ext2: bestaande documentatie, onafhankelijke controletools en een overzic
 
 ## Virtuele referentieconfiguratie
 
-Kandidaat, nog niet uitgevoerd:
+Getest referentieprofiel voor de M0-EFI-fixture; eigen kernel volgt in M1:
 
-- QEMU x86-64 `q35`, TCG als portable basis; versiespecifieke machinevariant vastpinnen zodra de binary is gekozen.
+- QEMU x86-64 11.1.0 met volledige revision/hash in het manifest; machine `pc-q35-11.1`, TCG als portable basis.
 - 512 MiB RAM en 2 vCPU voor de eerste gewone test; 128/256 MiB en 1/4 vCPU als aanvullende druk-/concurrencyprofielen. Dit zijn testinstellingen, geen productminimum.
 - OVMF x64, Secure Boot uit, read-only firmwarecode en een aparte beschrijfbare variabelenkopie per test.
 - COM1 naar log, framebuffer via standaard VGA/GOP; geen 3D-claim.
@@ -65,4 +65,10 @@ Kandidaat, nog niet uitgevoerd:
 
 Waarom: reproduceerbaar zonder specifieke CPU/GPU; virtio beperkt initieel driverwerk. Echte NVMe, GPU en USB-controllers blijven aanvullende hardwaretrajecten. [QEMU invocation](https://www.qemu.org/docs/master/system/invocation.html).
 
-QEMU, OVMF en ISO-tools zijn nog niet als lokale toolset gevalideerd. WSL is niet geïnstalleerd. M0 installeert geen systeemwijzigingen impliciet en gebruikt geen bestaande hostschijf als testdoel. Het project heeft vanaf 5 november een zelfstandige repository `enginsoysal/codename-engine-os`; de eerdere planningskopie in BrixCanvas is historisch. Broncode, contracten en toekomstige buildbestanden worden in deze eigen repository ontwikkeld.
+De bestaande QEMU-installatie en gebundelde OVMF-firmware zijn gevonden buiten PATH, gepind en uitgevoerd. pycdlib 1.22.0 is projectlokaal geïnstalleerd met vastgelegde wheelhash; geen WSL of xorriso nodig voor deze ISO-route. Zie [toolinstructies](../tools/README.md). Het zijn lokale waarnemingspins, geen upstream-authenticiteitsbewijs of onafhankelijk gereproduceerde compilerbuild. M0 verandert geen globale tools en gebruikt geen hostschijf als testdoel. De standalone repository is de werkbron; BrixCanvas is historisch.
+
+## M0-inhoudsvalidatie en Windows-scope
+
+De [C-validator](contracts/validate_v0.h) controleert header/CRC, rangeoverflow, overlap, descriptorvorm en framebuffergeometrie. Vereist in v0: memory map, kernel, initimage en reservations. De optionele framebuffer/ACPI-ranges mogen nul zijn. De validator dereferencet geen fysieke adressen. M1 moet de memory-map-/reservationinhoud, fysieke dekking en bereikbaarheid apart controleren. Een numeriek veilig adres is nog geen veilige mapping. Requestvalidatie controleert layout/arithmetic, niet dat pagina's echt gemapt en toegankelijk zijn.
+
+Het [Windows-doelregister](windows-targets.json) bewaart acht generatiegroepen en aparte app-/installerarchitecturen. Win16 vraagt een legacy-runtime; 32-bit compatibility mode vervangt die niet. ARM64-Windowsapps zijn een later platform-/ABI-traject en worden niet door x64-proeven gedekt. 'Vlekkeloos' wordt per originele installer, appversie en takenreeks getoetst; alle ongeteste software blijft onbekend.

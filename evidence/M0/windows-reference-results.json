@@ -1,0 +1,48 @@
+{
+  "scope": "Windows host reference only; no guest implementation proof",
+  "passed": true,
+  "checks": [
+    {
+      "name": "rename blocked without delete sharing",
+      "passed": true,
+      "detail": {
+        "error": 32
+      }
+    },
+    {
+      "name": "Unicode rename succeeds after close",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "delete-shared open file remains readable",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "deleted name gone after final close",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "reference directory case-insensitive lookup",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Unicode normalization names remain distinct",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "continuable exception delivered to registered handler",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "exception handler cleanup",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

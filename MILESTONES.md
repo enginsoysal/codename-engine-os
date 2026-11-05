@@ -31,6 +31,8 @@ Dit is het ontwikkelcontract per mijlpaal. Voor uitvoering worden versiegebonden
 
 **Risico/uitweg:** als een primitieve onvoldoende blijkt, eerst het objectmodel corrigeren. Niet met app-specifieke hacks verbergen.
 
+**Afsluiting op 5 november 2026:** M0 afgerond met [51 technische controles en document-/inventariscontrole](evidence/M0/acceptance-results.json). Boot via firmware is getoetst met een duidelijk gelabelde EFI-omgevingsfixture, niet de toekomstige kernel. [Overdracht naar M1](m0/M1-HANDOFF.md) benoemt de nog te implementeren runtimepoorten. Concrete Wine/Darling-revisions worden gekozen vóór een daadwerkelijke port; Linux/Mach-runtimeproeven blijven M14/M15. De Windows 95–11-scope is uitgewerkt in WC1–WC7 en de generatie-inventaris.
+
 ## M1 — Bootbare kernel en diagnostiek
 
 **Doel/afhankelijkheden:** M0; een minimale eigen kernel start reproduceerbaar via USB-image en ISO.

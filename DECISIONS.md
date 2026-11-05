@@ -24,16 +24,19 @@ Status: baseline; 'gekozen' betekent richting voor implementatie, geen gemeten r
 | ADR-018 | Geversioneerde code; data/cache/temp gescheiden | Beheer, herstel en duidelijke bewaartermijnen | Apps vrij laten schrijven in code vereenvoudigt sommige legacygevallen maar vergroot risico | Beheerde schrijflaag alleen waar nodig; uninstall-/rollbacktests |
 | ADR-019 | Eigen beperkte UEFI-loader | Beheerst bootcontract binnen UEFI-onlyscope | Limine/GRUB verkleinen implementatiewerk; terugvaloptie bij disproportionele vertraging | EFI-formaat gebouwd; echte overdracht in M1 |
 | ADR-020 | FAT32 EFI + ext2-ontwikkelvolume | Standaardboot en overzichtelijke eerste persistente opslag | NTFS/ext4/nieuw formaat groter; FAT32 onvoldoende algemeen | Featureallowlist, fsck en crashtests; production storage later apart |
-| ADR-021 | QEMU q35/TCG + OVMF als kandidaat | Reproduceerbaar zonder specifieke hostversnelling | Host-passthrough moeilijker reproduceerbaar | Versiepin en bootcontrole nog open |
+| ADR-021 | QEMU pc-q35-11.1/TCG + gebundelde OVMF | Testbaar zonder specifieke hostversnelling | Host-passthrough moeilijker reproduceerbaar | Executable/DLL/firmwarehashes gepind; ISO/GPT-USB EFI-fixture geslaagd |
 | ADR-022 | Procesgebonden ABI-decoders | Zelfde syscallnummer kan per ecosysteem iets anders betekenen | Alleen imports onderscheppen mist directe syscalls | Entry-/returnproeven in M2/M7 |
 | ADR-023 | x86 32-bit via compatibility mode | Originele 32-bit Windows-apps op x86-64 | CPU-emulatie duurder; alleen 64-bit sluit relevante apps uit | Thunks, TLS en stacktests vóór Steam |
 | ADR-024 | Conservatieve commit bij start | Geen geheugenbelofte zonder backing/reserve | Agressieve overcommit kan meer apps starten maar later onverwacht falen | M3 druk-/OOM-tests en latere beleidsherziening |
+| ADR-025 | pycdlib 1.22.0 als eerste ISO-verpakker | Pure Python op Windows; EFI El Torito zonder WSL | xorriso vraagt hier extra toolomgeving | Wheelhash gepind; echte OVMF-ISO-load geslaagd; build-host LGPL-component |
+| ADR-026 | Kleine EFI-omgevingstest vóór kernel | Scheidt tool-/firmwarefouten van kernelproblemen | Eerste kernel meteen booten maakt diagnose minder gericht | Marker/exitcode via ISO en GPT-USB; geen kernelclaim |
+| ADR-027 | Windows-generatieregister plus expliciete latere runtimepoorten | Brede eis behouden met traceerbaar bewijs | Alle apps claimen op enkele voorbeelden is oncontroleerbaar | Acht profielen; register nog leeg; WC1–WC7/M7+ |
 
 ## Nog te besluiten vóór relevante implementatie
 
 Scopeaanvulling: [Windows 95–11](WINDOWS-COMPATIBILITY.md) is het brede appcompatibiliteitsdoel; M0–M16 alleen dekken dit niet volledig. WC1–WC7 zijn toegevoegd. ADR-015 beperkt uitsluitend de eerste release en sluit drivergebonden apps niet stilzwijgend uit het uiteindelijke doel. Geen universele startgarantie wordt afgegeven.
 
-- M0: hoofdtaal, toolchainroute, bootloaderstrategie en ontwikkelfilesystem zijn gekozen; concrete tool-/firmwarepins, boot-/ABI-headerlayouts en aanvullende referentieproeven staan nog open.
+- M0 afgerond: hoofdtaal/toolchain, bootstrategie, ontwikkelfilesystem, lokale tool-/firmwarepins, headerlayouts/inhoudsvalidatie en Windowsreferentieproeven vastgelegd/getoetst. Runtimepoorten staan in [M1-overdracht](m0/M1-HANDOFF.md).
 - M0: eerste x86-64-testcomputer en beschikbare fysieke testmiddelen; onbekend blijft expliciet onbekend.
 - M0: 32-bitstrategie en ABI-routing zijn beschreven; uitvoering blijft te bewijzen. Zie [kernelcontracten](m0/KERNEL-CONTRACTS.md).
 - M3: eerste RAM-budgetten, commitbeleid en definitie van out-of-memoryherstel.

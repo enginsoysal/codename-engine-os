@@ -1,0 +1,131 @@
+{
+  "scope": "actual C header validators; host execution, not kernel address validation",
+  "passed": true,
+  "checks": [
+    {
+      "name": "valid boot header",
+      "passed": true
+    },
+    {
+      "name": "CRC agrees with standard zlib vector",
+      "passed": true
+    },
+    {
+      "name": "null boot pointer",
+      "passed": true
+    },
+    {
+      "name": "every truncated header rejected",
+      "passed": true
+    },
+    {
+      "name": "bad magic",
+      "passed": true
+    },
+    {
+      "name": "future version",
+      "passed": true
+    },
+    {
+      "name": "wrong size",
+      "passed": true
+    },
+    {
+      "name": "unknown flags",
+      "passed": true
+    },
+    {
+      "name": "reserved field",
+      "passed": true
+    },
+    {
+      "name": "range overflow",
+      "passed": true
+    },
+    {
+      "name": "missing kernel",
+      "passed": true
+    },
+    {
+      "name": "overlapping kernel",
+      "passed": true
+    },
+    {
+      "name": "bad descriptor stride",
+      "passed": true
+    },
+    {
+      "name": "bad descriptor version",
+      "passed": true
+    },
+    {
+      "name": "descriptor remainder",
+      "passed": true
+    },
+    {
+      "name": "reservation remainder",
+      "passed": true
+    },
+    {
+      "name": "framebuffer fields without range",
+      "passed": true
+    },
+    {
+      "name": "corrupted checksum rejected",
+      "passed": true
+    },
+    {
+      "name": "valid framebuffer geometry",
+      "passed": true
+    },
+    {
+      "name": "short framebuffer stride rejected",
+      "passed": true
+    },
+    {
+      "name": "valid user buffer",
+      "passed": true
+    },
+    {
+      "name": "user boundary exact end",
+      "passed": true
+    },
+    {
+      "name": "user boundary overflow",
+      "passed": true
+    },
+    {
+      "name": "zero length allowed",
+      "passed": true
+    },
+    {
+      "name": "null nonempty buffer rejected",
+      "passed": true
+    },
+    {
+      "name": "wraparound rejected",
+      "passed": true
+    },
+    {
+      "name": "32-bit profile bound",
+      "passed": true
+    },
+    {
+      "name": "request version rejected",
+      "passed": true
+    },
+    {
+      "name": "request truncation rejected",
+      "passed": true
+    },
+    {
+      "name": "1000 deterministic single-bit corruptions rejected",
+      "passed": true
+    }
+  ],
+  "additional_inputs": {
+    "truncated_boot": 160,
+    "truncated_requests": 24,
+    "mutations": 1000
+  }
+}

@@ -1,4 +1,4 @@
-# M0 — eerste technische resultaten
+# M0 — afsluitbewijs
 
 Uitgevoerd op 5 november 2026 op de Windows-ontwikkelhost.
 
@@ -6,13 +6,14 @@ Herhalen vanaf de huidige projectmap:
 
 ```powershell
 python m0/probes/run_probes.py
+python m0/verify_m0.py
 ```
 
-Het script gebruikt tijdelijke bestanden, wist alleen zijn eigen tijdelijke directory en schrijft [probe-results.json](probe-results.json). Het installeert geen tools en maakt geen bootbaar OS. Compiler-/linkercommando's, foutuitvoer en resulterende hashes staan in JSON. Project-, gebruikers- en tijdelijke paden worden voor openbare publicatie vervangen door placeholders.
+De eerste opdracht herhaalt de oorspronkelijke elf proeven; de tweede voert alle M0-gates vers uit. Setup staat in [tools](../../tools/README.md). Resultaten: [acceptatie](acceptance-results.json), [basis](probe-results.json), [contracten](contract-results.json), [Windowsreferenties](windows-reference-results.json), [firmware/media](environment-results.json). Project-, gebruikers- en tijdelijke paden in openbare proefrapporten zijn geredigeerd. Gegenereerde binaries en images blijven lokaal onder `build/`.
 
 ## Gemeten
 
-Elf controles geslaagd:
+Oorspronkelijke elf controles geslaagd:
 
 1. C17 → freestanding x86-64 ELF64 → gelinkt bestand met juiste machine-ID.
 2. C17 → freestanding ARM64 ELF64 → gelinkt bestand met juiste machine-ID.
@@ -26,10 +27,16 @@ Elf controles geslaagd:
 10. Dezelfde layoutassertions slagen op ARM64.
 11. Dezelfde layoutassertions slagen op i686, zonder hostpointervelden.
 
-Beschikbaar: Clang/LLD 21.1.6, Python, LLVM-inspectietools en LLDB. Niet gevonden op PATH: QEMU, xorriso en Rust. WSL-opvraag meldt dat WSL niet geïnstalleerd is. 'Niet op PATH' bewijst niet dat een programma nergens op de computer staat.
+Aanvullend geslaagd:
+
+- 30 checks tegen de daadwerkelijke C-inhoudsvalidators: goede header, CRC, afkapping, ongeldige versie/flags, overflow, overlap, descriptorvorm, framebuffer en userbuffergrenzen. Samengestelde checks omvatten 160 afgeknotte bootlengtes, 24 requestlengtes en 1000 deterministische enkelbitcorrupties.
+- 8 Windows-hostreferenties: geblokkeerde rename zonder delete-sharing, Unicode-rename na sluiten, lezen na delete-sharing, uiteindelijke naamverwijdering, case-insensitive lookup in de referentiemap, afzonderlijke Unicode-normalisatievormen, continuable exceptiondelivery en handleropruiming.
+- 2 firmwareloads: OVMF voert `efi_environment.c` uit vanaf een optische ISO en een GPT/FAT32-image via USB-storage achter xHCI. Beide geven seriële marker `ENGINE_OS_M0_ENVIRONMENT_OK` en debug-exitcode 33. Zie de [ISO-log](environment-iso-serial.log) en [USB-log](environment-usb-serial.log).
+
+Totaal: **51 technische checks**, plus controle van documentlinks en Windows-generatie-inventaris. QEMU bleek al buiten PATH geïnstalleerd. De waargenomen compiler-, QEMU-/DLL- en firmwarehashes staan in het [toolmanifest](../../tools/toolchain-lock.json). pycdlib 1.22.0 is de gepinde ISO-verpakker; xorriso/WSL zijn daarvoor niet meer vereist.
 
 ## Niet bewezen
 
-Geen firmwareboot, ISO/USB-image, werkende kernel, gastsyscall, kernel-TLS-switch, Linux-/macOS-runtime, driver of appcompatibiliteit. ELF/PE-formaten controleren toont de uitvoerbare toolchainroute, niet dat deze proefcode een echte OS-entry implementeert. De vijf Windows-proeven beschrijven referentiegedrag op de host; onze kernel implementeert dat nog niet.
+Geen eigen kernelboot/ExitBootServices-overdracht, installer, gastsyscall, kernel-TLS-switch, Linux-/macOS-runtime, hardwaredriver of appcompatibiliteit. De EFI-fixture blijft in de firmwareomgeving en stopt na zijn marker. De C-validators controleren bytes/arithmetic, niet dat verwezen geheugen gemapt/toegankelijk is. Hostreferenties zijn geen gastimplementatie. Lokale hashes zijn geen onafhankelijk upstream-authenticiteitsbewijs. ISO-timestamps kunnen artefacthashes tussen builds veranderen; de gate eist succesvolle firmware-loads, niet byte-identieke ISO's.
 
-Daarom blijft M0 in uitvoering en M1 niet gestart. Zie [M0-afsluitcriteria](../../m0/README.md).
+M0 is binnen deze expliciete architectuur-/toolchainscope afgesloten. M1 is niet gestart. Zie [afsluitcriteria](../../m0/README.md) en [overdracht](../../m0/M1-HANDOFF.md).

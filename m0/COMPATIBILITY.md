@@ -28,12 +28,18 @@
 | P05 | Windows manual-reset event tweemaal wachten | Staat blijft gezet zonder reset | Geslaagd op Windows-host |
 | P06 | Windows bestand zonder sharing opnieuw openen | API moet ook negatieve gevallen juist uitvoeren | Geslaagd: sharing violation 32 |
 | P07 | Multiwait, timeout en sluiten | Race- en lifecyclecontracten | Wait-any/all en zero-time timeout gemeten; concurrent sluiten/races nog open |
-| P08 | TLS per thread en exceptionoverdracht | Essentieel voor binary-start en foutafhandeling | TLS-isolatie gemeten; exceptionoverdracht nog open |
+| P08 | TLS per thread en exceptionoverdracht | Essentieel voor binary-start en foutafhandeling | TLS-isolatie en continuable vectored exception op Windows-host gemeten; geen gast-SEH-implementatie |
 | P09 | Directe syscall-entry op eigen kernel | DLL-vertaling alleen is onvoldoende | M2/M7 runtimepoort; M0 entry-/decodecontract beschreven |
 | P10 | Linux signal/futex/mmapreferenties | Verschillende fout-/wachtregels | Documentatie; geen eigen referentiemeting |
 | P11 | Mach-port-/Darwinreferenties | Mach IPC is geen hernoemde Windows-event | Documentatie; geen eigen referentiemeting |
-| P12 | Rename/unlink, case en Unicode | Eén simpele padmapping is onvoldoende | Contract beschreven; referentietests nog te doen |
+| P12 | Rename/unlink, case en Unicode | Eén simpele padmapping is onvoldoende | Sharing/rename/delete/Unicode/case in Windows-tempdirectory gemeten; VFS-implementatie later |
 | P13 | Boot-/requestlayouts op x64, ARM64 en i686 | Wire layout mag niet van hostpointers afhangen | Drie compileercontroles geslaagd |
+| P14 | Headerinhoud en malformed input | Correcte layout alleen voorkomt overflow of corrupte data niet | 30 C-validatorchecks plus truncaties en 1000 bitmutaties geslaagd |
+| P15 | Echte UEFI-mediaload | Imagevorming moet ook door firmware herkend worden | ISO en GPT-USB fixture geladen; geen kerneloverdracht |
+
+## Windows 95–11-generatiecontract
+
+De [machineleesbare inventaris](windows-targets.json) bevat acht groepen, installer-/apparchitectuur apart en vereiste kwalificatievelden. Win16/NE, 9x/NT-profielen, runtimes/pakketten en driver-/externe-dienstafhankelijkheden zijn verplichte onderzoeksroutes volgens [WC1–WC7](../WINDOWS-COMPATIBILITY.md). Geen app is nu ondersteund verklaard. Linux/macOS-referentiemetingen zijn latere platformpoorten, geen verborgen Windows-M0-blocker.
 
 ## Hergebruikbeleid
 

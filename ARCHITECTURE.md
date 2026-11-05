@@ -1,6 +1,6 @@
 # Architectuur
 
-Status: ontwerpbaseline 0.2; M0 in uitvoering. Besluiten hebben expliciete validatiepoorten. Zie [M0-contracten en resultaten](m0/README.md).
+Status: ontwerpbaseline 0.3; M0 afgerond als architectuur/toolchainfase. Runtimepoorten blijven in latere mijlpalen. Zie [M0-contracten en resultaten](m0/README.md).
 
 ## Systeemlagen
 
@@ -83,7 +83,7 @@ Installatie gebruikt expliciete doelkeuze, preflight, verifieerbaar kopiëren en
 
 ## Ontwikkeling en diagnostiek
 
-M0 kiest C17 met beperkte assembly en Clang/LLD, een eigen beperkte UEFI-loader, FAT32 voor EFI en een beperkt ext2-profiel als eerste ontwikkelvolume. Ext2 zonder journal is geen definitieve crashbestendige productoplossing. QEMU q35/TCG met OVMF is het gekozen virtuele profiel; tools/firmware zijn nog niet als uitvoerbare referentie vastgepind. Zie [bouw- en platformkeuzes](m0/BUILD-PLATFORM.md).
+M0 kiest C17 met beperkte assembly en Clang/LLD, een eigen beperkte UEFI-loader, FAT32 voor EFI en een beperkt ext2-profiel als eerste ontwikkelvolume. Ext2 zonder journal is geen definitieve crashbestendige productoplossing. QEMU pc-q35-11.1/TCG met OVMF is gepind en laadt de EFI-testfixture via ISO en GPT-USB. pycdlib vervangt xorriso als eerste Windows-hostverpakker. Eigen kerneloverdracht is daarmee nog niet getest. Zie [bouw- en platformkeuzes](m0/BUILD-PLATFORM.md).
 
 Een reproduceerbare cross-build voorkomt afhankelijkheid van de host-ABI. De toolchain, compilerflags en gebruikte componentversies worden vastgelegd. Seriële logging, symbolische crashrapporten en een debuggerverbinding bestaan vóór de desktop. Hosttests controleren datastructuren; QEMU-tests controleren kernelgedrag; echte hardware controleert de grenzen van het virtuele platform.
 

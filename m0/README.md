@@ -1,6 +1,6 @@
-# M0 — architectuurcontracten
+# M0 — afgesloten architectuur- en toolchainbaseline
 
-Datum: 5 november 2026. Status: in uitvoering; ontwerpbesluiten en eerste technische proeven vastgelegd.
+Afgerond: 5 november 2026. Scope: gereedheid voor M1; geen werkende OS-kernel of installer.
 
 ## Resultaat van deze stap
 
@@ -8,35 +8,38 @@ Datum: 5 november 2026. Status: in uitvoering; ontwerpbesluiten en eerste techni
 - [Kernelcontracten](KERNEL-CONTRACTS.md): objecten, geheugen, procesmodel en ABI-routing.
 - [Semantiekmatrix](COMPATIBILITY.md): Windows/Linux/macOS-verschillen en validatiepoorten.
 - [Bouw- en platformkeuzes](BUILD-PLATFORM.md): taal, toolchain, boot, filesystem en testmachine.
-- [Eerste proefresultaten](../evidence/M0/README.md): wat daadwerkelijk is getest.
-- [Proefscript](probes/run_probes.py): herhaalbare compileer- en Windows-referentieproeven.
+- [Windows-doelregister](windows-targets.json): acht generatiegroepen en verplichte appkwalificatievelden.
+- [Bewijs](../evidence/M0/README.md) en [acceptatieresultaat](../evidence/M0/acceptance-results.json).
+- [Verificatie](verify_m0.py): vier verse suites plus document-/inventariscontrole.
+- [M1-overdracht](M1-HANDOFF.md): kortste uitvoeringsroute naar kernelboot en daarna installatie.
 
 ## Afsluitcriteria en stand
 
 | Criterium | Stand | Betekenis |
 |---|---|---|
-| Productgrenzen en lagen | Vastgelegd | Eigen core, afzonderlijke omgevingen, Windows eerst |
+| Productgrenzen en lagen | Afgerond | Eigen core; Windows 95–11 via WC1–WC7 |
 | Mappen, mounts en gastweergaven | Vastgelegd | Goedgekeurde richting verwerkt in technisch contract |
 | Hoofdtaal/toolchain | Gekozen en compileerroute getoetst | C17 + Clang/LLD; ELF64 en EFI-image gevormd |
-| Bootcontract | Vastgelegd | Eigen UEFI-loader; uitvoering volgt in M1 |
+| Bootcontract | Vastgelegd en header getoetst | Eigen kerneloverdracht volgt in M1 |
 | Object-/proces-/geheugenmodel | Ontwerp vastgelegd | Runtimecorrectheid moet nog bewezen worden |
-| 32-bitstrategie | Vastgelegd | Hardware compatibility mode; gemengde modules via thunks |
-| ABI-risico's | Geïnventariseerd; gedeeltelijk getoetst | Windows-events, multiwait, TLS en bestandsdeling gemeten; geen gastsyscalls uitgevoerd |
-| Boot-/requestlayouts | Eerste headers compileerbaar | Assertions op x86-64, ARM64 en i686; geen complete runtimevalidatie |
-| Virtueel platform | Profiel gekozen; nog niet uitvoerbaar | QEMU/OVMF/image-tools ontbreken in gecontroleerde omgeving |
+| Win16/32/64-strategie | Vastgelegd | Legacy-runtime, compatibility mode en directe x64-uitvoering; nog geen appuitvoering |
+| ABI-risico's | Windows-referenties getoetst | Events, multiwait, TLS, exceptions, sharing, rename en Unicode |
+| Boot-/requestlayouts | Compileerbaar en inhoudsvalidator getest | Assertions op x86-64, ARM64 en i686; negatieve hosttests |
+| Virtueel platform | Gepind en uitgevoerd | QEMU pc-q35-11.1/TCG/OVMF; ISO en GPT-USB firmwarefixture |
+| ISO-verpakking | Gepind en uitgevoerd | pycdlib 1.22.0 met wheelhash; geen WSL/xorriso nodig |
 | Referentiemetingen Linux/macOS | Niet uitgevoerd | Interfacebronnen onderzocht; geen beschikbare referentiesessie gebruikt |
 | Fysieke testcomputer | Niet geselecteerd | Host wordt niet automatisch een wisbaar testdoel |
 
-M0 is nog niet technisch volledig afgerond. Eerst moeten de virtuele tools en firmware worden vastgepind en aanvullende exception-/padproeven worden uitgevoerd. De eerste boot-/ABI-structuren hebben compileerbare layoutcontroles; validatie van inhoud, ranges en kernel-entry blijft apart werk. M1 blijft niet gestart. Een fysieke testcomputer is geen blocker voor de virtuele eerste build.
+M0 is afgerond binnen de architectuur-/toolchainscope. De baseline heeft 51 technische controles: 11 oorspronkelijke bouw/layout/Windowsproeven, 30 contractchecks, 8 aanvullende Windowsreferenties en 2 firmwareloads. Contracttests bevatten bovendien 160 afgeknotte bootlengtes, 24 requestlengtes en 1000 deterministische bitcorrupties. De actuele verse resultaten staan in het acceptatierapport.
 
-## Werkpakketten voor de resterende M0-afronding
+## Overdracht en expliciete latere poorten
 
-1. Maak een projectlokale toolmanifest met versie, herkomst, checksum en installatie-/startcontrole voor QEMU, OVMF en ISO-verpakking. De kandidaatconfiguratie wordt pas referentie na een start-/apparaatcontrole.
-2. Vul de geslaagde TLS-/multiwaitproeven aan met exceptionoverdracht en pad-/renamegedrag. Voer Linux/macOS-specifieke proeven pas op beschikbare doelomgevingen uit; label documentatie versus meting.
-3. Breid de [bootheader](contracts/boot_v0.h) en [requestheader](contracts/syscall_v0.h) uit met inhoudsvalidatie en negatieve inputgevallen. Layoutassertions op drie targets slagen al. De kernelimplementatie zelf hoort bij M1/M2.
-4. Leg compatibiliteitscomponenten vast op concrete revisions vóór daadwerkelijk porten; momenteel is geen volledige Wine/Darling-port gekozen of bewezen.
-5. Sluit M0 pas met een bijgewerkte acceptatiematrix; meld open runtimepoorten aan M1/M2 expliciet.
+1. M1: echte loader/kernel-entry, fysieke inhoudscontrole en ExitBootServices. De M0-fixture gebruikt firmware, schrijft een marker en sluit af; dat is geen kerneloverdracht.
+2. M2/M3/M7: daadwerkelijke syscall-entry, gast-TLS, racegedrag en exceptionimplementatie. Windows-hostmetingen zijn referenties, geen eigen implementatie.
+3. M14/M15: Linux-/Mach-runtimeproeven op passende omgevingen. Documentatie is geen gemeten compatibiliteit.
+4. Concrete Wine/Darling-revisions worden vóór een port gekozen. Er is nu geen component overgenomen; willekeurige revisions vastzetten zou geen port valideren.
+5. Een fysieke testcomputer wordt vóór fysieke tests gekozen; de hostschijf wordt nooit automatisch een testdoel. Virtueel M1 starten kan al.
 
 ## Bronnen en bewijs
 
-Primaire documentatie is gelinkt in de afzonderlijke contracten. De toolchain, headerlayouts en vijf Windows-referentiegevallen zijn in elf controles getoetst. De uiteindelijke OS-werking is daarmee niet bewezen.
+Primaire documentatie staat in de contracten. M0 heeft een getoetste bouw-/testbasis; kernelwerking, installatie en appcompatibiliteit zijn niet bewezen. Het Windows-appregister is daarom nog leeg. Nieuwe bevindingen wijzigen deze baseline via een gemotiveerd besluit plus regressietests.

@@ -88,6 +88,8 @@ Het doel gaat over compatibel gedrag. Een pixel-identieke Windows-desktop of het
 
 ## Afhankelijkheden en prioriteit
 
+M0 heeft de [machineleesbare generatie-/appinventaris](m0/windows-targets.json) vastgelegd. Het register bevat bewust nog geen geslaagde apps; de proefprogramma's zijn Windows-hostreferenties en UEFI-toolchecks. [M0 → M1](m0/M1-HANDOFF.md) bewaart de Windows 95–11-eisen bij de eerste echte kernelimplementatie.
+
 M0–M8 blijft het eerste verticale implementatiepad, met WC1 vanaf M0 en legacy/runtimerisico's al in het ontwerp. WC2–WC7 vullen de Windows-roadmap aan; hun concrete werkpakketten worden voor uitvoering verder gesplitst. Linux/macOS blijven toekomstige trajecten en krijgen geen hogere prioriteit dan deze Windows-doelen. UEFI-only boot blijft geldig: oude apps ondersteunen verplicht het OS niet tot booten op een pc uit 1995.
 
 ## Primaire bronnen

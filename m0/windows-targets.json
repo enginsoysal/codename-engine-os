@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "requirement": "Original applications/installers targeting Windows 95 through Windows 11; install, start repeatedly and perform registered tasks correctly",
+  "status": "architecture inventory; no application currently qualified",
+  "initial_host_architecture": "x86_64",
+  "planned_execution_routes": {
+    "win16_ne": "isolated legacy runtime with segmented address/thunk support; CPU emulation where needed; WC2",
+    "win32_pe": "x86 compatibility mode plus Win32/NT or 9x profile; M7/WC3",
+    "win64_pe": "direct x86_64 CPU execution with own Windows API/NT implementation; M7",
+    "arm64_pe": "future ARM64 platform and Windows ARM ABI work; not implied by x86_64 support"
+  },
+  "generation_profiles": [
+    {"id": "win95", "family": "9x", "systems": ["Windows 95"], "tracks": ["WC1", "WC2", "WC3", "WC5", "WC6"]},
+    {"id": "win98-me", "family": "9x", "systems": ["Windows 98", "Windows 98 SE", "Windows Me"], "tracks": ["WC1", "WC2", "WC3", "WC5", "WC6"]},
+    {"id": "nt4-2000", "family": "NT", "systems": ["Windows NT 4.0", "Windows 2000"], "tracks": ["WC1", "WC3", "WC4", "WC6"]},
+    {"id": "xp", "family": "NT", "systems": ["Windows XP", "Windows XP Professional x64"], "tracks": ["WC1", "WC2", "WC3", "WC4", "WC5", "WC6"]},
+    {"id": "vista-7", "family": "NT", "systems": ["Windows Vista", "Windows 7"], "tracks": ["WC1", "WC3", "WC4", "WC5", "WC6"]},
+    {"id": "8-81", "family": "NT", "systems": ["Windows 8", "Windows 8.1"], "tracks": ["WC1", "WC3", "WC4", "WC5", "WC6"]},
+    {"id": "10", "family": "NT", "systems": ["Windows 10"], "tracks": ["WC1", "WC3", "WC4", "WC5", "WC6"]},
+    {"id": "11", "family": "NT", "systems": ["Windows 11"], "tracks": ["WC1", "WC3", "WC4", "WC5", "WC6"]}
+  ],
+  "application_record_required_fields": [
+    "id", "name", "version", "installer_sha256", "installer_architecture", "application_architecture",
+    "target_generation_profiles", "runtime_dependencies", "driver_dependencies", "external_services",
+    "required_hardware", "install_steps", "launch_steps", "usage_tasks", "reboot_steps", "uninstall_steps",
+    "license_and_source", "result", "evidence_paths", "known_blockers"
+  ],
+  "applications": [],
+  "empty_register_reason": "No original app has been tested on an Engine OS kernel. Candidate names alone are not qualification records. M8 will populate 7-Zip; earlier Windows-host fixtures are behavior references only.",
+  "required_installation_paths": ["EXE", "MSI", "Win16 installer for Win32 payload", "mixed 32/64-bit", "AppX/MSIX"],
+  "required_runtimes_to_inventory": ["Win16", "Win32/Win64", "COM/OLE/ActiveX", "VB/VC runtimes", ".NET Framework", "modern .NET", "WinRT/UWP", "Windows App SDK", "web components"],
+  "qualification": {
+    "sequence": ["clean environment", "original installer", "first launch", "OS reboot", "repeated launch", "registered usage tasks", "save/reopen", "uninstall"],
+    "required_status": "no known critical/blocking defects in the exact published app/version/task matrix",
+    "not_a_guarantee": "All untested apps, all possible inputs or unavailable external services"
+  }
+}

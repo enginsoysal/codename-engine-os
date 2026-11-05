@@ -2,7 +2,7 @@
 
 An independent, open-source operating system built around its own kernel and system services. The first application goal is installing and using unmodified Windows software; Linux, macOS, DOS and ARM support are staged roadmap goals.
 
-**Current state: M0 architecture and technical probes. There is no bootable release yet.** Existing documentation is primarily in Dutch. Original project code and documentation are available under the [MIT license](LICENSE); future third-party components retain their respective licenses.
+**Current state: M0 architecture/toolchain baseline completed; M1 kernel implementation is next. There is no bootable OS release or installer yet.** A tiny EFI environment fixture loads via ISO and USB in QEMU; this is not an OS kernel. Existing documentation is primarily in Dutch. Original project code and documentation are available under the [MIT license](LICENSE); future third-party components retain their respective licenses.
 
 Canonical repository: [enginsoysal/codename-engine-os](https://github.com/enginsoysal/codename-engine-os).
 
@@ -10,9 +10,9 @@ Canonical repository: [enginsoysal/codename-engine-os](https://github.com/engins
 
 De aangescherpte productrichting is Windows-appcompatibiliteit over het Windows 95–11-tijdperk. Boot en installatie waren al gepland; volledige generatiedekking vraagt aanvullende trajecten. Zie [scope, ontbrekende onderdelen en kwaliteitscriteria](WINDOWS-COMPATIBILITY.md). Universele foutloosheid is geen bewezen of afgegeven garantie.
 
-Vastgelegd: 5 november 2026. Documentversie: 0.2.
+Vastgelegd: 5 november 2026. Documentversie: 0.3.
 
-Status: M0 in uitvoering; architectuurcontracten en technische proeven toegevoegd. M1/OS-implementatie niet gestart.
+Status: M0 afgerond met 51 technische controles en document-/inventariscontrole. M1/OS-implementatie niet gestart. [Volgende stappen naar VM-boot en installatie](m0/M1-HANDOFF.md).
 
 ## Doel
 
