@@ -1,0 +1,80 @@
+{
+  "checks": [
+    {
+      "case": 0,
+      "bytes": 0,
+      "passed": true
+    },
+    {
+      "case": 1,
+      "bytes": 3,
+      "passed": true
+    },
+    {
+      "case": 2,
+      "bytes": 1000000,
+      "passed": true
+    },
+    {
+      "case": 3,
+      "bytes": 1,
+      "passed": true
+    },
+    {
+      "case": 4,
+      "bytes": 55,
+      "passed": true
+    },
+    {
+      "case": 5,
+      "bytes": 56,
+      "passed": true
+    },
+    {
+      "case": 6,
+      "bytes": 63,
+      "passed": true
+    },
+    {
+      "case": 7,
+      "bytes": 64,
+      "passed": true
+    },
+    {
+      "case": 8,
+      "bytes": 65,
+      "passed": true
+    },
+    {
+      "case": 9,
+      "bytes": 119,
+      "passed": true
+    },
+    {
+      "case": 10,
+      "bytes": 120,
+      "passed": true
+    },
+    {
+      "case": 11,
+      "bytes": 127,
+      "passed": true
+    },
+    {
+      "case": 12,
+      "bytes": 128,
+      "passed": true
+    },
+    {
+      "case": 13,
+      "bytes": 129,
+      "passed": true
+    },
+    {
+      "case": 14,
+      "bytes": 4096,
+      "passed": true
+    }
+  ],
+  "source_sha256": "2d841840e545776a025f28b9af6c57a458c9da729ecee34eede0f6aef8179012"
+}

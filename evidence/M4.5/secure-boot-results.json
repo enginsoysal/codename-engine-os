@@ -1,0 +1,66 @@
+{
+  "checks": [
+    {
+      "name": "TCG-only enroller accepts only empty SetupMode policy; writes disposable VM db/KEK/PK",
+      "passed": true,
+      "exit": 33
+    },
+    {
+      "name": "signed test enroller refuses nonempty existing platform policy before any SetVariable",
+      "passed": true,
+      "exit": 101
+    },
+    {
+      "name": "verified loader with Secure Boot disabled still checks payload hashes",
+      "passed": true
+    },
+    {
+      "name": "signed",
+      "passed": true,
+      "exit": null,
+      "expected": "boot"
+    },
+    {
+      "name": "unsigned",
+      "passed": true,
+      "exit": null,
+      "expected": "firmware-reject"
+    },
+    {
+      "name": "tampered-loader",
+      "passed": true,
+      "exit": null,
+      "expected": "firmware-reject"
+    },
+    {
+      "name": "tampered-kernel",
+      "passed": true,
+      "exit": 69,
+      "expected": "loader-reject"
+    },
+    {
+      "name": "tampered-init",
+      "passed": true,
+      "exit": 69,
+      "expected": "loader-reject"
+    }
+  ],
+  "provenance": {
+    "build_id": "d57bd0cfd56bbc58aaca20dc4dc47bf5",
+    "cryptography_version": "50.0.2",
+    "signtool_sha256": "098b94694b1c30df75d872b9395e4aa1d80984b3a57e1bd88af8db0b6a8aef9a",
+    "public_certificate_sha256": "0f0b19da7c615b8129e89b48998a15127b11a2bc752f87161f71075d0554167a",
+    "signed_loader_sha256": "c5c8ef9c53ec5f14607233e995ff8d1af8169362afc27079936a5b19bde9290e",
+    "kernel_sha256": "31765c60b72aa5c2a6b3c396d4ca9745cce2f4070e7ec4118d3e9348186fa3fc",
+    "init_sha256": "7cb65de6dad99b288ce61afdd7fd3a0849c00842aed379c97b248a52e900eb11",
+    "test_source_sha256": {
+      "tools/build/secure.py": "f8799c3a04cad202c000a78db9c2da87579b104862df2fe7f997e97f7d468fce",
+      "tests/m45/firmware/enroll.c": "b9848b3179f64f5b13669206c52de5dc55763d3580f9eddfe0dba951acf18261",
+      "tests/m45/secure_boot.py": "c49739e6ae2cc80445ce2d56b58b7b2320ad70d62681b3b028e3c81fbc9ceb16"
+    },
+    "policy": "ephemeral owner-enrolled test key; no factory trust; enroller/private key never published",
+    "secure_firmware_sha256": "32807682a9e5c0e2d192ecb6077941d4be8bcfa6b9cd6e60830c3a9f48c0555a"
+  },
+  "full_m45_complete": false,
+  "scope": "owner-enrolled disposable QEMU/OVMF trust only; no factory/OEM trust or physical qualification"
+}

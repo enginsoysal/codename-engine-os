@@ -25,6 +25,8 @@ The marked working disk persists as `build/m4/manual/fs-data.img`. Copy both fil
 
 ## Pins and setup
 
+M4.5 development is explicit: `python tools/build/m45.py`, `python tools/vm/run.py --milestone M45 --data-disk build/m45/example.img`, `python tests/m45/verify_increment.py`. The M45 launcher uses a temporary overlay for ordinary disk images. [Storage/trust scope](../docs/milestones/m4.5-storage.md), [security test tool pins](security-toolchain.json). The normal development ISO is unsigned; owner-key Secure Boot tests generate separate local-only media and never modify host firmware/certificate stores.
+
 [toolchain-lock.json](toolchain-lock.json) records the observed compiler/linker hashes, QEMU executable/adjacent DLLs, EDK2 firmware/template/notices, Python version and original reference profile. These local pins are not independently reproduced upstream-authenticity proof. Do not silently replace a different installed version; review pins and rerun gates. The existing Swift/LLVM and QEMU installations are not globally modified.
 
 ```powershell

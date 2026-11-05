@@ -1,0 +1,13 @@
+{
+  "build_id": "1097402a56f89f07059978c84959bf80",
+  "scope": "AHCI/ext2 reboot, rejection, IRQ wait, low-RAM and ISO/USB qualification",
+  "checks": [
+    {
+      "case": "persist-first",
+      "passed": true,
+      "exit": 33,
+      "generation": 1,
+      "unchanged_on_rejection": false
+    }
+  ]
+}

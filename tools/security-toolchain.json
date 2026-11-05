@@ -1,0 +1,14 @@
+{
+  "scope": "observed local test tools; no independent upstream authenticity proof",
+  "cryptography_version": "50.0.2",
+  "files": {
+    "signtool": {
+      "sha256": "098b94694b1c30df75d872b9395e4aa1d80984b3a57e1bd88af8db0b6a8aef9a",
+      "bytes": 493112
+    },
+    "ovmf-secure-code": {
+      "sha256": "32807682a9e5c0e2d192ecb6077941d4be8bcfa6b9cd6e60830c3a9f48c0555a",
+      "bytes": 3653632
+    }
+  }
+}

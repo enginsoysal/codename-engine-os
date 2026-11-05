@@ -1,5 +1,8 @@
 #include <engine/m4.h>
 #include <engine/fs.h>
+#ifdef ENGINE_M45
+#include <engine/storage.h>
+#endif
 static uint8_t record[512];
 static int valid_record(void){uint32_t length,crc;memcpy(&length,record+16,4);memcpy(&crc,record+508,4);return !memcmp(record,M4_RECORD,8)&&length<=120&&crc==m4_crc(record,508);}
 static unsigned load(void){unsigned s=block_read(1,record);if(s)return s;return valid_record()?B_OK:B_IO;}
@@ -18,10 +21,20 @@ static void info(void){block_info s=block_stats();console_text("AHCI validated="
 static char fold(char c){return c>='A'&&c<='Z'?(char)(c-'A'+'a'):c;}
 static int equal(const char *a,const char *b){while(*a&&fold(*a)==fold(*b)){++a;++b;}return fold(*a)==fold(*b);}
 static int store_prefix(const char *s){return fold(s[0])=='s'&&fold(s[1])=='t'&&fold(s[2])=='o'&&fold(s[3])=='r'&&fold(s[4])=='e'&&s[5]==' ';}
+#ifdef ENGINE_M45
+static unsigned number(const char **text,unsigned *value){const char *s=*text;unsigned n=0,digits=0;while(*s>='0'&&*s<='9'){if(n>10000)return 0;n=n*10+(unsigned)(*s++-'0');++digits;}if(!digits||(*s&&*s!=' '))return 0;while(*s==' ')++s;*text=s;*value=n;return 1;}
+#endif
 NORETURN void m4_start(const os_boot_info_v0 *boot,unsigned mode){
     serial_text("M4_STORAGE_BEGIN\n");unsigned s=block_init();serial_text("M4_BLOCK_INIT status=");serial_hex(s);serial_text("\n");
+#ifdef ENGINE_M45
+    (void)nvme_discover();
+#endif
     page_stats memory=pages_stats();serial_text("M4_MEMORY retained_owned_bytes=");serial_hex(memory.current_pages*4096);serial_text(" peak_owned_bytes=");serial_hex(memory.peak_pages*4096);serial_text("\n");
     unsigned filesystem=s?F_IO:fs_mount();serial_text("M4_FS_MOUNT status=");serial_hex(filesystem);serial_text("\n");
+#ifdef ENGINE_M45
+    if(mode==5){extern unsigned fat_selftest(void);console_begin(boot);storage_inventory();if(fat_selftest()){serial_text("M45_FAT32_PAYLOAD_FAIL\n");test_exit(0x32);}serial_text("M45_FAT32_PAYLOAD_PASS\n");test_exit(0x10);}
+    if(mode==1||mode==4){console_begin(boot);storage_inventory();if(storage_selftest()){serial_text("M45_DISCOVERY_FAIL\n");test_exit(0x32);}if(!filesystem){uint64_t before;if(load()){serial_text("M45_MARKED_WRITE_FAIL\n");test_exit(0x32);}memcpy(&before,record+8,8);if(fs_selftest(before)||store("ENGINE OS M45 MARKED REGRESSION")){serial_text("M45_MARKED_WRITE_FAIL\n");test_exit(0x32);}serial_text("M45_MARKED_WRITE_REGRESSION_PASS\n");}for(unsigned i=0;i<storage_count();++i){console_text("Partition inspection disk ");console_decimal(i);console_text("\n");unsigned status=storage_partitions(i);console_text("Partition status: ");console_decimal(status);console_text("\n");}nvme_diagnostics();serial_text("M45_DISCOVERY_PASS\n");test_exit(0x10);}
+#else
     if(mode==1||mode==4){
         uint8_t ignored[512];if(s||block_read(M4_SECTORS,ignored)!=B_DENIED||load()!=B_OK){serial_text("M4_STORAGE_UNAVAILABLE_OR_INVALID\n");test_exit(0x32);}
         uint64_t before;memcpy(&before,record+8,8);if(filesystem||(s=fs_selftest(before))){serial_text("M4_FILESYSTEM_FAIL status=");serial_hex(filesystem?filesystem:s);serial_text("\n");test_exit(0x32);}s=store("ENGINE OS M4 DURABLE RECORD");
@@ -29,16 +42,36 @@ NORETURN void m4_start(const os_boot_info_v0 *boot,unsigned mode){
         uint64_t after;memcpy(&after,record+8,8);if(after!=before+1){serial_text("M4_RECORD_CHECK_FAIL\n");test_exit(0x32);}
         serial_text("M4_STORAGE_PASS generation=");serial_hex(after);block_info i=block_stats();serial_text(" commands=");serial_hex(i.commands);serial_text(" dma_bytes=");serial_hex(i.dma_pages*4096);serial_text(" irqs=");serial_hex(i.irqs);serial_text(" wait_halts=");serial_hex(i.wait_halts);serial_text("\n");test_exit(0x10);
     }
+#endif
     console_begin(boot);console_text("Own kernel storage and interrupt-driven input.\n");
+#ifdef ENGINE_M45
+    storage_inventory();console_text(filesystem?"No writable development filesystem mounted. Disks remain inspectable.\n":"Ext2 development volume mounted.\n");console_text("Use disks, parts N and hardware to inspect devices.\n");
+#else
     console_text(s?"No marked data disk. Storage writes disabled.\n":"Validated disposable data volume ready.\n");
-    console_text(filesystem?"Filesystem unavailable or read-only.\n":"Ext2 mounted. Files persist across reboot.\n");unsigned usb=usb_init();serial_text("M4_USB_INIT status=");serial_hex(usb);serial_text("\n");input_init();serial_text("M4_CONSOLE_READY\n");console_text("engine> ");
+#endif
+#ifndef ENGINE_M45
+    console_text(filesystem?"Filesystem unavailable or read-only.\n":"Ext2 mounted. Files persist across reboot.\n");
+#endif
+    unsigned usb=usb_init();serial_text("M4_USB_INIT status=");serial_hex(usb);serial_text("\n");input_init();serial_text("M4_CONSOLE_READY\n");console_text("engine> ");
     char line[128];unsigned length=0;int overflow=0;
     for(;;){__asm__ volatile("cli");int c=input_pop();if(c<0){__asm__ volatile("sti; hlt":::"memory");continue;}__asm__ volatile("sti");
         if(c==256){usb_mouse_draw();continue;}
         if(c==8){if(length&&!overflow){--length;console_text("\b");}continue;}
         if(c==10){line[length]=0;console_text("\n");
             if(overflow)console_text("Command too long.\n");
-            else if(equal(line,"help"))console_text("help info show store TEXT sync halt\nls PATH | cat PATH | mkdir PATH | rm PATH\nwrite PATH TEXT | mv FROM TO\n");
+            else if(equal(line,"help")){console_text("help info show store TEXT sync halt\nls PATH | cat PATH | mkdir PATH | rm PATH\nwrite PATH TEXT | mv FROM TO\n");
+#ifdef ENGINE_M45
+                console_text("disks | hardware | parts N | fatls N P | fatcat N P PATH\n");
+#endif
+            }
+#ifdef ENGINE_M45
+            else if(equal(line,"disks"))storage_inventory();
+            else if(equal(line,"hardware"))hardware_inventory();
+            else if(length>6&&!memcmp(line,"parts ",6)){unsigned n=0,i=6;while(line[i]>='0'&&line[i]<='9'&&n<STORAGE_MAX)n=n*10+(unsigned)(line[i++]-'0');unsigned status=line[i]?B_DENIED:storage_partitions(n);console_text("Partition status: ");console_decimal(status);console_text("\n");}
+            else if(length>6&&!memcmp(line,"fatls ",6)){const char *args=line+6;unsigned disk,part,status=B_DENIED;if(number(&args,&disk)&&number(&args,&part)&&!*args)status=fat_list(disk,part);console_text("FAT status: ");console_decimal(status);console_text("\n");}
+            else if(length>7&&!memcmp(line,"fatcat ",7)){const char *args=line+7;unsigned disk,part,size=0,status=B_DENIED;char data[4097];if(number(&args,&disk)&&number(&args,&part)&&*args)status=fat_read(disk,part,args,data,4096,&size);if(!status){data[size]=0;console_text(data);console_text("\n");}console_text("FAT status: ");console_decimal(status);console_text("\n");}
+#endif
+            else if(equal(line,"ls")){console_text("Status: ");console_hex(fs_list("/"));console_text("\n");}
             else if(length>3&&!memcmp(line,"ls ",3)){console_text("Status: ");console_hex(fs_list(line+3));console_text("\n");}
             else if(length>4&&!memcmp(line,"cat ",4)){char data[4097];unsigned size=0,status=fs_read(line+4,data,4096,&size);if(!status){data[size]=0;console_text(data);console_text("\n");}else{console_text("Read status: ");console_hex(status);console_text("\n");}}
             else if(length>6&&!memcmp(line,"mkdir ",6)){console_text("Mkdir status: ");console_hex(fs_mkdir(line+6));console_text("\n");}

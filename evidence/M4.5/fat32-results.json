@@ -1,0 +1,24 @@
+{
+  "build_id": "d57bd0cfd56bbc58aaca20dc4dc47bf5",
+  "full_m45_complete": false,
+  "checks": [
+    {
+      "name": "ahci",
+      "passed": true,
+      "exit": 33,
+      "backing_unchanged": true
+    },
+    {
+      "name": "nvme",
+      "passed": true,
+      "exit": 33,
+      "backing_unchanged": true
+    },
+    {
+      "name": "bad-lfn",
+      "passed": true,
+      "exit": 101,
+      "backing_unchanged": true
+    }
+  ]
+}

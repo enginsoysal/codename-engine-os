@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "full_m45_complete": false,
+  "scope": "ordinary AHCI/NVMe reads, partition/FAT32 validation, owner-enrolled VM trust chain; wider agreed tracks remain open",
+  "gates": [
+    {
+      "script": "tools/build/m45.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/storage.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/fat32.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/sha256.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/secure_boot.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tools/build/m4.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m4/boot.py",
+      "arguments": [
+        "--case",
+        "persist-first",
+        "--evidence",
+        "evidence/M4.5/m4-regression"
+      ],
+      "passed": true
+    },
+    {
+      "script": "tests/check_repository.py",
+      "arguments": [
+        "--milestone",
+        "M4.5"
+      ],
+      "passed": true
+    },
+    {
+      "script": "tests/m0/verify.py",
+      "arguments": [],
+      "passed": true
+    }
+  ],
+  "build_id": "d57bd0cfd56bbc58aaca20dc4dc47bf5"
+}

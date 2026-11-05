@@ -9,8 +9,8 @@ from ext2_image import check
 from vm import ROOT,arguments,qemu_tools
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--case');options=parser.parse_args()
-    build=ROOT/'build/m4'; evidence=ROOT/'evidence/M4';evidence.mkdir(parents=True,exist_ok=True)
+    parser=argparse.ArgumentParser();parser.add_argument('--case');parser.add_argument('--evidence',type=Path);options=parser.parse_args()
+    build=ROOT/'build/m4'; evidence=options.evidence or ROOT/'evidence/M4';evidence.mkdir(parents=True,exist_ok=True)
     manifest=json.loads((ROOT/'dist/m4-build-manifest.json').read_text(encoding='utf-8'))
     init=struct.pack('<8sII32s',b'ENGINIT1',48,1,manifest['build_id'].encode())
     work=build/'qualification';package(work,(build/'BOOTX64.EFI').read_bytes(),(build/'KERNEL.ELF').read_bytes(),init,'M4')

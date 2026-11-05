@@ -41,5 +41,5 @@ def main(milestone="M2"):
     print(f'Repository PASS: {len(docs)} English documents, {len(scripts)} Python files, links/commands/layout/inventory')
 if __name__=='__main__':
     import argparse
-    parser=argparse.ArgumentParser();parser.add_argument('--milestone',choices=('M2','M3','M4'),default='M2')
+    parser=argparse.ArgumentParser();parser.add_argument('--milestone',choices=('M2','M3','M4','M4.5'),default='M2')
     main(parser.parse_args().milestone)

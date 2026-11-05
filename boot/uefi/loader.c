@@ -61,8 +61,17 @@ efi_status efi_main(efi_handle image,efi_system_table *system) {
     uint64_t elf_size=0,init_size=0;
     uint8_t *elf=read_file(root,(uint16_t*)u"\\KERNEL.ELF",4*1024*1024,&elf_size);
     uint8_t *init=read_file(root,(uint16_t*)u"\\INIT.BIN",4096,&init_size);
+#ifdef ENGINE_SECURE_PAYLOAD
+    extern unsigned engine_payload_trust(efi_system_table*,const void*,size_t,const void*,size_t);
+    if(engine_payload_trust(system,elf,elf_size,init,init_size))fail("payload SHA256 or firmware trust state");
+#endif
     if(EFI_ERROR(root->close(root)))fail("close root");
-    if(init_size!=48 || memcmp(init,"ENGINIT1",8) || os_read32(init+8)!=48 || os_read32(init+12)>4 ||
+    if(init_size!=48 || memcmp(init,"ENGINIT1",8) || os_read32(init+8)!=48 || os_read32(init+12)>
+#ifdef ENGINE_M45
+       5 ||
+#else
+       4 ||
+#endif
        memcmp(init+16,BUILD_ID,32))fail("initimage manifest");
     elf_plan plan;if(elf_validate(elf,elf_size,&plan))fail("ELF validation");
     uint64_t kernel_address=plan.low,kernel_pages=(plan.high-plan.low)/4096;

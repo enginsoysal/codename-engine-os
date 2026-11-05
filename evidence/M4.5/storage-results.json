@@ -1,0 +1,103 @@
+{
+  "build_id": "d57bd0cfd56bbc58aaca20dc4dc47bf5",
+  "full_m45_complete": false,
+  "checks": [
+    {
+      "name": "ordinary-64",
+      "transport": "SATA/AHCI",
+      "passed": true,
+      "exit": 33,
+      "size_mib": 64,
+      "logical_sector_bytes": 512,
+      "partition_status": 0,
+      "backing_unchanged": true
+    },
+    {
+      "name": "ordinary-513",
+      "transport": "SATA/AHCI",
+      "passed": true,
+      "exit": 33,
+      "size_mib": 513,
+      "logical_sector_bytes": 512,
+      "partition_status": 0,
+      "backing_unchanged": true
+    },
+    {
+      "name": "native-4k",
+      "transport": "NVMe",
+      "passed": true,
+      "exit": 33,
+      "size_mib": 64,
+      "logical_sector_bytes": 4096,
+      "partition_status": 0,
+      "backing_unchanged": true
+    },
+    {
+      "name": "nvme-512",
+      "transport": "NVMe",
+      "passed": true,
+      "exit": 33,
+      "size_mib": 128,
+      "logical_sector_bytes": 512,
+      "partition_status": 0,
+      "backing_unchanged": true
+    },
+    {
+      "name": "mbr-ntfs",
+      "transport": "SATA/AHCI",
+      "passed": true,
+      "exit": 33,
+      "size_mib": 64,
+      "logical_sector_bytes": 512,
+      "partition_status": 0,
+      "backing_unchanged": true
+    },
+    {
+      "name": "mbr-overlap",
+      "transport": "SATA/AHCI",
+      "passed": true,
+      "exit": 33,
+      "size_mib": 64,
+      "logical_sector_bytes": 512,
+      "partition_status": 2,
+      "backing_unchanged": true
+    },
+    {
+      "name": "gpt-exfat",
+      "transport": "SATA/AHCI",
+      "passed": true,
+      "exit": 33,
+      "size_mib": 64,
+      "logical_sector_bytes": 512,
+      "partition_status": 0,
+      "backing_unchanged": true
+    },
+    {
+      "name": "gpt-4k",
+      "transport": "NVMe",
+      "passed": true,
+      "exit": 33,
+      "size_mib": 64,
+      "logical_sector_bytes": 4096,
+      "partition_status": 0,
+      "backing_unchanged": true
+    },
+    {
+      "name": "gpt-bad-crc",
+      "transport": "SATA/AHCI",
+      "passed": true,
+      "exit": 33,
+      "size_mib": 64,
+      "logical_sector_bytes": 512,
+      "partition_status": 2,
+      "backing_unchanged": true
+    },
+    {
+      "name": "mixed-four-disks",
+      "passed": true,
+      "exit": 33,
+      "ordinary_backing_unchanged": true,
+      "marked_ext2_write_regression": true
+    }
+  ]
+}

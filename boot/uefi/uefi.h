@@ -52,6 +52,15 @@ typedef struct {uint32_t version,width,height,format;uint32_t masks[4];uint32_t 
 typedef struct {uint32_t max_mode,mode;efi_gop_info *info;uint64_t info_size,framebuffer,framebuffer_size;} efi_gop_mode;
 typedef struct {void *query_mode,*set_mode,*blt;efi_gop_mode *mode;} efi_gop;
 typedef struct {uint32_t type,pad;uint64_t physical,virtual_address,pages,attributes;} efi_memory_descriptor;
+typedef struct {
+    efi_header header;void *get_time,*set_time,*get_wakeup,*set_wakeup,*set_virtual_map,*convert_pointer;
+    efi_status (*get_variable)(uint16_t*,efi_guid*,uint32_t*,uint64_t*,void*);
+    void *next_variable;
+    efi_status (*set_variable)(uint16_t*,efi_guid*,uint32_t,uint64_t,void*);
+    void *next_high_count,*reset_system;
+} efi_runtime_services;
+_Static_assert(offsetof(efi_runtime_services,get_variable)==72,"UEFI variable getter layout");
+_Static_assert(offsetof(efi_runtime_services,set_variable)==88,"UEFI variable setter layout");
 _Static_assert(offsetof(efi_system_table,boot)==96,"UEFI system table layout");
 _Static_assert(offsetof(efi_boot_services,memory_map)==56,"UEFI memory map layout");
 _Static_assert(offsetof(efi_boot_services,exit_boot_services)==232,"UEFI exit layout");
