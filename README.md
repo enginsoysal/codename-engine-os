@@ -33,7 +33,7 @@ De gebruiker bepaalt productrichting en acceptatie. De coding agent voert implem
 
 ## GitHub-publicatie
 
-Deze repository is vanaf 5 november 2026 de werkbron. Afgeronde samenhangende updates worden gecontroleerd, gecommit en naar GitHub gepusht. De eerdere planningskopie in BrixCanvas is historisch. Ruwe lokale paden en privégegevens horen niet in openbare bewijsbestanden.
+Deze zelfstandige repository is vanaf 5 november 2026 de werkbron en staat buiten BrixCanvas. Afgeronde samenhangende updates worden gecontroleerd, gecommit en naar GitHub gepusht. De oude planningsmap is uit BrixCanvas verplaatst naar het lokaal genegeerde archief `tools/local/legacy-planning`; dat is geen actuele bron en wordt niet gepubliceerd. OS-bestanden en buildoutputs horen uitsluitend in deze OS-repository. Ruwe lokale paden en privégegevens horen niet in openbare bewijsbestanden.
 
 ## Uitgangspunten
 

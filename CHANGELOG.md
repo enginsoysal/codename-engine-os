@@ -1,5 +1,9 @@
 # Changelog
 
+## Projectorganisatie — 2026-11-05
+
+De oude OS-planningskopie is uit BrixCanvas verplaatst naar een genegeerd lokaal archief binnen de zelfstandige Engine OS-repository. Werkdirectory- en publicatieafspraken voorkomen dat de twee projecten opnieuw door elkaar raken. Kernel en M1-release zijn ongewijzigd.
+
 ## M1 v0.1.0 — 2026-11-05
 
 Own UEFI loader and ELF64 kernel now boot in QEMU from ISO and GPT-USB. Firmware services are stopped before the kernel takes control using its own page tables, stack, GDT/TSS/IDT and framebuffer console. Negative load tests, real CPU panic/symbolization and debugger connectivity have evidence. Normal boot media, debug files, checksums and [release instructions](M1.md) are available.

@@ -6,6 +6,8 @@ Architectuur en plan: versie 0.4. M0 afgerond; M1 eigen kernelboot en diagnostie
 
 Projectnaam: **Codename: Engine OS**. Canonieke werkbron: `enginsoysal/codename-engine-os`, openbaar, MIT-licentie. Afgeronde updates worden gecommit en gepusht volgens AGENTS.md.
 
+Projectscheiding: de actieve lokale repository staat zelfstandig buiten BrixCanvas. De oude `outputs/os-architecture`-kopie is daar volledig weggehaald en met bestands-hashcontrole verplaatst naar het genegeerde lokale archief `tools/local/legacy-planning` binnen Engine OS. Geen OS-code of nieuwe output terugplaatsen in BrixCanvas.
+
 Scope-update: Windows 95–11-apps zijn het brede productdoel. De audit en aanvullende [WC1–WC7-trajecten](WINDOWS-COMPATIBILITY.md) zijn vastgelegd, niet geïmplementeerd. Boot/installatie blijven M1/M5. De elf eerdere M0-controles bewijzen geen Windows-appcompatibiliteit.
 
 | Mijlpaal | Status | Bewijs |
