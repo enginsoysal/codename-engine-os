@@ -4,8 +4,8 @@ import json
 from pathlib import Path
 import re
 ROOT=Path(__file__).resolve().parents[1]
-def main():
-    output=ROOT/'evidence/M2';output.mkdir(parents=True,exist_ok=True)
+def main(milestone="M2"):
+    output=ROOT/'evidence'/milestone;output.mkdir(parents=True,exist_ok=True)
     (output/'repository-results.json').write_text('{"passed": false, "state": "checking"}\n',encoding='utf-8')
     docs=[];scripts=[]
     for p in ROOT.rglob('*'):
@@ -39,4 +39,7 @@ def main():
             {'name':'Windows generation scope retained without false qualification','passed':True}]
     (output/'repository-results.json').write_text(json.dumps({'passed':True,'checks':checks},indent=2)+'\n',encoding='utf-8')
     print(f'Repository PASS: {len(docs)} English documents, {len(scripts)} Python files, links/commands/layout/inventory')
-if __name__=='__main__':main()
+if __name__=='__main__':
+    import argparse
+    parser=argparse.ArgumentParser();parser.add_argument('--milestone',choices=('M2','M3'),default='M2')
+    main(parser.parse_args().milestone)

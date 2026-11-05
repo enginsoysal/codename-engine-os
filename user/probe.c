@@ -16,6 +16,27 @@ static __attribute__((naked,noreturn)) void bad_stack(void) {
 __attribute__((noreturn)) void user_main(uint64_t role) {
     uint64_t h=0,copy=0,value=0,pid=0;expect(call(S_PID,(uint64_t)(uintptr_t)&pid,0,0,0),U_OK);
     if(private_value)fail();
+#ifdef ENGINE_M3
+    if(role==14) {
+        volatile uint64_t *shared=(volatile uint64_t*)(uintptr_t)SHARED;
+        uint64_t carry_count=0,expected=0;
+        while(shared[1]<16) {
+            /* An interrupt may land between STC and ADC: carry must survive scheduling. */
+            __asm__ volatile("stc; adcq $0,%0":"+r"(carry_count)::"cc");
+            if(carry_count!=++expected)fail();
+            ++shared[0];
+        }
+        say("NON_YIELDING_HOG_RESUMED_OK");
+    } else if(role==15) {
+        volatile uint64_t *shared=(volatile uint64_t*)(uintptr_t)SHARED;
+        uint64_t previous=0;
+        while(shared[1]<16) {
+            uint64_t observed=shared[0];
+            if(observed!=previous){previous=observed;++shared[1];}
+        }
+        say("NON_YIELDING_PEER_PROGRESS_OK");
+    } else
+#endif
     if(role==1) {
         private_value=0x11111111;
         user_message empty;expect(call(S_RECEIVE,(uint64_t)(uintptr_t)&empty,0,0,0),U_EMPTY);

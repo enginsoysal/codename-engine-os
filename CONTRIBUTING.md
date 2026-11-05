@@ -1,6 +1,6 @@
 # Contributing
 
-Codename: Engine OS is an early own-kernel project. Current scope is [M2 native isolation](docs/milestones/m2.md); there is no installer or Windows app support. Read [architecture](docs/architecture/overview.md), [decisions](docs/architecture/decisions.md), [status](docs/roadmap/status.md) and [agent instructions](AGENTS.md) first.
+Codename: Engine OS is an early own-kernel project. Current development is the [M3 preemption increment](docs/milestones/m3.md), built on [M2 native isolation](docs/milestones/m2.md); there is no installer or Windows app support. Read [architecture](docs/architecture/overview.md), [decisions](docs/architecture/decisions.md), [status](docs/roadmap/status.md) and [agent instructions](AGENTS.md) first.
 
 ## Language, structure and documentation
 

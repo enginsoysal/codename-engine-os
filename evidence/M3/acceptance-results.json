@@ -1,0 +1,46 @@
+{
+  "time_utc": "2026-11-05T14:36:15.198999+00:00",
+  "scope": "M3 preemption increment only; full M3 pending; no Windows apps/installer",
+  "passed": true,
+  "gates": [
+    {
+      "script": "tools/build/m3.py",
+      "passed": true,
+      "checks": 0
+    },
+    {
+      "script": "tests/m3/boot.py",
+      "passed": true,
+      "checks": 8
+    },
+    {
+      "script": "tests/m3/visual.py",
+      "passed": true,
+      "checks": 5
+    },
+    {
+      "script": "tests/check_repository.py",
+      "passed": true,
+      "checks": 5
+    },
+    {
+      "script": "tests/m0/verify.py",
+      "passed": true,
+      "checks": 0
+    }
+  ],
+  "build_id": "1fe4b67c6aec2932e7e9b9592ecb196a",
+  "full_m3_complete": false,
+  "m3_gates": 18,
+  "m0_regression_checks": 51,
+  "native_workload": {
+    "process_starts": 47,
+    "clean_exits": 37,
+    "contained_faults": 10,
+    "repeated_object_cycles": 128,
+    "handle_limit": 16,
+    "message_limit": 4,
+    "minimum_tested_guest_mib": 64,
+    "active_cpus": 1
+  }
+}

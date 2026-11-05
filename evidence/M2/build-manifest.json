@@ -1,6 +1,6 @@
 {
   "milestone": "M2",
-  "build_id": "e534e478bdb1c4c3872f510917aa4e88",
+  "build_id": "8a9602e811848e8850e436c5f81dd595",
   "source_sha256": {
     "boot/uefi/handoff.S": "4d3b9259c88e5b3e2b4d72fee29b82dc495758408c454a09e471f3d69e21c6e9",
     "boot/uefi/loader.c": "7649f4914a950171588cc55c64cd8589a658a136d71e552a0bfe48a2a25b03d1",
@@ -15,44 +15,46 @@
     "kernel/arch/x86_64/fault.S": "8f4651a65903c62fc21e3d0c964f28d65077fb86e5130f859ba2513903836abe",
     "kernel/arch/x86_64/interrupts.c": "0b95ec09599757ab82807f632e7caf0a4087b7e19954b403118a8d63bd0dc826",
     "kernel/arch/x86_64/linker.ld": "e827271a22c548131fab027b4ee0ca68149bba8ef0c7917eac754d25733b02df",
-    "kernel/core/display.c": "c7c8533c0796c1402ecdf1c3a0758b849f332df2cccea2aa7b97d8dafe58111a",
+    "kernel/arch/x86_64/timer.c": "0c95fe6e9cd535c81eebaa1a3e124b29c84bf0d3127ccb355b819e156b979455",
+    "kernel/core/display.c": "b3065ac0784bdd33932aa0334de8e769ae29528013f80d547d5cbd9fed1a4721",
     "kernel/core/main.c": "e1dc761a66810320a73aadfcfb3540fe63f93106f5cf111610b1831525733a3d",
     "kernel/memory/pages.c": "085723cea5a790570cf42146ccdfa446c4fc7fb7ec38fdf7ea81e30cab3b9a23",
     "kernel/memory/space.c": "7240cae5214e4e7a273efab438f44e8afc880f6b4e4f64f2c2b095f932979795",
-    "kernel/process/process.c": "8c2576de934528bbecff2f06c73e5371357e2c2d7900ad97f08c1ea4057f943c",
+    "kernel/process/process.c": "c6cc6b4481ceb3d44117abe6acd608c6fab07d3be560915f7b76a66ce5f6be77",
     "runtime/memory.c": "6d0a1ab7c130552c391beabb8a188b85521685e7d189a628224b99d802d65d25",
     "tools/build/m1.py": "6ec2a3d19a3e023ae8e503ff2fae5c835dd5e0ab8999423a7d9edae76d6ce1f3",
-    "tools/build/m2.py": "25f7aaa87327ad19afec41ef935550997efd387749f6ee8fd0f4b1b0a0c9d0b4",
-    "tools/build/media.py": "4fcee2a474a0cf1ca89b1c41a62ab326e1ebe7247d48fed6182af9c5be3cc515",
+    "tools/build/m2.py": "5201d1b1b1a1c62f9594d516d936edab8f9b060578499fdffaa065723e6313c0",
+    "tools/build/m3.py": "a4d8e4746718e0773f6f1bb5e3138890c90c8b7b20a0844b5c212b1a0896255a",
+    "tools/build/media.py": "7fd45cbf7c168874b71ae458661f425b59ffa85936336398ffeb4838f9140281",
     "user/linker.ld": "2c626b4359df6b1088f5027f972159e33e5337720c44a18ac0f1b47164ec32e8",
-    "user/probe.c": "681c7b317ae28bd7aa5898f56fdbd772c9d133deba2616b4b06c2db555116a85"
+    "user/probe.c": "6ad97295c84aefaa629f63a5d677fc9812553f7380b1690bd1e3cc5be87ab484"
   },
   "artifacts": {
     "EngineOS-M2-kernel.elf": {
-      "sha256": "20367d56b7b5a827b8aa5e3d2c2e00f4a0a9b3aa4e261e46e6fbbc70880305ad",
-      "size": 165304
+      "sha256": "407f946e614dcde5be89262bc69f09508a890c59583bda4069e2b878d21ae032",
+      "size": 165432
     },
     "EngineOS-M2-kernel.map": {
-      "sha256": "aeee69ecc28dca516fe70adff2e64ebb60c068882b3297779c00eb19c959c4e8",
+      "sha256": "472bd919e6ce12bf83ead0a0c601320030106d8ba772d238adb171847c1f2d67",
       "size": 36582
     },
     "EngineOS-M2-usb.img": {
-      "sha256": "3acb1f384e957ff59949c59c771e308e89e2c8cb10a4ae89acf7a6160c70f093",
+      "sha256": "6065022a372eb81fcb6194d3737b0956dc1f1aacc6401c0f6fd7d6e6484abf6a",
       "size": 69206016
     },
     "EngineOS-M2-user.elf": {
-      "sha256": "56dfb8aaa48d94ef51adcdf87b0cb6e7dcc057a4f6899c86ddc8a40989ae625c",
-      "size": 24496
+      "sha256": "abc1f4b5376fb40be4a318fcd44c27dbf4752f670f13ad38bbce1c6ab00c8f79",
+      "size": 24512
     },
     "EngineOS-M2.iso": {
-      "sha256": "810d5507ad1412b7c1d3166cccc327b372ebf0ecbbdc27141f626386880ed58c",
+      "sha256": "f4e60643d4e0914084cce7481caca7390ae46d280f5d54d751e42b84735aa0fb",
       "size": 67162112
     }
   },
   "mode": "normal",
   "limits": [
-    "one active CPU; cooperative trusted native probes",
-    "no Windows apps, installer or preemption",
+    "one active CPU; GPR-only trusted probes; M3 timer phase when selected",
+    "no Windows apps, installer, threads or SMP",
     "early allocator manages conventional memory below 1 GiB"
   ]
 }

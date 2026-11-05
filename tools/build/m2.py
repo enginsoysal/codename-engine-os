@@ -8,21 +8,24 @@ import struct
 from m1 import ROOT,pinned_tools,command,sha
 from media import package
 BUILD=ROOT/'build/m2'
-def main():
+def main(milestone='M2'):
+    global BUILD
+    BUILD=ROOT/'build'/milestone.lower()
     tools=pinned_tools();BUILD.mkdir(parents=True,exist_ok=True)
     sources=[]
     for folder in ('boot','kernel','include','runtime','user'):
         sources.extend(p for p in (ROOT/folder).rglob('*') if p.is_file())
     sources.extend(ROOT/p for p in ('include/engine/boot/boot_v0.h','include/engine/abi/syscall_v0.h','include/engine/boot/validate_v0.h',
-                                   'tools/build/m2.py','tools/build/m1.py','tools/build/media.py'))
+                                   'tools/build/m2.py','tools/build/m3.py','tools/build/m1.py','tools/build/media.py'))
     hashes={p.relative_to(ROOT).as_posix():sha(p) for p in sorted(sources)}
-    build_id=hashlib.sha256(json.dumps(hashes,sort_keys=True).encode()).hexdigest()[:32]
+    build_id=hashlib.sha256(json.dumps({'milestone':milestone,'source_sha256':hashes},sort_keys=True).encode()).hexdigest()[:32]
     (BUILD/'build.h').write_text(f'#define BUILD_ID "{build_id}"\n',encoding='utf-8')
     debug=['-g','-fdebug-compilation-dir=.']
     for original,replacement in ((ROOT,'.'),(Path(tools['clang']).parent.parent,'/toolchain/llvm')):
         for spelling in (str(original),original.as_posix()):debug.extend((f'-ffile-prefix-map={spelling}={replacement}',f'-fdebug-prefix-map={spelling}={replacement}'))
     common=['-std=c17','-O2',*debug,'-ffreestanding','-fno-builtin','-fno-stack-protector','-mno-red-zone','-mgeneral-regs-only',
             '-Wall','-Wextra','-Werror','-DENGINE_M2','-I',ROOT/'include','-I',BUILD]
+    if milestone=='M3':common.append('-DENGINE_M3')
     def compile_file(path,kind,assembly=False):
         path=Path(path);obj=BUILD/(path.stem+'-'+kind+'.o')
         target='x86_64-pc-windows-msvc' if kind=='efi' else 'x86_64-unknown-none-elf'
@@ -58,7 +61,8 @@ def main():
     (BUILD/'interrupt-stubs.S').write_text('\n'.join(lines)+'\n',encoding='utf-8')
     inputs=('kernel/core/main.c','kernel/core/display.c','kernel/arch/x86_64/interrupts.c','kernel/arch/x86_64/fault.S',
             'runtime/memory.c','kernel/memory/pages.c','kernel/memory/space.c','kernel/process/process.c',
-            'build/m2/user-image.c','build/m2/interrupt-stubs.S')
+            f'build/{milestone.lower()}/user-image.c',f'build/{milestone.lower()}/interrupt-stubs.S')
+    if milestone=='M3':inputs+=('kernel/arch/x86_64/timer.c',)
     kernel=[compile_file(p,'kernel',p.endswith('.S')) for p in inputs]
     command([tools['ld.lld'],'-T',ROOT/'kernel/arch/x86_64/linker.ld','--build-id=none','-Map='+str(BUILD/'kernel.map'),
              '-o',BUILD/'KERNEL.ELF',*kernel])
@@ -66,18 +70,18 @@ def main():
     if command([nm,'-u',BUILD/'KERNEL.ELF']).strip():raise RuntimeError('Undefined kernel symbols')
     map_path=BUILD/'kernel.map';map_path.write_text(map_path.read_text(encoding='utf-8').replace(str(ROOT),'.').replace(ROOT.as_posix(),'.'),encoding='utf-8')
     init=struct.pack('<8sII32s',b'ENGINIT1',48,0,build_id.encode());(BUILD/'INIT.BIN').write_bytes(init)
-    package(BUILD/'normal',(BUILD/'BOOTX64.EFI').read_bytes(),(BUILD/'KERNEL.ELF').read_bytes(),init,'M2')
+    package(BUILD/'normal',(BUILD/'BOOTX64.EFI').read_bytes(),(BUILD/'KERNEL.ELF').read_bytes(),init,milestone)
     dist=ROOT/'dist';dist.mkdir(exist_ok=True)
-    for name in ('EngineOS-M2.iso','EngineOS-M2-usb.img'):shutil.copyfile(BUILD/'normal'/name,dist/name)
-    for filename,name in (('KERNEL.ELF','EngineOS-M2-kernel.elf'),('kernel.map','EngineOS-M2-kernel.map'),('USER.ELF','EngineOS-M2-user.elf')):
+    for name in (f'EngineOS-{milestone}.iso',f'EngineOS-{milestone}-usb.img'):shutil.copyfile(BUILD/'normal'/name,dist/name)
+    for filename,name in (('KERNEL.ELF',f'EngineOS-{milestone}-kernel.elf'),('kernel.map',f'EngineOS-{milestone}-kernel.map'),('USER.ELF',f'EngineOS-{milestone}-user.elf')):
         shutil.copyfile(BUILD/filename,dist/name)
-    artifacts={p.name:{'sha256':sha(p),'size':p.stat().st_size} for p in sorted(dist.glob('EngineOS-M2*')) if p.is_file()}
+    artifacts={p.name:{'sha256':sha(p),'size':p.stat().st_size} for p in sorted(dist.glob(f'EngineOS-{milestone}*')) if p.is_file()}
     for name in artifacts:
         if re.search(rb'[Cc]:[\\/]+Users[\\/]+',(dist/name).read_bytes()):raise RuntimeError('Host user path in '+name)
-    manifest={'milestone':'M2','build_id':build_id,'source_sha256':hashes,'artifacts':artifacts,'mode':'normal',
-              'limits':['one active CPU; cooperative trusted native probes','no Windows apps, installer or preemption',
+    manifest={'milestone':milestone,'build_id':build_id,'source_sha256':hashes,'artifacts':artifacts,'mode':'normal',
+              'limits':['one active CPU; GPR-only trusted probes; M3 timer phase when selected','no Windows apps, installer, threads or SMP',
                         'early allocator manages conventional memory below 1 GiB']}
-    (dist/'m2-build-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
-    (dist/'M2-SHA256SUMS.txt').write_text(''.join(f'{v["sha256"]}  {k}\n' for k,v in artifacts.items()),encoding='utf-8')
-    print(json.dumps({'build_id':build_id,'iso':'dist/EngineOS-M2.iso'},indent=2));return manifest
+    (dist/f'{milestone.lower()}-build-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
+    (dist/f'{milestone}-SHA256SUMS.txt').write_text(''.join(f'{v["sha256"]}  {k}\n' for k,v in artifacts.items()),encoding='utf-8')
+    print(json.dumps({'build_id':build_id,'iso':f'dist/EngineOS-{milestone}.iso'},indent=2));return manifest
 if __name__=='__main__':main()

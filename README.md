@@ -2,7 +2,7 @@
 
 An independent, MIT-licensed operating system with its own UEFI loader, kernel and native user runtime. Windows 95–11 application compatibility is a long-term requirement, followed by Linux/macOS execution environments and ARM64. Those compatibility layers are not implemented yet.
 
-**Current development milestone: M2 — protected native user processes.** M0 established the architecture/toolchain and M1 delivered kernel boot. M2 adds ring-3 isolation, rights-checked handles, bounded IPC/shared memory and measured page cleanup. See the [current status](docs/roadmap/status.md) for verified results. There is no installer, shell, desktop or existing Windows application support yet.
+**Current development milestone: M3 — scheduling, memory policy and concurrency (in progress).** M0 established the architecture/toolchain and M1 delivered kernel boot. M2 adds ring-3 isolation, rights-checked handles, bounded IPC/shared memory and measured page cleanup. See the [current status](docs/roadmap/status.md) for verified results. The [first M3 increment](docs/milestones/m3.md) adds tested single-CPU timer preemption; full M3 acceptance remains pending. There is no installer, shell, desktop or existing Windows application support yet.
 
 ## Boot in a VM
 
@@ -23,16 +23,17 @@ kernel/                Core, x86-64 exceptions, memory and process mechanisms
 include/engine/        Versioned boot/native ABI and shared headers
 runtime/               Minimal freestanding memory routines
 user/                  Native ring-3 verification programs and linker layout
-tools/build/           Separate M1/M2 build entry points and boot-media authoring
+tools/build/           Separate M1/M2/M3 build entry points and boot-media authoring
 tools/vm/              Pinned VM setup and user launcher
 tests/m0/              Architecture/toolchain and Windows-host references
 tests/m1/              Original kernel-boot/parser/visual regression tools
 tests/m2/              Isolation, cleanup, low-RAM and idle tests
+tests/m3/              Timer-preemption increment and regressions
 docs/architecture/     Design contracts and decision record
 docs/roadmap/          Milestones, current status and Windows generation inventory
 docs/milestones/       Per-milestone usage, implementation and handoff notes
 docs/releases/         Changelog and release notes
-evidence/M0..M2/       Public test reports, sanitized logs and screenshots
+evidence/M0..M3/       Public test reports, sanitized logs and screenshots
 build/, dist/          Generated files; ignored by Git
 tools/local/           Private/local dependencies and historical archive; ignored
 ```

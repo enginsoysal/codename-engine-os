@@ -23,6 +23,11 @@ static uint64_t kernel_cr3,base_pages,next_pid=1,switches,syscalls;
 static uint64_t boot_reserved_bytes;
 static uint64_t common_pages[8],common_vas[8],common_flags[8],common_count,user_entry;
 static uint8_t private_template[4096];
+#ifdef ENGINE_M3
+static unsigned preemption_phase;
+static uint64_t timer_ticks,preemptions,coordination_page;
+extern void timer_start(void),timer_stop(void),timer_acknowledge(void);
+#endif
 extern const uint8_t user_program_elf[];
 extern const uint64_t user_program_size;
 void display_m2_result(unsigned,uint64_t,uint64_t,unsigned,unsigned);
@@ -124,11 +129,31 @@ static void cleanup(process *p) {
     __asm__ volatile("movq %0,%%cr3"::"r"(kernel_cr3):"memory");
     while(p->owned_count)page_free(p->owned[--p->owned_count]);
 }
+trap_frame *process_first_context(void);
 static NORETURN void finish(void) {
+#ifdef ENGINE_M3
+    if(!preemption_phase) {
+        preemption_phase=1;coordination_page=need();
+        create(&processes[0],14);create(&processes[1],15);
+        for(unsigned i=0;i<2;++i)((uint64_t*)(uintptr_t)processes[i].pt)[(USER_SHARED>>12)&511]=coordination_page|7|NX;
+        serial_text("M3_PREEMPTION_BEGIN two non-yielding native processes\n");
+        current=MAX_PROCESSES-1;timer_start();arch_enter_user(process_first_context());
+    }
+    timer_stop();page_free(coordination_page);
+    if(preemptions<16||starts!=47||exits!=37)++failures;
+    serial_text("M3_PREEMPTIONS=");serial_hex(preemptions);serial_text(" ticks=");serial_hex(timer_ticks);serial_text("\n");
+#endif
     for(uint64_t i=0;i<common_count;++i)page_free(common_pages[i]);
     page_stats s=pages_stats();unsigned live_objects=0;
     for(unsigned i=0;i<OBJECT_SLOTS;++i)live_objects+=objects[i].refs!=0;
-    if(s.current_pages!=base_pages||live_objects||starts!=45||faults!=10||exits!=35)++failures;
+    if(s.current_pages!=base_pages||live_objects||faults!=10
+#ifndef ENGINE_M3
+       ||starts!=45||exits!=35
+#endif
+       )++failures;
+#ifdef ENGINE_M3
+    serial_text(failures?"M3_PREEMPTION_FAIL\n":"M3_PREEMPTION_PASS\n");
+#endif
     serial_text("M2_STATS starts=");serial_hex(starts);serial_text(" exits=");serial_hex(exits);serial_text(" isolated_faults=");serial_hex(faults);
     serial_text(" peak_owned_bytes=");serial_hex(s.peak_pages*4096);serial_text(" retained_owned_bytes=");serial_hex(s.current_pages*4096);
     serial_text(" switches=");serial_hex(switches);serial_text(" syscalls=");serial_hex(syscalls);serial_text(" failures=");serial_hex(failures);serial_text("\n");
@@ -142,7 +167,12 @@ static int safe_return(process *p) {
     if(p->context.rip<USER_BASE||p->context.rip>=USER_LIMIT)return 0;
     uint64_t leaf=((uint64_t*)(uintptr_t)p->pt)[(p->context.rip>>12)&511];
     if((leaf&5)!=5||(leaf&NX)||p->context.cs!=0x1b||p->context.ss!=0x23||!accessible(p,p->context.rsp,8,1))return 0;
-    p->context.rflags=2;return 1;
+#ifdef ENGINE_M3
+    if(preemption_phase)p->context.rflags=(p->context.rflags&UINT64_C(0xcd5))|0x202;
+    else
+#endif
+    {p->context.rflags=2;}
+    return 1;
 }
 static void reject_return(process *p) {
     serial_text("USER_RETURN_REJECTED\n");if(p->role!=11)++failures;++faults;cleanup(p);
@@ -225,6 +255,11 @@ static unsigned dispatch(process *p,trap_frame *f,int *reschedule) {
 }
 trap_frame *process_trap(trap_frame *frame) {
     process *p=&processes[current];memcpy(&p->context,frame,sizeof(*frame));int reschedule=0;
+#ifdef ENGINE_M3
+    if(frame->vector==32) {
+        timer_acknowledge();++timer_ticks;++preemptions;reschedule=1;
+    } else
+#endif
     if(frame->vector==128) {++syscalls;p->context.rax=dispatch(p,&p->context,&reschedule);}
     else {
         uint64_t cr2;__asm__ volatile("movq %%cr2,%0":"=r"(cr2));unsigned expected=0;

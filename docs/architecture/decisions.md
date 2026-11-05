@@ -45,6 +45,8 @@ A selected approach is not a runtime claim. [Status](../roadmap/status.md) and [
 | 038 | Native user VA above 4 GiB and upper-half entry stack | Preserve boot mappings across larger VM memory settings; switch off the firmware stack before process CR3 | Reusing a low identity range can shadow retained boot resources | 64/512/2048 MiB boot scenarios; 32-bit guest layout remains future work |
 | 039 | Disable unconfigured SYSCALL/SYSENTER entry | No unintended privilege gateway before fast-path design | Leaving firmware MSRs implicit broadens the attack surface | Real native instructions fault in user mode; future gateways require deliberate setup |
 
+| 040 | Separate single-CPU PIC/PIT preemption increment | Prove involuntary switching and flags before concurrent kernel entry | APIC/SMP immediately complicates entry/locking; cooperative yield cannot prove preemption | Two non-yielding native probes and carry-state checks; timer masked at final idle; APIC/SIMD/threads/waits/VM remain M3 gates |
+
 ## Detailed contracts and remaining choices
 
 [Kernel](kernel-contracts.md), [filesystem](filesystem.md), [build/platform](build-platform.md), [compatibility](compatibility.md), [M2 implementation](../milestones/m2.md).

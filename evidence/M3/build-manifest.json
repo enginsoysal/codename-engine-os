@@ -1,0 +1,60 @@
+{
+  "milestone": "M3",
+  "build_id": "1fe4b67c6aec2932e7e9b9592ecb196a",
+  "source_sha256": {
+    "boot/uefi/handoff.S": "4d3b9259c88e5b3e2b4d72fee29b82dc495758408c454a09e471f3d69e21c6e9",
+    "boot/uefi/loader.c": "7649f4914a950171588cc55c64cd8589a658a136d71e552a0bfe48a2a25b03d1",
+    "boot/uefi/uefi.h": "ca95b0595cb3fee3066104737c70e13fe5d19316f186564ae14faac65b8e65c6",
+    "include/engine/abi/syscall_v0.h": "813dbfe6d652033754cfea1cf7f9c1420ffc35480d5931a21782279d006f6a16",
+    "include/engine/base.h": "edf6264c00bd9c42df8a4ef64bebde4dc16d2afe761c823d1c0366db64efb8f4",
+    "include/engine/boot/boot_v0.h": "97a37818dccb8592acf64db339b8ea701c7dab978e0cb3f6331a3fa569583357",
+    "include/engine/boot/validate_v0.h": "a95a9f47577e7663b972a489d1fe61579bbd314330cf938c9836e5b16b5a91e9",
+    "include/engine/elf.h": "b1b007a9b9b9fab5aec56049c20b123cbacce48288baefb9f421f55eed1f0f29",
+    "include/engine/process.h": "6b2310a17b1410ec2bc864c79ad06de8bfbe1981c9870b5941246989b2a4a96b",
+    "include/engine/user.h": "cca1be51caea6d119cdb8e345d52e4611c8a55eee2e7099c47206cf8e6eca1b1",
+    "kernel/arch/x86_64/fault.S": "8f4651a65903c62fc21e3d0c964f28d65077fb86e5130f859ba2513903836abe",
+    "kernel/arch/x86_64/interrupts.c": "0b95ec09599757ab82807f632e7caf0a4087b7e19954b403118a8d63bd0dc826",
+    "kernel/arch/x86_64/linker.ld": "e827271a22c548131fab027b4ee0ca68149bba8ef0c7917eac754d25733b02df",
+    "kernel/arch/x86_64/timer.c": "0c95fe6e9cd535c81eebaa1a3e124b29c84bf0d3127ccb355b819e156b979455",
+    "kernel/core/display.c": "b3065ac0784bdd33932aa0334de8e769ae29528013f80d547d5cbd9fed1a4721",
+    "kernel/core/main.c": "e1dc761a66810320a73aadfcfb3540fe63f93106f5cf111610b1831525733a3d",
+    "kernel/memory/pages.c": "085723cea5a790570cf42146ccdfa446c4fc7fb7ec38fdf7ea81e30cab3b9a23",
+    "kernel/memory/space.c": "7240cae5214e4e7a273efab438f44e8afc880f6b4e4f64f2c2b095f932979795",
+    "kernel/process/process.c": "c6cc6b4481ceb3d44117abe6acd608c6fab07d3be560915f7b76a66ce5f6be77",
+    "runtime/memory.c": "6d0a1ab7c130552c391beabb8a188b85521685e7d189a628224b99d802d65d25",
+    "tools/build/m1.py": "6ec2a3d19a3e023ae8e503ff2fae5c835dd5e0ab8999423a7d9edae76d6ce1f3",
+    "tools/build/m2.py": "5201d1b1b1a1c62f9594d516d936edab8f9b060578499fdffaa065723e6313c0",
+    "tools/build/m3.py": "a4d8e4746718e0773f6f1bb5e3138890c90c8b7b20a0844b5c212b1a0896255a",
+    "tools/build/media.py": "7fd45cbf7c168874b71ae458661f425b59ffa85936336398ffeb4838f9140281",
+    "user/linker.ld": "2c626b4359df6b1088f5027f972159e33e5337720c44a18ac0f1b47164ec32e8",
+    "user/probe.c": "6ad97295c84aefaa629f63a5d677fc9812553f7380b1690bd1e3cc5be87ab484"
+  },
+  "artifacts": {
+    "EngineOS-M3-kernel.elf": {
+      "sha256": "78ae57c057cd1ff031ce73fb8d86c6e08a728957c8e0d2eeed169702545ab8a4",
+      "size": 175432
+    },
+    "EngineOS-M3-kernel.map": {
+      "sha256": "b9504d880a5aefaaf3cdd952bb015374220122ef51accd1b8d8aa27e96c5903a",
+      "size": 37834
+    },
+    "EngineOS-M3-usb.img": {
+      "sha256": "e68d29ba7e03bbb157b76d67734fad51101a36170309244afb44f1923c1bfcbe",
+      "size": 69206016
+    },
+    "EngineOS-M3-user.elf": {
+      "sha256": "ac4da445defeec9d301c42dd2b40a199b9c160c706e80ac1d267304f8c0cfca0",
+      "size": 25176
+    },
+    "EngineOS-M3.iso": {
+      "sha256": "a5d9a242998de90412a88829d8430ee686136c931af1b12209f1faf19c3b7e1a",
+      "size": 67162112
+    }
+  },
+  "mode": "normal",
+  "limits": [
+    "one active CPU; GPR-only trusted probes; M3 timer phase when selected",
+    "no Windows apps, installer, threads or SMP",
+    "early allocator manages conventional memory below 1 GiB"
+  ]
+}

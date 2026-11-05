@@ -7,7 +7,7 @@ Updated 2026-11-05. Canonical project: [enginsoysal/codename-engine-os](https://
 | M0 architecture/toolchain | Complete | [51 technical checks](../../evidence/M0/README.md); no app compatibility claim |
 | M1 own-kernel boot | Complete, virtual scope | [Historical evidence](../../evidence/M1/README.md); one VMware boot user-observed |
 | M2 protected native processes | Complete within native-only, single-active-CPU scope | [Current M2 evidence](../../evidence/M2/README.md), [fresh acceptance](../../evidence/M2/acceptance-results.json) |
-| M3 scheduling/general VM/concurrency | Not started | Preemption/SMP/threads/pressure remain planned |
+| M3 scheduling/general VM/concurrency | In progress: first preemption increment | [Scope and remaining gates](../milestones/m3.md), [increment evidence](../../evidence/M3/README.md); threads/SIMD/waits/VM/SMP pending |
 | M4 persistent storage/input | Not started | Firmware file loading is not a kernel storage driver |
 | M5 live/install/recovery | Not started | No installer in the current ISO |
 | M6 desktop/network/downloads | Not started | Boot console only |
@@ -30,7 +30,7 @@ Resource reports separate peak/retained managed pages from retained boot resourc
 
 ## Limits and next work
 
-M2 has one active CPU, cooperative trusted native probes, no preemption/starvation defense, no general pressure/reclaim, no arbitrary app/file loading and no Windows APIs. Boot/firmware resources remain reserved. M3 addresses scheduling/VM/concurrency before the real installer prerequisites M4/M5.
+M2 has one active CPU, cooperative trusted native probes, no preemption/starvation defense, no general pressure/reclaim, no arbitrary app/file loading and no Windows APIs. Boot/firmware resources remain reserved. M3 now has a separate single-CPU timer-preemption test phase after the M2 workload. The complete scheduling/VM/concurrency gate remains open before the real installer prerequisites M4/M5.
 
 Windows 95–11 remains a broad target qualified per original installer/version/architecture/task through WC1–WC7. It is not a universal flawless-start guarantee. Physical hardware and complete VMware support remain unqualified; the new ISO is supplied for the user's VMware test.
 

@@ -19,8 +19,8 @@ Reported managed peak/retained bytes exclude separately reported boot reservatio
 
 Run `python tests/m2/verify.py`. Generated images/symbols stay under ignored build/dist directories; release assets are uploaded separately and remotely hash-checked. Historical M1 evidence remains bound to its release tag; M2 covers the inherited firmware/error routes using its own current build.
 
-## Final measured sample
+## Published M2 v0.2.0 measured sample
 
-Build identity and exact values are in the linked reports. The final workload records 448 KiB peak managed pages, 60 KiB retained managed pages and 420 KiB retained boot allocations. Managed peak plus boot is 868 KiB; retained managed plus boot is 480 KiB. These totals exclude firmware/device/framebuffer and host memory. The final sampled two-second QEMU interval is about 0.78% of one host CPU, with actual HLT observed; this is not a desktop or power benchmark.
+The following sample belongs to the original M2 v0.2.0 tag. Current linked reports can be refreshed as development regressions; their build IDs and measured totals are authoritative for those newer builds. The published workload records 448 KiB peak managed pages, 60 KiB retained managed pages and 420 KiB retained boot allocations. Managed peak plus boot is 868 KiB; retained managed plus boot is 480 KiB. These totals exclude firmware/device/framebuffer and host memory. The final sampled two-second QEMU interval is about 0.78% of one host CPU, with actual HLT observed; this is not a desktop or power benchmark.
 
 All eight boot/error scenarios, five visual/idle/debugger checks, five repository gates and 51 original M0 checks pass. The native workload adds 45 real process starts and 128 object reuse cycles inside each successful isolation scenario; those internal assertions are not miscounted as separate host test cases.

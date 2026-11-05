@@ -6,7 +6,8 @@
 - `tools/build/m1.py`: explicit historical M1 build path.
 - `tools/build/media.py`: restricted FAT32/GPT/EFI El Torito authoring, not a kernel filesystem.
 - `tools/vm/config.py`: shared pinned QEMU setup.
-- `tools/vm/run.py`: user launcher (M2 by default, `--milestone M1` for M1).
+- `tools/build/m3.py`: M3 first-increment media; full M3 is still in progress.
+- `tools/vm/run.py`: user launcher (M2 by default, `--milestone M1` or `--milestone M3` explicitly).
 - `tests/m0`, `tests/m1`, `tests/m2`: per-milestone verification.
 
 ```powershell
@@ -15,7 +16,7 @@ python tools/vm/run.py
 python tests/m2/verify.py
 ```
 
-Run from the repository root. The latest launcher defaults to one vCPU and 128 MiB; `--ram 64`, `--usb`, `--headless`, `--debug` and `--qemu-dir` are available. See [M2](../docs/milestones/m2.md). No host disk or directory is exposed. Debugger ports bind loopback only.
+Run from the repository root. The latest launcher defaults to one vCPU and 128 MiB; `--ram 64`, `--usb`, `--headless`, `--debug` and `--qemu-dir` are available. See [M2](../docs/milestones/m2.md) and the [M3 increment](../docs/milestones/m3.md). No host disk or directory is exposed. Debugger ports bind loopback only.
 
 ## Pins and setup
 

@@ -44,7 +44,9 @@ void display_boot(const os_boot_info_v0 *boot) {
         for(unsigned x=0;x<boot->framebuffer_width;++x)row[x]=y<8?accent:background;
     }
     text(40,48,"CODENAME: ENGINE OS",3,0xffffff);
-#ifdef ENGINE_M2
+#ifdef ENGINE_M3
+    text(40,110,"M3 PREEMPTION INCREMENT",2,0x39d5bb);
+#elif defined(ENGINE_M2)
     text(40,110,"M2 KERNEL ONLINE",2,0x39d5bb);
 #else
     text(40,110,"M1 KERNEL ONLINE",2,0x39d5bb);
@@ -68,7 +70,11 @@ void display_m2_result(unsigned failures,uint64_t peak,uint64_t retained,unsigne
         for(unsigned x=0;x<screen->framebuffer_width;++x)row[x]=background;
     }
     text(40,210,failures?"USERMODE ISOLATION: FAIL":"USERMODE ISOLATION: PASS",2,failures?0xff7070:0x39d5bb);
+#ifdef ENGINE_M3
+    text(40,250,failures?"TIMER PREEMPTION: FAIL":"TIMER PREEMPTION: PASS",2,failures?0xff7070:0x39d5bb);
+#else
     text(40,250,"PRIVATE MEMORY AND SHARED IPC: CHECKED",2,0xffffff);
+#endif
     text(40,290,"CONTAINED USER FAULTS:",2,0x93aabe);number(340,290,faults);
     text(40,330,"PROCESS STARTS:",2,0x93aabe);number(340,330,starts);
     text(40,370,"PEAK MANAGED RAM KIB:",2,0x93aabe);number(340,370,peak/1024);

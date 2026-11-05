@@ -1,6 +1,6 @@
 # Architecture
 
-Baseline: M0 contracts, M1 boot and M2 protected native processes. Planned interfaces are distinguished from implementation. See [status](../roadmap/status.md) and [evidence](../../evidence/M2/README.md).
+Baseline: M0 contracts, M1 boot and M2 protected native processes. The separate [M3 increment](../milestones/m3.md) now qualifies single-CPU timer preemption; full M3 remains in progress. Planned interfaces are distinguished from implementation. See [status](../roadmap/status.md) and [evidence](../../evidence/M2/README.md).
 
 ## Layers
 
@@ -27,7 +27,7 @@ Only the native M2 verification runtime currently runs. Windows/Linux/macOS adap
 
 Keep memory/address spaces, scheduling mechanisms, object references/rights, controlled IPC, exceptions and interrupt/DMA fundamentals in the kernel. Put complex policy, desktop, installation and compatibility frameworks in user services. The selected modular kernel avoids assuming every operation needs a server round trip; performance/isolation decisions require measurement.
 
-M2 implements a conventional-memory bitmap allocator, private CR3 address spaces, one native context per process, generation-tagged handles, events/shared-memory objects, bounded messages, controlled copy-in/out and cooperative switching. It runs one bootstrap CPU with maskable interrupts disabled. Preemption, concurrent threads, SMP and waitsets are M3 work, not implied by multiple process objects.
+M2 implements a conventional-memory bitmap allocator, private CR3 address spaces, one native context per process, generation-tagged handles, events/shared-memory objects, bounded messages, controlled copy-in/out and cooperative switching. It runs one bootstrap CPU with maskable interrupts disabled. The separate M3 build adds a timer-preempted native verification phase. Concurrent threads, SMP and waitsets remain M3 work, not implied by multiple process objects.
 
 ## Memory and isolation
 

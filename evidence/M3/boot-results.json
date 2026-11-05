@@ -1,0 +1,157 @@
+{
+  "scope": "M3 first increment: single-CPU timer preemption; remaining M3 gates pending",
+  "build_id": "1fe4b67c6aec2932e7e9b9592ecb196a",
+  "checks": [
+    {
+      "name": "iso-smoke",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 512,
+      "expected_exit": 33,
+      "actual_exit": 33,
+      "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
+      "stderr": "",
+      "log_sha256": "72862863d77d5db79658817cfb6a9f6c92035e0a4897d3eb1ad5411419164f69"
+    },
+    {
+      "name": "usb-smoke",
+      "passed": true,
+      "media": "usb",
+      "ram_mib": 512,
+      "expected_exit": 33,
+      "actual_exit": 33,
+      "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
+      "stderr": "",
+      "log_sha256": "dd44680688930aa2214346e1dfad5cff08e7a5e2defa7e15f0e05fb2726ecd3d"
+    },
+    {
+      "name": "iso-lowram",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 64,
+      "expected_exit": 33,
+      "actual_exit": 33,
+      "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
+      "stderr": "",
+      "log_sha256": "d723fd6e37b9fbf779eff10f5850329bbf71163c3b6783073e86dd20f56a3b57"
+    },
+    {
+      "name": "iso-large-guest",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 2048,
+      "expected_exit": 33,
+      "actual_exit": 33,
+      "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
+      "stderr": "",
+      "log_sha256": "e82d9a570d9863bfa382d1e4ea47fc105a2c7dce91186310805217c257b53f08"
+    },
+    {
+      "name": "iso-retry",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 512,
+      "expected_exit": 33,
+      "actual_exit": 33,
+      "expected_marker": "EXIT_BOOT_SERVICES_RETRY",
+      "stderr": "",
+      "log_sha256": "0c46cf5dce7ff3b3d516bb19c5a813f75ca8f8d2a263cc8cced95f8c943ab566"
+    },
+    {
+      "name": "iso-panic",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 512,
+      "expected_exit": 67,
+      "actual_exit": 67,
+      "expected_marker": "OWN_IDT_EXCEPTION_HANDLED",
+      "stderr": "",
+      "log_sha256": "09087543cdc3493ca3006538f483f121534a331ac1e69d2b59014ebf3f9f2357"
+    },
+    {
+      "name": "iso-badboot",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 512,
+      "expected_exit": 71,
+      "actual_exit": 71,
+      "expected_marker": "KERNEL_REJECT: boot header",
+      "stderr": "",
+      "log_sha256": "17b8068658d2f3e997cd052c95e9fd47a4b307c136c88eddfb9d777218407d75"
+    },
+    {
+      "name": "iso-badelf",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 512,
+      "expected_exit": 69,
+      "actual_exit": 69,
+      "expected_marker": "LOADER_REJECT: ELF validation",
+      "stderr": "",
+      "log_sha256": "6fe1c9deb90580c4890ac949b86568f17ed5ada39dafb62215b03b01adba15fa"
+    }
+  ],
+  "memory_measurements": {
+    "iso-smoke": {
+      "starts": 47,
+      "exits": 37,
+      "isolated_faults": 10,
+      "peak_owned_bytes": 458752,
+      "retained_owned_bytes": 61440,
+      "switches": 112,
+      "syscalls": 1750,
+      "failures": 0,
+      "boot_reserved_bytes": 442368,
+      "preemptions": 31
+    },
+    "usb-smoke": {
+      "starts": 47,
+      "exits": 37,
+      "isolated_faults": 10,
+      "peak_owned_bytes": 458752,
+      "retained_owned_bytes": 61440,
+      "switches": 112,
+      "syscalls": 1750,
+      "failures": 0,
+      "boot_reserved_bytes": 442368,
+      "preemptions": 31
+    },
+    "iso-lowram": {
+      "starts": 47,
+      "exits": 37,
+      "isolated_faults": 10,
+      "peak_owned_bytes": 458752,
+      "retained_owned_bytes": 61440,
+      "switches": 112,
+      "syscalls": 1750,
+      "failures": 0,
+      "boot_reserved_bytes": 442368,
+      "preemptions": 31
+    },
+    "iso-large-guest": {
+      "starts": 47,
+      "exits": 37,
+      "isolated_faults": 10,
+      "peak_owned_bytes": 458752,
+      "retained_owned_bytes": 61440,
+      "switches": 112,
+      "syscalls": 1750,
+      "failures": 0,
+      "boot_reserved_bytes": 442368,
+      "preemptions": 31
+    },
+    "iso-retry": {
+      "starts": 47,
+      "exits": 37,
+      "isolated_faults": 10,
+      "peak_owned_bytes": 458752,
+      "retained_owned_bytes": 61440,
+      "switches": 112,
+      "syscalls": 1750,
+      "failures": 0,
+      "boot_reserved_bytes": 442368,
+      "preemptions": 31
+    }
+  },
+  "passed": true
+}

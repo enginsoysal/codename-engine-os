@@ -1,5 +1,9 @@
 # Changelog
 
+## M3 first increment — 2026-11-05
+
+Single-active-CPU timer preemption with an explicit PIC/PIT baseline, safe arithmetic-flag preservation, two non-yielding native probes and bounded cleanup. Separate build/test/ISO path preserves the M2 baseline. Full M3 remains in progress: SIMD/thread/TLS, waits/deadlines, general VM/pressure and SMP acceptance are pending. [Details](../milestones/m3.md).
+
 ## M2 v0.2.0 — 2026-11-05
 
 Protected native ring-3 processes, private address spaces, shared immutable code, NX/write protection, guarded stacks, checked syscall buffers, generation/type/rights-checked handles, bounded messages and explicit shared memory. Real hostile user faults are isolated; repeated process/object cleanup returns page counts to baseline. Normal ISO displays measured results and halts instead of polling. Windows 95–11 remains planned compatibility, not an existing capability.

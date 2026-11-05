@@ -40,6 +40,10 @@ Events currently expose state/signal/query only. Windows manual/auto-reset waits
 
 Small messages are copied into bounded mailboxes; large sharing uses explicit memory references. DMA must use pinned pages and lifecycle-aware completion; timeout does not prove hardware stopped. IOMMU-backed isolation and real drivers are later work. Device classes do not replace device protocols.
 
+## M3 preemption increment
+
+The separate M3 build retains the cooperative M2 workload and then enables a remapped PIC/PIT IRQ0 at approximately 100 Hz for two native non-yielding processes. Timer dispatch acknowledges the interrupt, saves general registers/return state and selects another runnable process. Kernel execution remains single-CPU, non-reentrant with IF cleared; this does not permit kernel preemption or SMP. Checked return preserves arithmetic/direction flags and enables user IF only in this phase. Timer interrupts are masked before final HLT. Full SIMD/thread/TLS, waits/deadlines, VM/pressure and SMP contracts remain unimplemented. See [M3 details](../milestones/m3.md).
+
 ## Remaining proof
 
 M0 validates wire layouts/negative inputs and Windows-host reference semantics. M1 proves firmware handoff/diagnostics. M2 proves its exact native ring-3, rights, fault, cleanup and budget paths. Guest TLS/SEH, preemption/races, general memory pressure, Windows/Linux/Darwin execution and physical hardware remain separate acceptance gates.
