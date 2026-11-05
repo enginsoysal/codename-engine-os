@@ -1,6 +1,6 @@
 {
   "scope": "M3 native VM qualification: preemption, threads, waits, COW/pressure and active SMP",
-  "build_id": "dd38be778fba18fbb7ab20e917cc5e1e",
+  "build_id": "d88b23600453da5121d5ff7d84597e23",
   "checks": [
     {
       "name": "iso-clock-deterministic",
@@ -13,7 +13,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "bf31cdd96dfc6b4ebdbb8b6b920db00301e7635c211f8b9be1c0d8dd891ac49d"
+      "log_sha256": "591ea96517f75c354f4f68df31acf915b52830d82a66ff0ecf6e91b6d2f7265e"
     },
     {
       "name": "iso-smoke",
@@ -26,7 +26,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "5b5e49b5b8c22c3441a018b3fbc67fc3c5549e0e251f40ce1f77d7fee90b4bde"
+      "log_sha256": "65fac8615c35eec62d2de4844ebd2038f7e75d90e44cf40aa06e5fa39a6b43c6"
     },
     {
       "name": "usb-smoke",
@@ -39,7 +39,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "ba071de1fceef2fc0ab966a8416b56c9fca445b67aa42c54d09d5294201f73a5"
+      "log_sha256": "68b79f25d6a20b802e3e523ab399db2a239a9cc14192809f61c4a90e1fab88c5"
     },
     {
       "name": "iso-lowram",
@@ -52,7 +52,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "196c6dffe182a2714a357c6709653fea3bab730d8363c681653c7fc5c808e76f"
+      "log_sha256": "9ab688fdd40ae26b342cdd7cd2589f5a2469a780b217ddbc4cd27a0f929b9967"
     },
     {
       "name": "iso-smp2",
@@ -65,7 +65,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "afb685ee14f44f1bfc7518015c5c5061042cc3a10b11debfc8b6f2c6db0daf3a"
+      "log_sha256": "6ace66623185e740d9941b7e3b434e449e59edb928d0a0ff3b82c1724fa9a245"
     },
     {
       "name": "iso-smp4",
@@ -78,7 +78,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "85fff7dd8a2da4f6a2e877d1288410b40fb92409f80a40ca89bcaf1d4b03dc34"
+      "log_sha256": "225676a559acfa2b4f53a0fd8d9436687e9fe1f71b8fbcd50ba97d2a089e7d6b"
     },
     {
       "name": "iso-smp4-repeat1",
@@ -91,7 +91,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "0d54a9a321474de645bbf5aad1f9e63276a8393d01beabe744ffdb5ecc2e70d5"
+      "log_sha256": "25307a6c279db17c2d9866069115d0ff1203d10c24540bc109212bbe762cb2f0"
     },
     {
       "name": "iso-smp4-repeat2",
@@ -104,7 +104,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "e850aa1965dbe06d49ed03da5dc273151a1c5d253db17d9fc0f1c4a03c959728"
+      "log_sha256": "6d255ad69aef242b4f7f55fc1e28ab55248cd595b91c47cafbb1e070f88ecf7f"
     },
     {
       "name": "iso-large-guest",
@@ -117,7 +117,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "dfee3af8e422eb6087e70f86f74c6a7bdec0828cd42dc08ef46fd2b3100f1555"
+      "log_sha256": "6d7ac4ee27194c1fb2a57b6d1f6af2c83aba2fb4d5e4580fef58be41df6d387e"
     },
     {
       "name": "iso-retry",
@@ -130,7 +130,7 @@
       "actual_exit": 33,
       "expected_marker": "EXIT_BOOT_SERVICES_RETRY",
       "stderr": "",
-      "log_sha256": "f50598de39423f2188aa5c876f67d4c5cf77af1e9874133817d47ab329e6cf3b"
+      "log_sha256": "e2b88587d41d2590a77880331ac995794efea533e6a1252174c4b99865be7f6d"
     },
     {
       "name": "iso-tlb-negative",
@@ -143,7 +143,7 @@
       "actual_exit": 99,
       "expected_marker": "M3_SMP_FAIL TLB or CPU state",
       "stderr": "",
-      "log_sha256": "4a16092b96b3ca3797ce6ac4bfebbd7b6c88c92fc5218906cea565ea91dc8279"
+      "log_sha256": "949441e25b001b4a7830780ebe7c766bf1f9c62f60144ec905172df1c50a981e"
     },
     {
       "name": "iso-panic",
@@ -156,7 +156,7 @@
       "actual_exit": 67,
       "expected_marker": "OWN_IDT_EXCEPTION_HANDLED",
       "stderr": "",
-      "log_sha256": "5c856a27690ac11d973cc07a402278a2159dcb956e65bf76cded8836c4e1d8be"
+      "log_sha256": "4fc527290a3b0c1d5a5f4377a82a6aba8c1cadd1d12807b2bedc839905840b92"
     },
     {
       "name": "iso-badboot",
@@ -169,7 +169,7 @@
       "actual_exit": 71,
       "expected_marker": "KERNEL_REJECT: boot header",
       "stderr": "",
-      "log_sha256": "bd0565c01cb54dfecfc82efc301a4acdaadc9672295f181dd1bc9a5e3bdef9d2"
+      "log_sha256": "b11819bbd1cf1db05c3546b1501a33a55e3a62f1a121b4d3222cf6fbf82bb250"
     },
     {
       "name": "iso-badelf",
@@ -182,7 +182,7 @@
       "actual_exit": 69,
       "expected_marker": "LOADER_REJECT: ELF validation",
       "stderr": "",
-      "log_sha256": "3b7214b924c13b08d0aa35a197ced665f5f02c9a1a914963974530909644d1c6"
+      "log_sha256": "a64b42b95258f5d741edc9e63cc506f67a1f7d79e192b51274963e35040ca7e2"
     }
   ],
   "runtime_measurements": {
@@ -195,11 +195,11 @@
         "cow_faults": 2,
         "copy_cow": 1,
         "oom_faults": 1,
-        "idle_halts": 128,
-        "switches": 716,
-        "dispatch_tsc_total": 446944,
+        "idle_halts": 134,
+        "switches": 714,
+        "dispatch_tsc_total": 445680,
         "dispatch_tsc_max": 632,
-        "deadline_late_ticks": 1,
+        "deadline_late_ticks": 0,
         "runtime_peak_owned_bytes": 184320,
         "thread_resident_bytes": 8992,
         "thread_metadata_bytes": 800,
@@ -237,11 +237,11 @@
         "cow_faults": 2,
         "copy_cow": 1,
         "oom_faults": 1,
-        "idle_halts": 120,
+        "idle_halts": 135,
         "switches": 714,
-        "dispatch_tsc_total": 10406982,
-        "dispatch_tsc_max": 1941719,
-        "deadline_late_ticks": 1,
+        "dispatch_tsc_total": 7648060,
+        "dispatch_tsc_max": 1028381,
+        "deadline_late_ticks": 0,
         "runtime_peak_owned_bytes": 184320,
         "thread_resident_bytes": 8992,
         "thread_metadata_bytes": 800,
@@ -256,17 +256,17 @@
       },
       "dispatch_tsc": {
         "samples": 256,
-        "min": 656,
-        "p50": 2969,
-        "p95": 38646,
-        "max": 1520367
+        "min": 1329,
+        "p50": 3174,
+        "p95": 29400,
+        "max": 1028381
       },
       "roundtrip_tsc": {
         "samples": 64,
-        "min": 14224,
-        "p50": 14492,
-        "p95": 14655,
-        "max": 16366
+        "min": 35175,
+        "p50": 42965,
+        "p95": 53471,
+        "max": 625688
       },
       "user_cpu_mask": 1
     },
@@ -279,11 +279,11 @@
         "cow_faults": 2,
         "copy_cow": 1,
         "oom_faults": 1,
-        "idle_halts": 134,
+        "idle_halts": 152,
         "switches": 714,
-        "dispatch_tsc_total": 10167730,
-        "dispatch_tsc_max": 1436189,
-        "deadline_late_ticks": 1,
+        "dispatch_tsc_total": 9687134,
+        "dispatch_tsc_max": 1611911,
+        "deadline_late_ticks": 0,
         "runtime_peak_owned_bytes": 217088,
         "thread_resident_bytes": 8992,
         "thread_metadata_bytes": 800,
@@ -298,17 +298,17 @@
       },
       "dispatch_tsc": {
         "samples": 256,
-        "min": 1078,
-        "p50": 3258,
-        "p95": 44533,
-        "max": 405536
+        "min": 1353,
+        "p50": 3053,
+        "p95": 45087,
+        "max": 1611911
       },
       "roundtrip_tsc": {
         "samples": 64,
-        "min": 35826,
-        "p50": 36232,
-        "p95": 40465,
-        "max": 99286
+        "min": 36304,
+        "p50": 36959,
+        "p95": 53428,
+        "max": 63643
       },
       "user_cpu_mask": 3
     },
@@ -321,11 +321,11 @@
         "cow_faults": 2,
         "copy_cow": 1,
         "oom_faults": 1,
-        "idle_halts": 119,
+        "idle_halts": 135,
         "switches": 714,
-        "dispatch_tsc_total": 9711212,
-        "dispatch_tsc_max": 1533919,
-        "deadline_late_ticks": 1,
+        "dispatch_tsc_total": 7991001,
+        "dispatch_tsc_max": 1595638,
+        "deadline_late_ticks": 0,
         "runtime_peak_owned_bytes": 184320,
         "thread_resident_bytes": 8992,
         "thread_metadata_bytes": 800,
@@ -340,17 +340,17 @@
       },
       "dispatch_tsc": {
         "samples": 256,
-        "min": 1584,
-        "p50": 3823,
-        "p95": 36603,
-        "max": 1533919
+        "min": 1361,
+        "p50": 3297,
+        "p95": 30616,
+        "max": 672371
       },
       "roundtrip_tsc": {
         "samples": 64,
-        "min": 62073,
-        "p50": 62936,
-        "p95": 91213,
-        "max": 188203
+        "min": 46584,
+        "p50": 53740,
+        "p95": 59195,
+        "max": 63092
       },
       "user_cpu_mask": 1
     },
@@ -363,11 +363,11 @@
         "cow_faults": 2,
         "copy_cow": 1,
         "oom_faults": 1,
-        "idle_halts": 134,
+        "idle_halts": 151,
         "switches": 714,
-        "dispatch_tsc_total": 10007483,
-        "dispatch_tsc_max": 1327965,
-        "deadline_late_ticks": 1,
+        "dispatch_tsc_total": 10298916,
+        "dispatch_tsc_max": 2382069,
+        "deadline_late_ticks": 0,
         "runtime_peak_owned_bytes": 217088,
         "thread_resident_bytes": 8992,
         "thread_metadata_bytes": 800,
@@ -382,17 +382,17 @@
       },
       "dispatch_tsc": {
         "samples": 256,
-        "min": 787,
-        "p50": 3779,
-        "p95": 44645,
-        "max": 524341
+        "min": 1003,
+        "p50": 3686,
+        "p95": 38853,
+        "max": 633736
       },
       "roundtrip_tsc": {
         "samples": 64,
-        "min": 63275,
-        "p50": 63691,
-        "p95": 64473,
-        "max": 110979
+        "min": 51025,
+        "p50": 61758,
+        "p95": 63830,
+        "max": 164201
       },
       "user_cpu_mask": 3
     },
@@ -405,10 +405,10 @@
         "cow_faults": 2,
         "copy_cow": 1,
         "oom_faults": 1,
-        "idle_halts": 135,
+        "idle_halts": 178,
         "switches": 714,
-        "dispatch_tsc_total": 8745624,
-        "dispatch_tsc_max": 1496806,
+        "dispatch_tsc_total": 7409931,
+        "dispatch_tsc_max": 967477,
         "deadline_late_ticks": 1,
         "runtime_peak_owned_bytes": 282624,
         "thread_resident_bytes": 8992,
@@ -424,17 +424,17 @@
       },
       "dispatch_tsc": {
         "samples": 256,
-        "min": 813,
-        "p50": 2874,
-        "p95": 34969,
-        "max": 793435
+        "min": 848,
+        "p50": 2472,
+        "p95": 29908,
+        "max": 961736
       },
       "roundtrip_tsc": {
         "samples": 64,
-        "min": 16949,
-        "p50": 27659,
-        "p95": 51527,
-        "max": 89604
+        "min": 30974,
+        "p50": 31619,
+        "p95": 32058,
+        "max": 38134
       },
       "user_cpu_mask": 15
     },
@@ -447,11 +447,11 @@
         "cow_faults": 2,
         "copy_cow": 1,
         "oom_faults": 1,
-        "idle_halts": 130,
-        "switches": 715,
-        "dispatch_tsc_total": 11146179,
-        "dispatch_tsc_max": 1600863,
-        "deadline_late_ticks": 1,
+        "idle_halts": 168,
+        "switches": 714,
+        "dispatch_tsc_total": 7291714,
+        "dispatch_tsc_max": 883267,
+        "deadline_late_ticks": 0,
         "runtime_peak_owned_bytes": 282624,
         "thread_resident_bytes": 8992,
         "thread_metadata_bytes": 800,
@@ -466,17 +466,17 @@
       },
       "dispatch_tsc": {
         "samples": 256,
-        "min": 1317,
-        "p50": 3859,
-        "p95": 37076,
-        "max": 1600863
+        "min": 1406,
+        "p50": 2787,
+        "p95": 31027,
+        "max": 883267
       },
       "roundtrip_tsc": {
         "samples": 64,
-        "min": 56826,
-        "p50": 57353,
-        "p95": 101472,
-        "max": 118241
+        "min": 38476,
+        "p50": 39856,
+        "p95": 46735,
+        "max": 49266
       },
       "user_cpu_mask": 15
     },
@@ -489,11 +489,11 @@
         "cow_faults": 2,
         "copy_cow": 1,
         "oom_faults": 1,
-        "idle_halts": 132,
+        "idle_halts": 151,
         "switches": 714,
-        "dispatch_tsc_total": 8405637,
-        "dispatch_tsc_max": 1639493,
-        "deadline_late_ticks": 1,
+        "dispatch_tsc_total": 7939702,
+        "dispatch_tsc_max": 1733605,
+        "deadline_late_ticks": 0,
         "runtime_peak_owned_bytes": 282624,
         "thread_resident_bytes": 8992,
         "thread_metadata_bytes": 800,
@@ -508,17 +508,17 @@
       },
       "dispatch_tsc": {
         "samples": 256,
-        "min": 1003,
-        "p50": 3297,
-        "p95": 35794,
-        "max": 1183751
+        "min": 1261,
+        "p50": 2706,
+        "p95": 24689,
+        "max": 1055977
       },
       "roundtrip_tsc": {
         "samples": 64,
-        "min": 48840,
-        "p50": 49484,
-        "p95": 50006,
-        "max": 53606
+        "min": 49492,
+        "p50": 50092,
+        "p95": 50619,
+        "max": 54947
       },
       "user_cpu_mask": 15
     },
@@ -531,11 +531,11 @@
         "cow_faults": 2,
         "copy_cow": 1,
         "oom_faults": 1,
-        "idle_halts": 135,
+        "idle_halts": 155,
         "switches": 714,
-        "dispatch_tsc_total": 11763040,
-        "dispatch_tsc_max": 2032239,
-        "deadline_late_ticks": 1,
+        "dispatch_tsc_total": 8792153,
+        "dispatch_tsc_max": 897842,
+        "deadline_late_ticks": 0,
         "runtime_peak_owned_bytes": 217088,
         "thread_resident_bytes": 8992,
         "thread_metadata_bytes": 800,
@@ -550,17 +550,17 @@
       },
       "dispatch_tsc": {
         "samples": 256,
-        "min": 1533,
-        "p50": 4252,
-        "p95": 46086,
-        "max": 2032239
+        "min": 1048,
+        "p50": 3774,
+        "p95": 40963,
+        "max": 897842
       },
       "roundtrip_tsc": {
         "samples": 64,
-        "min": 62684,
-        "p50": 63603,
-        "p95": 66337,
-        "max": 162627
+        "min": 33451,
+        "p50": 64072,
+        "p95": 66742,
+        "max": 145135
       },
       "user_cpu_mask": 3
     },
@@ -573,10 +573,10 @@
         "cow_faults": 2,
         "copy_cow": 1,
         "oom_faults": 1,
-        "idle_halts": 130,
-        "switches": 714,
-        "dispatch_tsc_total": 9740512,
-        "dispatch_tsc_max": 1366077,
+        "idle_halts": 178,
+        "switches": 715,
+        "dispatch_tsc_total": 7400303,
+        "dispatch_tsc_max": 952468,
         "deadline_late_ticks": 1,
         "runtime_peak_owned_bytes": 282624,
         "thread_resident_bytes": 8992,
@@ -592,17 +592,17 @@
       },
       "dispatch_tsc": {
         "samples": 256,
-        "min": 785,
-        "p50": 3535,
-        "p95": 36288,
-        "max": 1142341
+        "min": 1316,
+        "p50": 2973,
+        "p95": 32214,
+        "max": 507486
       },
       "roundtrip_tsc": {
         "samples": 64,
-        "min": 61313,
-        "p50": 62567,
-        "p95": 65148,
-        "max": 148160
+        "min": 56729,
+        "p50": 59444,
+        "p95": 80687,
+        "max": 87827
       },
       "user_cpu_mask": 15
     }
@@ -617,7 +617,7 @@
       "switches": 112,
       "syscalls": 1750,
       "failures": 0,
-      "boot_reserved_bytes": 708608,
+      "boot_reserved_bytes": 716800,
       "preemptions": 31
     },
     "iso-smoke": {
@@ -629,7 +629,7 @@
       "switches": 112,
       "syscalls": 1750,
       "failures": 0,
-      "boot_reserved_bytes": 708608,
+      "boot_reserved_bytes": 716800,
       "preemptions": 31
     },
     "usb-smoke": {
@@ -641,7 +641,7 @@
       "switches": 112,
       "syscalls": 1750,
       "failures": 0,
-      "boot_reserved_bytes": 708608,
+      "boot_reserved_bytes": 716800,
       "preemptions": 31
     },
     "iso-lowram": {
@@ -653,7 +653,7 @@
       "switches": 112,
       "syscalls": 1750,
       "failures": 0,
-      "boot_reserved_bytes": 708608,
+      "boot_reserved_bytes": 716800,
       "preemptions": 31
     },
     "iso-smp2": {
@@ -665,7 +665,7 @@
       "switches": 112,
       "syscalls": 1750,
       "failures": 0,
-      "boot_reserved_bytes": 708608,
+      "boot_reserved_bytes": 716800,
       "preemptions": 31
     },
     "iso-smp4": {
@@ -677,7 +677,7 @@
       "switches": 112,
       "syscalls": 1750,
       "failures": 0,
-      "boot_reserved_bytes": 708608,
+      "boot_reserved_bytes": 716800,
       "preemptions": 31
     },
     "iso-smp4-repeat1": {
@@ -689,7 +689,7 @@
       "switches": 112,
       "syscalls": 1750,
       "failures": 0,
-      "boot_reserved_bytes": 708608,
+      "boot_reserved_bytes": 716800,
       "preemptions": 31
     },
     "iso-smp4-repeat2": {
@@ -701,7 +701,7 @@
       "switches": 112,
       "syscalls": 1750,
       "failures": 0,
-      "boot_reserved_bytes": 708608,
+      "boot_reserved_bytes": 716800,
       "preemptions": 31
     },
     "iso-large-guest": {
@@ -713,7 +713,7 @@
       "switches": 112,
       "syscalls": 1750,
       "failures": 0,
-      "boot_reserved_bytes": 708608,
+      "boot_reserved_bytes": 716800,
       "preemptions": 31
     },
     "iso-retry": {
@@ -725,7 +725,7 @@
       "switches": 112,
       "syscalls": 1750,
       "failures": 0,
-      "boot_reserved_bytes": 708608,
+      "boot_reserved_bytes": 716800,
       "preemptions": 31
     }
   },

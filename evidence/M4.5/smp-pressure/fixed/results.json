@@ -1,0 +1,62 @@
+{
+  "build_id": "00f54048a402b8186e0a99847b1d61cf",
+  "full_m45_complete": false,
+  "checks": [
+    {
+      "name": "four guest CPUs on one host logical CPU, run 0",
+      "passed": true,
+      "exit": 33,
+      "owned_process_affinity_mask": 1,
+      "error": ""
+    },
+    {
+      "name": "four guest CPUs on one host logical CPU, run 1",
+      "passed": true,
+      "exit": 33,
+      "owned_process_affinity_mask": 1,
+      "error": ""
+    },
+    {
+      "name": "four guest CPUs on one host logical CPU, run 2",
+      "passed": true,
+      "exit": 33,
+      "owned_process_affinity_mask": 1,
+      "error": ""
+    },
+    {
+      "name": "four guest CPUs on one host logical CPU, run 3",
+      "passed": true,
+      "exit": 33,
+      "owned_process_affinity_mask": 1,
+      "error": ""
+    },
+    {
+      "name": "four guest CPUs on one host logical CPU, run 4",
+      "passed": true,
+      "exit": 33,
+      "owned_process_affinity_mask": 1,
+      "error": ""
+    },
+    {
+      "name": "four guest CPUs on one host logical CPU, run 5",
+      "passed": true,
+      "exit": 33,
+      "owned_process_affinity_mask": 1,
+      "error": ""
+    },
+    {
+      "name": "four guest CPUs on one host logical CPU, run 6",
+      "passed": true,
+      "exit": 33,
+      "owned_process_affinity_mask": 1,
+      "error": ""
+    },
+    {
+      "name": "four guest CPUs on one host logical CPU, run 7",
+      "passed": true,
+      "exit": 33,
+      "owned_process_affinity_mask": 1,
+      "error": ""
+    }
+  ]
+}

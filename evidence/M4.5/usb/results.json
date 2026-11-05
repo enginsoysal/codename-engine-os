@@ -1,5 +1,5 @@
 {
-  "build_id": "f7eb1abd3bfdf1b892307e98371c86a7",
+  "build_id": "00f54048a402b8186e0a99847b1d61cf",
   "full_m45_complete": false,
   "checks": [
     {
@@ -40,9 +40,9 @@
     {
       "name": "idle QEMU host process sample after reconnect",
       "passed": true,
-      "wall_seconds": 2.0160000000032596,
-      "cpu_seconds": 0.09375,
-      "one_cpu_percent": 4.6502976190401,
+      "wall_seconds": 2.0,
+      "cpu_seconds": 0.03125,
+      "one_cpu_percent": 1.5625,
       "scope": "two-second emulator sample, not physical CPU measurement"
     },
     {

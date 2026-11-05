@@ -13,7 +13,7 @@ void m3_tick(void);
 unsigned m3_cpu_interrupt(uint64_t*);
 unsigned m3_smp_start(const os_boot_info_v0*,uint64_t);
 void m3_smp_test(void);
-void m3_smp_pressure(unsigned);
+unsigned m3_smp_pressure(unsigned);
 void m3_smp_stop(void);
 unsigned m3_cpu(void);
 uint64_t m3_clock_ticks(void);

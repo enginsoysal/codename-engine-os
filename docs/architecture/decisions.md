@@ -72,6 +72,8 @@ A selected approach is not a runtime claim. [Status](../roadmap/status.md) and [
 | 064 | Deferred root-port work, Disable Slot before free and generation-tagged readers | Reclaim unplugged DMA without aliasing old disk references to a new device | Reusing disk numbers hides stale-reference bugs; freeing before hardware acknowledgement is unsafe | Repeated storage/HID reconnect, seven-page reclamation, stale reference refusal and healthy replacement after EIO |
 | 065 | Separate extended read-only ext2 reader | Widen geometry and indirect/sparse reads without silently widening write authorization | General writable metadata/recovery needs a distinct integrity design | Native multiple-group/geometry tests and corrupted metadata rejection; original writable development profile unchanged |
 
+| 066 | Bounded interruptible AP pressure-response check | A brief delayed VM CPU must not be mistaken for a permanently missing CPU after only three ticks | An immediate timer-count assertion has a hidden host scheduling bound; unbounded waiting hides failure | Exact pre-fix source reproduction, short owned-AP pause succeeds, long pause still fails, no pages allocated and scheduler lock released across HLT |
+
 ## Detailed contracts and remaining choices
 
 [Kernel](kernel-contracts.md), [filesystem](filesystem.md), [build/platform](build-platform.md), [compatibility](compatibility.md), [M2 implementation](../milestones/m2.md), [M3 implementation](../milestones/m3.md).

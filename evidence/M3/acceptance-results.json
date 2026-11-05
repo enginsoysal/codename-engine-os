@@ -1,5 +1,5 @@
 {
-  "time_utc": "2026-11-05T19:02:45.688034+00:00",
+  "time_utc": "2026-11-05T21:40:00.423688+00:00",
   "scope": "M3 complete within documented native VM scope; no Windows apps/installer",
   "passed": true,
   "gates": [
@@ -29,7 +29,7 @@
       "checks": 0
     }
   ],
-  "build_id": "dd38be778fba18fbb7ab20e917cc5e1e",
+  "build_id": "d88b23600453da5121d5ff7d84597e23",
   "full_m3_complete": true,
   "m3_gates": 24,
   "m0_regression_checks": 51,

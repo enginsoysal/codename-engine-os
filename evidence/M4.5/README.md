@@ -4,6 +4,7 @@ These are increment reports, not full M4.5 completion. [Owner trust policy and e
 
 [Increment qualification](increment-results.json), [source/artifact manifest](build-manifest.json). The full milestone flag deliberately remains false.
 
+- [SMP pressure correction](../../docs/milestones/m4.5-smp-pressure.md): exact pre-fix reproduction, short-delay recovery, deadline negative and eight restricted-host-CPU repeats. Current M3 regressions qualify the shared scheduler change.
 - [Dual-firmware boot matrix](boot/results.json): the same ISO and USB images boot through pinned OVMF and SeaBIOS; native completion, actual framebuffer captures and per-CPU HLT observations. [BIOS boundary tests](boot/negative-results.json) cover medium geometry, CRC, insufficient memory, graphics dimensions and serial fallback.
 - [VMware matrix](vmware/results.json): EFI/BIOS SATA and IDE plus EFI/NVMe on Workstation 26.0.1; native completion and ordinary first-sector reads at two CPUs/128 MiB. Existing running VM inventory and full backing hashes remain unchanged. This does not qualify VMware USB/input or every storage error path.
 - [Storage/partition report](storage-results.json): real AHCI/NVMe/ATA/VirtIO reads, ordinary capacities, 512/4096-byte sectors, primary/backup GPT and MBR validation, NTFS/exFAT recognition, corruption rejection, NVMe/VirtIO queue wrap and mixed-disk selection/write isolation. Ordinary backing files are independently hashed before/after.

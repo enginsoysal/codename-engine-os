@@ -1,4 +1,5 @@
 #include <engine/m3.h>
+#include <engine/user.h>
 #include <engine/boot/validate_v0.h>
 #define SHARED UINT64_C(0xffff800000080000)
 static volatile uint32_t *apic;
@@ -6,6 +7,7 @@ static volatile uint64_t *hpet;static uint64_t clock_divisor;
 static unsigned ids[M3_CPUS],cpu_count,bsp_id,use_rdtscp;
 static uint64_t retained,period,counter,pressure_ticks[M3_CPUS];
 static unsigned pressure_active,pressure_checks,early_completions;
+static uint64_t pressure_started,pressure_deadline,pressure_wait_halts;
 typedef struct {unsigned ready,request,done,command;uint64_t ticks,value,failures;} cpu_state;
 static cpu_state cpus[M3_CPUS];
 extern uint8_t ap_trampoline[],ap_trampoline_end[];
@@ -119,12 +121,20 @@ static void command(unsigned value){
         ipi(ids[i],240);}
 }
 static void wait_all(void){for(unsigned i=1;i<cpu_count;++i){unsigned n=0;while(load(&cpus[i].done)!=load(&cpus[i].request)&&++n<20000000)__asm__ volatile("pause");if(n==20000000)bad("worker deadline");}}
-void m3_smp_pressure(unsigned begin){
-    if(begin){if(pressure_active)bad("nested pressure budget");pressure_active=1;for(unsigned i=1;i<cpu_count;++i)pressure_ticks[i]=__atomic_load_n(&cpus[i].ticks,__ATOMIC_RELAXED);}
-    else if(pressure_active){for(unsigned i=1;i<cpu_count;++i)if(__atomic_load_n(&cpus[i].ticks,__ATOMIC_RELAXED)<=pressure_ticks[i])bad("CPU unresponsive under pressure");pressure_active=0;++pressure_checks;}
+unsigned m3_smp_pressure(unsigned begin){
+    if(begin){if(pressure_active)bad("nested pressure budget");pressure_active=1;for(unsigned i=1;i<cpu_count;++i)pressure_ticks[i]=__atomic_load_n(&cpus[i].ticks,__ATOMIC_RELAXED);
+        pressure_started=m3_clock_ticks();pressure_deadline=0;serial_text("M3_PRESSURE_WINDOW_BEGIN phase=");serial_hex(pressure_checks);serial_text("\n");return U_OK;
+    }
+    if(!pressure_active)return U_OK;
+    if(pressure_deadline&&m3_clock_ticks()>=pressure_deadline)bad("CPU unresponsive under pressure");
+    for(unsigned i=1;i<cpu_count;++i)if(__atomic_load_n(&cpus[i].ticks,__ATOMIC_RELAXED)<=pressure_ticks[i]){
+        if(!pressure_deadline){pressure_deadline=m3_clock_ticks()+100;serial_text("M3_PRESSURE_WAIT cpu=");serial_hex(i);serial_text(" elapsed_ticks=");serial_hex(m3_clock_ticks()-pressure_started);serial_text("\n");}++pressure_wait_halts;return U_BUSY;
+    }
+    pressure_active=0;++pressure_checks;return U_OK;
 }
 void m3_smp_test(void){
-    if(pressure_checks!=5)bad("pressure responsiveness coverage");
+    if(pressure_checks!=5||pressure_active)bad("pressure responsiveness coverage");
+    serial_text("M3_PRESSURE_WAIT_HALTS=");serial_hex(pressure_wait_halts);serial_text("\n");
     uint64_t baseline=pages_stats().current_pages;command(1);exercise(&cpus[0]);wait_all();
     if(counter!=(uint64_t)cpu_count*512||pages_stats().current_pages!=baseline)bad("concurrent allocator accounting");
     uint64_t a=page_alloc(),b=page_alloc();if(!a||!b)bad("shootdown pages");*(uint64_t*)(uintptr_t)a=0x111;*(uint64_t*)(uintptr_t)b=0x222;

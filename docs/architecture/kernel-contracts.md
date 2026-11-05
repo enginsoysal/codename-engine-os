@@ -61,3 +61,7 @@ After the finite workload, AP timers are masked and APs acknowledge quiescence o
 M0 validates wire layouts, negative inputs and host reference semantics. M1 proves firmware handoff/diagnostics; M2 its native isolation/rights/cleanup paths. M3 adds its bounded thread/wait/VM/SMP scope with actual guest execution, rollback, time/latency/resource measurements and fresh linked evidence. Guest compatibility, persistent storage, installation, desktop, hardware drivers and physical qualification remain separate milestones. No app target is promoted by a native probe.
 
 Mailbox publication can precede IPI delivery. Each AP therefore performs the requested shared-page invalidation in the worker before acknowledging it, even if an earlier interrupt already invalidated the page. The SMP test deliberately delays doorbells and reports completions before delivery, exercising this ordering rather than assuming every worker woke from that IPI.
+
+## Bounded pressure-response verification
+
+The privileged native pressure probe keeps its allocator admission budget active while checking fresh AP timer progress. Missing progress starts a bounded 100-tick wait; the scheduler releases its lock and halts interruptibly between checks. COW-OOM teardown uses the same path before restoring the budget. A brief delayed VM CPU is tolerated, while the deadline negative still fails. [Mechanism and causal evidence](../milestones/m4.5-smp-pressure.md). This is not a guest ABI or a hard real-time guarantee.

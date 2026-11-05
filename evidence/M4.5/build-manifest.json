@@ -1,6 +1,6 @@
 {
   "milestone": "M45",
-  "build_id": "f7eb1abd3bfdf1b892307e98371c86a7",
+  "build_id": "00f54048a402b8186e0a99847b1d61cf",
   "source_sha256": {
     "boot/bios/mbr.ld": "e1bfb5c0c62f26747f62fd94ecd7fd239e92fa6c4944dad294a634f7d6757452",
     "boot/bios/mbr.S": "8b8155ed440fda9f277e4a5c1a520dc889647a563d2bb237782175d2f114f0bc",
@@ -17,7 +17,7 @@
     "include/engine/boot/validate_v0.h": "a95a9f47577e7663b972a489d1fe61579bbd314330cf938c9836e5b16b5a91e9",
     "include/engine/elf.h": "b1b007a9b9b9fab5aec56049c20b123cbacce48288baefb9f421f55eed1f0f29",
     "include/engine/fs.h": "2b0db9174b8a725354f7c1334308cccc767652aad59b66b2ff77908f173f5a80",
-    "include/engine/m3.h": "1b1c3775227834103741abb47d21a721bfd3d2b2fd778636a529d340ef774370",
+    "include/engine/m3.h": "78ed87acd647d5d58ed387da11a280a74befcfb0d4504475462e3ec0774cf218",
     "include/engine/m4.h": "b26af663c448df9d4a36af23f358f72c1c01392ec1141be6f7ea7fa573d840bf",
     "include/engine/process.h": "6b2310a17b1410ec2bc864c79ad06de8bfbe1981c9870b5941246989b2a4a96b",
     "include/engine/sha256.h": "6c3f2b0fbcb01fe4b03ee872ea52360173d5aa513a16d07327978031e7a1b735",
@@ -27,7 +27,7 @@
     "kernel/arch/x86_64/fault.S": "8f4651a65903c62fc21e3d0c964f28d65077fb86e5130f859ba2513903836abe",
     "kernel/arch/x86_64/interrupts.c": "0b3bb09dfb015c2908a7c926be8370ddc8b862717a5312c2209569c73b77d0a4",
     "kernel/arch/x86_64/linker.ld": "e827271a22c548131fab027b4ee0ca68149bba8ef0c7917eac754d25733b02df",
-    "kernel/arch/x86_64/smp.c": "0c74a195263b2c0d74e1290891cec98e4f73a0d77137ad43a37d839251d1171f",
+    "kernel/arch/x86_64/smp.c": "e6eb15c22867235802d6e89c7c4973377f67bc02eec82f512366463ce4dae6b7",
     "kernel/arch/x86_64/timer.c": "0c95fe6e9cd535c81eebaa1a3e124b29c84bf0d3127ccb355b819e156b979455",
     "kernel/core/console.c": "4111de62192a46621e47295d4f1ad215db89f502d4fba55dc43ada74d6ca0e18",
     "kernel/core/display.c": "b00db939df29553e0fb8eafe5af721241f706fc4c7e8462ce85ca0a63c41aa82",
@@ -39,7 +39,7 @@
     "kernel/memory/pages.c": "aa32a9f3a5168ac9d6ab43eaab2f7a31d137a9eebccfd498ee2f3b44ff5e13d1",
     "kernel/memory/space.c": "6266e1f2242387cc3342a9e4004a992e5e29378a39c2a70c69455b3d04f72d8b",
     "kernel/process/process.c": "95f530d1b1eed5c20f19f4324b823385f49b6f01baa8390038b220e3ef88d35b",
-    "kernel/scheduler/m3.c": "6b09369a746b607705422f84bcd8449ef9438783c7609eddf63e70d07a30e73b",
+    "kernel/scheduler/m3.c": "f4c6a7b889d71ee5bc113ebf53784ef7d55b869052cfa12b4c85bcf5111cad7e",
     "kernel/storage/ahci.c": "776d83ef467a8fe41450a0decd1bed6ded4f4fbc028b9b2f766acb6b9880eae6",
     "kernel/storage/ahci45.c": "06047e615cebab7aadf3fa45bf35fa799c65950a929b4204040131505982fff9",
     "kernel/storage/ext2.c": "9a86080787c798abeb9524e115d58fd99e1c2329bc4d18d7f870dfe84d7eaa08",
@@ -73,15 +73,15 @@
   },
   "artifacts": {
     "EngineOS-M45-kernel.elf": {
-      "sha256": "042837d2c12d923123cce3d6872a44cc80c01fcefe7c35fc99407dd7995fcf86",
-      "size": 696208
+      "sha256": "76cb8654710d586083ad3ecb1072ee6bce7230fa1259b0f7ee9c0b4f6020d2ce",
+      "size": 703296
     },
     "EngineOS-M45-kernel.map": {
-      "sha256": "3c634ebae9446ae7176ce43d51ec4a71b54ee090262a8464ce6a401684600ae7",
-      "size": 87694
+      "sha256": "397ff216455835e47d7deb3c3ea1c479d33b8f38f3206425312ca4385b92890d",
+      "size": 88036
     },
     "EngineOS-M45-usb.img": {
-      "sha256": "4a59c5f6b32cea8ed0747c60dcdbf84f9dacd7ca96212ab8bee0a948447a9765",
+      "sha256": "2a08506928df07787d24d8309877504f8c2d74b86e1f94556754dbf2b24076c2",
       "size": 72351744
     },
     "EngineOS-M45-user.elf": {
@@ -89,7 +89,7 @@
       "size": 68064
     },
     "EngineOS-M45.iso": {
-      "sha256": "868d4299e70db6a5364e3c6ccecbc74f0e3bf8472ddeac342ec773b196df9359",
+      "sha256": "53549b56eb6a9fdb02d7af809b26e3c4966535e1b29d2834e2429cc9cf838d22",
       "size": 67622912
     }
   },
@@ -106,8 +106,8 @@
     "BIOS EDD/E820/VBE and unsigned UEFI share the kernel; broader controller/input profiles, production key workflow and physical qualification remain open"
   ],
   "bios_media_layout": {
-    "kernel_sha256": "042837d2c12d923123cce3d6872a44cc80c01fcefe7c35fc99407dd7995fcf86",
-    "raw_kernel_sha256": "27ce44ef049e0576213f7a1bdbd7033778aa689a2b5bc037cbcee138844b60cf",
+    "kernel_sha256": "76cb8654710d586083ad3ecb1072ee6bce7230fa1259b0f7ee9c0b4f6020d2ce",
+    "raw_kernel_sha256": "00b519db208fb9fc70a9c714f6672d54937f1242c13e5195f9dacfb19fce8ab5",
     "usb": {
       "BIOS_SECTOR_BYTES": 512,
       "BIOS_STAGE_BLOCKS": 64,
@@ -116,7 +116,7 @@
       "BIOS_KERNEL_CHUNKS": 13,
       "BIOS_KERNEL_BYTES": 425984,
       "BIOS_KERNEL_ENTRY": 2097152,
-      "BIOS_KERNEL_CRC": 3913158246,
+      "BIOS_KERNEL_CRC": 4140879180,
       "BIOS_VIDEO_MODE": 324,
       "BIOS_BAD_BOOT": 0
     },
@@ -128,7 +128,7 @@
       "BIOS_KERNEL_CHUNKS": 13,
       "BIOS_KERNEL_BYTES": 425984,
       "BIOS_KERNEL_ENTRY": 2097152,
-      "BIOS_KERNEL_CRC": 3913158246,
+      "BIOS_KERNEL_CRC": 4140879180,
       "BIOS_VIDEO_MODE": 324,
       "BIOS_BAD_BOOT": 0
     },

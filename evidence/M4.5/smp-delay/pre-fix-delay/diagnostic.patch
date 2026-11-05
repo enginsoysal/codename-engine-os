@@ -1,0 +1,19 @@
+--- a/kernel/arch/x86_64/smp.c
++++ b/kernel/arch/x86_64/smp.c
+@@ -8,0 +9,3 @@
++#ifdef ENGINE_M45
++static uint64_t pressure_started;
++#endif
+@@ -123,2 +126,10 @@
+-    if(begin){if(pressure_active)bad("nested pressure budget");pressure_active=1;for(unsigned i=1;i<cpu_count;++i)pressure_ticks[i]=__atomic_load_n(&cpus[i].ticks,__ATOMIC_RELAXED);}
+-    else if(pressure_active){for(unsigned i=1;i<cpu_count;++i)if(__atomic_load_n(&cpus[i].ticks,__ATOMIC_RELAXED)<=pressure_ticks[i])bad("CPU unresponsive under pressure");pressure_active=0;++pressure_checks;}
++    if(begin){if(pressure_active)bad("nested pressure budget");pressure_active=1;for(unsigned i=1;i<cpu_count;++i)pressure_ticks[i]=__atomic_load_n(&cpus[i].ticks,__ATOMIC_RELAXED);
++#ifdef ENGINE_M45
++        pressure_started=m3_clock_ticks();serial_text("M45_PRESSURE_WINDOW_BEGIN phase=");serial_hex(pressure_checks);serial_text("\n");
++#endif
++    }
++    else if(pressure_active){for(unsigned i=1;i<cpu_count;++i)if(__atomic_load_n(&cpus[i].ticks,__ATOMIC_RELAXED)<=pressure_ticks[i]){
++#ifdef ENGINE_M45
++        serial_text("M45_PRESSURE_MISSING_TICK cpu=");serial_hex(i);serial_text(" elapsed_ticks=");serial_hex(m3_clock_ticks()-pressure_started);serial_text(" initial=");serial_hex(pressure_ticks[i]);serial_text(" current=");serial_hex(__atomic_load_n(&cpus[i].ticks,__ATOMIC_RELAXED));serial_text("\n");
++#endif
++        bad("CPU unresponsive under pressure");}pressure_active=0;++pressure_checks;}

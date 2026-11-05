@@ -134,6 +134,10 @@ static void tick_locked(void){
         uint64_t late=ticks-t->deadline;if(late>deadline_lateness)deadline_lateness=late;wake(t,t->wait==W_SLEEP?U_OK:U_TIMEOUT);}}
 }
 void m3_tick(void){lock();tick_locked();unlock();}
+/* Keep the admission budget active while allowing remote timer handlers to run. */
+static void pressure_finish_locked(void){
+    while(m3_smp_pressure(0)==U_BUSY){unlock();__asm__ volatile("sti; hlt; cli":::"memory");lock();}
+}
 static unsigned block(thread *t,unsigned why,uint64_t target,uint64_t duration){
     if(!duration)return U_TIMEOUT;if(duration!=UINT64_MAX&&(duration>1000||duration>UINT64_MAX-ticks))return U_INVALID;
     t->state=WAIT;t->wait=why;t->target=target;t->deadline=duration==UINT64_MAX?UINT64_MAX:ticks+duration;return U_OK;
@@ -216,7 +220,7 @@ static unsigned syscall(thread *t){
     case S_PRESSURE:
         /* Privileged test harness budget control, absent from guest ABI profiles. */
         if(!t->test_admin)return U_DENIED;if(a>8)return U_INVALID;
-        m3_smp_pressure(a!=0);pages_limit(a?pages_stats().current_pages+a:0);return U_OK;
+        if(a){(void)m3_smp_pressure(1);pages_limit(pages_stats().current_pages+a);}else{pressure_finish_locked();pages_limit(0);}return U_OK;
     default:(void)d;return U_UNSUPPORTED;
     }
 }
@@ -275,7 +279,7 @@ trap_frame *m3_trap(trap_frame *f){
             if(t->role!=26||va!=M3_VM+15*4096||(f->error&7)!=4)++unexpected;
             end(t,2);return select_thread();}
         unsigned i=(unsigned)((va-M3_VM)/4096);backing *old=s->vm[i];if(!old)bad("uncommitted write");
-        if(old->refs>1){backing *b=new_backing();if(!b){++oom_faults;pages_limit(0);m3_smp_pressure(0);end(t,1);return select_thread();}memcpy((void*)(uintptr_t)b->page,(void*)(uintptr_t)old->page,4096);release(old);s->vm[i]=b;}
+        if(old->refs>1){backing *b=new_backing();if(!b){++oom_faults;pressure_finish_locked();pages_limit(0);end(t,1);return select_thread();}memcpy((void*)(uintptr_t)b->page,(void*)(uintptr_t)old->page,4096);release(old);s->vm[i]=b;}
         *leaf(s,M3_VM+i*4096)=s->vm[i]->page|7|NX;invalidate(M3_VM+i*4096);++cow_faults;
     }else {++unexpected;end(t,2);}
     return select_thread();
