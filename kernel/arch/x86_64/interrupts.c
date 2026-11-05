@@ -1,4 +1,7 @@
 #include <engine/base.h>
+#ifdef ENGINE_M3
+#include <engine/m3.h>
+#endif
 #ifdef ENGINE_M2
 #include <engine/process.h>
 #endif
@@ -34,6 +37,10 @@ void interrupts_set_kernel_stack(uint64_t address) {tss.rsp[0]=address;}
 extern void kernel_panic_screen(void);
 extern void kernel_fault_probe(void);
 uint64_t *exception_dispatch(uint64_t *frame) {
+#ifdef ENGINE_M3
+    if(m3_cpu_interrupt(frame))return frame;
+    if(m3_active && frame[15]==32 && !(frame[18]&3)){extern void timer_acknowledge(void);timer_acknowledge();m3_tick();return frame;}
+#endif
 #ifdef ENGINE_M2
     if((frame[18]&3)==3)return (uint64_t*)process_trap((trap_frame*)frame);
 #endif
@@ -45,3 +52,16 @@ uint64_t *exception_dispatch(uint64_t *frame) {
     if(rip>=probe && rip<probe+16) {serial_text("symbol=kernel_fault_probe+");serial_hex(rip-probe);serial_text("\n");}
     serial_text("OWN_IDT_EXCEPTION_HANDLED\n");kernel_panic_screen();test_exit(0x21);
 }
+
+#ifdef ENGINE_M3
+static uint64_t ap_gdt[3][7];static tss_type ap_tss[3];
+void interrupts_ap(unsigned cpu,uint64_t stack,uint64_t emergency){
+    if(!cpu||cpu>3)test_exit(0x31);tss_type *t=&ap_tss[cpu-1];uint64_t *g=ap_gdt[cpu-1];
+    memset(t,0,sizeof(*t));t->rsp[0]=stack;t->ist[0]=emergency;t->iomap=sizeof(*t);
+    memcpy(g,gdt,5*8);uint64_t base=(uint64_t)(uintptr_t)t,limit=sizeof(*t)-1;
+    g[5]=(limit&65535)|((base&0xffffff)<<16)|(UINT64_C(0x89)<<40)|((base&0xf0000)<<32)|((base&0xff000000)<<32);g[6]=base>>32;
+    table_pointer gdtr={55,(uint64_t)(uintptr_t)g},idtr={sizeof(idt)-1,(uint64_t)(uintptr_t)idt};
+    __asm__ volatile("lgdt %0; pushq $8; leaq 1f(%%rip),%%rax; pushq %%rax; lretq; 1: movw $16,%%ax; movw %%ax,%%ds; movw %%ax,%%es; movw %%ax,%%ss"::"m"(gdtr):"rax","memory");
+    uint16_t selector=40;__asm__ volatile("ltr %0; lidt %1"::"r"(selector),"m"(idtr):"memory");
+}
+#endif

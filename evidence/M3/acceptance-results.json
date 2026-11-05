@@ -1,6 +1,6 @@
 {
-  "time_utc": "2026-11-05T14:36:15.198999+00:00",
-  "scope": "M3 preemption increment only; full M3 pending; no Windows apps/installer",
+  "time_utc": "2026-11-05T16:11:24.986460+00:00",
+  "scope": "M3 complete within documented native VM scope; no Windows apps/installer",
   "passed": true,
   "gates": [
     {
@@ -11,7 +11,7 @@
     {
       "script": "tests/m3/boot.py",
       "passed": true,
-      "checks": 8
+      "checks": 14
     },
     {
       "script": "tests/m3/visual.py",
@@ -29,9 +29,9 @@
       "checks": 0
     }
   ],
-  "build_id": "1fe4b67c6aec2932e7e9b9592ecb196a",
-  "full_m3_complete": false,
-  "m3_gates": 18,
+  "build_id": "7c391d82ba9f3ce6cb1bb927c23766fa",
+  "full_m3_complete": true,
+  "m3_gates": 24,
   "m0_regression_checks": 51,
   "native_workload": {
     "process_starts": 47,
@@ -41,6 +41,17 @@
     "handle_limit": 16,
     "message_limit": 4,
     "minimum_tested_guest_mib": 64,
-    "active_cpus": 1
+    "active_cpus": [
+      1,
+      2,
+      4
+    ],
+    "m3_thread_starts": 85,
+    "m3_clean_exits": 73,
+    "m3_cancellations": 10,
+    "m3_isolated_faults": 2,
+    "m3_cow_faults": 2,
+    "m3_kernel_copy_cow": 1,
+    "m3_oom_faults": 1
   }
 }

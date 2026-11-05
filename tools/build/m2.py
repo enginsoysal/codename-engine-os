@@ -1,4 +1,4 @@
-"""Build protected native usermode M2, preserving the separate M1 build path."""
+"""Build M2/M3 native kernels, preserving the separate M1 build path."""
 from pathlib import Path
 import hashlib
 import json
@@ -32,8 +32,9 @@ def main(milestone='M2'):
         flags=debug if assembly else common+([] if kind=='efi' else ['-fno-pic','-fno-pie','-fno-asynchronous-unwind-tables'])
         if kind=='user':flags=flags+['-mcmodel=large']
         command([tools['clang'],'--target='+target,*flags,'-c',path.as_posix(),'-o',obj]);return obj
-    user=compile_file('user/probe.c','user')
-    command([tools['ld.lld'],'-T',ROOT/'user/linker.ld','--build-id=none','-o',BUILD/'USER.ELF',user])
+    user=[compile_file('user/probe.c','user')]
+    if milestone=='M3':user.append(compile_file('user/m3.c','user'))
+    command([tools['ld.lld'],'-T',ROOT/'user/linker.ld','--build-id=none','-o',BUILD/'USER.ELF',*user])
     data=(BUILD/'USER.ELF').read_bytes()
     # Keep the app as an independent ELF artifact; only its exact bytes are embedded in rodata.
     embed='#include <stdint.h>\nconst uint8_t user_program_elf[] __attribute__((aligned(8)))={\n'
@@ -62,7 +63,7 @@ def main(milestone='M2'):
     inputs=('kernel/core/main.c','kernel/core/display.c','kernel/arch/x86_64/interrupts.c','kernel/arch/x86_64/fault.S',
             'runtime/memory.c','kernel/memory/pages.c','kernel/memory/space.c','kernel/process/process.c',
             f'build/{milestone.lower()}/user-image.c',f'build/{milestone.lower()}/interrupt-stubs.S')
-    if milestone=='M3':inputs+=('kernel/arch/x86_64/timer.c',)
+    if milestone=='M3':inputs+=('kernel/arch/x86_64/timer.c','kernel/scheduler/m3.c','kernel/arch/x86_64/smp.c','kernel/arch/x86_64/ap.S')
     kernel=[compile_file(p,'kernel',p.endswith('.S')) for p in inputs]
     command([tools['ld.lld'],'-T',ROOT/'kernel/arch/x86_64/linker.ld','--build-id=none','-Map='+str(BUILD/'kernel.map'),
              '-o',BUILD/'KERNEL.ELF',*kernel])
@@ -79,8 +80,12 @@ def main(milestone='M2'):
     for name in artifacts:
         if re.search(rb'[Cc]:[\\/]+Users[\\/]+',(dist/name).read_bytes()):raise RuntimeError('Host user path in '+name)
     manifest={'milestone':milestone,'build_id':build_id,'source_sha256':hashes,'artifacts':artifacts,'mode':'normal',
-              'limits':['one active CPU; GPR-only trusted probes; M3 timer phase when selected','no Windows apps, installer, threads or SMP',
-                        'early allocator manages conventional memory below 1 GiB']}
+              'limits':(['native VM scope: 1/2/4 active xAPIC CPUs, fixed process affinity, serialized kernel',
+                         'ACPI MADT, xAPIC, 64-bit HPET and startup page 0x8000 required',
+                         'x87/SSE state; no AVX, migration, file paging, Windows apps or installer',
+                         '8 thread slots, 2 address spaces, 16 anonymous VM pages per space'] if milestone=='M3' else
+                        ['one active CPU; GPR-only cooperative probes','no Windows apps, installer, threads or SMP'])+
+                       ['early allocator manages conventional memory below 1 GiB']}
     (dist/f'{milestone.lower()}-build-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
     (dist/f'{milestone}-SHA256SUMS.txt').write_text(''.join(f'{v["sha256"]}  {k}\n' for k,v in artifacts.items()),encoding='utf-8')
     print(json.dumps({'build_id':build_id,'iso':f'dist/EngineOS-{milestone}.iso'},indent=2));return manifest

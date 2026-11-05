@@ -3,7 +3,20 @@
 #define WORDS 4096u /* Manage at most 1 GiB: two 32 KiB bitmaps, no per-page heap objects. */
 static uint64_t free_bits[WORDS],managed[WORDS];
 static unsigned cursor;
+#ifdef ENGINE_M3
+static unsigned allocator_lock;
+static uint64_t admission_limit=UINT64_MAX;
+static void lock(void){while(__atomic_exchange_n(&allocator_lock,1,__ATOMIC_ACQUIRE))__asm__ volatile("pause");}
+static void unlock(void){__atomic_store_n(&allocator_lock,0,__ATOMIC_RELEASE);}
+void pages_limit(uint64_t value){lock();admission_limit=value?value:UINT64_MAX;unlock();}
+#else
+static void lock(void){} static void unlock(void){}
+#endif
 static page_stats stats;
+#ifdef ENGINE_M3
+static uint64_t window_peak;
+uint64_t pages_window_peak(unsigned reset){lock();if(reset)window_peak=stats.current_pages;uint64_t result=window_peak;unlock();return result;}
+#endif
 static NORETURN void corrupt(void) {serial_text("ALLOCATOR_CORRUPTION\n");test_exit(0x31);}
 void pages_init(const os_boot_info_v0 *boot) {
     memset(free_bits,0,sizeof(free_bits));memset(managed,0,sizeof(managed));memset(&stats,0,sizeof(stats));cursor=0;
@@ -20,20 +33,28 @@ void pages_init(const os_boot_info_v0 *boot) {
     serial_text("CONVENTIONAL_PAGES=");serial_hex(stats.total_pages);serial_text("\n");
 }
 uint64_t page_alloc(void) {
+    lock();
+#ifdef ENGINE_M3
+    if(stats.current_pages>=admission_limit){++stats.allocation_failures;unlock();return 0;}
+#endif
     for(unsigned n=0;n<WORDS;++n) {
         unsigned word=(cursor+n)%WORDS;uint64_t value=free_bits[word];
         if(value) {
             unsigned bit=(unsigned)__builtin_ctzll(value);free_bits[word]&=~(UINT64_C(1)<<bit);cursor=word;
             ++stats.current_pages;if(stats.current_pages>stats.peak_pages)stats.peak_pages=stats.current_pages;
-            uint64_t address=((uint64_t)word*64+bit)*4096;memset((void*)(uintptr_t)address,0,4096);return address;
+#ifdef ENGINE_M3
+            if(stats.current_pages>window_peak)window_peak=stats.current_pages;
+#endif
+            uint64_t address=((uint64_t)word*64+bit)*4096;unlock();memset((void*)(uintptr_t)address,0,4096);return address;
         }
     }
-    ++stats.allocation_failures;return 0;
+    ++stats.allocation_failures;unlock();return 0;
 }
 void page_free(uint64_t address) {
+    lock();
     if((address&4095)||address>=UINT64_C(0x40000000))corrupt();
     uint64_t p=address/4096,bit=UINT64_C(1)<<(p%64);unsigned w=(unsigned)(p/64);
     if(!(managed[w]&bit)||(free_bits[w]&bit)||!stats.current_pages)corrupt();
-    free_bits[w]|=bit;--stats.current_pages;if(w<cursor)cursor=w;
+    free_bits[w]|=bit;--stats.current_pages;if(w<cursor)cursor=w;unlock();
 }
-page_stats pages_stats(void) {return stats;}
+page_stats pages_stats(void) {lock();page_stats copy=stats;unlock();return copy;}

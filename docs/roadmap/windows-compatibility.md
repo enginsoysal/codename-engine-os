@@ -10,7 +10,7 @@ C17/assembly is the current implementation language; no new programming language
 |---|---|---|
 | ISO/USB boot | M1 | Own kernel tested in QEMU; user-observed VMware M1 boot |
 | Install OS to disk and boot independently | M5 | Not implemented |
-| Protected process foundation | M2 | Native64 verification programs only |
+| Protected process foundation | M2/M3 | Native64 isolation, threads/waits/VM/SMP verification only; no Windows APIs |
 | Win32/Win64/NT interfaces | M7/M8 | Planned, not implemented |
 | DOS games | M9 | Separate future legacy runtime |
 | Win16/NE and 16-bit installers | WC2 | Explicit separate route; not supplied by PE32/DOS alone |

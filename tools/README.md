@@ -2,21 +2,21 @@
 
 ## Layout and commands
 
-- `tools/build/m2.py`: latest protected-user-mode kernel/ISO build.
+- `tools/build/m2.py`: preserved M2 isolation regression build.
 - `tools/build/m1.py`: explicit historical M1 build path.
 - `tools/build/media.py`: restricted FAT32/GPT/EFI El Torito authoring, not a kernel filesystem.
 - `tools/vm/config.py`: shared pinned QEMU setup.
-- `tools/build/m3.py`: M3 first-increment media; full M3 is still in progress.
-- `tools/vm/run.py`: user launcher (M2 by default, `--milestone M1` or `--milestone M3` explicitly).
-- `tests/m0`, `tests/m1`, `tests/m2`: per-milestone verification.
+- `tools/build/m3.py`: current M3 native scheduling/VM/SMP media.
+- `tools/vm/run.py`: user launcher (M3 by default, `--milestone M1` or `--milestone M2` explicitly).
+- `tests/m0`, `tests/m1`, `tests/m2`, `tests/m3`: per-milestone verification.
 
 ```powershell
-python tools/build/m2.py
+python tools/build/m3.py
 python tools/vm/run.py
-python tests/m2/verify.py
+python tests/m3/verify.py
 ```
 
-Run from the repository root. The latest launcher defaults to one vCPU and 128 MiB; `--ram 64`, `--usb`, `--headless`, `--debug` and `--qemu-dir` are available. See [M2](../docs/milestones/m2.md) and the [M3 increment](../docs/milestones/m3.md). No host disk or directory is exposed. Debugger ports bind loopback only.
+Run from the repository root. The latest launcher defaults to two vCPUs and 128 MiB; `--cpus 1`, `2` or `4`, `--ram 64`, `--usb`, `--headless`, `--debug` and `--qemu-dir` are available. See [M2](../docs/milestones/m2.md) and the [M3](../docs/milestones/m3.md). No host disk or directory is exposed. Debugger ports bind loopback only.
 
 ## Pins and setup
 
@@ -35,10 +35,12 @@ Clang/LLD must be on PATH with the recorded hashes. The QEMU default directory i
 ```powershell
 python tests/m0/verify.py
 python tests/m1/verify.py
-python tests/m2/verify.py
+python tests/m3/verify.py
 ```
 
-Full host-reference qualification currently requires Windows. M0 loads only an EFI environment fixture; M1 loads the own kernel; M2 exercises real native ring-3 isolation. Historical M1 reports are bound to the release tag. Rebuilding/testing that path may refresh local reports with a new current-source build identity.
+Full host-reference qualification currently requires Windows. M0 loads only an EFI environment fixture; M1 loads the own kernel; M2 exercises real native ring-3 isolation. M3 qualifies threads/VM/SMP in its bounded native profile, including 1/2/4 genuinely active CPUs. Historical M1 reports are bound to the release tag. Rebuilding/testing that path may refresh local reports with a new current-source build identity.
+
+Optional VMware qualification: `python tests/m3/vmware.py --cpus 2` creates and stops only a separate diskless/networkless EFI test VM in the ignored project build directory; existing VMs are inventoried and left untouched. See [profiles/evidence](../evidence/M3/vmware/README.md). VMware is not a prerequisite for the portable QEMU acceptance suite.
 
 Generated files stay under ignored `build/` and `dist/`. Public evidence redacts host user/project/temp paths. Debug paths are remapped and release artifacts scanned before publication. ISO timestamps may change image hashes; each release's manifest identifies its exact files. Never infer kernel consumption from configured guest RAM.
 

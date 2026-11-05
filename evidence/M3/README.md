@@ -1,7 +1,23 @@
-# M3 first-increment evidence
+# M3 verification evidence
 
-This directory qualifies **single-active-CPU native timer preemption only**. Full M3 (threads/TLS, SIMD state, waits/deadlines, general VM/COW/pressure and SMP) remains in progress. No installer or Windows application is implemented.
+Scope: native x86-64 VM preemption, threads/TLS/x87/SSE, blocking waits/deadlines, anonymous reserve/commit/decommit/COW, bounded pressure/OOM and 1/2/4 active CPUs. This is not Windows application, installer, desktop or physical-hardware qualification. [Implementation and limits](../../docs/milestones/m3.md).
 
-Run `python tests/m3/verify.py`. [Acceptance](acceptance-results.json), [boot/error cases](boot-results.json), [normal framebuffer/idle](visual-results.json), [build provenance](build-manifest.json) and [screenshot](boot-screen.png) are generated from fresh runs. The native workload combines the inherited 45-start isolation suite with two non-yielding processes, a shared 16-step handshake and carry-state checks. Counts and page budgets are asserted in every successful ISO/USB/low/large-RAM/retry case.
+- [Fresh acceptance](acceptance-results.json): full scoped gate, provenance and suite counts.
+- [Boot/runtime report](boot-results.json): 14 ISO/USB/RAM/SMP/repeat/error cases with exact resource, runtime and TSC measurements.
+- [Visual/idle/debugger report](visual-results.json), [all CPU idle registers](idle-registers.log), [normal log](normal-iso.log), [screenshot](boot-screen.png).
+- [Additional VMware 1/2/4-CPU serial/runtime qualification](vmware/README.md).
+- [Build provenance](build-manifest.json), [repository gates](repository-results.json), [M0 regressions](../M0/acceptance-results.json), [M2 regression](../M2/acceptance-results.json).
 
-See [implementation, limits and remaining gates](../../docs/milestones/m3.md). A passing increment is not complete M3 acceptance. Automated VM scope is pinned QEMU/OVMF; VMware requires a separate observation. Reports contain sanitized project-relative paths. Published M2 release artifacts remain tied to their original tag; current M2 reports may be refreshed as development regressions.
+Each successful boot requires the inherited 47-start/37-exit/ten-fault workload and 85 M3 thread starts (73 exits, ten cancellations, two faults). Thread/handle quotas, page rollback, manual/auto events, mailbox waits, cancellation/close/timeouts, HPET catch-up, two CPU COW faults, one kernel-copy COW, one contained COW-OOM case, five pressure intervals and all-CPU native execution are checked. Concurrent allocation/TLB/timer work is required on each active CPU. A boot logo alone cannot pass.
+
+Peak and retained managed pages, runtime-window peak, separate boot reservations and per-thread cost are reported. Dispatch TSC samples are emulator return-preparation timings, not a complete context-switch or hardware benchmark. Halt and CPU sampling are actual QEMU observations after all periodic timers stop; low guest RAM is not a universal product minimum.
+
+![Actual four-CPU M3 framebuffer](boot-screen.png)
+
+Run `python tests/m3/verify.py`. The report must explicitly have `passed: true` and `full_m3_complete: true`, and all linked fresh gates must pass. The previous preemption alpha is historical; final artifacts are tied to the new release tag. An earlier failed timing ceiling and its revised deterministic-vs-SMP qualification are retained in [history](history/README.md). No raw host user paths or proprietary binaries are published. Generated images stay in ignored build/dist and are separately uploaded/hash-verified on GitHub.
+
+## Final measured resource sample
+
+The QEMU cases record 456 KiB peak managed pages plus 680 KiB retained boot reservations (1136 KiB combined, excluding firmware/devices/framebuffer/host). Retained managed pages are 60/92/156 KiB for 1/2/4 active CPUs. Native thread metadata is 800 bytes, plus separate 4 KiB stack and 4 KiB TLS backing: 8992 bytes/thread before shared process/code costs. Exact runtime-window peak and dispatch measurements are in the reports.
+
+The deterministic-clock case records zero late ticks; normal final QEMU cases record at most 1. The retained earlier failed development sample records 17. These are observations, not a hard real-time guarantee or hidden discarded failures. VMware's additional cases record zero late ticks and 676 KiB boot reservations in their own reports.

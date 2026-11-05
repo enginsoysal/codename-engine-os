@@ -1,6 +1,6 @@
 # Architecture
 
-Baseline: M0 contracts, M1 boot and M2 protected native processes. The separate [M3 increment](../milestones/m3.md) now qualifies single-CPU timer preemption; full M3 remains in progress. Planned interfaces are distinguished from implementation. See [status](../roadmap/status.md) and [evidence](../../evidence/M2/README.md).
+Baseline: M0 contracts, M1 boot and M2 protected native processes. [M3](../milestones/m3.md) qualifies native threads, waits, anonymous VM/COW/pressure and 1/2/4 active CPUs in a bounded VM profile. Planned interfaces are distinguished from implementation. See [status](../roadmap/status.md) and [evidence](../../evidence/M2/README.md).
 
 ## Layers
 
@@ -21,19 +21,19 @@ Native runtime   Windows profile  Linux profile  Darwin profile Legacy runtime
                                  Hardware
 ```
 
-Only the native M2 verification runtime currently runs. Windows/Linux/macOS adapters are future loaders, libraries, servers and narrowly scoped kernel support. A same-architecture application may execute CPU instructions directly while still needing its expected OS interfaces. Win16/DOS and cross-architecture targets may need explicit emulation; this is never described as universal native execution.
+Only native verification programs currently run, through the preserved M2 baseline and M3 thread runtime. Windows/Linux/macOS adapters are future loaders, libraries, servers and narrowly scoped kernel support. A same-architecture application may execute CPU instructions directly while still needing its expected OS interfaces. Win16/DOS and cross-architecture targets may need explicit emulation; this is never described as universal native execution.
 
 ## Kernel boundary
 
 Keep memory/address spaces, scheduling mechanisms, object references/rights, controlled IPC, exceptions and interrupt/DMA fundamentals in the kernel. Put complex policy, desktop, installation and compatibility frameworks in user services. The selected modular kernel avoids assuming every operation needs a server round trip; performance/isolation decisions require measurement.
 
-M2 implements a conventional-memory bitmap allocator, private CR3 address spaces, one native context per process, generation-tagged handles, events/shared-memory objects, bounded messages, controlled copy-in/out and cooperative switching. It runs one bootstrap CPU with maskable interrupts disabled. The separate M3 build adds a timer-preempted native verification phase. Concurrent threads, SMP and waitsets remain M3 work, not implied by multiple process objects.
+M2 implements a conventional-memory bitmap allocator, private CR3 address spaces, one native context per process, generation-tagged handles, events/shared-memory objects, bounded messages, controlled copy-in/out and cooperative switching. It runs one bootstrap CPU with maskable interrupts disabled. M3 adds preemption, independent thread CPU/TLS/FX state, atomic blocking waits and active SMP. Processes are assigned fixed CPU affinity; native programs execute on every active CPU while kernel dispatch is serialized. Wait-any/all and guest-specific synchronization remain future adapter work.
 
 ## Memory and isolation
 
 M1 uses a broad supervisor identity map for initial firmware handoff. Before user entry, M2 replaces it with kernel RX text, RO/NX constants, RW/NX data, a missing null page, a guarded kernel entry stack and private user mappings. CR0.WP and EFER.NXE are enabled. User code/constant pages are shared immutable allocations; data and stacks are private. Shared pages require an explicit handle/map operation and enforce read-only receiver rights in hardware.
 
-The early allocator manages only UEFI conventional pages below 1 GiB. Loader/firmware allocations are retained and separately accounted for. This is a development limit, not a final physical-RAM ceiling. General VM reservations/commit, COW, demand paging, reclaim, compression and swap remain M3+ work.
+The early allocator manages only UEFI conventional pages below 1 GiB. Loader/firmware allocations are retained and separately accounted for. This is a development limit, not a final physical-RAM ceiling. M3 implements bounded anonymous reservation, backed commit/decommit, COW snapshots/write faults and budget pressure/OOM cleanup. File-backed demand paging, cache reclaim, compression and swap remain future work after reliable storage.
 
 ## Execution environments
 
@@ -57,6 +57,6 @@ Discover bus/protocol identity, bind a supported driver, initialize and publish 
 
 ## Evidence and change control
 
-Cross-compile without a host CRT; retain symbols, build IDs, source/artifact hashes, negative tests and public sanitized logs. Record CPU/guest/host configuration and separate managed pages from retained boot memory and framebuffer reservations. M2 trusted cooperative probes cannot prove isolation from starvation by arbitrary malicious programs; timer/preemption and broader hardening precede such claims.
+Cross-compile without a host CRT; retain symbols, build IDs, source/artifact hashes, negative tests and public sanitized logs. Record CPU/guest/host configuration and separate managed pages from retained boot memory and framebuffer reservations. The M3 preemption and SMP suite proves its specified native workloads, not universal starvation/race freedom or arbitrary-app security. Exact limits and resource measurements remain linked to fresh reports.
 
 Primary sources: [UEFI 2.11](https://uefi.org/specs/UEFI/2.11/), [Intel system programming](https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-3a-part-1-manual.pdf), [AMD system programming](https://docs.amd.com/v/u/en-US/24593_3.44_APM_Vol2), [Clang](https://clang.llvm.org/docs/UsersManual.html). These define interfaces; our tests establish only explicitly reported behavior.

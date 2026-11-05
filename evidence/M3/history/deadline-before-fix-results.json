@@ -1,0 +1,525 @@
+{
+  "scope": "M3 native VM qualification: preemption, threads, waits, COW/pressure and active SMP",
+  "build_id": "25b313005a92eb0bd086cce9061cee5b",
+  "checks": [
+    {
+      "name": "iso-smoke",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 512,
+      "active_cpus": 1,
+      "expected_exit": 33,
+      "actual_exit": 33,
+      "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
+      "stderr": "",
+      "log_sha256": "629aa75c31b5b4dd271909fff52c8dd4eb3a28b554994b6e17c53c2515d909a1"
+    },
+    {
+      "name": "usb-smoke",
+      "passed": false,
+      "media": "usb",
+      "ram_mib": 128,
+      "active_cpus": 2,
+      "expected_exit": 33,
+      "actual_exit": 99,
+      "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
+      "stderr": "",
+      "log_sha256": "a21307610f6513725d673065e98affd92adc7f68c4f3ecfe1a1832e93fa8e942"
+    },
+    {
+      "name": "iso-lowram",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 64,
+      "active_cpus": 1,
+      "expected_exit": 33,
+      "actual_exit": 33,
+      "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
+      "stderr": "",
+      "log_sha256": "ae1f0d2758aea1259c82294197af2a89e0fc302178bf40ec518dd03036c76260"
+    },
+    {
+      "name": "iso-smp2",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 64,
+      "active_cpus": 2,
+      "expected_exit": 33,
+      "actual_exit": 33,
+      "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
+      "stderr": "",
+      "log_sha256": "0581ec6a279f8f455dadd7841c2b39f711b0612aab3a51abdff5fbaafba7478b"
+    },
+    {
+      "name": "iso-smp4",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 64,
+      "active_cpus": 4,
+      "expected_exit": 33,
+      "actual_exit": 33,
+      "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
+      "stderr": "",
+      "log_sha256": "7943cc5a94821141003bc64b6dec45ba037914904cc7fe129fabb8f80e190fba"
+    },
+    {
+      "name": "iso-smp4-repeat1",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 128,
+      "active_cpus": 4,
+      "expected_exit": 33,
+      "actual_exit": 33,
+      "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
+      "stderr": "",
+      "log_sha256": "852d0c46dcec5c542b125c82615fb41f50b5f636ebf2d19a1b2cabf0ca4ce230"
+    },
+    {
+      "name": "iso-smp4-repeat2",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 128,
+      "active_cpus": 4,
+      "expected_exit": 33,
+      "actual_exit": 33,
+      "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
+      "stderr": "",
+      "log_sha256": "12a0f68759e543e43a7f55cd10cabd946ac899426b08cac6a344bb22331c836a"
+    },
+    {
+      "name": "iso-large-guest",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 2048,
+      "active_cpus": 2,
+      "expected_exit": 33,
+      "actual_exit": 33,
+      "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
+      "stderr": "",
+      "log_sha256": "ae6945ab9933a7ec03be1f21f06d77e808c168101471f82d78a5a0069e742347"
+    },
+    {
+      "name": "iso-retry",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 128,
+      "active_cpus": 4,
+      "expected_exit": 33,
+      "actual_exit": 33,
+      "expected_marker": "EXIT_BOOT_SERVICES_RETRY",
+      "stderr": "",
+      "log_sha256": "712c9354ce368e2c4a08d06274b4eae94f51a67a7247e38028f0898967725c39"
+    },
+    {
+      "name": "iso-panic",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 128,
+      "active_cpus": 2,
+      "expected_exit": 67,
+      "actual_exit": 67,
+      "expected_marker": "OWN_IDT_EXCEPTION_HANDLED",
+      "stderr": "",
+      "log_sha256": "3b4ac3daf1753ca512f240c1d256ab095193f7d69e33b8eded8bb648b538112f"
+    },
+    {
+      "name": "iso-badboot",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 128,
+      "active_cpus": 2,
+      "expected_exit": 71,
+      "actual_exit": 71,
+      "expected_marker": "KERNEL_REJECT: boot header",
+      "stderr": "",
+      "log_sha256": "7962abd29f2e467c06d1880e88fc43e2a882ab93cfb7fba7af709587052ac300"
+    },
+    {
+      "name": "iso-badelf",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 128,
+      "active_cpus": 2,
+      "expected_exit": 69,
+      "actual_exit": 69,
+      "expected_marker": "LOADER_REJECT: ELF validation",
+      "stderr": "",
+      "log_sha256": "c3faa7d6b11d66aeec21a7386116d99fc3e354fdf8fff3c201dd571155f98cf0"
+    }
+  ],
+  "runtime_measurements": {
+    "iso-smoke": {
+      "runtime": {
+        "threads": 85,
+        "exits": 73,
+        "cancellations": 10,
+        "isolated_faults": 2,
+        "cow_faults": 2,
+        "copy_cow": 1,
+        "oom_faults": 1,
+        "idle_halts": 152,
+        "switches": 627,
+        "dispatch_tsc_total": 19322002,
+        "dispatch_tsc_max": 1028407,
+        "deadline_late_ticks": 0,
+        "runtime_peak_owned_bytes": 184320,
+        "thread_resident_bytes": 8976,
+        "thread_metadata_bytes": 784,
+        "checks": 2152
+      },
+      "smp": {
+        "cpus": 1,
+        "concurrent_allocations": 512,
+        "pressure_checks": 5
+      },
+      "dispatch_tsc": {
+        "samples": 256,
+        "min": 8794,
+        "p50": 18201,
+        "p95": 55953,
+        "max": 549783
+      },
+      "user_cpu_mask": 1
+    },
+    "usb-smoke": {
+      "runtime": {},
+      "smp": {},
+      "dispatch_tsc": {},
+      "user_cpu_mask": 0
+    },
+    "iso-lowram": {
+      "runtime": {
+        "threads": 85,
+        "exits": 73,
+        "cancellations": 10,
+        "isolated_faults": 2,
+        "cow_faults": 2,
+        "copy_cow": 1,
+        "oom_faults": 1,
+        "idle_halts": 153,
+        "switches": 627,
+        "dispatch_tsc_total": 18317985,
+        "dispatch_tsc_max": 1168481,
+        "deadline_late_ticks": 0,
+        "runtime_peak_owned_bytes": 184320,
+        "thread_resident_bytes": 8976,
+        "thread_metadata_bytes": 784,
+        "checks": 2152
+      },
+      "smp": {
+        "cpus": 1,
+        "concurrent_allocations": 512,
+        "pressure_checks": 5
+      },
+      "dispatch_tsc": {
+        "samples": 256,
+        "min": 12042,
+        "p50": 21558,
+        "p95": 78157,
+        "max": 1168481
+      },
+      "user_cpu_mask": 1
+    },
+    "iso-smp2": {
+      "runtime": {
+        "threads": 85,
+        "exits": 73,
+        "cancellations": 10,
+        "isolated_faults": 2,
+        "cow_faults": 2,
+        "copy_cow": 1,
+        "oom_faults": 1,
+        "idle_halts": 165,
+        "switches": 627,
+        "dispatch_tsc_total": 17921444,
+        "dispatch_tsc_max": 672961,
+        "deadline_late_ticks": 0,
+        "runtime_peak_owned_bytes": 217088,
+        "thread_resident_bytes": 8976,
+        "thread_metadata_bytes": 784,
+        "checks": 2152
+      },
+      "smp": {
+        "cpus": 2,
+        "concurrent_allocations": 1024,
+        "pressure_checks": 5
+      },
+      "dispatch_tsc": {
+        "samples": 256,
+        "min": 11544,
+        "p50": 17959,
+        "p95": 76372,
+        "max": 672961
+      },
+      "user_cpu_mask": 3
+    },
+    "iso-smp4": {
+      "runtime": {
+        "threads": 85,
+        "exits": 73,
+        "cancellations": 10,
+        "isolated_faults": 2,
+        "cow_faults": 2,
+        "copy_cow": 1,
+        "oom_faults": 1,
+        "idle_halts": 164,
+        "switches": 627,
+        "dispatch_tsc_total": 17925613,
+        "dispatch_tsc_max": 818177,
+        "deadline_late_ticks": 0,
+        "runtime_peak_owned_bytes": 282624,
+        "thread_resident_bytes": 8976,
+        "thread_metadata_bytes": 784,
+        "checks": 2152
+      },
+      "smp": {
+        "cpus": 4,
+        "concurrent_allocations": 2048,
+        "pressure_checks": 5
+      },
+      "dispatch_tsc": {
+        "samples": 256,
+        "min": 11361,
+        "p50": 15516,
+        "p95": 77482,
+        "max": 818177
+      },
+      "user_cpu_mask": 15
+    },
+    "iso-smp4-repeat1": {
+      "runtime": {
+        "threads": 85,
+        "exits": 73,
+        "cancellations": 10,
+        "isolated_faults": 2,
+        "cow_faults": 2,
+        "copy_cow": 1,
+        "oom_faults": 1,
+        "idle_halts": 164,
+        "switches": 627,
+        "dispatch_tsc_total": 15263552,
+        "dispatch_tsc_max": 605536,
+        "deadline_late_ticks": 0,
+        "runtime_peak_owned_bytes": 282624,
+        "thread_resident_bytes": 8976,
+        "thread_metadata_bytes": 784,
+        "checks": 2152
+      },
+      "smp": {
+        "cpus": 4,
+        "concurrent_allocations": 2048,
+        "pressure_checks": 5
+      },
+      "dispatch_tsc": {
+        "samples": 256,
+        "min": 10399,
+        "p50": 16123,
+        "p95": 63587,
+        "max": 544743
+      },
+      "user_cpu_mask": 15
+    },
+    "iso-smp4-repeat2": {
+      "runtime": {
+        "threads": 85,
+        "exits": 73,
+        "cancellations": 10,
+        "isolated_faults": 2,
+        "cow_faults": 2,
+        "copy_cow": 1,
+        "oom_faults": 1,
+        "idle_halts": 165,
+        "switches": 627,
+        "dispatch_tsc_total": 18372877,
+        "dispatch_tsc_max": 629645,
+        "deadline_late_ticks": 0,
+        "runtime_peak_owned_bytes": 282624,
+        "thread_resident_bytes": 8976,
+        "thread_metadata_bytes": 784,
+        "checks": 2152
+      },
+      "smp": {
+        "cpus": 4,
+        "concurrent_allocations": 2048,
+        "pressure_checks": 5
+      },
+      "dispatch_tsc": {
+        "samples": 256,
+        "min": 12211,
+        "p50": 22119,
+        "p95": 86221,
+        "max": 629645
+      },
+      "user_cpu_mask": 15
+    },
+    "iso-large-guest": {
+      "runtime": {
+        "threads": 85,
+        "exits": 73,
+        "cancellations": 10,
+        "isolated_faults": 2,
+        "cow_faults": 2,
+        "copy_cow": 1,
+        "oom_faults": 1,
+        "idle_halts": 186,
+        "switches": 627,
+        "dispatch_tsc_total": 24950643,
+        "dispatch_tsc_max": 1092175,
+        "deadline_late_ticks": 1,
+        "runtime_peak_owned_bytes": 217088,
+        "thread_resident_bytes": 8976,
+        "thread_metadata_bytes": 784,
+        "checks": 2152
+      },
+      "smp": {
+        "cpus": 2,
+        "concurrent_allocations": 1024,
+        "pressure_checks": 5
+      },
+      "dispatch_tsc": {
+        "samples": 256,
+        "min": 15187,
+        "p50": 28190,
+        "p95": 90052,
+        "max": 852972
+      },
+      "user_cpu_mask": 3
+    },
+    "iso-retry": {
+      "runtime": {
+        "threads": 85,
+        "exits": 73,
+        "cancellations": 10,
+        "isolated_faults": 2,
+        "cow_faults": 2,
+        "copy_cow": 1,
+        "oom_faults": 1,
+        "idle_halts": 163,
+        "switches": 629,
+        "dispatch_tsc_total": 28541126,
+        "dispatch_tsc_max": 1381948,
+        "deadline_late_ticks": 0,
+        "runtime_peak_owned_bytes": 282624,
+        "thread_resident_bytes": 8976,
+        "thread_metadata_bytes": 784,
+        "checks": 2152
+      },
+      "smp": {
+        "cpus": 4,
+        "concurrent_allocations": 2048,
+        "pressure_checks": 5
+      },
+      "dispatch_tsc": {
+        "samples": 256,
+        "min": 16406,
+        "p50": 34123,
+        "p95": 94799,
+        "max": 1342984
+      },
+      "user_cpu_mask": 15
+    }
+  },
+  "memory_measurements": {
+    "iso-smoke": {
+      "starts": 47,
+      "exits": 37,
+      "isolated_faults": 10,
+      "peak_owned_bytes": 466944,
+      "retained_owned_bytes": 61440,
+      "switches": 112,
+      "syscalls": 1750,
+      "failures": 0,
+      "boot_reserved_bytes": 671744,
+      "preemptions": 31
+    },
+    "usb-smoke": {
+      "boot_reserved_bytes": 18446744073709551616,
+      "preemptions": 0
+    },
+    "iso-lowram": {
+      "starts": 47,
+      "exits": 37,
+      "isolated_faults": 10,
+      "peak_owned_bytes": 466944,
+      "retained_owned_bytes": 61440,
+      "switches": 112,
+      "syscalls": 1750,
+      "failures": 0,
+      "boot_reserved_bytes": 671744,
+      "preemptions": 31
+    },
+    "iso-smp2": {
+      "starts": 47,
+      "exits": 37,
+      "isolated_faults": 10,
+      "peak_owned_bytes": 466944,
+      "retained_owned_bytes": 94208,
+      "switches": 112,
+      "syscalls": 1750,
+      "failures": 0,
+      "boot_reserved_bytes": 671744,
+      "preemptions": 31
+    },
+    "iso-smp4": {
+      "starts": 47,
+      "exits": 37,
+      "isolated_faults": 10,
+      "peak_owned_bytes": 466944,
+      "retained_owned_bytes": 159744,
+      "switches": 112,
+      "syscalls": 1750,
+      "failures": 0,
+      "boot_reserved_bytes": 671744,
+      "preemptions": 31
+    },
+    "iso-smp4-repeat1": {
+      "starts": 47,
+      "exits": 37,
+      "isolated_faults": 10,
+      "peak_owned_bytes": 466944,
+      "retained_owned_bytes": 159744,
+      "switches": 112,
+      "syscalls": 1750,
+      "failures": 0,
+      "boot_reserved_bytes": 671744,
+      "preemptions": 31
+    },
+    "iso-smp4-repeat2": {
+      "starts": 47,
+      "exits": 37,
+      "isolated_faults": 10,
+      "peak_owned_bytes": 466944,
+      "retained_owned_bytes": 159744,
+      "switches": 112,
+      "syscalls": 1750,
+      "failures": 0,
+      "boot_reserved_bytes": 671744,
+      "preemptions": 31
+    },
+    "iso-large-guest": {
+      "starts": 47,
+      "exits": 37,
+      "isolated_faults": 10,
+      "peak_owned_bytes": 466944,
+      "retained_owned_bytes": 94208,
+      "switches": 112,
+      "syscalls": 1750,
+      "failures": 0,
+      "boot_reserved_bytes": 671744,
+      "preemptions": 31
+    },
+    "iso-retry": {
+      "starts": 47,
+      "exits": 37,
+      "isolated_faults": 10,
+      "peak_owned_bytes": 466944,
+      "retained_owned_bytes": 159744,
+      "switches": 112,
+      "syscalls": 1750,
+      "failures": 0,
+      "boot_reserved_bytes": 671744,
+      "preemptions": 31
+    }
+  },
+  "passed": false
+}

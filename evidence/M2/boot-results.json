@@ -1,6 +1,6 @@
 {
   "scope": "M2 kernel boot and failure handling; no installer or Windows apps",
-  "build_id": "8a9602e811848e8850e436c5f81dd595",
+  "build_id": "c982bcb0233e2c66d5cdf90c8d7f1b10",
   "checks": [
     {
       "name": "iso-smoke",
@@ -11,7 +11,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "fcf5e6f029fbac60a56350f9680949650f5814112fb8f2479ab93cacad79808c"
+      "log_sha256": "db46981fc5beaa4d519b0cc5218746e13bb5408a09b9b67007e461994e24c597"
     },
     {
       "name": "usb-smoke",
@@ -22,7 +22,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "20f68ecd920b68e6481c46395494075e6b40bfc78fea976afbb4b344c3ee4ef6"
+      "log_sha256": "8d5be275133308fd4c11cc9778edde0b875c66313bcf436964a40a9f7720f3b0"
     },
     {
       "name": "iso-lowram",
@@ -33,7 +33,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "94dd4da11a3d8cfd5332039b8da49f5782dfe67d2c72fb3e8c1d9553bfaa55e6"
+      "log_sha256": "a4771ed6b407b4341e8074af88e30fec413294466b73d7149f13ad1338468059"
     },
     {
       "name": "iso-large-guest",
@@ -44,7 +44,7 @@
       "actual_exit": 33,
       "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
       "stderr": "",
-      "log_sha256": "198fc18b8f7891b8f3897a89abd34dc93f72cf29cca8e0b5d6a79eb7a48f6a0c"
+      "log_sha256": "50b52835f53f2162c0b30cde87ecdb5157d6b3d8837d75f91e773f81d10658e0"
     },
     {
       "name": "iso-retry",
@@ -55,7 +55,7 @@
       "actual_exit": 33,
       "expected_marker": "EXIT_BOOT_SERVICES_RETRY",
       "stderr": "",
-      "log_sha256": "116b179f46d0f1f27dbae1357554d6d18bc8b3edd4182a74303993c6e4b6ee90"
+      "log_sha256": "661fbccd65bc65f6009d37d05f4e2248925b70b62d84506f81dccbafb0469d43"
     },
     {
       "name": "iso-panic",
@@ -66,7 +66,7 @@
       "actual_exit": 67,
       "expected_marker": "OWN_IDT_EXCEPTION_HANDLED",
       "stderr": "",
-      "log_sha256": "111de5d9c2cbe4493aad36e1111f6d05e9d46ba03300595f86fd665fa96ac842"
+      "log_sha256": "97f8d32fda638dc000bc77bee509830ee3ff2cd513d0d5099ada60d3cff8e415"
     },
     {
       "name": "iso-badboot",
@@ -77,7 +77,7 @@
       "actual_exit": 71,
       "expected_marker": "KERNEL_REJECT: boot header",
       "stderr": "",
-      "log_sha256": "1da926d8762bea796ba48e0caf342a3984b59b821ccb8c98cf5f3d76258d658d"
+      "log_sha256": "e2b84cb5587064fb075af3b7761c48cee5d559387d757b434341c019ef88f8df"
     },
     {
       "name": "iso-badelf",
@@ -88,7 +88,7 @@
       "actual_exit": 69,
       "expected_marker": "LOADER_REJECT: ELF validation",
       "stderr": "",
-      "log_sha256": "0e991ed89ffccb93bd2138b9477373e23fb2b283fb990fa1dbcd2b07512fa5e9"
+      "log_sha256": "73ae244c81526d540f90337be576ca4a6991aef0c8fed8d2bd937df893157620"
     }
   ],
   "memory_measurements": {
@@ -101,7 +101,7 @@
       "switches": 79,
       "syscalls": 1744,
       "failures": 0,
-      "boot_reserved_bytes": 430080
+      "boot_reserved_bytes": 438272
     },
     "usb-smoke": {
       "starts": 45,
@@ -112,7 +112,7 @@
       "switches": 79,
       "syscalls": 1744,
       "failures": 0,
-      "boot_reserved_bytes": 430080
+      "boot_reserved_bytes": 438272
     },
     "iso-lowram": {
       "starts": 45,
@@ -123,7 +123,7 @@
       "switches": 79,
       "syscalls": 1744,
       "failures": 0,
-      "boot_reserved_bytes": 430080
+      "boot_reserved_bytes": 438272
     },
     "iso-large-guest": {
       "starts": 45,
@@ -134,7 +134,7 @@
       "switches": 79,
       "syscalls": 1744,
       "failures": 0,
-      "boot_reserved_bytes": 430080
+      "boot_reserved_bytes": 438272
     },
     "iso-retry": {
       "starts": 45,
@@ -145,7 +145,7 @@
       "switches": 79,
       "syscalls": 1744,
       "failures": 0,
-      "boot_reserved_bytes": 430080
+      "boot_reserved_bytes": 438272
     }
   },
   "passed": true

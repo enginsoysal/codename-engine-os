@@ -2,19 +2,19 @@
   "passed": true,
   "checks": [
     {
-      "name": "normal ISO remains online after isolated user faults",
+      "name": "normal 4-CPU M3 ISO remains online after runtime qualification",
       "passed": true
     },
     {
-      "name": "CPU HLT observed by QEMU",
+      "name": "all four CPU HLT states observed by QEMU",
       "passed": true
     },
     {
       "name": "idle host CPU interval",
       "passed": true,
       "wall_seconds": 2.0,
-      "cpu_seconds": 0.015625,
-      "one_cpu_percent": 0.78125,
+      "cpu_seconds": 0.03125,
+      "one_cpu_percent": 1.5625,
       "scope": "QEMU TCG process; not a real-hardware or desktop benchmark"
     },
     {
@@ -29,5 +29,5 @@
       "passed": true
     }
   ],
-  "screenshot_sha256": "a85e20f0c44aec85527d164b43e7d09ad991b57876d9aa178f35116c7717030d"
+  "screenshot_sha256": "6b0eee79ef1b09149de23b52080890e14d9ba5faf1737ea082a4d14b3df5b17b"
 }

@@ -1,6 +1,10 @@
 #include <engine/process.h>
 #include <engine/user.h>
 #include <engine/elf.h>
+#ifdef ENGINE_M3
+#include <engine/m3.h>
+static const os_boot_info_v0 *m3_boot;
+#endif
 #define NX (UINT64_C(1)<<63)
 #define MAX_PROCESSES 13
 #define MAX_OWNED 8
@@ -139,7 +143,13 @@ static NORETURN void finish(void) {
         serial_text("M3_PREEMPTION_BEGIN two non-yielding native processes\n");
         current=MAX_PROCESSES-1;timer_start();arch_enter_user(process_first_context());
     }
-    timer_stop();page_free(coordination_page);
+    if(preemption_phase==1){
+        preemption_phase=2;timer_stop();page_free(coordination_page);
+        m3_image image={kernel_cr3,user_entry,common_count,common_pages,common_vas,common_flags,private_template,m3_boot};
+        m3_start(&image,finish);
+    }
+    base_pages+=m3_smp_pages();
+    timer_stop();
     if(preemptions<16||starts!=47||exits!=37)++failures;
     serial_text("M3_PREEMPTIONS=");serial_hex(preemptions);serial_text(" ticks=");serial_hex(timer_ticks);serial_text("\n");
 #endif
@@ -152,6 +162,7 @@ static NORETURN void finish(void) {
 #endif
        )++failures;
 #ifdef ENGINE_M3
+    serial_text(failures?"M3_COMPLETE_FAIL\n":"M3_COMPLETE_PASS\n");
     serial_text(failures?"M3_PREEMPTION_FAIL\n":"M3_PREEMPTION_PASS\n");
 #endif
     serial_text("M2_STATS starts=");serial_hex(starts);serial_text(" exits=");serial_hex(exits);serial_text(" isolated_faults=");serial_hex(faults);
@@ -254,6 +265,9 @@ static unsigned dispatch(process *p,trap_frame *f,int *reschedule) {
     }
 }
 trap_frame *process_trap(trap_frame *frame) {
+#ifdef ENGINE_M3
+    if(m3_active)return m3_trap(frame);
+#endif
     process *p=&processes[current];memcpy(&p->context,frame,sizeof(*frame));int reschedule=0;
 #ifdef ENGINE_M3
     if(frame->vector==32) {
@@ -285,6 +299,9 @@ trap_frame *process_first_context(void) {return schedule();}
 NORETURN void process_start(const os_boot_info_v0 *boot,unsigned test_mode) {
     const os_boot_range *ranges=(const os_boot_range*)(uintptr_t)boot->reservations.physical_address;
     for(uint64_t i=0;i<boot->reservations.byte_length/sizeof(*ranges);++i)boot_reserved_bytes+=ranges[i].byte_length;
+#ifdef ENGINE_M3
+    m3_boot=boot;
+#endif
     mode=test_mode;pages_init(boot);kernel_cr3=kernel_space_init(boot);base_pages=pages_stats().current_pages;
     load_program();for(unsigned i=0;i<MAX_PROCESSES;++i)create(&processes[i],i+1);
     serial_text("M2_ENTER_RING3 native64 processes=13\n");current=MAX_PROCESSES-1;arch_schedule_first();

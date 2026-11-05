@@ -73,6 +73,11 @@ efi_status efi_main(efi_handle image,efi_system_table *system) {
         elf_segment p;memcpy(&p,elf+h.phoff+(uint64_t)i*56,sizeof(p));
         if(p.type==1)memcpy((void*)(uintptr_t)p.paddr,elf+p.offset,(size_t)p.filesz);
     }
+#ifdef ENGINE_M3
+    uint64_t trampoline=0x8000;
+    if(EFI_ERROR(bs->allocate_pages(2,1,1,&trampoline)))fail("AP trampoline allocation");
+    reserve(trampoline,4096);memset((void*)(uintptr_t)trampoline,0,4096);
+#endif
     os_boot_info_v0 *boot=allocate(2,2);
     boot->magic=OS_BOOT_MAGIC;boot->version=0;boot->structure_size=sizeof(*boot);
     boot->kernel=(os_boot_range){plan.low,plan.high-plan.low};

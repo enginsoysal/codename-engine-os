@@ -1,5 +1,5 @@
 {
-  "time_utc": "2026-11-05T14:37:54.696377+00:00",
+  "time_utc": "2026-11-05T16:13:34.006111+00:00",
   "scope": "native M2 isolation and resource qualification; no Windows apps/installer",
   "passed": true,
   "gates": [
@@ -29,7 +29,7 @@
       "checks": 0
     }
   ],
-  "build_id": "8a9602e811848e8850e436c5f81dd595",
+  "build_id": "c982bcb0233e2c66d5cdf90c8d7f1b10",
   "m2_gates": 18,
   "m0_regression_checks": 51,
   "native_workload": {

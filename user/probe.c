@@ -14,6 +14,9 @@ static __attribute__((naked,noreturn)) void bad_stack(void) {
     __asm__ volatile("movabsq $0x8000000000000000,%rsp; movq $9999,%rax; int $0x80; ud2");
 }
 __attribute__((noreturn)) void user_main(uint64_t role) {
+#ifdef ENGINE_M3
+    extern void m3_user(uint64_t);if(role>=16)m3_user(role);
+#endif
     uint64_t h=0,copy=0,value=0,pid=0;expect(call(S_PID,(uint64_t)(uintptr_t)&pid,0,0,0),U_OK);
     if(private_value)fail();
 #ifdef ENGINE_M3

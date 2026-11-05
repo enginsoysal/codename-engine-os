@@ -1,0 +1,81 @@
+{
+  "passed": true,
+  "scope": "one isolated VMware Workstation EFI/FreeBSD-64 profile; no disk, network or guest tools",
+  "ram_mib": 128,
+  "cpus": 4,
+  "vmrun_sha256": "c3d4f24932037051765c479dc854b33a5d9ef0e9f6813e215ee6bc1bedebf0d6",
+  "iso_sha256": "117aa465548edc643a2e99e1d1a68e8bc63cb71574a5d9f81512563258075bc7",
+  "checks": [
+    {
+      "name": "normal M3 runtime reaches complete/idle",
+      "passed": true
+    },
+    {
+      "name": "native execution on every configured CPU",
+      "passed": true
+    },
+    {
+      "name": "tested source identity",
+      "passed": true
+    },
+    {
+      "name": "runtime counters and managed/boot memory budgets",
+      "passed": true
+    }
+  ],
+  "build_id": "7c391d82ba9f3ce6cb1bb927c23766fa",
+  "roundtrip_tsc": {
+    "samples": 64,
+    "min": 247786,
+    "p50": 249281,
+    "p95": 280192,
+    "max": 339845
+  },
+  "smp": {
+    "cpus": 4,
+    "concurrent_allocations": 2048,
+    "early_mailbox_completions": 9,
+    "pressure_checks": 5
+  },
+  "memory": {
+    "starts": 47,
+    "exits": 37,
+    "isolated_faults": 10,
+    "peak_owned_bytes": 466944,
+    "retained_owned_bytes": 159744,
+    "switches": 112,
+    "syscalls": 1750,
+    "failures": 0
+  },
+  "runtime": {
+    "threads": 85,
+    "exits": 73,
+    "cancellations": 10,
+    "isolated_faults": 2,
+    "cow_faults": 2,
+    "copy_cow": 1,
+    "oom_faults": 1,
+    "idle_halts": 150,
+    "switches": 715,
+    "dispatch_tsc_total": 2145792,
+    "dispatch_tsc_max": 47504,
+    "deadline_late_ticks": 0,
+    "runtime_peak_owned_bytes": 282624,
+    "thread_resident_bytes": 8992,
+    "thread_metadata_bytes": 800,
+    "checks": 2161
+  },
+  "dispatch_tsc": {
+    "samples": 256,
+    "min": 447,
+    "p50": 625,
+    "p95": 3293,
+    "max": 42720
+  },
+  "boot_reserved_bytes": 692224,
+  "vmware_version": "26.0.1",
+  "vmware_build": "25688693",
+  "screenshot_captured": false,
+  "owned_vm_stopped": true,
+  "existing_vm_inventory_unchanged": true
+}

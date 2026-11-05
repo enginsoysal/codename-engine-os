@@ -45,7 +45,7 @@ void display_boot(const os_boot_info_v0 *boot) {
     }
     text(40,48,"CODENAME: ENGINE OS",3,0xffffff);
 #ifdef ENGINE_M3
-    text(40,110,"M3 PREEMPTION INCREMENT",2,0x39d5bb);
+    text(40,110,"M3 KERNEL ONLINE",2,0x39d5bb);
 #elif defined(ENGINE_M2)
     text(40,110,"M2 KERNEL ONLINE",2,0x39d5bb);
 #else
@@ -71,12 +71,18 @@ void display_m2_result(unsigned failures,uint64_t peak,uint64_t retained,unsigne
     }
     text(40,210,failures?"USERMODE ISOLATION: FAIL":"USERMODE ISOLATION: PASS",2,failures?0xff7070:0x39d5bb);
 #ifdef ENGINE_M3
-    text(40,250,failures?"TIMER PREEMPTION: FAIL":"TIMER PREEMPTION: PASS",2,failures?0xff7070:0x39d5bb);
+    text(40,250,failures?"THREADS WAITS VM SMP: FAIL":"THREADS WAITS VM SMP: PASS",2,failures?0xff7070:0x39d5bb);
 #else
     text(40,250,"PRIVATE MEMORY AND SHARED IPC: CHECKED",2,0xffffff);
 #endif
+#ifdef ENGINE_M3
+    extern void m3_summary(unsigned*,unsigned*);unsigned cpus,threads;m3_summary(&cpus,&threads);(void)faults;(void)starts;
+    text(40,290,"ACTIVE CPUS:",2,0x93aabe);number(340,290,cpus);
+    text(40,330,"NATIVE THREAD STARTS:",2,0x93aabe);number(340,330,threads);
+#else
     text(40,290,"CONTAINED USER FAULTS:",2,0x93aabe);number(340,290,faults);
     text(40,330,"PROCESS STARTS:",2,0x93aabe);number(340,330,starts);
+#endif
     text(40,370,"PEAK MANAGED RAM KIB:",2,0x93aabe);number(340,370,peak/1024);
     text(40,410,"RETAINED MANAGED RAM KIB:",2,0x93aabe);number(360,410,retained/1024);
     text(40,450,"IDLE: CPU HALTED - NO POLLING",2,0x39d5bb);

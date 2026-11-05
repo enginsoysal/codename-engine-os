@@ -36,6 +36,8 @@ The implementation owner is the coding agent; the user sets product scope and ac
 
 **Acceptance:** no observed lost wakeups in the specified suite, correct COW, bounded allocation failures, responsive operation under pressure and multiple CPUs; measured budgets/latency. **Risk:** tests do not prove absence of races; review and fault injection remain essential. Future user idle uses interrupt-aware sleep rather than permanent demo HLT.
 
+M3 closes this gate in the bounded native VM profile documented in [M3](../milestones/m3.md): actual CPL3 execution on 1/2/4 CPUs, fixed process affinity, serialized kernel dispatch, x87/SSE/TLS, hardware-clock waits, anonymous COW/commit and tested budget pressure. Native thread/space/page quotas and unsupported AVX/migration/file paging are explicit. [Fresh acceptance](../../evidence/M3/acceptance-results.json) must pass; this is not general hardware or Windows app qualification.
+
 ## M4 — storage, discovery and input
 
 **Depends on:** M3. **What:** bus/protocol driver binding, block queues/DMA, the chosen writable filesystem/VFS, buffering/flush, USB controller and keyboard/mouse.

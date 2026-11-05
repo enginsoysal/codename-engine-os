@@ -22,7 +22,7 @@ def main():
     files=qemu_tools();work=ROOT/'build/m3/visual';evidence=ROOT/'evidence/M3'
     image=ROOT/'dist/EngineOS-M3.iso'
     args,serial=arguments(files,'iso',image,work,ram=128)
-    args[args.index('-smp')+1]='1'
+    args[args.index('-smp')+1]='4'
     port=free_port();args+=['-qmp',f'tcp:127.0.0.1:{port},server=on,wait=off']
     checks=[]
     process=subprocess.Popen(args,stdout=subprocess.PIPE,stderr=subprocess.PIPE,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
@@ -41,16 +41,17 @@ def main():
             deadline=time.monotonic()+45
             while time.monotonic()<deadline and process.poll() is None:
                 log=serial.read_text(encoding='utf-8',errors='replace') if serial.exists() else ''
-                if 'M2_IDLE_HLT' in log:break
+                if 'M2_IDLE_HLT' in log and 'M3_COMPLETE_PASS' in log:break
                 time.sleep(.1)
             else:raise RuntimeError('Normal kernel never became online')
             time.sleep(.4)
             status=qmp('query-status')
             if status.get('status')!='running' or process.poll() is not None:raise RuntimeError('Normal kernel is not persistent')
-            checks.append({'name':'normal ISO remains online after isolated user faults','passed':True})
-            registers=qmp('human-monitor-command',{'command-line':'info registers'})
-            if 'HLT=1' not in registers:raise RuntimeError('CPU is not halted at idle')
-            checks.append({'name':'CPU HLT observed by QEMU','passed':True})
+            checks.append({'name':'normal 4-CPU M3 ISO remains online after runtime qualification','passed':True})
+            registers=qmp('human-monitor-command',{'command-line':'info registers -a'})
+            if registers.count('HLT=1')!=4:raise RuntimeError('Not all four CPUs halted at idle')
+            (evidence/'idle-registers.log').write_text(registers,encoding='utf-8')
+            checks.append({'name':'all four CPU HLT states observed by QEMU','passed':True})
             import ctypes
             from ctypes import wintypes as w
             api=ctypes.WinDLL('kernel32',use_last_error=True)
@@ -81,7 +82,7 @@ def main():
         if process.poll() is None:process.terminate();process.wait(timeout=5)
     # A separate paused launch verifies the actual loopback GDB stub handshake.
     args,_=arguments(files,'iso',image,ROOT/'build/m3/gdb-check',ram=128)
-    args[args.index('-smp')+1]='1'
+    args[args.index('-smp')+1]='4'
     port=free_port();args+=['-gdb',f'tcp:127.0.0.1:{port}','-S']
     process=subprocess.Popen(args,stdout=subprocess.PIPE,stderr=subprocess.PIPE,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
     try:
