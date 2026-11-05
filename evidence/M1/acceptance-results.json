@@ -1,0 +1,35 @@
+{
+  "scope": "M1 kernel boot; not installation or application compatibility",
+  "time_utc": "2026-11-05T12:22:34.777985+00:00",
+  "passed": true,
+  "gates": [
+    {
+      "script": "tools/build.py",
+      "passed": true,
+      "checks": 0
+    },
+    {
+      "script": "tests/m1_elf.py",
+      "passed": true,
+      "checks": 19
+    },
+    {
+      "script": "tests/m1_boot.py",
+      "passed": true,
+      "checks": 7
+    },
+    {
+      "script": "tests/m1_visual.py",
+      "passed": true,
+      "checks": 3
+    },
+    {
+      "script": "m0/verify_m0.py",
+      "passed": true,
+      "checks": 0
+    }
+  ],
+  "build_id": "6b72956cc1fee4840b14c92618833ca0",
+  "m1_check_count": 29,
+  "regression_m0_checks": 51
+}

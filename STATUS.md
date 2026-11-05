@@ -2,7 +2,7 @@
 
 Bijgewerkt: 5 november 2026.
 
-Architectuur en plan: versie 0.3. M0 afgerond als architectuur-/toolchainbaseline; 51 technische controles plus document-/inventariscontrole geslaagd. OS-kernel en installer: niet gebouwd.
+Architectuur en plan: versie 0.4. M0 afgerond; M1 eigen kernelboot en diagnostiek geïmplementeerd/getoetst. Installer en appcompatibiliteit: niet gebouwd.
 
 Projectnaam: **Codename: Engine OS**. Canonieke werkbron: `enginsoysal/codename-engine-os`, openbaar, MIT-licentie. Afgeronde updates worden gecommit en gepusht volgens AGENTS.md.
 
@@ -11,7 +11,7 @@ Scope-update: Windows 95–11-apps zijn het brede productdoel. De audit en aanvu
 | Mijlpaal | Status | Bewijs |
 |---|---|---|
 | M0 Architectuurcontracten | Voltooid binnen architectuur/toolchainscope; runtimepoorten overgedragen | [Acceptatie](evidence/M0/acceptance-results.json), [bewijs](evidence/M0/README.md) |
-| M1 Bootbare kernel | Niet gestart | — |
+| M1 Bootbare kernel | Voltooid voor gepinde QEMU/UEFI ISO-/USB-route; fysieke hardware niet gekwalificeerd | [M1-bewijs](evidence/M1/README.md) |
 | M2 Geïsoleerde processen | Niet gestart | — |
 | M3 Geheugen en concurrency | Niet gestart | — |
 | M4 Opslag en invoer | Niet gestart | — |
@@ -43,6 +43,14 @@ Voor elke mijlpaal worden tijdens uitvoering bijgehouden: werkpakketten, restere
 - QEMU/firmware/compilerhashes en ISO-library gepind; ISO en GPT-USB fixture starten onder UEFI.
 - Windows 95–11-generatie-/kwalificatie-inventaris en M1-overdracht toegevoegd.
 
+## Uitgevoerd in M1
+
+- Eigen UEFI-loader, ELF-controle, initmanifest, memory-map-/reserveringsoverdracht en begrensde ExitBootServices-retry.
+- Eigen paginatabellen/stack, GDT/TSS/IDT, seriële diagnostiek, framebufferconsole en symboliseerbare #UD-panic.
+- Normale ISO en GPT-USB-image, VM-launcher, checksums en debug-symbolen voor prerelease.
+- 29 M1-checks en alle 51 M0-regressiechecks slagen; bron-/artefacthashes en documentlinks gecontroleerd.
+- Windows 95–11-eisen blijven in aparte toekomstige applicatieomgevingen; geen Windows-apps als ondersteund gemeld.
+
 ## Eerstvolgende mijlpaal
 
-M1: echte eigen UEFI-loader, kernel-entry, Boot Services-overdracht, diagnostiek en OS-bootmedia. Zie [werkvolgorde](m0/M1-HANDOFF.md). De M0-fixture is geen OS-/installatiemedium. Een VM voor kerneltests volgt bij M1; de installer volgt bij M5. M1 blijft niet gestart in deze update.
+M2: beschermde adresruimtes, eigen usermodeprocessen, handles en minimale syscalls. De M1-kernel kan nu in een VM booten, maar bevat nog geen installer; die volgt bij M5 na opslag/invoer. Zie [huidige startinstructies](M1.md).

@@ -1,0 +1,46 @@
+{
+  "milestone": "M1",
+  "build_id": "6b72956cc1fee4840b14c92618833ca0",
+  "mode": "normal",
+  "source_sha256": {
+    "boot/uefi/handoff.S": "4d3b9259c88e5b3e2b4d72fee29b82dc495758408c454a09e471f3d69e21c6e9",
+    "boot/uefi/loader.c": "99a4d03e445f5e6dfc518b5a04a4a202e41fdb00c079b349c5a43009c6019140",
+    "boot/uefi/uefi.h": "ca95b0595cb3fee3066104737c70e13fe5d19316f186564ae14faac65b8e65c6",
+    "include/engine/base.h": "edf6264c00bd9c42df8a4ef64bebde4dc16d2afe761c823d1c0366db64efb8f4",
+    "include/engine/elf.h": "b1b007a9b9b9fab5aec56049c20b123cbacce48288baefb9f421f55eed1f0f29",
+    "kernel/arch/x86_64/fault.S": "8f4651a65903c62fc21e3d0c964f28d65077fb86e5130f859ba2513903836abe",
+    "kernel/arch/x86_64/interrupts.c": "ac041dc684cba7684591fb4f61646818c824105556eb4626676413842f7d368f",
+    "kernel/arch/x86_64/linker.ld": "4177e017c1b5b9a2e0228e47a4368523a309690d79b3bd92deee1fe4b6701222",
+    "kernel/core/display.c": "0ce59834c02ba4fec64af1a0af0ff21faa5a449e1d3b615fe34cff3abdce1253",
+    "kernel/core/main.c": "a232d238067c8e9f0aac3e9518a1d58683b22b9009b93edeb130a4e8b6c33b1c",
+    "m0/contracts/boot_v0.h": "3669e45d2541c2aa53268a0246e004865153b8f9100473c0680458a17580211a",
+    "m0/contracts/syscall_v0.h": "813dbfe6d652033754cfea1cf7f9c1420ffc35480d5931a21782279d006f6a16",
+    "m0/contracts/validate_v0.h": "1ec6718c899e508b3bf9aa12e5b406b8cd52c35e988c5296feb76e980a47c2f5",
+    "runtime/memory.c": "6d0a1ab7c130552c391beabb8a188b85521685e7d189a628224b99d802d65d25",
+    "tools/build.py": "64a45b4c796e180875dd288afe3245f83831155e83f97e0a0fdf5dbcfc7d10cf",
+    "tools/media.py": "2f1cdb2e480079a12ac1b0e5b7bccf84f4a829f419de32f3157f2d72694b0d49"
+  },
+  "artifacts": {
+    "EngineOS-M1-kernel.elf": {
+      "sha256": "9895ce50500e0d4ca1ef9846dede21e63636dea4c0b3ea38c336d3f1704c071a",
+      "size": 66744
+    },
+    "EngineOS-M1-kernel.map": {
+      "sha256": "adf56a416c92d63a9ee3705ab257aa536c3f0bc24f42ae29b23e856c1c56c68e",
+      "size": 27802
+    },
+    "EngineOS-M1-usb.img": {
+      "sha256": "4ad032477f78dba81a23f5357332e1dfbf1321739c1a07ac29b8cf6a941c97f8",
+      "size": 69206016
+    },
+    "EngineOS-M1.iso": {
+      "sha256": "a584e5ae3b97f6efff544a1f35c7abc7970d180109142e855e7237236c0630c7",
+      "size": 67162112
+    }
+  },
+  "limits": [
+    "UEFI x86-64 only",
+    "bootstrap identity map below 4 GiB",
+    "no installer, user processes, drivers or Windows apps"
+  ]
+}

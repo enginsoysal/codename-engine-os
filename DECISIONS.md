@@ -31,6 +31,9 @@ Status: baseline; 'gekozen' betekent richting voor implementatie, geen gemeten r
 | ADR-025 | pycdlib 1.22.0 als eerste ISO-verpakker | Pure Python op Windows; EFI El Torito zonder WSL | xorriso vraagt hier extra toolomgeving | Wheelhash gepind; echte OVMF-ISO-load geslaagd; build-host LGPL-component |
 | ADR-026 | Kleine EFI-omgevingstest vóór kernel | Scheidt tool-/firmwarefouten van kernelproblemen | Eerste kernel meteen booten maakt diagnose minder gericht | Marker/exitcode via ISO en GPT-USB; geen kernelclaim |
 | ADR-027 | Windows-generatieregister plus expliciete latere runtimepoorten | Brede eis behouden met traceerbaar bewijs | Alle apps claimen op enkele voorbeelden is oncontroleerbaar | Acht profielen; register nog leeg; WC1–WC7/M7+ |
+| ADR-028 | M1 vaste ELF-bootstrap vanaf 2 MiB, identity-map onder 4 GiB | Overdracht en fouten blijven overzichtelijk vóór allocator/usermode | Hogere-half/4 KiB-permissies direct toevoegen verhoogt eerste bootcomplexiteit | Boot/rejecttests; brede RWX/nulpage expliciet tijdelijk; M2 beschermt vóór apps |
+| ADR-029 | Eigen assembly-exceptionentry plus TSS/IST | Controle over errorcodes/context; bruikbare echte crashdiagnose | Alleen logstubs zonder CPU-exception bewijzen geen werkende IDT | #UD met RIP/symbool/bronregel en GDB-handshake getest; overige vectors niet alle geforceerd |
+| ADR-030 | Vast initmanifest met build-id/testmodus | Kleine gevalideerde bootinput en gelijke kernel in test-/normale images | Algemeen archief nu vergroot parserscope zonder M1-noodzaak | 48-byte manifest; modes 1–4 uitsluitend ontwikkeltests; normale release mode 0 |
 
 ## Nog te besluiten vóór relevante implementatie
 

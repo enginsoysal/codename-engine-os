@@ -30,3 +30,15 @@ The last command checks the lock before starting QEMU, uses `pc-q35-11.1`, TCG, 
 **The generated images are M0 environment fixtures, not Engine OS installation media.** They load a tiny EFI test and immediately exit. M1 will implement the kernel handoff/ExitBootServices, and M5 the installation workflow.
 
 Only files under `build/` and generated evidence are touched. There is no host block-device passthrough or shared host directory. For another toolchain installation, first review/adjust paths and pins, then rerun; never disable lock comparison merely to obtain a passing result.
+
+## M1 build and VM
+
+```powershell
+python tools/build.py
+python tools/run_vm.py
+python tests/verify_m1.py
+```
+
+M1 uses `tools/media.py` to build normal OS boot media with EFI loader, ELF kernel and initmanifest. Generated images/debug files go under `dist/`, not source control. The compiler and QEMU/firmware are checked against the existing tool lock. Debug paths are remapped; the release gate rejects raw Windows user paths. Normal mode stays running; separate test images use an emulator debug-exit device.
+
+The visual test converts the QMP framebuffer PPM to PNG using the already available Pillow 12.3.0. This is a reported host-test dependency, not an OS dependency or part of the pinned compiler build. Install a compatible Pillow in the host environment if running that test elsewhere; no Pillow code is redistributed. See [M1](../M1.md).

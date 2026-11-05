@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "normal ISO remains online without debug-exit",
+      "passed": true
+    },
+    {
+      "name": "own kernel framebuffer captured",
+      "passed": true,
+      "width": 1280,
+      "height": 800,
+      "conversion_tool": "Pillow 12.3.0"
+    },
+    {
+      "name": "loopback GDB RSP handshake",
+      "passed": true
+    }
+  ],
+  "screenshot_sha256": "6086823a273d9c21d204f2feecc4163ef1e4a641fb038b81456e2c38aa49ab2b"
+}

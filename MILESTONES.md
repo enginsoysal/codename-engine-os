@@ -1,6 +1,6 @@
 # Mijlpalen — werk, aanpak en bewijs
 
-Versie 0.2 — 5 november 2026. Alle implementatiemijlpalen zijn nog te realiseren.
+Versie 0.3 — 5 november 2026. M0 en de virtuele M1-bootroute zijn gerealiseerd; M2 en verder nog niet.
 
 ## Aangescherpte Windows-eis
 
@@ -46,6 +46,8 @@ Dit is het ontwikkelcontract per mijlpaal. Voor uitvoering worden versiegebonden
 **Acceptatie:** beide artefacten starten via hun bedoelde medium in QEMU; kernel toont dezelfde build-id; een bewust veroorzaakte exception levert adres en diagnose; ongeldige bootinformatie wordt afgewezen. Eén fysieke UEFI-boot wordt apart geregistreerd zodra testhardware beschikbaar is. Tot die tijd wordt uitsluitend virtuele boot als bewezen gemeld.
 
 **Bewijs/risico:** buildmanifest, imagehashes, startcommando's en seriële logs. Geen afhankelijkheid van firmwaregeheugen dat na overdracht kan worden hergebruikt. Secure Boot en Legacy BIOS zijn hier geen voltooiingsvereisten.
+
+**Afsluiting:** eigen loader/kernel booten via ISO en geëmuleerde USB op de gepinde QEMU/UEFI-configuratie. ELF-negatieve tests, 128 MiB-boot, retry, echte #UD-panic/symbolisatie, corrupte bootinfo en blijvende framebufferboot zijn getoetst. Zie [M1-bewijs](evidence/M1/README.md). Fysieke boot blijft een expliciete nog niet uitgevoerde hardwarekwalificatie. Bootstrapmapping is tijdelijk breed RWX; isolatie/W^X volgen vóór onbetrouwbare processen in M2.
 
 ## M2 — Geïsoleerde processen en kernelobjecten
 

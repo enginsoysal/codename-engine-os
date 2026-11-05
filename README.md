@@ -2,7 +2,7 @@
 
 An independent, open-source operating system built around its own kernel and system services. The first application goal is installing and using unmodified Windows software; Linux, macOS, DOS and ARM support are staged roadmap goals.
 
-**Current state: M0 architecture/toolchain baseline completed; M1 kernel implementation is next. There is no bootable OS release or installer yet.** A tiny EFI environment fixture loads via ISO and USB in QEMU; this is not an OS kernel. Existing documentation is primarily in Dutch. Original project code and documentation are available under the [MIT license](LICENSE); future third-party components retain their respective licenses.
+**Current state: M1 own-kernel boot implemented.** The UEFI loader exits firmware boot services and starts our ELF64 kernel with its own page tables, GDT/TSS/IDT and framebuffer output. ISO/USB VM boot and exception diagnostics are tested in QEMU. There is no installer or application support yet. [Download the M1 prerelease](https://github.com/enginsoysal/codename-engine-os/releases/tag/m1-v0.1.0), [run/build instructions](M1.md), [evidence](evidence/M1/README.md). Existing documentation is primarily in Dutch. Original project code and documentation use the [MIT license](LICENSE); third-party tools retain their respective licenses.
 
 Canonical repository: [enginsoysal/codename-engine-os](https://github.com/enginsoysal/codename-engine-os).
 
@@ -10,15 +10,15 @@ Canonical repository: [enginsoysal/codename-engine-os](https://github.com/engins
 
 De aangescherpte productrichting is Windows-appcompatibiliteit over het Windows 95–11-tijdperk. Boot en installatie waren al gepland; volledige generatiedekking vraagt aanvullende trajecten. Zie [scope, ontbrekende onderdelen en kwaliteitscriteria](WINDOWS-COMPATIBILITY.md). Universele foutloosheid is geen bewezen of afgegeven garantie.
 
-Vastgelegd: 5 november 2026. Documentversie: 0.3.
+Vastgelegd: 5 november 2026. Documentversie: 0.4.
 
-Status: M0 afgerond met 51 technische controles en document-/inventariscontrole. M1/OS-implementatie niet gestart. [Volgende stappen naar VM-boot en installatie](m0/M1-HANDOFF.md).
+Status: M0 afgerond; M1 eigen-kernelboot geïmplementeerd en getoetst. [M1 starten](M1.md); installatie volgt in M5. Appcompatibiliteit blijft latere scope.
 
 ## Doel
 
 Een zelfstandig besturingssysteem met een eigen kernel, eigen systeemdiensten en eigen desktop. De eerste gebruikersroute is een bestaande Windows-installer downloaden, installeren en de applicatie gebruiken. Daarna volgen bredere Windows-compatibiliteit, DOS, Linux en macOS. De codebasis moet later ook ARM64 en een geselecteerd Raspberry Pi-model ondersteunen.
 
-De gebruiker bepaalt productrichting en acceptatie. De coding agent voert implementatie, diagnose, documentatie en beschikbare verificatie uit. Werken op echte hardware, firmware-instellingen en externe accounts kunnen menselijke handelingen vereisen; die worden concreet benoemd wanneer ze nodig zijn. Opdracht van 5 november: M0 uitvoeren en mappenstructuur verwerken; M1 is nog niet gestart.
+De gebruiker bepaalt productrichting en acceptatie. De coding agent voert implementatie, diagnose, documentatie en beschikbare verificatie uit. Werken op echte hardware, firmware-instellingen en externe accounts kunnen menselijke handelingen vereisen; die worden concreet benoemd wanneer ze nodig zijn. M1-opdracht: eigen kernel via ISO booten, Windows 95–11-eisen behouden en updates naar GitHub publiceren.
 
 ## Documenten
 
@@ -27,6 +27,7 @@ De gebruiker bepaalt productrichting en acceptatie. De coding agent voert implem
 - [Mijlpalen](MILESTONES.md): per mijlpaal wat, hoe, waarom, afhankelijkheden en bewijs.
 - [Voortgang](STATUS.md): actuele status en regels om voltooiing te registreren.
 - [M0-contracten en proeven](m0/README.md): concrete technische keuzes en resterende afsluitcriteria.
+- [M1 kernelboot](M1.md): ISO, startcommando, implementatiekeuzes en huidige grenzen.
 - [Windows 95–11-doel](WINDOWS-COMPATIBILITY.md): scopeaudit en aanvullende WC1–WC7-trajecten.
 - [Bijdragen](CONTRIBUTING.md) en [projectinstructies](AGENTS.md): verificatie en publicatieafspraken.
 

@@ -1,0 +1,82 @@
+{
+  "scope": "actual loader ELF C parser on Windows host; not general ELF/Linux support",
+  "passed": true,
+  "checks": [
+    {
+      "name": "valid minimal ELF64",
+      "passed": true
+    },
+    {
+      "name": "actual built kernel accepted",
+      "passed": true
+    },
+    {
+      "name": "null input rejected",
+      "passed": true
+    },
+    {
+      "name": "all truncated ELF headers rejected",
+      "passed": true
+    },
+    {
+      "name": "bad magic",
+      "passed": true
+    },
+    {
+      "name": "wrong architecture",
+      "passed": true
+    },
+    {
+      "name": "ET_DYN not supported",
+      "passed": true
+    },
+    {
+      "name": "ph table out of file",
+      "passed": true
+    },
+    {
+      "name": "too many segments",
+      "passed": true
+    },
+    {
+      "name": "entry outside executable bytes",
+      "passed": true
+    },
+    {
+      "name": "RWX segment rejected",
+      "passed": true
+    },
+    {
+      "name": "file offset overflow",
+      "passed": true
+    },
+    {
+      "name": "filesz greater than memsz",
+      "passed": true
+    },
+    {
+      "name": "kernel outside bootstrap area",
+      "passed": true
+    },
+    {
+      "name": "mismatched physical virtual",
+      "passed": true
+    },
+    {
+      "name": "invalid alignment",
+      "passed": true
+    },
+    {
+      "name": "dynamic segment rejected",
+      "passed": true
+    },
+    {
+      "name": "page-overlapping segments rejected",
+      "passed": true
+    },
+    {
+      "name": "truncated segment data rejected",
+      "passed": true
+    }
+  ]
+}

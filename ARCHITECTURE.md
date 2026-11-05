@@ -1,6 +1,8 @@
 # Architectuur
 
-Status: ontwerpbaseline 0.3; M0 afgerond als architectuur/toolchainfase. Runtimepoorten blijven in latere mijlpalen. Zie [M0-contracten en resultaten](m0/README.md).
+Status: ontwerpbaseline 0.4; M0 afgerond, M1 virtuele kernelboot geïmplementeerd. Applicatieruntimepoorten blijven in latere mijlpalen. Zie [M0-contracten en resultaten](m0/README.md).
+
+M1 implementeert nu de echte UEFI→eigen-kerneloverdracht en virtuele ISO-/USB-boot. Zie [implementatie, bewijs en grenzen](M1.md). De tijdelijke identity-map onder 4 GiB is supervisor-only maar breed RWX; dat is een bootstrapbeperking, niet de uiteindelijke usermode-/W^X-architectuur.
 
 ## Systeemlagen
 

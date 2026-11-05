@@ -1,0 +1,84 @@
+{
+  "scope": "M1 kernel boot and failure handling; no installer or Windows apps",
+  "build_id": "6b72956cc1fee4840b14c92618833ca0",
+  "checks": [
+    {
+      "name": "iso-smoke",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 512,
+      "expected_exit": 33,
+      "actual_exit": 33,
+      "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
+      "stderr": "",
+      "log_sha256": "be40380d3a06057bdf3a212878233e2c4b84dc9973719591d32a30675f6b0fdf"
+    },
+    {
+      "name": "usb-smoke",
+      "passed": true,
+      "media": "usb",
+      "ram_mib": 512,
+      "expected_exit": 33,
+      "actual_exit": 33,
+      "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
+      "stderr": "",
+      "log_sha256": "0a7733e3a637384a6a08cbdfea955f1fc20710f54e833d8071cfbcbfdd7eb3ac"
+    },
+    {
+      "name": "iso-lowram",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 128,
+      "expected_exit": 33,
+      "actual_exit": 33,
+      "expected_marker": "ENGINE_OS_KERNEL_ONLINE",
+      "stderr": "",
+      "log_sha256": "54aa8b43126b14d6e239ac3183072f38c6b91f72515c31ec28eec4afb9adaa00"
+    },
+    {
+      "name": "iso-retry",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 512,
+      "expected_exit": 33,
+      "actual_exit": 33,
+      "expected_marker": "EXIT_BOOT_SERVICES_RETRY",
+      "stderr": "",
+      "log_sha256": "78023bf6b007bfbd354f99e6fc28aa06873880ba941d0cb4020d7477b0e7fb0b"
+    },
+    {
+      "name": "iso-panic",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 512,
+      "expected_exit": 67,
+      "actual_exit": 67,
+      "expected_marker": "OWN_IDT_EXCEPTION_HANDLED",
+      "stderr": "",
+      "log_sha256": "ffb814cfa812e5c35ab3c5f731f082a7ebbaf8aa3afde3e24afd49f67114f8bd"
+    },
+    {
+      "name": "iso-badboot",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 512,
+      "expected_exit": 71,
+      "actual_exit": 71,
+      "expected_marker": "KERNEL_REJECT: boot header",
+      "stderr": "",
+      "log_sha256": "35adb3b2407509c1038d3db57da451ff98b174ed1a3624e56a4658e1ae892b4e"
+    },
+    {
+      "name": "iso-badelf",
+      "passed": true,
+      "media": "iso",
+      "ram_mib": 512,
+      "expected_exit": 69,
+      "actual_exit": 69,
+      "expected_marker": "LOADER_REJECT: ELF validation",
+      "stderr": "",
+      "log_sha256": "1a335f4206f0d56f0d3e6ef634e046fdec13def1db953bb3b446c184f47cfa66"
+    }
+  ],
+  "passed": true
+}
