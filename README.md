@@ -2,7 +2,7 @@
 
 An independent, MIT-licensed operating system with its own UEFI loader, kernel and native user runtime. Windows 95–11 application compatibility is a long-term requirement, followed by Linux/macOS execution environments and ARM64. Those compatibility layers are not implemented yet.
 
-**M4.5 is in progress before M5:** [broader boot/hardware scope](docs/milestones/m4.5.md), [ordinary-storage/trust increment](docs/milestones/m4.5-storage.md). The M0–M4 completion labels below describe their bounded published test profiles, not universal hardware support.
+**M4.5 is in progress before M5:** [broader boot/hardware scope](docs/milestones/m4.5.md), [ordinary-storage/trust increment](docs/milestones/m4.5-storage.md). The [M4.5 preview 2](https://github.com/enginsoysal/codename-engine-os/releases/tag/m45-hardware-alpha.2) provides a test ISO/USB image with dual BIOS/UEFI boot and broader read-only storage; use Secure Boot disabled for these unsigned preview downloads. See [USB/filesystem scope](docs/milestones/m4.5-usb-filesystems.md). The M0–M4 completion labels below describe their bounded published test profiles, not universal hardware support.
 
 **Current completed milestone: M4 — persistent storage, bounded ext2/VFS and input, within its named native virtual-device scope.** M0 established architecture/toolchain, M1 own-kernel boot, M2 protected native processes and M3 scheduling/VM/SMP. M4 adds original AHCI and xHCI drivers, a persistent native directory namespace and interactive file console. See the [status](docs/roadmap/status.md), [M4 contracts](docs/milestones/m4-contract.md) and [test evidence](evidence/M4/README.md). There is no installer, desktop or existing Windows application support yet.
 

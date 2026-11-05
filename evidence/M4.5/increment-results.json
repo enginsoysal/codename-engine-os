@@ -1,7 +1,7 @@
 {
   "passed": true,
   "full_m45_complete": false,
-  "scope": "dual BIOS/UEFI media, ordinary AHCI/NVMe/ATA/VirtIO reads, partition/FAT32 validation, owner-enrolled VM trust chain; wider agreed tracks remain open",
+  "scope": "dual BIOS/UEFI media, ordinary AHCI/NVMe/ATA/VirtIO/USB reads, reconnect/EIO containment, partition/FAT32/extended ext2 validation, owner-enrolled VM trust chain; wider agreed tracks remain open",
   "gates": [
     {
       "script": "tools/build/m45.py",
@@ -24,6 +24,21 @@
       "passed": true
     },
     {
+      "script": "tests/m45/read_faults.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/usb.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/ext2.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
       "script": "tests/m45/fat32.py",
       "arguments": [],
       "passed": true
@@ -35,6 +50,11 @@
     },
     {
       "script": "tests/m45/secure_boot.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/vmware.py",
       "arguments": [],
       "passed": true
     },
@@ -67,11 +87,30 @@
       "passed": true
     },
     {
-      "script": "tests/m45/vmware.py",
+      "script": "tests/m45/usb_timeout.py",
       "arguments": [],
       "passed": true,
-      "execution": "additional sequential qualification after the aggregate QEMU suites on the same unchanged build"
+      "execution": "additional sequential qualification on the same unchanged build"
+    },
+    {
+      "script": "tests/m4/console.py",
+      "arguments": [
+        "--milestone",
+        "M45"
+      ],
+      "passed": true,
+      "execution": "additional sequential qualification on the same unchanged build"
+    },
+    {
+      "script": "tests/m4/console.py",
+      "arguments": [
+        "--milestone",
+        "M45",
+        "--usb"
+      ],
+      "passed": true,
+      "execution": "additional sequential qualification on the same unchanged build"
     }
   ],
-  "build_id": "07857f19dcf197f039d029c6acbf7870"
+  "build_id": "f7eb1abd3bfdf1b892307e98371c86a7"
 }

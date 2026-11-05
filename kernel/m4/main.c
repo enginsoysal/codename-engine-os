@@ -30,12 +30,14 @@ NORETURN void m4_start(const os_boot_info_v0 *boot,unsigned mode){
     (void)nvme_discover();
     (void)ide_discover();
     (void)virtio_discover();
+    unsigned usb=usb_init();
 #endif
     page_stats memory=pages_stats();serial_text("M4_MEMORY retained_owned_bytes=");serial_hex(memory.current_pages*4096);serial_text(" peak_owned_bytes=");serial_hex(memory.peak_pages*4096);serial_text("\n");
     unsigned filesystem=s?F_IO:fs_mount();serial_text("M4_FS_MOUNT status=");serial_hex(filesystem);serial_text("\n");
 #ifdef ENGINE_M45
+    if(mode==6){extern unsigned ext_selftest(void);console_begin(boot);storage_inventory();if(ext_selftest()){serial_text("M45_EXT2_READ_FAIL\n");test_exit(0x32);}serial_text("M45_EXT2_READ_PASS\n");test_exit(0x10);}
     if(mode==5){extern unsigned fat_selftest(void);console_begin(boot);storage_inventory();if(fat_selftest()){serial_text("M45_FAT32_PAYLOAD_FAIL\n");test_exit(0x32);}serial_text("M45_FAT32_PAYLOAD_PASS\n");test_exit(0x10);}
-    if(mode==1||mode==4){console_begin(boot);storage_inventory();if(storage_selftest()){serial_text("M45_DISCOVERY_FAIL\n");test_exit(0x32);}if(!filesystem){uint64_t before;if(load()){serial_text("M45_MARKED_WRITE_FAIL\n");test_exit(0x32);}memcpy(&before,record+8,8);if(fs_selftest(before)||store("ENGINE OS M45 MARKED REGRESSION")){serial_text("M45_MARKED_WRITE_FAIL\n");test_exit(0x32);}serial_text("M45_MARKED_WRITE_REGRESSION_PASS\n");}for(unsigned i=0;i<storage_count();++i){console_text("Partition inspection disk ");console_decimal(i);console_text("\n");unsigned status=storage_partitions(i);console_text("Partition status: ");console_decimal(status);console_text("\n");}nvme_diagnostics();virtio_diagnostics();serial_text("M45_DISCOVERY_PASS\n");test_exit(0x10);}
+    if(mode==1||mode==4){console_begin(boot);storage_inventory();if(storage_selftest()){serial_text("M45_DISCOVERY_FAIL\n");test_exit(0x32);}if(!filesystem){uint64_t before;if(load()){serial_text("M45_MARKED_WRITE_FAIL\n");test_exit(0x32);}memcpy(&before,record+8,8);if(fs_selftest(before)||store("ENGINE OS M45 MARKED REGRESSION")){serial_text("M45_MARKED_WRITE_FAIL\n");test_exit(0x32);}serial_text("M45_MARKED_WRITE_REGRESSION_PASS\n");}for(unsigned i=0;i<storage_count();++i){console_text("Partition inspection disk ");console_decimal(i);console_text("\n");unsigned status=storage_partitions(i);console_text("Partition status: ");console_decimal(status);console_text("\n");}nvme_diagnostics();virtio_diagnostics();usb_storage_diagnostics();serial_text("M45_DISCOVERY_PASS\n");test_exit(0x10);}
 #else
     if(mode==1||mode==4){
         uint8_t ignored[512];if(s||block_read(M4_SECTORS,ignored)!=B_DENIED||load()!=B_OK){serial_text("M4_STORAGE_UNAVAILABLE_OR_INVALID\n");test_exit(0x32);}
@@ -54,22 +56,31 @@ NORETURN void m4_start(const os_boot_info_v0 *boot,unsigned mode){
 #ifndef ENGINE_M45
     console_text(filesystem?"Filesystem unavailable or read-only.\n":"Ext2 mounted. Files persist across reboot.\n");
 #endif
-    unsigned usb=usb_init();serial_text("M4_USB_INIT status=");serial_hex(usb);serial_text("\n");input_init();serial_text("M4_CONSOLE_READY\n");console_text("engine> ");
+#ifndef ENGINE_M45
+    unsigned usb=usb_init();
+#endif
+    serial_text("M4_USB_INIT status=");serial_hex(usb);serial_text("\n");input_init();serial_text("M4_CONSOLE_READY\n");console_text("engine> ");
     char line[128];unsigned length=0;int overflow=0;
-    for(;;){__asm__ volatile("cli");int c=input_pop();if(c<0){__asm__ volatile("sti; hlt":::"memory");continue;}__asm__ volatile("sti");
+    for(;;){__asm__ volatile("cli");
+#ifdef ENGINE_M45
+        if(usb_work_pending()){usb_process_changes();continue;}
+#endif
+        int c=input_pop();if(c<0){__asm__ volatile("sti; hlt":::"memory");continue;}__asm__ volatile("sti");
         if(c==256){usb_mouse_draw();continue;}
         if(c==8){if(length&&!overflow){--length;console_text("\b");}continue;}
         if(c==10){line[length]=0;console_text("\n");
             if(overflow)console_text("Command too long.\n");
             else if(equal(line,"help")){console_text("help info show store TEXT sync halt\nls PATH | cat PATH | mkdir PATH | rm PATH\nwrite PATH TEXT | mv FROM TO\n");
 #ifdef ENGINE_M45
-                console_text("disks | hardware | parts N | fatls N P | fatcat N P PATH\n");
+                console_text("disks | hardware | parts N | fatls N P | fatcat N P PATH\nextls N P PATH | extcat N P PATH\n");
 #endif
             }
 #ifdef ENGINE_M45
             else if(equal(line,"disks"))storage_inventory();
             else if(equal(line,"hardware"))hardware_inventory();
             else if(length>6&&!memcmp(line,"parts ",6)){unsigned n=0,i=6;while(line[i]>='0'&&line[i]<='9'&&n<STORAGE_MAX)n=n*10+(unsigned)(line[i++]-'0');unsigned status=line[i]?B_DENIED:storage_partitions(n);console_text("Partition status: ");console_decimal(status);console_text("\n");}
+            else if(length>6&&!memcmp(line,"extls ",6)){const char *args=line+6;unsigned disk,part,status=B_DENIED;if(number(&args,&disk)&&number(&args,&part)&&*args)status=ext_list(disk,part,args);console_text("Ext2 status: ");console_decimal(status);console_text("\n");}
+            else if(length>7&&!memcmp(line,"extcat ",7)){const char *args=line+7;unsigned disk,part,size=0,status=B_DENIED;char data[4097];if(number(&args,&disk)&&number(&args,&part)&&*args)status=ext_read(disk,part,args,data,4096,&size);if(!status){data[size]=0;console_text(data);console_text("\n");}console_text("Ext2 status: ");console_decimal(status);console_text("\n");}
             else if(length>6&&!memcmp(line,"fatls ",6)){const char *args=line+6;unsigned disk,part,status=B_DENIED;if(number(&args,&disk)&&number(&args,&part)&&!*args)status=fat_list(disk,part);console_text("FAT status: ");console_decimal(status);console_text("\n");}
             else if(length>7&&!memcmp(line,"fatcat ",7)){const char *args=line+7;unsigned disk,part,size=0,status=B_DENIED;char data[4097];if(number(&args,&disk)&&number(&args,&part)&&*args)status=fat_read(disk,part,args,data,4096,&size);if(!status){data[size]=0;console_text(data);console_text("\n");}console_text("FAT status: ");console_decimal(status);console_text("\n");}
 #endif

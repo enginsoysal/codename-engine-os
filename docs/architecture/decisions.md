@@ -68,6 +68,10 @@ A selected approach is not a runtime claim. [Status](../roadmap/status.md) and [
 | 061 | Small modern VirtIO split queues and MSI-X/HLT completion | Efficient virtual storage with bounded per-device DMA state | Packed queues and deeper concurrency expand ownership complexity | Eight descriptors, one request, explicit version/feature negotiation, 512/4096-byte reads and repeated queue wrap |
 | 062 | Owner-enrolled disposable VM trust qualification | Prove firmware-to-payload authentication without modifying host policy | Self-signing is not factory trust; production enrollment needs an explicit owner workflow | Valid signed loader, unsigned/tampered PE rejection and external kernel/init digest rejection; full M4.5 remains open |
 
+| 063 | USB BOT read-only transport before UAS/hubs | Add common removable-storage reads with bounded protocol ownership | More classes and topology require separate endpoint/lifetime qualification | CBW/CSW validation, 512/4096-byte reads, IRQ/HLT, native GPT/FAT32 and EIO tests |
+| 064 | Deferred root-port work, Disable Slot before free and generation-tagged readers | Reclaim unplugged DMA without aliasing old disk references to a new device | Reusing disk numbers hides stale-reference bugs; freeing before hardware acknowledgement is unsafe | Repeated storage/HID reconnect, seven-page reclamation, stale reference refusal and healthy replacement after EIO |
+| 065 | Separate extended read-only ext2 reader | Widen geometry and indirect/sparse reads without silently widening write authorization | General writable metadata/recovery needs a distinct integrity design | Native multiple-group/geometry tests and corrupted metadata rejection; original writable development profile unchanged |
+
 ## Detailed contracts and remaining choices
 
 [Kernel](kernel-contracts.md), [filesystem](filesystem.md), [build/platform](build-platform.md), [compatibility](compatibility.md), [M2 implementation](../milestones/m2.md), [M3 implementation](../milestones/m3.md).

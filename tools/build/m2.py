@@ -66,8 +66,8 @@ def main(milestone='M2'):
             'runtime/memory.c','kernel/memory/pages.c','kernel/memory/space.c','kernel/process/process.c',
             f'build/{milestone.lower()}/user-image.c',f'build/{milestone.lower()}/interrupt-stubs.S')
     if milestone in ('M3','M4','M45'):inputs+=('kernel/arch/x86_64/timer.c','kernel/scheduler/m3.c','kernel/arch/x86_64/smp.c','kernel/arch/x86_64/ap.S')
-    if milestone in ('M4','M45'):inputs+=(('kernel/storage/ahci45.c' if milestone=='M45' else 'kernel/storage/ahci.c'),'kernel/storage/ext2.c','kernel/storage/fs_test.c','kernel/input/legacy.c','kernel/input/xhci.c','kernel/core/console.c','kernel/m4/main.c')
-    if milestone=='M45':inputs+=('kernel/storage/registry.c','kernel/storage/partitions.c','kernel/storage/nvme.c','kernel/storage/ide.c','kernel/storage/virtio_blk.c','kernel/storage/fat32.c','kernel/storage/fat_test.c')
+    if milestone in ('M4','M45'):inputs+=(('kernel/storage/ahci45.c' if milestone=='M45' else 'kernel/storage/ahci.c'),'kernel/storage/ext2.c','kernel/storage/fs_test.c','kernel/input/legacy.c',('kernel/input/xhci45.c' if milestone=='M45' else 'kernel/input/xhci.c'),'kernel/core/console.c','kernel/m4/main.c')
+    if milestone=='M45':inputs+=('kernel/storage/registry.c','kernel/storage/partitions.c','kernel/storage/nvme.c','kernel/storage/ide.c','kernel/storage/virtio_blk.c','kernel/storage/fat32.c','kernel/storage/fat_test.c','kernel/storage/ext2_read.c','kernel/storage/ext2_read_test.c')
     kernel=[compile_file(p,'kernel',p.endswith('.S')) for p in inputs]
     command([tools['ld.lld'],'-T',ROOT/'kernel/arch/x86_64/linker.ld','--build-id=none','-Map='+str(BUILD/'kernel.map'),
              '-o',BUILD/'KERNEL.ELF',*kernel])

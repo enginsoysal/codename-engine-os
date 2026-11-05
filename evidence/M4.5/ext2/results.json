@@ -1,0 +1,87 @@
+{
+  "build_id": "f7eb1abd3bfdf1b892307e98371c86a7",
+  "full_m45_complete": false,
+  "checks": [
+    {
+      "name": "1k-128-ahci",
+      "passed": true,
+      "exit": 33,
+      "filesystem_block_bytes": 1024,
+      "inode_bytes": 128,
+      "logical_sector_bytes": 512,
+      "transport": "ahci",
+      "backing_unchanged": true
+    },
+    {
+      "name": "2k-256-nvme4k",
+      "passed": true,
+      "exit": 33,
+      "filesystem_block_bytes": 2048,
+      "inode_bytes": 256,
+      "logical_sector_bytes": 4096,
+      "transport": "nvme",
+      "backing_unchanged": true
+    },
+    {
+      "name": "4k-256-usb",
+      "passed": true,
+      "exit": 33,
+      "filesystem_block_bytes": 4096,
+      "inode_bytes": 256,
+      "logical_sector_bytes": 512,
+      "transport": "usb",
+      "backing_unchanged": true
+    },
+    {
+      "name": "4k-512-ahci",
+      "passed": true,
+      "exit": 33,
+      "filesystem_block_bytes": 4096,
+      "inode_bytes": 512,
+      "logical_sector_bytes": 512,
+      "transport": "ahci",
+      "backing_unchanged": true
+    },
+    {
+      "name": "bad-pointer",
+      "passed": true,
+      "exit": 101,
+      "filesystem_block_bytes": 1024,
+      "inode_bytes": 128,
+      "logical_sector_bytes": 512,
+      "transport": "ahci",
+      "backing_unchanged": true
+    },
+    {
+      "name": "bad-dir-record",
+      "passed": true,
+      "exit": 101,
+      "filesystem_block_bytes": 2048,
+      "inode_bytes": 256,
+      "logical_sector_bytes": 512,
+      "transport": "nvme",
+      "backing_unchanged": true
+    },
+    {
+      "name": "bad-inode-table",
+      "passed": true,
+      "exit": 101,
+      "filesystem_block_bytes": 4096,
+      "inode_bytes": 256,
+      "logical_sector_bytes": 512,
+      "transport": "usb",
+      "backing_unchanged": true
+    },
+    {
+      "name": "unsupported-extents",
+      "passed": true,
+      "exit": 101,
+      "filesystem_block_bytes": 4096,
+      "inode_bytes": 256,
+      "logical_sector_bytes": 512,
+      "transport": "ahci",
+      "backing_unchanged": true
+    }
+  ],
+  "fixture_scope": "Original fixed two-group ext2 fixtures; native payload bytes checked independently against a known pattern. No external e2fsck qualification claimed."
+}

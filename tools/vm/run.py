@@ -11,7 +11,7 @@ def main():
     parser.add_argument('--milestone',choices=['M1','M2','M3','M4','M45'],default='M4')
     parser.add_argument('--cpus',type=int,choices=(1,2,4),help='M3 defaults to 2; M2 uses 1')
     parser.add_argument('--ram',type=int,default=128,help='guest RAM in MiB; defaults to 128')
-    parser.add_argument('--data-disk',type=Path,help='marked disposable M4 .img only')
+    parser.add_argument('--data-disk',type=Path,help='disposable .img; M4 requires its development marker, M45 allows ordinary images')
     parser.add_argument('--create-data-disk',action='store_true',help='create/reuse a marked M4 disk in the build directory')
     parser.add_argument('--qemu-dir',type=Path)
     args=parser.parse_args()
@@ -36,7 +36,7 @@ def main():
             command+=['-drive',f'if=none,id=m4data,format=raw,file={disk}'+(',snapshot=on' if milestone=='M45' else ''),'-device','ide-hd,bus=ide.0,drive=m4data']
     elif args.data_disk or args.create_data_disk:raise SystemExit('Data-disk options require --milestone M4 or M45')
     print(f'Starting Engine OS {milestone}. Serial log: build/{milestone.lower()}/manual/serial.log',flush=True)
-    print('M4 offers an ext2 file console and USB input on the qualified QEMU profile.' if milestone=='M4' else 'No installer or shell in this milestone. Close the VM window to stop.',flush=True)
+    print('M4 offers an ext2 file console and USB input on the qualified QEMU profile.' if milestone=='M4' else 'M4.5 offers read-only device/partition/FAT32/ext2 inspection and USB input; no installer.' if milestone=='M45' else 'No installer or shell in this milestone. Close the VM window to stop.',flush=True)
     process=subprocess.run(command,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
     raise SystemExit(process.returncode)
 if __name__=='__main__':main()

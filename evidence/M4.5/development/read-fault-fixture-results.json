@@ -1,0 +1,35 @@
+{
+  "build_id": "2612b3079fd35d2406da5113b941a739",
+  "full_m45_complete": false,
+  "checks": [
+    {
+      "name": "ahci",
+      "passed": true,
+      "exit": 33,
+      "backing_unchanged": true,
+      "error": ""
+    },
+    {
+      "name": "nvme",
+      "passed": false,
+      "exit": 1,
+      "backing_unchanged": true,
+      "error": "C:\\Program Files\\qemu\\qemu-system-x86_64.exe: -device nvme,serial=read-fault,drive=data,rerror=report,werror=report: Property 'nvme.rerror' not found\r\n"
+    },
+    {
+      "name": "virtio",
+      "passed": true,
+      "exit": 33,
+      "backing_unchanged": true,
+      "error": ""
+    },
+    {
+      "name": "usb",
+      "passed": false,
+      "exit": 0,
+      "backing_unchanged": true,
+      "error": ""
+    }
+  ],
+  "scope": "Persistent sector-zero read EIO; firmware can see the same failure. Native first-sector transfer must still fail explicitly."
+}

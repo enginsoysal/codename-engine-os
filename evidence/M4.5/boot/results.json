@@ -1,11 +1,11 @@
 {
-  "build_id": "07857f19dcf197f039d029c6acbf7870",
+  "build_id": "f7eb1abd3bfdf1b892307e98371c86a7",
   "full_m45_complete": false,
   "checks": [
     {
-      "managed_retained_bytes": 110592,
+      "managed_retained_bytes": 172032,
       "managed_peak_bytes": 466944,
-      "boot_reserved_bytes": 491520,
+      "boot_reserved_bytes": 520192,
       "name": "uefi-iso",
       "passed": true,
       "firmware": "uefi",
@@ -17,9 +17,9 @@
       "error": ""
     },
     {
-      "managed_retained_bytes": 110592,
+      "managed_retained_bytes": 172032,
       "managed_peak_bytes": 466944,
-      "boot_reserved_bytes": 532480,
+      "boot_reserved_bytes": 565248,
       "name": "bios-iso",
       "passed": true,
       "firmware": "bios",
@@ -31,9 +31,9 @@
       "error": ""
     },
     {
-      "managed_retained_bytes": 110592,
+      "managed_retained_bytes": 200704,
       "managed_peak_bytes": 466944,
-      "boot_reserved_bytes": 491520,
+      "boot_reserved_bytes": 520192,
       "name": "uefi-usb",
       "passed": true,
       "firmware": "uefi",
@@ -45,9 +45,9 @@
       "error": ""
     },
     {
-      "managed_retained_bytes": 110592,
+      "managed_retained_bytes": 200704,
       "managed_peak_bytes": 466944,
-      "boot_reserved_bytes": 532480,
+      "boot_reserved_bytes": 565248,
       "name": "bios-usb",
       "passed": true,
       "firmware": "bios",
@@ -59,9 +59,9 @@
       "error": ""
     },
     {
-      "managed_retained_bytes": 77824,
+      "managed_retained_bytes": 139264,
       "managed_peak_bytes": 466944,
-      "boot_reserved_bytes": 532480,
+      "boot_reserved_bytes": 565248,
       "name": "bios-lowram",
       "passed": true,
       "firmware": "bios",
@@ -73,9 +73,9 @@
       "error": ""
     },
     {
-      "managed_retained_bytes": 176128,
+      "managed_retained_bytes": 237568,
       "managed_peak_bytes": 466944,
-      "boot_reserved_bytes": 532480,
+      "boot_reserved_bytes": 565248,
       "name": "bios-smp4",
       "passed": true,
       "firmware": "bios",

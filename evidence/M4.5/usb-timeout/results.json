@@ -1,0 +1,44 @@
+{
+  "build_id": "f7eb1abd3bfdf1b892307e98371c86a7",
+  "full_m45_complete": false,
+  "checks": [
+    {
+      "name": "boot-attached USB BOT plus FAT32 file read",
+      "passed": true
+    },
+    {
+      "name": "real throttled read deadline: DMA retained until completion/Disable Slot, then reclaimed; replacement reads",
+      "passed": true,
+      "retained_during_timeout_bytes": 266240,
+      "after_disable_bytes": 237568,
+      "replacement_bytes": 266240
+    },
+    {
+      "name": "USB keyboard disconnect/reconnect then actual command input",
+      "passed": true
+    },
+    {
+      "name": "mouse remains active; all four CPUs halt at console idle",
+      "passed": true
+    },
+    {
+      "name": "idle QEMU host process sample after timeout recovery",
+      "passed": true,
+      "wall_seconds": 2.014999999999418,
+      "cpu_seconds": 0.03125,
+      "one_cpu_percent": 1.5508684863528053,
+      "scope": "two-second emulator sample, not physical CPU measurement"
+    },
+    {
+      "name": "bounded native managed memory after timeout and replacement",
+      "passed": true,
+      "retained_bytes": 266240,
+      "peak_bytes": 466944
+    },
+    {
+      "name": "ordinary USB backing hash unchanged",
+      "passed": true
+    }
+  ],
+  "error": ""
+}

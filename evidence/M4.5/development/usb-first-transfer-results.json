@@ -1,0 +1,26 @@
+{
+  "build_id": "269cbf6910fa5bcc7d05b3b1cbfb81d9",
+  "full_m45_complete": false,
+  "checks": [
+    {
+      "name": "usb-512",
+      "transport": "USB",
+      "passed": true,
+      "exit": 33,
+      "size_mib": 64,
+      "logical_sector_bytes": 512,
+      "partition_status": 0,
+      "backing_unchanged": true
+    },
+    {
+      "name": "usb-4k",
+      "transport": "USB",
+      "passed": true,
+      "exit": 33,
+      "size_mib": 64,
+      "logical_sector_bytes": 4096,
+      "partition_status": 0,
+      "backing_unchanged": true
+    }
+  ]
+}

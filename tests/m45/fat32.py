@@ -13,11 +13,11 @@ def main():
     lfn[13]=checksum;units='R\u00e9sum\u00e9.txt'.encode('utf-16le')+b'\0\0';units+=b'\xff'*(26-len(units))
     for i,p in enumerate((1,3,5,7,9,14,16,18,20,22,24,28,30)):lfn[p:p+2]=units[i*2:i*2+2]
     volume[offset+64:offset+96]=lfn;volume[offset+96:offset+128]=short;image=gpt(volume,'FAT32 native read test');results=[]
-    for kind in ('ahci','nvme','bad-lfn'):
+    for kind in ('ahci','nvme','usb','bad-lfn'):
         disk=work/(kind+'.img');data=bytearray(image)
         if kind=='bad-lfn':data[2048*512+offset+64+13]^=1
         disk.write_bytes(data);before=hashlib.sha256(data).hexdigest();a,serial=arguments(qemu_tools(),'iso',work/'EngineOS-M45.iso',work/kind,ram=128)
-        a+=['-drive',f'if=none,id=data,format=raw,file={disk}','-device','nvme,drive=data,serial=engine-fat' if kind=='nvme' else 'ide-hd,bus=ide.0,drive=data']
+        a+=['-drive',f'if=none,id=data,format=raw,file={disk}','-device','usb-storage,bus=xhci.0,drive=data' if kind=='usb' else 'nvme,drive=data,serial=engine-fat' if kind=='nvme' else 'ide-hd,bus=ide.0,drive=data']
         p=subprocess.run(a,capture_output=True,timeout=90,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0));log=serial.read_text(encoding='utf-8',errors='replace');(out/(kind+'-fat32.log')).write_bytes(log.encode());expected=101 if kind=='bad-lfn' else 33
         passed=p.returncode==expected and ('M45_FAT32_PAYLOAD_FAIL' if kind=='bad-lfn' else 'M45_FAT32_PAYLOAD_PASS') in log and before==hashlib.sha256(disk.read_bytes()).hexdigest();results.append({'name':kind,'passed':passed,'exit':p.returncode,'backing_unchanged':before==hashlib.sha256(disk.read_bytes()).hexdigest()});print(kind,'PASS' if passed else 'FAIL',flush=True)
     (out/'fat32-results.json').write_bytes((json.dumps({'build_id':manifest['build_id'],'full_m45_complete':False,'checks':results},indent=2)+'\n').encode())

@@ -10,13 +10,14 @@ from ext2_image import Image as Ext2Image,check,U32,BS
 from visual import free_port,connect
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--usb',action='store_true');options=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--usb',action='store_true');parser.add_argument('--milestone',choices=('M4','M45'),default='M4');options=parser.parse_args()
     work=ROOT/('build/m4/usb-console-test' if options.usb else 'build/m4/console-test');work.mkdir(parents=True,exist_ok=True)
-    evidence=ROOT/'evidence/M4';evidence.mkdir(parents=True,exist_ok=True)
+    if options.milestone=='M45':work=ROOT/('build/m45/hid-console-test' if options.usb else 'build/m45/ps2-console-test');work.mkdir(parents=True,exist_ok=True)
+    evidence=ROOT/('evidence/M4' if options.milestone=='M4' else 'evidence/M4.5/hid-console' if options.usb else 'evidence/M4.5/ps2-console');evidence.mkdir(parents=True,exist_ok=True)
     disk=work/'data.img'
     if disk.exists():disk.unlink()
     create(disk)
-    args,serial=arguments(qemu_tools(),'iso',ROOT/'dist/EngineOS-M4.iso',work,ram=128)
+    args,serial=arguments(qemu_tools(),'iso',ROOT/'dist'/('EngineOS-'+options.milestone+'.iso'),work,ram=128)
     args[args.index('-smp')+1]='4'
     if not options.usb:
         for device in ('usb-kbd,bus=xhci.0','usb-mouse,bus=xhci.0'):
@@ -96,7 +97,7 @@ def main():
     record=raw[512:1024]
     if struct.unpack_from('<Q',record,8)[0]!=1 or struct.unpack_from('<I',record,16)[0]!=5 or record[24:29]!=b'Hello' or struct.unpack_from('<I',record,508)[0]!=zlib.crc32(record[:508]):raise RuntimeError('Independent host record verification failed')
     checks.append({'name':'independent host CRC, generation and exact payload verification','passed':True})
-    manifest=json.loads((ROOT/'dist/m4-build-manifest.json').read_text(encoding='utf-8'))
+    manifest=json.loads((ROOT/'dist'/(options.milestone.lower()+'-build-manifest.json')).read_text(encoding='utf-8'))
     (evidence/(('usb-' if options.usb else '')+'console-report.json')).write_bytes((json.dumps({'build_id':manifest['build_id'],'checks':checks},indent=2)+'\n').encode())
     if not all(c['passed'] for c in checks):raise SystemExit(1)
     print('Console PASS: PS/2 editing, persistence, framebuffer and 4-CPU HLT')

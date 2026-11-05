@@ -68,7 +68,7 @@ efi_status efi_main(efi_handle image,efi_system_table *system) {
     if(EFI_ERROR(root->close(root)))fail("close root");
     if(init_size!=48 || memcmp(init,"ENGINIT1",8) || os_read32(init+8)!=48 || os_read32(init+12)>
 #ifdef ENGINE_M45
-       5 ||
+       6 ||
 #else
        4 ||
 #endif
