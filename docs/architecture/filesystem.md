@@ -1,6 +1,6 @@
 # Files, storage and compatibility namespaces
 
-Approved architecture; persistent kernel VFS and app installation remain unimplemented. The [M4 first increment](../milestones/m4.md) adds a marked AHCI sector-record transport probe, not a filesystem. These paths describe the future OS, not directories to create on the development host.
+Approved target architecture. [M4](../milestones/m4-contract.md) implements a bounded persistent ext2/VFS with the root categories below and a test account. Managed system-version activation, guest path/ACL adapters, untrusted-user file syscalls and app installation remain later work. These OS paths are not directories to create on the development host. The kernel diagnostic console is trusted and does not enforce the future multi-user/system-immutability policy.
 
 ## Native root
 

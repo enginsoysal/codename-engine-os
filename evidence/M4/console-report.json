@@ -1,5 +1,5 @@
 {
-  "build_id": "4d4fde52d7f61ecccad4c0ec1d1f4a7e",
+  "build_id": "10fcace331cd8f95250e3cdb004696e9",
   "checks": [
     {
       "name": "PS/2 IRQ command input, Shift, backspace, store/flush/read",
@@ -7,6 +7,25 @@
     },
     {
       "name": "all four CPUs observed halted at input idle",
+      "passed": true
+    },
+    {
+      "name": "idle QEMU host CPU interval",
+      "passed": true,
+      "wall_seconds": 2.0160000000032596,
+      "cpu_seconds": 0.0,
+      "one_cpu_percent": 0.0,
+      "scope": "two-second QEMU process sample, not a physical-hardware benchmark"
+    },
+    {
+      "name": "separate managed and boot memory budgets",
+      "passed": true,
+      "managed_current_bytes": 196608,
+      "managed_peak_bytes": 466944,
+      "boot_reserved_bytes": 933888
+    },
+    {
+      "name": "independent ext2 namespace, allocation and console file payload check",
       "passed": true
     },
     {

@@ -1,0 +1,83 @@
+{
+  "passed": true,
+  "full_m4_complete": true,
+  "scope": "bounded ext2/VFS, AHCI IRQ/DMA and named virtual input profiles; no installer or existing applications",
+  "gates": [
+    {
+      "script": "tools/build/m4.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m4/boot.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m4/filesystem.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m4/console.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m4/console.py",
+      "arguments": [
+        "--usb"
+      ],
+      "passed": true
+    },
+    {
+      "script": "tests/m4/vmware.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/check_repository.py",
+      "arguments": [
+        "--milestone",
+        "M4"
+      ],
+      "passed": true
+    },
+    {
+      "script": "tests/m0/verify.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "report": "storage-report.json",
+      "passed": true,
+      "checks": 9
+    },
+    {
+      "report": "filesystem-report.json",
+      "passed": true,
+      "checks": 10
+    },
+    {
+      "report": "console-report.json",
+      "passed": true,
+      "checks": 6
+    },
+    {
+      "report": "usb-console-report.json",
+      "passed": true,
+      "checks": 7
+    },
+    {
+      "report": "vmware-report.json",
+      "passed": true,
+      "checks": 2
+    },
+    {
+      "report": "repository-results.json",
+      "passed": true,
+      "checks": 5
+    }
+  ],
+  "build_id": "10fcace331cd8f95250e3cdb004696e9"
+}

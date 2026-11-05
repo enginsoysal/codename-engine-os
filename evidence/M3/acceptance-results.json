@@ -1,5 +1,5 @@
 {
-  "time_utc": "2026-11-05T18:07:16.121981+00:00",
+  "time_utc": "2026-11-05T19:02:45.688034+00:00",
   "scope": "M3 complete within documented native VM scope; no Windows apps/installer",
   "passed": true,
   "gates": [
@@ -29,7 +29,7 @@
       "checks": 0
     }
   ],
-  "build_id": "6e4de93b65af26b384bef4c16f217e16",
+  "build_id": "dd38be778fba18fbb7ab20e917cc5e1e",
   "full_m3_complete": true,
   "m3_gates": 24,
   "m0_regression_checks": 51,
@@ -53,6 +53,5 @@
     "m3_cow_faults": 2,
     "m3_kernel_copy_cow": 1,
     "m3_oom_faults": 1
-  },
-  "verification_note": "Individual reports collected after an unchanged-source visual rerun; see evidence/M4/regression-note.md for the initial failed host CPU sample."
+  }
 }

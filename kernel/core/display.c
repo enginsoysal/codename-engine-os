@@ -49,7 +49,7 @@ static void text(unsigned x,unsigned y,const char *s,unsigned scale,uint32_t rgb
 #endif
             c>='A'&&c<='Z'?letters[c-'A']:c>='0'&&c<='9'?digits[c-'0']:0;
         for(unsigned row=0;row<7;++row) {
-            unsigned bits=glyph?glyph[row]:c=='-'&&row==3?31:c==':'&&(row==2||row==5)?4:c=='/'?(1u<<(row*4/6)):c=='.'&&row==6?4:c=='_'&&row==6?31:c=='>'&&row>0&&row<6?(1u<<(2+(row>3?row-3:3-row))):0;
+            unsigned bits=glyph?glyph[row]:c=='-'&&row==3?31:c=='='&&(row==2||row==4)?31:c==':'&&(row==2||row==5)?4:c==';'&&(row==2||row==5||row==6)?4:c=='/'?(1u<<(row*4/6)):c=='.'&&row==6?4:c=='_'&&row==6?31:c=='>'&&row>0&&row<6?(1u<<(2+(row>3?row-3:3-row))):0;
             for(unsigned col=0;col<5;++col)if(bits&(1u<<(4-col)))
                 for(unsigned dy=0;dy<scale;++dy)for(unsigned dx=0;dx<scale;++dx)pixel(x+col*scale+dx,y+row*scale+dy,rgb);
         }
@@ -114,11 +114,19 @@ void display_console_setup(void){
     if(!screen||!screen->framebuffer.byte_length)return;
     uint32_t bg=color(0x101d2b),accent=color(0x39d5bb);
     for(unsigned y=0;y<screen->framebuffer_height;++y){volatile uint32_t *p=(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)y*screen->framebuffer_stride_bytes);for(unsigned x=0;x<screen->framebuffer_width;++x)p[x]=y<8?accent:bg;}
-    text(16,26,"CODENAME: ENGINE OS",3,0xffffff);text(16,76,"M4 STORAGE CONSOLE - FIRST INCREMENT",2,0x39d5bb);text(16,112,"HELP FOR COMMANDS - NO INSTALLER YET",2,0x93aabe);
+    text(16,26,"CODENAME: ENGINE OS",3,0xffffff);text(16,76,"M4 FILESYSTEM AND USB CONSOLE",2,0x39d5bb);text(16,112,"HELP FOR COMMANDS - NO INSTALLER YET",2,0x93aabe);
 }
 void display_console_cell(unsigned col,unsigned row,char c){
     if(!screen||!screen->framebuffer.byte_length)return;unsigned x=16+col*12,y=152+row*18;
     for(unsigned dy=0;dy<16;++dy)for(unsigned dx=0;dx<12;++dx)pixel(x+dx,y+dy,0x101d2b);
     char s[2]={c,0};text(x,y,s,2,0xffffff);
+}
+void display_mouse(unsigned x,unsigned y){
+    static uint32_t saved[25];static unsigned oldx,oldy,visible;
+    if(!screen||!screen->framebuffer.byte_length||screen->framebuffer_width<6||screen->framebuffer_height<6)return;
+    if(visible)for(unsigned dy=0;dy<5;++dy)for(unsigned dx=0;dx<5;++dx)*(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)(oldy+dy)*screen->framebuffer_stride_bytes+(oldx+dx)*4)=saved[dy*5+dx];
+    if(x>screen->framebuffer_width-5)x=screen->framebuffer_width-5;if(y>screen->framebuffer_height-5)y=screen->framebuffer_height-5;
+    for(unsigned dy=0;dy<5;++dy)for(unsigned dx=0;dx<5;++dx){volatile uint32_t *p=(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)(y+dy)*screen->framebuffer_stride_bytes+(x+dx)*4);saved[dy*5+dx]=*p;*p=color(0x39d5bb);}
+    oldx=x;oldy=y;visible=1;
 }
 #endif

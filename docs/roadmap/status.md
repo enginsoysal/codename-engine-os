@@ -8,7 +8,7 @@ Updated 2026-11-05. Canonical project: [enginsoysal/codename-engine-os](https://
 | M1 own-kernel boot | Complete, virtual scope | [Historical evidence](../../evidence/M1/README.md); one VMware boot user-observed |
 | M2 protected native processes | Complete within native-only, single-active-CPU scope | [Current M2 evidence](../../evidence/M2/README.md), [fresh acceptance](../../evidence/M2/acceptance-results.json) |
 | M3 scheduling/general VM/concurrency | Complete within documented native VM scope | [Contracts and limits](../milestones/m3.md), [fresh acceptance](../../evidence/M3/acceptance-results.json); native execution on 1/2/4 CPUs, bounded threads/waits/COW/pressure |
-| M4 persistent storage/input | In progress, first increment | [Own AHCI sector-record and PS/2 console](../milestones/m4.md); filesystem/VFS, USB/mouse and full acceptance pending |
+| M4 persistent storage/input | Complete within documented native filesystem/virtual-device scope | [Fresh acceptance](../../evidence/M4/acceptance-results.json), [AHCI/ext2/VFS and USB/PS/2 contracts](../milestones/m4-contract.md) |
 | M5 live/install/recovery | Not started | No installer in the current ISO |
 | M6 desktop/network/downloads | Not started | Boot console only |
 | M7 Windows binary foundation | Not started | No NT/Win32 APIs |
@@ -28,9 +28,13 @@ Private user address spaces, CPL3 entry/checked return, native syscalls, control
 
 Resource reports separate peak/retained managed pages from retained boot resources. Qualification includes low guest RAM, quotas/reuse and actual CPU halt/idle-time observations. Exact final values/build ID are in the acceptance/boot/visual reports, not guessed from guest RAM settings.
 
+## M4 delivered scope
+
+Original class-bound AHCI reset, one outstanding MSI/HLT request, 4 KiB DMA batches and timeout/error quarantine. Bounded writable ext2 and native root, 48 KiB direct files, exact case/UTF-8 and kernel file-handle mediation. Dirty-volume write refusal and independent offline recovery to a new copy are explicit; no journal or arbitrary power-loss guarantee. Own xHCI boot keyboard/mouse uses a supervisor MMIO window and MSI-X/MSI; PS/2/COM1 remain diagnostic fallbacks. Named QEMU ISO/USB, low-RAM, input/resource/error/recovery and VMware SATA persistence tests pass. Installer/live/install/recovery workflow is M5; physical devices, hotplug/hubs, guest semantics and untrusted file syscalls are outside this bounded profile.
+
 ## Limits and next work
 
-M2 has one active CPU, cooperative trusted native probes, no preemption/starvation defense, no general pressure/reclaim, no arbitrary app/file loading and no Windows APIs. Boot/firmware resources remain reserved. M3 retains that regression phase and adds real preemptible threads, x87/SSE/FS-base TLS, hardware-clock deadlines, event/message waits, cancellation, anonymous reserve/commit/decommit/COW, admission-budget/OOM recovery and active SMP. Native user execution is checked on every discovered qualified CPU. Processes have fixed affinity; extended XSAVE, migration, fine-grained locking, file paging/reclaim and physical qualification remain future work. M4 storage/input is in progress, before installation in M5.
+M2 has one active CPU, cooperative trusted native probes, no preemption/starvation defense, no general pressure/reclaim, no arbitrary app/file loading and no Windows APIs. Boot/firmware resources remain reserved. M3 retains that regression phase and adds real preemptible threads, x87/SSE/FS-base TLS, hardware-clock deadlines, event/message waits, cancellation, anonymous reserve/commit/decommit/COW, admission-budget/OOM recovery and active SMP. Native user execution is checked on every discovered qualified CPU. Processes have fixed affinity; extended XSAVE, migration, fine-grained locking, file paging/reclaim and physical qualification remain future work. M4 adds the bounded storage/input profile above; installation is next in M5.
 
 Windows 95–11 remains a broad target qualified per original installer/version/architecture/task through WC1–WC7. It is not a universal flawless-start guarantee. Physical hardware and complete VMware support remain unqualified. Additional [VMware Workstation 26.0.1 serial/runtime cases](../../evidence/M3/vmware/README.md) pass on 1/2/4 CPUs with the same normal ISO at 128 MiB; broader version/device coverage and VMware framebuffer capture are not claimed.
 

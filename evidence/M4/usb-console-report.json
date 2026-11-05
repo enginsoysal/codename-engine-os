@@ -1,0 +1,40 @@
+{
+  "build_id": "10fcace331cd8f95250e3cdb004696e9",
+  "checks": [
+    {
+      "name": "USB IRQ command input, Shift, backspace, store/flush/read",
+      "passed": true
+    },
+    {
+      "name": "own xHCI MSI keyboard and relative mouse/button reports",
+      "passed": true
+    },
+    {
+      "name": "all four CPUs observed halted at input idle",
+      "passed": true
+    },
+    {
+      "name": "idle QEMU host CPU interval",
+      "passed": true,
+      "wall_seconds": 2.0,
+      "cpu_seconds": 0.0,
+      "one_cpu_percent": 0.0,
+      "scope": "two-second QEMU process sample, not a physical-hardware benchmark"
+    },
+    {
+      "name": "separate managed and boot memory budgets",
+      "passed": true,
+      "managed_current_bytes": 237568,
+      "managed_peak_bytes": 466944,
+      "boot_reserved_bytes": 933888
+    },
+    {
+      "name": "independent ext2 namespace, allocation and console file payload check",
+      "passed": true
+    },
+    {
+      "name": "independent host CRC, generation and exact payload verification",
+      "passed": true
+    }
+  ]
+}

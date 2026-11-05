@@ -16,7 +16,7 @@ def main(milestone='M2'):
     for folder in ('boot','kernel','include','runtime','user'):
         sources.extend(p for p in (ROOT/folder).rglob('*') if p.is_file())
     sources.extend(ROOT/p for p in ('include/engine/boot/boot_v0.h','include/engine/abi/syscall_v0.h','include/engine/boot/validate_v0.h',
-                                   'tools/build/m2.py','tools/build/m4.py','tools/build/data_image.py','tools/build/m3.py','tools/build/m1.py','tools/build/media.py'))
+                                   'tools/build/m2.py','tools/build/m4.py','tools/build/data_image.py','tools/build/ext2_image.py','tools/build/fsck.py','tools/build/m3.py','tools/build/m1.py','tools/build/media.py'))
     hashes={p.relative_to(ROOT).as_posix():sha(p) for p in sorted(sources)}
     build_id=hashlib.sha256(json.dumps({'milestone':milestone,'source_sha256':hashes},sort_keys=True).encode()).hexdigest()[:32]
     (BUILD/'build.h').write_text(f'#define BUILD_ID "{build_id}"\n',encoding='utf-8')
@@ -65,7 +65,7 @@ def main(milestone='M2'):
             'runtime/memory.c','kernel/memory/pages.c','kernel/memory/space.c','kernel/process/process.c',
             f'build/{milestone.lower()}/user-image.c',f'build/{milestone.lower()}/interrupt-stubs.S')
     if milestone in ('M3','M4'):inputs+=('kernel/arch/x86_64/timer.c','kernel/scheduler/m3.c','kernel/arch/x86_64/smp.c','kernel/arch/x86_64/ap.S')
-    if milestone=='M4':inputs+=('kernel/storage/ahci.c','kernel/input/legacy.c','kernel/core/console.c','kernel/m4/main.c')
+    if milestone=='M4':inputs+=('kernel/storage/ahci.c','kernel/storage/ext2.c','kernel/storage/fs_test.c','kernel/input/legacy.c','kernel/input/xhci.c','kernel/core/console.c','kernel/m4/main.c')
     kernel=[compile_file(p,'kernel',p.endswith('.S')) for p in inputs]
     command([tools['ld.lld'],'-T',ROOT/'kernel/arch/x86_64/linker.ld','--build-id=none','-Map='+str(BUILD/'kernel.map'),
              '-o',BUILD/'KERNEL.ELF',*kernel])

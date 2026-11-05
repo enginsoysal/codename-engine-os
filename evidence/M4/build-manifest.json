@@ -1,6 +1,6 @@
 {
   "milestone": "M4",
-  "build_id": "4d4fde52d7f61ecccad4c0ec1d1f4a7e",
+  "build_id": "10fcace331cd8f95250e3cdb004696e9",
   "source_sha256": {
     "boot/uefi/handoff.S": "4d3b9259c88e5b3e2b4d72fee29b82dc495758408c454a09e471f3d69e21c6e9",
     "boot/uefi/loader.c": "77f8d713a7d20920d3454dd0df20daab96435197aa6a9ffb747be163ebd268fe",
@@ -10,56 +10,62 @@
     "include/engine/boot/boot_v0.h": "97a37818dccb8592acf64db339b8ea701c7dab978e0cb3f6331a3fa569583357",
     "include/engine/boot/validate_v0.h": "a95a9f47577e7663b972a489d1fe61579bbd314330cf938c9836e5b16b5a91e9",
     "include/engine/elf.h": "b1b007a9b9b9fab5aec56049c20b123cbacce48288baefb9f421f55eed1f0f29",
+    "include/engine/fs.h": "2b0db9174b8a725354f7c1334308cccc767652aad59b66b2ff77908f173f5a80",
     "include/engine/m3.h": "1b1c3775227834103741abb47d21a721bfd3d2b2fd778636a529d340ef774370",
-    "include/engine/m4.h": "1ac35855566aca8dcde73a936870afb9d739027c2b0de4547c66a894ea604dc5",
+    "include/engine/m4.h": "b26af663c448df9d4a36af23f358f72c1c01392ec1141be6f7ea7fa573d840bf",
     "include/engine/process.h": "6b2310a17b1410ec2bc864c79ad06de8bfbe1981c9870b5941246989b2a4a96b",
     "include/engine/user.h": "fc3afcdec20049fb5cd5692bd23f5119b16fd9ace64693571d7bef2e33778423",
     "kernel/arch/x86_64/ap.S": "42b2f18d6bbb596997e8b61ac905dcd72d82257dceef666d9dff08b2a0047321",
     "kernel/arch/x86_64/fault.S": "8f4651a65903c62fc21e3d0c964f28d65077fb86e5130f859ba2513903836abe",
-    "kernel/arch/x86_64/interrupts.c": "caf53061d64f0d0b1bc9738e8815e324e32d93c2a652bb6b83a6ecc180e738ac",
+    "kernel/arch/x86_64/interrupts.c": "0dd59b38d62f7a93ece4f191c24b8eb36aef0da027b7ada0a34d9c64380222b3",
     "kernel/arch/x86_64/linker.ld": "e827271a22c548131fab027b4ee0ca68149bba8ef0c7917eac754d25733b02df",
     "kernel/arch/x86_64/smp.c": "0c74a195263b2c0d74e1290891cec98e4f73a0d77137ad43a37d839251d1171f",
     "kernel/arch/x86_64/timer.c": "0c95fe6e9cd535c81eebaa1a3e124b29c84bf0d3127ccb355b819e156b979455",
     "kernel/core/console.c": "4111de62192a46621e47295d4f1ad215db89f502d4fba55dc43ada74d6ca0e18",
-    "kernel/core/display.c": "d11ba84bed6510248d118cfd46bcf80f0338a7f4cf63a5f1fcd74341ce90f5e4",
+    "kernel/core/display.c": "825143c8c92aee08fdfdbce90b593fde5a7a4a4a6a3875c2f60ff82a4455dd57",
     "kernel/core/main.c": "e1dc761a66810320a73aadfcfb3540fe63f93106f5cf111610b1831525733a3d",
-    "kernel/input/legacy.c": "43a4f4e1730d9b3048ab2cb580f3cd442b3b28f62137824ea8f43ee06528e1e5",
-    "kernel/m4/main.c": "9c744129756f57f91398857d7e30ceda8952bab472c3b1173b871c3fb32de50f",
+    "kernel/input/legacy.c": "c8fd03ea09a7f57c1d02e522bdc5fce2e20e0e0a23249777fd4eaa48263f5939",
+    "kernel/input/xhci.c": "a874733569ae7b1a7d909cd764c43b00d2a1d6128d2b39799860fd946e5f6520",
+    "kernel/m4/main.c": "0023961e9936fe303270e967098fc554cc794d6fad760fd0fa3963fa3d1cfbae",
     "kernel/memory/pages.c": "aa32a9f3a5168ac9d6ab43eaab2f7a31d137a9eebccfd498ee2f3b44ff5e13d1",
     "kernel/memory/space.c": "6266e1f2242387cc3342a9e4004a992e5e29378a39c2a70c69455b3d04f72d8b",
     "kernel/process/process.c": "95f530d1b1eed5c20f19f4324b823385f49b6f01baa8390038b220e3ef88d35b",
     "kernel/scheduler/m3.c": "6b09369a746b607705422f84bcd8449ef9438783c7609eddf63e70d07a30e73b",
-    "kernel/storage/ahci.c": "2563791a17b58f792bea45104ef296b3f6f99d1dc82c2d8982fc0ec515210672",
+    "kernel/storage/ahci.c": "776d83ef467a8fe41450a0decd1bed6ded4f4fbc028b9b2f766acb6b9880eae6",
+    "kernel/storage/ext2.c": "9a86080787c798abeb9524e115d58fd99e1c2329bc4d18d7f870dfe84d7eaa08",
+    "kernel/storage/fs_test.c": "4c27af1b7e1d069037abddc1b924b8464816dea44e818214b436cef1ad9c7dfa",
     "runtime/memory.c": "6d0a1ab7c130552c391beabb8a188b85521685e7d189a628224b99d802d65d25",
-    "tools/build/data_image.py": "595c74195494fe53f80b3e186089d0d17a2afc170bb2d754d6027330c44dffb1",
+    "tools/build/data_image.py": "3bc9462dd6ac5d7a862ac5e84efdec4aec66e4828a609719b85b0672bcff5e26",
+    "tools/build/ext2_image.py": "d7961e0233fab653a71f0152e0c6fd76d67931819f711c0e5e0775947d8e8c21",
+    "tools/build/fsck.py": "924b9f663080066cb9f6ba34c6a3298ca58ef29a2edcfe8ca85b829e5cf2f671",
     "tools/build/m1.py": "6ec2a3d19a3e023ae8e503ff2fae5c835dd5e0ab8999423a7d9edae76d6ce1f3",
-    "tools/build/m2.py": "e13b27472a255b055978d5657a87ca282d0945dbe9b4a03aacfdcc908e012111",
+    "tools/build/m2.py": "e6d331803780414cb703fd0a4b3f78bde258c44c25129a1a161dc9f9b40374d7",
     "tools/build/m3.py": "3fa633b9e45f6ec7df51bb3c658d00928808d42d0435c30b462aa0db21342dbe",
-    "tools/build/m4.py": "6e29896448ea36bf18f896bcd8609e93b9171b511afd8eaa392033c4aa426fcd",
+    "tools/build/m4.py": "413088a97c0876ed54961c2223f980b369bd0bcd35567476eece9b00bd1153be",
     "tools/build/media.py": "7288b04dbab6ee980ff13181e5377d83f1827a42709e9f1cf93dc933c168f9ba",
     "user/linker.ld": "2c626b4359df6b1088f5027f972159e33e5337720c44a18ac0f1b47164ec32e8",
     "user/m3.c": "2c73776869dd74fd2045efc7eb1ce9f0f673d899b1bad2125375d7761737c76e",
     "user/probe.c": "a0307730363807ecb93ab0c48fc491e8be4c62c6d699a5645a7ff18ea765ed36"
   },
   "artifacts": {
-    "EngineOS-M4-data-template.img": {
-      "sha256": "1ffbf864f2e1ee3397267f693107f5abde04bd3d5e4ab7984eb8a2d12effaa3d",
+    "EngineOS-M4-fs-template.img": {
+      "sha256": "8903e2edccf3f6fc89fc58aec3f96dbef7d3222feffe95622b6b743c3f6d861c",
       "size": 16777216
     },
-    "EngineOS-M4-data-template.vmdk": {
-      "sha256": "97977cf1b1e035c30112118224618a726b02a9a97fa47cc789afe44c0a6ad8a2",
-      "size": 181
+    "EngineOS-M4-fs-template.vmdk": {
+      "sha256": "f4db5f341ddc97a93cccb340098a1ee3b8270aa22e26080727507a8477d8fa55",
+      "size": 179
     },
     "EngineOS-M4-kernel.elf": {
-      "sha256": "7f00afd4ea7d5ed3025779138beb7196f466a48cabfb9e910d5072ebf53d34d9",
-      "size": 387496
+      "sha256": "e9c8e9c090c6f7c0f529714d55f8851e12aebf69479946bf7e252e4bb8548a6a",
+      "size": 500952
     },
     "EngineOS-M4-kernel.map": {
-      "sha256": "ef02d3beca722d97f9429cd818b6b772989cf8609deebe2d28b9218748055f52",
-      "size": 59632
+      "sha256": "fd93e9cf4bc177cc6b9f3aa6740fe8014bea75c81f8de586d78cea1df0910c68",
+      "size": 70359
     },
     "EngineOS-M4-usb.img": {
-      "sha256": "51efba4336ca8f14949c290c7274c91ee6a3a74378cbe1a872c9a18900a77d9e",
+      "sha256": "59748ee8342d52827dcdd510b4a6022bf521817c8e99f3773a62ebb5ed3a0f59",
       "size": 69206016
     },
     "EngineOS-M4-user.elf": {
@@ -67,7 +73,7 @@
       "size": 68064
     },
     "EngineOS-M4.iso": {
-      "sha256": "2c5c4cd3fb01ab3aa543aa0551547cd82cb9c8a168fa5188ced2050ef6d77278",
+      "sha256": "1b7d77124cbb27d6119c30208ee6c4232a11f3547e40010e998c39cff759574c",
       "size": 67162112
     }
   },
@@ -78,7 +84,11 @@
     "x87/SSE state; no AVX, migration, file paging, Windows apps or installer",
     "8 thread slots, 2 address spaces, 16 anonymous VM pages per space",
     "early allocator manages conventional memory below 1 GiB",
-    "M4 first increment: one AHCI 512-byte-sector marked 16 MiB volume, writes restricted to sector 1",
-    "PS/2 US ASCII and COM1 console; ext2/VFS, USB input and mouse remain pending"
+    "one marked v2 AHCI 16 MiB/512-byte-sector volume; 4 KiB DMA batches and one outstanding request",
+    "bounded ext2: 4 KiB blocks, 512 inodes, 12 direct blocks/48 KiB per file, 63-byte UTF-8 names, 255-byte absolute paths",
+    "8 trusted-kernel file handles; exact case/UTF-8, no hard/symbolic links or guest ACL adapters",
+    "dirty-volume write refusal and offline recovery to a new copy; no journal or universal power-loss recovery",
+    "QEMU xHCI direct-root boot keyboard/mouse, MSI/MSI-X, two devices/four enumeration attempts; no hubs/hotplug",
+    "PS/2 US ASCII and COM1; VMware qualification covers SATA persistence, not native USB input"
   ]
 }

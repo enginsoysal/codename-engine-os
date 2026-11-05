@@ -28,7 +28,7 @@ FAT32 is the EFI partition format, using `EFI/BOOT/BOOTX64.EFI`. The image autho
 
 The current init file is a fixed 48-byte manifest: `ENGINIT1`, length, development mode and 32-byte build ID. Normal public images use mode 0. Modes 1–4 are test-only exit/panic/corrupt-header/mapkey fixtures. This is not an executable system archive or Secure Boot trust chain.
 
-The selected first writable *future* development filesystem is a bounded ext2 profile: 4 KiB blocks, 128-byte inodes, classic block pointers and an explicit feature allowlist. FAT32 is too limited for general application storage; NTFS/ext4 or a new format are larger initial projects. Large-file support and guest metadata must be proven before Steam/Adobe claims. Without journaling ext2 is not a crash-safe consumer storage solution. M4/M5 must test flush/recovery; immutable update versions do not make underlying metadata transactional.
+M4 implements the selected bounded ext2 profile: 4 KiB blocks, 128-byte inodes, classic direct pointers and an explicit feature allowlist. See the [M4 contract](../milestones/m4-contract.md) for file/name/handle limits, writable namespace, flush ordering and offline recovery. FAT32 is too limited for general application storage; NTFS/ext4 or a new format are larger initial projects. Large files and guest metadata remain gates before Steam/Adobe claims. Without journaling this is not a crash-safe consumer storage solution; immutable update versions do not make metadata transactional.
 
 ## VM reference and resource policy
 

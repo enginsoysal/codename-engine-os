@@ -46,6 +46,8 @@ M3 closes this gate in the bounded native VM profile documented in [M3](../miles
 
 **Acceptance:** persistent create/read/modify/rename across reboot, disk-full/I/O errors, documented crash recovery, working input on named configurations. **Risk:** destructive tests use disposable images/explicit test disks; one controller is not universal USB/NVMe coverage.
 
+The implemented acceptance profile and explicit limits are in the [M4 contract](../milestones/m4-contract.md): bounded ext2/UTF-8 namespace, kernel file handles, AHCI MSI/HLT requests, conservative offline copy recovery and directly attached QEMU xHCI boot HID. Unsupported filesystem features and controllers are refused; completion is not a consumer filesystem durability or universal hardware claim.
+
 ## M5 — live boot, real installation and recovery
 
 **Depends on:** M4. **What:** live/write-layer profile, target disk inventory, partition/EFI setup, verified OS placement, independent installed boot, recovery mode and update activation/rollback format.

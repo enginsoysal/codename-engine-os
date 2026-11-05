@@ -57,7 +57,7 @@ Discover bus/protocol identity, bind a supported driver, initialize and publish 
 
 ## Evidence and change control
 
-M4 begins with an original class-bound AHCI driver and a PS/2/COM1 kernel diagnostic console. Four fixed DMA pages and a marked disposable sector-record profile establish transport ownership and flush/readback before filesystem/VFS work. Block requests currently poll with bounds; idle input uses IRQs and HLT. USB/mouse, file operations and full M4 acceptance remain pending; see the [implementation and decisions](../milestones/m4.md).
+M4 adds class-bound AHCI with one outstanding MSI/HLT request and 4 KiB DMA batches, bounded writable ext2/VFS and own xHCI boot keyboard/mouse input. Four AHCI pages and fixed filesystem/input limits bound resources; uncertain DMA ownership is quarantined. Dirty-volume write refusal and offline copy recovery are explicit rather than a journaling guarantee. See the [M4 contract and named profiles](../milestones/m4-contract.md).
 
 Cross-compile without a host CRT; retain symbols, build IDs, source/artifact hashes, negative tests and public sanitized logs. Record CPU/guest/host configuration and separate managed pages from retained boot memory and framebuffer reservations. The M3 preemption and SMP suite proves its specified native workloads, not universal starvation/race freedom or arbitrary-app security. Exact limits and resource measurements remain linked to fresh reports.
 

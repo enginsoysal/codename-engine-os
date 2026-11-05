@@ -1,4 +1,4 @@
-"""Launch normal M3 (or explicit M1/M2) media. No host disk/directory is exposed."""
+"""Launch normal M4 or an explicit earlier milestone; expose only designated disposable images."""
 import argparse
 from pathlib import Path
 import subprocess
@@ -8,7 +8,7 @@ def main():
     parser.add_argument('--usb',action='store_true')
     parser.add_argument('--headless',action='store_true')
     parser.add_argument('--debug',action='store_true',help='wait for debugger on loopback port 1234')
-    parser.add_argument('--milestone',choices=['M1','M2','M3','M4'],default='M3')
+    parser.add_argument('--milestone',choices=['M1','M2','M3','M4'],default='M4')
     parser.add_argument('--cpus',type=int,choices=(1,2,4),help='M3 defaults to 2; M2 uses 1')
     parser.add_argument('--ram',type=int,default=128,help='guest RAM in MiB; defaults to 128')
     parser.add_argument('--data-disk',type=Path,help='marked disposable M4 .img only')
@@ -26,20 +26,17 @@ def main():
         import struct,zlib,sys
         sys.path.insert(0,str(ROOT/'tools/build'))
         from data_image import create
-        disk=args.data_disk or (ROOT/'build/m4/manual/data.img' if args.create_data_disk else None)
+        disk=args.data_disk or (ROOT/'build/m4/manual/fs-data.img' if args.create_data_disk else None)
         if args.create_data_disk and disk and not disk.exists():create(disk)
         if disk:
             disk=disk.resolve()
             if disk.suffix.lower()!='.img' or not disk.is_file() or disk.stat().st_size!=32768*512:raise SystemExit('Use a marked regular 16 MiB .img file')
             with disk.open('rb') as f:header=f.read(512)
-            if header[:16]!=b'ENGINE-M4-DATA01' or struct.unpack_from('<I',header,508)[0]!=zlib.crc32(header[:508]):raise SystemExit('Unmarked/invalid data image; not attaching')
+            if header[:16]!=b'ENGINE-M4-DATA02' or struct.unpack_from('<I',header,508)[0]!=zlib.crc32(header[:508]):raise SystemExit('Unmarked/invalid version-2 data image; not attaching')
             command+=['-drive',f'if=none,id=m4data,format=raw,file={disk}','-device','ide-hd,bus=ide.0,drive=m4data']
-        for device in ('usb-kbd,bus=xhci.0','usb-mouse,bus=xhci.0'):
-            if device in command:
-                i=command.index(device);del command[i-1:i+1]
     elif args.data_disk or args.create_data_disk:raise SystemExit('Data-disk options require --milestone M4')
     print(f'Starting Engine OS {milestone}. Serial log: build/{milestone.lower()}/manual/serial.log',flush=True)
-    print('M4 offers a storage test console; ext2/VFS and USB input remain pending.' if milestone=='M4' else 'No installer or shell in this milestone. Close the VM window to stop.',flush=True)
+    print('M4 offers an ext2 file console and USB input on the qualified QEMU profile.' if milestone=='M4' else 'No installer or shell in this milestone. Close the VM window to stop.',flush=True)
     process=subprocess.run(command,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
     raise SystemExit(process.returncode)
 if __name__=='__main__':main()

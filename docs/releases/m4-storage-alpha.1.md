@@ -1,5 +1,7 @@
 # M4 storage-console alpha.1
 
+Historical transport-only increment. Superseded by [M4 v0.4.0](m4-v0.4.0.md); the statements below describe this alpha's original scope.
+
 M4 is in progress. This release delivers the first original AHCI storage transport and PS/2/COM1 diagnostic console increment. It does not complete filesystem/input acceptance.
 
 The own kernel discovers PCI AHCI by protocol class, identifies a marked 16 MiB test disk, and writes only its sector-1 CRC/generation record with flush and full readback. Four fixed DMA pages cost 16 KiB; input buffers are bounded and all four CPUs are observed halted while the console waits. Disk polling is bounded during commands; asynchronous block queues are pending.

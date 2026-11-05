@@ -1,6 +1,6 @@
 {
-  "build_id": "4d4fde52d7f61ecccad4c0ec1d1f4a7e",
-  "scope": "AHCI sector-record increment; not a filesystem or full M4 qualification",
+  "build_id": "10fcace331cd8f95250e3cdb004696e9",
+  "scope": "AHCI/ext2 reboot, rejection, IRQ wait, low-RAM and ISO/USB qualification",
   "checks": [
     {
       "case": "persist-first",
@@ -50,6 +50,20 @@
       "exit": 101,
       "generation": null,
       "unchanged_on_rejection": true
+    },
+    {
+      "case": "lowram",
+      "passed": true,
+      "exit": 33,
+      "generation": 1,
+      "unchanged_on_rejection": false
+    },
+    {
+      "case": "usb-storage",
+      "passed": true,
+      "exit": 33,
+      "generation": 1,
+      "unchanged_on_rejection": false
     }
   ]
 }

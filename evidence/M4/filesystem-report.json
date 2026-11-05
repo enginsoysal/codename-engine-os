@@ -1,0 +1,52 @@
+{
+  "build_id": "10fcace331cd8f95250e3cdb004696e9",
+  "checks": [
+    {
+      "name": "dirty source unchanged; offline repair to an exclusive new copy",
+      "passed": true
+    },
+    {
+      "name": "real kernel I/O failure after durable dirty marker; offline checker refuses clean mount",
+      "passed": true
+    },
+    {
+      "name": "delayed write exceeds deadline; controller offlined and DMA pages quarantined; write outcome intentionally unknown",
+      "passed": true
+    },
+    {
+      "name": "full",
+      "passed": true,
+      "exit": 101
+    },
+    {
+      "name": "dirty",
+      "passed": true,
+      "exit": 101
+    },
+    {
+      "name": "repaired",
+      "passed": true,
+      "exit": 33
+    },
+    {
+      "name": "interrupted-recovered",
+      "passed": true,
+      "exit": 33
+    },
+    {
+      "name": "unsupported-feature",
+      "passed": true,
+      "exit": 101
+    },
+    {
+      "name": "unsupported-link",
+      "passed": true,
+      "exit": 101
+    },
+    {
+      "name": "duplicate-name",
+      "passed": true,
+      "exit": 101
+    }
+  ]
+}

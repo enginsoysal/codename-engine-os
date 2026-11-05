@@ -6,21 +6,22 @@
 - `tools/build/m1.py`: explicit historical M1 build path.
 - `tools/build/media.py`: restricted FAT32/GPT/EFI El Torito authoring, not a kernel filesystem.
 - `tools/vm/config.py`: shared pinned QEMU setup.
-- `tools/build/m3.py`: current M3 native scheduling/VM/SMP media.
-- `tools/vm/run.py`: user launcher (M3 by default, `--milestone M1` or `--milestone M2` explicitly).
-- `tests/m0`, `tests/m1`, `tests/m2`, `tests/m3`: per-milestone verification.
+- `tools/build/m3.py`: preserved M3 native scheduling/VM/SMP regression media.
+- `tools/build/m4.py`: M4 AHCI/ext2/input media and version-2 filesystem template.
+- `tools/vm/run.py`: M4 user launcher; select an earlier milestone explicitly.
+- `tests/m0`, `tests/m1`, `tests/m2`, `tests/m3`, `tests/m4`: per-milestone verification.
 
 ```powershell
-python tools/build/m3.py
-python tools/vm/run.py
-python tests/m3/verify.py
+python tools/build/m4.py
+python tools/vm/run.py --create-data-disk
+python tests/m4/verify.py
 ```
 
 Run from the repository root. The latest launcher defaults to two vCPUs and 128 MiB; `--cpus 1`, `2` or `4`, `--ram 64`, `--usb`, `--headless`, `--debug` and `--qemu-dir` are available. See [M2](../docs/milestones/m2.md) and the [M3](../docs/milestones/m3.md). No host disk or directory is exposed. Debugger ports bind loopback only.
 
-## M4 development increment
+## M4 storage and recovery
 
-Build with `python tools/build/m4.py`, then run `python tools/vm/run.py --milestone M4 --create-data-disk`. The marked working disk persists in the ignored build directory. The immutable template and VMware descriptor are separate outputs; copy both before attaching a writable VM disk. Run `python tests/m4/boot.py` and `python tests/m4/console.py`. See [M4 instructions and limitations](../docs/milestones/m4.md). The default launcher remains M3.
+The marked working disk persists as `build/m4/manual/fs-data.img`. Copy both filesystem-template IMG/VMDK files together before attaching a writable VMware SATA disk. Version-1 transport-alpha images are rejected. `python tests/m4/verify.py` covers storage, filesystem faults/recovery, PS/2/USB console and owned VMware tests; `python tests/m3/verify.py` separately reruns the earlier complete native suite. `python tools/build/fsck.py` checks a volume; `--repair-copy` writes only a new exclusive recovery file. See [M4 instructions and limits](../docs/milestones/m4-contract.md).
 
 ## Pins and setup
 

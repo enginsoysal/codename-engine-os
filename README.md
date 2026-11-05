@@ -2,20 +2,18 @@
 
 An independent, MIT-licensed operating system with its own UEFI loader, kernel and native user runtime. Windows 95–11 application compatibility is a long-term requirement, followed by Linux/macOS execution environments and ARM64. Those compatibility layers are not implemented yet.
 
-**Current completed milestone: M3 — native scheduling, memory policy and concurrency.** M0 established the architecture/toolchain and M1 delivered kernel boot. M2 adds ring-3 isolation, rights-checked handles, bounded IPC/shared memory and measured page cleanup. See the [current status](docs/roadmap/status.md) for verified results. [M3](docs/milestones/m3.md) qualifies preemptible threads, x87/SSE/TLS, waits/deadlines, anonymous COW/pressure and 1/2/4 active CPUs within its documented native VM limits. M4 is now in progress with an [AHCI/console first increment](docs/milestones/m4.md). There is no installer, desktop or existing Windows application support yet.
+**Current completed milestone: M4 — persistent storage, bounded ext2/VFS and input, within its named native virtual-device scope.** M0 established architecture/toolchain, M1 own-kernel boot, M2 protected native processes and M3 scheduling/VM/SMP. M4 adds original AHCI and xHCI drivers, a persistent native directory namespace and interactive file console. See the [status](docs/roadmap/status.md), [M4 contracts](docs/milestones/m4-contract.md) and [test evidence](evidence/M4/README.md). There is no installer, desktop or existing Windows application support yet.
 
 ## Boot in a VM
 
-[Download M3 prerelease](https://github.com/enginsoysal/codename-engine-os/releases/tag/m3-v0.3.0) · [M3 instructions](docs/milestones/m3.md) · [test evidence](evidence/M3/README.md)
-
-M4 development: [storage-console alpha.1](https://github.com/enginsoysal/codename-engine-os/releases/tag/m4-storage-alpha.1), [usage and pending work](docs/milestones/m4.md). M4 is not yet complete; the default launcher remains M3.
+[Download M4 prerelease](https://github.com/enginsoysal/codename-engine-os/releases/tag/m4-v0.4.0) · [M4 instructions](docs/milestones/m4-contract.md) · [test evidence](evidence/M4/README.md). Earlier [M3](https://github.com/enginsoysal/codename-engine-os/releases/tag/m3-v0.3.0) and [transport-only alpha](https://github.com/enginsoysal/codename-engine-os/releases/tag/m4-storage-alpha.1) releases remain immutable historical snapshots.
 
 ```powershell
-python tools/build/m3.py
-python tools/vm/run.py
+python tools/build/m4.py
+python tools/vm/run.py --create-data-disk
 ```
 
-Use a 64-bit UEFI VM with Secure Boot disabled. The default QEMU launcher uses two vCPUs and 128 MiB guest RAM; `--cpus 1`, `2` or `4` selects the qualified CPU profiles. Automated qualification uses pinned QEMU/OVMF. Additional [VMware Workstation 26.0.1 serial/runtime tests](evidence/M3/vmware/README.md) pass at 1/2/4 CPUs with 128 MiB; framebuffer capture/idle-register evidence is from QEMU. This does not qualify every VMware version/device profile or physical hardware.
+Use a 64-bit UEFI VM with Secure Boot disabled. QEMU defaults to two vCPUs/128 MiB; `--create-data-disk` preserves a marked disposable working image between boots. For VMware copy both filesystem-template IMG/VMDK assets together and attach the copied VMDK as SATA; see the [instructions](docs/milestones/m4-contract.md). M4 VMware qualification covers SATA persistence at two CPUs/128 MiB; USB keyboard/mouse and framebuffer/idle evidence come from pinned QEMU. Neither test qualifies all versions/devices or physical hardware.
 
 ## Repository layout
 
@@ -31,6 +29,7 @@ tests/m0/              Architecture/toolchain and Windows-host references
 tests/m1/              Original kernel-boot/parser/visual regression tools
 tests/m2/              Isolation, cleanup, low-RAM and idle tests
 tests/m3/              Scheduling, VM, SMP and resource qualification
+tests/m4/              Filesystem, DMA/IRQ, recovery and PS/2/USB input qualification
 docs/architecture/     Design contracts and decision record
 docs/roadmap/          Milestones, current status and Windows generation inventory
 docs/milestones/       Per-milestone usage, implementation and handoff notes
@@ -47,7 +46,7 @@ The repository is independent from BrixCanvas. Do not put OS sources or outputs 
 - [Architecture](docs/architecture/overview.md), [decisions](docs/architecture/decisions.md), [kernel contracts](docs/architecture/kernel-contracts.md).
 - [OS directory namespace](docs/architecture/filesystem.md), [build/platform choices](docs/architecture/build-platform.md), [compatibility matrix](docs/architecture/compatibility.md).
 - [Detailed milestones](docs/roadmap/milestones.md), [Windows 95–11 requirement](docs/roadmap/windows-compatibility.md), [generation inventory](docs/roadmap/windows-targets.json).
-- [M0](docs/milestones/m0.md), [M1](docs/milestones/m1.md), [M2](docs/milestones/m2.md), [M3](docs/milestones/m3.md), [changelog](docs/releases/CHANGELOG.md).
+- [M0](docs/milestones/m0.md), [M1](docs/milestones/m1.md), [M2](docs/milestones/m2.md), [M3](docs/milestones/m3.md), [M4](docs/milestones/m4.md), [changelog](docs/releases/CHANGELOG.md).
 - [Contributing](CONTRIBUTING.md), [agent instructions](AGENTS.md), [host tools](tools/README.md).
 
 ## Development commitments

@@ -41,6 +41,8 @@ extern void kernel_panic_screen(void);
 extern void kernel_fault_probe(void);
 uint64_t *exception_dispatch(uint64_t *frame) {
 #ifdef ENGINE_M4
+    if(block_irq(frame))return frame;
+    if(usb_irq(frame))return frame;
     if(input_irq(frame))return frame;
 #endif
 #ifdef ENGINE_M3

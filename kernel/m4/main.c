@@ -1,8 +1,10 @@
 #include <engine/m4.h>
+#include <engine/fs.h>
 static uint8_t record[512];
 static int valid_record(void){uint32_t length,crc;memcpy(&length,record+16,4);memcpy(&crc,record+508,4);return !memcmp(record,M4_RECORD,8)&&length<=120&&crc==m4_crc(record,508);}
 static unsigned load(void){unsigned s=block_read(1,record);if(s)return s;return valid_record()?B_OK:B_IO;}
 static unsigned store(const char *text){
+    if(fs_readonly())return B_DENIED;
     unsigned length=0;while(text[length])if(++length>120)return B_DENIED;
     unsigned s=load();if(s)return s;uint64_t generation;memcpy(&generation,record+8,8);if(generation==UINT64_MAX)return B_DENIED;++generation;
     memset(record,0,512);memcpy(record,M4_RECORD,8);memcpy(record+8,&generation,8);memcpy(record+16,&length,4);memcpy(record+24,text,length);uint32_t crc=m4_crc(record,508);memcpy(record+508,&crc,4);
@@ -19,23 +21,31 @@ static int store_prefix(const char *s){return fold(s[0])=='s'&&fold(s[1])=='t'&&
 NORETURN void m4_start(const os_boot_info_v0 *boot,unsigned mode){
     serial_text("M4_STORAGE_BEGIN\n");unsigned s=block_init();serial_text("M4_BLOCK_INIT status=");serial_hex(s);serial_text("\n");
     page_stats memory=pages_stats();serial_text("M4_MEMORY retained_owned_bytes=");serial_hex(memory.current_pages*4096);serial_text(" peak_owned_bytes=");serial_hex(memory.peak_pages*4096);serial_text("\n");
+    unsigned filesystem=s?F_IO:fs_mount();serial_text("M4_FS_MOUNT status=");serial_hex(filesystem);serial_text("\n");
     if(mode==1||mode==4){
         uint8_t ignored[512];if(s||block_read(M4_SECTORS,ignored)!=B_DENIED||load()!=B_OK){serial_text("M4_STORAGE_UNAVAILABLE_OR_INVALID\n");test_exit(0x32);}
-        uint64_t before;memcpy(&before,record+8,8);s=store("ENGINE OS M4 DURABLE RECORD");
+        uint64_t before;memcpy(&before,record+8,8);if(filesystem||(s=fs_selftest(before))){serial_text("M4_FILESYSTEM_FAIL status=");serial_hex(filesystem?filesystem:s);serial_text("\n");test_exit(0x32);}s=store("ENGINE OS M4 DURABLE RECORD");
         if(s){serial_text("M4_STORAGE_IO_ERROR status=");serial_hex(s);serial_text("\n");test_exit(0x32);}
         uint64_t after;memcpy(&after,record+8,8);if(after!=before+1){serial_text("M4_RECORD_CHECK_FAIL\n");test_exit(0x32);}
-        serial_text("M4_STORAGE_PASS generation=");serial_hex(after);block_info i=block_stats();serial_text(" commands=");serial_hex(i.commands);serial_text(" dma_bytes=");serial_hex(i.dma_pages*4096);serial_text("\n");test_exit(0x10);
+        serial_text("M4_STORAGE_PASS generation=");serial_hex(after);block_info i=block_stats();serial_text(" commands=");serial_hex(i.commands);serial_text(" dma_bytes=");serial_hex(i.dma_pages*4096);serial_text(" irqs=");serial_hex(i.irqs);serial_text(" wait_halts=");serial_hex(i.wait_halts);serial_text("\n");test_exit(0x10);
     }
     console_begin(boot);console_text("Own kernel storage and interrupt-driven input.\n");
     console_text(s?"No marked data disk. Storage writes disabled.\n":"Validated disposable data volume ready.\n");
-    console_text("Persistent sector record only; ext2/VFS/USB are pending.\n");input_init();serial_text("M4_CONSOLE_READY\n");console_text("engine> ");
+    console_text(filesystem?"Filesystem unavailable or read-only.\n":"Ext2 mounted. Files persist across reboot.\n");unsigned usb=usb_init();serial_text("M4_USB_INIT status=");serial_hex(usb);serial_text("\n");input_init();serial_text("M4_CONSOLE_READY\n");console_text("engine> ");
     char line[128];unsigned length=0;int overflow=0;
     for(;;){__asm__ volatile("cli");int c=input_pop();if(c<0){__asm__ volatile("sti; hlt":::"memory");continue;}__asm__ volatile("sti");
+        if(c==256){usb_mouse_draw();continue;}
         if(c==8){if(length&&!overflow){--length;console_text("\b");}continue;}
         if(c==10){line[length]=0;console_text("\n");
             if(overflow)console_text("Command too long.\n");
-            else if(equal(line,"help"))console_text("help  info  show  store TEXT  sync  halt\nWrites affect only sector 1 of the marked test volume.\n");
-            else if(equal(line,"info"))info();else if(equal(line,"show"))show();
+            else if(equal(line,"help"))console_text("help info show store TEXT sync halt\nls PATH | cat PATH | mkdir PATH | rm PATH\nwrite PATH TEXT | mv FROM TO\n");
+            else if(length>3&&!memcmp(line,"ls ",3)){console_text("Status: ");console_hex(fs_list(line+3));console_text("\n");}
+            else if(length>4&&!memcmp(line,"cat ",4)){char data[4097];unsigned size=0,status=fs_read(line+4,data,4096,&size);if(!status){data[size]=0;console_text(data);console_text("\n");}else{console_text("Read status: ");console_hex(status);console_text("\n");}}
+            else if(length>6&&!memcmp(line,"mkdir ",6)){console_text("Mkdir status: ");console_hex(fs_mkdir(line+6));console_text("\n");}
+            else if(length>3&&!memcmp(line,"rm ",3)){console_text("Remove status: ");console_hex(fs_remove(line+3));console_text("\n");}
+            else if(length>6&&!memcmp(line,"write ",6)){unsigned i=6;while(line[i]&&line[i]!=' ')++i;if(line[i]){line[i++]=0;console_text("Write status: ");console_hex(fs_write(line+6,line+i,length-i));console_text("\n");}else console_text("Usage: write PATH TEXT\n");}
+            else if(length>3&&!memcmp(line,"mv ",3)){unsigned i=3;while(line[i]&&line[i]!=' ')++i;if(line[i]){line[i++]=0;console_text("Rename status: ");console_hex(fs_rename(line+3,line+i));console_text("\n");}else console_text("Usage: mv FROM TO\n");}
+            else if(equal(line,"info")){info();usb_info();}else if(equal(line,"show"))show();
             else if(length>=6&&store_prefix(line)){unsigned result=store(line+6);console_text(result?"Store failed: ":"Stored and flushed: ");console_hex(result);console_text("\n");}
             else if(equal(line,"sync")){console_text("Flush status: ");console_hex(block_flush());console_text("\n");}
             else if(equal(line,"halt")){console_text("CPU halted.\n");out8(0x21,255);out8(0x3f9,0);halt_forever();}

@@ -3,6 +3,7 @@ static unsigned ready,head,tail,shift,extended;static uint8_t queue[256];static 
 static const char plain[58]={0,0,'1','2','3','4','5','6','7','8','9','0','-','=',8,9,'q','w','e','r','t','y','u','i','o','p','[',']',10,0,'a','s','d','f','g','h','j','k','l',';',39,'`',0,92,'z','x','c','v','b','n','m',',','.','/',0,'*',0,' '};
 static const char upper[58]={0,0,'!','@','#','$','%','^','&','*','(',')','_','+',8,9,'Q','W','E','R','T','Y','U','I','O','P','{','}',10,0,'A','S','D','F','G','H','J','K','L',':',34,'~',0,'|','Z','X','C','V','B','N','M','<','>','?',0,'*',0,' '};
 static void enqueue(uint8_t c){unsigned h=__atomic_load_n(&head,__ATOMIC_RELAXED),next=(h+1)&255;if(next==__atomic_load_n(&tail,__ATOMIC_ACQUIRE)){__atomic_fetch_add(&dropped,1,__ATOMIC_RELAXED);return;}queue[h]=c;__atomic_store_n(&head,next,__ATOMIC_RELEASE);}
+void input_feed(uint8_t c){enqueue(c);}
 static int writable(void){uint64_t end=m3_clock_ticks()+20;unsigned n=0;while(in8(0x64)&2)if(m3_clock_ticks()>=end||++n==1000000)return 0;return 1;}
 void input_init(void){
     __asm__ volatile("cli");out8(0x21,255);for(unsigned i=0;i<64&&(in8(0x64)&1);++i)(void)in8(0x60);
@@ -22,5 +23,5 @@ unsigned input_irq(uint64_t *frame){
     }
     out8(0x20,0x20);return 1;
 }
-int input_pop(void){unsigned t=__atomic_load_n(&tail,__ATOMIC_RELAXED);if(t==__atomic_load_n(&head,__ATOMIC_ACQUIRE))return -1;uint8_t c=queue[t];__atomic_store_n(&tail,(t+1)&255,__ATOMIC_RELEASE);return c;}
+int input_pop(void){unsigned t=__atomic_load_n(&tail,__ATOMIC_RELAXED);if(t==__atomic_load_n(&head,__ATOMIC_ACQUIRE))return usb_mouse_pending()?256:-1;uint8_t c=queue[t];__atomic_store_n(&tail,(t+1)&255,__ATOMIC_RELEASE);return c;}
 uint64_t input_dropped(void){return __atomic_load_n(&dropped,__ATOMIC_RELAXED);}

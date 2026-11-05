@@ -1,5 +1,9 @@
 # Changelog
 
+## M4 v0.4.0 — 2026-11-05
+
+Original AHCI reset/IRQ-completed DMA with HLT waits and 4 KiB batching; bounded writable ext2/VFS and native namespace; strict UTF-8/case and generation/share handles; dirty-volume refusal and offline copy recovery. Own xHCI 64-bit MMIO, MSI-X/MSI, boot keyboard/mouse and PS/2/COM1 diagnostics. Reboot, full-disk, error/timeout/recovery, low-RAM, ISO/USB and named VMware qualification are recorded in [M4 evidence](../../evidence/M4/README.md). [Release and exact limits](m4-v0.4.0.md). No installer, desktop or Windows application support.
+
 ## M4 first increment — 2026-11-05
 
 Original class-bound AHCI driver, marked disposable volume, fixed DMA buffers, CRC/generation sector record with flush/readback, and interrupt-driven PS/2/COM1 diagnostic console. [Scope and pending M4 work](../milestones/m4.md). No filesystem, installer or USB input yet.
