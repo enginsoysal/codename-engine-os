@@ -18,6 +18,10 @@ python tests/m3/verify.py
 
 Run from the repository root. The latest launcher defaults to two vCPUs and 128 MiB; `--cpus 1`, `2` or `4`, `--ram 64`, `--usb`, `--headless`, `--debug` and `--qemu-dir` are available. See [M2](../docs/milestones/m2.md) and the [M3](../docs/milestones/m3.md). No host disk or directory is exposed. Debugger ports bind loopback only.
 
+## M4 development increment
+
+Build with `python tools/build/m4.py`, then run `python tools/vm/run.py --milestone M4 --create-data-disk`. The marked working disk persists in the ignored build directory. The immutable template and VMware descriptor are separate outputs; copy both before attaching a writable VM disk. Run `python tests/m4/boot.py` and `python tests/m4/console.py`. See [M4 instructions and limitations](../docs/milestones/m4.md). The default launcher remains M3.
+
 ## Pins and setup
 
 [toolchain-lock.json](toolchain-lock.json) records the observed compiler/linker hashes, QEMU executable/adjacent DLLs, EDK2 firmware/template/notices, Python version and original reference profile. These local pins are not independently reproduced upstream-authenticity proof. Do not silently replace a different installed version; review pins and rerun gates. The existing Swift/LLVM and QEMU installations are not globally modified.

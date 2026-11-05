@@ -16,7 +16,7 @@ def main(milestone='M2'):
     for folder in ('boot','kernel','include','runtime','user'):
         sources.extend(p for p in (ROOT/folder).rglob('*') if p.is_file())
     sources.extend(ROOT/p for p in ('include/engine/boot/boot_v0.h','include/engine/abi/syscall_v0.h','include/engine/boot/validate_v0.h',
-                                   'tools/build/m2.py','tools/build/m3.py','tools/build/m1.py','tools/build/media.py'))
+                                   'tools/build/m2.py','tools/build/m4.py','tools/build/data_image.py','tools/build/m3.py','tools/build/m1.py','tools/build/media.py'))
     hashes={p.relative_to(ROOT).as_posix():sha(p) for p in sorted(sources)}
     build_id=hashlib.sha256(json.dumps({'milestone':milestone,'source_sha256':hashes},sort_keys=True).encode()).hexdigest()[:32]
     (BUILD/'build.h').write_text(f'#define BUILD_ID "{build_id}"\n',encoding='utf-8')
@@ -25,15 +25,16 @@ def main(milestone='M2'):
         for spelling in (str(original),original.as_posix()):debug.extend((f'-ffile-prefix-map={spelling}={replacement}',f'-fdebug-prefix-map={spelling}={replacement}'))
     common=['-std=c17','-O2',*debug,'-ffreestanding','-fno-builtin','-fno-stack-protector','-mno-red-zone','-mgeneral-regs-only',
             '-Wall','-Wextra','-Werror','-DENGINE_M2','-I',ROOT/'include','-I',BUILD]
-    if milestone=='M3':common.append('-DENGINE_M3')
+    if milestone in ('M3','M4'):common.append('-DENGINE_M3')
+    if milestone=='M4':common.append('-DENGINE_M4')
     def compile_file(path,kind,assembly=False):
-        path=Path(path);obj=BUILD/(path.stem+'-'+kind+'.o')
+        path=Path(path);obj=BUILD/(path.with_suffix('').as_posix().replace('/','_')+'-'+kind+'.o')
         target='x86_64-pc-windows-msvc' if kind=='efi' else 'x86_64-unknown-none-elf'
         flags=debug if assembly else common+([] if kind=='efi' else ['-fno-pic','-fno-pie','-fno-asynchronous-unwind-tables'])
         if kind=='user':flags=flags+['-mcmodel=large']
         command([tools['clang'],'--target='+target,*flags,'-c',path.as_posix(),'-o',obj]);return obj
     user=[compile_file('user/probe.c','user')]
-    if milestone=='M3':user.append(compile_file('user/m3.c','user'))
+    if milestone in ('M3','M4'):user.append(compile_file('user/m3.c','user'))
     command([tools['ld.lld'],'-T',ROOT/'user/linker.ld','--build-id=none','-o',BUILD/'USER.ELF',*user])
     data=(BUILD/'USER.ELF').read_bytes()
     # Keep the app as an independent ELF artifact; only its exact bytes are embedded in rodata.
@@ -63,7 +64,8 @@ def main(milestone='M2'):
     inputs=('kernel/core/main.c','kernel/core/display.c','kernel/arch/x86_64/interrupts.c','kernel/arch/x86_64/fault.S',
             'runtime/memory.c','kernel/memory/pages.c','kernel/memory/space.c','kernel/process/process.c',
             f'build/{milestone.lower()}/user-image.c',f'build/{milestone.lower()}/interrupt-stubs.S')
-    if milestone=='M3':inputs+=('kernel/arch/x86_64/timer.c','kernel/scheduler/m3.c','kernel/arch/x86_64/smp.c','kernel/arch/x86_64/ap.S')
+    if milestone in ('M3','M4'):inputs+=('kernel/arch/x86_64/timer.c','kernel/scheduler/m3.c','kernel/arch/x86_64/smp.c','kernel/arch/x86_64/ap.S')
+    if milestone=='M4':inputs+=('kernel/storage/ahci.c','kernel/input/legacy.c','kernel/core/console.c','kernel/m4/main.c')
     kernel=[compile_file(p,'kernel',p.endswith('.S')) for p in inputs]
     command([tools['ld.lld'],'-T',ROOT/'kernel/arch/x86_64/linker.ld','--build-id=none','-Map='+str(BUILD/'kernel.map'),
              '-o',BUILD/'KERNEL.ELF',*kernel])
@@ -83,7 +85,7 @@ def main(milestone='M2'):
               'limits':(['native VM scope: 1/2/4 active xAPIC CPUs, fixed process affinity, serialized kernel',
                          'ACPI MADT, xAPIC, 64-bit HPET and startup page 0x8000 required',
                          'x87/SSE state; no AVX, migration, file paging, Windows apps or installer',
-                         '8 thread slots, 2 address spaces, 16 anonymous VM pages per space'] if milestone=='M3' else
+                         '8 thread slots, 2 address spaces, 16 anonymous VM pages per space'] if milestone in ('M3','M4') else
                         ['one active CPU; GPR-only cooperative probes','no Windows apps, installer, threads or SMP'])+
                        ['early allocator manages conventional memory below 1 GiB']}
     (dist/f'{milestone.lower()}-build-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')

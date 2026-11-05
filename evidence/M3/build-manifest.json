@@ -1,6 +1,6 @@
 {
   "milestone": "M3",
-  "build_id": "e8817b06d85455265507ca40c05c6fe6",
+  "build_id": "6e4de93b65af26b384bef4c16f217e16",
   "source_sha256": {
     "boot/uefi/handoff.S": "4d3b9259c88e5b3e2b4d72fee29b82dc495758408c454a09e471f3d69e21c6e9",
     "boot/uefi/loader.c": "77f8d713a7d20920d3454dd0df20daab96435197aa6a9ffb747be163ebd268fe",
@@ -11,40 +11,47 @@
     "include/engine/boot/validate_v0.h": "a95a9f47577e7663b972a489d1fe61579bbd314330cf938c9836e5b16b5a91e9",
     "include/engine/elf.h": "b1b007a9b9b9fab5aec56049c20b123cbacce48288baefb9f421f55eed1f0f29",
     "include/engine/m3.h": "1b1c3775227834103741abb47d21a721bfd3d2b2fd778636a529d340ef774370",
+    "include/engine/m4.h": "1ac35855566aca8dcde73a936870afb9d739027c2b0de4547c66a894ea604dc5",
     "include/engine/process.h": "6b2310a17b1410ec2bc864c79ad06de8bfbe1981c9870b5941246989b2a4a96b",
     "include/engine/user.h": "fc3afcdec20049fb5cd5692bd23f5119b16fd9ace64693571d7bef2e33778423",
     "kernel/arch/x86_64/ap.S": "42b2f18d6bbb596997e8b61ac905dcd72d82257dceef666d9dff08b2a0047321",
     "kernel/arch/x86_64/fault.S": "8f4651a65903c62fc21e3d0c964f28d65077fb86e5130f859ba2513903836abe",
-    "kernel/arch/x86_64/interrupts.c": "66b203befa1ff1c78b908908c637cc335c66a494e2bb9aab2f0310c200a2c170",
+    "kernel/arch/x86_64/interrupts.c": "caf53061d64f0d0b1bc9738e8815e324e32d93c2a652bb6b83a6ecc180e738ac",
     "kernel/arch/x86_64/linker.ld": "e827271a22c548131fab027b4ee0ca68149bba8ef0c7917eac754d25733b02df",
     "kernel/arch/x86_64/smp.c": "0c74a195263b2c0d74e1290891cec98e4f73a0d77137ad43a37d839251d1171f",
     "kernel/arch/x86_64/timer.c": "0c95fe6e9cd535c81eebaa1a3e124b29c84bf0d3127ccb355b819e156b979455",
-    "kernel/core/display.c": "3a870cc29b682551a0c4979d928edb501e7aee2ca88aec75bc6c8f3435b33f0a",
+    "kernel/core/console.c": "4111de62192a46621e47295d4f1ad215db89f502d4fba55dc43ada74d6ca0e18",
+    "kernel/core/display.c": "d11ba84bed6510248d118cfd46bcf80f0338a7f4cf63a5f1fcd74341ce90f5e4",
     "kernel/core/main.c": "e1dc761a66810320a73aadfcfb3540fe63f93106f5cf111610b1831525733a3d",
+    "kernel/input/legacy.c": "43a4f4e1730d9b3048ab2cb580f3cd442b3b28f62137824ea8f43ee06528e1e5",
+    "kernel/m4/main.c": "9c744129756f57f91398857d7e30ceda8952bab472c3b1173b871c3fb32de50f",
     "kernel/memory/pages.c": "aa32a9f3a5168ac9d6ab43eaab2f7a31d137a9eebccfd498ee2f3b44ff5e13d1",
     "kernel/memory/space.c": "6266e1f2242387cc3342a9e4004a992e5e29378a39c2a70c69455b3d04f72d8b",
-    "kernel/process/process.c": "42ae677839630b7061e6b13b84789b5fe3b0990010f6b29ee1c9f0c4c343cd0a",
+    "kernel/process/process.c": "95f530d1b1eed5c20f19f4324b823385f49b6f01baa8390038b220e3ef88d35b",
     "kernel/scheduler/m3.c": "6b09369a746b607705422f84bcd8449ef9438783c7609eddf63e70d07a30e73b",
+    "kernel/storage/ahci.c": "2563791a17b58f792bea45104ef296b3f6f99d1dc82c2d8982fc0ec515210672",
     "runtime/memory.c": "6d0a1ab7c130552c391beabb8a188b85521685e7d189a628224b99d802d65d25",
+    "tools/build/data_image.py": "595c74195494fe53f80b3e186089d0d17a2afc170bb2d754d6027330c44dffb1",
     "tools/build/m1.py": "6ec2a3d19a3e023ae8e503ff2fae5c835dd5e0ab8999423a7d9edae76d6ce1f3",
-    "tools/build/m2.py": "4b38e2dae7277e010636a390f9afca6e14c79016692513f5ed83215688207b9e",
+    "tools/build/m2.py": "e13b27472a255b055978d5657a87ca282d0945dbe9b4a03aacfdcc908e012111",
     "tools/build/m3.py": "3fa633b9e45f6ec7df51bb3c658d00928808d42d0435c30b462aa0db21342dbe",
-    "tools/build/media.py": "7fd45cbf7c168874b71ae458661f425b59ffa85936336398ffeb4838f9140281",
+    "tools/build/m4.py": "6e29896448ea36bf18f896bcd8609e93b9171b511afd8eaa392033c4aa426fcd",
+    "tools/build/media.py": "7288b04dbab6ee980ff13181e5377d83f1827a42709e9f1cf93dc933c168f9ba",
     "user/linker.ld": "2c626b4359df6b1088f5027f972159e33e5337720c44a18ac0f1b47164ec32e8",
     "user/m3.c": "2c73776869dd74fd2045efc7eb1ce9f0f673d899b1bad2125375d7761737c76e",
     "user/probe.c": "a0307730363807ecb93ab0c48fc491e8be4c62c6d699a5645a7ff18ea765ed36"
   },
   "artifacts": {
     "EngineOS-M3-kernel.elf": {
-      "sha256": "546cefc4018d34d468ac99f1923032e10987dd597094a0b3a5b3c924deb15918",
-      "size": 341520
+      "sha256": "2ee737055053cfe31505a8fb2cf047f0956a4e7ad685ca23f326b74ba18cc4c1",
+      "size": 341640
     },
     "EngineOS-M3-kernel.map": {
-      "sha256": "f6695f6b93de03d3903d2a4e235c3019199be44cef2ba7a82c4a194324afd07f",
-      "size": 49700
+      "sha256": "66d7982e555a821c05a0b91a437b60f5e242b8f4c444a56cfcd754e288d1d748",
+      "size": 51567
     },
     "EngineOS-M3-usb.img": {
-      "sha256": "1c343c60e9e738016ac6863178214fecea0fe0860035775064722c510ec702f1",
+      "sha256": "baaf4ca1765e95131b68418b7173bd25c353a399f7276cab0c5506bcaa7fd206",
       "size": 69206016
     },
     "EngineOS-M3-user.elf": {
@@ -52,7 +59,7 @@
       "size": 68064
     },
     "EngineOS-M3.iso": {
-      "sha256": "04ad8da5683b23c1fed6b83a5fe5aaec29faa57af1f8306723d9dc8af26ae2be",
+      "sha256": "81cf0cc7f19328b43b5e91782159a8876be1460f81acdddb67223bf9974ff5e7",
       "size": 67162112
     }
   },

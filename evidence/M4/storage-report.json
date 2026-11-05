@@ -1,0 +1,55 @@
+{
+  "build_id": "4d4fde52d7f61ecccad4c0ec1d1f4a7e",
+  "scope": "AHCI sector-record increment; not a filesystem or full M4 qualification",
+  "checks": [
+    {
+      "case": "persist-first",
+      "passed": true,
+      "exit": 33,
+      "generation": 1,
+      "unchanged_on_rejection": false
+    },
+    {
+      "case": "persist-reboot",
+      "passed": true,
+      "exit": 33,
+      "generation": 2,
+      "unchanged_on_rejection": false
+    },
+    {
+      "case": "write-error",
+      "passed": true,
+      "exit": 101,
+      "generation": 2,
+      "unchanged_on_rejection": true
+    },
+    {
+      "case": "absent",
+      "passed": true,
+      "exit": 101,
+      "generation": null,
+      "unchanged_on_rejection": true
+    },
+    {
+      "case": "bad-header",
+      "passed": true,
+      "exit": 101,
+      "generation": null,
+      "unchanged_on_rejection": true
+    },
+    {
+      "case": "bad-record",
+      "passed": true,
+      "exit": 101,
+      "generation": null,
+      "unchanged_on_rejection": true
+    },
+    {
+      "case": "wrong-capacity",
+      "passed": true,
+      "exit": 101,
+      "generation": null,
+      "unchanged_on_rejection": true
+    }
+  ]
+}

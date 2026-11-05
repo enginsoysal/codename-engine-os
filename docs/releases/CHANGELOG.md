@@ -1,5 +1,9 @@
 # Changelog
 
+## M4 first increment — 2026-11-05
+
+Original class-bound AHCI driver, marked disposable volume, fixed DMA buffers, CRC/generation sector record with flush/readback, and interrupt-driven PS/2/COM1 diagnostic console. [Scope and pending M4 work](../milestones/m4.md). No filesystem, installer or USB input yet.
+
 ## M3 v0.3.0 — 2026-11-05
 
 Preemptible native threads with guarded stacks, FS-base TLS and x87/SSE/MXCSR state; atomic event/mailbox waits, join/cancel/deadlines; HPET monotonic time across delayed interrupts; backed anonymous commit/decommit, COW CPU/copy-out paths and bounded OOM recovery. ACPI INIT/SIPI starts additional CPUs with per-CPU GDT/TSS/IST/stacks and APIC timers; native user execution is verified on 1/2/4 CPUs. Concurrent allocator and acknowledged TLB replacement/unmap are tested. M2 handle rights/mapping lifetime and earlier isolation regressions remain required.

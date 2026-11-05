@@ -1,6 +1,9 @@
 #include <engine/process.h>
 #include <engine/user.h>
 #include <engine/elf.h>
+#ifdef ENGINE_M4
+#include <engine/m4.h>
+#endif
 #ifdef ENGINE_M3
 #include <engine/m3.h>
 static const os_boot_info_v0 *m3_boot;
@@ -172,6 +175,9 @@ static NORETURN void finish(void) {
     serial_text("M2_PAGE_ACCOUNTING_BALANCED\n");
     display_m2_result(failures,s.peak_pages*4096,s.current_pages*4096,starts,faults);
     serial_text(failures?"M2_ISOLATION_FAIL\n":"M2_ISOLATION_PASS\n");serial_text("M2_IDLE_HLT\n");
+#ifdef ENGINE_M4
+    if(!failures)m4_start(m3_boot,mode);
+#endif
     if(mode==1||mode==4)test_exit(failures?0x31:0x10);halt_forever();
 }
 static int safe_return(process *p) {

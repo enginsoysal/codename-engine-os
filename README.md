@@ -2,11 +2,13 @@
 
 An independent, MIT-licensed operating system with its own UEFI loader, kernel and native user runtime. Windows 95–11 application compatibility is a long-term requirement, followed by Linux/macOS execution environments and ARM64. Those compatibility layers are not implemented yet.
 
-**Current completed milestone: M3 — native scheduling, memory policy and concurrency.** M0 established the architecture/toolchain and M1 delivered kernel boot. M2 adds ring-3 isolation, rights-checked handles, bounded IPC/shared memory and measured page cleanup. See the [current status](docs/roadmap/status.md) for verified results. [M3](docs/milestones/m3.md) qualifies preemptible threads, x87/SSE/TLS, waits/deadlines, anonymous COW/pressure and 1/2/4 active CPUs within its documented native VM limits. There is no installer, shell, desktop or existing Windows application support yet.
+**Current completed milestone: M3 — native scheduling, memory policy and concurrency.** M0 established the architecture/toolchain and M1 delivered kernel boot. M2 adds ring-3 isolation, rights-checked handles, bounded IPC/shared memory and measured page cleanup. See the [current status](docs/roadmap/status.md) for verified results. [M3](docs/milestones/m3.md) qualifies preemptible threads, x87/SSE/TLS, waits/deadlines, anonymous COW/pressure and 1/2/4 active CPUs within its documented native VM limits. M4 is now in progress with an [AHCI/console first increment](docs/milestones/m4.md). There is no installer, desktop or existing Windows application support yet.
 
 ## Boot in a VM
 
 [Download M3 prerelease](https://github.com/enginsoysal/codename-engine-os/releases/tag/m3-v0.3.0) · [M3 instructions](docs/milestones/m3.md) · [test evidence](evidence/M3/README.md)
+
+M4 development: [storage-console alpha.1](https://github.com/enginsoysal/codename-engine-os/releases/tag/m4-storage-alpha.1), [usage and pending work](docs/milestones/m4.md). M4 is not yet complete; the default launcher remains M3.
 
 ```powershell
 python tools/build/m3.py
@@ -23,7 +25,7 @@ kernel/                Core, x86-64 exceptions, memory and process mechanisms
 include/engine/        Versioned boot/native ABI and shared headers
 runtime/               Minimal freestanding memory routines
 user/                  Native ring-3 verification programs and linker layout
-tools/build/           Separate M1/M2/M3 build entry points and boot-media authoring
+tools/build/           Separate M1/M2/M3/M4 build entry points and boot-media authoring
 tools/vm/              Pinned VM setup and user launcher
 tests/m0/              Architecture/toolchain and Windows-host references
 tests/m1/              Original kernel-boot/parser/visual regression tools
@@ -33,7 +35,7 @@ docs/architecture/     Design contracts and decision record
 docs/roadmap/          Milestones, current status and Windows generation inventory
 docs/milestones/       Per-milestone usage, implementation and handoff notes
 docs/releases/         Changelog and release notes
-evidence/M0..M3/       Public test reports, sanitized logs and screenshots
+evidence/M0..M4/       Public test reports, sanitized logs and screenshots
 build/, dist/          Generated files; ignored by Git
 tools/local/           Private/local dependencies and historical archive; ignored
 ```

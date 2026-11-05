@@ -57,6 +57,8 @@ Discover bus/protocol identity, bind a supported driver, initialize and publish 
 
 ## Evidence and change control
 
+M4 begins with an original class-bound AHCI driver and a PS/2/COM1 kernel diagnostic console. Four fixed DMA pages and a marked disposable sector-record profile establish transport ownership and flush/readback before filesystem/VFS work. Block requests currently poll with bounds; idle input uses IRQs and HLT. USB/mouse, file operations and full M4 acceptance remain pending; see the [implementation and decisions](../milestones/m4.md).
+
 Cross-compile without a host CRT; retain symbols, build IDs, source/artifact hashes, negative tests and public sanitized logs. Record CPU/guest/host configuration and separate managed pages from retained boot memory and framebuffer reservations. The M3 preemption and SMP suite proves its specified native workloads, not universal starvation/race freedom or arbitrary-app security. Exact limits and resource measurements remain linked to fresh reports.
 
 Primary sources: [UEFI 2.11](https://uefi.org/specs/UEFI/2.11/), [Intel system programming](https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-3a-part-1-manual.pdf), [AMD system programming](https://docs.amd.com/v/u/en-US/24593_3.44_APM_Vol2), [Clang](https://clang.llvm.org/docs/UsersManual.html). These define interfaces; our tests establish only explicitly reported behavior.

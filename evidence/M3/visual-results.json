@@ -13,8 +13,8 @@
       "name": "idle host CPU interval",
       "passed": true,
       "wall_seconds": 2.0,
-      "cpu_seconds": 0.015625,
-      "one_cpu_percent": 0.78125,
+      "cpu_seconds": 0.0,
+      "one_cpu_percent": 0.0,
       "scope": "QEMU TCG process; not a real-hardware or desktop benchmark"
     },
     {
@@ -29,5 +29,5 @@
       "passed": true
     }
   ],
-  "screenshot_sha256": "869232519b833fa8fcfe87824566094ae53f38e458bcfbd13751805401e30e33"
+  "screenshot_sha256": "0cdb29abce661c1bd1159e7f54474c413922f4012d733d9ff433c78ebabac508"
 }

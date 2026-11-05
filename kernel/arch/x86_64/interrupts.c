@@ -1,4 +1,7 @@
 #include <engine/base.h>
+#ifdef ENGINE_M4
+#include <engine/m4.h>
+#endif
 #ifdef ENGINE_M3
 #include <engine/m3.h>
 #endif
@@ -37,6 +40,9 @@ void interrupts_set_kernel_stack(uint64_t address) {tss.rsp[0]=address;}
 extern void kernel_panic_screen(void);
 extern void kernel_fault_probe(void);
 uint64_t *exception_dispatch(uint64_t *frame) {
+#ifdef ENGINE_M4
+    if(input_irq(frame))return frame;
+#endif
 #ifdef ENGINE_M3
     if(m3_cpu_interrupt(frame))return frame;
     if(m3_active && frame[15]==32 && !(frame[18]&3)){extern void timer_acknowledge(void);timer_acknowledge();m3_tick();return frame;}

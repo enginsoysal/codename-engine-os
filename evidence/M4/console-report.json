@@ -1,0 +1,17 @@
+{
+  "build_id": "4d4fde52d7f61ecccad4c0ec1d1f4a7e",
+  "checks": [
+    {
+      "name": "PS/2 IRQ command input, Shift, backspace, store/flush/read",
+      "passed": true
+    },
+    {
+      "name": "all four CPUs observed halted at input idle",
+      "passed": true
+    },
+    {
+      "name": "independent host CRC, generation and exact payload verification",
+      "passed": true
+    }
+  ]
+}

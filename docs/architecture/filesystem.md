@@ -1,6 +1,6 @@
 # Files, storage and compatibility namespaces
 
-Approved architecture; persistent kernel VFS and app installation are not implemented in M2. These paths describe the future OS, not directories to create on the development host.
+Approved architecture; persistent kernel VFS and app installation remain unimplemented. The [M4 first increment](../milestones/m4.md) adds a marked AHCI sector-record transport probe, not a filesystem. These paths describe the future OS, not directories to create on the development host.
 
 ## Native root
 

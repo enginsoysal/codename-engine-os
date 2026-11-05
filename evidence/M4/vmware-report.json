@@ -1,0 +1,18 @@
+{
+  "build_id": "4d4fde52d7f61ecccad4c0ec1d1f4a7e",
+  "passed": true,
+  "scope": "VMware EFI FreeBSD-64, 2 CPUs, 128 MiB, SATA AHCI, two smoke boots; no graphical/input qualification",
+  "checks": [
+    {
+      "name": "boot 1 real AHCI and independently checked persisted record",
+      "passed": true
+    },
+    {
+      "name": "boot 2 real AHCI and independently checked persisted record",
+      "passed": true
+    }
+  ],
+  "vmware_version": "26.0.1",
+  "vmware_build": "25688693",
+  "existing_vm_inventory_unchanged": true
+}

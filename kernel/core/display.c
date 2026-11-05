@@ -12,6 +12,18 @@ static const uint8_t letters[26][7]={
  {15,16,16,14,1,1,30},{31,4,4,4,4,4,4},{17,17,17,17,17,17,14},
  {17,17,17,17,17,10,4},{17,17,17,21,21,21,10},{17,17,10,4,10,17,17},
  {17,17,10,4,4,4,4},{31,1,2,4,8,16,31}};
+#ifdef ENGINE_M4
+static const uint8_t lower[26][7]={
+ {0,0,14,1,15,17,15},{16,16,30,17,17,17,30},{0,0,14,16,16,17,14},
+ {1,1,15,17,17,17,15},{0,0,14,17,31,16,14},{6,8,8,28,8,8,8},
+ {0,15,17,17,15,1,14},{16,16,30,17,17,17,17},{4,0,12,4,4,4,14},
+ {2,0,6,2,2,18,12},{16,16,18,20,24,20,18},{12,4,4,4,4,4,14},
+ {0,0,26,21,21,21,21},{0,0,30,17,17,17,17},{0,0,14,17,17,17,14},
+ {0,30,17,17,30,16,16},{0,15,17,17,15,1,1},{0,0,22,25,16,16,16},
+ {0,0,15,16,14,1,30},{8,8,28,8,8,9,6},{0,0,17,17,17,19,13},
+ {0,0,17,17,17,10,4},{0,0,17,17,21,21,10},{0,0,17,10,4,10,17},
+ {0,17,17,17,15,1,14},{0,0,31,2,4,8,31}};
+#endif
 static const uint8_t digits[10][7]={
  {14,17,19,21,25,17,14},{4,12,4,4,4,4,14},{14,17,1,2,4,8,31},
  {30,1,1,14,1,1,30},{2,6,10,18,31,2,2},{31,16,16,30,1,1,30},
@@ -27,10 +39,17 @@ static void pixel(unsigned x,unsigned y,uint32_t rgb) {
 }
 static void text(unsigned x,unsigned y,const char *s,unsigned scale,uint32_t rgb) {
     for(;*s;++s,x+=6*scale) {
-        char c=*s;if(c>='a'&&c<='z')c=(char)(c-'a'+'A');
-        const uint8_t *glyph=c>='A'&&c<='Z'?letters[c-'A']:c>='0'&&c<='9'?digits[c-'0']:0;
+        char c=*s;
+#ifndef ENGINE_M4
+        if(c>='a'&&c<='z')c=(char)(c-'a'+'A');
+#endif
+        const uint8_t *glyph=
+#ifdef ENGINE_M4
+            c>='a'&&c<='z'?lower[c-'a']:
+#endif
+            c>='A'&&c<='Z'?letters[c-'A']:c>='0'&&c<='9'?digits[c-'0']:0;
         for(unsigned row=0;row<7;++row) {
-            unsigned bits=glyph?glyph[row]:c=='-'&&row==3?31:c==':'&&(row==2||row==5)?4:0;
+            unsigned bits=glyph?glyph[row]:c=='-'&&row==3?31:c==':'&&(row==2||row==5)?4:c=='/'?(1u<<(row*4/6)):c=='.'&&row==6?4:c=='_'&&row==6?31:c=='>'&&row>0&&row<6?(1u<<(2+(row>3?row-3:3-row))):0;
             for(unsigned col=0;col<5;++col)if(bits&(1u<<(4-col)))
                 for(unsigned dy=0;dy<scale;++dy)for(unsigned dx=0;dx<scale;++dx)pixel(x+col*scale+dx,y+row*scale+dy,rgb);
         }
@@ -87,5 +106,19 @@ void display_m2_result(unsigned failures,uint64_t peak,uint64_t retained,unsigne
     text(40,410,"RETAINED MANAGED RAM KIB:",2,0x93aabe);number(360,410,retained/1024);
     text(40,450,"IDLE: CPU HALTED - NO POLLING",2,0x39d5bb);
     text(40,490,"WINDOWS 95-11: PLANNED",2,0x93aabe);text(40,530,"NO INSTALLER YET",2,0x93aabe);
+}
+#endif
+
+#ifdef ENGINE_M4
+void display_console_setup(void){
+    if(!screen||!screen->framebuffer.byte_length)return;
+    uint32_t bg=color(0x101d2b),accent=color(0x39d5bb);
+    for(unsigned y=0;y<screen->framebuffer_height;++y){volatile uint32_t *p=(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)y*screen->framebuffer_stride_bytes);for(unsigned x=0;x<screen->framebuffer_width;++x)p[x]=y<8?accent:bg;}
+    text(16,26,"CODENAME: ENGINE OS",3,0xffffff);text(16,76,"M4 STORAGE CONSOLE - FIRST INCREMENT",2,0x39d5bb);text(16,112,"HELP FOR COMMANDS - NO INSTALLER YET",2,0x93aabe);
+}
+void display_console_cell(unsigned col,unsigned row,char c){
+    if(!screen||!screen->framebuffer.byte_length)return;unsigned x=16+col*12,y=152+row*18;
+    for(unsigned dy=0;dy<16;++dy)for(unsigned dx=0;dx<12;++dx)pixel(x+dx,y+dy,0x101d2b);
+    char s[2]={c,0};text(x,y,s,2,0xffffff);
 }
 #endif

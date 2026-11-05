@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "full_m4_complete": false,
+  "scope": "AHCI sector-record and PS/2 console increment",
+  "gates": [
+    {
+      "report": "storage-report.json",
+      "passed": true,
+      "checks": 7
+    },
+    {
+      "report": "console-report.json",
+      "passed": true,
+      "checks": 3
+    },
+    {
+      "report": "repository-results.json",
+      "passed": true,
+      "checks": 5
+    }
+  ],
+  "build_id": "4d4fde52d7f61ecccad4c0ec1d1f4a7e"
+}
