@@ -16,7 +16,7 @@ Do not add, remove or change virtual disks while the wizard is open. If no usabl
 
 ## Follow the graphical wizard
 
-1. **Welcome:** choose Next. Tab/Enter and a supported USB mouse navigate the native interface. Details provides optional diagnostics.
+1. **Welcome:** choose Next. Tab/Enter and a supported USB or PS/2 mouse navigate the native interface. Details provides optional diagnostics.
 2. **Your disk:** select the new SATA disk, check its capacity, then Next. The installer creates the partitions; no manual partition command is required.
 3. **Components:** keep or exclude the optional Welcome guide. Base boot/storage/recovery components are required. Desktop apps such as Calculator are not shipped yet.
 4. **Your style:** select the account-name field and edit it with letters, digits, hyphen or underscore. Choose an accent. These values are saved on the installed disk. The current setup has a dark presentation; a full desktop/theme system belongs to M7.

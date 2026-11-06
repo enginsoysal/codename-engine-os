@@ -29,3 +29,9 @@ Rollback replays the previous verified slot and commits its identity. Repair rep
 ## Qualification boundaries
 
 Host tests execute the actual native C through regular disposable files, including streamed reads, oversized/path refusals, corrupt metadata/payloads and injected failed/torn writes at data/table/header/flush boundaries. Guest tests exercise native wizard installation, media-detached BIOS/UEFI boot, a file over 2 MiB, a different kernel build, rollback, corrupted BIOS payload repair and activation-write failures. See the exact evidence linked by M6. These checks do not establish arbitrary physical power-loss durability, cryptographic boot trust, every controller or unlimited file counts.
+
+## Native pointer input
+
+The trusted wizard accepts class-bound USB boot mouse reports and standard i8042 PS/2 packets. The PS/2 route negotiates basic/extended packet length, handles IRQ12/cascade acknowledgement and discards invalid/parity/overflow packets. Both feed bounded cursor coordinates and a latched click snapshot; no input polling loop is used at idle. Protocol behavior was checked against the primary [QEMU controller](https://github.com/qemu/qemu/blob/master/hw/input/pckbd.c) and [mouse emulation](https://github.com/qemu/qemu/blob/master/hw/input/ps2.c) references; the Engine OS driver is original code. Actual USB and PS/2 VM movement/click tests, plus VMware device initialization, govern the supported profile.
+
+The installer/diagnostic UI is currently trusted kernel bootstrap code. Reusing validated boot I/O provides visible installation before general user-space file/display services exist. The alternative would require those services first. A UI fault is therefore not isolated like a native user process. M7 must introduce the process/service boundary before claiming general desktop app isolation; the M6 wizard is not an untrusted application API.

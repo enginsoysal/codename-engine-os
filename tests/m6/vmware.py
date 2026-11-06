@@ -62,6 +62,7 @@ def main():
         for k in keys:g.pipe.write(k.encode());time.sleep(.2)
     try:
         with Guest(work/'live',descriptor,a.firmware) as g:
+            assert 'M6_PS2_MOUSE_ONLINE' in g.output
             press(g,'\r\r\t\t\r\t\t\r'+('\t'*5)+'\r\t\r');g.wait('M6_INSTALL_PASS',timeout=240);(out/'install.log').write_bytes(g.output.encode())
         checks.append({'name':'native graphical wizard COM1 keyboard flow installs actual 20 GiB SATA disk','passed':True})
         for i in range(2):

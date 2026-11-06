@@ -2,7 +2,7 @@
 import hashlib,json,subprocess,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'evidence/M6'
-REPORTS=['layout-results.json','volume-results.json','repository-results.json','qemu-uefi/results.json','qemu-bios/results.json','qemu-uefi-usb/results.json','qemu-bios-usb/results.json','vmware/efi/results.json','vmware/bios/results.json','maintenance/results.json','failures/results.json','resources/results.json','mouse/results.json','terminal/results.json','distribution/results.json']
+REPORTS=['layout-results.json','volume-results.json','repository-results.json','qemu-uefi/results.json','qemu-bios/results.json','qemu-uefi-usb/results.json','qemu-bios-usb/results.json','vmware/efi/results.json','vmware/bios/results.json','maintenance/results.json','failures/results.json','resources/results.json','mouse/results.json','mouse-ps2/results.json','terminal/results.json','distribution/results.json']
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def load(p):return json.loads(p.read_text(encoding='utf-8'))
 def main(code_commit):

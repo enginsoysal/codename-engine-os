@@ -23,7 +23,7 @@
     ]
   },
   "requirements": [
-    "Native graphical Back/Next/Finish wizard with keyboard and USB mouse",
+    "Native graphical Back/Next/Finish wizard with keyboard, USB mouse and PS/2 mouse",
     "Capacity-aware verified disk installation, independent boot and persistent files larger than 48 KiB",
     "Retained customization, user profile/accent, independent optional guide removal and working distro recipe",
     "Distinct-build update, rollback and ISO-assisted boot recovery with unchanged data",

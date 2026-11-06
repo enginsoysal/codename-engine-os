@@ -19,7 +19,7 @@ def digest(path,start=0,length=None):
     return h.hexdigest()
 
 class Guest:
-    def __init__(self,folder,disk,firmware='uefi',media='iso',ram=128,cpus=2,extra=None,fault=None,image_name="EngineOS-M6"):
+    def __init__(self,folder,disk,firmware='uefi',media='iso',ram=128,cpus=2,extra=None,fault=None,image_name="EngineOS-M6",ps2_only=False):
         self.image_name=image_name
         self.expected_build_id=None
         if media!='installed':
@@ -29,6 +29,9 @@ class Guest:
             self.expected_build_id=meta['build_id']
         self.folder=folder;self.firmware=firmware;files=qemu_tools();self.args,self.serial=arguments(files,media if media!='installed' else 'iso',ROOT/'dist'/(image_name+'.iso') if media!='usb' else ROOT/'dist'/(image_name+'-usb.img'),folder,ram=ram,milestone='M5')
         self.args[self.args.index('-smp')+1]=str(cpus)
+        if ps2_only:
+            for value in ['usb-kbd,bus=xhci.0','usb-mouse,bus=xhci.0']:
+                i=self.args.index(value);assert self.args[i-1]=='-device';del self.args[i-1:i+1]
         if media=='installed':
             i=self.args.index('-cdrom');del self.args[i:i+2];self.args[self.args.index('-boot')+1]='order=c'
         if firmware=='bios':

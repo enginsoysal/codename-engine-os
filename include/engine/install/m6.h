@@ -24,6 +24,7 @@ void m6_progress(unsigned,const char*);
 NORETURN void m6_start(const os_boot_info_v0*);
 void gui6_rect(unsigned,unsigned,unsigned,unsigned,uint32_t);
 void gui6_text(unsigned,unsigned,const char*,unsigned,uint32_t);
+void m6_pointer_report(int,int,unsigned);
 void usb_mouse_limits(unsigned,unsigned);
 void usb_mouse_state(unsigned*,unsigned*,unsigned*);
 #endif

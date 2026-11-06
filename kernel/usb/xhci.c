@@ -33,18 +33,24 @@ static char key(unsigned code,unsigned shifted){
     if(code>=45&&code<=56)return (shifted?"_+{}|~:\"~<>?":"-=[]\\#;'`,./")[code-45];return 0;
 }
 static void submit_input(device *d){push(&d->interrupt,d->buffer+512,d->packet,(1u<<10)|(1u<<5)|(1u<<2));__asm__ volatile("mfence":::"memory");doorbell[d->slot]=d->endpoint;}
+#ifdef ENGINE_M6
+void m6_pointer_report(int dx,int dy,unsigned buttons){
+    mouse_x+=dx;mouse_y+=dy;if(mouse_x<0)mouse_x=0;if(mouse_y<0)mouse_y=0;if(mouse_x>mouse_limit_x)mouse_x=mouse_limit_x;if(mouse_y>mouse_limit_y)mouse_y=mouse_limit_y;
+    unsigned old_buttons=mouse_buttons;mouse_buttons=buttons&7;
+    if((mouse_buttons&1)&&!(old_buttons&1)&&!mouse_press_pending){mouse_press_x=(unsigned)mouse_x;mouse_press_y=(unsigned)mouse_y;mouse_press_pending=1;}
+    ++mouse_events;__atomic_store_n(&mouse_dirty,1,__ATOMIC_RELEASE);
+}
+#endif
 static void input_complete(device *d,unsigned bytes){
     uint8_t *data=(uint8_t*)(uintptr_t)(d->buffer+512);if(d->kind==9){for(unsigned i=0;i<bytes;++i)if(data[i]){__atomic_fetch_or(&pending_hubs,1u<<(unsigned)(d-devices),__ATOMIC_RELEASE);break;}return;}
     if(d->kind==1&&bytes>=8){for(unsigned i=2;i<8;++i)if(data[i]>3){unsigned old=0;for(unsigned j=2;j<8;++j)old|=d->last[j]==data[i];if(!old){char c=key(data[i],data[0]&0x22);if(c){input_feed((uint8_t)c);++key_events;}}}memcpy(d->last,data,8);}
-    if(d->kind==2&&bytes>=3){mouse_x+=(int8_t)data[1];mouse_y+=(int8_t)data[2];if(mouse_x<0)mouse_x=0;if(mouse_y<0)mouse_y=0;if(mouse_x>mouse_limit_x)mouse_x=mouse_limit_x;if(mouse_y>mouse_limit_y)mouse_y=mouse_limit_y;
+    if(d->kind==2&&bytes>=3){
 #ifdef ENGINE_M6
-unsigned old_buttons=mouse_buttons;
+        m6_pointer_report((int8_t)data[1],(int8_t)data[2],data[0]&7);
+#else
+        mouse_x+=(int8_t)data[1];mouse_y+=(int8_t)data[2];if(mouse_x<0)mouse_x=0;if(mouse_y<0)mouse_y=0;if(mouse_x>mouse_limit_x)mouse_x=mouse_limit_x;if(mouse_y>mouse_limit_y)mouse_y=mouse_limit_y;mouse_buttons=data[0]&7;++mouse_events;__atomic_store_n(&mouse_dirty,1,__ATOMIC_RELEASE);
 #endif
-mouse_buttons=data[0]&7;
-#ifdef ENGINE_M6
-if((mouse_buttons&1)&&!(old_buttons&1)&&!mouse_press_pending){mouse_press_x=(unsigned)mouse_x;mouse_press_y=(unsigned)mouse_y;mouse_press_pending=1;}
-#endif
-++mouse_events;__atomic_store_n(&mouse_dirty,1,__ATOMIC_RELEASE);}
+    }
 }
 static void consume(void){
     for(unsigned bounded=0;bounded<256;++bounded){trb *e=&events[event_index];uint32_t ctrl=e->control;if((ctrl&1)!=event_cycle)break;__asm__ volatile("lfence":::"memory");uint64_t p=e->parameter;unsigned status=e->status,kind=(ctrl>>10)&63,cc=status>>24,slot=ctrl>>24;
