@@ -18,8 +18,9 @@ def main():
             g.qmp('input-send-event',{'events':[{'type':'btn','data':{'down':True,'button':'left'}}]});time.sleep(.1);g.qmp('input-send-event',{'events':[{'type':'btn','data':{'down':False,'button':'left'}}]});h.shot(g,out,'disk-selected-by-mouse')
             m=json.loads((ROOT/'dist/m6-build-manifest.json').read_text(encoding='utf-8'));accent=tuple(bytes.fromhex(m['distribution']['accent'][1:]))
             with Image.open(out/'disk-selected-by-mouse.png') as frame:assert frame.getpixel((44,209))==accent
+            registers=g.qmp('human-monitor-command',{'command-line':'info registers -a'});assert registers.count('HLT=1')==2
             (out/'serial.log').write_bytes(g.log().encode())
-            result.update(passed=True,build_id=m['build_id'],iso_sha256=m['artifacts']['EngineOS-M6.iso']['sha256'],checks=[{'name':'native USB relative motion reaches footer below former 650-pixel limit, left-click Next activates actual disk-selection page','passed':True}])
+            result.update(passed=True,build_id=m['build_id'],iso_sha256=m['artifacts']['EngineOS-M6.iso']['sha256'],checks=[{'name':'native USB mouse reaches footer, Next activates disk selection, press/release is consumed and both CPUs return to halt','passed':True}])
     except Exception:result['error']=traceback.format_exc().replace(str(ROOT),'<project-root>');print(result['error'])
     (out/'results.json').write_bytes((json.dumps(result,indent=2)+'\n').encode());print('M6 USB mouse '+('PASS' if result['passed'] else 'FAIL'),flush=True)
     if not result['passed']:raise SystemExit(1)

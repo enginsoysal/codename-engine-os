@@ -1,0 +1,45 @@
+{
+  "scope_id": "M6-VM-v1",
+  "objective": "Real guided Engine OS installation before the M7 desktop and M8 MS-DOS/Windows 1.x-11 applications",
+  "architecture": "x86-64",
+  "firmware": [
+    "BIOS EDD/E820/VBE",
+    "unsigned UEFI"
+  ],
+  "boot_media": [
+    "optical ISO",
+    "raw USB image"
+  ],
+  "install_target": {
+    "transport": "SATA/AHCI",
+    "logical_sector_bytes": 512,
+    "eligible_capacity_gib": [
+      2,
+      2048
+    ],
+    "runtime_tested_capacity_gib": [
+      2,
+      20
+    ]
+  },
+  "requirements": [
+    "Native graphical Back/Next/Finish wizard with keyboard and USB mouse",
+    "Capacity-aware verified disk installation, independent boot and persistent files larger than 48 KiB",
+    "Retained customization, user profile/accent, independent optional guide removal and working distro recipe",
+    "Distinct-build update, rollback and ISO-assisted boot recovery with unchanged data",
+    "Cancellation/refusal, real write/activation faults, integrity checks and recovery boundaries",
+    "Bounded RAM, no allocation growth during navigation and CPU halt at input idle",
+    "English current documentation, official versioned artifacts and exact digest-bound evidence"
+  ],
+  "limits": [
+    "Named virtual firmware/controllers only; no universal or physical hardware certification",
+    "Unsigned media: Secure Boot disabled",
+    "No target hotplug or disk changes during an operation",
+    "1024 file/directory entries; 255-byte paths; contiguous extents and copy-on-write workspace",
+    "Single local profile; no authentication, ACLs or untrusted app-file services",
+    "ISO repair can be needed after interrupted boot replay; no automatic A/B bootloader failover",
+    "Same layout/volume ABI for update and rollback; no migration of M5/M5.1 ext2 development disks",
+    "No desktop or Windows/MS-DOS execution runtime"
+  ],
+  "qualification": "evidence/M6/acceptance-results.json must pass for the exact released bytes"
+}

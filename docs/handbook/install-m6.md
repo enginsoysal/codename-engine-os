@@ -12,6 +12,8 @@ For virtual USB boot, use the separate `EngineOS-M6-usb.img` raw image. The opti
 
 M5/M5.1 ext2 demonstration disks are not migrated by this installer. Keep an old test disk as a backup and attach a new empty SATA target for M6. The M6 Repair/Update/Rollback actions require M6 system-slot ownership.
 
+Do not add, remove or change virtual disks while the wizard is open. If no usable disk appears, power off, check the SATA configuration and boot this ISO again. Target hotplug is not qualified.
+
 ## Follow the graphical wizard
 
 1. **Welcome:** choose Next. Tab/Enter and a supported USB mouse navigate the native interface. Details provides optional diagnostics.

@@ -19,7 +19,10 @@ def inspect(path,user,guide):
         for where in [1,sectors-1]:
             f.seek(where*512);header=bytearray(f.read(512));assert header[:8]==b'EFI PART';sum=struct.unpack_from('<I',header,16)[0];struct.pack_into('<I',header,16,0);assert zlib.crc32(header[:92])==sum
             f.seek(struct.unpack_from('<Q',header,72)[0]*512);table=f.read(16384);assert zlib.crc32(table)==struct.unpack_from('<I',header,88)[0];tables.append(table)
-        assert tables[0]==tables[1];parts=[struct.unpack_from('<QQ',tables[0],i*128+32) for i in range(5)]
+        assert tables[0]==tables[1]
+        import uuid
+        for index,role in [(2,'system'),(3,'system'),(4,'data')]:assert tables[0][index*128:index*128+16]==uuid.uuid5(uuid.NAMESPACE_DNS,'engineos.brixcanvas.com/partition/'+role).bytes_le
+        parts=[struct.unpack_from('<QQ',tables[0],i*128+32) for i in range(5)]
         assert parts[4][1]<sectors-33 and parts[4][0]>parts[3][1]
         # Independently follow the installed FAT chain and compare the original ELF and BIOS bytes.
         import hashlib
