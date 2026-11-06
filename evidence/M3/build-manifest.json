@@ -1,6 +1,6 @@
 {
   "milestone": "M3",
-  "build_id": "3bd1218d2832269238a9c38b519f309f",
+  "build_id": "3519a3c6a8104279c81463258b4a546a",
   "source_sha256": {
     "boot/bios/mbr.ld": "e1bfb5c0c62f26747f62fd94ecd7fd239e92fa6c4944dad294a634f7d6757452",
     "boot/bios/mbr.S": "8b8155ed440fda9f277e4a5c1a520dc889647a563d2bb237782175d2f114f0bc",
@@ -30,7 +30,7 @@
     "kernel/arch/x86_64/smp.c": "e6eb15c22867235802d6e89c7c4973377f67bc02eec82f512366463ce4dae6b7",
     "kernel/arch/x86_64/timer.c": "0c95fe6e9cd535c81eebaa1a3e124b29c84bf0d3127ccb355b819e156b979455",
     "kernel/core/console.c": "4111de62192a46621e47295d4f1ad215db89f502d4fba55dc43ada74d6ca0e18",
-    "kernel/core/display.c": "b00db939df29553e0fb8eafe5af721241f706fc4c7e8462ce85ca0a63c41aa82",
+    "kernel/core/display.c": "f81f5b5f94837a2f6f662a10690920ef8d5b90311376cbe9a5a62267b91bd7e3",
     "kernel/core/main.c": "1c686f55a708224f193e5dfa4c5e9ee2f2d3aa9f832f5221db0d1e7a83c36e5d",
     "kernel/input/legacy.c": "c8fd03ea09a7f57c1d02e522bdc5fce2e20e0e0a23249777fd4eaa48263f5939",
     "kernel/input/xhci.c": "a874733569ae7b1a7d909cd764c43b00d2a1d6128d2b39799860fd946e5f6520",
@@ -63,7 +63,7 @@
     "tools/build/m2.py": "4c3a35ac964079fa1dc711a83ec386ef4619513a6302731a460f2360f5d27d98",
     "tools/build/m3.py": "3fa633b9e45f6ec7df51bb3c658d00928808d42d0435c30b462aa0db21342dbe",
     "tools/build/m4.py": "413088a97c0876ed54961c2223f980b369bd0bcd35567476eece9b00bd1153be",
-    "tools/build/m45.py": "fd9169b728214490ebbb368b05308cabd782e79b0b47a36c2a434f278069b8f4",
+    "tools/build/m45.py": "8f993192a9dcb649442474cb28db0b9eee98d7e8051f987095105fba7eea5cd1",
     "tools/build/media.py": "7819cc81b9da3c2ac328e51a5de5fd59bb0d6f04a5f82f8b2a207ce6e5118428",
     "tools/build/owner.py": "54023c2a31cb272d2be1dda0d2ff215f3df1d15a0df27fe5c3184c74b2a6ff48",
     "tools/build/secure.py": "be506380a12f30935da29fe76c87aa72f56f6c5d80aa1e3abd1b96824db72c6d",
@@ -74,7 +74,7 @@
   },
   "artifacts": {
     "EngineOS-M3-kernel.elf": {
-      "sha256": "52417b584ed6e9659fdbb91d7ba8be40ce1ea846f6e5c43eaea5e14de6cf7538",
+      "sha256": "51440cb3334ed0e7426fad7122ce773bb25dd2124d4e6d3ef9ae8b5836b82ec3",
       "size": 348752
     },
     "EngineOS-M3-kernel.map": {
@@ -82,7 +82,7 @@
       "size": 51909
     },
     "EngineOS-M3-usb.img": {
-      "sha256": "cfea63031178b776c849aaaeb48165772054a9faa8b431aeae94420de6a43d26",
+      "sha256": "6a8498e2c9634855f69cdb3014102c3e3df88a1c4008b41a6b4b7c1e1cdafcf9",
       "size": 69206016
     },
     "EngineOS-M3-user.elf": {
@@ -90,7 +90,7 @@
       "size": 68064
     },
     "EngineOS-M3.iso": {
-      "sha256": "72a08baba04c98abb947a5126d45a7e325567a6cf702b60c718d39391adaae5b",
+      "sha256": "ca93dd749950a2080abe3771e63b0f6f8da7ea9e86bd62d3204bb4024b3b1ab9",
       "size": 67162112
     }
   },

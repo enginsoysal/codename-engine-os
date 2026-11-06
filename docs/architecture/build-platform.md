@@ -1,6 +1,6 @@
 # Build and platform choices
 
-Current baseline: M0–M4 within their qualified native VM scopes; M4.5 boot/hardware qualification remains in progress. [Decisions](decisions.md), [tools](../../tools/README.md), [M2 usage](../milestones/m2.md).
+Current baseline: M0–M4.5 within their qualified native VM scopes. M4.5 closes M45-VM-v1; physical/factory trust are separate follow-ups. [Decisions](decisions.md), [tools](../../tools/README.md), [M2 usage](../milestones/m2.md).
 
 ## C17, assembly and LLVM
 
@@ -12,7 +12,7 @@ Python scripts in `tools/build/` orchestrate explicit compiler/linker calls. The
 
 ## Loader and boot wire contract
 
-The original x86-64 UEFI loader handles a restricted ET_EXEC ELF64 profile. Normal preview media are unsigned; the separate M4.5 owner-enrolled VM build authenticates its signed loader and digest-pinned kernel/init. An original BIOS loader normalizes to the same boot contract. Limine/GRUB would reduce loader work and remain possible alternatives if scope grows; own-loader work was deliberately bounded.
+The original x86-64 UEFI loader handles a restricted ET_EXEC ELF64 profile. Normal public media are unsigned; the separate M4.5 owner-enrolled VM build authenticates its signed loader and digest-pinned kernel/init. An original BIOS loader normalizes to the same boot contract. Limine/GRUB would reduce loader work and remain possible alternatives if scope grows; own-loader work was deliberately bounded.
 
 It checks firmware signatures/header CRC, opens kernel/init files through the boot-volume protocol, rejects oversized/malformed/overlapping segments, allocates the fixed kernel bootstrap area from 2 MiB and records all allocations. It collects GOP/ACPI metadata, builds initial low-4-GiB identity tables and a stack, captures the final memory map and calls ExitBootServices with at most four attempts. After success there are no firmware-service calls. An explicit test injects a stale first mapkey and verifies retry.
 

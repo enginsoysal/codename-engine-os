@@ -1,5 +1,9 @@
 # Changelog
 
+## M4.5 v0.4.5 — 2026-11-06
+
+Final user-approved M45-VM-v1 milestone: fresh 29-gate qualification and 23 trust checks; exact ISO hash in five VMware profiles; normal launcher defaults to M45; console identifies M4.5 without an in-progress banner. All current contracts/status/usage distinguish VM completion from unqualified physical/factory-trust follow-ups. [Final ISO and VMware instructions](m45-v0.4.5.md). M5 installation remains not started.
+
 ## M4.5 hardware preview 4 — 2026-11-06
 
 Persistent pinned/encrypted owner signing, authenticated payload update and db rotation/authority/replay/recovery VM tests; private staging cleanup on failure; actual USB hardware binding/error inventory. [Release notes and remaining external qualification](m45-hardware-alpha.4.md). Full M4.5 remains in progress.

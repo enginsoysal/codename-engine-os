@@ -120,7 +120,7 @@ void display_console_setup(void){
     for(unsigned y=0;y<screen->framebuffer_height;++y){volatile uint32_t *p=(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)y*screen->framebuffer_stride_bytes);for(unsigned x=0;x<screen->framebuffer_width;++x)p[x]=y<8?accent:bg;}
     text(16,26,"CODENAME: ENGINE OS",3,0xffffff);
 #ifdef ENGINE_M45
-    text(16,76,"M4.5 HARDWARE DISCOVERY - IN PROGRESS",2,0x39d5bb);text(16,112,"DISKS / PARTS N / HELP - NO INSTALLER",2,0x93aabe);
+    text(16,76,"M4.5 DEVICE AND FILE CONSOLE",2,0x39d5bb);text(16,112,"DISKS / PARTS N / HELP - NO INSTALLER",2,0x93aabe);
 #else
     text(16,76,"M4 FILESYSTEM AND USB CONSOLE",2,0x39d5bb);text(16,112,"HELP FOR COMMANDS - NO INSTALLER YET",2,0x93aabe);
 #endif

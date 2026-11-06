@@ -1,6 +1,7 @@
 {
-  "build_id": "da2dfd4bfd6089e632deff5465dd3840",
+  "build_id": "1a813ebd2c7081be7d43cf91431806c4",
   "full_m45_complete": false,
+  "iso_sha256": "774ea677c74a7d593fb392160833a8f70c42af69a54a2b44f47b4bbc401ddc03",
   "existing_vm_inventory_unchanged": true,
   "checks": [
     {

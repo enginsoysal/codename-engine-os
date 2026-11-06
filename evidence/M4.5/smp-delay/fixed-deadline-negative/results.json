@@ -1,15 +1,18 @@
 {
-  "build_id": "da2dfd4bfd6089e632deff5465dd3840",
+  "build_id": "1a813ebd2c7081be7d43cf91431806c4",
   "full_m45_complete": false,
   "checks": [
     {
       "name": "owned AP thread delay at native pressure boundary",
       "passed": true,
-      "delay_seconds": 2.0,
+      "delay_seconds": 2.0309999999881256,
+      "requested_hold_after_baseline_ms": 2000,
       "exit": 99,
       "expected_exit": 99,
       "wait_halts": null,
-      "legacy_assertion_reproduction": false
+      "legacy_assertion_reproduction": false,
+      "injection_gate": "GDB all-stop before first pressure baseline; AP thread ownership checked",
+      "breakpoint_address": "0x20d7a0"
     }
   ],
   "error": ""

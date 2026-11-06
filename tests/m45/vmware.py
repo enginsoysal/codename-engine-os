@@ -5,7 +5,7 @@ ROOT=Path(__file__).resolve().parents[2]
 
 def main():
     vmrun=Path('C:/Program Files/VMware/VMware Workstation/vmrun.exe');work=ROOT/'build/m45/vmware';work.mkdir(parents=True,exist_ok=True);out=ROOT/'evidence/M4.5/vmware';out.mkdir(parents=True,exist_ok=True)
-    manifest=json.loads((ROOT/'dist/m45-build-manifest.json').read_text(encoding='utf-8'));checks=[];owned=None
+    manifest=json.loads((ROOT/'dist/m45-build-manifest.json').read_text(encoding='utf-8'));iso=ROOT/'dist/EngineOS-M45.iso';iso_sha256=hashlib.sha256(iso.read_bytes()).hexdigest();assert iso_sha256==manifest['artifacts'][iso.name]['sha256'];checks=[];owned=None
     def run(*args):return subprocess.run([str(vmrun),'-T','ws',*map(str,args)],capture_output=True,text=True,timeout=60,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
     def inventory():
         p=run('list')
@@ -46,6 +46,6 @@ def main():
             checks.append({'name':name,'passed':passed,'backing_unchanged':unchanged,'scope':'normal dual-firmware ISO; native completion and ordinary first-sector transfer only','error':error,'vmware_version':version.group(1) if version else None,'vmware_build':version.group(2) if version else None});print(name,'PASS' if passed else 'FAIL',flush=True)
     finally:
         if owned:run('stop',owned,'hard')
-        unchanged_inventory=inventory()==before;(out/'results.json').write_bytes((json.dumps({'build_id':manifest['build_id'],'full_m45_complete':False,'existing_vm_inventory_unchanged':unchanged_inventory,'checks':checks},indent=2)+'\n').encode())
+        unchanged_inventory=inventory()==before;assert hashlib.sha256(iso.read_bytes()).hexdigest()==iso_sha256;(out/'results.json').write_bytes((json.dumps({'build_id':manifest['build_id'],'full_m45_complete':False,'iso_sha256':iso_sha256,'existing_vm_inventory_unchanged':unchanged_inventory,'checks':checks},indent=2)+'\n').encode())
     if not unchanged_inventory or len(checks)!=5 or not all(c['passed'] for c in checks):raise SystemExit(1)
 if __name__=='__main__':main()

@@ -1,0 +1,231 @@
+{
+  "passed": true,
+  "full_m45_complete": true,
+  "scope_id": "M45-VM-v1",
+  "completion_scope": "named virtual profiles only",
+  "physical_qualified": false,
+  "factory_trust_qualified": false,
+  "gates": [
+    {
+      "script": "tools/build/m45.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/smp_delay.py",
+      "arguments": [
+        "--label",
+        "fixed-short-delay",
+        "--delay-ms",
+        "150",
+        "--expected-exit",
+        "33"
+      ],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/smp_delay.py",
+      "arguments": [
+        "--label",
+        "fixed-deadline-negative",
+        "--delay-ms",
+        "2000",
+        "--expected-exit",
+        "99"
+      ],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/smp_pressure.py",
+      "arguments": [
+        "--label",
+        "fixed",
+        "--runs",
+        "8"
+      ],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/boot_matrix.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/bios_negative.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/storage.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/read_faults.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/usb.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/usb_timeout.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/usb_reject.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/usb_reject.py",
+      "arguments": [
+        "--hub"
+      ],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/hubs.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/hubs.py",
+      "arguments": [
+        "--nested"
+      ],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/uas.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/uas.py",
+      "arguments": [
+        "--high-speed"
+      ],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/uas.py",
+      "arguments": [
+        "--timeout"
+      ],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/uas.py",
+      "arguments": [
+        "--high-speed",
+        "--timeout"
+      ],
+      "passed": true
+    },
+    {
+      "script": "tests/m4/console.py",
+      "arguments": [
+        "--milestone",
+        "M45"
+      ],
+      "passed": true
+    },
+    {
+      "script": "tests/m4/console.py",
+      "arguments": [
+        "--milestone",
+        "M45",
+        "--usb"
+      ],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/ext2.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/fat32.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/sha256.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/secure_boot.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m45/vmware.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tools/build/m4.py",
+      "arguments": [],
+      "passed": true
+    },
+    {
+      "script": "tests/m4/boot.py",
+      "arguments": [
+        "--case",
+        "persist-first",
+        "--evidence",
+        "evidence/M4.5/m4-regression"
+      ],
+      "passed": true
+    },
+    {
+      "script": "tests/check_repository.py",
+      "arguments": [
+        "--milestone",
+        "M4.5"
+      ],
+      "passed": true
+    },
+    {
+      "script": "tests/m3/verify.py",
+      "arguments": [],
+      "passed": true
+    }
+  ],
+  "scope_contract_sha256": "bdcd7cd583973d14b60c7e6092dc80e27f814a181e490fefff1964e994a14126",
+  "excluded_from_completion": [
+    "Physical machines/controllers/firmware and physical power measurements",
+    "OEM/Microsoft factory trust and production key enrollment/custody",
+    "Universal hardware or arbitrary VMware-version/device support",
+    "ARM64/Raspberry Pi ports",
+    "Installed-system boot, partitioning/formatting/installer and update activation (M5)",
+    "Desktop/network/GPU acceleration and existing Windows/Linux/macOS apps"
+  ],
+  "evidence_sha256": {
+    "boot/results.json": "b286c6dfb74b74704592c28efb0dc905983420fa370601ed033bc96623e497cd",
+    "boot/negative-results.json": "fbf8942e135319a9f8ad51d377025c2ee48469b072fbc5b2057db1d40f635460",
+    "storage-results.json": "8f53629e03e915b120017da91c067605a1a4b15d2d215ee0b3cfb36e1d221625",
+    "fat32-results.json": "5045f860de1af9cb49ffbb3d175d3ac72848c3ca6b61c5bb1e768ea926147c96",
+    "secure-boot-results.json": "035cf49e6ba7b4177d2831627f4cbec147a464a31e142f7bc6dca4996a02cb7e",
+    "vmware/results.json": "3c34015813c3f73706b8718be559f2e644146e7f6bff8f0f4a6c586fee18981f",
+    "usb/results.json": "22fc1cd4fc5f4ae68bcf77f062cbad64c225cc8ae46b36e939eb0c0053544ff8",
+    "usb-timeout/results.json": "9d09dacde209349d365c2c95cbfa8c4dee2adc65d5a3e62db42251a573bf71fd",
+    "usb-reject/root/results.json": "9ae4154511dd0aab78025fb700359a430c429c3237ffdbc0a9b59f39bf5b7e33",
+    "usb-reject/hub/results.json": "029bbc486cce5ec953d2db04abf456547f017149c437d7a4bcbd6e827db560bf",
+    "hubs/direct/results.json": "c0e1c64b54e2f36c8d447b14098ea1cecb518e5ac9cc616ffbdca4756558547e",
+    "hubs/nested/results.json": "66ea0f92cf35e5ef41f0953f48956deb16e9b7236e8e09a4c688a838b3a13dd2",
+    "uas/ss-eio/results.json": "58b6b593f0d4c918449a6ea0616aa4408f043951ce6c0111e8c92641cdf220c5",
+    "uas/hs-eio/results.json": "40fe97aaab8ac45f9a9dec44319253f6c8606daf1e1235879dc3676e32a74c60",
+    "uas/ss-timeout/results.json": "2cd32237e88a3be2b24732957859c54ee9c99dbc1650edf453b2fc9c008beae7",
+    "uas/hs-timeout/results.json": "4b599a5568104fa6908789f7700da21df3a71816b3821d8ded16e14ced7a8e24",
+    "ext2/results.json": "b3a2b769738e6bc8d051300451e86b89cce0894ff21f8a16e36e146a4e86e602",
+    "faults/results.json": "c4f1ab11f667dc4baee055ce643566e0e8b76a697c76084b7a7ac5d79c38b22e",
+    "repository-results.json": "176ef3a21180127fc43effb9f54feb3f272e1b0ffe5d68cb4bf66b0dfb543d12"
+  },
+  "build_id": "1a813ebd2c7081be7d43cf91431806c4"
+}

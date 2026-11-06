@@ -1,4 +1,4 @@
-"""Launch normal M4 or an explicit earlier milestone; expose only designated disposable images."""
+"""Launch normal M4.5 or an explicit earlier milestone; expose only designated disposable images."""
 import argparse
 from pathlib import Path
 import subprocess
@@ -8,7 +8,7 @@ def main():
     parser.add_argument('--usb',action='store_true')
     parser.add_argument('--headless',action='store_true')
     parser.add_argument('--debug',action='store_true',help='wait for debugger on loopback port 1234')
-    parser.add_argument('--milestone',choices=['M1','M2','M3','M4','M45'],default='M4')
+    parser.add_argument('--milestone',choices=['M1','M2','M3','M4','M45'],default='M45')
     parser.add_argument('--cpus',type=int,choices=(1,2,4),help='M3 defaults to 2; M2 uses 1')
     parser.add_argument('--ram',type=int,default=128,help='guest RAM in MiB; defaults to 128')
     parser.add_argument('--data-disk',type=Path,help='disposable .img; M4 requires its development marker, M45 allows ordinary images')

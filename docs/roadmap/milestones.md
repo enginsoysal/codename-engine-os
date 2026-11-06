@@ -1,6 +1,6 @@
 # Milestones and acceptance contract
 
-Updated 2026-11-05. M0 and M1 are complete within their documented scope. M2 is complete within its measured native-only scope; [status](status.md) and fresh evidence govern completion. Later milestones are planned, not implicit capabilities.
+Updated 2026-11-06. M0–M4.5 are complete within their documented acceptance scopes; [status](status.md) and fresh evidence govern each claim. M4.5 completion uses the explicitly user-approved M45-VM-v1 scope. Later milestones are planned, not implicit capabilities.
 
 The implementation owner is the coding agent; the user sets product scope and accepts results. Each milestone needs reproducible commands, build/source/artifact identity, negative cases, resource accounting and visible limitations. A mock/stub or screenshot alone never proves a complete feature. CPU/RAM efficiency is measured from M2 onward; it is not inferred from configured guest memory.
 
@@ -48,9 +48,17 @@ M3 closes this gate in the bounded native VM profile documented in [M3](../miles
 
 The implemented acceptance profile and explicit limits are in the [M4 contract](../milestones/m4-contract.md): bounded ext2/UTF-8 namespace, kernel file handles, AHCI MSI/HLT requests, conservative offline copy recovery and directly attached QEMU xHCI boot HID. Unsupported filesystem features and controllers are refused; completion is not a consumer filesystem durability or universal hardware claim.
 
+## M4.5 — broader virtual boot, device protocols and trust
+
+**Depends on:** M4. **Status:** complete within the user-approved M45-VM-v1 contract. **What:** own BIOS/UEFI ISO/USB paths, ordinary AHCI/NVMe/ATA/VirtIO/BOT/UAS inspection, checked GPT/MBR/FAT32/ext2, explicit binding/error inventory, input/hub reconnect, fault/deadline containment, bounded resources and owner-enrolled VM trust/update/rotation.
+
+**How/why:** qualify real protocol transfers and negative cases on named QEMU/VMware endpoints. The OS binds supported bus/class/protocol interfaces rather than brand names. Physical qualification and factory trust are separate follow-ups; their absence does not block this approved virtual milestone and is never presented as passing physical evidence.
+
+**Acceptance:** 29 gates against one exact build/media identity, 23 trust checks, five VMware profiles, managed-page/HLT/idle observations and M4/M3/M0 regressions. [Contract](../milestones/m4.5-scope.json), [fresh acceptance](../../evidence/M4.5/acceptance-results.json), [final release](../releases/m45-v0.4.5.md). **Limits:** no installer/installed boot, desktop/network/GPU acceleration, ARM64 or Windows app execution. Public media are unsigned; the enabled-Secure-Boot profile uses separately enrolled QEMU owner policy.
+
 ## M5 — live boot, real installation and recovery
 
-**Depends on:** M4. **What:** live/write-layer profile, target disk inventory, partition/EFI setup, verified OS placement, independent installed boot, recovery mode and update activation/rollback format.
+**Depends on:** M4.5. **What:** live/write-layer profile, target disk inventory, partition/EFI setup, verified OS placement, independent installed boot, recovery mode and update activation/rollback format.
 
 **How/why:** reuse the same kernel/drivers; start with a text installer if appropriate. Show exact target/change plan before writing; preflight capacity/driver support; verify copied content and boot registration. Use a separate blank virtual disk first; dual boot is an additional test package.
 

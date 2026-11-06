@@ -1,5 +1,5 @@
 {
-  "build_id": "da2dfd4bfd6089e632deff5465dd3840",
+  "build_id": "1a813ebd2c7081be7d43cf91431806c4",
   "checks": [
     {
       "name": "PS/2 IRQ command input, Shift, backspace, store/flush/read",
@@ -13,8 +13,8 @@
       "name": "idle QEMU host CPU interval",
       "passed": true,
       "wall_seconds": 2.0,
-      "cpu_seconds": 0.015625,
-      "one_cpu_percent": 0.78125,
+      "cpu_seconds": 0.0,
+      "one_cpu_percent": 0.0,
       "scope": "two-second QEMU process sample, not a physical-hardware benchmark"
     },
     {

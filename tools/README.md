@@ -8,13 +8,13 @@
 - `tools/vm/config.py`: shared pinned QEMU setup.
 - `tools/build/m3.py`: preserved M3 native scheduling/VM/SMP regression media.
 - `tools/build/m4.py`: M4 AHCI/ext2/input media and version-2 filesystem template.
-- `tools/vm/run.py`: M4 user launcher; select an earlier milestone explicitly.
-- `tests/m0`, `tests/m1`, `tests/m2`, `tests/m3`, `tests/m4`: per-milestone verification.
+- `tools/vm/run.py`: M45 user launcher; select earlier milestones explicitly.
+- `tests/m0` through `tests/m45`: per-milestone verification.
 
 ```powershell
-python tools/build/m4.py
-python tools/vm/run.py --create-data-disk
-python tests/m4/verify.py
+python tools/build/m45.py
+python tools/vm/run.py
+python tests/m45/verify.py
 ```
 
 Run from the repository root. The latest launcher defaults to two vCPUs and 128 MiB; `--cpus 1`, `2` or `4`, `--ram 64`, `--usb`, `--headless`, `--debug` and `--qemu-dir` are available. See [M2](../docs/milestones/m2.md) and the [M3](../docs/milestones/m3.md). No host disk or directory is exposed. Debugger ports bind loopback only.
@@ -25,7 +25,7 @@ The marked working disk persists as `build/m4/manual/fs-data.img`. Copy both fil
 
 ## Pins and setup
 
-M4.5 development is explicit: `python tools/build/m45.py`, `python tools/vm/run.py --milestone M45 --data-disk build/m45/example.img`, `python tests/m45/verify_increment.py`. The M45 launcher uses a temporary overlay for ordinary disk images. [Storage/trust scope](../docs/milestones/m4.5-storage.md), [security test tool pins](security-toolchain.json). The normal development ISO is unsigned; owner-key Secure Boot tests generate separate local-only media and never modify host firmware/certificate stores.
+M4.5 VM-scope completion: `python tools/build/m45.py`, `python tools/vm/run.py --milestone M45 --data-disk build/m45/example.img`, `python tests/m45/verify.py`. The M45 launcher uses a temporary overlay for ordinary disk images. [Storage/trust scope](../docs/milestones/m4.5-storage.md), [security test tool pins](security-toolchain.json). The normal public ISO is unsigned; owner-key Secure Boot tests generate separate local-only media and never modify host firmware/certificate stores.
 
 [toolchain-lock.json](toolchain-lock.json) records the observed compiler/linker hashes, QEMU executable/adjacent DLLs, EDK2 firmware/template/notices, Python version and original reference profile. These local pins are not independently reproduced upstream-authenticity proof. Do not silently replace a different installed version; review pins and rerun gates. The existing Swift/LLVM and QEMU installations are not globally modified.
 
@@ -55,4 +55,4 @@ The old planning copy is privately archived under ignored `tools/local/legacy-pl
 
 ## M4.5 trust and hardware qualification
 
-`python tools/build/m45.py` builds the normal unsigned BIOS/UEFI preview. `python tests/m45/verify_increment.py` runs the complete implemented-profile matrix, including 23 owner-trust checks and current M3/M0 regressions. `python tools/build/secure.py` defaults to a disposable VM identity; persistent owner PFX/password/pin use and its private-staging boundary are documented in the [owner workflow](../docs/milestones/m4.5-owner-trust.md). Signing/enrollment/negative-test media stay under ignored output and never enter public preview assets. Factory trust and physical qualification remain external requirements.
+`python tools/build/m45.py` builds the normal unsigned BIOS/UEFI milestone media. `python tests/m45/verify.py` runs the complete implemented-profile matrix, including 23 owner-trust checks and current M3/M0 regressions. `python tools/build/secure.py` defaults to a disposable VM identity; persistent owner PFX/password/pin use and its private-staging boundary are documented in the [owner workflow](../docs/milestones/m4.5-owner-trust.md). Signing/enrollment/negative-test media stay under ignored output and never enter public release assets. Factory trust, production key operations and physical qualification remain separate unqualified follow-ups, outside the user-approved M45-VM-v1 completion contract.

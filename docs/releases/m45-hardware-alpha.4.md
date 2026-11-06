@@ -1,5 +1,7 @@
 # M4.5 hardware preview 4 — persistent owner trust
 
+Historical preview scope at this tag. The later [final VM-scoped milestone](m45-v0.4.5.md) supersedes its completion status; the preview itself remains unchanged.
+
 This is an in-progress M4.5 preview, not full milestone completion. The original kernel still boots through dual BIOS/UEFI public test media. There is no installer, desktop or Windows application compatibility yet.
 
 ## Changes

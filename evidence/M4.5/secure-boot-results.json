@@ -107,13 +107,13 @@
     }
   ],
   "provenance": {
-    "build_id": "da2dfd4bfd6089e632deff5465dd3840",
+    "build_id": "1a813ebd2c7081be7d43cf91431806c4",
     "cryptography_version": "50.0.2",
     "signtool_sha256": "098b94694b1c30df75d872b9395e4aa1d80984b3a57e1bd88af8db0b6a8aef9a",
-    "public_certificate_sha256": "005ab5d93ac13175cf02d22bc075f277b4888f53e5bd3c83b6f78b98f45b3afa",
-    "signed_loader_sha256": "b4138c094aa0200404acf9ac8bd2f01bef8facfe21aefcdf4f5dcefbb4ecca3b",
-    "kernel_sha256": "899782d45daed01555ba6af748f1bf9cb0d99cf9d0a01b1ead8db187e264fc33",
-    "init_sha256": "a3d4534ae20f1b96513d6540ffd0586c5a8e27e67eaa3485dfdcc235849a96c9",
+    "public_certificate_sha256": "3a779ba0d58a11ee440904a05bafd61d97567d77ea3fc966cd5c11f3fbcf0c94",
+    "signed_loader_sha256": "bd58f8f323099e08352f00ae74605925e4a43b00ca29e31e1a4b743ca3ecfeb8",
+    "kernel_sha256": "3cecabe593137ed5d0f3af6bc2eb0ce4f7a1e80751460e480ecb6ff1e5c118b3",
+    "init_sha256": "08cc3ca7e47b87940a6be8173391313f0b9925dec385d357d62626142bd3a383",
     "test_source_sha256": {
       "tools/build/secure.py": "be506380a12f30935da29fe76c87aa72f56f6c5d80aa1e3abd1b96824db72c6d",
       "tests/m45/firmware/enroll.c": "b9848b3179f64f5b13669206c52de5dc55763d3580f9eddfe0dba951acf18261",
@@ -128,13 +128,13 @@
       "tests/m45/firmware/policy.c": "9e252a7f71b2a23a365416b16347b521be8ab379336c797fabf4440444a810b9"
     },
     "updated_payload": {
-      "build_id": "da2dfd4bfd6089e632deff5465dd3840",
+      "build_id": "1a813ebd2c7081be7d43cf91431806c4",
       "cryptography_version": "50.0.2",
       "signtool_sha256": "098b94694b1c30df75d872b9395e4aa1d80984b3a57e1bd88af8db0b6a8aef9a",
-      "public_certificate_sha256": "005ab5d93ac13175cf02d22bc075f277b4888f53e5bd3c83b6f78b98f45b3afa",
-      "signed_loader_sha256": "2ad4eea6dd83af7d08ccf56c62a2425c2721bd99d9e1c0e32a8ff2be46323968",
-      "kernel_sha256": "899782d45daed01555ba6af748f1bf9cb0d99cf9d0a01b1ead8db187e264fc33",
-      "init_sha256": "1d640ef51327bdd2d7e958c37a5b7d1213bce73de7a2e22ef0b973f66f889767",
+      "public_certificate_sha256": "3a779ba0d58a11ee440904a05bafd61d97567d77ea3fc966cd5c11f3fbcf0c94",
+      "signed_loader_sha256": "9888c70afcfbd02c5401f72cacd32fac382356cfdd96670dfd8b3664e5299896",
+      "kernel_sha256": "3cecabe593137ed5d0f3af6bc2eb0ce4f7a1e80751460e480ecb6ff1e5c118b3",
+      "init_sha256": "a7be61df27c18ad8d838424af38cea95b10e7c9cb7ec30ccc6d4a4a17fc03ee1",
       "test_source_sha256": {
         "tools/build/secure.py": "be506380a12f30935da29fe76c87aa72f56f6c5d80aa1e3abd1b96824db72c6d",
         "tests/m45/firmware/enroll.c": "b9848b3179f64f5b13669206c52de5dc55763d3580f9eddfe0dba951acf18261",
@@ -143,7 +143,7 @@
       "identity_reused": true,
       "policy": "pinned persistent owner identity"
     },
-    "rotated_owner_certificate_sha256": "a37300225fb2eadad2b037beb975e5d67b180aa3240a76d1d86019dbaa7c6c3a"
+    "rotated_owner_certificate_sha256": "e246a908aabdeb565de50599884b92a59e94d11f1037b00222114fd296680b07"
   },
   "full_m45_complete": false,
   "scope": "persistent pinned encrypted owner, payload update and authenticated db rotation/replay/recovery in disposable QEMU/OVMF only; no factory/OEM trust or physical qualification"

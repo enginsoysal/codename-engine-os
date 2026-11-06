@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "scope_id": "M45-VM-v1",
+  "milestone": "M4.5",
+  "approval": "User explicitly approved VM-scoped completion on 2026-11-06",
+  "architecture": "x86-64",
+  "environments": [
+    "Pinned QEMU pc-q35-11.1 with OVMF and SeaBIOS",
+    "VMware Workstation 26.0.1 build 25688693: EFI/BIOS SATA/IDE and EFI NVMe"
+  ],
+  "required_tracks": [
+    "UEFI and BIOS ISO/USB boot through the same original kernel",
+    "Ordinary AHCI/NVMe/ATA/VirtIO/BOT/UAS read discovery and geometry",
+    "Bounded GPT/MBR validation and FAT32/extended-ext2 reads",
+    "Explicit unavailable, unsupported and I/O error states",
+    "Class/protocol binding and live USB hardware status",
+    "QEMU PS/2 and USB input, hub routing and reconnect",
+    "Real delayed I/O, EIO containment and safe DMA reclamation",
+    "Owner-enrolled QEMU Secure Boot, pinned encrypted signing, payload update, policy rotation and replay refusal",
+    "Measured managed memory, per-CPU HLT, idle samples and bounded SMP response",
+    "Current M4 and M3/M0 regression gates",
+    "English architecture, usage, status and source/artifact provenance",
+    "Final ISO/USB release with verified public hashes"
+  ],
+  "required_gate_count": 29,
+  "required_secure_boot_checks": 23,
+  "excluded_from_completion": [
+    "Physical machines/controllers/firmware and physical power measurements",
+    "OEM/Microsoft factory trust and production key enrollment/custody",
+    "Universal hardware or arbitrary VMware-version/device support",
+    "ARM64/Raspberry Pi ports",
+    "Installed-system boot, partitioning/formatting/installer and update activation (M5)",
+    "Desktop/network/GPU acceleration and existing Windows/Linux/macOS apps"
+  ],
+  "public_media_secure_boot": "disabled; signed owner-enrolled UEFI media are separate local qualification output",
+  "ordinary_storage_policy": "read-only; separately marked M4 development volume retains its bounded write path"
+}

@@ -1,8 +1,8 @@
-# M4.5 evidence — in progress
+# M4.5 evidence — completed M45-VM-v1
 
-These are increment reports, not full M4.5 completion. [Owner trust policy and external qualification prerequisites](../../docs/milestones/m4.5-owner-trust.md) remain explicit. [Agreed acceptance](../../docs/milestones/m4.5.md), [implemented increment/limits](../../docs/milestones/m4.5-storage.md).
+The user approved VM-scoped completion on 2026-11-06. [Final acceptance](acceptance-results.json) is the only milestone closure declaration: its `full_m45_complete` flag is true only for the versioned **M45-VM-v1** contract after all 29 gates pass. It explicitly keeps physical/factory-trust flags false. [Scope](../../docs/milestones/m4.5.md), [contract](../../docs/milestones/m4.5-scope.json), [final VMware instructions](../../docs/releases/m45-v0.4.5.md).
 
-[Increment qualification](increment-results.json), [source/artifact manifest](build-manifest.json). The full milestone flag deliberately remains false.
+Component reports with `full_m45_complete: false` are standalone measurements, not competing milestone decisions. [The old increment report](increment-results.json) is retained as historical alpha.4 evidence. [Current source/artifact manifest](build-manifest.json) and acceptance evidence hashes identify the final tested build. Physical hardware, factory trust and production key operations remain separate unqualified follow-ups.
 
 - [SMP pressure correction](../../docs/milestones/m4.5-smp-pressure.md): exact pre-fix reproduction, short-delay recovery, deadline negative and eight restricted-host-CPU repeats. Current M3 regressions qualify the shared scheduler change.
 - [Dual-firmware boot matrix](boot/results.json): the same ISO and USB images boot through pinned OVMF and SeaBIOS; native completion, actual framebuffer captures and per-CPU HLT observations. [BIOS boundary tests](boot/negative-results.json) cover medium geometry, CRC, insufficient memory, graphics dimensions and serial fallback.
