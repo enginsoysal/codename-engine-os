@@ -1,5 +1,9 @@
 # Changelog
 
+## M6 development — initial capacity planner
+
+Started the real-installation milestone with a shared freestanding C partition planner and host/kernel-target checks. The planner accounts for the selected disk instead of reserving only a demonstration data volume. Installer/formatter/update integration remains pending; the current release and downloadable ISO are unchanged.
+
 ## 2026-11-06 — product roadmap revision
 
 Documentation only: M6 now requires real product installation, M7 a real desktop, and M8 original MS-DOS and Windows 1.x–11 applications. Early Windows and DOS have explicit independent inventory profiles and qualification tracks. Engine OS remains the product name. Previous technical acceptance and release artifacts are unchanged; no new ISO or runtime is released.

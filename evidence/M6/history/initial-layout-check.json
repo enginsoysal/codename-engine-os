@@ -1,0 +1,7 @@
+{
+  "passed": false,
+  "stage": "first host geometry test",
+  "failure": "Test incorrectly bounded combined leading alignment, trailing alignment and backup GPT below 4096 sectors.",
+  "resolution": "Use the derived maximum 2048 + 2047 + 33 sectors; geometry remains unchanged.",
+  "runtime_installation_qualified": false
+}

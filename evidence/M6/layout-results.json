@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "scope": "M6 initial planner host execution and freestanding compilation only",
+  "runtime_installation_qualified": false,
+  "iso_released": false,
+  "source_sha256": "d431640b0589a29e805f8ae5cd5b8ad6a5d4dbde9e08c8c107c546e564278797",
+  "checks": [
+    {
+      "name": "actual C geometry: exact accounting, alignment, no overlap, GPT bounds",
+      "passed": true,
+      "disk_cases": 10005
+    },
+    {
+      "name": "undersize, overflow/unsupported capacity, sector size and null output refusals",
+      "passed": true,
+      "output_unchanged_on_refusal": true
+    }
+  ]
+}

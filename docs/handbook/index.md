@@ -18,4 +18,4 @@ Use a new disposable SATA disk and disable Secure Boot. The native data partitio
 
 ## Current product delivery order
 
-The owner revision of 6 November 2026 sets M6 real product installation, M7 real desktop experience, then M8 original MS-DOS and Windows 1.x through Windows 11 application compatibility. These revised milestones are not started; previous milestone evidence remains bounded historical proof. Engine OS remains the product name. Convenience, optional diagnostics, distribution freedom and measured CPU/RAM use apply to every stage. See [the current contracts](../roadmap/milestones.md).
+The owner revision of 6 November 2026 sets M6 real product installation, M7 real desktop experience, then M8 original MS-DOS and Windows 1.x through Windows 11 application compatibility. M6 is in progress with its initial capacity planner; M7 and M8 are not started. Previous milestone evidence remains bounded historical proof. Engine OS remains the product name. Convenience, optional diagnostics, distribution freedom and measured CPU/RAM use apply to every stage. See [the current contracts](../roadmap/milestones.md).

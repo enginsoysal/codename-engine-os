@@ -113,3 +113,11 @@ Before physical tests: select an explicit test computer; never use the developme
 **How:** remove prototype storage limits, qualify persistent independent installation and recovery, then qualify complete graphical daily tasks before original application compatibility. DOS, early Windows, 9x and NT each require their own runtime evidence.
 
 **Why:** the owner prioritizes a usable installed OS and desktop over expanding compatibility on a console prototype. Existing completed technical gates remain historical evidence, while future completion requires real user workflows, resource measurements and declared hardware limits. This revision implements no new runtime and changes no released ISO.
+
+## M6 initial capacity planner
+
+**Choice/how:** a freestanding, allocation-free C planner produces a versioned BIOS/EFI, two-system-slot and remaining-capacity data layout. Support starts with 512-byte SATA targets from 2 GiB to 2 TiB. It performs no I/O, refuses invalid targets without changing its output, and accounts for every sector.
+
+**Why/alternative:** continuing the fixed 16-MiB demonstration volume cannot support useful desktop documents or application downloads. Two 512-MiB base-system slots prepare an inactive-copy recovery mechanism without duplicating user data; a single mutable system partition would make update recovery harder. These are initial base-image budgets, not implemented activation/rollback or unlimited image capacity. The shared native planner avoids diverging host/kernel arithmetic.
+
+**Verification/limits:** actual C host execution across 10,005 geometries and refusal cases, plus freestanding kernel compilation; [M6 contract](../milestones/m6.md). Installer integration, scalable filesystem, real boot/update recovery and runtime resource qualification remain pending. No new ISO is claimed.
