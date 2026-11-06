@@ -4,7 +4,7 @@ For **M5.1 v0.5.1**. No terminal commands are needed for installation. The inter
 
 ## Prepare VMware
 
-1. Download `EngineOS-M51.iso` and `M51-SHA256SUMS.txt` from the [official release](https://github.com/enginsoysal/codename-engine-os/releases/tag/m51-v0.5.1). Compare its SHA256 using PowerShell `Get-FileHash .\EngineOS-M51.iso -Algorithm SHA256`.
+1. Download `EngineOS-M51.iso` and `M51-SHA256SUMS.txt` from the [official release](https://github.com/enginsoysal/codename-engine-os/releases/tag/m51-v0.5.1). **Optional advanced download verification:** compare its SHA256 using PowerShell `Get-FileHash .\EngineOS-M51.iso -Algorithm SHA256`.
 2. Create a disposable x86-64 VM with two CPUs and 128 MiB RAM. BIOS and UEFI are supported in the qualified profiles; turn **Secure Boot off** for this unsigned image.
 3. Add a **new SATA hard disk**, at least 256 MiB. A new **20-GB** VMware disk is tested. Do not use a physical host disk or a VMDK containing files you need. SCSI/LSI disks are not install targets.
 4. Connect the ISO to CD/DVD at power-on and start from it. If VMware asks for a guest preset, FreeBSD 64-bit is a hardware preset only; Engine OS supplies its own kernel.

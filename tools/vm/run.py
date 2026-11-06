@@ -46,7 +46,7 @@ def main():
             command+=['-drive',f'if=none,id=m4data,format=raw,file={disk}'+(',snapshot=on' if milestone=='M45' else ''),'-device','ide-hd,bus=ide.0,drive=m4data']
     elif args.data_disk or args.create_data_disk:raise SystemExit('Data-disk options require M4, M45 or M5')
     print(f'Starting Engine OS {milestone}. Serial log: build/{milestone.lower()}/manual/serial.log',flush=True)
-    print('M5 text installer: plan N first; use --create-install-disk for an owned target. Live writes are volatile.' if milestone in ('M5','M51') else 'M4 offers an ext2 file console and USB input on the qualified QEMU profile.' if milestone=='M4' else 'M4.5 offers read-only device/partition/FAT32/ext2 inspection and USB input; no installer.' if milestone=='M45' else 'No installer or shell in this milestone. Close the VM window to stop.',flush=True)
+    print('M5.1 guided setup: choose a displayed number, then Enter. No terminal commands are required.' if milestone=='M51' else 'M5 text installer: plan N first; use --create-install-disk for an owned target. Live writes are volatile.' if milestone in ('M5','M51') else 'M4 offers an ext2 file console and USB input on the qualified QEMU profile.' if milestone=='M4' else 'M4.5 offers read-only device/partition/FAT32/ext2 inspection and USB input; no installer.' if milestone=='M45' else 'No installer or shell in this milestone. Close the VM window to stop.',flush=True)
     process=subprocess.run(command,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
     raise SystemExit(process.returncode)
 if __name__=='__main__':main()

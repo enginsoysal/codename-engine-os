@@ -2,7 +2,7 @@
 
 An independent, MIT-licensed operating system with its own UEFI loader, kernel and native user runtime. Windows 95–11 application compatibility is a long-term requirement, followed by Linux/macOS execution environments and ARM64. Those compatibility layers are not implemented yet.
 
-**Current completed milestone: M5.1 — guided setup and custom distributions within M51-VM-v1.** [M5 scope](docs/milestones/m5.md), [acceptance](evidence/M5/acceptance-results.json), [current status](docs/roadmap/status.md). Physical hardware and factory Secure Boot remain unqualified.
+**Current completed milestone: M5.1 — guided setup and custom distributions within M51-VM-v1.** [M5.1 scope](docs/milestones/m5.1.md), [acceptance](evidence/M5.1/acceptance-results.json), [current status](docs/roadmap/status.md). Physical hardware and factory Secure Boot remain unqualified.
 
 The [M5 release](https://github.com/enginsoysal/codename-engine-os/releases/tag/m5-v0.5.0) provides BIOS/UEFI live media, a native text installer for a new SATA disk, media-detached installed boot, persistent native files and same-build boot recovery. There is no desktop, network stack or existing Windows app compatibility yet. The native data partition is currently 16 MiB with 48-KiB files; other disk capacity remains unallocated.
 
