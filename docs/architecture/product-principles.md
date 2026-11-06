@@ -21,3 +21,7 @@ M5.1 concretely supports branding, accent, welcome text and data packages/files 
 ## Resource and safety requirements
 
 Guidance must not require a heavyweight GUI stack or a polling input loop. Bound menu state, buffers and optional content; retain CPU halt at input idle. Convenience never bypasses explicit destructive review, target revalidation, integrity checks or recovery limits. Record implementation, why it was chosen, measured behavior and limitations together.
+
+## Current product delivery order
+
+The owner revision of 6 November 2026 sets M6 real product installation, M7 real desktop experience, then M8 original MS-DOS and Windows 1.x through Windows 11 application compatibility. These revised milestones are not started; previous milestone evidence remains bounded historical proof. Engine OS remains the product name. Convenience, optional diagnostics, distribution freedom and measured CPU/RAM use apply to every stage. See [the current contracts](../roadmap/milestones.md).

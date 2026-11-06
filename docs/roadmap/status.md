@@ -1,5 +1,17 @@
 # Current status
 
+## Owner priority revision — 6 November 2026
+
+The product remains **Engine OS**. The next delivery order is:
+
+1. **M6 — real product installation:** guided ISO/USB installation, useful disk capacity and large files, persistent users/settings/data, independent disk boot, tested update/recovery behavior and clear failures.
+2. **M7 — real desktop experience:** a native graphical session with windows, launcher, file manager, editor, settings, networking and real downloads; normal tasks require no terminal commands.
+3. **M8 — original MS-DOS and Windows 1.x through Windows 11 applications:** separate DOS, early Windows, 9x and NT/Win32/Win64 tracks, including original installers and useful application tasks.
+
+All three are **not started** under these revised acceptance contracts. Completed M0–M5.1 remain historical technical achievements within their named scopes. The current M5.1 installer is a working bounded prototype, not completion of the new product installation or desktop requirements. This documentation revision changes no runtime or ISO. [Detailed gates and implementation choices](milestones.md).
+
+Convenience, optional advanced diagnostics, distribution freedom and measured CPU/RAM efficiency remain requirements throughout. A splash screen, loader, theme or successful launch alone cannot close these milestones.
+
 ## Documentation website
 
 The public [Engine OS website](https://engineos.brixcanvas.com) uses native editable BrixCanvas blocks and the preferred local design. It publishes canonical Markdown guides, the documentation index and official downloads, with source commits. Automatic GitHub synchronization uses a site-specific content-only encrypted Actions secret. The first publication verified 55 articles; new M5 installation/recovery guides join the current index while earlier release guides remain historical. See [publisher evidence](../../evidence/documentation/github-sync-results.json) and [maintenance](../../website/README.md).
@@ -16,17 +28,6 @@ Updated 2026-11-06. Canonical project: [enginsoysal/codename-engine-os](https://
 | M4.5 broader boot/hardware | Complete within M45-VM-v1 | [Fresh acceptance](../../evidence/M4.5/acceptance-results.json), [approved scope](../milestones/m4.5.md), [final ISO and VMware guide](../releases/m45-v0.4.5.md); dual BIOS/UEFI, ordinary storage, checked filesystems, driver status/input/hubs/UAS, faults/resource/SMP and 23 owner-trust checks; physical/factory trust and production key operations are separate unqualified follow-ups |
 | M5 live/install/recovery | Complete within M5-VM-v1 | [Contract](../milestones/m5.md), [acceptance](../../evidence/M5/acceptance-results.json), [installation tutorial](../handbook/install.md); native installer, detached boot, bounded live/persistent volume and same-build repair |
 | M5.1 guided UX/distributions | Complete within M51-VM-v1 | [Contract](../milestones/m5.1.md), [guided tutorial](../handbook/install-m51.md), [custom distributions](../handbook/distributions.md), [acceptance](../../evidence/M5.1/acceptance-results.json) |
-| M6 desktop/network/downloads | Not started | Boot console only |
-| M7 Windows binary foundation | Not started | No NT/Win32 APIs |
-| M8 original 7-Zip workflow | Not started | Third-party app register empty |
-| M9 DOS runtime | Not started | Not supplied by native usermode |
-| M10 GPU/API acceleration | Not started | CPU framebuffer only |
-| M11 Steam client | Not started | Version-specific future target |
-| M12 Steam games | Not started | Includes separate driver/service blockers |
-| M13 Adobe target | Not started | Package/version/task gates required |
-| M14 Linux binaries | Not started | Reserved ABI IDs are not implementation |
-| M15 macOS/Xcode | Not started | Separate framework/tool/service gates |
-| M16 ARM64/Pi | Not started | Cross-compilation alone does not prove boot |
 
 ## M2 delivered scope
 
@@ -40,9 +41,9 @@ Original class-bound AHCI reset, one outstanding MSI/HLT request, 4 KiB DMA batc
 
 ## Limits and next work
 
-M2 has one active CPU, cooperative trusted native probes, no preemption/starvation defense, no general pressure/reclaim, no arbitrary app/file loading and no Windows APIs. Boot/firmware resources remain reserved. M3 retains that regression phase and adds real preemptible threads, x87/SSE/FS-base TLS, hardware-clock deadlines, event/message waits, cancellation, anonymous reserve/commit/decommit/COW, admission-budget/OOM recovery and active SMP. Native user execution is checked on every discovered qualified CPU. Processes have fixed affinity; extended XSAVE, migration, fine-grained locking, file paging/reclaim and physical qualification remain future work. M4 adds the bounded storage/input profile above. M4.5 closes the named VM boot/storage/input/trust acceptance contract; M5 implements installation/recovery; desktop/network work remains next in M6.
+M2 has one active CPU, cooperative trusted native probes, no preemption/starvation defense, no general pressure/reclaim, no arbitrary app/file loading and no Windows APIs. Boot/firmware resources remain reserved. M3 retains that regression phase and adds real preemptible threads, x87/SSE/FS-base TLS, hardware-clock deadlines, event/message waits, cancellation, anonymous reserve/commit/decommit/COW, admission-budget/OOM recovery and active SMP. Native user execution is checked on every discovered qualified CPU. Processes have fixed affinity; extended XSAVE, migration, fine-grained locking, file paging/reclaim and physical qualification remain future work. M4 adds the bounded storage/input profile above. M4.5 closes the named VM boot/storage/input/trust acceptance contract; M5 implements installation/recovery; the next product delivery order is real installation in M6, desktop/networking in M7, then DOS/Windows compatibility in M8.
 
-Windows 95–11 remains a broad target qualified per original installer/version/architecture/task through WC1–WC7. It is not a universal flawless-start guarantee. Physical hardware and arbitrary VMware-version/device coverage remain unqualified and outside M45-VM-v1. Additional [VMware Workstation 26.0.1 serial/runtime cases](../../evidence/M3/vmware/README.md) pass on 1/2/4 CPUs with the same normal ISO at 128 MiB; broader version/device coverage and VMware framebuffer capture are not claimed.
+MS-DOS and Windows 1.x–11 remain a broad target qualified per original installer/version/architecture/task through WC1–WC7. It is not a universal flawless-start guarantee. Physical hardware and arbitrary VMware-version/device coverage remain unqualified and outside M45-VM-v1. Additional [VMware Workstation 26.0.1 serial/runtime cases](../../evidence/M3/vmware/README.md) pass on 1/2/4 CPUs with the same normal ISO at 128 MiB; broader version/device coverage and VMware framebuffer capture are not claimed.
 
 Only `Complete` plus successful fresh linked evidence counts as milestone completion; mocks, generated files or a splash screen are insufficient. Failed checks/blockers must remain visible. Earlier local planning is archived under ignored `tools/local/legacy-planning`; never place new OS output back in BrixCanvas.
 

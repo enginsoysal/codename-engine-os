@@ -76,3 +76,7 @@ M4.5 completion is governed by the [user-approved VM contract](../milestones/m4.
 ## Guided interaction and distribution identity
 
 M5.1 adds a bounded keyboard menu over the actual native installation path. End-user tasks must follow the [product principles](product-principles.md); terminal/verbose diagnostics remain optional. Validated profiles compile branding/colour and selected data content into live and installed images. See [M5.1](../milestones/m5.1.md) and [distribution recipes](../handbook/distributions.md). Future desktop/package-runtime configuration must represent real implemented components.
+
+## Current product delivery order
+
+The owner revision of 6 November 2026 sets M6 real product installation, M7 real desktop experience, then M8 original MS-DOS and Windows 1.x through Windows 11 application compatibility. These revised milestones are not started; previous milestone evidence remains bounded historical proof. Engine OS remains the product name. Convenience, optional diagnostics, distribution freedom and measured CPU/RAM use apply to every stage. See [the current contracts](../roadmap/milestones.md).

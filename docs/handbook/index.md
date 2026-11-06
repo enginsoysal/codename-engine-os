@@ -15,3 +15,7 @@ Use a new disposable SATA disk and disable Secure Boot. The native data partitio
 ## Historical and advanced references
 
 [M5 command-based installation](install.md), [advanced recovery](recovery.md), [terminal command reference](m5-console.md). In M5.1 choose Advanced deliberately and type `menu` to return; these commands are not installation prerequisites. [M4.5 storage](vmware-storage.md) and [console](console.md) describe the older release without an installer. Old releases/evidence remain immutable.
+
+## Current product delivery order
+
+The owner revision of 6 November 2026 sets M6 real product installation, M7 real desktop experience, then M8 original MS-DOS and Windows 1.x through Windows 11 application compatibility. These revised milestones are not started; previous milestone evidence remains bounded historical proof. Engine OS remains the product name. Convenience, optional diagnostics, distribution freedom and measured CPU/RAM use apply to every stage. See [the current contracts](../roadmap/milestones.md).

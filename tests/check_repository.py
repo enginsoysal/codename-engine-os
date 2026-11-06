@@ -31,7 +31,7 @@ def main(milestone="M2"):
     for old in ('ARCHITECTURE.md','DECISIONS.md','STATUS.md','MILESTONES.md','WINDOWS-COMPATIBILITY.md','M1.md'):
         if (ROOT/old).exists():raise RuntimeError('Old root documentation remains: '+old)
     inventory=json.loads((ROOT/'docs/roadmap/windows-targets.json').read_text(encoding='utf-8'))
-    assert len(inventory['generation_profiles'])==8 and inventory['applications']==[]
+    assert {p['id'] for p in inventory['generation_profiles']}=={'msdos','win1x','win2x','win3x','nt3x','win95','win98-me','nt4-2000','xp','vista-7','8-81','10','11'} and inventory['applications']==[]
     checks=[{'name':'English current documentation','passed':True,'documents':len(docs)},
             {'name':'local links and Python commands exist','passed':True},
             {'name':'all current Python sources parse','passed':True,'scripts':len(scripts)},

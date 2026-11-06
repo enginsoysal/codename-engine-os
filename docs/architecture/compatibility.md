@@ -35,3 +35,7 @@ Darling is a candidate for Mach/Darwin/framework knowledge and code, but its Lin
 [WC1–WC7](../roadmap/windows-compatibility.md) require separate installer/app architectures, Win16/NE, 9x versus NT profiles, runtime/package coverage, graphics generations and driver/service dependencies. The app qualification register remains empty because native probes are not third-party Windows applications. Claims require original installer, exact version/hash, CPU architecture, tasks and evidence.
 
 Primary sources: [Wine API](https://source.winehq.org/WineAPI/), [Microsoft events](https://learn.microsoft.com/en-us/windows/win32/sync/using-event-objects), [Linux ABI](https://docs.kernel.org/admin-guide/abi.html), [Darling syscall emulation](https://docs.darlinghq.org/internals/basics/system-call-emulation.html), [Darling source](https://github.com/darlinghq/darling).
+
+## Current product delivery order
+
+The owner revision of 6 November 2026 sets M6 real product installation, M7 real desktop experience, then M8 original MS-DOS and Windows 1.x through Windows 11 application compatibility. These revised milestones are not started; previous milestone evidence remains bounded historical proof. Engine OS remains the product name. Convenience, optional diagnostics, distribution freedom and measured CPU/RAM use apply to every stage. See [the current contracts](../roadmap/milestones.md).

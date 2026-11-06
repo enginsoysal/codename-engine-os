@@ -1,6 +1,6 @@
 # Milestones and acceptance contract
 
-Updated 2026-11-06. M0–M4.5 are complete within their documented acceptance scopes; [status](status.md) and fresh evidence govern each claim. M4.5 completion uses the explicitly user-approved M45-VM-v1 scope. Later milestones are planned, not implicit capabilities.
+Updated 2026-11-06. M0–M5.1 are complete within their documented technical acceptance scopes; [status](status.md) and fresh evidence govern each claim. M4.5 completion uses the explicitly user-approved M45-VM-v1 scope. Later milestones are planned, not implicit capabilities.
 
 The implementation owner is the coding agent; the user sets product scope and accepts results. Each milestone needs reproducible commands, build/source/artifact identity, negative cases, resource accounting and visible limitations. A mock/stub or screenshot alone never proves a complete feature. CPU/RAM efficiency is measured from M2 onward; it is not inferred from configured guest memory.
 
@@ -68,96 +68,46 @@ The implemented acceptance profile and explicit limits are in the [M4 contract](
 
 **Depends on:** M5. **What:** discoverable numbered Try/Install/Repair routes, disk review/back, readable errors/progress and optional diagnostics; actual profile-based custom ISO builds. **How/why:** a bounded state machine in the existing IRQ/HLT console avoids a heavyweight GUI dependency while removing mandatory terminal syntax. Versioned recipes separate identity/content from the original kernel and mandatory safety guards. **Acceptance:** full menu-only install/cancel/persistence/repair tasks, actual alternative distro boot/install, unsafe recipe refusal, resource checks and VMware 20-GiB SATA profiles. [Contract](../milestones/m5.1.md), [product principles](../architecture/product-principles.md). **Limits:** keyboard text UI, data packages only, no human study/desktop/app runtime or universal hardware claim.
 
-## M6 — desktop, network and downloads
+## Current product priorities — owner revision 2026-11-06
 
-**Depends on:** M5. **What:** compositor/window/input/focus/fonts/clipboard, shell/file manager, one network driver, IP/DNS and TLS-backed downloads with valid time/certificates.
+The next three milestones replace the previous future numbering. Completed M0–M5.1 scopes and immutable releases remain historical technical achievements. M5/M5.1 demonstrate native installation and a guided prototype; they do not satisfy the broader product installation/desktop requirements below. The [previous future schedule](history/2026-11-06-previous-future-milestones.md) is retained as history only.
 
-**How/why:** CPU framebuffer first, bounded buffers/caches; separate protocol stack from driver. A download utility supplies the installer workflow without requiring an entire browser engine immediately.
+## M6 — real product installation
 
-**Acceptance:** multiple native windows, documents, correct HTTPS download/hash, certificate rejection and recovery from network loss while UI remains responsive under pressure. **Risk:** Wi-Fi, accessibility, power and language coverage need explicit follow-ups; Unicode extensibility starts early.
+**Priority 1. Depends on:** M5.1. Deliver a complete guided installation from ISO/USB onto the selected supported target, meaningful use of the selected disk capacity, application-ready large-file storage, a real native system/user layout and first-run user setup. Remove the fixed 16-MiB/48-KiB product bottlenecks. The installed system must own its boot/runtime assets and persistent configuration, rather than relying on installation media or a demonstration data volume.
 
-## M7 — Windows binary foundation
+**How/why:** extend storage/integrity before placing a desktop or Windows packages on it. Show exact partitions/capacity and destructive changes, preserve cancellation and target revalidation, verify placed files and boot setup, and keep recovery understandable. Provide a versioned update/activation/recovery design with actual implemented rollback/repair behavior and named crash/fault boundaries; declaring record fields is insufficient. Do not silently claim arbitrary power-loss atomicity or every physical controller.
 
-**Depends on:** M3/M4/M6. **What:** PE loader, imports/relocations, DLLs, TLS/exceptions, NT/Win32 memory/files/threads/synchronization, registry/services and versioned syscall decoding.
+**Acceptance:** a new user completes installation using screen guidance; available capacity is accounted for; large files and non-demo user data survive multiple independent boots with ISO/USB detached; user/settings setup persists; cancellation/refusal does not change unrelated data; interrupted copy/write/activation paths have demonstrated recovery, integrity checks and readable errors. Qualify exact VMware BIOS/UEFI media/controllers and resource measurements. No desktop or Windows app claim is inferred from passing this milestone.
 
-**How/why:** compare identical small binaries on Windows and Engine OS, including failures/last-error. Audit any Wine port's host dependencies. Implement 64-bit first but prove 32-bit before Steam; Win16 is WC2, not automatically covered by DOS or PE32.
+## M7 — real desktop experience
 
-**Acceptance:** named unmodified console binaries, correct output/file/thread behavior, DLL failure paths, direct-syscall routing and isolated crashes. **Risk:** no-op missing functions and a working loader are not app support; guest kernel drivers remain WC6.
+**Priority 2. Depends on:** M6. Deliver an actual native graphical session with independently managed windows, mouse/keyboard focus, fonts, clipboard, launcher, file manager, settings and real native applications for opening/editing/saving documents. Desktop/theme choices must be implemented profile options, not ignored configuration fields. Keep Advanced/verbose available without requiring them for ordinary work.
 
-## M8 — original 7-Zip installer through uninstall
+Include supported networking, automatic setup, name resolution, valid-time/certificate handling and real HTTPS downloads. Storage must support useful documents/downloads; an attractive static screen or menu is not desktop acceptance.
 
-**Depends on:** M7. **What:** pin version/architecture, implement needed GUI/configuration/path/install/shell behavior, track installation state.
+**Acceptance:** boot an installed system into the desktop; open/move/resize/switch several windows; create/edit/save/reopen files across restart; change persistent settings; download and verify a real file, reject invalid certificates and recover from network loss; contain an app crash while the desktop remains usable. Measure idle CPU, damage-driven repainting, peak/retained RAM/VRAM and responsiveness under memory pressure. Start with a bounded CPU-rendered path if appropriate; GPU acceleration is added when a target needs it. Publish exact tested limits. A native text editor is not evidence of Windows application compatibility.
 
-**How/why:** download the real installer, trace dependencies and implement general semantics, using varied archives, Unicode names and content hashes. This proves subsystem integration without an adapted demo bypass.
+## M8 — original MS-DOS and Windows 1.x through Windows 11 applications
 
-**Acceptance:** download → install → GUI → archive/extract/hash → OS reboot → use again → uninstall, including corrupt archive/full-disk/restricted-right failures. **Risk:** only the tested version/tasks are qualified; removal must not delete unrelated data.
+**Priority 3. Depends on:** M6 and M7. Windows remains the first foreign application ecosystem. Explicitly include original MS-DOS programs/games, Windows 1.x/2.x/3.x applications, Windows 95/98/Me and the NT generations through Windows 11. Windows 95 support does not imply early Windows or DOS support. Installer and payload formats/architectures/version expectations are separate inventory fields.
 
-## M9 — integrated DOS runtime
+This is a substantial program of independently qualified submilestones, not one loader or a universal flawless-start promise:
 
-**Depends on:** M4/M6. **What:** isolated COM/EXE execution, disk views, timing, input/video/audio, DOS extenders where targets require them.
+| Track | Required behavior and proof |
+|---|---|
+| M8.1 DOS | Original COM/MZ/setup workflows, required extenders, isolated CPU/device/timing/input/video/audio, file grants, play/use/save/load/exit |
+| M8.2 early Windows | Separate 1.x, 2.x and 3.x profiles; actual original executable/setup formats, segmented memory, Windows APIs, GUI/message behavior and mixed 16/32-bit installation chains |
+| M8.3 Windows 9x | Original 95/98/Me app workflows and actual generation semantics, including ANSI/Unicode, files/configuration, graphics and applicable service/driver dependencies |
+| M8.4 Windows NT/Win32/Win64 | NT 3.x onward through Windows 11: validated PE loading, imports/DLLs, exceptions/TLS, memory/files/threads/waits, registry, services and generation-specific behavior |
+| M8.5 runtimes/installers | Original EXE/MSI/mixed-bitness/AppX/MSIX where required; COM, VB/VC, .NET and modern helper/runtime dependencies; actual install/update/repair/uninstall |
+| M8.6 graphics/audio/drivers | Required GDI/DirectDraw/Direct3D/media/input plus a real native acceleration path when needed; explicit device, DRM, anticheat and external-service gates |
+| M8.7 real application tasks | Original 7-Zip installer-to-uninstall first, then separately pinned Steam client/games and Adobe targets; no adapted demos or success-only stubs |
 
-**How/why:** explicit CPU/device emulation within a protected process, granted game-directory mapping and per-game tempo/audio profiles. Historical real-mode hardware assumptions must not gain host-kernel authority.
+**Acceptance:** per original app/version/architecture/profile: clean setup/install, first launch, useful tasks, restart, repeated launch, save/reopen and removal where applicable; failures and isolation/resource bounds tested. The [expanded inventory](windows-targets.json), [WC1–WC7](windows-compatibility.md) and exact evidence govern claims. Unknown apps remain unqualified. External authority, unavailable devices/services and unimplemented guest drivers are explicit blockers, not reasons to fake success.
 
-**Acceptance:** named lawful game builds start, play, save/load and terminate without host damage; no access outside grants. **Risk:** emulation is reported honestly and is not Win16 GUI compatibility.
+## Deferred tracks and cross-cutting gates
 
-## M10 — accelerated graphics/API path
+Linux binaries, macOS/Xcode and ARM/Raspberry Pi stay on the backlog after these priorities; they do not replace the Windows/DOS program. Their old future numbers are superseded, not completion claims. GPU/driver work is performed as required by the desktop/application targets, not inferred from a framebuffer.
 
-**Depends on:** M3/M4/M6. **What:** choose GPU/firmware/driver and underlying graphics API; implement command submission, buffers/address spaces, fences/residency/faults, user driver and shader compiler; then required Direct3D translation.
-
-**How/why:** dependency/provenance audit first; known render/readback comparisons before compositor or game integration. CPU desktop rendering is not a modern gaming backend; API translation still requires a hardware driver.
-
-**Acceptance:** correct frames, stable synchronization/long runs, bounded RAM/VRAM, reported hang detection/recovery and device isolation limits. **Risk:** virtual GPU proof does not qualify a physical card; unavailable documentation/firmware can require changing target hardware.
-
-## M11 — Steam client
-
-**Depends on:** M8, necessary 32-bit/runtime support and a qualified graphics route. **What:** installer, embedded web UI, helpers/services, secure networking, fonts, login, persistence and updates.
-
-**How/why:** inventory subprocesses/dependencies, use an authorized account without logging secrets, separate client from game support, regression-test self-updates.
-
-**Acceptance:** install/login/library/tasks/download-pause-resume-update/reboot/logout/uninstall on a pinned client version. **Risk:** external changes can regress support; MFA remains a user action; client launch does not imply every game works.
-
-## M12 — first Steam games
-
-**Depends on:** M10/M11. **What:** a named selection, beginning without mandatory kernel anticheat, then a heavier 3D workload; required media/input/runtimes/saves.
-
-**How/why:** fix hardware, build, resolution/settings and scenes; distinguish launchable, usable and performant; measure frame-time distributions and memory pressure rather than only average FPS.
-
-**Acceptance:** agreed play session, correct graphics/audio/input, save/load after reboot and workload budgets. GTA requires its own edition/mode record. **Risk:** offline success does not clear DRM/anticheat/service blockers; updates remain version-specific.
-
-## M13 — first Adobe package
-
-**Depends on:** M8 plus actual GUI/network/GPU/runtime needs, not inherently Steam. **What:** one exact package/version, installer/licensing/helpers/fonts/color/GPU/files and defined editing tasks.
-
-**How/why:** lawful access and dependency chain first; CPU routes where supported, then GPU; compare content/color/export results, not only a splash screen. Other packages are separate qualification targets.
-
-**Acceptance:** install/activate/open/edit/export/save/reopen with output validation and peak RAM/scratch/latency measurements. **Risk:** unavailable service/SDK/license access is an explicit blocker; kernel control cannot replace external authority.
-
-## M14 — Linux binaries
-
-**Depends on:** stable core/ABI/files/desktop; independent of Adobe. **What:** ELF/interpreter, Linux syscall ABI, TLS/signals/futexes, process/file/socket/pseudo-filesystem behavior and a fixed libc/distribution profile.
-
-**How/why:** static CLI first, then dynamic binaries and a specified GUI display route. Use unmodified binaries; recompiling a POSIX demo does not prove Linux binary support.
-
-**Acceptance:** named static/dynamic programs with pipes, signals, threads/files and later one GUI target; simultaneous Windows/Linux profiles cannot confuse syscall routing or configuration. **Risk:** ELF loading alone does not support arbitrary distribution packages.
-
-## M15 — macOS binaries and Xcode gates
-
-**Depends on:** core/desktop/ABI and reusable POSIX mechanisms. **What:** Mach-O/dynamic loading, Mach IPC, Darwin and actual app frameworks; target architecture/OS/SDK generation.
-
-**How/why:** M15a CLI, M15b GUI, M15c separate Xcode editor/project/build/debugger/simulator gates. Audit Darling's Linux dependencies and lawful SDK/tool availability before ports.
-
-**Acceptance:** named unchanged apps and exact Xcode tasks, with frameworks/version evidence. A separate compiler is not Xcode and an editor without builds is not full Xcode. **Risk:** external services and inaccessible tools can block individual tasks; no universal promise.
-
-## M16 — ARM64 and a selected Raspberry Pi
-
-**Depends on:** stable core, architectural separation from M0; can begin before M15 once core is ready. **What:** ARM entry/page tables/exceptions/timers/interrupts/atomics/context and board drivers/firmware/image.
-
-**How/why:** QEMU ARM64 native programs before the named physical Pi. Isolate platform code and validate memory ordering, cache/DMA differences. Set console/light-desktop budgets from measured reality.
-
-**Acceptance:** same codebase boots virtually and on that Pi, native ARM programs/storage/input and agreed pressure behavior. **Risk:** an x86 ISO is not a Pi image; x86 Windows apps on ARM need separate instruction translation and app tests.
-
-## Cross-cutting release gates
-
-Every relevant milestone tracks source/artifact identity, negative inputs, crash logs, rights/isolation, resource categories and regressions. Storage adds fault/reboot/recovery tests; apps add exact installer/architecture/version/task records. Firmware/driver/third-party provenance is explicit. English documentation and executable command/link checks stay current in the same change.
-
-Windows 95–11 breadth is [WC1–WC7](windows-compatibility.md), not a guarantee that M0–M16 automatically support all historical binaries. Secure Boot, Wi-Fi, power/suspend, encryption, accessibility and production integrity require explicit work packages before a consumer release; this is an incremental development roadmap.
+All three priorities retain convenience, readable errors, distribution freedom, measured CPU/RAM efficiency, supported-hardware declarations and automatically current English documentation. A fresh tested ISO and an end-to-end user task are required for a release. No screenshot, wire format, native probe or unimplemented profile option closes a product milestone.

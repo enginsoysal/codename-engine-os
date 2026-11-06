@@ -40,7 +40,7 @@ def main():
             if not (doc.parent/target.split('#')[0]).exists():
                 raise RuntimeError(f'Broken local link in {doc.relative_to(ROOT)}: {target}')
     targets=json.loads((ROOT/'docs/roadmap/windows-targets.json').read_text(encoding='utf-8'))
-    assert len(targets['generation_profiles'])==8 and targets['applications']==[]
+    assert {p['id'] for p in targets['generation_profiles']}=={'msdos','win1x','win2x','win3x','nt3x','win95','win98-me','nt4-2000','xp','vista-7','8-81','10','11'} and targets['applications']==[]
     result['gates'].append({'suite':'document links and Windows architecture inventory','passed':True})
     sources=[p for folder in ['tests/m0','include/engine/boot','include/engine/abi'] for p in (ROOT/folder).rglob('*') if p.is_file() and '__pycache__' not in p.parts]
     result['source_sha256']={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(sources)}

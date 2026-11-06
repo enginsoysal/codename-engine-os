@@ -1,6 +1,6 @@
-# Windows 95–11 application requirement
+# MS-DOS and Windows 1.x–11 application requirement
 
-The product goal is a standalone bootable/installable OS in original source code that can install and run existing applications made for Windows 95 through Windows 11 using their original installers. The first major app path remains 7-Zip, followed by larger client/game/creative targets. This is an ambition with explicit qualification, not a universal error-free guarantee.
+The product goal is a standalone bootable/installable OS in original source code that can install and run existing MS-DOS programs and applications made for Windows 1.x through Windows 11 using their original installers. The first major app path remains 7-Zip, followed by larger client/game/creative targets. This is an ambition with explicit qualification, not a universal error-free guarantee.
 
 C17/assembly is the current implementation language; no new programming language is planned. No Microsoft/FreeBSD/Linux kernel is required underneath. Appropriate open-source components may be ported after provenance/license review. App compatibility is behavioral; pixel-identical Windows UI and all Microsoft cloud/server/management features are not automatically included.
 
@@ -11,18 +11,18 @@ C17/assembly is the current implementation language; no new programming language
 | ISO/USB boot | M1 | Own kernel tested in QEMU; user-observed VMware M1 boot |
 | Install OS to disk and boot independently | M5 | Implemented within M5-VM-v1; [VM qualification](../../evidence/M5/acceptance-results.json). This does not implement Windows app installation. |
 | Protected process foundation | M2/M3 | Native64 isolation, threads/waits/VM/SMP verification only; no Windows APIs |
-| Win32/Win64/NT interfaces | M7/M8 | Planned, not implemented |
-| DOS games | M9 | Separate future legacy runtime |
-| Win16/NE and 16-bit installers | WC2 | Explicit separate route; not supplied by PE32/DOS alone |
+| Win32/Win64/NT interfaces | M8.4/M8.5 | Planned, not implemented |
+| DOS programs/games | M8.1 | Separate future legacy runtime |
+| Windows 1.x/2.x/3.x and 16-bit installers | M8.2/WC2 | Explicit separate route; not supplied by PE32/DOS alone |
 | 9x versus NT behavior | WC3 | Profiles/semantics must be implemented |
 | Modern runtimes/package forms | WC4 | Dependency inventory and task qualification needed |
-| Old/modern graphics and media | WC5/M10/M12 | CPU boot framebuffer is not DirectX support |
+| Old/modern graphics and media | WC5/M8.6 | CPU boot framebuffer is not DirectX support |
 | Guest drivers/DRM/anticheat/services | WC6 | Separate feasibility/access blockers |
 | Every app without defects | WC7 | Not an available or verifiable global guarantee |
 
 ## WC1 — application/installer inventory
 
-Record exact app/version/hash, original target generation, installer and payload CPU architectures separately, APIs/runtimes, drivers, external services/hardware, installation/start/use/reboot/uninstall tasks, provenance and evidence. [Machine-readable inventory](windows-targets.json) contains eight generation groups; no third-party app is currently qualified. M2 native probes are not Windows applications.
+Record exact app/version/hash, original target generation, installer and payload CPU architectures separately, APIs/runtimes, drivers, external services/hardware, installation/start/use/reboot/uninstall tasks, provenance and evidence. [Machine-readable inventory](windows-targets.json) contains thirteen generation groups, including separate DOS, Windows 1.x, 2.x, 3.x and NT 3.x profiles; no third-party app is currently qualified. M2 native probes are not Windows applications.
 
 Why: a 32-bit application can use a 16-bit installer. Version labels do not identify dependencies. Acceptance requires a complete record for each published claim; a compatibility percentage needs a defined population. Proprietary installers do not enter the public repository automatically.
 
@@ -64,6 +64,6 @@ Acceptance for a published app/version/task matrix: no known critical or blockin
 
 ## Implementation order
 
-M0–M8 remains the first vertical path, with WC1/legacy risks designed early. WC2–WC6 expand M7–M13; WC7 applies throughout. Windows stays the first ecosystem; Linux/macOS do not displace it. M2's reserved profile IDs and safe native process mechanisms are foundations, not API support.
+Complete the revised M6 real product installation and M7 real desktop contracts first. M8 then qualifies original DOS and Windows application workflows through the separately tracked M8.1–M8.7 routes. See [active milestone contracts](milestones.md). The product remains Engine OS; no application compatibility is implemented by this planning revision.
 
-Primary references: [Microsoft NTVDM](https://learn.microsoft.com/en-us/windows/compatibility/ntvdm-and-16-bit-app-support), [x64 and 16-bit components/installers](https://learn.microsoft.com/en-us/troubleshoot/windows-client/application-management/x64-windows-not-support-16-bit-programs), [installer substitution](https://github.com/MicrosoftDocs/win32/blob/docs/desktop-src/WinProg64/application-installation.md). They substantiate distinctions, not Engine OS compatibility.
+Early Windows executable formats, segmented memory and APIs must be inspected per original version. Windows 95 compatibility does not establish Windows 1.x–3.x or MS-DOS compatibility. Installer and payload architectures are recorded separately.
