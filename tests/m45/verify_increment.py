@@ -21,10 +21,11 @@ def main():
         if hashlib.sha256(raw).hexdigest()!=record['sha256'] or re.search(rb'[Cc]:[\\/]+Users[\\/]+',raw):raise RuntimeError('Invalid/private artifact: '+name)
     for name in ('storage-results.json','fat32-results.json','sha256-results.json','secure-boot-results.json','repository-results.json'):
         data=json.loads((out/name).read_text(encoding='utf-8'));assert data['checks'] and all(c['passed'] for c in data['checks']),name
+    secure=json.loads((out/'secure-boot-results.json').read_text(encoding='utf-8'));assert len(secure['checks'])==23 and secure['provenance']['build_id']==manifest['build_id']
     for name in ('results.json','negative-results.json'):
         data=json.loads((out/'boot'/name).read_text(encoding='utf-8'));assert data['build_id']==manifest['build_id'] and all(c['passed'] for c in data['checks']),name
     data=json.loads((out/'vmware/results.json').read_text(encoding='utf-8'));assert data['build_id']==manifest['build_id'] and data['existing_vm_inventory_unchanged'] and len(data['checks'])==5 and all(c['passed'] for c in data['checks'])
-    for folder,count in (('usb',10),('usb-timeout',7),('ext2',8),('faults',3),('usb-reject/root',3),('usb-reject/hub',3),('hubs/direct',11),('hubs/nested',11),('uas/ss-eio',10),('uas/hs-eio',10),('uas/ss-timeout',10),('uas/hs-timeout',10)):
+    for folder,count in (('usb',10),('usb-timeout',7),('ext2',8),('faults',3),('usb-reject/root',4),('usb-reject/hub',4),('hubs/direct',11),('hubs/nested',11),('uas/ss-eio',10),('uas/hs-eio',10),('uas/ss-timeout',10),('uas/hs-timeout',10)):
         data=json.loads((out/folder/'results.json').read_text(encoding='utf-8'));assert data['build_id']==manifest['build_id'] and len(data['checks'])==count and not data.get('error') and all(c['passed'] for c in data['checks']),folder
     for folder,prefix in (('ps2-console',''),('hid-console','usb-')):
         data=json.loads((out/folder/(prefix+'console-report.json')).read_text(encoding='utf-8'));assert data['build_id']==manifest['build_id'] and all(c['passed'] for c in data['checks']),folder

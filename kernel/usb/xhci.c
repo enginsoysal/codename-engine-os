@@ -6,6 +6,7 @@ typedef struct {unsigned slot,port,kind,endpoint,packet,interval,parent,hub_port
 static device devices[USB_MAX_DEVICES];static unsigned device_count,active,context_size,event_index,event_cycle=1,mouse_dirty,mouse_buttons;static int mouse_x=600,mouse_y=80;
 static uint64_t mouse_events,key_events,irq_count,dma_pages;
 static volatile uint32_t *op,*runtime,*doorbell;static uint64_t *dcbaa;static trb *events;static ring commands;
+static unsigned controller_selected,initialization_status=B_ABSENT;
 static unsigned transfer_remaining,bulk_waiting,controller_bdf,port_count,primary_streams;static unsigned pending_ports,pending_hubs,rejected_ports;
 static uint64_t uas_abort_wait;static unsigned uas_abort_done,uas_abort_remaining;
 static uint64_t uas_status_wait,uas_data_wait;static unsigned uas_status_done,uas_data_done,uas_status_remaining,uas_data_remaining;
@@ -90,9 +91,9 @@ static unsigned enumerate_path(unsigned port_number,unsigned index,unsigned pare
     if(!command(d->input,(12u<<10)|(d->slot<<24)))return 0;if(index>=device_count)device_count=index+1;if(kind==9){if(!hub_prepare(d))return 0;serial_text("M45_USB_HUB_ONLINE\n");}else serial_text(kind==1?"M4_USB_KEYBOARD_ONLINE\n":"M4_USB_MOUSE_ONLINE\n");return 1;
 }
 static unsigned enumerate(unsigned root,unsigned index){return enumerate_path(root,index,USB_MAX_DEVICES,0,0);}
-unsigned usb_init(void){
+static unsigned usb_start(void){
     unsigned bdf=0;uint64_t base=0;for(unsigned b=0;b<256&&!base;++b)for(unsigned d=0;d<32&&!base;++d){unsigned first=(b<<8)|(d<<3);if((pci(first,0)&65535)==65535)continue;unsigned count=(pci(first,12)&0x800000)?8:1;for(unsigned f=0;f<count;++f)if((pci(first|f,8)>>8)==0x0c0330){bdf=first|f;uint32_t bar=pci(bdf,16);if((bar&1))continue;base=bar&~15u;if((bar&6)==4)base|=(uint64_t)pci(bdf,20)<<32;break;}}
-    controller_bdf=bdf;serial_text("M4_XHCI_BAR=");serial_hex(base);serial_text("\n");if(base<0x10000000||base>UINT64_C(0x000ffffffff00000))return B_UNSUPPORTED;
+    controller_bdf=bdf;controller_selected=!!base;serial_text("M4_XHCI_BAR=");serial_hex(base);serial_text("\n");if(base<0x10000000||base>UINT64_C(0x000ffffffff00000))return B_UNSUPPORTED;
     uint64_t mapping=page();if(!mapping)return B_IO;uint64_t aligned=base&~UINT64_C(0x1fffff);((uint64_t*)(uintptr_t)mapping)[0]=aligned|UINT64_C(0x800000000000009b);((uint64_t*)(uintptr_t)mapping)[1]=(aligned+0x200000)|UINT64_C(0x800000000000009b);
     ((uint64_t*)(uintptr_t)kernel_stack_branch())[1]=mapping|3;base=UINT64_C(0xffff800040000000)+(base&0x1fffff);
     uint64_t cr3;__asm__ volatile("movq %%cr3,%0;movq %0,%%cr3":"=r"(cr3)::"memory");pci_set(bdf,4,(pci(bdf,4)&65535)|6);
@@ -114,6 +115,13 @@ unsigned usb_init(void){
     for(unsigned i=0,attempts=0;i<port_count&&attempts<2*USB_MAX_DEVICES;++i)if(op[0x100+i*4]&1){++attempts;unsigned before=0;while(before<USB_MAX_DEVICES&&(devices[before].slot||devices[before].generation>=0xffffff))++before;if(before==USB_MAX_DEVICES)break;if(!enumerate(i,before)){rejected_ports|=1u<<i;serial_text("M4_USB_PORT_UNSUPPORTED port=");serial_hex(i+1);serial_text("\n");release_device(before);}}
     for(unsigned i=0;i<device_count;++i)if(devices[i].kind==9)(void)hub_scan(i);
     active=1;for(unsigned i=0;i<device_count;++i)if(devices[i].slot&&!devices[i].dead&&(devices[i].kind==1||devices[i].kind==2||devices[i].kind==9))submit_input(&devices[i]);runtime[8]=3;op[0]=5;for(unsigned i=0;i<device_count;++i)if(devices[i].kind==3)(void)mass_probe(i);unsigned online=0;for(unsigned i=0;i<device_count;++i)online+=devices[i].slot&&!devices[i].dead;return online?B_OK:B_ABSENT;
+}
+unsigned usb_init(void){initialization_status=usb_start();return initialization_status;}
+void usb_hardware_inventory(unsigned bdf){
+    if(!controller_selected||bdf!=controller_bdf){console_text("USB controller unbound: one-controller profile or unavailable BAR\n");return;}
+    console_text("USB controller initialization status: ");console_decimal(initialization_status);console_text("; IRQ/event engine: ");console_text(active?"active\n":"inactive\n");console_text("USB rejected root-port mask: ");console_hex(rejected_ports);console_text("\n");
+    for(unsigned i=0;i<device_count;++i){device *d=&devices[i];if(!d->slot)continue;console_text("USB device ");console_decimal(i);console_text(" root port ");console_decimal(d->port);console_text(" route ");console_hex(d->route);console_text(d->kind==9?" hub":d->kind==1?" keyboard":d->kind==2?" mouse":d->kind==3?(d->uas?" UAS":" BOT"):" unclassified");
+        const storage_disk *disk=d->storage_index<STORAGE_MAX?storage_get(d->storage_index):0;console_text(d->dead?" - quarantined; DMA retained\n":d->kind==3?(disk&&disk->readable?" - read-only transfer verified\n":" - storage unavailable\n"):" - driver bound\n");if(d->kind==9){console_text("USB rejected hub-port mask: ");console_hex(d->rejected_children);console_text("\n");}}
 }
 unsigned usb_irq(uint64_t *frame){if(active&&bulk_waiting&&frame[15]==32){out8(0x20,0x20);return 1;}if(!active||frame[15]!=145)return 0;++irq_count;consume();*(volatile uint32_t*)(uintptr_t)0xfee000b0=0;return 1;}
 unsigned usb_mouse_pending(void){return __atomic_load_n(&mouse_dirty,__ATOMIC_ACQUIRE);}

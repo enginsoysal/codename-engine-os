@@ -69,3 +69,5 @@ The privileged native pressure probe keeps its allocator admission budget active
 ## M4.5 USB DMA ownership
 
 The shared original stack is under `kernel/usb/`. Device contexts admit at most eight live devices with lazily owned pages. Hub descendants retire before their parent, and DMA pages are reclaimed only after successful Disable Slot. UAS timeout stops old USB transfers before task abort; failures retain ownership and quarantine rather than freeing uncertain memory. Old disk generation references cannot access replacement contexts. [Exact profiles and limits](../milestones/m4.5-usb-topology.md).
+
+The M45 `hardware` inventory queries the selected xHCI driver state, live route/class bindings, rejected ports and retained-DMA quarantine. Class discovery alone remains separate from initialization and verified storage transfer. The status reader allocates no pages or new queues.

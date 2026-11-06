@@ -1,14 +1,14 @@
 {
-  "build_id": "6d25105322c20dddf03910374c8f8060",
+  "build_id": "da2dfd4bfd6089e632deff5465dd3840",
   "full_m45_complete": false,
   "checks": [
     {
       "name": "owned AP thread delay at native pressure boundary",
       "passed": true,
-      "delay_seconds": 0.15600000000267755,
+      "delay_seconds": 0.15599999998812564,
       "exit": 33,
       "expected_exit": 33,
-      "wait_halts": 14,
+      "wait_halts": 5,
       "legacy_assertion_reproduction": false
     }
   ],

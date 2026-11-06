@@ -52,3 +52,7 @@ Optional VMware qualification: `python tests/m3/vmware.py --cpus 2` creates and 
 Generated files stay under ignored `build/` and `dist/`. Public evidence redacts host user/project/temp paths. Debug paths are remapped and release artifacts scanned before publication. ISO timestamps may change image hashes; each release's manifest identifies its exact files. Never infer kernel consumption from configured guest RAM.
 
 The old planning copy is privately archived under ignored `tools/local/legacy-planning`; it is not current documentation and must not be published or returned to BrixCanvas.
+
+## M4.5 trust and hardware qualification
+
+`python tools/build/m45.py` builds the normal unsigned BIOS/UEFI preview. `python tests/m45/verify_increment.py` runs the complete implemented-profile matrix, including 23 owner-trust checks and current M3/M0 regressions. `python tools/build/secure.py` defaults to a disposable VM identity; persistent owner PFX/password/pin use and its private-staging boundary are documented in the [owner workflow](../docs/milestones/m4.5-owner-trust.md). Signing/enrollment/negative-test media stay under ignored output and never enter public preview assets. Factory trust and physical qualification remain external requirements.

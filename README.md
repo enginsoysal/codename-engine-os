@@ -2,7 +2,7 @@
 
 An independent, MIT-licensed operating system with its own UEFI loader, kernel and native user runtime. Windows 95–11 application compatibility is a long-term requirement, followed by Linux/macOS execution environments and ARM64. Those compatibility layers are not implemented yet.
 
-**M4.5 is in progress before M5:** [broader boot/hardware scope](docs/milestones/m4.5.md), [ordinary-storage/trust increment](docs/milestones/m4.5-storage.md). The [M4.5 preview 3](https://github.com/enginsoysal/codename-engine-os/releases/tag/m45-hardware-alpha.3) provides a test ISO/USB image with dual BIOS/UEFI boot and broader read-only storage, bounded USB hub trees and UAS deadline recovery; use Secure Boot disabled for these unsigned preview downloads. See [USB/filesystem scope](docs/milestones/m4.5-usb-filesystems.md). The M0–M4 completion labels below describe their bounded published test profiles, not universal hardware support.
+**M4.5 is in progress before M5:** [broader boot/hardware scope](docs/milestones/m4.5.md), [ordinary-storage/trust increment](docs/milestones/m4.5-storage.md). The [M4.5 preview 4](https://github.com/enginsoysal/codename-engine-os/releases/tag/m45-hardware-alpha.4) provides a test ISO/USB image with dual BIOS/UEFI boot and broader read-only storage, bounded USB hub trees and UAS deadline recovery; use Secure Boot disabled for these unsigned preview downloads. See the [persistent owner-signing workflow](docs/milestones/m4.5-owner-trust.md) and [USB/filesystem scope](docs/milestones/m4.5-usb-filesystems.md). The M0–M4 completion labels below describe their bounded published test profiles, not universal hardware support.
 
 **Current completed milestone: M4 — persistent storage, bounded ext2/VFS and input, within its named native virtual-device scope.** M0 established architecture/toolchain, M1 own-kernel boot, M2 protected native processes and M3 scheduling/VM/SMP. M4 adds original AHCI and xHCI drivers, a persistent native directory namespace and interactive file console. See the [status](docs/roadmap/status.md), [M4 contracts](docs/milestones/m4-contract.md) and [test evidence](evidence/M4/README.md). There is no installer, desktop or existing Windows application support yet.
 
@@ -25,18 +25,19 @@ kernel/                Core, x86-64 exceptions, memory and process mechanisms
 include/engine/        Versioned boot/native ABI and shared headers
 runtime/               Minimal freestanding memory routines
 user/                  Native ring-3 verification programs and linker layout
-tools/build/           Separate M1/M2/M3/M4 build entry points and boot-media authoring
+tools/build/           Separate M1/M2/M3/M4/M45 build entry points and boot-media authoring
 tools/vm/              Pinned VM setup and user launcher
 tests/m0/              Architecture/toolchain and Windows-host references
 tests/m1/              Original kernel-boot/parser/visual regression tools
 tests/m2/              Isolation, cleanup, low-RAM and idle tests
 tests/m3/              Scheduling, VM, SMP and resource qualification
 tests/m4/              Filesystem, DMA/IRQ, recovery and PS/2/USB input qualification
+tests/m45/             Broader boot/storage/USB and owner-trust qualification
 docs/architecture/     Design contracts and decision record
 docs/roadmap/          Milestones, current status and Windows generation inventory
 docs/milestones/       Per-milestone usage, implementation and handoff notes
 docs/releases/         Changelog and release notes
-evidence/M0..M4/       Public test reports, sanitized logs and screenshots
+evidence/M0..M4.5/       Public test reports, sanitized logs and screenshots
 build/, dist/          Generated files; ignored by Git
 tools/local/           Private/local dependencies and historical archive; ignored
 ```

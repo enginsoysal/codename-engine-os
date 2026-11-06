@@ -1,6 +1,6 @@
 """A rejected final USB port must not start an input ring on its freed context."""
 from pathlib import Path
-import argparse,json,subprocess,sys,time
+import argparse,json,re,subprocess,sys,time
 sys.path[:0]=[str(Path(__file__).resolve().parents[2]/'tools'),str(Path(__file__).resolve().parents[1]/'m3')]
 from vm import ROOT,arguments,qemu_tools
 from visual import free_port,connect
@@ -40,6 +40,12 @@ def main():
             for code in ('h','e','l','p','ret'):
                 qmp('send-key',{'keys':[{'type':'qcode','data':code}],'hold-time':10});time.sleep(.04)
             wait('fatcat N P PATH');checks.append({'name':'healthy USB keyboard remains usable after failed enumeration','passed':True})
+            for code in ('h','a','r','d','w','a','r','e','ret'):
+                qmp('send-key',{'keys':[{'type':'qcode','data':code}],'hold-time':10});time.sleep(.04)
+            wait('USB controller initialization status: 0; IRQ/event engine: active');wait('keyboard - driver bound')
+            rejected=re.findall(r'USB rejected '+('hub' if options.hub else 'root')+r'-port mask: (0x[0-9a-f]+)',log())
+            if not rejected or not any(int(value,16) for value in rejected):raise RuntimeError('Hardware inventory hid rejected USB port status')
+            checks.append({'name':'hardware inventory reports actual active xHCI and bound input topology','passed':True})
             time.sleep(1)
             if log().count('M45_USB_ATTACH_UNSUPPORTED')>1 or log().count('M45_USB_HUB_CHILD_UNSUPPORTED')>1:raise RuntimeError('Unsupported device entered an enumeration retry storm')
             registers=qmp('human-monitor-command',{'command-line':'info registers -a'})
@@ -49,5 +55,5 @@ def main():
         if process.poll() is None:process.terminate();process.wait(timeout=5)
         (out/'console.log').write_bytes(('\n'.join(line.rstrip() for line in log().splitlines())+'\n').encode())
         result={'build_id':manifest['build_id'],'checks':checks,'error':error,'full_m45_complete':False};(out/'results.json').write_bytes((json.dumps(result,indent=2)+'\n').encode());print(json.dumps(result,indent=2))
-    raise SystemExit(0 if not error and len(checks)==3 and all(c['passed'] for c in checks) else 1)
+    raise SystemExit(0 if not error and len(checks)==4 and all(c['passed'] for c in checks) else 1)
 if __name__=='__main__':main()

@@ -27,6 +27,7 @@ unsigned nvme_irq(uint64_t*);
 void nvme_diagnostics(void);
 void virtio_diagnostics(void);
 void hardware_inventory(void);
+void usb_hardware_inventory(unsigned bdf);
 unsigned ide_discover(void);
 unsigned virtio_discover(void);
 unsigned virtio_storage_irq(uint64_t*);

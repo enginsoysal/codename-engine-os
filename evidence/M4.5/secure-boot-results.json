@@ -43,24 +43,108 @@
       "passed": true,
       "exit": 69,
       "expected": "loader-reject"
+    },
+    {
+      "name": "missing-owner-pfx",
+      "passed": true
+    },
+    {
+      "name": "missing-owner-pin",
+      "passed": true
+    },
+    {
+      "name": "wrong-owner-pin",
+      "passed": true
+    },
+    {
+      "name": "wrong-owner-password",
+      "passed": true
+    },
+    {
+      "name": "failed PE signing removes temporary plaintext PFX and owner-only directory",
+      "passed": true
+    },
+    {
+      "name": "encrypted persistent owner signs changed init; same enrolled policy accepts update",
+      "passed": true,
+      "temporary_private_key_files_removed": true
+    },
+    {
+      "name": "foreign signing identity denied by existing policy",
+      "passed": true
+    },
+    {
+      "name": "old signed loader rejects changed init without regenerated signed digest",
+      "passed": true
+    },
+    {
+      "name": "foreign authenticated db update denied; PK KEK and db unchanged",
+      "passed": true
+    },
+    {
+      "name": "KEK-authorized db replacement; exact new db and unchanged PK/KEK read back",
+      "passed": true
+    },
+    {
+      "name": "new owner boots after authenticated db rotation with Secure Boot enabled",
+      "passed": true
+    },
+    {
+      "name": "retired image signer no longer boots under replacement db",
+      "passed": true
+    },
+    {
+      "name": "trusted image signer cannot replace db without KEK authority",
+      "passed": true
+    },
+    {
+      "name": "replayed authenticated db update denied; new db and authority unchanged",
+      "passed": true
+    },
+    {
+      "name": "explicit original VM policy snapshot restores original signed boot",
+      "passed": true
     }
   ],
   "provenance": {
-    "build_id": "6d25105322c20dddf03910374c8f8060",
+    "build_id": "da2dfd4bfd6089e632deff5465dd3840",
     "cryptography_version": "50.0.2",
     "signtool_sha256": "098b94694b1c30df75d872b9395e4aa1d80984b3a57e1bd88af8db0b6a8aef9a",
-    "public_certificate_sha256": "49443de1d358311d7ce6a9f322451268ff10bede34286a81f909fc2924f926d2",
-    "signed_loader_sha256": "3bbd989d67602616bd5f1975484409309687bcfe2579c4a836413f04ea20c241",
-    "kernel_sha256": "a890a602ca445edbf4f194e4c6b53a94ced3a9ce98e9a97b6f47c6d524736ffd",
-    "init_sha256": "6efd9aa749310917e1bf56f9a18c35f5db2b042fcd9dbb968da13af8e65c6886",
+    "public_certificate_sha256": "005ab5d93ac13175cf02d22bc075f277b4888f53e5bd3c83b6f78b98f45b3afa",
+    "signed_loader_sha256": "b4138c094aa0200404acf9ac8bd2f01bef8facfe21aefcdf4f5dcefbb4ecca3b",
+    "kernel_sha256": "899782d45daed01555ba6af748f1bf9cb0d99cf9d0a01b1ead8db187e264fc33",
+    "init_sha256": "a3d4534ae20f1b96513d6540ffd0586c5a8e27e67eaa3485dfdcc235849a96c9",
     "test_source_sha256": {
-      "tools/build/secure.py": "f8799c3a04cad202c000a78db9c2da87579b104862df2fe7f997e97f7d468fce",
+      "tools/build/secure.py": "be506380a12f30935da29fe76c87aa72f56f6c5d80aa1e3abd1b96824db72c6d",
       "tests/m45/firmware/enroll.c": "b9848b3179f64f5b13669206c52de5dc55763d3580f9eddfe0dba951acf18261",
-      "tests/m45/secure_boot.py": "df77baf06dad910b8b15415dc62dc1d93624ed070785e241985101c4b1351554"
+      "tests/m45/secure_boot.py": "30235bb506a1ffb634a0bb6ab19c0d81f3e6a36b50e6fcefdb4844c22fbc99eb"
     },
-    "policy": "ephemeral owner-enrolled test key; no factory trust; enroller/private key never published",
-    "secure_firmware_sha256": "32807682a9e5c0e2d192ecb6077941d4be8bcfa6b9cd6e60830c3a9f48c0555a"
+    "identity_reused": false,
+    "policy": "ephemeral VM test identity; no factory trust",
+    "secure_firmware_sha256": "32807682a9e5c0e2d192ecb6077941d4be8bcfa6b9cd6e60830c3a9f48c0555a",
+    "persistent_owner_and_rotation_sources": {
+      "tools/build/owner.py": "54023c2a31cb272d2be1dda0d2ff215f3df1d15a0df27fe5c3184c74b2a6ff48",
+      "tests/m45/policy_media.py": "97d9cfc33c2e7960119c862c5edb386b9800dda767793ef9c6860c2c9e210199",
+      "tests/m45/firmware/policy.c": "9e252a7f71b2a23a365416b16347b521be8ab379336c797fabf4440444a810b9"
+    },
+    "updated_payload": {
+      "build_id": "da2dfd4bfd6089e632deff5465dd3840",
+      "cryptography_version": "50.0.2",
+      "signtool_sha256": "098b94694b1c30df75d872b9395e4aa1d80984b3a57e1bd88af8db0b6a8aef9a",
+      "public_certificate_sha256": "005ab5d93ac13175cf02d22bc075f277b4888f53e5bd3c83b6f78b98f45b3afa",
+      "signed_loader_sha256": "2ad4eea6dd83af7d08ccf56c62a2425c2721bd99d9e1c0e32a8ff2be46323968",
+      "kernel_sha256": "899782d45daed01555ba6af748f1bf9cb0d99cf9d0a01b1ead8db187e264fc33",
+      "init_sha256": "1d640ef51327bdd2d7e958c37a5b7d1213bce73de7a2e22ef0b973f66f889767",
+      "test_source_sha256": {
+        "tools/build/secure.py": "be506380a12f30935da29fe76c87aa72f56f6c5d80aa1e3abd1b96824db72c6d",
+        "tests/m45/firmware/enroll.c": "b9848b3179f64f5b13669206c52de5dc55763d3580f9eddfe0dba951acf18261",
+        "tests/m45/secure_boot.py": "30235bb506a1ffb634a0bb6ab19c0d81f3e6a36b50e6fcefdb4844c22fbc99eb"
+      },
+      "identity_reused": true,
+      "policy": "pinned persistent owner identity"
+    },
+    "rotated_owner_certificate_sha256": "a37300225fb2eadad2b037beb975e5d67b180aa3240a76d1d86019dbaa7c6c3a"
   },
   "full_m45_complete": false,
-  "scope": "owner-enrolled disposable QEMU/OVMF trust only; no factory/OEM trust or physical qualification"
+  "scope": "persistent pinned encrypted owner, payload update and authenticated db rotation/replay/recovery in disposable QEMU/OVMF only; no factory/OEM trust or physical qualification"
 }
