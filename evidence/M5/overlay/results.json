@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "build_id": "f936d4943b43b18c116977a874a68201",
+  "guest_ram_mib": 64,
+  "overlay_cap_bytes": 524288,
+  "checks": [
+    {
+      "name": "128-page cap, 129th-page denial, reuse without allocation and exact allocator baseline after cleanup",
+      "passed": true
+    }
+  ]
+}

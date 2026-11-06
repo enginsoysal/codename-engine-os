@@ -59,10 +59,16 @@ def get(route):
 def verify(payload):
     ref = payload["source_commit"]
     home = get("/")
-    for text in ["From first boot.", "To what comes next.", "PROJECT SNAPSHOT / X86-64", "Run it in VMware", "Where is my disk?", "Meet the console"]:
+    for text in ["From first boot.", "To what comes next.", "PROJECT SNAPSHOT / X86-64", "Run it in VMware", "Recover your boot.", "Meet the console", "Before you install M5"]:
         assert text in home.text, f"Missing preferred native design: {text}"
     for fiction in ["Driftlab", "Northwind", "Book now", "Tidemark"]:
         assert fiction not in home.text, f"Template fiction remains: {fiction}"
+    for slug in ["docs-handbook-install", "docs-handbook-recovery", "docs-handbook-m5-console"]:
+        assert f"{ORIGIN}/blog/{slug}" in home.links, f"Stale homepage guide: {slug}"
+    m5 = json.loads((ROOT / "evidence/M5/acceptance-results.json").read_text(encoding="utf-8"))
+    assert m5["passed"] and m5["full_m5_complete"] and m5["scope_id"] == "M5-VM-v1"
+    for relative, digest in m5["evidence_sha256"].items():
+        assert hashlib.sha256((ROOT / "evidence/M5" / relative).read_bytes()).hexdigest() == digest, relative
 
     def check_article(post):
         route = "/blog/" + post["slug"]
@@ -75,6 +81,7 @@ def verify(payload):
             assert expected in page.links, f"Wrong source commit: {route}"
         if post["slug"] == "downloads":
             assert ISO_SHA in page.text, "Final ISO checksum is not visible"
+            assert m5["iso_sha256"] in page.text, "Current M5 ISO checksum is not visible"
             expected_links = Page()
             for block in post["blocks"]:
                 expected_links.feed(block.get("props", {}).get("html", ""))
@@ -96,7 +103,9 @@ def verify(payload):
             "native_articles": len(articles), "article_source_commit": ref, "english_html_language": True,
             "external_website_iframes": 0, "anonymous_https": True, "preferred_homepage_design": True,
             "m45_scope": "M45-VM-v1", "frozen_evidence_hashes_verified": len(acceptance["evidence_sha256"]),
-            "iso_sha256": ISO_SHA, "automatic_sync_evidence": "evidence/documentation/github-sync-results.json",
+            "m45_iso_sha256": ISO_SHA, "m5_iso_sha256": m5["iso_sha256"], "m5_scope": "M5-VM-v1",
+            "m5_evidence_hashes_verified": len(m5["evidence_sha256"]),
+            "automatic_sync_evidence": "evidence/documentation/github-sync-results.json",
             "articles": articles}
 
 

@@ -46,13 +46,13 @@ def stages(work,kernel,init,sector_bytes=512,stage_lba=64,kernel_lba=128,video_m
     if len(mbr)!=512 or mbr[510:]!=b'\x55\xaa' or len(stage2)>32768:raise RuntimeError('BIOS stage bounds')
     return mbr,stage2+bytes(32768-len(stage2)),raw,defines
 
-def dual_media(build):
+def dual_media(build,milestone='M45'):
     build=Path(build);work=build/'bios';kernel=(build/'KERNEL.ELF').read_bytes();init=(build/'INIT.BIN').read_bytes();fat=(build/'normal/efi-fat.img').read_bytes();dist=ROOT/'dist';work.mkdir(parents=True,exist_ok=True)
     mbr,stage2,raw,usb_config=stages(work/'usb',kernel,init)
-    usb=gpt(fat,'Engine OS M45',first=8192,bios=(mbr,stage2,raw));(dist/'EngineOS-M45-usb.img').write_bytes(usb)
+    usb=gpt(fat,'Engine OS '+milestone,first=8192,bios=(mbr,stage2,raw));(dist/('EngineOS-'+milestone+'-usb.img')).write_bytes(usb)
     placeholder,cd_stage,cd_raw,ignored=stages(work/'cd-layout',kernel,init,2048,1,17);blob=placeholder+bytes(1536)+cd_stage+cd_raw;boot_file=work/'bios-cd.img';boot_file.write_bytes(blob)
-    iso=pycdlib.PyCdlib();iso.new(interchange_level=3,vol_ident='ENGINE_OS_M45');iso.add_file(str(boot_file),iso_path='/BIOS.IMG;1');iso.add_file(str(build/'normal/efi-fat.img'),iso_path='/EFI.IMG;1');iso.add_eltorito('/BIOS.IMG;1',platform_id=0,boot_load_size=4);iso.add_eltorito('/EFI.IMG;1',platform_id=0xef,efi=True,boot_load_size=1)
-    target=dist/'EngineOS-M45.iso';iso.write(str(target));iso.close();reader=pycdlib.PyCdlib();reader.open(str(target));extent=reader.get_record(iso_path='/BIOS.IMG;1').extent_location();reader.close()
+    iso=pycdlib.PyCdlib();iso.new(interchange_level=3,vol_ident='ENGINE_OS_'+milestone);iso.add_file(str(boot_file),iso_path='/BIOS.IMG;1');iso.add_file(str(build/'normal/efi-fat.img'),iso_path='/EFI.IMG;1');iso.add_eltorito('/BIOS.IMG;1',platform_id=0,boot_load_size=4);iso.add_eltorito('/EFI.IMG;1',platform_id=0xef,efi=True,boot_load_size=1)
+    target=dist/('EngineOS-'+milestone+'.iso');iso.write(str(target));iso.close();reader=pycdlib.PyCdlib();reader.open(str(target));extent=reader.get_record(iso_path='/BIOS.IMG;1').extent_location();reader.close()
     mbr,cd_stage,cd_raw,cd_config=stages(work/'cd',kernel,init,2048,extent+1,extent+17);final=mbr+bytes(1536)+cd_stage+cd_raw
     if len(final)!=len(blob):raise RuntimeError('BIOS CD layout changed')
     with target.open('r+b') as f:f.seek(extent*2048);f.write(final)

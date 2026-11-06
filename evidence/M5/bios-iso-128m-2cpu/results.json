@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "build_id": "f936d4943b43b18c116977a874a68201",
+  "iso_sha256": "bee3a1e1000429646e6c8102d435db41485dc294f4914c57db0dd76967a5b403",
+  "firmware": "bios",
+  "media": "iso",
+  "ram_mib": 128,
+  "cpus": 2,
+  "checks": [
+    {
+      "name": "live volatile filesystem writes and reads",
+      "passed": true
+    },
+    {
+      "name": "confirmation and cancellation leave whole disk unchanged",
+      "passed": true
+    },
+    {
+      "name": "native GPT/EFI/ext2 install, byte readback and idle CPU halt",
+      "passed": true
+    },
+    {
+      "name": "bounded managed/image memory and actual idle QEMU CPU interval",
+      "passed": true,
+      "managed_retained_bytes": 200704,
+      "managed_peak_bytes": 466944,
+      "boot_reserved_bytes": 1548288,
+      "idle_wall_seconds": 2.0,
+      "idle_host_cpu_seconds": 0.015625,
+      "idle_one_cpu_percent": 0.78125
+    },
+    {
+      "name": "independent primary/backup GPT CRC, FAT kernel SHA256, BIOS raw-kernel bytes and ext2 graph",
+      "passed": true
+    },
+    {
+      "name": "media detached, fresh firmware installed boot and durable file after second boot",
+      "passed": true
+    },
+    {
+      "name": "same-build boot repair preserves entire native data partition and boots without media",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

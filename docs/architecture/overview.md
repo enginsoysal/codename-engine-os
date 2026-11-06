@@ -49,7 +49,7 @@ Kernel authorization must use object identity and explicit rights, not string al
 
 UEFI loads the original PE32+ loader. It validates firmware tables and a restricted ELF64 kernel, records allocations, loads a build-bound manifest, obtains a final memory map and exits boot services with bounded stale-key retry. Assembly adapts the MS-x64 caller to System V kernel entry, changes stack/page tables and establishes a GDT. Kernel diagnostics use direct serial/framebuffer access thereafter.
 
-USB GPT/FAT32 and optical EFI El Torito are distinct tested media. Live/installed/recovery should share the same kernel. A real installer, persistent system image, update activation and rollback are M5 work. Normal public media remain unsigned. M4.5 separately qualifies an owner-enrolled VM trust chain with a signed loader and SHA-256-pinned external payloads; factory trust and physical owner enrollment remain open.
+USB GPT/FAT32 and optical El Torito are distinct tested media. M5 live/installed/recovery share the original kernel source with different embedded payloads. Native installation, persistent files and same-build boot repair are implemented; arbitrary update/rollback and atomic activation remain future work. Normal public media remain unsigned. M4.5 separately qualifies an owner-enrolled VM trust chain; this does not authenticate the public unsigned M5 release or establish factory trust.
 
 ## Graphics and hardware
 
@@ -71,4 +71,4 @@ The completed M45-VM-v1 build adds an original BIOS EDD/E820/VBE path beside UEF
 
 The shared original M45 USB stack is organized under `kernel/usb/`. Eight lazily allocated device contexts bound hub/HID/storage state. Class-9 hub routing, child-before-parent retirement and generation-tagged disk readers protect reconnect lifetime. Read-only UAS adds high-speed Ready/Sense and SuperSpeed stream handling with bounded command abort before DMA reclamation. See [protocol, memory and qualification boundaries](../milestones/m4.5-usb-topology.md).
 
-M4.5 completion is governed by the [user-approved VM contract](../milestones/m4.5-scope.json) and [fresh acceptance](../../evidence/M4.5/acceptance-results.json). Physical hardware, factory trust and production key operations remain separate unqualified tracks. M5 installation has not started.
+M4.5 completion is governed by the [user-approved VM contract](../milestones/m4.5-scope.json) and [fresh acceptance](../../evidence/M4.5/acceptance-results.json). Physical hardware, factory trust and production key operations remain separate unqualified tracks. M5 implements native installation and same-build boot recovery under its separate [VM contract](../milestones/m5.md); general updates and automatic rollback remain future work.

@@ -3,6 +3,10 @@
 #ifdef ENGINE_M45
 #include <engine/storage.h>
 #endif
+#ifdef ENGINE_M5
+#include <engine/m5.h>
+#include <engine/m5_volume.h>
+#endif
 static uint8_t record[512];
 static int valid_record(void){uint32_t length,crc;memcpy(&length,record+16,4);memcpy(&crc,record+508,4);return !memcmp(record,M4_RECORD,8)&&length<=120&&crc==m4_crc(record,508);}
 static unsigned load(void){unsigned s=block_read(1,record);if(s)return s;return valid_record()?B_OK:B_IO;}
@@ -33,6 +37,10 @@ NORETURN void m4_start(const os_boot_info_v0 *boot,unsigned mode){
     unsigned usb=usb_init();
 #endif
     page_stats memory=pages_stats();serial_text("M4_MEMORY retained_owned_bytes=");serial_hex(memory.current_pages*4096);serial_text(" peak_owned_bytes=");serial_hex(memory.peak_pages*4096);serial_text("\n");
+    #ifdef ENGINE_M5
+    s=m5_volume_start();
+    if(mode==7){extern unsigned m5_overlay_test(void);unsigned result=s?s:m5_overlay_test();serial_text(result?"M5_OVERLAY_FAIL\n":"M5_OVERLAY_PASS\n");test_exit(result?0x32:0x10);}
+    #endif
     unsigned filesystem=s?F_IO:fs_mount();serial_text("M4_FS_MOUNT status=");serial_hex(filesystem);serial_text("\n");
 #ifdef ENGINE_M45
     if(mode==6){extern unsigned ext_selftest(void);console_begin(boot);storage_inventory();if(ext_selftest()){serial_text("M45_EXT2_READ_FAIL\n");test_exit(0x32);}serial_text("M45_EXT2_READ_PASS\n");test_exit(0x10);}
@@ -47,9 +55,19 @@ NORETURN void m4_start(const os_boot_info_v0 *boot,unsigned mode){
         serial_text("M4_STORAGE_PASS generation=");serial_hex(after);block_info i=block_stats();serial_text(" commands=");serial_hex(i.commands);serial_text(" dma_bytes=");serial_hex(i.dma_pages*4096);serial_text(" irqs=");serial_hex(i.irqs);serial_text(" wait_halts=");serial_hex(i.wait_halts);serial_text("\n");test_exit(0x10);
     }
 #endif
-    console_begin(boot);console_text("Own kernel storage and interrupt-driven input.\n");
+    console_begin(boot);
+#ifdef ENGINE_M5
+    m5_welcome();
+#endif
+    console_text("Own kernel storage and interrupt-driven input.\n");
 #ifdef ENGINE_M45
-    storage_inventory();console_text(filesystem?"No writable development filesystem mounted. Disks remain inspectable.\n":"Ext2 development volume mounted.\n");console_text("Use disks, parts N and hardware to inspect devices.\n");
+    storage_inventory();
+#ifdef ENGINE_M5
+    console_text(filesystem?"Native filesystem unavailable or read-only. Repair boot does not repair damaged user data.\n":"Native filesystem mounted; volume shows its persistence mode.\n");
+#else
+    console_text(filesystem?"No writable development filesystem mounted. Disks remain inspectable.\n":"Ext2 development volume mounted.\n");
+#endif
+    console_text("Use disks, parts N and hardware to inspect devices.\n");
 #else
     console_text(s?"No marked data disk. Storage writes disabled.\n":"Validated disposable data volume ready.\n");
 #endif
@@ -72,10 +90,16 @@ NORETURN void m4_start(const os_boot_info_v0 *boot,unsigned mode){
             if(overflow)console_text("Command too long.\n");
             else if(equal(line,"help")){console_text("help info show store TEXT sync halt\nls PATH | cat PATH | mkdir PATH | rm PATH\nwrite PATH TEXT | mv FROM TO\n");
 #ifdef ENGINE_M45
+                #ifdef ENGINE_M5
+                console_text("plan N | install N ERASE-SECTORS | cancel\nrepairplan N | repair N REPAIR-SECTORS | volume\n");
+                #endif
                 console_text("disks | hardware | parts N | fatls N P | fatcat N P PATH\nextls N P PATH | extcat N P PATH\n");
 #endif
             }
 #ifdef ENGINE_M45
+            #ifdef ENGINE_M5
+            else if(m5_command(line)){}
+            #endif
             else if(equal(line,"disks"))storage_inventory();
             else if(equal(line,"hardware"))hardware_inventory();
             else if(length>6&&!memcmp(line,"parts ",6)){unsigned n=0,i=6;while(line[i]>='0'&&line[i]<='9'&&n<STORAGE_MAX)n=n*10+(unsigned)(line[i++]-'0');unsigned status=line[i]?B_DENIED:storage_partitions(n);console_text("Partition status: ");console_decimal(status);console_text("\n");}

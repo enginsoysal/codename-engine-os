@@ -23,8 +23,8 @@ export function nativeDesign(){
    text('PROJECT SNAPSHOT / X86-64',10,'#90a6b8',{letterSpacing:'1.5px',py:10}),
    heading('CODENAME: ENGINE OS',18,'#e4edf1',{py:12}),
    text('Original kernel · BIOS + UEFI boot',13,'#35ceba'),
-   text('Diagnostic console · VM-qualified scope',12,'#90a6b8'),
-   b('code',{code:'engine> help\ndisks / parts N\nhardware / info'}),
+   text('M5 installer · Persistent files · VM scope',12,'#90a6b8'),
+   b('code',{code:'engine> disks\nplan N / install N ERASE-SECTORS\nvolume / repairplan N'}),
  ]],{bg:{kind:'color',color:dark},border:1,borderColor:'#35ceba',radius:4,padY:18,minH:320,valign:'center'});
  const hero=layout([[
    text('THE ENGINE OS KNOWLEDGE BASE',11,teal,{letterSpacing:'1.6px',weight:600,py:12}),
@@ -37,9 +37,9 @@ export function nativeDesign(){
  hero.props.columns[0].children.at(-1).props.columns[0].width=60;
  hero.props.columns[0].children.at(-1).props.columns[1].width=40;
  const cards=layout([
-   card('01 / FIRST BOOT','Run it in VMware','Download the ISO, choose the VM settings, and know what to expect on screen.','Open the setup guide ↗','docs-releases-m45-v0-4-5'),
-   card('02 / STORAGE','Where is my disk?','SATA versus SCSI, blank disks, and the safe setup for a new 20-GB test disk.','Troubleshoot storage ↗','docs-handbook-vmware-storage'),
-   card('03 / COMMANDS','Meet the console','Learn what each command does and which operations are available today.','Read the command reference ↗','docs-handbook-console'),
+   card('01 / FIRST BOOT','Run it in VMware','Download the ISO, choose the VM settings, and know what to expect on screen.','Open the setup guide ↗','docs-handbook-install'),
+   card('02 / RECOVERY','Recover your boot.','Missing disks, failed copies, and same-build boot repair that preserves initialized native data.','Open recovery guide ↗','docs-handbook-recovery'),
+   card('03 / COMMANDS','Meet the console','Learn what each command does and which operations are available today.','Read the command reference ↗','docs-handbook-m5-console'),
  ],{bg:{kind:'color',color:'#ffffff'},border:1,borderColor:'#dbe3e6',divided:true,ruleColor:'#dbe3e6',radius:4,padY:24});
  cards.props.columns.forEach(column=>{column.width=100/3;});
  const bottom=layout([[
@@ -54,7 +54,7 @@ export function nativeDesign(){
  bottom.props.columns.forEach(column=>{column.width=50;});
  const main=layout([[
    hero,heading('A good place to start',27,ink,{py:24}),cards,
-   b('alert',{variant:'warning',title:'Before you boot M4.5',text:'This VM-scoped release has no installer, desktop, partition creator or Windows app support. Use Secure Boot disabled for the public unsigned ISO. Read the current scope and VMware guide before testing.'}),bottom,
+   b('alert',{variant:'warning',title:'Before you install M5',text:'Use a new disposable SATA disk and disable Secure Boot. The text installer creates a 64-MiB EFI partition and a 16-MiB native data volume; other capacity stays unallocated. No desktop or Windows app support yet. Read the installation guide before confirming a target.'}),bottom,
  ]],{bg:{kind:'color',color:paper},padY:12});
  const footer=b('socialcircles',{copyright:'Codename: Engine OS / MIT licensed · Documentation & releases on GitHub',bg:paper,circleBg:teal,items:[{label:'github',href:'https://github.com/enginsoysal/codename-engine-os'},{label:'website',href:`${site}/blog/documentation`}]});
  return [header,status,main,footer];

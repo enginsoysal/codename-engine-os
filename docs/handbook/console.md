@@ -1,5 +1,7 @@
 # M4.5 console commands
 
+**Historical M4.5 guide.** For the current installer use the [M5 installation tutorial](install.md), [commands](m5-console.md) and [recovery](recovery.md).
+
 Commands are case-sensitive. Type `help` for the available syntax. `disk` and `storage` are not commands; use `disks`. There is no partition-create, format or install command in this release.
 
 ## Ordinary disk inspection

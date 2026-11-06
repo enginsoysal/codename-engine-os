@@ -1,4 +1,7 @@
 #include <engine/fs.h>
+#ifdef ENGINE_M5
+#include <engine/m5_volume.h>
+#endif
 #define BS 4096u
 static uint8_t super[1024],group[512],bmap[4096],imap[4096],scratch[4096],seen_blocks[512],seen_inodes[64];
 static unsigned mounted,readonly=1;

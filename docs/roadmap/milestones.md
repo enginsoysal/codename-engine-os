@@ -62,7 +62,7 @@ The implemented acceptance profile and explicit limits are in the [M4 contract](
 
 **How/why:** reuse the same kernel/drivers; start with a text installer if appropriate. Show exact target/change plan before writing; preflight capacity/driver support; verify copied content and boot registration. Use a separate blank virtual disk first; dual boot is an additional test package.
 
-**Acceptance:** start ISO/USB live, install, detach media, boot installed disk, cancel before writes, handle copy failure and demonstrate recovery. **Risk:** first-install success does not prove atomic updates; non-journaled storage needs an explicit integrity boundary. No simulated install screen counts.
+**Acceptance:** start ISO/USB live, install, detach media, boot installed disk, cancel before writes, handle copy failure and demonstrate recovery. **Risk:** first-install success does not prove atomic updates; non-journaled storage needs an explicit integrity boundary. No simulated install screen counts. See the [M5 implementation](../milestones/m5.md), [installation tutorial](../handbook/install.md) and [acceptance](../../evidence/M5/acceptance-results.json) for actual runtime behavior and exact limits.
 
 ## M6 — desktop, network and downloads
 

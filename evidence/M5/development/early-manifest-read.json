@@ -1,0 +1,36 @@
+{
+  "passed": false,
+  "build_id": "f936d4943b43b18c116977a874a68201",
+  "iso_sha256": "ea8c04a301e38059d6e8f93510acc0a3ffa17b694b036a8d69829f9adedea6bd",
+  "firmware": "uefi",
+  "media": "iso",
+  "ram_mib": 128,
+  "cpus": 2,
+  "checks": [
+    {
+      "name": "live volatile filesystem writes and reads",
+      "passed": true
+    },
+    {
+      "name": "confirmation and cancellation leave whole disk unchanged",
+      "passed": true
+    },
+    {
+      "name": "native GPT/EFI/ext2 install, byte readback and idle CPU halt",
+      "passed": true
+    },
+    {
+      "name": "bounded managed/image memory and actual idle QEMU CPU interval",
+      "passed": true,
+      "managed_retained_bytes": 200704,
+      "managed_peak_bytes": 466944,
+      "boot_reserved_bytes": 1499136,
+      "idle_wall_seconds": 2.0160000000032596,
+      "idle_host_cpu_seconds": 0.03125,
+      "idle_one_cpu_percent": 1.5500992063467
+    }
+  ],
+  "errors": [
+    "Traceback (most recent call last):\n  File \"<project-root>\\tests\\m5\\vm.py\", line 122, in main\n    checks.append(inspect_disk(disk,manifest))\n  File \"<project-root>\\tests\\m5\\vm.py\", line 33, in inspect_disk\n    content=bytes(content[:length]);assert hashlib.sha256(content).hexdigest()==manifest['installed_kernel_sha256']\nKeyError: 'installed_kernel_sha256'\n"
+  ]
+}

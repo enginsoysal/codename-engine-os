@@ -1,5 +1,7 @@
 # VMware storage: why a blank disk does not appear
 
+**Historical M4.5 guide.** For the current installer use the [M5 installation tutorial](install.md), [commands](m5-console.md) and [recovery](recovery.md).
+
 ## Disk discovery comes before partitions
 
 A disk with no partition table must still appear under `disks` when its controller is supported and a first-sector read succeeds. For a 20-GiB disk, M4.5 prints approximately `20480 MiB` and its logical sector size. `parts N` then reports no MBR/GPT table. An empty partition table is different from an undetected disk.

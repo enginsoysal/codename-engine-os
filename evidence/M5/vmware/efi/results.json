@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "firmware": "efi",
+  "build_id": "f936d4943b43b18c116977a874a68201",
+  "iso_sha256": "bee3a1e1000429646e6c8102d435db41485dc294f4914c57db0dd76967a5b403",
+  "vmware": {
+    "version": "26.0.1",
+    "build": "25688693"
+  },
+  "existing_vm_inventory_unchanged": true,
+  "checks": [
+    {
+      "name": "final public ISO native COM1 plan and SATA install",
+      "passed": true
+    },
+    {
+      "name": "fresh VMware firmware with ISO absent, two installed boots and durable file",
+      "passed": true
+    },
+    {
+      "name": "same-build repair retains entire data partition; media-detached recovered boot",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

@@ -75,3 +75,16 @@ unsigned block_init(void){
     for(unsigned bus=0;bus<256;++bus)for(unsigned dev=0;dev<32;++dev){unsigned first=(bus<<8)|(dev<<3);if((pci(first,0)&65535)==65535)continue;unsigned functions=(pci(first,12)&0x800000)?8:1;for(unsigned f=0;f<functions;++f)if((pci(first|f,8)>>8)==0x010601){unsigned s=bind(first|f);if(s){serial_text("M45_AHCI_BIND_FAILED status=");serial_hex(s);serial_text("\n");}}}
     if(selected!=UINT32_MAX)return selected_ready();return disk_count?B_DENIED:B_ABSENT;
 }
+#ifdef ENGINE_M5
+/* Internal installer transport: callers authorize the target and constrain ranges. */
+unsigned m5_sata_transfer(unsigned context,uint64_t lba,void *data,unsigned bytes,unsigned write){
+    if(context>=disk_count||!data||(bytes!=512&&bytes!=4096)||devices[context].disk.sector_bytes!=512||
+       !devices[context].disk.readable||lba>=devices[context].disk.sectors||bytes/512>devices[context].disk.sectors-lba)return B_DENIED;
+    unsigned status=activate(context);controller *c=&controllers[devices[context].controller];
+    if(!status&&write)memcpy((void*)(uintptr_t)c->bounce,data,bytes);
+    if(!status)status=command(write?0x35:0x25,lba,bytes);
+    if(!status){if(write)++info.writes;else{memcpy(data,(void*)(uintptr_t)c->bounce,bytes);++info.reads;}}
+    return status;
+}
+unsigned m5_sata_flush(unsigned context){if(context>=disk_count)return B_DENIED;unsigned s=activate(context);if(!s)s=command(0xea,0,0);if(!s)++info.flushes;return s;}
+#endif

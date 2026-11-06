@@ -1,5 +1,9 @@
 # Changelog
 
+## M5 v0.5.0 — 2026-11-06
+
+Native BIOS/UEFI live installation to a blank SATA target: confirmed GPT/ESP/16-MiB native-volume setup, verified placement, media-detached boot and durable files. Bounded live overlay, same-build boot repair and failed-copy resume. English installation/recovery tutorials and command reference. No desktop, Windows apps, general upgrades/rollback or power-loss atomicity. [Release notes](m5-v0.5.0.md), [scope and evidence](../milestones/m5.md).
+
 ## 2026-11-06 — native BrixCanvas website correction
 
 - Build the website in the owner's BrixCanvas workspace at `engineos.brixcanvas.com`, using native editable Brix and article content. Remove the incorrectly introduced separate-hosting workflow and restore original BrixCanvas Front Door route settings.

@@ -8,13 +8,13 @@
 - `tools/vm/config.py`: shared pinned QEMU setup.
 - `tools/build/m3.py`: preserved M3 native scheduling/VM/SMP regression media.
 - `tools/build/m4.py`: M4 AHCI/ext2/input media and version-2 filesystem template.
-- `tools/vm/run.py`: M45 user launcher; select earlier milestones explicitly.
-- `tests/m0` through `tests/m45`: per-milestone verification.
+- `tools/vm/run.py`: M5 user launcher; select earlier milestones explicitly.
+- `tests/m0` through `tests/m5`: per-milestone verification.
 
 ```powershell
-python tools/build/m45.py
-python tools/vm/run.py
-python tests/m45/verify.py
+python tools/build/m5.py
+python tools/vm/run.py --create-install-disk
+python tests/m5/verify.py
 ```
 
 Run from the repository root. The latest launcher defaults to two vCPUs and 128 MiB; `--cpus 1`, `2` or `4`, `--ram 64`, `--usb`, `--headless`, `--debug` and `--qemu-dir` are available. See [M2](../docs/milestones/m2.md) and the [M3](../docs/milestones/m3.md). No host disk or directory is exposed. Debugger ports bind loopback only.
@@ -56,3 +56,9 @@ The old planning copy is privately archived under ignored `tools/local/legacy-pl
 ## M4.5 trust and hardware qualification
 
 `python tools/build/m45.py` builds the normal unsigned BIOS/UEFI milestone media. `python tests/m45/verify.py` runs the complete implemented-profile matrix, including 23 owner-trust checks and current M3/M0 regressions. `python tools/build/secure.py` defaults to a disposable VM identity; persistent owner PFX/password/pin use and its private-staging boundary are documented in the [owner workflow](../docs/milestones/m4.5-owner-trust.md). Signing/enrollment/negative-test media stay under ignored output and never enter public release assets. Factory trust, production key operations and physical qualification remain separate unqualified follow-ups, outside the user-approved M45-VM-v1 completion contract.
+
+## M5 live/install/recovery
+
+`python tools/build/m5.py` builds the live ISO/USB and embedded installed system. `python tools/vm/run.py --create-install-disk` attaches a new/reused disposable 256-MiB image under ignored build output. The guest still requires `plan N` and exact confirmation. After success, `python tools/vm/run.py --create-install-disk --installed` boots that disk with no installation media. An explicitly supplied `--data-disk` is writable in M5; use disposable image files only. M45 retains its snapshot behavior.
+
+`python tests/m5/verify.py` builds and runs the exact native VM acceptance matrix. `--no-build` runs gates against the current build; `--collect` refuses missing/stale/failed reports and checks every source/artifact hash. It includes native failure/recovery and low-RAM tests, headless owned VMware EFI/BIOS installation through COM1, and repository documentation checks. Existing VMs are inventoried and left untouched. These tests use regular generated image files, never physical disks. [M5 contract](../docs/milestones/m5.md), [installation](../docs/handbook/install.md), [recovery](../docs/handbook/recovery.md).

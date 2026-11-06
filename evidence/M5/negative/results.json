@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "build_id": "f936d4943b43b18c116977a874a68201",
+  "checks": [
+    {
+      "name": "nonblank refused; entire disk hash unchanged",
+      "passed": true
+    },
+    {
+      "name": "undersize refused; entire disk hash unchanged",
+      "passed": true
+    },
+    {
+      "name": "injected real SATA write EIO: no completion, live console survives",
+      "passed": true
+    },
+    {
+      "name": "incomplete first install resumes from live ISO and boots usable data volume",
+      "passed": true
+    },
+    {
+      "name": "multiple eligible SATA disks refuse persistent mount; both disk hashes unchanged",
+      "passed": true
+    },
+    {
+      "name": "confirmation cannot redirect an outstanding plan to another disk",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

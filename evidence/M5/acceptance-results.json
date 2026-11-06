@@ -1,0 +1,117 @@
+{
+  "passed": true,
+  "full_m5_complete": true,
+  "scope_id": "M5-VM-v1",
+  "physical_qualified": false,
+  "factory_trust_qualified": false,
+  "gates": [
+    {
+      "script": "tests/m5/vm.py",
+      "arguments": [],
+      "evidence": "uefi-iso-128m-2cpu/results.json",
+      "passed": true,
+      "checks": 7
+    },
+    {
+      "script": "tests/m5/vm.py",
+      "arguments": [
+        "--firmware",
+        "bios"
+      ],
+      "evidence": "bios-iso-128m-2cpu/results.json",
+      "passed": true,
+      "checks": 7
+    },
+    {
+      "script": "tests/m5/vm.py",
+      "arguments": [
+        "--media",
+        "usb",
+        "--ram",
+        "64",
+        "--cpus",
+        "1"
+      ],
+      "evidence": "uefi-usb-64m-1cpu/results.json",
+      "passed": true,
+      "checks": 7
+    },
+    {
+      "script": "tests/m5/vm.py",
+      "arguments": [
+        "--firmware",
+        "bios",
+        "--media",
+        "usb",
+        "--cpus",
+        "4"
+      ],
+      "evidence": "bios-usb-128m-4cpu/results.json",
+      "passed": true,
+      "checks": 7
+    },
+    {
+      "script": "tests/m5/overlay.py",
+      "arguments": [],
+      "evidence": "overlay/results.json",
+      "passed": true,
+      "checks": 1
+    },
+    {
+      "script": "tests/m5/negative.py",
+      "arguments": [],
+      "evidence": "negative/results.json",
+      "passed": true,
+      "checks": 6
+    },
+    {
+      "script": "tests/m5/vmware.py",
+      "arguments": [],
+      "evidence": "vmware/efi/results.json",
+      "passed": true,
+      "checks": 3
+    },
+    {
+      "script": "tests/m5/vmware.py",
+      "arguments": [
+        "--firmware",
+        "bios"
+      ],
+      "evidence": "vmware/bios/results.json",
+      "passed": true,
+      "checks": 3
+    },
+    {
+      "script": "tests/check_repository.py",
+      "arguments": [
+        "--milestone",
+        "M5"
+      ],
+      "evidence": "repository-results.json",
+      "passed": true,
+      "checks": 5
+    }
+  ],
+  "build_id": "f936d4943b43b18c116977a874a68201",
+  "iso_sha256": "bee3a1e1000429646e6c8102d435db41485dc294f4914c57db0dd76967a5b403",
+  "gate_count": 9,
+  "scope_contract_sha256": "9cda8372384c1b07b0fa28da9344e2f0cd490e3b9c9d168aaa16317d89446f3c",
+  "limits": [
+    "x86-64 VM profile; unsigned BIOS/UEFI ISO and USB, SATA/AHCI 512-byte install targets only",
+    "16 MiB bounded persistent ext2 native volume, 48 KiB file limit; remaining target space unallocated",
+    "Live copy-on-write overlay capped at 128 pages (512 KiB); no host swap",
+    "Same-build boot repair preserves the complete data partition; no dual boot, in-place upgrade or atomic power-loss guarantee",
+    "Windows 95\u201311 compatibility remains planned; no Win32 loader, desktop or network stack"
+  ],
+  "evidence_sha256": {
+    "uefi-iso-128m-2cpu/results.json": "07a3fd392cf727ae1158dc2eae7561af7bb16437bc3fbd7350f33c2553edc4d6",
+    "bios-iso-128m-2cpu/results.json": "c5a073b11cc29dae050869d5b552b50c4db7df5f72195965fffa8a019bcf0704",
+    "uefi-usb-64m-1cpu/results.json": "c3d256c114098c6f8cfde653be9a21603405a36ea05bf56336f25ff174e40543",
+    "bios-usb-128m-4cpu/results.json": "d0beb7c42a537f2d361b45990a0ab7ad1d523798e9564c76fb8f2e286800edcc",
+    "overlay/results.json": "fe92b05488337a02cb74f4d6caf8ad8b6b8d04c3554e602679465b856488a1c0",
+    "negative/results.json": "574ce5eff5b4b5a71eb8ec554bbc2274d79e99cf9c71cbb420bfba473f8a4a0d",
+    "vmware/efi/results.json": "90b48c6ad79b03488554a57b78b5d22cb715f3bdfc4845f2ba233fddc99fe972",
+    "vmware/bios/results.json": "204b6397609caf60002df70a0db2e3dbb3ab18434bf24781ef5f88f611c3dfde",
+    "repository-results.json": "7782b6665a3efddc20510cbb378851780a98de46c83900443d8c420f6d0dc32c"
+  }
+}

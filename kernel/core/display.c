@@ -77,7 +77,11 @@ void display_boot(const os_boot_info_v0 *boot) {
     text(40,210,"OWN KERNEL - UEFI SERVICES STOPPED",2,0xffffff);
 #endif
     text(40,254,"WINDOWS 95-11: PLANNED",2,0x93aabe);
+#ifdef ENGINE_M5
+    text(40,296,"LIVE INSTALL RECOVERY: STARTING",2,0x93aabe);
+#else
     text(40,296,"NO INSTALLER YET",2,0x93aabe);
+#endif
 }
 void kernel_panic_screen(void) {if(screen&&screen->framebuffer.byte_length)text(40,350,"KERNEL PANIC - SEE SERIAL LOG",2,0xff7070);}
 #ifdef ENGINE_M2
@@ -109,7 +113,12 @@ void display_m2_result(unsigned failures,uint64_t peak,uint64_t retained,unsigne
     text(40,370,"PEAK MANAGED RAM KIB:",2,0x93aabe);number(340,370,peak/1024);
     text(40,410,"RETAINED MANAGED RAM KIB:",2,0x93aabe);number(360,410,retained/1024);
     text(40,450,"IDLE: CPU HALTED - NO POLLING",2,0x39d5bb);
-    text(40,490,"WINDOWS 95-11: PLANNED",2,0x93aabe);text(40,530,"NO INSTALLER YET",2,0x93aabe);
+    text(40,490,"WINDOWS 95-11: PLANNED",2,0x93aabe);
+#ifdef ENGINE_M5
+    text(40,530,"STARTING M5 LIVE / INSTALL / RECOVERY",2,0x93aabe);
+#else
+    text(40,530,"NO INSTALLER YET",2,0x93aabe);
+#endif
 }
 #endif
 
@@ -119,7 +128,9 @@ void display_console_setup(void){
     uint32_t bg=color(0x101d2b),accent=color(0x39d5bb);
     for(unsigned y=0;y<screen->framebuffer_height;++y){volatile uint32_t *p=(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)y*screen->framebuffer_stride_bytes);for(unsigned x=0;x<screen->framebuffer_width;++x)p[x]=y<8?accent:bg;}
     text(16,26,"CODENAME: ENGINE OS",3,0xffffff);
-#ifdef ENGINE_M45
+#if defined(ENGINE_M5)
+    text(16,76,"M5 LIVE / INSTALL / RECOVERY",2,0x39d5bb);text(16,112,"HELP / PLAN N / VOLUME - TEXT INSTALLER",2,0x93aabe);
+#elif defined(ENGINE_M45)
     text(16,76,"M4.5 DEVICE AND FILE CONSOLE",2,0x39d5bb);text(16,112,"DISKS / PARTS N / HELP - NO INSTALLER",2,0x93aabe);
 #else
     text(16,76,"M4 FILESYSTEM AND USB CONSOLE",2,0x39d5bb);text(16,112,"HELP FOR COMMANDS - NO INSTALLER YET",2,0x93aabe);
