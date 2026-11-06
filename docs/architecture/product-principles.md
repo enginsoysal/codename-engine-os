@@ -25,3 +25,7 @@ Guidance must not require a heavyweight GUI stack or a polling input loop. Bound
 ## Current product delivery order
 
 The owner revision of 6 November 2026 sets M6 real product installation, M7 real desktop experience, then M8 original MS-DOS and Windows 1.x through Windows 11 application compatibility. M6 is in progress with its initial capacity planner; M7 and M8 are not started. Previous milestone evidence remains bounded historical proof. Engine OS remains the product name. Convenience, optional diagnostics, distribution freedom and measured CPU/RAM use apply to every stage. See [the current contracts](../roadmap/milestones.md).
+
+## Graphical setup and removable optional apps
+
+M6 requires a native graphical wizard with Back/Next/Finish, retained editable choices, simple defaults and optional advanced details. Extensive customization must have implemented effects. Optional apps must not be dependencies of base services or the desktop; removing Calculator must leave unrelated functions usable. Required components need explicit dependency handling or a verified replacement. See [component boundaries](components.md) and [wizard design](../handbook/installer-design.md). The browser preview is not native implementation evidence.

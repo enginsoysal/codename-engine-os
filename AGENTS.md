@@ -14,6 +14,7 @@
 ## Product requirements
 
 - Convenience and user friendliness are acceptance requirements from the first boot. Ordinary install/repair tasks must use guided choices, clear review/cancel, readable errors and optional details; terminal syntax and placeholders are not the normal user flow.
+- M6 requires a native graphical Back/Next/Finish wizard with retained customizable choices and meaningful progress. A browser mockup is design evidence only. Optional apps must be independently removable: the desktop/base cannot depend on Calculator. Resolve shared/required dependencies explicitly; never silently cascade app removal into system removal. Follow docs/architecture/components.md.
 - Preserve distribution freedom through validated, versioned profiles and working custom ISO examples. Only advertise configuration choices that affect implemented behavior. Core destructive-operation guards cannot be bypassed by a theme/profile.
 - Follow docs/architecture/product-principles.md; automate complete user tasks and distinguish those checks from an actual human usability study.
 
