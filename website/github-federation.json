@@ -1,9 +1,0 @@
-{
-  "name": "github-main",
-  "issuer": "https://token.actions.githubusercontent.com",
-  "subject": "repo:enginsoysal@103884748/codename-engine-os@1446938698:environment:engineos-docs",
-  "audiences": [
-    "api://AzureADTokenExchange"
-  ],
-  "description": "Publish static documentation from the engineos-docs GitHub environment, restricted to main and milestone release tags."
-}

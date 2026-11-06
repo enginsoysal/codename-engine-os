@@ -8,7 +8,7 @@ The final [M4.5 v0.4.5 release](https://github.com/enginsoysal/codename-engine-o
 
 ## User handbook
 
-**[Documentation & downloads website](https://codenameenginos.brixcanvas.com)** — English, searchable, automatically loaded from GitHub. [Website source and maintenance](website/README.md).
+**[Documentation & downloads website](https://engineos.brixcanvas.com)** — English guides and official release downloads, built in BrixCanvas. [Website source and maintenance](website/README.md).
 
 **[Start here](docs/handbook/index.md)** · [20-GB disk missing / SCSI versus SATA](docs/handbook/vmware-storage.md) · [Console commands](docs/handbook/console.md). M4.5 inspects existing disks; it cannot create partitions, format or install yet.
 

@@ -10,6 +10,6 @@ Start here for the current M4.5 VM release. Engine OS currently boots its own ke
 
 ## Online documentation and downloads
 
-[Open the English documentation website](https://codenameenginos.brixcanvas.com) for searchable guides, release-specific documentation and official GitHub downloads. The site loads current documentation and release metadata from this repository on page load or refresh. A dated snapshot is explicitly labeled if GitHub is unavailable. [Website source and maintenance](../../website/README.md).
+[Open the English documentation website](https://engineos.brixcanvas.com) for searchable guides, release-specific documentation and official GitHub downloads. Native articles identify their canonical source commit. Documentation and release assets remain maintained in this repository. [Website source and maintenance](../../website/README.md).
 
 This repository remains the documentation source of truth. Website hosting is independent of the unrelated BrixCanvas application; the subdomain does not mix either project's source.
