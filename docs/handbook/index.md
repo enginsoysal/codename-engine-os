@@ -8,4 +8,8 @@ Start here for the current M4.5 VM release. Engine OS currently boots its own ke
 - [Current capabilities and next milestones](../roadmap/status.md)
 - [M4.5 supported protocols and exact qualification scope](../milestones/m4.5.md)
 
-This repository is the documentation source of truth. A future public documentation site should publish these same versioned pages, link each guide to its release and show current limitations. It should be hosted independently of the unrelated BrixCanvas application; using a BrixCanvas subdomain does not require mixing either application's source or deployments.
+## Online documentation and downloads
+
+[Open the English documentation website](https://codenameenginos.brixcanvas.com) for searchable guides, release-specific documentation and official GitHub downloads. The site loads current documentation and release metadata from this repository on page load or refresh. A dated snapshot is explicitly labeled if GitHub is unavailable. [Website source and maintenance](../../website/README.md).
+
+This repository remains the documentation source of truth. Website hosting is independent of the unrelated BrixCanvas application; the subdomain does not mix either project's source.

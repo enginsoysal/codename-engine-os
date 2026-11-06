@@ -8,6 +8,8 @@ The final [M4.5 v0.4.5 release](https://github.com/enginsoysal/codename-engine-o
 
 ## User handbook
 
+**[Documentation & downloads website](https://codenameenginos.brixcanvas.com)** — English, searchable, automatically loaded from GitHub. [Website source and maintenance](website/README.md).
+
 **[Start here](docs/handbook/index.md)** · [20-GB disk missing / SCSI versus SATA](docs/handbook/vmware-storage.md) · [Console commands](docs/handbook/console.md). M4.5 inspects existing disks; it cannot create partitions, format or install yet.
 
 ## Boot in VMware or QEMU
@@ -42,6 +44,7 @@ tests/m2/              Isolation, cleanup, low-RAM and idle tests
 tests/m3/              Scheduling, VM, SMP and resource qualification
 tests/m4/              Filesystem, DMA/IRQ, recovery and PS/2/USB input qualification
 tests/m45/             Broader boot/storage/USB and owner-trust qualification
+website/               Public documentation frontend and snapshot builder
 docs/architecture/     Design contracts and decision record
 docs/roadmap/          Milestones, current status and Windows generation inventory
 docs/milestones/       Per-milestone usage, implementation and handoff notes

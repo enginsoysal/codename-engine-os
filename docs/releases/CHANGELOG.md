@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-06 — documentation website
+
+- Add the English documentation/download hub at `codenameenginos.brixcanvas.com`, with current GitHub Markdown, full-text search, release-tag documentation, official assets/digests and clearly dated fallback data.
+- Keep frontend source in `website/`, deployment separate from BrixCanvas, and M4.5 runtime evidence unchanged. Documentation and releases update on load/refresh; frontend changes require a Site redeploy.
+
 ## M4.5 handbook clarification — 2026-11-06
 
 Add a prominent user handbook, actual console command reference and a step-by-step VMware 20-GB SATA setup. Clarify that LSI/other SCSI controllers are unsupported, blank disks should still be discovered, `parts` only inspects, and ordinary writable partitioning/formatting/installing is M5. No kernel, ISO or existing VM/disk is changed by this documentation update.

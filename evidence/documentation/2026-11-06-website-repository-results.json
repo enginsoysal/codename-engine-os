@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "English current documentation",
+      "passed": true,
+      "documents": 53
+    },
+    {
+      "name": "local links and Python commands exist",
+      "passed": true
+    },
+    {
+      "name": "all current Python sources parse",
+      "passed": true,
+      "scripts": 57
+    },
+    {
+      "name": "clean root and milestone/source directory boundaries",
+      "passed": true
+    },
+    {
+      "name": "Windows generation scope retained without false qualification",
+      "passed": true
+    }
+  ]
+}
