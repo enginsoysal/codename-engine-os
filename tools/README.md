@@ -1,6 +1,12 @@
 # Host tools and entry points
 
-## Layout and commands
+## Current M6
+
+Build the standard native graphical installer with `python tools/build/m6.py`. Use `--revision u1` for a distinct update-test build or `--revision minimal --profile distros/engineos-minimal.json` for the alternate Engine OS profile. Each has separate outputs and manifests. Do not edit build inputs while building or qualifying media.
+
+For normal testing, follow the [VMware tutorial](../docs/handbook/install-m6.md). The generic `tools/vm/run.py` launcher still defaults to historical M5.1 and does not launch M6. Actual M6 automated QEMU/VMware workflows and all qualification commands are listed in [M6 evidence](../evidence/M6/README.md); they create owned disposable targets. [Current release](../docs/releases/m6-v0.6.0.md).
+
+## Historical layout and commands
 
 - `tools/build/m2.py`: preserved M2 isolation regression build.
 - `tools/build/m1.py`: explicit historical M1 build path.
@@ -8,12 +14,12 @@
 - `tools/vm/config.py`: shared pinned QEMU setup.
 - `tools/build/m3.py`: preserved M3 native scheduling/VM/SMP regression media.
 - `tools/build/m4.py`: M4 AHCI/ext2/input media and version-2 filesystem template.
-- `tools/vm/run.py`: M5 user launcher; select earlier milestones explicitly.
-- `tests/m0` through `tests/m5`: per-milestone verification.
+- `tools/vm/run.py`: M5.1/historical user launcher; select earlier milestones explicitly.
+- `tests/m0` through `tests/m6`: per-milestone verification; preserve frozen accepted reports.
 
 ```powershell
 python tools/build/m5.py
-python tools/vm/run.py --create-install-disk
+python tools/vm/run.py --milestone M5 --create-install-disk
 python tests/m5/verify.py
 ```
 

@@ -1,0 +1,94 @@
+{
+  "passed": true,
+  "release": "https://github.com/enginsoysal/codename-engine-os/releases/tag/m6-v0.6.0",
+  "tag": "m6-v0.6.0",
+  "release_commit": "91f64a7c87f59743b91872c30a781941b5dbfb31",
+  "code_source_commit": "98516b4434a16dd0c914903b6b80cf8817e0783f",
+  "checked_at": "2026-11-06T16:34:16.260806+00:00",
+  "assets": [
+    {
+      "name": "EngineOS-M6-kernel.elf",
+      "size": 1386032,
+      "sha256": "2d61bbcfca13a81a6f7e0bd6b32123e6f4a988e7281cc0dc255b324694b18e67",
+      "github_digest_matches": true
+    },
+    {
+      "name": "EngineOS-M6-kernel.map",
+      "size": 98863,
+      "sha256": "46b9f2fd33a339f05742e4409c2de03865d8fec305f88f88de301f4b4387a0ce",
+      "github_digest_matches": true
+    },
+    {
+      "name": "EngineOS-M6-usb.img",
+      "size": 72351744,
+      "sha256": "e391c4a091163c69086abc9bbd7a41818c8a160048f65bd24b27b0fcbe4e4cbb",
+      "github_digest_matches": true
+    },
+    {
+      "name": "EngineOS-M6-user.elf",
+      "size": 68064,
+      "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f",
+      "github_digest_matches": true
+    },
+    {
+      "name": "EngineOS-M6.iso",
+      "size": 69097472,
+      "sha256": "3ef2e4c83dc99b441bf450ab34c6164312dbcfe9f82948b0cfeebf2d453df07e",
+      "github_digest_matches": true
+    },
+    {
+      "name": "EngineOS-M6MINIMAL.iso",
+      "size": 69097472,
+      "sha256": "d90d82d9bd0acbc413b84c932d41411912d0fb18fadd29ea68be7acd0b50e0de",
+      "github_digest_matches": true
+    },
+    {
+      "name": "EngineOS-M6U1.iso",
+      "size": 69097472,
+      "sha256": "6dd60d4dcc2aee504cd300b334dbdaed90fa161f663f71e1c8314bb004ca4b9d",
+      "github_digest_matches": true
+    },
+    {
+      "name": "m6-build-manifest.json",
+      "size": 12404,
+      "sha256": "518221111f3e9ded975bdddbe2ce453a20b151d4bac226593d4753d1728d6206",
+      "github_digest_matches": true
+    },
+    {
+      "name": "M6-SHA256SUMS.txt",
+      "size": 433,
+      "sha256": "70c36959cb0ecd99f1406bd811c0d960798bf2bc99889e2a9ba16aed85937534",
+      "github_digest_matches": true
+    },
+    {
+      "name": "m6minimal-build-manifest.json",
+      "size": 11736,
+      "sha256": "004885c0459ea7e7e0cdd28598386021f295ce294635fbf28b9dba5b3f9a1259",
+      "github_digest_matches": true
+    },
+    {
+      "name": "M6MINIMAL-SHA256SUMS.txt",
+      "size": 468,
+      "sha256": "9fd86074c1dec01392de40fc0d1713f27c937b9ffa30f494a4ad19783e920e69",
+      "github_digest_matches": true
+    },
+    {
+      "name": "m6u1-build-manifest.json",
+      "size": 12411,
+      "sha256": "b3e535a025010699692a1879a6e26aa33f40b4a5f0d7e824401dcdeaf3899894",
+      "github_digest_matches": true
+    },
+    {
+      "name": "M6U1-SHA256SUMS.txt",
+      "size": 443,
+      "sha256": "6ed2c149832cccd01b4ad7d4e455dc8c1e59d60a551aa388e29a2a681ad43bc6",
+      "github_digest_matches": true
+    }
+  ],
+  "anonymous_iso_download": {
+    "bytes": 69097472,
+    "sha256": "3ef2e4c83dc99b441bf450ab34c6164312dbcfe9f82948b0cfeebf2d453df07e",
+    "passed": true
+  },
+  "frozen_runtime_evidence": "evidence/M6/acceptance-results.json"
+}
