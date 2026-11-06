@@ -1,6 +1,6 @@
 # Engine OS installation wizard design
 
-Status: interactive browser design preview; not the bootable M6 installer. Current released media still uses the M5.1 text wizard. No new ISO is delivered by this design change.
+Status: historical browser design reference. The native M6 implementation follows this direction; see the [real installation guide](install-m6.md) and [qualification status](../milestones/m6.md). This HTML preview is never bootable installation media.
 
 Open [the standalone preview](../../tools/design/install-wizard.html) locally in a browser. It contains no external assets, network calls or disk API. Choices remain in page memory only. All disks and application choices are demonstrations; progress is explicitly animated simulation. Reloading resets choices. The appearance selector describes a future desktop preference; the setup accent is the implemented visual preview control.
 
@@ -14,7 +14,7 @@ Open [the standalone preview](../../tools/design/install-wizard.html) locally in
 6. Install: actual verified stage/progress reporting, bounded logs, readable failures and a clear recovery route. Cancellation after writes start must explain the actual recoverable state; it cannot promise an untouched disk.
 7. Finish: appear only after verified completion; explain removal of installation media and the next boot. Failure must never display installation success.
 
-Every ordinary step needs a coherent graphical screen, Back/Next or a clearly named action, mouse and keyboard navigation, visible focus and useful validation. No terminal syntax is needed. Advanced/verbose remains optional. The native framebuffer implementation must be part of the OS; this HTML is a design reference, not a browser dependency to bundle into the kernel. The actual native rendering/input/backend integration remains pending.
+Every ordinary step needs a coherent graphical screen, Back/Next or a clearly named action, mouse and keyboard navigation, visible focus and useful validation. No terminal syntax is needed. Advanced/verbose remains optional. The native framebuffer implementation must be part of the OS; this HTML is a design reference, not a browser dependency to bundle into the kernel. Native rendering/input/backend integration is now implemented; exact release acceptance is tracked separately.
 
 Customization is broad but truthful: supported disk plans, component selection, appearance, user settings and distro defaults. Provide sensible defaults so Next/Next is possible. Critical dependencies remain protected or need a working replacement. Optional application removal must leave unrelated functions operational; [component policy and removal acceptance](../architecture/components.md).
 

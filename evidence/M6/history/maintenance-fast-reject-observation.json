@@ -1,0 +1,18 @@
+{
+  "passed": false,
+  "checks": [
+    {
+      "name": "editable account/accent, retained Back/Next choices and full disk unchanged before final Install",
+      "passed": true
+    },
+    {
+      "name": "optional guide removed independently; settings remain usable and a real large document can be written",
+      "passed": true
+    },
+    {
+      "name": "different original kernel build stages into inactive slot and boots after activation; complete data partition unchanged",
+      "passed": true
+    }
+  ],
+  "error": "Traceback (most recent call last):\n  File \"<project-root>\\tests\\m6\\maintenance.py\", line 77, in main\n    assert rejected\nAssertionError\n"
+}

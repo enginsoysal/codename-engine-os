@@ -1,0 +1,1 @@
+{"passed":false,"stage":"M6 update variant build","failure":"Media name validation rejected M6U1.","resolution":"Allow bounded alphanumeric M6 variant labels for independent update qualification artifacts."}

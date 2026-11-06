@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "build_id": "dbb56c370b5ebc433f1f5caafa1eb985",
+  "iso_sha256": "bf1c593cd690d403d63449172c1111b3802ed22a89ef0872c1d2191f3d464edc",
+  "firmware": "efi",
+  "disk_gib": 20,
+  "existing_vm_inventory_unchanged": true,
+  "checks": [
+    {
+      "name": "native graphical wizard COM1 keyboard flow installs actual 20 GiB SATA disk",
+      "passed": true
+    },
+    {
+      "name": "two media-detached VMware boots and real >2 MiB file persistence/checksum",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "m6_acceptance_complete": false
+}

@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "scope": "Browser design preview only",
+  "scope": "Historical browser design preview at source commit ae2502f; not native installer qualification",
   "native_installer_implemented": false,
   "package_removal_implemented": false,
   "disk_access_performed": false,
@@ -19,5 +19,6 @@
     "No real installation or uninstall",
     "No installed preference persistence",
     "No human usability study"
-  ]
+  ],
+  "historical_source_commit": "ae2502f"
 }

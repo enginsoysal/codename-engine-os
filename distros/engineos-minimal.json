@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "id": "engineos-minimal",
+  "name": "Engine OS Minimal",
+  "version": "0.6.0",
+  "welcome": "A minimal Engine OS setup. Choose only what you need.",
+  "accent": "#9caeff",
+  "packages": [],
+  "files": []
+}

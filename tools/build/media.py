@@ -1,5 +1,6 @@
 """Restricted build-host FAT32/GPT/EFI ISO authoring. Never opens host block devices."""
 from pathlib import Path
+import re
 import struct
 import uuid
 import zlib
@@ -74,7 +75,7 @@ def gpt(volume,label='Engine OS M1',first=2048,bios=None):
     image[first*512:first*512+len(volume)]=volume;return image
 
 def package(output,efi,kernel,init,milestone='M1'):
-    if milestone not in ('M1','M2','M3','M4','M45','M5'):raise ValueError('milestone')
+    if milestone not in ('M1','M2','M3','M4','M45','M5','M6') and not re.fullmatch(r'M6[A-Z0-9]{1,16}',milestone):raise ValueError('milestone')
     output.mkdir(parents=True,exist_ok=True)
     fat=fat32([(4,b'BOOTX64 EFI',efi),(2,b'KERNEL  ELF',kernel),(2,b'INIT    BIN',init)])
     (output/'efi-fat.img').write_bytes(fat);(output/f'EngineOS-{milestone}-usb.img').write_bytes(gpt(fat,'Engine OS '+milestone))

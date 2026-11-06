@@ -1,0 +1,1 @@
+{"passed":false,"stage":"initial M6 development build","failure":"Media packaging allowlist did not yet include M6.","resolution":"Extend the version allowlist; historical outputs remain unchanged."}

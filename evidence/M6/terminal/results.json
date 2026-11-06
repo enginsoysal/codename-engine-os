@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "build_id": "dbb56c370b5ebc433f1f5caafa1eb985",
+  "iso_sha256": "bf1c593cd690d403d63449172c1111b3802ed22a89ef0872c1d2191f3d464edc",
+  "checks": [
+    {
+      "name": "optional native terminal write/read survives reboot, protects core settings, rejects overlong commands and removes only the selected user file",
+      "passed": true
+    }
+  ]
+}

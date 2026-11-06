@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "build_id": "dbb56c370b5ebc433f1f5caafa1eb985",
+  "iso_sha256": "bf1c593cd690d403d63449172c1111b3802ed22a89ef0872c1d2191f3d464edc",
+  "checks": [
+    {
+      "name": "native USB relative motion reaches footer below former 650-pixel limit, left-click Next activates actual disk-selection page",
+      "passed": true
+    }
+  ]
+}

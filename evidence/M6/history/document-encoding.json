@@ -1,0 +1,1 @@
+{"passed":false,"stage":"documentation consistency check","failure":"A Windows default text decoder introduced mojibake in four updated Markdown files.","resolution":"Restore UTF-8 characters without discarding content, use explicit UTF-8 reads/writes, then rerun the complete documentation/link/source check."}

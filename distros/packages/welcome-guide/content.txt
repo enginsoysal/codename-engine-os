@@ -1,2 +1,4 @@
-Welcome to Engine OS. Use the numbered menus to try, install or repair.
-Live changes disappear on reboot; installed changes persist.
+Welcome to Engine OS. Follow the choices shown on screen to install or recover.
+Installed documents persist after reboot; installation media is not needed for installed boot.
+The desktop and Windows/MS-DOS application runtimes are separate milestones.
+This guide is optional. Removing it does not remove system services or other documents.

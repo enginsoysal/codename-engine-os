@@ -1,0 +1,1 @@
+{"passed":false,"stage":"parallel guest qualification launch","failure":"Two Windows time.time_ns values were identical, causing a test work-directory collision before the BIOS guest started.","resolution":"Use UUID-owned work directories; rerun the BIOS case. No existing VM or guest disk was reused."}

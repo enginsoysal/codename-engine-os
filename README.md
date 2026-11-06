@@ -8,7 +8,11 @@ The [M5 release](https://github.com/enginsoysal/codename-engine-os/releases/tag/
 
 ## Next product milestones
 
-**M6: real installation → M7: real desktop → M8: MS-DOS and Windows 1.x–11 applications.** M6 has started with a host-tested freestanding capacity planner; installer integration remains pending. M7 and M8 are not started. [M6 implementation status](docs/milestones/m6.md). Existing technical acceptance remains historical; M5.1 does not satisfy the new complete product installation/desktop requirements. [Acceptance gates and choices](docs/roadmap/milestones.md) · [Current status](docs/roadmap/status.md). The product name remains **Engine OS**.
+**M6: real installation → M7: real desktop → M8: MS-DOS and Windows 1.x–11 applications.** M6 now has a native graphical wizard, full-capacity data volume, persistent local setup and verified-slot recovery implementation under qualification. M7 and M8 are not started. [M6 implementation status](docs/milestones/m6.md). Existing technical acceptance remains historical; M5.1 does not satisfy the new complete product installation/desktop requirements. [Acceptance gates and choices](docs/roadmap/milestones.md) · [Current status](docs/roadmap/status.md). The product name remains **Engine OS**.
+
+## M6 development
+
+[Native installation handbook](docs/handbook/install-m6.md) · [Implementation and qualification](docs/milestones/m6.md) · [Storage/recovery design](docs/architecture/storage-m6.md). The native implementation follows the accepted wizard design; it is not the HTML preview. Final artifact qualification and release publication are pending.
 
 ## Guided setup and custom distributions
 

@@ -4,6 +4,10 @@ typedef struct {trb *base;unsigned index,cycle;} ring;
 typedef struct {unsigned slot,port,kind,endpoint,packet,interval,parent,hub_port,route,depth,speed,hub_ports,rejected_children,tt_slot,tt_port,protocol;uint64_t input,output,buffer;ring control,interrupt,bulk_out,uas_status;uint64_t data,sectors;unsigned out_endpoint,bytes,tag,dead,storage_index,generation,uas,status_endpoint,uas_command_complete,uas_abort_data_stopped;uint64_t reads,wait_halts;uint8_t last[8];} device;
 #define USB_MAX_DEVICES 8
 static device devices[USB_MAX_DEVICES];static unsigned device_count,active,context_size,event_index,event_cycle=1,mouse_dirty,mouse_buttons;static int mouse_x=600,mouse_y=80;
+static int mouse_limit_x=1200,mouse_limit_y=650;
+#ifdef ENGINE_M6
+static unsigned mouse_press_pending,mouse_press_x,mouse_press_y;
+#endif
 static uint64_t mouse_events,key_events,irq_count,dma_pages;
 static volatile uint32_t *op,*runtime,*doorbell;static uint64_t *dcbaa;static trb *events;static ring commands;
 static unsigned controller_selected,initialization_status=B_ABSENT;
@@ -25,14 +29,22 @@ static uint64_t push(ring *r,uint64_t parameter,uint32_t status,uint32_t control
 static char key(unsigned code,unsigned shifted){
     if(code>=4&&code<=29)return (char)((shifted?'A':'a')+code-4);
     if(code>=30&&code<=39)return (shifted?"!@#$%^&*()":"1234567890")[code-30];
-    if(code==40)return 10;if(code==42)return 8;if(code==44)return ' ';
+    if(code==40)return 10;if(code==42)return 8;if(code==43)return 9;if(code==44)return ' ';
     if(code>=45&&code<=56)return (shifted?"_+{}|~:\"~<>?":"-=[]\\#;'`,./")[code-45];return 0;
 }
 static void submit_input(device *d){push(&d->interrupt,d->buffer+512,d->packet,(1u<<10)|(1u<<5)|(1u<<2));__asm__ volatile("mfence":::"memory");doorbell[d->slot]=d->endpoint;}
 static void input_complete(device *d,unsigned bytes){
     uint8_t *data=(uint8_t*)(uintptr_t)(d->buffer+512);if(d->kind==9){for(unsigned i=0;i<bytes;++i)if(data[i]){__atomic_fetch_or(&pending_hubs,1u<<(unsigned)(d-devices),__ATOMIC_RELEASE);break;}return;}
     if(d->kind==1&&bytes>=8){for(unsigned i=2;i<8;++i)if(data[i]>3){unsigned old=0;for(unsigned j=2;j<8;++j)old|=d->last[j]==data[i];if(!old){char c=key(data[i],data[0]&0x22);if(c){input_feed((uint8_t)c);++key_events;}}}memcpy(d->last,data,8);}
-    if(d->kind==2&&bytes>=3){mouse_x+=(int8_t)data[1];mouse_y+=(int8_t)data[2];if(mouse_x<0)mouse_x=0;if(mouse_y<0)mouse_y=0;if(mouse_x>1200)mouse_x=1200;if(mouse_y>650)mouse_y=650;mouse_buttons=data[0]&7;++mouse_events;__atomic_store_n(&mouse_dirty,1,__ATOMIC_RELEASE);}
+    if(d->kind==2&&bytes>=3){mouse_x+=(int8_t)data[1];mouse_y+=(int8_t)data[2];if(mouse_x<0)mouse_x=0;if(mouse_y<0)mouse_y=0;if(mouse_x>mouse_limit_x)mouse_x=mouse_limit_x;if(mouse_y>mouse_limit_y)mouse_y=mouse_limit_y;
+#ifdef ENGINE_M6
+unsigned old_buttons=mouse_buttons;
+#endif
+mouse_buttons=data[0]&7;
+#ifdef ENGINE_M6
+if((mouse_buttons&1)&&!(old_buttons&1)&&!mouse_press_pending){mouse_press_x=(unsigned)mouse_x;mouse_press_y=(unsigned)mouse_y;mouse_press_pending=1;}
+#endif
+++mouse_events;__atomic_store_n(&mouse_dirty,1,__ATOMIC_RELEASE);}
 }
 static void consume(void){
     for(unsigned bounded=0;bounded<256;++bounded){trb *e=&events[event_index];uint32_t ctrl=e->control;if((ctrl&1)!=event_cycle)break;__asm__ volatile("lfence":::"memory");uint64_t p=e->parameter;unsigned status=e->status,kind=(ctrl>>10)&63,cc=status>>24,slot=ctrl>>24;
@@ -125,7 +137,11 @@ void usb_hardware_inventory(unsigned bdf){
 }
 unsigned usb_irq(uint64_t *frame){if(active&&bulk_waiting&&frame[15]==32){out8(0x20,0x20);return 1;}if(!active||frame[15]!=145)return 0;++irq_count;consume();*(volatile uint32_t*)(uintptr_t)0xfee000b0=0;return 1;}
 unsigned usb_mouse_pending(void){return __atomic_load_n(&mouse_dirty,__ATOMIC_ACQUIRE);}
-void usb_mouse_draw(void){__atomic_store_n(&mouse_dirty,0,__ATOMIC_RELEASE);extern void display_mouse(unsigned,unsigned);display_mouse((unsigned)mouse_x,(unsigned)mouse_y);}
+void usb_mouse_draw(void){
+#ifndef ENGINE_M6
+__atomic_store_n(&mouse_dirty,0,__ATOMIC_RELEASE);
+#endif
+extern void display_mouse(unsigned,unsigned);display_mouse((unsigned)mouse_x,(unsigned)mouse_y);}
 void usb_info(void){unsigned online=0;for(unsigned i=0;i<device_count;++i)online+=devices[i].slot&&!devices[i].dead;console_text("USB devices=");console_hex(online);console_text(" driver pages=");console_hex(dma_pages);console_text(" IRQs=");console_hex(irq_count);console_text("\nUSB keys=");console_hex(key_events);console_text(" mouse events=");console_hex(mouse_events);console_text(" buttons=");console_hex(mouse_buttons);console_text("\n");page_stats memory=pages_stats();console_text("Managed current bytes=");console_hex(memory.current_pages*4096);console_text(" peak bytes=");console_hex(memory.peak_pages*4096);console_text("\n");}
 
 static unsigned mass_configure(device *d,unsigned in,unsigned out,unsigned in_packet,unsigned out_packet){
@@ -276,3 +292,14 @@ static unsigned uas_abort_task(device *d){
 }
 
 static unsigned uas_quiesce(device *d){uint64_t flags;__asm__ volatile("pushfq;popq %0;cli":"=r"(flags)::"memory");unsigned endpoints[]={d->endpoint,d->status_endpoint,d->out_endpoint},status=B_OK;for(unsigned i=0;i<3;++i)if(!(i==0&&d->uas_abort_data_stopped)&&!command(0,(15u<<10)|(endpoints[i]<<16)|(d->slot<<24)))status=B_IO;if(flags&512)__asm__ volatile("sti":::"memory");return status;}
+
+#ifdef ENGINE_M6
+void usb_mouse_limits(unsigned w,unsigned h){mouse_limit_x=w>9?(int)w-9:0;mouse_limit_y=h>15?(int)h-15:0;}
+void usb_mouse_state(unsigned*x,unsigned*y,unsigned*b){
+    /* Snapshot the BSP-routed IRQ state without losing a press/release during repaint. */
+    uint64_t flags;__asm__ volatile("pushfq; popq %0; cli":"=r"(flags)::"memory");
+    if(mouse_press_pending){*x=mouse_press_x;*y=mouse_press_y;*b=mouse_buttons|1u;mouse_press_pending=0;__atomic_store_n(&mouse_dirty,1,__ATOMIC_RELEASE);}
+    else{*x=(unsigned)mouse_x;*y=(unsigned)mouse_y;*b=mouse_buttons;__atomic_store_n(&mouse_dirty,0,__ATOMIC_RELEASE);}
+    if(flags&512)__asm__ volatile("sti":::"memory");
+}
+#endif

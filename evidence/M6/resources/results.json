@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "actual menu navigation retains allocations and all CPUs halt at input idle",
+      "passed": true,
+      "guest_ram_mib": 64,
+      "cpus": 1,
+      "managed_current_bytes": 139264,
+      "managed_peak_bytes": 466944,
+      "managed_available_pages": 2958,
+      "allocation_failures": 5
+    },
+    {
+      "name": "actual menu navigation retains allocations and all CPUs halt at input idle",
+      "passed": true,
+      "guest_ram_mib": 128,
+      "cpus": 2,
+      "managed_current_bytes": 172032,
+      "managed_peak_bytes": 466944,
+      "managed_available_pages": 19318,
+      "allocation_failures": 5
+    },
+    {
+      "name": "actual menu navigation retains allocations and all CPUs halt at input idle",
+      "passed": true,
+      "guest_ram_mib": 256,
+      "cpus": 4,
+      "managed_current_bytes": 237568,
+      "managed_peak_bytes": 466944,
+      "managed_available_pages": 52038,
+      "allocation_failures": 5
+    }
+  ],
+  "build_id": "dbb56c370b5ebc433f1f5caafa1eb985",
+  "iso_sha256": "bf1c593cd690d403d63449172c1111b3802ed22a89ef0872c1d2191f3d464edc",
+  "kernel_physical_span_bytes": 1869797,
+  "scope": "named QEMU configurations; managed counters exclude static kernel and boot/firmware resources"
+}

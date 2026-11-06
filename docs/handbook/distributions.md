@@ -45,3 +45,9 @@ Build with `python tools/build/m51.py --profile distros/my-edition.json`. The ou
 ## What can be customized later
 
 MIT source permits forks and component changes. Future desktop, compositor, shell, language, native executable packages and runtime customization need implemented contracts before becoming profile choices. Unknown fields/packages are rejected today, not silently accepted. Disk review, confirmation and recovery guards stay mandatory in every profile. [Product principles](../architecture/product-principles.md), [M5.1 contract](../milestones/m5.1.md).
+
+## M6 native installer distributions
+
+M6 extends the recipe into its native wizard and installed volume: branding/accent, default guide selection and selected data files affect the real image. User template paths below `/Users/test/` map to the account selected in the wizard. The sample `distros/engineos-minimal.json` keeps the Engine OS identity and excludes guide data by default. Build it with `python tools/build/m6.py --revision minimal --profile distros/engineos-minimal.json`. The separate output is `dist/EngineOS-M6MINIMAL.iso`; this does not replace the main standard media.
+
+The main build command is `python tools/build/m6.py`. Current schema-1 recipes remain data-only: no executable packages, arbitrary shell hooks, desktop themes or ignored runtime options. M6 bounds template target paths to leave room for the selected account name; original data files retain the recipe size bound. The base user volume supports much larger streamed files. The native executable-package/desktop component model belongs to M7 and later application work. Qualification of the actual custom ISO is part of M6; a validated JSON recipe alone is insufficient.

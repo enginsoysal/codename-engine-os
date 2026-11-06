@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "existing-owner selection refused; entire image unchanged",
+      "passed": true
+    },
+    {
+      "name": "undersize selection refused; entire image unchanged",
+      "passed": true
+    },
+    {
+      "name": "real SATA boot-copy EIO refuses success; owned incomplete installation restarts and boots without media",
+      "passed": true
+    },
+    {
+      "name": "real SATA volume-format EIO refuses success; owned incomplete installation restarts and boots without media",
+      "passed": true
+    },
+    {
+      "name": "real SATA initial-activation EIO refuses success; owned incomplete installation restarts and boots without media",
+      "passed": true
+    },
+    {
+      "name": "interrupted cross-version activation preserves data, refuses uncertain boot identity and restores the active version through ISO repair",
+      "passed": true
+    }
+  ],
+  "build_id": "dbb56c370b5ebc433f1f5caafa1eb985",
+  "iso_sha256": "bf1c593cd690d403d63449172c1111b3802ed22a89ef0872c1d2191f3d464edc",
+  "scope": "named SATA EIO/write refusal model; not arbitrary physical power-loss qualification"
+}

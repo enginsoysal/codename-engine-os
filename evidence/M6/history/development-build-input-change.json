@@ -1,0 +1,1 @@
+{"passed":false,"stage":"unqualified development build","failure":"Wizard source began using the new distribution guide setting while a build was already running with an older generated distribution header.","resolution":"Discard intermediate outputs, freeze build inputs, rebuild both standard and update variants and check source hashes before qualification."}

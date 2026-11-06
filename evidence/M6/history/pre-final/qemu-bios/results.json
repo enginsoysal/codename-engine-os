@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "native graphical wizard, actual disk install and verified Finish",
+      "passed": true
+    },
+    {
+      "name": "two media-detached boots, persisted user setup and real >2 MiB file checksum after reboot",
+      "passed": true
+    }
+  ],
+  "firmware": "bios",
+  "build_id": "9fab5e55507ba14aa04b5c746631f666",
+  "iso_sha256": "b5a7cd8429f60df8b9c9204ddbfd1c840a01d625294ec82d5f3ba3be8fa972cd",
+  "m6_acceptance_complete": false
+}

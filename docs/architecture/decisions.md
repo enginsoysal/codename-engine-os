@@ -121,3 +121,13 @@ Before physical tests: select an explicit test computer; never use the developme
 **Why/alternative:** continuing the fixed 16-MiB demonstration volume cannot support useful desktop documents or application downloads. Two 512-MiB base-system slots prepare an inactive-copy recovery mechanism without duplicating user data; a single mutable system partition would make update recovery harder. These are initial base-image budgets, not implemented activation/rollback or unlimited image capacity. The shared native planner avoids diverging host/kernel arithmetic.
 
 **Verification/limits:** actual C host execution across 10,005 geometries and refusal cases, plus freestanding kernel compilation; [M6 contract](../milestones/m6.md). Installer integration, scalable filesystem, real boot/update recovery and runtime resource qualification remain pending. No new ISO is claimed.
+
+## M6 native implementation decisions
+
+**Wizard:** use original framebuffer rendering and actual keyboard/USB mouse input in the kernel, following the accepted design. The browser prototype remains a reference; it is not bundled as a browser dependency. Choices persist across Back/Next, writes begin only at Install/Confirm, and errors cannot display Finish success. Optional terminal/details are retained.
+
+**Storage:** use a bounded, original copy-on-write extent volume with 4-KiB streaming, two metadata generations and explicit integrity checks. This replaces the fixed 16-MiB/direct-file demonstration writer. It trades an initial 1,024-entry/contiguous-extent limit for constant metadata RAM and independently testable recovery; broad POSIX/Windows semantics remain future adapters.
+
+**Updates:** keep verified boot bundles in two system slots and redundant activation records. Update/rollback/repair replay verified boot assets from the ISO without formatting data. An interrupted replay may require ISO repair rather than automatic boot fallback. Known failed/torn-write models and actual guest transitions govern claims. [Mechanism, alternatives and limitations](storage-m6.md).
+
+**Customization:** persist the chosen local name/accent, make guide data optional/removable and carry supported distro data into the selected user namespace. Do not label a guide checkbox an executable package manager, or a local profile an authenticated multi-user system.

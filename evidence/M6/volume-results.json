@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "scope": "actual C storage host execution, not guest install qualification",
+  "checks": [
+    {
+      "name": "20 GiB sparse target, full data capacity accounting, >2 MiB file, streaming partial reads and three remounts",
+      "passed": true
+    },
+    {
+      "name": "invalid paths, oversized writes, nonempty-directory refusal, replacement and deletion",
+      "passed": true
+    },
+    {
+      "name": "write/flush and torn-write interruptions: remount yields complete old or complete new file with valid checksum",
+      "passed": true,
+      "fault_cases": 188
+    },
+    {
+      "name": "independent header/table CRC inspection, payload corruption detected, dual invalid metadata refuses mount",
+      "passed": true
+    }
+  ],
+  "source_sha256": "4265bd7ef014526709ccd8d6201cbd9b49f0f03bf272fd761adfe42681934fd7",
+  "header_sha256": "c762851c066e53b3fc514eef780ea23ebd9a2e40a1992a5b7a1d6f0560b11309",
+  "volume_state_bytes": 864320,
+  "whole_file_buffer_required": false,
+  "guest_qualification": false
+}

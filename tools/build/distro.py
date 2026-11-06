@@ -39,4 +39,5 @@ def prepare(work,p):
     (work/'distro.json').write_bytes((json.dumps(p,indent=2)+'\n').encode())
     text=''.join('#define DISTRO_'+k.upper()+' '+json.dumps(p[k])+'\n' for k in ['name','version','welcome'])
     text+='#define DISTRO_ACCENT 0x'+p['accent'][1:]+'u\n'
+    text+='#define DISTRO_M6_GUIDE '+str(int(any(r['target']=='/Users/test/Documents/Welcome.txt' for r in p['resolved_files'])))+'u\n'
     (work/'distro.h').write_bytes(text.encode())

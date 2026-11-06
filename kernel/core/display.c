@@ -32,6 +32,9 @@ static const uint8_t digits[10][7]={
  {30,1,1,14,1,1,30},{2,6,10,18,31,2,2},{31,16,16,30,1,1,30},
  {14,16,16,30,17,17,14},{31,1,2,4,8,8,8},{14,17,17,14,17,17,14},{14,17,17,15,1,1,14}};
 static const os_boot_info_v0 *screen;
+#ifdef ENGINE_M6
+static unsigned gui6_repaint;
+#endif
 static uint32_t color(uint32_t rgb) {
     return screen->framebuffer_format==2?rgb:((rgb&255)<<16)|(rgb&0xff00)|((rgb>>16)&255);
 }
@@ -82,7 +85,7 @@ void display_boot(const os_boot_info_v0 *boot) {
 #else
     text(40,210,"OWN KERNEL - UEFI SERVICES STOPPED",2,0xffffff);
 #endif
-    text(40,254,"WINDOWS 95-11: PLANNED",2,0x93aabe);
+    text(40,254,"DOS / WINDOWS 1-11: PLANNED",2,0x93aabe);
 #ifdef ENGINE_M5
     text(40,296,"LIVE INSTALL RECOVERY: STARTING",2,0x93aabe);
 #else
@@ -122,7 +125,7 @@ void display_m2_result(unsigned failures,uint64_t peak,uint64_t retained,unsigne
     text(40,370,"PEAK MANAGED RAM KIB:",2,0x93aabe);number(340,370,peak/1024);
     text(40,410,"RETAINED MANAGED RAM KIB:",2,0x93aabe);number(360,410,retained/1024);
     text(40,450,"IDLE: CPU HALTED - NO POLLING",2,0x39d5bb);
-    text(40,490,"WINDOWS 95-11: PLANNED",2,0x93aabe);
+    text(40,490,"DOS / WINDOWS 1-11: PLANNED",2,0x93aabe);
 #ifdef ENGINE_M5
     text(40,530,"STARTING M5 LIVE / INSTALL / RECOVERY",2,0x93aabe);
 #else
@@ -163,11 +166,35 @@ void display_console_cell(unsigned col,unsigned row,char c){
     char s[2]={c,0};text(x,y,s,2,0xffffff);
 }
 void display_mouse(unsigned x,unsigned y){
-    static uint32_t saved[25];static unsigned oldx,oldy,visible;
-    if(!screen||!screen->framebuffer.byte_length||screen->framebuffer_width<6||screen->framebuffer_height<6)return;
-    if(visible)for(unsigned dy=0;dy<5;++dy)for(unsigned dx=0;dx<5;++dx)*(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)(oldy+dy)*screen->framebuffer_stride_bytes+(oldx+dx)*4)=saved[dy*5+dx];
-    if(x>screen->framebuffer_width-5)x=screen->framebuffer_width-5;if(y>screen->framebuffer_height-5)y=screen->framebuffer_height-5;
-    for(unsigned dy=0;dy<5;++dy)for(unsigned dx=0;dx<5;++dx){volatile uint32_t *p=(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)(y+dy)*screen->framebuffer_stride_bytes+(x+dx)*4);saved[dy*5+dx]=*p;*p=color(0x39d5bb);}
+    #ifdef ENGINE_M6
+    static uint32_t saved[135];const unsigned cw=9,ch=15;
+#else
+    static uint32_t saved[25];const unsigned cw=5,ch=5;
+#endif
+    static unsigned oldx,oldy,visible;
+    if(!screen||!screen->framebuffer.byte_length||screen->framebuffer_width<cw||screen->framebuffer_height<ch)return;
+    #ifdef ENGINE_M6
+    if(gui6_repaint){visible=0;gui6_repaint=0;}
+#endif
+    if(visible)for(unsigned dy=0;dy<ch;++dy)for(unsigned dx=0;dx<cw;++dx)*(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)(oldy+dy)*screen->framebuffer_stride_bytes+(oldx+dx)*4)=saved[dy*cw+dx];
+    if(x>screen->framebuffer_width-cw)x=screen->framebuffer_width-cw;if(y>screen->framebuffer_height-ch)y=screen->framebuffer_height-ch;
+    for(unsigned dy=0;dy<ch;++dy)for(unsigned dx=0;dx<cw;++dx){volatile uint32_t *p=(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)(y+dy)*screen->framebuffer_stride_bytes+(x+dx)*4);saved[dy*cw+dx]=*p;
+#ifdef ENGINE_M6
+    if(dx<=dy/2)*p=color(dx==0||dx==dy/2?0x14252c:0xffffff);
+#else
+    *p=color(0x39d5bb);
+#endif
+    }
     oldx=x;oldy=y;visible=1;
 }
+#endif
+
+#ifdef ENGINE_M6
+void gui6_rect(unsigned x,unsigned y,unsigned w,unsigned h,uint32_t rgb){
+ if(!screen||x>=screen->framebuffer_width||y>=screen->framebuffer_height)return;
+ if(!x&&!y)gui6_repaint=1;
+ if(w>screen->framebuffer_width-x)w=screen->framebuffer_width-x;if(h>screen->framebuffer_height-y)h=screen->framebuffer_height-y;
+ uint32_t value=color(rgb);for(unsigned j=0;j<h;++j){volatile uint32_t *p=(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)(y+j)*screen->framebuffer_stride_bytes+x*4);for(unsigned i=0;i<w;++i)p[i]=value;}
+}
+void gui6_text(unsigned x,unsigned y,const char*s,unsigned scale,uint32_t rgb){if(screen)text(x,y,s,scale,rgb);}
 #endif
