@@ -1,0 +1,436 @@
+{
+  "passed": true,
+  "checked_at": "2026-11-06T13:25:11.742091+00:00",
+  "website": "https://engineos.brixcanvas.com",
+  "native_articles": 69,
+  "article_source_commit": "e74364b0df63db40f111ecec7576232ed256e0f9",
+  "english_html_language": true,
+  "external_website_iframes": 0,
+  "anonymous_https": true,
+  "preferred_homepage_design": true,
+  "m45_scope": "M45-VM-v1",
+  "frozen_evidence_hashes_verified": 19,
+  "m45_iso_sha256": "774ea677c74a7d593fb392160833a8f70c42af69a54a2b44f47b4bbc401ddc03",
+  "m5_iso_sha256": "bee3a1e1000429646e6c8102d435db41485dc294f4914c57db0dd76967a5b403",
+  "m5_scope": "M5-VM-v1",
+  "m51_iso_sha256": "e7be11b81e87a6b8d20f5b08aff5b0b8ef9dc5ae1c63a31059150194efd2bfe9",
+  "m51_evidence_hashes_verified": 12,
+  "m5_evidence_hashes_verified": 9,
+  "automatic_sync_evidence": "evidence/documentation/github-sync-results.json",
+  "articles": [
+    {
+      "route": "/blog/docs-agents",
+      "passed": true,
+      "visible_characters": 4254,
+      "links": 24
+    },
+    {
+      "route": "/blog/docs-contributing",
+      "passed": true,
+      "visible_characters": 2997,
+      "links": 33
+    },
+    {
+      "route": "/blog/docs-readme",
+      "passed": true,
+      "visible_characters": 7537,
+      "links": 68
+    },
+    {
+      "route": "/blog/docs-distros-readme",
+      "passed": true,
+      "visible_characters": 1588,
+      "links": 28
+    },
+    {
+      "route": "/blog/docs-architecture-build-platform",
+      "passed": true,
+      "visible_characters": 8493,
+      "links": 40
+    },
+    {
+      "route": "/blog/docs-architecture-compatibility",
+      "passed": true,
+      "visible_characters": 4677,
+      "links": 35
+    },
+    {
+      "route": "/blog/docs-architecture-decisions",
+      "passed": true,
+      "visible_characters": 21892,
+      "links": 33
+    },
+    {
+      "route": "/blog/docs-architecture-filesystem",
+      "passed": true,
+      "visible_characters": 6094,
+      "links": 27
+    },
+    {
+      "route": "/blog/docs-architecture-kernel-contracts",
+      "passed": true,
+      "visible_characters": 12784,
+      "links": 31
+    },
+    {
+      "route": "/blog/docs-architecture-overview",
+      "passed": true,
+      "visible_characters": 9017,
+      "links": 43
+    },
+    {
+      "route": "/blog/docs-architecture-product-principles",
+      "passed": true,
+      "visible_characters": 3257,
+      "links": 26
+    },
+    {
+      "route": "/blog/docs-handbook-console",
+      "passed": true,
+      "visible_characters": 2535,
+      "links": 31
+    },
+    {
+      "route": "/blog/docs-handbook-distributions",
+      "passed": true,
+      "visible_characters": 3654,
+      "links": 29
+    },
+    {
+      "route": "/blog/docs-handbook-index",
+      "passed": true,
+      "visible_characters": 1935,
+      "links": 37
+    },
+    {
+      "route": "/blog/docs-handbook-install-m51",
+      "passed": true,
+      "visible_characters": 4182,
+      "links": 30
+    },
+    {
+      "route": "/blog/docs-handbook-install",
+      "passed": true,
+      "visible_characters": 4365,
+      "links": 29
+    },
+    {
+      "route": "/blog/docs-handbook-m5-console",
+      "passed": true,
+      "visible_characters": 2919,
+      "links": 30
+    },
+    {
+      "route": "/blog/docs-handbook-recovery",
+      "passed": true,
+      "visible_characters": 4227,
+      "links": 27
+    },
+    {
+      "route": "/blog/docs-handbook-vmware-storage",
+      "passed": true,
+      "visible_characters": 4161,
+      "links": 31
+    },
+    {
+      "route": "/blog/docs-milestones-m0",
+      "passed": true,
+      "visible_characters": 2996,
+      "links": 33
+    },
+    {
+      "route": "/blog/docs-milestones-m1-handoff",
+      "passed": true,
+      "visible_characters": 2891,
+      "links": 28
+    },
+    {
+      "route": "/blog/docs-milestones-m1",
+      "passed": true,
+      "visible_characters": 4189,
+      "links": 30
+    },
+    {
+      "route": "/blog/docs-milestones-m2",
+      "passed": true,
+      "visible_characters": 8887,
+      "links": 31
+    },
+    {
+      "route": "/blog/docs-milestones-m3",
+      "passed": true,
+      "visible_characters": 14735,
+      "links": 44
+    },
+    {
+      "route": "/blog/docs-milestones-m4-contract",
+      "passed": true,
+      "visible_characters": 7965,
+      "links": 32
+    },
+    {
+      "route": "/blog/docs-milestones-m4-5-boot",
+      "passed": true,
+      "visible_characters": 5450,
+      "links": 27
+    },
+    {
+      "route": "/blog/docs-milestones-m4-5-owner-trust",
+      "passed": true,
+      "visible_characters": 6014,
+      "links": 30
+    },
+    {
+      "route": "/blog/docs-milestones-m4-5-physical-qualification",
+      "passed": true,
+      "visible_characters": 5336,
+      "links": 28
+    },
+    {
+      "route": "/blog/docs-milestones-m4-5-smp-pressure",
+      "passed": true,
+      "visible_characters": 4764,
+      "links": 30
+    },
+    {
+      "route": "/blog/docs-milestones-m4-5-storage",
+      "passed": true,
+      "visible_characters": 7733,
+      "links": 31
+    },
+    {
+      "route": "/blog/docs-milestones-m4-5-usb-filesystems",
+      "passed": true,
+      "visible_characters": 6390,
+      "links": 34
+    },
+    {
+      "route": "/blog/docs-milestones-m4-5-usb-topology",
+      "passed": true,
+      "visible_characters": 5598,
+      "links": 28
+    },
+    {
+      "route": "/blog/docs-milestones-m4-5",
+      "passed": true,
+      "visible_characters": 5168,
+      "links": 53
+    },
+    {
+      "route": "/blog/docs-milestones-m4",
+      "passed": true,
+      "visible_characters": 1298,
+      "links": 28
+    },
+    {
+      "route": "/blog/docs-milestones-m5-1",
+      "passed": true,
+      "visible_characters": 5844,
+      "links": 29
+    },
+    {
+      "route": "/blog/docs-milestones-m5",
+      "passed": true,
+      "visible_characters": 7121,
+      "links": 29
+    },
+    {
+      "route": "/blog/docs-releases-changelog",
+      "passed": true,
+      "visible_characters": 7882,
+      "links": 42
+    },
+    {
+      "route": "/blog/docs-releases-m1-v0-1-0",
+      "passed": true,
+      "visible_characters": 2879,
+      "links": 26
+    },
+    {
+      "route": "/blog/docs-releases-m2-v0-2-0",
+      "passed": true,
+      "visible_characters": 4338,
+      "links": 28
+    },
+    {
+      "route": "/blog/docs-releases-m3-preemption-alpha-1",
+      "passed": true,
+      "visible_characters": 2313,
+      "links": 28
+    },
+    {
+      "route": "/blog/docs-releases-m3-v0-3-0",
+      "passed": true,
+      "visible_characters": 3368,
+      "links": 28
+    },
+    {
+      "route": "/blog/docs-releases-m4-storage-alpha-1",
+      "passed": true,
+      "visible_characters": 2566,
+      "links": 28
+    },
+    {
+      "route": "/blog/docs-releases-m4-v0-4-0",
+      "passed": true,
+      "visible_characters": 2687,
+      "links": 28
+    },
+    {
+      "route": "/blog/docs-releases-m45-hardware-alpha-4",
+      "passed": true,
+      "visible_characters": 3368,
+      "links": 28
+    },
+    {
+      "route": "/blog/docs-releases-m45-v0-4-5",
+      "passed": true,
+      "visible_characters": 4411,
+      "links": 30
+    },
+    {
+      "route": "/blog/docs-releases-m5-v0-5-0",
+      "passed": true,
+      "visible_characters": 2930,
+      "links": 31
+    },
+    {
+      "route": "/blog/docs-releases-m51-v0-5-1",
+      "passed": true,
+      "visible_characters": 2559,
+      "links": 32
+    },
+    {
+      "route": "/blog/docs-roadmap-milestones",
+      "passed": true,
+      "visible_characters": 17852,
+      "links": 41
+    },
+    {
+      "route": "/blog/docs-roadmap-status",
+      "passed": true,
+      "visible_characters": 7370,
+      "links": 52
+    },
+    {
+      "route": "/blog/docs-roadmap-windows-compatibility",
+      "passed": true,
+      "visible_characters": 6989,
+      "links": 30
+    },
+    {
+      "route": "/blog/docs-evidence-m0-readme",
+      "passed": true,
+      "visible_characters": 2176,
+      "links": 34
+    },
+    {
+      "route": "/blog/docs-evidence-m1-readme",
+      "passed": true,
+      "visible_characters": 1734,
+      "links": 42
+    },
+    {
+      "route": "/blog/docs-evidence-m2-readme",
+      "passed": true,
+      "visible_characters": 3721,
+      "links": 42
+    },
+    {
+      "route": "/blog/docs-evidence-m3-readme",
+      "passed": true,
+      "visible_characters": 3809,
+      "links": 39
+    },
+    {
+      "route": "/blog/docs-evidence-m3-history-readme",
+      "passed": true,
+      "visible_characters": 1837,
+      "links": 28
+    },
+    {
+      "route": "/blog/docs-evidence-m3-history-context-switch-performance",
+      "passed": true,
+      "visible_characters": 2715,
+      "links": 27
+    },
+    {
+      "route": "/blog/docs-evidence-m3-vmware-readme",
+      "passed": true,
+      "visible_characters": 2370,
+      "links": 31
+    },
+    {
+      "route": "/blog/docs-evidence-m4-5-readme",
+      "passed": true,
+      "visible_characters": 5602,
+      "links": 51
+    },
+    {
+      "route": "/blog/docs-evidence-m4-5-development-readme",
+      "passed": true,
+      "visible_characters": 2564,
+      "links": 26
+    },
+    {
+      "route": "/blog/docs-evidence-m4-readme",
+      "passed": true,
+      "visible_characters": 3977,
+      "links": 42
+    },
+    {
+      "route": "/blog/docs-evidence-m4-development-notes",
+      "passed": true,
+      "visible_characters": 2571,
+      "links": 27
+    },
+    {
+      "route": "/blog/docs-evidence-m4-regression-note",
+      "passed": true,
+      "visible_characters": 1494,
+      "links": 25
+    },
+    {
+      "route": "/blog/docs-evidence-m5-1-readme",
+      "passed": true,
+      "visible_characters": 2357,
+      "links": 33
+    },
+    {
+      "route": "/blog/docs-evidence-m5-readme",
+      "passed": true,
+      "visible_characters": 3576,
+      "links": 31
+    },
+    {
+      "route": "/blog/docs-evidence-m5-development-readme",
+      "passed": true,
+      "visible_characters": 2252,
+      "links": 25
+    },
+    {
+      "route": "/blog/docs-tools-readme",
+      "passed": true,
+      "visible_characters": 7567,
+      "links": 40
+    },
+    {
+      "route": "/blog/docs-website-readme",
+      "passed": true,
+      "visible_characters": 6689,
+      "links": 28
+    },
+    {
+      "route": "/blog/downloads",
+      "passed": true,
+      "visible_characters": 13514,
+      "links": 136
+    },
+    {
+      "route": "/blog/documentation",
+      "passed": true,
+      "visible_characters": 3545,
+      "links": 94
+    }
+  ]
+}

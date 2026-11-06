@@ -1,0 +1,6 @@
+{
+  "date": "2026-11-06",
+  "initial_check": "Wrong source commit: /blog/docs-agents",
+  "context": "Anonymous check ran immediately after native editor save and final API synchronization. The documented public render cache can retain the preceding version for up to 60 seconds. Final verification is recorded separately after cache expiry.",
+  "final_workflow": 42224213745
+}

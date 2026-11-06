@@ -1,0 +1,104 @@
+{
+  "passed": true,
+  "automatic_sync_verified": true,
+  "release": "https://github.com/enginsoysal/codename-engine-os/releases/tag/m51-v0.5.1",
+  "assets": [
+    {
+      "name": "EngineOS-forge-M51.iso",
+      "sha256": "8e7009504e25809d2390f7a60f7c7e90dce5c6fb668d611a64e6ace19bc18dc6",
+      "bytes": 68671488
+    },
+    {
+      "name": "EngineOS-M51-kernel.elf",
+      "sha256": "517ff2fccb516c8f56c091f41c7d12a3bc8a15b6c099490a322ee5b68db1c62b",
+      "bytes": 1779944
+    },
+    {
+      "name": "EngineOS-M51-kernel.map",
+      "sha256": "dac18f8cead6001c7a75e7047e8315fa624196c1033c0c2b9b409278f3ad6f4a",
+      "bytes": 98186
+    },
+    {
+      "name": "EngineOS-M51-usb.img",
+      "sha256": "64a3e31628fd42a3e332e13351978d1f4db54c262e5d595bba494b535f077ef3",
+      "bytes": 72351744
+    },
+    {
+      "name": "EngineOS-M51-user.elf",
+      "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f",
+      "bytes": 68064
+    },
+    {
+      "name": "EngineOS-M51.iso",
+      "sha256": "e7be11b81e87a6b8d20f5b08aff5b0b8ef9dc5ae1c63a31059150194efd2bfe9",
+      "bytes": 68671488
+    },
+    {
+      "name": "Forge-M51-build-manifest.json",
+      "sha256": "38b67c1705a6c9668477f2a3e56cd65d29b686087ce484eb8ae32b433e808990",
+      "bytes": 12347
+    },
+    {
+      "name": "Forge-M51-SHA256SUMS.txt",
+      "sha256": "b6f53df7fe7387d917d0a4342f8cc0c41baea75c8b5b5e8b17f3cf2b8eb9786c",
+      "bytes": 89
+    },
+    {
+      "name": "m51-build-manifest.json",
+      "sha256": "fdad1953eda8552b6723c0c4a55038330d443081e59be79520833cfc8377c78b",
+      "bytes": 11598
+    },
+    {
+      "name": "M51-SHA256SUMS.txt",
+      "sha256": "e02fd6437a78c375f459c0243c02cf20bc960efed5802f003887f8de691d70e2",
+      "bytes": 438
+    }
+  ],
+  "workflows": [
+    {
+      "conclusion": "success",
+      "databaseId": 42223285153,
+      "event": "push",
+      "headSha": "aeb82e14e2441e513d94089f91f7c6e998633310",
+      "status": "completed",
+      "url": "https://github.com/enginsoysal/codename-engine-os/actions/runs/42223285153"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 42223470542,
+      "event": "release",
+      "headSha": "aeb82e14e2441e513d94089f91f7c6e998633310",
+      "status": "completed",
+      "url": "https://github.com/enginsoysal/codename-engine-os/actions/runs/42223470542"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 42223565004,
+      "event": "push",
+      "headSha": "bf1f1e0ed6b29e859aed0fdd42e07d5721e06621",
+      "status": "completed",
+      "url": "https://github.com/enginsoysal/codename-engine-os/actions/runs/42223565004"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 42224213745,
+      "event": "workflow_dispatch",
+      "headSha": "bf1f1e0ed6b29e859aed0fdd42e07d5721e06621",
+      "status": "completed",
+      "url": "https://github.com/enginsoysal/codename-engine-os/actions/runs/42224213745"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 42224674562,
+      "event": "push",
+      "headSha": "e74364b0df63db40f111ecec7576232ed256e0f9",
+      "status": "completed",
+      "url": "https://github.com/enginsoysal/codename-engine-os/actions/runs/42224674562"
+    }
+  ],
+  "docs_source_commit": "e74364b0df63db40f111ecec7576232ed256e0f9",
+  "website_check": "website-results.json",
+  "acceptance_sha256": "1a84fb35472b4b6ffaf2bad2c40cd1fe44a29092d4a711603d3c3481ee48b312",
+  "public_articles_verified": 69,
+  "public_docs_commit_verified": "e74364b0df63db40f111ecec7576232ed256e0f9"
+}
