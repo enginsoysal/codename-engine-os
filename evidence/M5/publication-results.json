@@ -1,0 +1,83 @@
+{
+  "passed": true,
+  "automatic_sync_verified": true,
+  "source_commit": "9e4072a5503e7711a00b99f40da395f4c0111a15",
+  "release": "https://github.com/enginsoysal/codename-engine-os/releases/tag/m5-v0.5.0",
+  "release_published": true,
+  "release_assets": [
+    {
+      "name": "EngineOS-M5-kernel.elf",
+      "sha256": "fbc466aeea703544d0647d078b85030030f59424c9f061053d5cd58bf57c071f",
+      "bytes": 1691104
+    },
+    {
+      "name": "EngineOS-M5-kernel.map",
+      "sha256": "d76becc26a71d4fbea10ca585031afe12a5b3c7dd08cb76073dfbf86321cad48",
+      "bytes": 95255
+    },
+    {
+      "name": "EngineOS-M5-usb.img",
+      "sha256": "fdbc8ad6b24925514b8ee212fcc91482dcb055a648575e5e759e81ba7f6ade6d",
+      "bytes": 72351744
+    },
+    {
+      "name": "EngineOS-M5-user.elf",
+      "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f",
+      "bytes": 68064
+    },
+    {
+      "name": "EngineOS-M5.iso",
+      "sha256": "bee3a1e1000429646e6c8102d435db41485dc294f4914c57db0dd76967a5b403",
+      "bytes": 68605952
+    },
+    {
+      "name": "m5-build-manifest.json",
+      "sha256": "409a90402b685b02a6d6dc09008e172403841818ecd58a22ab4dd5943e175452",
+      "bytes": 10204
+    },
+    {
+      "name": "M5-SHA256SUMS.txt",
+      "sha256": "202537a64b1c6bb4e7784dab16dbff7eb2dc48729ec4c238373f1c703470ce83",
+      "bytes": 438
+    }
+  ],
+  "workflows": [
+    {
+      "conclusion": "success",
+      "databaseId": 42219491642,
+      "event": "push",
+      "headSha": "9e4072a5503e7711a00b99f40da395f4c0111a15",
+      "status": "completed",
+      "url": "https://github.com/enginsoysal/codename-engine-os/actions/runs/42219491642"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 42219626676,
+      "event": "release",
+      "headSha": "9e4072a5503e7711a00b99f40da395f4c0111a15",
+      "status": "completed",
+      "url": "https://github.com/enginsoysal/codename-engine-os/actions/runs/42219626676"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 42220005230,
+      "event": "workflow_dispatch",
+      "headSha": "9e4072a5503e7711a00b99f40da395f4c0111a15",
+      "status": "completed",
+      "url": "https://github.com/enginsoysal/codename-engine-os/actions/runs/42220005230"
+    }
+  ],
+  "publication": {
+    "passed": true,
+    "checked_at": "2026-11-06T12:44:54.738Z",
+    "website": "https://engineos.brixcanvas.com",
+    "source_commit": "9e4072a5503e7711a00b99f40da395f4c0111a15",
+    "articles": 62,
+    "created": 0,
+    "updated": 0,
+    "archived": 0,
+    "unrelated_articles_preserved": 0
+  },
+  "public_website_check": "website-results.json",
+  "acceptance_sha256": "b2ec081909c79da67f63ab5930c157997012da7539e0329182deb32fe955c779"
+}
