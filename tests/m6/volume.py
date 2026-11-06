@@ -3,6 +3,7 @@ import ctypes as c,hashlib,json,struct,subprocess,sys,tempfile,zlib,traceback
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT/'tools/build'))
 from m1 import pinned_tools
+from workspace import BASE,new_work,sparse_disk,redact
 IO=c.CFUNCTYPE(c.c_uint,c.c_void_p,c.c_uint64,c.c_void_p,c.c_uint)
 FLUSH=c.CFUNCTYPE(c.c_uint,c.c_void_p)
 SOURCE=c.CFUNCTYPE(c.c_uint,c.c_void_p,c.c_uint64,c.c_void_p,c.c_uint)
@@ -27,7 +28,7 @@ def main():
         for n in ['capacity','used']:getattr(lib,'v6_'+n).argtypes=[c.POINTER(Volume)];getattr(lib,'v6_'+n).restype=c.c_uint64
         class Disk:
             def __init__(self,path,size):
-                self.f=path.open('w+b');self.f.truncate(size);self.size=size;self.calls=0;self.fail=0;self.torn=False
+                sparse_disk(path,size);self.f=path.open('r+b');self.size=size;self.calls=0;self.fail=0;self.torn=False
                 self.read=IO(self._read);self.write=IO(self._write);self.flush=FLUSH(self._flush)
             def _read(self,ctx,block,p,n):
                 if n!=4096 or block>=self.size//4096:return 1
@@ -50,8 +51,9 @@ def main():
         def alternate(ctx,off,p,n):c.memmove(p,pattern(off,n,71),n);return 0
         def read(v,path,off,n):
             raw=c.create_string_buffer(n);actual=c.c_uint();s=lib.v6_read(c.byref(v),path,off,raw,n,c.byref(actual));assert s==0,s;return raw.raw[:actual.value]
-        with tempfile.TemporaryDirectory(dir=work) as td:
-            assert Path(td).resolve().is_relative_to(work.resolve())
+        temporary_base=new_work('volume')
+        with tempfile.TemporaryDirectory(dir=temporary_base) as td:
+            assert Path(td).resolve().is_relative_to(temporary_base.resolve())
             disk=Disk(Path(td)/'owned-large.img',20*1024**3);v=disk.volume();assert lib.v6_format(c.byref(v))==0
             assert lib.v6_mkdir(c.byref(v),b'/Users')==0;assert lib.v6_mkdir(c.byref(v),b'/Users/Owner')==0
             size=2*1024**2+113;path=b'/Users/Owner/large.bin';assert lib.v6_put(c.byref(v),path,size,source,None)==0
@@ -76,7 +78,7 @@ def main():
             cases=0
             for torn in [False,True]:
                 for fault in range(1,95):
-                    d=Disk(Path(td)/'fault.img',16*1024**2);w=d.volume();assert lib.v6_format(c.byref(w))==0
+                    d=Disk(Path(td)/('fault-'+str(int(torn))+'-'+str(fault)+'.img'),16*1024**2);w=d.volume();assert lib.v6_format(c.byref(w))==0
                     assert lib.v6_put(c.byref(w),b'/document',65537,source,None)==0
                     d.calls=0;d.fail=fault;d.torn=torn
                     status=lib.v6_put(c.byref(w),b'/document',65537,alternate,None)
@@ -100,7 +102,7 @@ def main():
             checks.append({'name':'independent header/table CRC inspection, payload corruption detected, dual invalid metadata refuses mount','passed':True})
         result.update(passed=True,source_sha256=hashlib.sha256(src.read_bytes()).hexdigest(),header_sha256=hashlib.sha256((ROOT/'include/engine/storage/volume6.h').read_bytes()).hexdigest(),volume_state_bytes=c.sizeof(Volume),whole_file_buffer_required=False,guest_qualification=False)
     except Exception:
-        result['error']=traceback.format_exc().replace(str(ROOT),'<project-root>');print(result['error'])
+        result['error']=redact(traceback.format_exc());print(result['error'])
     (out/'volume-results.json').write_bytes((json.dumps(result,indent=2)+'\n').encode())
     print('M6 volume '+('PASS' if result['passed'] else 'FAIL'),flush=True)
     if not result['passed']:raise SystemExit(1)

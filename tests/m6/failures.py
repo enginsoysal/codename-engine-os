@@ -8,10 +8,11 @@ def install(g):
     h.next(g);h.next(g);h.next(g,2);h.next(g,2);h.next(g,5);start=len(g.log());h.next(g,1);return start
 
 def main():
-    work=ROOT/'build/m6/failures'/str(time.time_ns());work.mkdir(parents=True);out=ROOT/'evidence/M6/failures';out.mkdir(parents=True,exist_ok=True);checks=[];result={'passed':False,'checks':checks}
+    work=q.new_work('failures');out=ROOT/'evidence/M6/failures';out.mkdir(parents=True,exist_ok=True);checks=[];result={'passed':False,'checks':checks}
     def fresh(name,mib=2048,seed=b''):
-        p=work/(name+'.img');p.touch();subprocess.run(['fsutil','sparse','setflag',str(p)],check=True,capture_output=True)
-        with p.open('r+b') as f:f.truncate(mib*1024**2);f.write(seed)
+        p=work/(name+'.img');q.sparse_disk(p,mib*1024**2)
+        if seed:
+            with p.open('r+b') as f:f.write(seed)
         return p
     try:
         for name,size,seed in [('existing-owner',2048,b'EXISTING-OWNER-DATA'),('undersize',512,b'')]:
@@ -40,7 +41,7 @@ def main():
         with q.Guest(work/'recovered-installed',disk,media='installed') as g:assert 'M6_INSTALLED_VOLUME' in g.log()
         checks.append({'name':'interrupted cross-version activation preserves data, refuses uncertain boot identity and restores the active version through ISO repair','passed':True})
         meta=json.loads((ROOT/'dist/m6-build-manifest.json').read_text(encoding='utf-8'));result.update(passed=True,build_id=meta['build_id'],iso_sha256=meta['artifacts']['EngineOS-M6.iso']['sha256'],scope='named SATA EIO/write refusal model; not arbitrary physical power-loss qualification')
-    except Exception:result['error']=traceback.format_exc().replace(str(ROOT),'<project-root>');print(result['error'])
+    except Exception:result['error']=q.clean(traceback.format_exc());print(result['error'])
     (out/'results.json').write_bytes((json.dumps(result,indent=2)+'\n').encode());print('M6 failures '+('PASS' if result['passed'] else 'FAIL'),flush=True)
     if not result['passed']:raise SystemExit(1)
 if __name__=='__main__':main()

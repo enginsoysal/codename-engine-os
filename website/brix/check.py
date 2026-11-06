@@ -59,12 +59,16 @@ def get(route):
 def verify(payload):
     ref = payload["source_commit"]
     home = get("/")
-    for text in ["From first boot.", "To what comes next.", "PROJECT SNAPSHOT / X86-64", "Run it in VMware", "Build your own distro.", "Meet the console", "Before you install M5.1"]:
+    for text in ["From first boot.", "To what comes next.", "PROJECT SNAPSHOT / X86-64", "Run it in VMware", "Build your own distro.", "Repair and update", "Before you install M6"]:
         assert text in home.text, f"Missing preferred native design: {text}"
     for fiction in ["Driftlab", "Northwind", "Book now", "Tidemark"]:
         assert fiction not in home.text, f"Template fiction remains: {fiction}"
-    for slug in ["docs-handbook-install-m51", "docs-handbook-distributions", "docs-handbook-m5-console"]:
+    for slug in ["docs-handbook-install-m6", "docs-handbook-distributions", "docs-handbook-recovery-m6"]:
         assert f"{ORIGIN}/blog/{slug}" in home.links, f"Stale homepage guide: {slug}"
+    m6 = json.loads((ROOT / "evidence/M6/acceptance-results.json").read_text(encoding="utf-8"))
+    assert m6["passed"] and m6["scope_id"] == "M6-VM-v1"
+    for relative, digest in m6["evidence_sha256"].items():
+        assert hashlib.sha256((ROOT / "evidence/M6" / relative).read_bytes()).hexdigest() == digest, relative
     m51 = json.loads((ROOT / "evidence/M5.1/acceptance-results.json").read_text(encoding="utf-8"))
     assert m51["passed"] and m51["full_m51_complete"]
     for relative, digest in m51["evidence_sha256"].items():
@@ -84,6 +88,7 @@ def verify(payload):
             expected = f"https://github.com/enginsoysal/codename-engine-os/blob/{ref}/{marker}"
             assert expected in page.links, f"Wrong source commit: {route}"
         if post["slug"] == "downloads":
+            assert m6["iso_sha256"] in page.text, "Current M6 ISO checksum is not visible"
             assert ISO_SHA in page.text, "Final ISO checksum is not visible"
             assert m51["iso_sha256"] in page.text, "Current M5.1 ISO checksum is not visible"
             assert m5["iso_sha256"] in page.text, "Current M5 ISO checksum is not visible"
@@ -108,6 +113,7 @@ def verify(payload):
             "native_articles": len(articles), "article_source_commit": ref, "english_html_language": True,
             "external_website_iframes": 0, "anonymous_https": True, "preferred_homepage_design": True,
             "m45_scope": "M45-VM-v1", "frozen_evidence_hashes_verified": len(acceptance["evidence_sha256"]),
+            "m6_scope": m6["scope_id"], "m6_iso_sha256": m6["iso_sha256"], "m6_evidence_hashes_verified": len(m6["evidence_sha256"]),
             "m45_iso_sha256": ISO_SHA, "m5_iso_sha256": m5["iso_sha256"], "m5_scope": "M5-VM-v1",
             "m51_iso_sha256": m51["iso_sha256"], "m51_evidence_hashes_verified": len(m51["evidence_sha256"]),
             "m5_evidence_hashes_verified": len(m5["evidence_sha256"]),

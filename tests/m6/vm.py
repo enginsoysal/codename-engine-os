@@ -2,12 +2,14 @@
 from pathlib import Path
 import hashlib,json,re,subprocess,sys,time
 ROOT=Path(__file__).resolve().parents[2]
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from workspace import BASE,new_work,sparse_disk,redact
 sys.path[:0]=[str(ROOT/'tools'),str(ROOT/'tools/build'),str(ROOT/'tests/m3')]
 from vm.config import arguments,qemu_tools
 from visual import free_port,connect
 from ext2_image import check,Image,U32
 
-def clean(log):return re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]','',log).replace(str(ROOT),'<project-root>')
+def clean(log):return redact(re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]','',log))
 def digest(path,start=0,length=None):
     h=hashlib.sha256()
     with path.open('rb') as f:

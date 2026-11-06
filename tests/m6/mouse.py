@@ -7,10 +7,10 @@ q=h.q;ROOT=q.ROOT
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--device',choices=['usb','ps2'],default='usb');args=parser.parse_args()
-    work=ROOT/'build/m6/mouse'/str(time.time_ns());work.mkdir(parents=True);out=ROOT/'evidence/M6'/('mouse-ps2' if args.device=='ps2' else 'mouse');out.mkdir(parents=True,exist_ok=True);result={'passed':False}
+    work=q.new_work('mouse');out=ROOT/'evidence/M6'/('mouse-ps2' if args.device=='ps2' else 'mouse');out.mkdir(parents=True,exist_ok=True);result={'passed':False}
     try:
         disk=work/'owned.img'
-        with disk.open('xb') as f:f.truncate(2*1024**3)
+        q.sparse_disk(disk,2*1024**3)
         with q.Guest(work/'live',disk,ps2_only=args.device=='ps2') as g:
             if args.device=='ps2':assert 'M6_PS2_MOUSE_ONLINE' in g.log()
             h.shot(g,out,'before')
@@ -26,7 +26,7 @@ def main():
             registers=g.qmp('human-monitor-command',{'command-line':'info registers -a'});assert registers.count('HLT=1')==2
             (out/'serial.log').write_bytes(g.log().encode())
             result.update(passed=True,pointer_device=args.device,build_id=m['build_id'],iso_sha256=m['artifacts']['EngineOS-M6.iso']['sha256'],checks=[{'name':'native mouse reaches footer, Next activates disk selection, press/release is consumed and both CPUs return to halt','passed':True}])
-    except Exception:result['error']=traceback.format_exc().replace(str(ROOT),'<project-root>');print(result['error'])
+    except Exception:result['error']=q.clean(traceback.format_exc());print(result['error'])
     (out/'results.json').write_bytes((json.dumps(result,indent=2)+'\n').encode());print('M6 '+args.device+' mouse '+('PASS' if result['passed'] else 'FAIL'),flush=True)
     if not result['passed']:raise SystemExit(1)
 if __name__=='__main__':main()

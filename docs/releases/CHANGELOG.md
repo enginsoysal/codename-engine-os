@@ -1,5 +1,9 @@
 # Changelog
 
+## M6 v0.6.0 — 2026-11-06
+
+Native graphical Back/Next/Finish installation with retained disk/component/local-name/accent choices, verified copy progress and independent BIOS/UEFI installed boot. Capacity-aware GPT layout, original streaming copy-on-write data volume, persistent settings and independent optional guide removal. Distinct-build update, rollback and ISO-assisted repair preserve data in tested error paths. USB/PS/2 input, custom Minimal distro, low-RAM/idle checks and named QEMU/VMware qualification. [Release notes](m6-v0.6.0.md), [installation](../handbook/install-m6.md), [recovery](../handbook/recovery-m6.md), [exact evidence](../../evidence/M6/acceptance-results.json). Desktop/networking and MS-DOS/Windows application runtimes remain M7/M8.
+
 ## M6 development — initial capacity planner
 
 Started the real-installation milestone with a shared freestanding C partition planner and host/kernel-target checks. The planner accounts for the selected disk instead of reserving only a demonstration data volume. Installer/formatter/update integration remains pending; the current release and downloadable ISO are unchanged.

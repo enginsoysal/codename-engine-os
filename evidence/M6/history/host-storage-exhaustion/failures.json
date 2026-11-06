@@ -1,0 +1,5 @@
+{
+  "passed": false,
+  "checks": [],
+  "error": "Traceback (most recent call last):\n  File \"<project-root>\\tests\\m6\\failures.py\", line 18, in main\n    disk=fresh(name,size,seed);before=q.digest(disk)\n  File \"<project-root>\\tests\\m6\\failures.py\", line 14, in fresh\n    with p.open('r+b') as f:f.truncate(mib*1024**2);f.write(seed)\nOSError: [Errno 28] No space left on device\n"
+}

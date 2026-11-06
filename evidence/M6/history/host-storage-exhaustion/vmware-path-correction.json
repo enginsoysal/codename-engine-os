@@ -1,0 +1,14 @@
+{
+  "native_result": null,
+  "guest_started": false,
+  "observed_failures": [
+    "VMware VMX could not open its existing AppData configuration path",
+    "Project VMX opened, but VMware could not open the AppData VMDK path"
+  ],
+  "correction": "Place dedicated VMware configuration and genuinely sparse owned disk fixtures under build/m6/vmware; QEMU retains local AppData fixtures",
+  "final_reports": [
+    "evidence/M6/vmware/bios/results.json",
+    "evidence/M6/vmware/efi/results.json"
+  ],
+  "existing_user_vms_modified": false
+}

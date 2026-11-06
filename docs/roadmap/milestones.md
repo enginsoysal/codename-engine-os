@@ -1,6 +1,6 @@
 # Milestones and acceptance contract
 
-Updated 2026-11-06. M0–M5.1 are complete within their documented technical acceptance scopes; [status](status.md) and fresh evidence govern each claim. M4.5 completion uses the explicitly user-approved M45-VM-v1 scope. Later milestones are planned, not implicit capabilities.
+Updated 2026-11-06. M0–M6 are complete within their documented technical acceptance scopes; [status](status.md) and fresh evidence govern each claim. M4.5 completion uses the explicitly user-approved M45-VM-v1 scope. Later milestones are planned, not implicit capabilities.
 
 The implementation owner is the coding agent; the user sets product scope and accepts results. Each milestone needs reproducible commands, build/source/artifact identity, negative cases, resource accounting and visible limitations. A mock/stub or screenshot alone never proves a complete feature. CPU/RAM efficiency is measured from M2 onward; it is not inferred from configured guest memory.
 
@@ -73,6 +73,8 @@ The implemented acceptance profile and explicit limits are in the [M4 contract](
 The next three milestones replace the previous future numbering. Completed M0–M5.1 scopes and immutable releases remain historical technical achievements. M5/M5.1 demonstrate native installation and a guided prototype; they do not satisfy the broader product installation/desktop requirements below. The [previous future schedule](history/2026-11-06-previous-future-milestones.md) is retained as history only.
 
 ## M6 — real product installation
+
+**Status:** complete within [M6-VM-v1](../milestones/m6-scope.json), with [exact acceptance](../../evidence/M6/acceptance-results.json) and [release instructions](../releases/m6-v0.6.0.md).
 
 **Priority 1. Depends on:** M5.1. Deliver a complete guided installation from ISO/USB onto the selected supported target, meaningful use of the selected disk capacity, application-ready large-file storage, a real native system/user layout and first-run user setup. Remove the fixed 16-MiB/48-KiB product bottlenecks. The installed system must own its boot/runtime assets and persistent configuration, rather than relying on installation media or a demonstration data volume.
 

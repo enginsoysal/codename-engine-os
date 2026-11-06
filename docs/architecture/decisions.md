@@ -120,7 +120,7 @@ Before physical tests: select an explicit test computer; never use the developme
 
 **Why/alternative:** continuing the fixed 16-MiB demonstration volume cannot support useful desktop documents or application downloads. Two 512-MiB base-system slots prepare an inactive-copy recovery mechanism without duplicating user data; a single mutable system partition would make update recovery harder. These are initial base-image budgets, not implemented activation/rollback or unlimited image capacity. The shared native planner avoids diverging host/kernel arithmetic.
 
-**Verification/limits:** actual C host execution across 10,005 geometries and refusal cases, plus freestanding kernel compilation; [M6 contract](../milestones/m6.md). Installer integration, scalable filesystem, real boot/update recovery and runtime resource qualification remain pending. No new ISO is claimed.
+**Verification/limits:** actual C host execution across 10,005 geometries and refusal cases, plus freestanding kernel compilation; [M6 contract](../milestones/m6.md). This was the initial planner checkpoint. Installer integration, scalable storage, boot/update recovery and runtime resource qualification were subsequently completed in M6; see [exact acceptance](../../evidence/M6/acceptance-results.json).
 
 ## M6 native implementation decisions
 

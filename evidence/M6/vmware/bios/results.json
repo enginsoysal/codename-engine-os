@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "build_id": "27d1888fc49fdf981b435a44431e6213",
+  "iso_sha256": "3ef2e4c83dc99b441bf450ab34c6164312dbcfe9f82948b0cfeebf2d453df07e",
+  "firmware": "bios",
+  "vmware": {
+    "version": "26.0.1",
+    "build": "25688693"
+  },
+  "disk_gib": 20,
+  "existing_vm_inventory_unchanged": true,
+  "checks": [
+    {
+      "name": "native graphical wizard COM1 keyboard flow installs actual 20 GiB SATA disk",
+      "passed": true
+    },
+    {
+      "name": "two media-detached VMware boots and real >2 MiB file persistence/checksum",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "m6_acceptance_complete": false
+}

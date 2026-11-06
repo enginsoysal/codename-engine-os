@@ -1,8 +1,12 @@
 {
   "passed": true,
-  "build_id": "dbb56c370b5ebc433f1f5caafa1eb985",
-  "iso_sha256": "bf1c593cd690d403d63449172c1111b3802ed22a89ef0872c1d2191f3d464edc",
+  "build_id": "27d1888fc49fdf981b435a44431e6213",
+  "iso_sha256": "3ef2e4c83dc99b441bf450ab34c6164312dbcfe9f82948b0cfeebf2d453df07e",
   "firmware": "efi",
+  "vmware": {
+    "version": "26.0.1",
+    "build": "25688693"
+  },
   "disk_gib": 20,
   "existing_vm_inventory_unchanged": true,
   "checks": [

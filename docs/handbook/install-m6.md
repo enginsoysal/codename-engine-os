@@ -1,6 +1,8 @@
 # Install Engine OS M6 in VMware
 
-M6 release qualification is tracked by the [milestone status](../milestones/m6.md). Use only the exact ISO identified by the published release and acceptance report. The browser design preview is not installation media.
+Download [EngineOS-M6.iso](https://github.com/enginsoysal/codename-engine-os/releases/download/m6-v0.6.0/EngineOS-M6.iso). The [release notes](../releases/m6-v0.6.0.md) and [milestone status](../milestones/m6.md) identify its qualification. Use only the exact ISO identified by the published release and acceptance report. The browser design preview is not installation media.
+
+![Native Engine OS welcome screen](../../evidence/M6/qemu-uefi/welcome.png)
 
 ## Prepare the virtual machine
 
@@ -24,6 +26,8 @@ Do not add, remove or change virtual disks while the wizard is open. If no usabl
 6. **Installing:** progress reports actual copied/verified stages. Keep the disk connected. A failure screen does not mean installation succeeded.
 7. **Finish:** after verified completion, power off the VM, disconnect ISO/CD or USB installation media and start the VM again. Finish closes the wizard to its restart instructions; it does not automatically change VMware's boot settings.
 
+![Review the selected disk and choices](../../evidence/M6/qemu-uefi/review.png)
+
 ## What appears after installed boot
 
 The installed landing screen shows your saved name and data capacity. Change accent and Save preferences to persist it. The optional guide can be removed independently through Remove guide. This does not remove the base, Settings or other documents. **This is an installed-system landing screen, not the M7 desktop.** There are no Windows/MS-DOS application runtimes yet.
@@ -42,4 +46,4 @@ Boot the installer ISO again. Welcome offers **Repair**, **Update** and **Rollba
 
 If the initial installation was interrupted, restart Install on the identified incomplete target and review the whole-disk operation again. Its uncompleted setup may be recreated. A boot-version mismatch after an interrupted update needs ISO-assisted Repair; the system does not silently open user data with an uncertain activation identity. If ownership, slot or filesystem integrity cannot be established, stop and retain the disk for diagnosis. Arbitrary filesystem damage, format migration and physical power-loss recovery are not promised.
 
-[Storage/recovery design and limits](../architecture/storage-m6.md) Â· [Distribution recipes](distributions.md) Â· [Wizard design history](installer-design.md).
+[Recovery and update instructions](recovery-m6.md) · [Storage/recovery design and limits](../architecture/storage-m6.md) · [Distribution recipes](distributions.md) · [Wizard design history](installer-design.md).

@@ -1,21 +1,21 @@
 # Engine OS user handbook
 
-Start with **M5.1 v0.5.1**. A guided keyboard menu offers Try, Install and Repair without terminal commands. Type a displayed number and press Enter. The installed menu provides a persistent sample-file preview. This is not a desktop yet.
+Start with **M6 v0.6.0**. The native graphical installer offers Back, Next, review, Install and Finish. You choose the disk, optional guide, local name and accent; the installer creates its partitions. No terminal commands are required for ordinary setup.
 
-- [Step-by-step guided VMware installation and recovery](install-m51.md)
+- [Download and install in VMware, step by step](install-m6.md)
+- [Repair, update or roll back an M6 installation](recovery-m6.md)
 - [Build and customize your own distribution](distributions.md)
-- [Product principles: convenience, clear interaction and distribution freedom](../architecture/product-principles.md)
-- [M5.1 implementation and qualification](../milestones/m5.1.md)
-- [Current status](../roadmap/status.md)
+- [Current release, checksum and qualified limits](../releases/m6-v0.6.0.md)
+- [Product principles](../architecture/product-principles.md) and [current status](../roadmap/status.md)
 
-Use a new disposable SATA disk and disable Secure Boot. The native data partition remains 16 MiB, with 48-KiB files; remaining disk capacity stays unallocated. Live sample files disappear on reboot; installed sample files persist.
+Use a new disposable SATA disk of at least 2 GiB, two CPUs and 128 MiB RAM. Disable Secure Boot. After successful installation, power off, disconnect the ISO and restart. The installed landing screen retains your local choices and files. The full desktop is M7; MS-DOS/Windows applications are M8.
 
-[Online documentation and downloads](https://engineos.brixcanvas.com) update from canonical GitHub Markdown and release assets. [Website maintenance](../../website/README.md).
+[Online documentation and downloads](https://engineos.brixcanvas.com) update from canonical GitHub Markdown and official release assets. [Website maintenance](../../website/README.md).
 
 ## Historical and advanced references
 
-[M5 command-based installation](install.md), [advanced recovery](recovery.md), [terminal command reference](m5-console.md). In M5.1 choose Advanced deliberately and type `menu` to return; these commands are not installation prerequisites. [M4.5 storage](vmware-storage.md) and [console](console.md) describe the older release without an installer. Old releases/evidence remain immutable.
+[M5.1 numbered setup](install-m51.md), [M5 command-based installation](install.md), [old recovery](recovery.md), [old command reference](m5-console.md), [M4.5 storage](vmware-storage.md) and [console](console.md) describe their respective historical releases. M5/M5.1 data formats are not migrated by M6. Old releases and accepted evidence remain immutable.
 
 ## Current product delivery order
 
-The owner revision of 6 November 2026 sets M6 real product installation, M7 real desktop experience, then M8 original MS-DOS and Windows 1.x through Windows 11 application compatibility. M6 has a native graphical installer, scalable volume and recovery implementation under qualification; M7 and M8 are not started. Previous milestone evidence remains bounded historical proof. Engine OS remains the product name. Convenience, optional diagnostics, distribution freedom and measured CPU/RAM use apply to every stage. See [the current contracts](../roadmap/milestones.md).
+M6 real installation is complete within its named VM scope. M7 delivers the real desktop and networking; M8 implements separately qualified original MS-DOS and Windows 1.x through Windows 11 application tracks. Engine OS remains the product name. Convenience, optional diagnostics, distribution freedom and measured CPU/RAM use apply throughout. See [the contracts](../roadmap/milestones.md).

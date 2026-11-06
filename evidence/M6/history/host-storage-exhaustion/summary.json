@@ -1,0 +1,8 @@
+{
+  "passed": false,
+  "stage": "host test-image setup",
+  "failure": "Generated Windows test disk files consumed host capacity; no guest started in the failed setup cases.",
+  "resolution": "Delete one explicitly verified owned 20 GiB development image; create subsequent tests in local AppData using checked sparse EOF/allocation APIs instead of zero-extending CRT files.",
+  "bulk_cleanup_review": "Bulk deletion was rejected; the narrower explicitly named owned-image removal succeeded.",
+  "os_source_unchanged": true
+}

@@ -52,8 +52,8 @@ export function build(output){
  }
  const releases=JSON.parse(execFileSync('gh',['api','repos/enginsoysal/codename-engine-os/releases?per_page=100'],{cwd:root,encoding:'utf8',maxBuffer:4*1024*1024})).filter(r=>!r.draft);
  const downloads=[];const add=(type,props)=>downloads.push({id:`engine-downloads-${downloads.length+1}`,type,props});
- add('text',{text:'Download original Engine OS release files directly from GitHub. Check the complete SHA256 value before booting. M4.5 has no installer or partition creation; use a separate test VM and disable Secure Boot for public unsigned media.',size:17,color:'#152434'});
- add('richtext',{html:`<p><a href="${GH}/releases">Official release history</a> · <a href="${SITE}/blog/docs-releases-m45-v0-4-5">VMware setup and verification</a> · <a href="${SITE}/blog/docs-handbook-vmware-storage">Missing disk?</a></p>`,size:17});
+ add('text',{text:'Download original Engine OS release files directly from GitHub. Check the complete SHA256 value before booting. M6 provides the current graphical installer; use a separate test VM, a new SATA target and disable Secure Boot for public unsigned media. Earlier releases remain historical.',size:17,color:'#152434'});
+ add('richtext',{html:`<p><a href="${GH}/releases">Official release history</a> · <a href="${SITE}/blog/docs-releases-m6-v0-6-0">VMware setup and verification</a> · <a href="${SITE}/blog/docs-handbook-install-m6">Missing disk?</a></p>`,size:17});
  let stable=false;
  for(const r of releases){
    const label=r.prerelease?'Historical preview':stable?'Earlier release':'Latest stable';if(!r.prerelease)stable=true;

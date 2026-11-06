@@ -57,11 +57,10 @@ def flow(g,tabs,expected):
     h.next(g,tabs);h.next(g);h.next(g,2);start=len(g.log());h.next(g,1);g.wait(expected,start,240)
 
 def main():
-    work=ROOT/'build/m6/maintenance'/str(time.time_ns());work.mkdir(parents=True);out=ROOT/'evidence/M6/maintenance';out.mkdir(parents=True,exist_ok=True);checks=[];result={'passed':False,'checks':checks}
+    work=q.new_work('maintenance');out=ROOT/'evidence/M6/maintenance';out.mkdir(parents=True,exist_ok=True);checks=[];result={'passed':False,'checks':checks}
     try:
         base=json.loads((ROOT/'dist/m6-build-manifest.json').read_text(encoding='utf-8'));new=json.loads((ROOT/'dist/m6u1-build-manifest.json').read_text(encoding='utf-8'));assert base['build_id']!=new['build_id'] and base['source_sha256']==new['source_sha256']
-        disk=work/'owned.img';disk.touch();subprocess.run(['fsutil','sparse','setflag',str(disk)],check=True,capture_output=True)
-        with disk.open('r+b') as f:f.truncate(2*1024**3)
+        disk=work/'owned.img';q.sparse_disk(disk,2*1024**3)
         empty=q.digest(disk)
         with q.Guest(work/'install',disk) as g:
             h.next(g);h.next(g);h.next(g,2);h.next(g,2)
@@ -105,7 +104,7 @@ def main():
         assert q.digest(disk,start,length)==saved
         checks.append({'name':'one torn activation record falls back to previous valid generation without modifying user data','passed':True})
         result.update(passed=True,build_id=base['build_id'],update_build_id=new['build_id'],iso_sha256=base['artifacts']['EngineOS-M6.iso']['sha256'],m6_acceptance_complete=False)
-    except Exception:result['error']=traceback.format_exc().replace(str(ROOT),'<project-root>');print(result['error'])
+    except Exception:result['error']=q.clean(traceback.format_exc());print(result['error'])
     (out/'results.json').write_bytes((json.dumps(result,indent=2)+'\n').encode());print('M6 maintenance '+('PASS' if result['passed'] else 'FAIL'),flush=True)
     if not result['passed']:raise SystemExit(1)
 if __name__=='__main__':main()
