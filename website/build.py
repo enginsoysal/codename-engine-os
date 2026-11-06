@@ -22,8 +22,7 @@ def build(destination):
     ref = git("rev-parse", "HEAD").strip()
     paths = git("ls-tree", "-r", "--name-only", ref).splitlines()
     docs = {p: git("show", f"{ref}:{p}") for p in paths
-            if p.endswith(".md") and (p.startswith("docs/") or p in
-                {"README.md", "CONTRIBUTING.md", "SECURITY.md", "AGENTS.md"})}
+            if p.endswith(".md")}
     titles = {p: next((line[2:] for line in text.splitlines() if line.startswith("# ")), p)
               for p, text in docs.items()}
     releases = json.loads(subprocess.check_output([
