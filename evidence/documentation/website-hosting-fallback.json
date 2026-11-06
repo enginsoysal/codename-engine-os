@@ -1,0 +1,18 @@
+{
+  "initial_provider": "Sites",
+  "saved_version": 1,
+  "attempts": [
+    {
+      "status": "failed",
+      "at": "2026-11-06T09:27:15.488681+00:00",
+      "reason": "no healthy upstream"
+    },
+    {
+      "status": "failed",
+      "at": "2026-11-06T09:28:06.519313+00:00",
+      "reason": "no healthy upstream"
+    }
+  ],
+  "recovery": "Dedicated Azure Storage static website, using the existing Front Door hostname and wildcard TLS. Source stays in Engine OS GitHub; no BrixCanvas application changes.",
+  "azure_origin_byte_verification": "All 10 static assets matched; 53 documents; all 19 frozen M4.5 evidence hashes unchanged."
+}

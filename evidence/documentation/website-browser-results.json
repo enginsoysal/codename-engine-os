@@ -1,0 +1,54 @@
+{
+  "checked_at": "2026-11-06",
+  "passed": true,
+  "browser": "Microsoft Edge",
+  "checks": [
+    {
+      "name": "Homepage and handbook navigation",
+      "passed": true
+    },
+    {
+      "name": "Full-text search SATA",
+      "passed": true,
+      "results_observed": 12,
+      "documentation_commit": "f2626dd680512cf092fb503f4340dfca8ca38842"
+    },
+    {
+      "name": "Release-tag documentation",
+      "passed": true,
+      "tag": "m45-v0.4.5",
+      "commit": "580e1de9d87297213a522310de243149e5962be5",
+      "note": "Guide absent at historical tag correctly falls back to that tag README."
+    },
+    {
+      "name": "Release assets and complete SHA256 display",
+      "passed": true,
+      "stable_release": "m45-v0.4.5",
+      "assets": 7
+    },
+    {
+      "name": "Narrow viewport",
+      "passed": true,
+      "width": 390,
+      "height": 844,
+      "note": "Responsive header and scrollable/collapsible documentation navigation; viewport reset."
+    },
+    {
+      "name": "GitHub outage fallback",
+      "passed": true,
+      "method": "Temporarily block GitHub API/raw requests in this agent-created local preview tab, reload, observe dated bundled copy, remove block."
+    },
+    {
+      "name": "Deployed static origin",
+      "passed": true,
+      "url": "https://stengineosdocs46147764.z6.web.core.windows.net",
+      "document_links": 53,
+      "source_commit": "76a546313a9b83d812e12fa21ef62b2ea1799006",
+      "console_errors": 0
+    }
+  ],
+  "limitations": [
+    "These browser checks do not qualify OS hardware, installation, Windows apps or every browser.",
+    "Custom-domain HTTP verification is recorded separately after edge propagation."
+  ]
+}
