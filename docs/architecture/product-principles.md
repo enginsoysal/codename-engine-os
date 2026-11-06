@@ -10,7 +10,7 @@ Normal tasks must have a discoverable guided path. Boot must explain available a
 
 Menus use ordinary language, real choices, visible progress and useful next steps after failure. State whether data is temporary or persistent. A message must distinguish success, refusal, failure and an uncertain durable outcome. Keep detailed logs and a terminal available through Advanced/Details; do not make them prerequisites for ordinary use.
 
-The acceptance question is task-based: can installation, cancellation and repair be completed using only what the screen says? Automated menu tests enforce the mechanical route; actual novice testing is still needed to assess comprehension. Do not claim universal ease of use, accessibility or a human study from automation alone. M5.1 delivers a keyboard-driven text wizard; M6 must preserve these principles in its desktop.
+The acceptance question is task-based: can installation, cancellation and repair be completed using only what the screen says? Automated menu tests enforce the mechanical route; actual novice testing is still needed to assess comprehension. Do not claim universal ease of use, accessibility or a human study from automation alone. M5.1 delivers a keyboard-driven text wizard; M6 must preserve these principles in product installation and M7 in its desktop.
 
 ## Open distribution architecture
 

@@ -6,7 +6,7 @@ A selected approach is not a runtime claim. [Status](../roadmap/status.md) and [
 |---|---|---|---|---|
 | 001 | Own kernel/system services | Independent platform/resource policy | Existing kernel accelerates drivers but changes the product requirement | Product scope |
 | 002 | Modular kernel, substantial policy in user services | Small trusted core without compulsory round trips | Pure microkernel adds IPC; large monolith broadens fault impact | Measure service/IPC costs at M3/M10 |
-| 003 | Per-environment ABI adapters | Ecosystems differ in semantics, not just names | Superficial universal API loses behavior | Semantics matrix; guest implementation at M7+ |
+| 003 | Per-environment ABI adapters | Ecosystems differ in semantics, not just names | Superficial universal API loses behavior | Semantics matrix; guest implementation at M8+ |
 | 004 | Windows first, complete 7-Zip path | Tangible original-installer proof | Four ecosystems at once spread effort | M8 end-to-end |
 | 005 | x86-64 UEFI first | Matches initial Windows targets, bounded boot matrix | BIOS/ARM immediately multiply platform work | ARM boundaries retained for M16 |
 | 006 | Own versioned native ABI | Internal evolution independent of guests | Making everything NT-shaped couples future platforms | Fixed headers/register/status contracts |
@@ -105,3 +105,11 @@ Before physical tests: select an explicit test computer; never use the developme
 | 077 | Guided finite-state text setup before a graphical desktop | Real numbered tasks over the existing IRQ/HLT loop remove mandatory terminal syntax without a GUI stack | Keyboard text UI, not a human usability study or complete accessibility solution | Menu-only Try/install/cancel/persistent boot/repair and readable error/details tests |
 | 078 | Strict data-only distribution recipes | Compile selected branding/colour and populate actual live/installed files; hash exact inputs into identity | No inert desktop/plugin choices or executable install hooks; richer packages require their own runtime | Independently built/installed Forge ISO, pixel accent/content checks and unsafe/unknown recipe refusal |
 | 079 | Preserve the existing destructive-operation boundary under the wizard | Generate the internal sector confirmation from a revalidated selected plan; back invalidates it | Convenience must not force-wipe unknown existing disks | Full backing hashes on cancellation/refusal; real write EIO; recovery preserving the data partition |
+
+## Owner roadmap revision — 6 November 2026
+
+**Choice:** Engine OS delivers M6 real product installation, then M7 real desktop, then M8 original MS-DOS and Windows 1.x–11 applications. Earlier future milestone numbers are superseded by the [current contracts](../roadmap/milestones.md).
+
+**How:** remove prototype storage limits, qualify persistent independent installation and recovery, then qualify complete graphical daily tasks before original application compatibility. DOS, early Windows, 9x and NT each require their own runtime evidence.
+
+**Why:** the owner prioritizes a usable installed OS and desktop over expanding compatibility on a console prototype. Existing completed technical gates remain historical evidence, while future completion requires real user workflows, resource measurements and declared hardware limits. This revision implements no new runtime and changes no released ISO.
