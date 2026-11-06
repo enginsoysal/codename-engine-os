@@ -1,0 +1,85 @@
+{
+  "passed": true,
+  "scope_id": "M51-VM-v1",
+  "build_id": "8edacbaaa62f3ed67cdd84f392979b77",
+  "gates": [
+    {
+      "report": "uefi-iso/results.json",
+      "checks": 5,
+      "passed": true
+    },
+    {
+      "report": "bios-iso/results.json",
+      "checks": 5,
+      "passed": true
+    },
+    {
+      "report": "uefi-usb/results.json",
+      "checks": 5,
+      "passed": true
+    },
+    {
+      "report": "bios-usb/results.json",
+      "checks": 5,
+      "passed": true
+    },
+    {
+      "report": "uefi-iso-fault/results.json",
+      "checks": 3,
+      "passed": true
+    },
+    {
+      "report": "refusals/results.json",
+      "checks": 3,
+      "passed": true
+    },
+    {
+      "report": "resources/results.json",
+      "checks": 3,
+      "passed": true
+    },
+    {
+      "report": "profile-results.json",
+      "checks": 9,
+      "passed": true
+    },
+    {
+      "report": "vmware/efi/results.json",
+      "checks": 3,
+      "passed": true
+    },
+    {
+      "report": "vmware/bios/results.json",
+      "checks": 3,
+      "passed": true
+    },
+    {
+      "report": "repository-results.json",
+      "checks": 5,
+      "passed": true
+    },
+    {
+      "report": "forge/results.json",
+      "checks": 4,
+      "passed": true
+    }
+  ],
+  "full_m51_complete": true,
+  "iso_sha256": "e7be11b81e87a6b8d20f5b08aff5b0b8ef9dc5ae1c63a31059150194efd2bfe9",
+  "physical_qualified": false,
+  "human_usability_study": false,
+  "evidence_sha256": {
+    "uefi-iso/results.json": "795e3833f19e3506f6b21be6d7c9eab74d232ded1881615224acea39b95b08d1",
+    "bios-iso/results.json": "795e3833f19e3506f6b21be6d7c9eab74d232ded1881615224acea39b95b08d1",
+    "uefi-usb/results.json": "795e3833f19e3506f6b21be6d7c9eab74d232ded1881615224acea39b95b08d1",
+    "bios-usb/results.json": "795e3833f19e3506f6b21be6d7c9eab74d232ded1881615224acea39b95b08d1",
+    "uefi-iso-fault/results.json": "7e28e26bb9fc3dc097015ae7f59c4948c19923812023fa36cdafe55cbb92c455",
+    "refusals/results.json": "e71c3204c3f583fbc26ab34f3987ee4c0757622e925beff58a0f2da0bdc55069",
+    "resources/results.json": "a58e8cda71d622a4441159382094d8611146d8bd80ff472356feb2be829c97f5",
+    "profile-results.json": "1e969f17ee7e7e528f1ad1b652efb369a21083f29c6b0360caccf4d6607a9f26",
+    "vmware/efi/results.json": "e643650bd494ac43da7e4f4665ffbde1993feb76a9308c2ddc2eb306eec9002f",
+    "vmware/bios/results.json": "e643650bd494ac43da7e4f4665ffbde1993feb76a9308c2ddc2eb306eec9002f",
+    "repository-results.json": "a27dfff01cd7be4cd49f154068152622dbad44ca0c1166949ea3b975935d3e13",
+    "forge/results.json": "6898f497ba4b93645ea31d96af693fc17ffe7bb76be8f53158958dfd6c7e6224"
+  }
+}

@@ -1,5 +1,7 @@
 # M5 console command reference
 
+**M5 reference / M5.1 advanced workflow.** For normal use, follow the [M5.1 guided-menu tutorial](install-m51.md); terminal commands are optional.
+
 The console is a trusted diagnostic interface, not a Windows command prompt or Unix shell. Commands below use ASCII text and exact syntax; native filenames preserve UTF-8 through the underlying filesystem, but this console does not provide full Unicode input. Type `help` for syntax. Installation and repair require the live ISO/USB; the installed kernel intentionally omits the installer bundle.
 
 | Command | Behavior |

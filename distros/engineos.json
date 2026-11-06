@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "id": "engineos",
+  "name": "Codename: Engine OS",
+  "version": "0.5.1",
+  "welcome": "Welcome. Choose an option below. No terminal commands are needed.",
+  "accent": "#39d5bb",
+  "packages": [
+    "welcome-guide"
+  ],
+  "files": []
+}

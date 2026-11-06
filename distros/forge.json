@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "id": "forge",
+  "name": "Forge Community OS",
+  "version": "0.5.1",
+  "welcome": "A small community edition built from an Engine OS profile.",
+  "accent": "#efad45",
+  "packages": [
+    "welcome-guide",
+    "developer-notes"
+  ],
+  "files": []
+}

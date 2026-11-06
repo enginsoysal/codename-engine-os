@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "build_id": "8edacbaaa62f3ed67cdd84f392979b77",
+  "iso_sha256": "e7be11b81e87a6b8d20f5b08aff5b0b8ef9dc5ae1c63a31059150194efd2bfe9",
+  "disk_gib": 20,
+  "existing_vm_inventory_unchanged": true,
+  "checks": [
+    {
+      "name": "displayed numbered choices install actual 20-GiB SATA target; no terminal commands or sector token",
+      "passed": true
+    },
+    {
+      "name": "media-detached installed menu and persistent sample over two boots",
+      "passed": true
+    },
+    {
+      "name": "numbered boot repair preserves complete data partition and recovered boot",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

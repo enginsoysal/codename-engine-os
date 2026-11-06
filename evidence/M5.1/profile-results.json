@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "oversized file rejected",
+      "passed": true
+    },
+    {
+      "name": "outside source rejected",
+      "passed": true
+    },
+    {
+      "name": "outside target rejected",
+      "passed": true
+    },
+    {
+      "name": "traversal rejected",
+      "passed": true
+    },
+    {
+      "name": "shell hook rejected",
+      "passed": true
+    },
+    {
+      "name": "unsupported package rejected",
+      "passed": true
+    },
+    {
+      "name": "invalid colour rejected",
+      "passed": true
+    },
+    {
+      "name": "duplicate package rejected",
+      "passed": true
+    },
+    {
+      "name": "duplicate target rejected",
+      "passed": true
+    }
+  ]
+}

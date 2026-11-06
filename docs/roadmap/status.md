@@ -15,6 +15,7 @@ Updated 2026-11-06. Canonical project: [enginsoysal/codename-engine-os](https://
 | M4 persistent storage/input | Complete within documented native filesystem/virtual-device scope | [Fresh acceptance](../../evidence/M4/acceptance-results.json), [AHCI/ext2/VFS and USB/PS/2 contracts](../milestones/m4-contract.md) |
 | M4.5 broader boot/hardware | Complete within M45-VM-v1 | [Fresh acceptance](../../evidence/M4.5/acceptance-results.json), [approved scope](../milestones/m4.5.md), [final ISO and VMware guide](../releases/m45-v0.4.5.md); dual BIOS/UEFI, ordinary storage, checked filesystems, driver status/input/hubs/UAS, faults/resource/SMP and 23 owner-trust checks; physical/factory trust and production key operations are separate unqualified follow-ups |
 | M5 live/install/recovery | Complete within M5-VM-v1 | [Contract](../milestones/m5.md), [acceptance](../../evidence/M5/acceptance-results.json), [installation tutorial](../handbook/install.md); native installer, detached boot, bounded live/persistent volume and same-build repair |
+| M5.1 guided UX/distributions | Complete within M51-VM-v1 | [Contract](../milestones/m5.1.md), [guided tutorial](../handbook/install-m51.md), [custom distributions](../handbook/distributions.md), [acceptance](../../evidence/M5.1/acceptance-results.json) |
 | M6 desktop/network/downloads | Not started | Boot console only |
 | M7 Windows binary foundation | Not started | No NT/Win32 APIs |
 | M8 original 7-Zip workflow | Not started | Third-party app register empty |

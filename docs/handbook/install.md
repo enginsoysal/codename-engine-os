@@ -1,5 +1,7 @@
 # Install Engine OS in VMware
 
+**M5 reference / M5.1 advanced workflow.** For normal use, follow the [M5.1 guided-menu tutorial](install-m51.md); terminal commands are optional.
+
 This tutorial is for **M5 v0.5.0**, a text-based native installer. There is no desktop or Windows application execution yet. Use a new disposable VM and disk. The current writable native volume is 16 MiB, with a 48-KiB file limit; most of a 20-GB disk remains unallocated.
 
 ## 1. Download and verify

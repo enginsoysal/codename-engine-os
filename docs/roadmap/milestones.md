@@ -64,6 +64,10 @@ The implemented acceptance profile and explicit limits are in the [M4 contract](
 
 **Acceptance:** start ISO/USB live, install, detach media, boot installed disk, cancel before writes, handle copy failure and demonstrate recovery. **Risk:** first-install success does not prove atomic updates; non-journaled storage needs an explicit integrity boundary. No simulated install screen counts. See the [M5 implementation](../milestones/m5.md), [installation tutorial](../handbook/install.md) and [acceptance](../../evidence/M5/acceptance-results.json) for actual runtime behavior and exact limits.
 
+## M5.1 — guided setup and distribution profiles
+
+**Depends on:** M5. **What:** discoverable numbered Try/Install/Repair routes, disk review/back, readable errors/progress and optional diagnostics; actual profile-based custom ISO builds. **How/why:** a bounded state machine in the existing IRQ/HLT console avoids a heavyweight GUI dependency while removing mandatory terminal syntax. Versioned recipes separate identity/content from the original kernel and mandatory safety guards. **Acceptance:** full menu-only install/cancel/persistence/repair tasks, actual alternative distro boot/install, unsafe recipe refusal, resource checks and VMware 20-GiB SATA profiles. [Contract](../milestones/m5.1.md), [product principles](../architecture/product-principles.md). **Limits:** keyboard text UI, data packages only, no human study/desktop/app runtime or universal hardware claim.
+
 ## M6 — desktop, network and downloads
 
 **Depends on:** M5. **What:** compositor/window/input/focus/fonts/clipboard, shell/file manager, one network driver, IP/DNS and TLS-backed downloads with valid time/certificates.

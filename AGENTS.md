@@ -11,6 +11,12 @@
 - All committed documentation, code comments, UI strings and new release notes must be in English. Update architecture, status, tests/evidence and user instructions together whenever behavior or scope changes.
 - CPU/RAM efficiency is a primary requirement. Bound allocations/queues, share immutable code, measure peak and retained memory separately, and halt when idle instead of polling. Never equate configured guest RAM with kernel consumption or native probes with Windows compatibility.
 
+## Product requirements
+
+- Convenience and user friendliness are acceptance requirements from the first boot. Ordinary install/repair tasks must use guided choices, clear review/cancel, readable errors and optional details; terminal syntax and placeholders are not the normal user flow.
+- Preserve distribution freedom through validated, versioned profiles and working custom ISO examples. Only advertise configuration choices that affect implemented behavior. Core destructive-operation guards cannot be bypassed by a theme/profile.
+- Follow docs/architecture/product-principles.md; automate complete user tasks and distinguish those checks from an actual human usability study.
+
 ## GitHub publication — explicit user instruction
 
 The owner requested an open-source project and that every update goes to GitHub.

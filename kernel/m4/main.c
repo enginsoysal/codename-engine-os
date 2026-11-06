@@ -55,6 +55,7 @@ NORETURN void m4_start(const os_boot_info_v0 *boot,unsigned mode){
         serial_text("M4_STORAGE_PASS generation=");serial_hex(after);block_info i=block_stats();serial_text(" commands=");serial_hex(i.commands);serial_text(" dma_bytes=");serial_hex(i.dma_pages*4096);serial_text(" irqs=");serial_hex(i.irqs);serial_text(" wait_halts=");serial_hex(i.wait_halts);serial_text("\n");test_exit(0x10);
     }
 #endif
+    #ifndef ENGINE_M51
     console_begin(boot);
 #ifdef ENGINE_M5
     m5_welcome();
@@ -77,7 +78,13 @@ NORETURN void m4_start(const os_boot_info_v0 *boot,unsigned mode){
 #ifndef ENGINE_M45
     unsigned usb=usb_init();
 #endif
-    serial_text("M4_USB_INIT status=");serial_hex(usb);serial_text("\n");input_init();serial_text("M4_CONSOLE_READY\n");console_text("engine> ");
+    #endif
+    serial_text("M4_USB_INIT status=");serial_hex(usb);serial_text("\n");input_init();serial_text("M4_CONSOLE_READY\n");
+#ifdef ENGINE_M51
+    extern void m51_start(const os_boot_info_v0*);m51_start(boot);
+#else
+    console_text("engine> ");
+#endif
     char line[128];unsigned length=0;int overflow=0;
     for(;;){__asm__ volatile("cli");
 #ifdef ENGINE_M45
@@ -87,6 +94,11 @@ NORETURN void m4_start(const os_boot_info_v0 *boot,unsigned mode){
         if(c==256){usb_mouse_draw();continue;}
         if(c==8){if(length&&!overflow){--length;console_text("\b");}continue;}
         if(c==10){line[length]=0;console_text("\n");
+            #ifdef ENGINE_M51
+            extern unsigned m51_line(const char*);
+            if(!overflow&&m51_line(line)){}
+            else
+            #endif
             if(overflow)console_text("Command too long.\n");
             else if(equal(line,"help")){console_text("help info show store TEXT sync halt\nls PATH | cat PATH | mkdir PATH | rm PATH\nwrite PATH TEXT | mv FROM TO\n");
 #ifdef ENGINE_M45
@@ -120,7 +132,12 @@ NORETURN void m4_start(const os_boot_info_v0 *boot,unsigned mode){
             else if(equal(line,"sync")){console_text("Flush status: ");console_hex(block_flush());console_text("\n");}
             else if(equal(line,"halt")){console_text("CPU halted.\n");out8(0x21,255);out8(0x3f9,0);halt_forever();}
             else if(length)console_text("Unknown command. Type help.\n");
-            length=0;overflow=0;console_text("engine> ");
+            length=0;overflow=0;
+#ifdef ENGINE_M51
+            extern unsigned m51_menu_active(void);console_text(m51_menu_active()?"Choice> ":"engine> ");
+#else
+            console_text("engine> ");
+#endif
         }else if(c>=32&&c<=126){if(length<120&&!overflow){line[length++]=(char)c;char echo[2]={(char)c,0};console_text(echo);}else overflow=1;}
     }
 }

@@ -2,6 +2,10 @@
 #include "build.h"
 extern const unsigned m5_template_crc,m5_install_crc;
 static uint64_t overlay[4096];static unsigned overlay_pages,volume_disk=UINT32_MAX,enabled;
+#ifdef ENGINE_M51
+static unsigned guided;
+extern void m51_progress(unsigned);
+#endif
 static unsigned planned=UINT32_MAX,repairing;static storage_disk target;
 static uint8_t intent[512],plan_digest[512],page[4096],verify_page[4096],entries[16384];
 static uint32_t r32(const void *p){uint32_t v;memcpy(&v,p,4);return v;}
@@ -75,9 +79,16 @@ static unsigned prepare(unsigned n,unsigned repair){
     if(repair){if(io(n,40,intent,512,0)||!owned(intent,d)){if(io(n,41,intent,512,0)||!owned(intent,d))return B_DENIED;}}
     else{unsigned s=blank(n);if(s)return s;memcpy(intent,"ENGM5V1\0",8);w32(intent+8,1);w64(intent+16,d->sectors);memcpy(intent+24,BUILD_ID,32);uint32_t low,high;__asm__ volatile("rdtsc":"=a"(low),"=d"(high));uint64_t stamp=((uint64_t)high<<32)|low;w64(intent+56,stamp);w64(intent+64,stamp^d->sectors^d->bdf);w64(intent+72,1);w32(intent+80,m5_install_crc);w64(intent+88,M5_DATA);w64(intent+96,M4_SECTORS);memcpy(intent+104,BUILD_ID,32);}
     if(io(n,0,plan_digest,512,0))return B_IO;planned=n;repairing=repair;
+    #ifdef ENGINE_M51
+    if(!guided){
+    #endif
     console_text(repair?"REPAIR PLAN - system boot files only; preserve data partition.\n":"INSTALL PLAN - target contents may be lost; this is not secure erasure.\n");
     console_text("Disk ");console_decimal(n);console_text(" SATA/AHCI PCI ");console_hex(d->bdf);console_text(" port ");console_decimal(d->unit);console_text(" sectors ");console_decimal(d->sectors);console_text("\nGPT: BIOS boot area, 64 MiB EFI, 16 MiB native data. Rest unallocated.\n");
-    console_text("Unsigned BIOS + UEFI fallback boot; disable Secure Boot.\nNo changes yet. Type cancel or confirm exactly:\n");console_text(repair?"repair ":"install ");console_decimal(n);console_text(repair?" REPAIR-":" ERASE-");console_decimal(d->sectors);console_text("\n");return B_OK;
+    console_text("Unsigned BIOS + UEFI fallback boot; disable Secure Boot.\nNo changes yet. Type cancel or confirm exactly:\n");console_text(repair?"repair ":"install ");console_decimal(n);console_text(repair?" REPAIR-":" ERASE-");console_decimal(d->sectors);console_text("\n");
+#ifdef ENGINE_M51
+    }
+#endif
+    return B_OK;
 }
 static void partition(unsigned i,const uint8_t type[16],uint64_t first,uint64_t last,const char *name){
     uint8_t *p=entries+i*128;memcpy(p,type,16);memcpy(p+16,intent+56,16);p[31]^=(uint8_t)(i+1);w64(p+32,first);w64(p+40,last);for(unsigned j=0;name[j]&&j<36;++j)p[56+j*2]=(uint8_t)name[j];
@@ -100,11 +111,21 @@ static unsigned run(unsigned disk,unsigned repair){
     planned=UINT32_MAX;if(!repair){unsigned s=blank(disk);if(s)return s;}
     unsigned needs_data=!repair||r32(intent+84)!=1;record_seal(intent,1);unsigned s=verified_write(disk,40,intent,512);memset(page,0,512);if(!s)s=verified_write(disk,41,page,512);if(!s)s=flush(disk);if(s)return s;
     serial_text(repair?"M5_REPAIR_BEGIN\n":"M5_INSTALL_BEGIN\n");
-    unsigned count=r32(m5_install);const uint8_t *r=m5_install+4;for(unsigned i=0;!s&&i<count;++i,r=next_record(r)){memset(page,0,4096);s=verified_write(disk,record_lba(r),(r32(r)&0x80000000u)?page:(void*)(r+4),4096);}
+    unsigned count=r32(m5_install);const uint8_t *r=m5_install+4;for(unsigned i=0;!s&&i<count;++i,r=next_record(r)){memset(page,0,4096);
+#ifdef ENGINE_M51
+    if(guided)m51_progress(i*80/count);
+#endif
+    s=verified_write(disk,record_lba(r),(r32(r)&0x80000000u)?page:(void*)(r+4),4096);}
     r=m5_template+4;if(needs_data)for(unsigned i=0;!s&&i<r32(m5_template);++i,r=next_record(r)){memset(page,0,4096);s=verified_write(disk,M5_DATA+record_lba(r),(r32(r)&0x80000000u)?page:(void*)(r+4),4096);}
     if(!s){w32(intent+84,1);record_seal(intent,1);s=verified_write(disk,40,intent,512);if(!s)s=flush(disk);}
+    #ifdef ENGINE_M51
+    if(guided)m51_progress(90);
+    #endif
     if(!s)s=gpt_write(disk);if(!s)s=flush(disk);if(s){console_text("Copy/verify failed. Installation remains incomplete; use this ISO to repair.\n");return s;}
     record_seal(intent,2);s=verified_write(disk,41,intent,512);if(!s)s=flush(disk);if(s)return s;
+    #ifdef ENGINE_M51
+    if(guided)m51_progress(100);
+    #endif
     serial_text(repair?"M5_REPAIR_PASS\n":"M5_INSTALL_PASS\n");console_text("Verified. Power off the VM, detach ISO/USB, boot this disk.\n");return B_OK;
 }
 unsigned m5_command(const char *line){
@@ -127,3 +148,11 @@ unsigned m5_overlay_test(void){
     overlay_pages=0;enabled=0;if(pages_stats().current_pages!=before.current_pages)return B_IO;
     serial_text("M5_OVERLAY_LIMIT_BYTES=0x0000000000080000\nM5_OVERLAY_RELEASE_BASELINE_RESTORED\n");return B_OK;
 }
+
+#ifdef ENGINE_M51
+unsigned m51_prepare(unsigned disk,unsigned repair){guided=1;return prepare(disk,repair);}
+unsigned m51_run(unsigned disk,unsigned repair){return run(disk,repair);}
+unsigned m51_is_live(void){return m5_install_size!=0;}
+unsigned m51_persistent(void){return volume_disk!=UINT32_MAX;}
+void m51_cancel(void){planned=UINT32_MAX;guided=0;}
+#endif

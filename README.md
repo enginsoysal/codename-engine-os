@@ -2,27 +2,40 @@
 
 An independent, MIT-licensed operating system with its own UEFI loader, kernel and native user runtime. Windows 95–11 application compatibility is a long-term requirement, followed by Linux/macOS execution environments and ARM64. Those compatibility layers are not implemented yet.
 
-**Current completed milestone: M5 — live installation and recovery within M5-VM-v1.** [M5 scope](docs/milestones/m5.md), [acceptance](evidence/M5/acceptance-results.json), [current status](docs/roadmap/status.md). Physical hardware and factory Secure Boot remain unqualified.
+**Current completed milestone: M5.1 — guided setup and custom distributions within M51-VM-v1.** [M5 scope](docs/milestones/m5.md), [acceptance](evidence/M5/acceptance-results.json), [current status](docs/roadmap/status.md). Physical hardware and factory Secure Boot remain unqualified.
 
 The [M5 release](https://github.com/enginsoysal/codename-engine-os/releases/tag/m5-v0.5.0) provides BIOS/UEFI live media, a native text installer for a new SATA disk, media-detached installed boot, persistent native files and same-build boot recovery. There is no desktop, network stack or existing Windows app compatibility yet. The native data partition is currently 16 MiB with 48-KiB files; other disk capacity remains unallocated.
 
-## User handbook
+## Guided setup and custom distributions
+
+[Guided VMware installation](docs/handbook/install-m51.md) · [Build your own distribution](docs/handbook/distributions.md) · [Product principles](docs/architecture/product-principles.md) · [M5.1 contract](docs/milestones/m5.1.md).
+
+The current M5.1 welcome menu offers Try, Install, Repair, Advanced, Details and distribution information. Ordinary installation/repair requires displayed choices only, with real disk capacities, review/cancel and progress. Profiles choose actual branding, colour and data packages; the Forge example is a separately booted/installable ISO. This is a keyboard-driven text interface, not a desktop or general application package manager.
+
+[Download M5.1 ISO](https://github.com/enginsoysal/codename-engine-os/releases/download/m51-v0.5.1/EngineOS-M51.iso). Use a new SATA disk, two CPUs/128 MiB and Secure Boot disabled. Storage remains 16 MiB native data/48-KiB files with other capacity unallocated. Choose **2 - Install**, your displayed disk, then review and confirm. No `plan N` or sector token is required.
+
+```powershell
+python tools/build/m51.py
+python tools/vm/run.py --create-install-disk
+```
+
+## Historical M5 user handbook
 
 **[Documentation & downloads website](https://engineos.brixcanvas.com)** — English guides and official release downloads, built in BrixCanvas. [Website source and maintenance](website/README.md).
 
 **[Start here](docs/handbook/index.md)** · [Install in VMware](docs/handbook/install.md) · [Recovery](docs/handbook/recovery.md) · [M5 commands](docs/handbook/m5-console.md). M5 installs to a new SATA/512-byte-sector disk of at least 256 MiB after an explicit plan and confirmation. Live changes are temporary and are not copied into installation.
 
-## Current M5 build and test
+## Historical M5 build and test
 
 [Download M5 ISO](https://github.com/enginsoysal/codename-engine-os/releases/download/m5-v0.5.0/EngineOS-M5.iso). Use two CPUs, 128 MiB RAM, a new SATA disk and Secure Boot disabled. Run `disks`, then `plan N`; use only the exact confirmation printed for your target. After verified success, power off VMware, detach ISO/USB and boot the disk.
 
 ```powershell
 python tools/build/m5.py
-python tools/vm/run.py --create-install-disk
+python tools/vm/run.py --milestone M5 --create-install-disk
 python tests/m5/verify.py
 ```
 
-The QEMU launcher defaults to M5. `--create-install-disk --installed` boots its owned target without installation media after successful installation. Explicit M5 `--data-disk` targets are writable; use disposable image files. No physical host disk is used by these tests.
+Select `--milestone M5` for that historical workflow; the current launcher defaults to M51. `--create-install-disk --installed` boots its owned target without installation media after successful installation. Explicit M5 `--data-disk` targets are writable; use disposable image files. No physical host disk is used by these tests.
 
 ## Historical M4.5 boot instructions
 

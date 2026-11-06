@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "build_id": "8edacbaaa62f3ed67cdd84f392979b77",
+  "guest_ram_mib": 64,
+  "overlay_cap_bytes": 524288,
+  "checks": [
+    {
+      "name": "128-page cap, 129th-page denial, reuse without allocation and exact allocator baseline after cleanup",
+      "passed": true
+    },
+    {
+      "name": "repeated menu/details/terminal transitions allocate no additional managed pages",
+      "passed": true,
+      "managed_before_bytes": 172032,
+      "managed_after_bytes": 172032
+    },
+    {
+      "name": "both CPUs halted at menu idle; two-second host-QEMU CPU observation",
+      "passed": true,
+      "wall_seconds": 2.0,
+      "host_cpu_seconds": 0.015625,
+      "one_cpu_percent": 0.78125
+    }
+  ]
+}

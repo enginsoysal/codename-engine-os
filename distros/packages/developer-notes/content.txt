@@ -1,0 +1,2 @@
+This edition includes developer notes selected by its distribution profile.
+The original kernel and recovery safety checks remain enabled.

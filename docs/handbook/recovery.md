@@ -1,5 +1,7 @@
 # M5 troubleshooting and recovery
 
+**M5 reference / M5.1 advanced workflow.** For normal use, follow the [M5.1 guided-menu tutorial](install-m51.md); terminal commands are optional.
+
 ## No disk or no installation plan
 
 Run `disks` and `hardware`. M5 installs only to readable SATA/AHCI disks with 512-byte sectors, at least 256 MiB. A new blank disk needs no pre-created partition. SCSI/LSI is not supported; choose a new SATA virtual disk. A missing disk is a driver/controller issue, not an empty partition table.

@@ -1,3 +1,6 @@
+#ifdef ENGINE_M51
+#include "distro.h"
+#endif
 #include <engine/base.h>
 #include <engine/boot/boot_v0.h>
 #include "build.h"
@@ -62,6 +65,9 @@ void display_boot(const os_boot_info_v0 *boot) {
         volatile uint32_t *row=(volatile uint32_t*)(uintptr_t)(boot->framebuffer.physical_address+(uint64_t)y*boot->framebuffer_stride_bytes);
         for(unsigned x=0;x<boot->framebuffer_width;++x)row[x]=y<8?accent:background;
     }
+#ifdef ENGINE_M51
+    text(40,48,DISTRO_NAME,3,0xffffff);text(40,110,"Starting. Please wait...",2,DISTRO_ACCENT);return;
+#endif
     text(40,48,"CODENAME: ENGINE OS",3,0xffffff);
 #ifdef ENGINE_M3
     text(40,110,"M3 KERNEL ONLINE",2,0x39d5bb);
@@ -90,6 +96,9 @@ static void number(unsigned x,unsigned y,uint64_t value) {
     for(unsigned i=0;i<n/2;++i){char c=out[i];out[i]=out[n-i-1];out[n-i-1]=c;}out[n]=0;text(x,y,out,2,0x39d5bb);
 }
 void display_m2_result(unsigned failures,uint64_t peak,uint64_t retained,unsigned starts,unsigned faults) {
+#ifdef ENGINE_M51
+    if(!failures)return;
+#endif
     if(!screen||!screen->framebuffer.byte_length)return;
     uint32_t background=color(0x101d2b);
     for(unsigned y=200;y<screen->framebuffer_height;++y) {
@@ -125,10 +134,22 @@ void display_m2_result(unsigned failures,uint64_t peak,uint64_t retained,unsigne
 #ifdef ENGINE_M4
 void display_console_setup(void){
     if(!screen||!screen->framebuffer.byte_length)return;
-    uint32_t bg=color(0x101d2b),accent=color(0x39d5bb);
+    uint32_t bg=color(0x101d2b),accent=color(
+#ifdef ENGINE_M51
+DISTRO_ACCENT
+#else
+0x39d5bb
+#endif
+);
     for(unsigned y=0;y<screen->framebuffer_height;++y){volatile uint32_t *p=(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)y*screen->framebuffer_stride_bytes);for(unsigned x=0;x<screen->framebuffer_width;++x)p[x]=y<8?accent:bg;}
+    #ifdef ENGINE_M51
+    text(16,26,DISTRO_NAME,3,0xffffff);
+#else
     text(16,26,"CODENAME: ENGINE OS",3,0xffffff);
-#if defined(ENGINE_M5)
+#endif
+#if defined(ENGINE_M51)
+    text(16,76,"WELCOME / INSTALL / RECOVERY",2,DISTRO_ACCENT);text(16,112,"CHOOSE A NUMBER AND PRESS ENTER",2,0x93aabe);
+#elif defined(ENGINE_M5)
     text(16,76,"M5 LIVE / INSTALL / RECOVERY",2,0x39d5bb);text(16,112,"HELP / PLAN N / VOLUME - TEXT INSTALLER",2,0x93aabe);
 #elif defined(ENGINE_M45)
     text(16,76,"M4.5 DEVICE AND FILE CONSOLE",2,0x39d5bb);text(16,112,"DISKS / PARTS N / HELP - NO INSTALLER",2,0x93aabe);

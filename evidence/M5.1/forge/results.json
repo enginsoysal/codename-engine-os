@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "build_id": "f92058398ca7419e1d17a63c5f444411",
+  "profile": "forge",
+  "iso_sha256": "8e7009504e25809d2390f7a60f7c7e90dce5c6fb668d611a64e6ace19bc18dc6",
+  "checks": [
+    {
+      "name": "welcome, invalid input and usable Try file preview without commands",
+      "passed": true
+    },
+    {
+      "name": "review/back cancel leaves complete disk unchanged",
+      "passed": true
+    },
+    {
+      "name": "custom branding and selected data package are present in the actual kernel filesystem",
+      "passed": true
+    },
+    {
+      "name": "custom ISO installs and selected package survives media-detached boot",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

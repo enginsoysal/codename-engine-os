@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "id": "welcome-guide",
+  "files": [
+    {
+      "source": "packages/welcome-guide/content.txt",
+      "target": "/Users/test/Documents/Welcome.txt"
+    }
+  ]
+}

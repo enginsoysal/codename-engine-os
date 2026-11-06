@@ -1,0 +1,2 @@
+Welcome to Engine OS. Use the numbered menus to try, install or repair.
+Live changes disappear on reboot; installed changes persist.

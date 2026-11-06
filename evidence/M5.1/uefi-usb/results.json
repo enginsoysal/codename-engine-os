@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "build_id": "8edacbaaa62f3ed67cdd84f392979b77",
+  "profile": "engineos",
+  "iso_sha256": "e7be11b81e87a6b8d20f5b08aff5b0b8ef9dc5ae1c63a31059150194efd2bfe9",
+  "checks": [
+    {
+      "name": "welcome, invalid input and usable Try file preview without commands",
+      "passed": true
+    },
+    {
+      "name": "review/back cancel leaves complete disk unchanged",
+      "passed": true
+    },
+    {
+      "name": "independent primary/backup GPT CRC, FAT kernel SHA256, BIOS raw-kernel bytes and ext2 graph",
+      "passed": true
+    },
+    {
+      "name": "menu-driven install, independent disk inspection and idle CPUs halted",
+      "passed": true
+    },
+    {
+      "name": "two detached boots, persistent sample and menu repair preserving whole data partition",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

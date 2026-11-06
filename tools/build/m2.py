@@ -8,7 +8,7 @@ import struct
 from m1 import ROOT,pinned_tools,command,sha
 from media import package
 BUILD=ROOT/'build/m2'
-def main(milestone='M2',m5_live=False):
+def main(milestone='M2',m5_live=False,distro=None):
     global BUILD
     BUILD=ROOT/'build'/milestone.lower()
     tools=pinned_tools();BUILD.mkdir(parents=True,exist_ok=True)
@@ -18,6 +18,9 @@ def main(milestone='M2',m5_live=False):
     sources.extend(ROOT/p for p in ('include/engine/boot/boot_v0.h','include/engine/abi/syscall_v0.h','include/engine/boot/validate_v0.h',
                                    'tools/build/m2.py','tools/build/m4.py','tools/build/m45.py','tools/build/bios.py','tools/build/secure.py','tools/build/owner.py','tools/security-toolchain.json','tools/build/data_image.py','tools/build/ext2_image.py','tools/build/fsck.py','tools/build/m3.py','tools/build/m1.py','tools/build/media.py'))
     if milestone=='M5':sources.extend(sorted((ROOT/'tools/build').glob('m5*.py')))
+    if distro:
+        sources.extend(ROOT/p for p in distro['input_sha256'])
+        sources.append(ROOT/'tools/build/distro.py')
     hashes={p.relative_to(ROOT).as_posix():sha(p) for p in sorted(sources)}
     build_id=hashlib.sha256(json.dumps({'milestone':milestone,'source_sha256':hashes},sort_keys=True).encode()).hexdigest()[:32]
     (BUILD/'build.h').write_text(f'#define BUILD_ID "{build_id}"\n',encoding='utf-8')
@@ -29,6 +32,10 @@ def main(milestone='M2',m5_live=False):
     if milestone in ('M3','M4','M45','M5'):common.append('-DENGINE_M3')
     if milestone in ('M4','M45','M5'):common.append('-DENGINE_M4')
     if milestone in ('M45','M5'):common.append('-DENGINE_M45')
+    if distro:
+        from distro import prepare
+        prepare(BUILD,distro);common.append('-DENGINE_M51')
+    elif (BUILD/'distro.json').exists():(BUILD/'distro.json').unlink()
     if milestone=='M5':
         common.append('-DENGINE_M5')
         from m5_layout import embed
@@ -74,6 +81,7 @@ def main(milestone='M2',m5_live=False):
     if milestone in ('M4','M45','M5'):inputs+=(('kernel/storage/ahci45.c' if milestone in ('M45','M5') else 'kernel/storage/ahci.c'),'kernel/storage/ext2.c','kernel/storage/fs_test.c','kernel/input/legacy.c',('kernel/usb/xhci.c' if milestone in ('M45','M5') else 'kernel/input/xhci.c'),'kernel/core/console.c','kernel/m4/main.c')
     if milestone in ('M45','M5'):inputs+=('kernel/storage/registry.c','kernel/storage/partitions.c','kernel/storage/nvme.c','kernel/storage/ide.c','kernel/storage/virtio_blk.c','kernel/storage/fat32.c','kernel/storage/fat_test.c','kernel/storage/ext2_read.c','kernel/storage/ext2_read_test.c')
     if milestone=='M5':inputs+=('kernel/install/m5.c','build/m5/installer-image.c')
+    if distro:inputs+=('kernel/install/guided.c',)
     kernel=[compile_file(p,'kernel',p.endswith('.S')) for p in inputs]
     command([tools['ld.lld'],'-T',ROOT/'kernel/arch/x86_64/linker.ld','--build-id=none','-Map='+str(BUILD/'kernel.map'),
              '-o',BUILD/'KERNEL.ELF',*kernel])

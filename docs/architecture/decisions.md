@@ -97,3 +97,11 @@ Before physical tests: select an explicit test computer; never use the developme
 | 074 | 128-page volatile overlay plus bounded persistent ext2 | Allocate changed live pages only; reuse the qualified native filesystem in a separate partition | Larger files/volumes and journaling remain necessary before real application packages | Real quota/reuse/reclamation and low-RAM/idle observations; detached-boot file persistence |
 | 075 | Pending/complete records and same-build boot repair | Flush intent, verify copied bytes and publish completion last; keep initialized user data outside repair extents | Does not make boot writes atomic or implement cross-version upgrades/rollback | Real SATA copy EIO/resume, entire data-partition hash before/after repair, recovered installed boot |
 | 076 | Refuse automatic writable selection with multiple eligible SATA targets | The existing boot header has no firmware boot-disk identity; do not guess another disk after damaged metadata | Carrying authenticated volume identity through both firmware paths is future work | Multiple-disk negative guest leaves both images unchanged |
+
+## M5.1 decisions
+
+| ID | Choice | How and why | Alternatives/limits | Verification |
+|---|---|---|---|---|
+| 077 | Guided finite-state text setup before a graphical desktop | Real numbered tasks over the existing IRQ/HLT loop remove mandatory terminal syntax without a GUI stack | Keyboard text UI, not a human usability study or complete accessibility solution | Menu-only Try/install/cancel/persistent boot/repair and readable error/details tests |
+| 078 | Strict data-only distribution recipes | Compile selected branding/colour and populate actual live/installed files; hash exact inputs into identity | No inert desktop/plugin choices or executable install hooks; richer packages require their own runtime | Independently built/installed Forge ISO, pixel accent/content checks and unsafe/unknown recipe refusal |
+| 079 | Preserve the existing destructive-operation boundary under the wizard | Generate the internal sector confirmation from a revalidated selected plan; back invalidates it | Convenience must not force-wipe unknown existing disks | Full backing hashes on cancellation/refusal; real write EIO; recovery preserving the data partition |

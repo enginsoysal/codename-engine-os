@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "id": "developer-notes",
+  "files": [
+    {
+      "source": "packages/developer-notes/content.txt",
+      "target": "/Users/test/Documents/Developer.txt"
+    }
+  ]
+}

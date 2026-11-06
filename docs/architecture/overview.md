@@ -72,3 +72,7 @@ The completed M45-VM-v1 build adds an original BIOS EDD/E820/VBE path beside UEF
 The shared original M45 USB stack is organized under `kernel/usb/`. Eight lazily allocated device contexts bound hub/HID/storage state. Class-9 hub routing, child-before-parent retirement and generation-tagged disk readers protect reconnect lifetime. Read-only UAS adds high-speed Ready/Sense and SuperSpeed stream handling with bounded command abort before DMA reclamation. See [protocol, memory and qualification boundaries](../milestones/m4.5-usb-topology.md).
 
 M4.5 completion is governed by the [user-approved VM contract](../milestones/m4.5-scope.json) and [fresh acceptance](../../evidence/M4.5/acceptance-results.json). Physical hardware, factory trust and production key operations remain separate unqualified tracks. M5 implements native installation and same-build boot recovery under its separate [VM contract](../milestones/m5.md); general updates and automatic rollback remain future work.
+
+## Guided interaction and distribution identity
+
+M5.1 adds a bounded keyboard menu over the actual native installation path. End-user tasks must follow the [product principles](product-principles.md); terminal/verbose diagnostics remain optional. Validated profiles compile branding/colour and selected data content into live and installed images. See [M5.1](../milestones/m5.1.md) and [distribution recipes](../handbook/distributions.md). Future desktop/package-runtime configuration must represent real implemented components.

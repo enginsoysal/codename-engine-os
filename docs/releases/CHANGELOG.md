@@ -1,5 +1,10 @@
 # Changelog
 
+## M5.1 v0.5.1 — 2026-11-06
+
+Guided numbered welcome/Try/Install/Repair routes, real disk review/back, bounded progress and readable errors with optional diagnostics. Normal tasks no longer require terminal commands or sector tokens. Strict profiles build actual differently branded/coloured/populated ISO/USB distributions; Forge has independent installed-boot evidence. Product principles make convenience and distribution freedom ongoing acceptance requirements. [Release notes](m51-v0.5.1.md), [guided tutorial](../handbook/install-m51.md), [distribution tutorial](../handbook/distributions.md).
+
+
 ## M5 v0.5.0 — 2026-11-06
 
 Native BIOS/UEFI live installation to a blank SATA target: confirmed GPT/ESP/16-MiB native-volume setup, verified placement, media-detached boot and durable files. Bounded live overlay, same-build boot repair and failed-copy resume. English installation/recovery tutorials and command reference. No desktop, Windows apps, general upgrades/rollback or power-loss atomicity. [Release notes](m5-v0.5.0.md), [scope and evidence](../milestones/m5.md).
