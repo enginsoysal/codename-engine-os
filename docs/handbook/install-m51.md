@@ -13,6 +13,8 @@ For **M5.1 v0.5.1**. No terminal commands are needed for installation. The inter
 
 The welcome page offers:
 
+![The actual M5.1 welcome menu, with numbered choices](../../evidence/M5.1/uefi-iso/welcome.png)
+
 - **1 — Try / open my files:** create and read a sample note or list Documents. Live changes disappear on reboot; installed changes persist.
 - **2 — Install:** choose the actual disk number displayed beside its capacity.
 - **3 — Repair:** restore a matching same-build installation's boot files.
@@ -23,6 +25,8 @@ The welcome page offers:
 To install, choose **2**, select your SATA disk, then read **Review installation**. It names the selected disk and its actual capacity. The current layout is a 64-MiB EFI partition plus a **16-MiB native data partition**, with **48-KiB maximum files**; most of a 20-GB disk stays unallocated. This is an early installable system, not application-ready storage.
 
 Choose **0** to go back without changing the disk. Choose **1 — Install on this disk now** only after verifying the target. Wait for progress and **Installation complete**. Do not disconnect the disk while copying.
+
+![The actual disk review screen, before any disk writes](../../evidence/M5.1/uefi-iso/review.png)
 
 After completion:
 
