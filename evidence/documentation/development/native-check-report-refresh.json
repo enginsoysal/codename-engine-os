@@ -1,0 +1,9 @@
+{
+  "check": "Native website verification",
+  "initial_result": "failed",
+  "reason": "The documentation-only repository checker refreshed its default M4.5 report path. No runtime code or acceptance contract changed.",
+  "artifact": "evidence/M4.5/repository-results.json",
+  "expected_frozen_sha256": "176ef3a21180127fc43effb9f54feb3f272e1b0ffe5d68cb4bf66b0dfb543d12",
+  "documentation_report_sha256": "aaf80581920346f2c5bd5a731ca5797a843302a5fc4abde73621545154a7f471",
+  "correction": "Retain the fresh documentation report separately and restore the frozen report from Git before running website verification."
+}

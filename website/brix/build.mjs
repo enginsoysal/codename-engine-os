@@ -14,7 +14,7 @@ const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&g
 const categoryFor=p=>p.startsWith('docs/')?p.split('/')[1]:p.startsWith('evidence/')?'evidence':p.startsWith('tools/')?'developer':p.startsWith('website/')?'website':'project';
 const categoryNames={handbook:'User handbook',architecture:'Architecture',milestones:'Milestones',releases:'Release guides',roadmap:'Roadmap & status',evidence:'Test evidence',developer:'Developer guides',website:'Website maintenance',project:'Project guides',downloads:'Downloads'};
 
-export function build(){
+export function build(output){
  const ref=git('rev-parse','HEAD').trim();
  const paths=git('ls-tree','-r','--name-only',ref).trim().split('\n').filter(p=>p.endsWith('.md'));
  const pathsSet=new Set(paths),slugs=new Set(),posts=[];
@@ -73,8 +73,8 @@ export function build(){
  }
  posts.push({id:'engine-documentation',slug:'documentation',title:'Documentation — all guides',status:'published',bodyFormat:'brix',blocks:index,category:'handbook',tags:['Handbook','Index'],author:'Engine OS project',date:new Date().toISOString().slice(0,10),featured:true,meta:[{key:'engine_source_path',value:'@index'},{key:'engine_source_commit',value:ref}]});
  const result={version:1,source_commit:ref,generated:new Date().toISOString(),site_id:'b66d0e83-7987-4856-b702-e8d93234b6cd',site_slug:'codename-engine-os-ltvck',page:{blog:{posts,categories:Object.entries(categoryNames).map(([handle,title])=>({handle,title}))}}};
- const out=process.argv[2]||path.join(root,'build/brix/site-content.json');fs.mkdirSync(path.dirname(out),{recursive:true});fs.writeFileSync(out,JSON.stringify(result));
- console.log(JSON.stringify({documents:paths.length,articles:posts.length,releases:releases.length,blocks:posts.reduce((n,p)=>n+p.blocks.length,0),source_commit:ref,output:out}));
+ const out=output||path.join(root,'build/brix/site-content.json');fs.mkdirSync(path.dirname(out),{recursive:true});fs.writeFileSync(out,JSON.stringify(result));
+ console.log(JSON.stringify({documents:paths.length,articles:posts.length,releases:releases.length,blocks:posts.reduce((n,p)=>n+p.blocks.length,0),source_commit:ref,output:path.relative(root,out).replaceAll('\\','/')}));
  return result;
 }
-if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url))build();
+if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url))build(process.argv[2]);

@@ -1,0 +1,47 @@
+name: Sync native BrixCanvas documentation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'website/brix/**'
+      - 'website/README.md'
+      - 'docs/**'
+      - '**/*.md'
+      - '.github/workflows/brixcanvas-docs.yml'
+  release:
+    types: [published, edited]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: engineos-native-brixcanvas-content
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    if: github.repository == 'enginsoysal/codename-engine-os' && vars.BRIXCANVAS_ENGINEOS_SYNC_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Read canonical documentation from main
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Use the supported JavaScript runtime
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+      - name: Verify publisher ownership and recovery boundaries
+        run: node --test website/brix/sync.test.mjs
+      - name: Synchronize and verify native BrixCanvas articles
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRIXCANVAS_ENGINEOS_KEY: ${{ secrets.BRIXCANVAS_ENGINEOS_KEY }}
+        run: |
+          node website/brix/sync.mjs
+          echo 'Updated native articles on https://engineos.brixcanvas.com' >> "$GITHUB_STEP_SUMMARY"
+          echo 'The publisher verified its website identity and every generated article.' >> "$GITHUB_STEP_SUMMARY"

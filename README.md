@@ -44,7 +44,7 @@ tests/m2/              Isolation, cleanup, low-RAM and idle tests
 tests/m3/              Scheduling, VM, SMP and resource qualification
 tests/m4/              Filesystem, DMA/IRQ, recovery and PS/2/USB input qualification
 tests/m45/             Broader boot/storage/USB and owner-trust qualification
-website/               Public documentation frontend and snapshot builder
+website/               Native BrixCanvas documentation converter, design and publisher
 docs/architecture/     Design contracts and decision record
 docs/roadmap/          Milestones, current status and Windows generation inventory
 docs/milestones/       Per-milestone usage, implementation and handoff notes
