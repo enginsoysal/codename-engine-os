@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "checked_at": "2026-11-06T16:40:06.601841+00:00",
+  "workflow": {
+    "conclusion": "success",
+    "event": "push",
+    "headSha": "4582282dc58e49b4331eb6a066433a0bd5e677ee",
+    "status": "completed",
+    "url": "https://github.com/enginsoysal/codename-engine-os/actions/runs/42254002003",
+    "workflowName": "Sync native BrixCanvas documentation"
+  },
+  "release_tag_verified": "91f64a7c87f59743b91872c30a781941b5dbfb31",
+  "website": "https://engineos.brixcanvas.com",
+  "public_verification": "evidence/documentation/m6-native-brix-results.json",
+  "homepage_screenshot": "evidence/documentation/m6-homepage.png",
+  "publisher_checks": 6,
+  "credentials_written_to_source": false,
+  "runtime_evidence_unchanged": true
+}
