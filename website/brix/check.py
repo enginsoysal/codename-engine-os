@@ -96,7 +96,8 @@ def verify(payload):
             "native_articles": len(articles), "article_source_commit": ref, "english_html_language": True,
             "external_website_iframes": 0, "anonymous_https": True, "preferred_homepage_design": True,
             "m45_scope": "M45-VM-v1", "frozen_evidence_hashes_verified": len(acceptance["evidence_sha256"]),
-            "iso_sha256": ISO_SHA, "automatic_sync_verified": False, "articles": articles}
+            "iso_sha256": ISO_SHA, "automatic_sync_evidence": "evidence/documentation/github-sync-results.json",
+            "articles": articles}
 
 
 if __name__ == "__main__":

@@ -1,0 +1,8 @@
+{
+  "date": "2026-11-06",
+  "workflow_run": 42209026210,
+  "workflow_result": "success",
+  "initial_public_check": "Wrong source commit: /blog/docs-agents",
+  "observation": "The first anonymous HTTP check immediately after API completion still saw the preceding cached article. The publisher had already read back and verified all 55 native API records.",
+  "follow_up": "Repeat the public check after the documented 60-second render cache interval; retain its result separately in native-brix-results.json."
+}

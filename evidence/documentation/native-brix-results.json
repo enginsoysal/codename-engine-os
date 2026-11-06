@@ -1,9 +1,9 @@
 {
   "passed": true,
-  "checked_at": "2026-11-06T10:43:08.363185+00:00",
+  "checked_at": "2026-11-06T11:18:52.029190+00:00",
   "website": "https://engineos.brixcanvas.com",
   "native_articles": 55,
-  "article_source_commit": "3351aed15c0417afa7f326b479544498fa75bdac",
+  "article_source_commit": "d647ea4b8bbb1a30f6e7ca52855e84a00025079b",
   "english_html_language": true,
   "external_website_iframes": 0,
   "anonymous_https": true,
@@ -11,7 +11,7 @@
   "m45_scope": "M45-VM-v1",
   "frozen_evidence_hashes_verified": 19,
   "iso_sha256": "774ea677c74a7d593fb392160833a8f70c42af69a54a2b44f47b4bbc401ddc03",
-  "automatic_sync_verified": false,
+  "automatic_sync_evidence": "evidence/documentation/github-sync-results.json",
   "articles": [
     {
       "route": "/blog/docs-agents",
@@ -28,7 +28,7 @@
     {
       "route": "/blog/docs-readme",
       "passed": true,
-      "visible_characters": 5955,
+      "visible_characters": 5968,
       "links": 60
     },
     {
@@ -238,8 +238,8 @@
     {
       "route": "/blog/docs-roadmap-status",
       "passed": true,
-      "visible_characters": 5948,
-      "links": 38
+      "visible_characters": 6500,
+      "links": 40
     },
     {
       "route": "/blog/docs-roadmap-windows-compatibility",
@@ -328,7 +328,7 @@
     {
       "route": "/blog/docs-website-readme",
       "passed": true,
-      "visible_characters": 4290,
+      "visible_characters": 6544,
       "links": 26
     },
     {

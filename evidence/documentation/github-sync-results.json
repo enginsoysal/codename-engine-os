@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "automatic_sync_verified": true,
+  "workflow": {
+    "conclusion": "success",
+    "createdAt": "2026-11-06T11:16:31Z",
+    "databaseId": 42209026210,
+    "event": "workflow_dispatch",
+    "headSha": "d647ea4b8bbb1a30f6e7ca52855e84a00025079b",
+    "status": "completed",
+    "updatedAt": "2026-11-06T11:17:44Z",
+    "url": "https://github.com/enginsoysal/codename-engine-os/actions/runs/42209026210"
+  },
+  "publication": {
+    "passed": true,
+    "checked_at": "2026-11-06T11:17:41.423Z",
+    "website": "https://engineos.brixcanvas.com",
+    "source_commit": "d647ea4b8bbb1a30f6e7ca52855e84a00025079b",
+    "articles": 55,
+    "created": 0,
+    "updated": 55,
+    "archived": 0,
+    "unrelated_articles_preserved": 0
+  },
+  "credential_scopes": [
+    "read_content",
+    "write_content"
+  ],
+  "credential_storage": "GitHub Actions encrypted repository secret",
+  "plaintext_credentials_in_evidence": false
+}

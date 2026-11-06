@@ -2,7 +2,7 @@
 
 ## Documentation website
 
-The public [Engine OS website](https://engineos.brixcanvas.com) uses native editable BrixCanvas blocks and recreates the preferred local design. Its 55 published articles include 53 canonical Markdown guides, the documentation index and official downloads. Articles identify their source commit. The scoped GitHub publisher is prepared and its ownership/recovery tests pass; automatic synchronization still requires a site-specific credential and a successful real update. See [website maintenance](../../website/README.md). Website work does not change M45-VM-v1 qualification or start M5.
+The public [Engine OS website](https://engineos.brixcanvas.com) uses native editable BrixCanvas blocks and recreates the preferred local design. Its 55 published articles include 53 canonical Markdown guides, the documentation index and official downloads. Articles identify their source commit. Automatic GitHub synchronization is active with a site-specific content-only credential stored as an encrypted Actions secret. The first real publication updated and read back all 55 articles; ownership/recovery tests pass. See [workflow evidence](../../evidence/documentation/github-sync-results.json) and [website maintenance](../../website/README.md). Website work does not change M45-VM-v1 qualification or start M5.
 
 Updated 2026-11-06. Canonical project: [enginsoysal/codename-engine-os](https://github.com/enginsoysal/codename-engine-os), public/MIT, independent from BrixCanvas. All current documents/UI/comments are English; code/tests and documentation are updated together. Every coherent verified update is committed and pushed.
 
