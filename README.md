@@ -6,6 +6,10 @@ An independent, MIT-licensed operating system with its own UEFI loader, kernel a
 
 The final [M4.5 v0.4.5 release](https://github.com/enginsoysal/codename-engine-os/releases/tag/m45-v0.4.5) provides the same original kernel through BIOS/UEFI ISO and USB boot, ordinary read-only storage discovery, checked GPT/MBR/FAT32/ext2, bounded USB hubs/UAS and an interactive diagnostic console. There is no installer, desktop or existing Windows app compatibility yet.
 
+## User handbook
+
+**[Start here](docs/handbook/index.md)** · [20-GB disk missing / SCSI versus SATA](docs/handbook/vmware-storage.md) · [Console commands](docs/handbook/console.md). M4.5 inspects existing disks; it cannot create partitions, format or install yet.
+
 ## Boot in VMware or QEMU
 
 [Download the final ISO](https://github.com/enginsoysal/codename-engine-os/releases/download/m45-v0.4.5/EngineOS-M45.iso) · [VMware setup and expected screen](docs/releases/m45-v0.4.5.md) · [hashes and all assets](https://github.com/enginsoysal/codename-engine-os/releases/tag/m45-v0.4.5).

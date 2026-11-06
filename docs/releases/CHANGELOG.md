@@ -1,5 +1,9 @@
 # Changelog
 
+## M4.5 handbook clarification — 2026-11-06
+
+Add a prominent user handbook, actual console command reference and a step-by-step VMware 20-GB SATA setup. Clarify that LSI/other SCSI controllers are unsupported, blank disks should still be discovered, `parts` only inspects, and ordinary writable partitioning/formatting/installing is M5. No kernel, ISO or existing VM/disk is changed by this documentation update.
+
 ## M4.5 v0.4.5 — 2026-11-06
 
 Final user-approved M45-VM-v1 milestone: fresh 29-gate qualification and 23 trust checks; exact ISO hash in five VMware profiles; normal launcher defaults to M45; console identifies M4.5 without an in-progress banner. All current contracts/status/usage distinguish VM completion from unqualified physical/factory-trust follow-ups. [Final ISO and VMware instructions](m45-v0.4.5.md). M5 installation remains not started.
