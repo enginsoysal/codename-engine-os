@@ -16,4 +16,5 @@ tools/local/
 .env.*
 !.env.example
 *.pem
+!third_party/mozilla-ca/cacert.pem
 *.key
