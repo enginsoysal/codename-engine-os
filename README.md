@@ -2,15 +2,24 @@
 
 An independent, MIT-licensed operating system with its own UEFI loader, kernel and native user runtime. MS-DOS and Windows 1.x–11 application compatibility is a long-term requirement, followed by Linux/macOS execution environments and ARM64. Those compatibility layers are not implemented yet.
 
-**Current completed milestone: M7.1 — installer disk management and existing-disk installation within M71-VM-v1.** [Scope](docs/milestones/m7.1.md), [acceptance](evidence/M7.1/acceptance-results.json), [current status](docs/roadmap/status.md). Physical hardware and factory Secure Boot remain unqualified.
+**Current completed follow-up: M7.2 — desktop-first installation and real folder navigation.** [Installer](docs/handbook/install-m72.md), [desktop controls](docs/handbook/desktop-m72.md), [scope](docs/milestones/m7.2.md), [exact acceptance](evidence/M7.2/acceptance-results.json). Named virtual profiles only; physical hardware and factory Secure Boot remain unqualified.
 
 The historical [M5 release](https://github.com/enginsoysal/codename-engine-os/releases/tag/m5-v0.5.0) provides BIOS/UEFI live media, a native text installer for a new SATA disk, media-detached installed boot, persistent native files and same-build boot recovery. There is no desktop, network stack or existing Windows app compatibility yet. That historical native data partition is 16 MiB with 48-KiB files; other disk capacity remains unallocated.
 
 ## Next product milestones
 
-**M6: real installation → M7: real desktop → M8: MS-DOS and Windows 1.x–11 applications.** M6 delivers a native graphical wizard, capacity-aware data volume, persistent local setup and tested ISO-assisted update, rollback and repair. M7 and M7.1 are complete within their named VM scopes; M8 is not started. [Desktop implementation status](docs/milestones/m7.md). [M6 implementation status](docs/milestones/m6.md). Existing technical acceptance remains historical; M5.1 does not satisfy the new complete product installation/desktop requirements. [Acceptance gates and choices](docs/roadmap/milestones.md) · [Current status](docs/roadmap/status.md). The product name remains **Engine OS**.
+**M6: real installation → M7: real desktop → M8: MS-DOS and Windows 1.x–11 applications.** M6 delivers a native graphical wizard, capacity-aware data volume, persistent local setup and tested ISO-assisted update, rollback and repair. M7 and M7.1 retain their historical named-scope acceptance. M7.2 prioritizes installation and a visible folder desktop; M8 is not started. [Desktop implementation status](docs/milestones/m7.md). [M6 implementation status](docs/milestones/m6.md). Existing technical acceptance remains historical; M5.1 does not satisfy the new complete product installation/desktop requirements. [Acceptance gates and choices](docs/roadmap/milestones.md) · [Current status](docs/roadmap/status.md). The product name remains **Engine OS**.
 
-## Install M7.1
+## Install and open your desktop
+
+[Download the prepared VMware VM](https://github.com/enginsoysal/codename-engine-os/releases/download/m72-v0.7.2/EngineOS-M72-VMware.zip) · [Standalone ISO](https://github.com/enginsoysal/codename-engine-os/releases/download/m72-v0.7.2/EngineOS-M72.iso) · [Step-by-step guide](docs/handbook/install-m72.md) · [Release and checksum](docs/releases/m72-v0.7.2.md).
+
+Extract the entire ZIP, open EngineOS.vmx and start. It includes a **new empty** growable 20-GiB SATA disk and the installer ISO. Follow Next, review and Install, then choose **Open desktop**. Files opens your real saved home folder immediately. Browse Documents, create a named folder, use Back/Forward/Up and customize appearance. No network, terminal or optional apps are needed. For future disk boots, disconnect only the CD/DVD ISO and keep the SATA hard disk connected. Existing M7.1 installations can use Recovery/Update to preserve data. [Folder guide](docs/handbook/desktop-m72.md).
+
+The UEFI loader registers an Engine OS fallback startup option while firmware services are active; writable firmware variable storage is required. The entry can remain after cancelled installation. The immediate desktop uses the installation kernel; separate unforced same-VM/NVRAM tests qualify actual detached disk startup. [Boot and UI decisions](docs/architecture/desktop-m72.md). DOS and Windows compatibility remain later work.
+
+## Historical M7.1 installation
+
 
 [Download the M7.1 ISO](https://github.com/enginsoysal/codename-engine-os/releases/download/m71-v0.7.1/EngineOS-M71.iso) · [VMware tutorial](docs/handbook/install-m71.md) · [Disk manager](docs/handbook/disk-manager-m71.md) · [Release and checksum](docs/releases/m71-v0.7.1.md). For an existing disk you intend to replace: select it, enable Erase and install, follow Next and explicitly consent at final review. Manage disks handles individual data partitions while keeping others. OS installation still replaces the whole disk. The real desktop appears after powering off, detaching the ISO and booting SATA.
 

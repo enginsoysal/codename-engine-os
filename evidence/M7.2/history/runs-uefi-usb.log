@@ -1,0 +1,29 @@
+Traceback (most recent call last):
+  File "<project-root>\tests\m72\session.py", line 67, in main
+    with guest as g:
+  File "<project-root>\tests\m6\vm.py", line 55, in __enter__
+    self.wait(self.ready)
+  File "<project-root>\tests\m6\vm.py", line 76, in wait
+    raise RuntimeError('Missing '+text+'; tail='+self.log()[-1500:])
+RuntimeError: Missing M7_DESKTOP_READY; tail=ternal Shell" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4AF6516A1)/FvFile(7C04A583-9E3E-4F1C-AD65-E05268D0B4D1)
+BdsDxe: starting Boot0002 "EFI Internal Shell" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4AF6516A1)/FvFile(7C04A583-9E3E-4F1C-AD65-E05268D0B4D1)
+UEFI Interactive Shell v2.2
+EDK II
+UEFI v2.70 (EDK II, 0x00010000)
+Mapping table
+      FS0: Alias(s):HD0a65535a2:;BLK2:
+          PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x0,0xFFFF,0x0)/HD(2,GPT,2875DC6B-0009-0000-91DC-352800000002,0x2800,0x40000)
+     BLK0: Alias(s):
+          PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x0,0xFFFF,0x0)
+     BLK1: Alias(s):
+          PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x0,0xFFFF,0x0)/HD(1,GPT,2875DC6B-0009-0000-91DC-352800000001,0x800,0x2000)
+     BLK3: Alias(s):
+          PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x0,0xFFFF,0x0)/HD(3,GPT,2875DC6B-0009-0000-91DC-352800000003,0x42800,0x100000)
+     BLK4: Alias(s):
+          PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x0,0xFFFF,0x0)/HD(4,GPT,2875DC6B-0009-0000-91DC-352800000004,0x142800,0x100000)
+     BLK5: Alias(s):
+          PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x0,0xFFFF,0x0)/HD(5,GPT,2875DC6B-0009-0000-91DC-352800000005,0x242800,0x1BD000)
+Press ESC in 5 seconds to skip startup.nsh or any other key to continue.Press ESC in 4 seconds to skip startup.nsh or any other key to continue.Press ESC in 3 seconds to skip startup.nsh or any other key to continue.Press ESC in 2 seconds to skip startup.nsh or any other key to continue.Press ESC in 1 seconds to skip startup.nsh or any other key to continue.
+Shell>
+
+M7.2 native uefi usb FAIL

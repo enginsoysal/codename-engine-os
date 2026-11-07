@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "profiles": [
+    {
+      "ram_mib": 64,
+      "cpus": 1,
+      "managed_current_bytes": 159744,
+      "managed_peak_including_boot_bytes": 471040,
+      "folder_navigation_retained_page_delta": 0,
+      "folder_navigation_allocation_failures": 0,
+      "idle_all_cpus_halted": true,
+      "idle_repaint_count": 0
+    },
+    {
+      "ram_mib": 128,
+      "cpus": 2,
+      "managed_current_bytes": 192512,
+      "managed_peak_including_boot_bytes": 471040,
+      "folder_navigation_retained_page_delta": 0,
+      "folder_navigation_allocation_failures": 0,
+      "idle_all_cpus_halted": true,
+      "idle_repaint_count": 0
+    },
+    {
+      "ram_mib": 128,
+      "cpus": 4,
+      "managed_current_bytes": 258048,
+      "managed_peak_including_boot_bytes": 471040,
+      "folder_navigation_retained_page_delta": 0,
+      "folder_navigation_allocation_failures": 0,
+      "idle_all_cpus_halted": true,
+      "idle_repaint_count": 0
+    }
+  ],
+  "build_id": "f6b3570bdd51bbb3e6e6469c41754766",
+  "iso_sha256": "0ba955b0a43cf3169b7824c6a82f8340f87acdb1447ae8fccd631916f559d0d4",
+  "kernel_physical_span_bytes": 1970496,
+  "framebuffer_visible_bytes": 4096000,
+  "scope": "allocator excludes static kernel, firmware/boot reservations and framebuffer; no physical-hardware or human usability claim"
+}

@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "checks": [
+    "native graphical installation: missing selection gives guidance; verified Finish opens real persistent Files without restarting",
+    "real Home/Documents/sidebar, named persisted folder, folder opening, Back/Forward/Up and read-only system browsing",
+    "two ISO/USB-detached boots to desktop without boot order/index forcing, using original installation NVRAM; actual folder metadata CRC verified independently"
+  ],
+  "firmware": "uefi",
+  "media": "iso",
+  "build_id": "f6b3570bdd51bbb3e6e6469c41754766",
+  "iso_sha256": "0ba955b0a43cf3169b7824c6a82f8340f87acdb1447ae8fccd631916f559d0d4"
+}

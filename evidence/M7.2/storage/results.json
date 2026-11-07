@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checks": [
+    "nonblank disk Next gives guidance without writes; actual FAT32 format through native partition manager preserves unrelated partition bytes",
+    "whole existing-disk installation refuses unchecked review with exact disk hash unchanged; separate consent permits verified installation and immediate real desktop"
+  ],
+  "build_id": "f6b3570bdd51bbb3e6e6469c41754766",
+  "iso_sha256": "0ba955b0a43cf3169b7824c6a82f8340f87acdb1447ae8fccd631916f559d0d4",
+  "unrelated_partition_sha256": "d0ac5ad3f40e3190eb464598aa749659824e84c0b7e76ce0a85d4abdf1940329"
+}

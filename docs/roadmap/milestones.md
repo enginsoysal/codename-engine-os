@@ -1,5 +1,9 @@
 # Milestones and acceptance contract
 
+## Immediate owner priority — 7 November 2026
+
+Deliver **M7.2: convenient graphical installation → visible real desktop and folder navigation**, before expanding applications or starting M8. The installer must open the persistent desktop immediately, and independent disk boot must pass ordinary firmware discovery using the same VMware configuration and retained NVRAM. [Delivery and acceptance](../milestones/m7.2.md), [design decisions](../architecture/desktop-m72.md), [tutorial](../handbook/install-m72.md). Historical milestone acceptance is retained; it is not a claim that the user has successfully booted the current build.
+
 Updated 2026-11-06. M0–M6 are complete within their documented technical acceptance scopes; [status](status.md) and fresh evidence govern each claim. M4.5 completion uses the explicitly user-approved M45-VM-v1 scope. Later milestones are planned, not implicit capabilities.
 
 The implementation owner is the coding agent; the user sets product scope and accepts results. Each milestone needs reproducible commands, build/source/artifact identity, negative cases, resource accounting and visible limitations. A mock/stub or screenshot alone never proves a complete feature. CPU/RAM efficiency is measured from M2 onward; it is not inferred from configured guest memory.

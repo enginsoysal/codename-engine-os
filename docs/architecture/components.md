@@ -23,3 +23,7 @@ Distribution recipes may select implemented components and presentation defaults
 ## M7 implemented native component slice
 
 The M7 desktop installs separate original Editor and Calculator ELF programs. Its bounded package operation permits actual Calculator executable removal and reinstalls from a retained offline cache; it refuses required Editor removal. Native tests retain Files/Settings/Editor, clipboard and personal documents across removal and restart. This is a fixed shipped-component policy, not a general dependency solver or arbitrary package installer. User applications have actual CPL3 state and failure boundaries; the UI/file broker remains trusted supervisor code. [Detailed implementation and limits](desktop-m7.md), [native evidence](../../evidence/M7/isolation/results.json). M7 networking and complete named-scope acceptance now pass; arbitrary third-party package support remains future work.
+
+## M7.2 focused presentation
+
+The standard workspace profile omits Calculator and foregrounds Files, Home and Documents. The launcher presents Files, Settings and optional diagnostics; existing app code is retained without expanding it. Removing or omitting Calculator does not prevent installation, immediate persistent desktop entry, folder navigation or later disk boot. [M7.2 implementation and actual native tasks](desktop-m72.md).

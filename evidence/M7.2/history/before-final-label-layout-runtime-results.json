@@ -1,0 +1,117 @@
+{
+  "passed": true,
+  "build_id": "05897c8482597ae198f4946adf19ebe6",
+  "iso_sha256": "68caa88d616e6cb569682e370f5bdfb83a53a4303cade0177681a8bd39f0cf92",
+  "native_inputs_unchanged": true,
+  "gates": [
+    {
+      "name": "uefi-iso",
+      "passed": true,
+      "returncode": 0,
+      "report": "qemu-uefi-iso/results.json",
+      "report_sha256": "fefd2c53289a53a30d8d4feca8ef20f6a36e5a4e4e6b49c8cdf01c387e219369",
+      "log": "runs/uefi-iso.log",
+      "log_sha256": "b30c787d4df04f2b22b7f10efa8349bcf0b0ed0f3c4dfc64ffc1d10757452565"
+    },
+    {
+      "name": "uefi-usb",
+      "passed": true,
+      "returncode": 0,
+      "report": "qemu-uefi-usb/results.json",
+      "report_sha256": "2da99fb60f29848e8b8d7754b25c7c9327d74381e0f51b63a1b9f37e134708c3",
+      "log": "runs/uefi-usb.log",
+      "log_sha256": "c91d3576c963b478b0161f344418b5bc3e10c7623147dc72404a15ae000e3523"
+    },
+    {
+      "name": "bios-iso",
+      "passed": true,
+      "returncode": 0,
+      "report": "qemu-bios-iso/results.json",
+      "report_sha256": "97ff2f80ca3e93331d4e36aa5c62338281560a6c13fc5c81b473b70d0c1aa46f",
+      "log": "runs/bios-iso.log",
+      "log_sha256": "a39ef07702dfc7dd038d4cd2d5d8848f4868ce9245ee62a944a8d5efb2cdbc6e"
+    },
+    {
+      "name": "bios-usb",
+      "passed": true,
+      "returncode": 0,
+      "report": "qemu-bios-usb/results.json",
+      "report_sha256": "e9eff64838822431aa691df3ed9195b583a2099dd349ceea59f87e54efa6e0f8",
+      "log": "runs/bios-usb.log",
+      "log_sha256": "dd818e4b32517314150fe24b87912f62ad0acd8fdc535c470eaee5346391f7af"
+    },
+    {
+      "name": "storage",
+      "passed": true,
+      "returncode": 0,
+      "report": "storage/results.json",
+      "report_sha256": "66ea9342e5a22541838f10bb5be48e20fd4d8f057cef878d2147ff1cdfb01dad",
+      "log": "runs/storage.log",
+      "log_sha256": "70088a0ecc9bdf8152ffe2f028079f2d7e03bd27c2b27a505b393a5ce2aba036"
+    },
+    {
+      "name": "resources",
+      "passed": true,
+      "returncode": 0,
+      "report": "resources/results.json",
+      "report_sha256": "4a28d5a3825f295d482738747d7166249bb2ccbd9af2d9ff9e1c35f65866ba38",
+      "log": "runs/resources.log",
+      "log_sha256": "8d2a20c6115601dc4115421978b1c6af69fea36b3c1a4bd9759b2a10698cc9b8"
+    },
+    {
+      "name": "update",
+      "passed": true,
+      "returncode": 0,
+      "report": "update/results.json",
+      "report_sha256": "57793773934035e9a8a5e61e1ffb6c3edf8504ddad4e618a4f33adc4576e5bb1",
+      "log": "runs/update.log",
+      "log_sha256": "ddbf7856ea4c19539176df3700d974c467257a978d5c0dd24651049445a922a1"
+    },
+    {
+      "name": "bootentry",
+      "passed": true,
+      "returncode": 0,
+      "report": "bootentry/results.json",
+      "report_sha256": "49c1736cb032f383bf472844827a4ed4d04802faa80da3b8e8f1eee8a0b95a9d",
+      "log": "runs/bootentry.log",
+      "log_sha256": "8222ddf6729bdfd8f8dde1974607c328a2376eea396cf08d0ad16d09eed1d29a"
+    },
+    {
+      "name": "vmware-efi",
+      "passed": true,
+      "returncode": 0,
+      "report": "vmware/efi/results.json",
+      "report_sha256": "6dfb05299ab7e0ef73d55094e321fd728ec25fc2d706ec83797e6e9a6f629ba3",
+      "log": "runs/vmware-efi.log",
+      "log_sha256": "c063af3b984391378152ac6ea636f2b4b5f50886b5687adf7ca2e9a28b72cffc"
+    },
+    {
+      "name": "vmware-bios",
+      "passed": true,
+      "returncode": 0,
+      "report": "vmware/bios/results.json",
+      "report_sha256": "28bb06bc6d4ff4d6f70d1d1cdc545f84452cecf909680613f36c2aaa819e1ab8",
+      "log": "runs/vmware-bios.log",
+      "log_sha256": "af4fbc5c952564beea15f4cff12e18d456b4f74072a034624fbe8d8a3d7ac654"
+    },
+    {
+      "name": "vmware-starter",
+      "passed": true,
+      "returncode": 0,
+      "report": "vmware/efi-starter/results.json",
+      "report_sha256": "70f7f7932eba3fe8e80f5a8f2a3959f9e64e7c31312c4e3d46252aa5c09fe14c",
+      "log": "runs/vmware-starter.log",
+      "log_sha256": "c063af3b984391378152ac6ea636f2b4b5f50886b5687adf7ca2e9a28b72cffc"
+    }
+  ],
+  "test_sha256": {
+    "tests/m72/bootentry.py": "8271a3926e8d09c91f5b5d20bdfb16d4d64354c531dc31d15e55fea76d3311fd",
+    "tests/m72/qualify.py": "0fc157750059bdcd51170da72a6f147f0f26543f41bccc3fdcdb1f6ae23cb8d0",
+    "tests/m72/resources.py": "9979e36054ed164b0adf6a509e4f9a0c02c6d729c09ce5b8dcb7eb1c659e874f",
+    "tests/m72/session.py": "5d85dda22261ec8fd585b9bc51cf4506ee45c05e41910f7b1342a2d3eb13e748",
+    "tests/m72/storage.py": "918dd47a9492916944df46d03e334e95da2ab8bcd3d546610c48a75b085624ba",
+    "tests/m72/update.py": "ee65da9f450eb0af0a4e42281ecbd5c7330f49eb2c4c47e1920ee8ae03d7099f",
+    "tests/m72/verify.py": "6896b46c774f1b6e2fe38dda953bcb3fe734ccf1eb910dad4fcccbb12136c93b",
+    "tests/m72/vmware.py": "59657faf9c95f1781089e8753f8e340304e303fb6dd1a382ad75aec864c6a9bb"
+  }
+}

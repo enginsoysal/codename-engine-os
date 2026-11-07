@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "archive": "EngineOS-M72-VMware.zip",
+  "sha256": "044089d9bee14ea46028afa35b9d0896bf3956c66fd10841a891ef20c74da330",
+  "size": 2516952,
+  "disk": "new growable 20 GiB SATA disk; not preinstalled",
+  "firmware": "UEFI, Secure Boot off",
+  "boot_order_forced": false,
+  "network_required": false,
+  "members": [
+    "EngineOS-M72.iso",
+    "EngineOS.vmdk",
+    "EngineOS.vmx",
+    "LICENSE",
+    "START-HERE.txt",
+    "THIRD-PARTY-NOTICES.txt"
+  ]
+}

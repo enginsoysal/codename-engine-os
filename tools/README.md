@@ -1,6 +1,10 @@
 # Host tools and entry points
 
-## Current M6
+## Current M7.2
+
+Build with `python tools/build/m72.py`, then package the new blank-disk VMware VM with `python tools/release/vmware_starter.py`. Do not regenerate the archive after qualification: its exact hash identifies the tested disk/VMX/ISO package. Run `python tests/m72/qualify.py` and the separate source/proof verifier described in [M7.2 evidence](../evidence/M7.2/README.md). These tools operate owned disposable guests/images only. [User tutorial](../docs/handbook/install-m72.md).
+
+## Historical M6
 
 Build the standard native graphical installer with `python tools/build/m6.py`. Use `--revision u1` for a distinct update-test build or `--revision minimal --profile distros/engineos-minimal.json` for the alternate Engine OS profile. Each has separate outputs and manifests. Do not edit build inputs while building or qualifying media.
 

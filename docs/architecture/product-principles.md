@@ -29,3 +29,5 @@ The owner revision of 6 November 2026 sets M6 real product installation, M7 real
 ## Graphical setup and removable optional apps
 
 M6 requires a native graphical wizard with Back/Next/Finish, retained editable choices, simple defaults and optional advanced details. Extensive customization must have implemented effects. Optional apps must not be dependencies of base services or the desktop; removing Calculator must leave unrelated functions usable. Required components need explicit dependency handling or a verified replacement. See [component boundaries](components.md) and [wizard design](../handbook/installer-design.md). The browser preview is not native implementation evidence.
+
+The owner revision of 7 November 2026 prioritizes M7.2 installation and a visible real folder desktop before more applications. The final installer action opens persistent Files immediately; independent disk boot, same-VM firmware discovery and truthful recovery limits remain separate acceptance requirements. [Current native design](desktop-m72.md), [user flow](../handbook/install-m72.md).

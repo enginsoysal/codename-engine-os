@@ -1,15 +1,16 @@
 # Engine OS user handbook
 
-Start with **M7.1 v0.7.1**. The native graphical installer offers Back, Next, review, Install and Finish. You choose the disk, optional guide/Calculator, local name and accent; the installer creates its partitions. Existing-disk replacement requires final whole-disk consent; Manage disks handles individual data operations. No terminal commands are required for ordinary setup.
+Start with **Engine OS 0.7.2**. Extract the prepared VMware ZIP, open EngineOS.vmx and start. Follow the graphical wizard, choose Install, then **Open desktop**. Files opens your real installed home folder immediately. Calculator and network access are unnecessary.
 
-- [Download and install in VMware, step by step](install-m71.md)
-- [Repair, update or roll back compatible system slots](recovery-m71.md)
-- [Manage data partitions and format safely](disk-manager-m71.md)
+- [Download and install in VMware, step by step](install-m72.md)
+- [Explore the desktop and navigate your folders](desktop-m72.md)
+- [Current release, checksums and qualified limits](../releases/m72-v0.7.2.md)
+- [Preserve M7.1 data using Recovery/Update](install-m72.md#preserve-an-existing-m71-installation)
+- [Manage partitions and format safely](disk-manager-m71.md)
 - [Build and customize your own distribution](distributions.md)
-- [Current release, checksum and qualified limits](../releases/m71-v0.7.1.md)
 - [Product principles](../architecture/product-principles.md) and [current status](../roadmap/status.md)
 
-Use a disposable SATA disk of at least 2 GiB; existing contents require the explicit replacement route. Use two CPUs and 128 MiB RAM. Disable Secure Boot. After successful installation, power off, disconnect the ISO and restart. The installed disk enters the real desktop and retains your choices/files. Use e1000e NAT for downloads. [Desktop controls and everyday tasks](desktop-m7.md). MS-DOS/Windows application execution remains M8.
+The prepared VM has a new empty growable 20-GiB SATA disk, two CPUs, 128 MiB RAM and Secure Boot off. UEFI startup adds a dedicated boot entry and requires writable firmware variables. Existing-disk replacement requires separate final erasure consent. On later boots disconnect only CD/DVD and keep the SATA hard disk connected. The new tests retain the same VMware configuration/NVRAM and use ordinary disk discovery, without forced boot priority.
 
 [Online documentation and downloads](https://engineos.brixcanvas.com) update from canonical GitHub Markdown and official release assets. [Website maintenance](../../website/README.md).
 

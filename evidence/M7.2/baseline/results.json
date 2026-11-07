@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "build_id": "6fb1adabffecc22b706ff354859a49d8",
+  "firmware": "VMware UEFI",
+  "boot_order_forced": false,
+  "scope": "Fresh owned guest using a retained M7.1 test disk; not the owner VM. This does not establish the owner No Media cause."
+}

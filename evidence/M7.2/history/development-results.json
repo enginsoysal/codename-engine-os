@@ -1,0 +1,12 @@
+{
+  "accepted": false,
+  "candidate": "7cacd0f58ed3d77b3178f12f4a604195",
+  "findings": [
+    "Retained UEFI variables after USB installation selected Shell instead of installed fallback; fixed with dedicated pre-exit firmware boot registration.",
+    "Recovery Update initially retained the diagnostics view; fixed action transition before retesting.",
+    "First starter test expected a .nvram suffix; VMware stores its variables as nvram. Corrected the harness without changing the public VM configuration."
+  ],
+  "qualification": "Earlier development passes are not final-media acceptance.",
+  "snapshots_are_not_acceptance": true,
+  "note": "Development snapshots may refer to candidate output paths later refreshed by final tests. Only the final acceptance evidence_sha256 map qualifies the current published files."
+}

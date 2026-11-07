@@ -1,5 +1,9 @@
 # Build your own Engine OS distribution
 
+## M7.2 desktop-first profile
+
+Build with `python tools/build/m72.py`. The current default is `distros/engineos-workspace.json`: Engine OS, light windows, mint accent, a teal wallpaper and no installed Calculator by default. The same validated schema-2 profile fields remain available. Use `python tools/build/m72.py --profile distros/engineos-workspace.json --revision custom` for separately named media; edit a copied profile to choose actual defaults/content. The desktop remains independent of Calculator, and optional app expansion is not this release's focus. The simplified wizard exposes the guide, account and accent; Calculator selection is controlled by the distro profile rather than cluttering setup. Existing saved appearance wins during update. Core disk consent and firmware boot registration cannot be disabled through a theme. Profile validation is not proof that an arbitrary custom image boots; qualify each image. [Desktop choices and limits](../architecture/desktop-m72.md).
+
 ## M7.1 installer and desktop profiles
 
 Build the current disk-manager media with `python tools/build/m71.py`. Standard uses `distros/engineos-disk.json`; the separately installable Night example uses `python tools/build/m71.py --revision night --profile distros/engineos-disk-night.json`. Both identify version 0.7.1 and retain the Engine OS name. The same implemented schema-2 appearance/optional-app fields below apply; disk consent, protected partitions and core checks cannot be removed by a profile. The final M7.1 custom gate qualifies real Night installation/defaults, Calculator omission/reinstall and restart persistence. Historical M7 profiles/artifacts remain unchanged.
