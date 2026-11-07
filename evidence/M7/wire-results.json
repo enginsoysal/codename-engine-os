@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "m7_complete": false,
+  "native_network_qualified": false,
+  "scope": "actual C parser host execution and freestanding compile only; no NIC/DHCP/TCP/TLS runtime claim",
+  "source_sha256": "49cd65631170a064a198d799cfbc187575cbccacbbf6dbd434ff2fcce2c3bb20",
+  "header_sha256": "9b170ca755d4f0048182acb333d7f0a801c402d19045b9f51a75650289b7af5b",
+  "checks": [
+    {
+      "name": "independent IPv4/UDP/TCP checksums, real fields/payload, truncations and corrupted transport rejection",
+      "passed": true
+    },
+    {
+      "name": "DHCP transaction/MAC binding, exact options, lease accounting and duplicate/truncated refusal",
+      "passed": true
+    },
+    {
+      "name": "DNS ID/question binding, compressed names, CNAME resolution, case folding and compression-loop/mismatch rejection",
+      "passed": true
+    },
+    {
+      "name": "bounded HTTPS URL/port/path parsing, no credentials/downgrade/control bytes and unchanged outputs on refusal",
+      "passed": true
+    },
+    {
+      "name": "30000 deterministic mutation/truncation cases execute actual bounded C parsers",
+      "passed": true,
+      "cases": 30000
+    }
+  ]
+}

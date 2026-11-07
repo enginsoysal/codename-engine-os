@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "objects": 277,
+  "upstream": "BearSSL 0.6",
+  "archive_sha256": "6705bba1714961b41a728dfc5debbe348d2966c117649392f8c8139efc83ff14",
+  "defines": {
+    "BR_64": 1,
+    "BR_i386": 0,
+    "BR_amd64": 0,
+    "BR_INT128": 0,
+    "BR_UMUL128": 0,
+    "BR_AES_X86NI": 0,
+    "BR_SSE2": 0,
+    "BR_POWER8": 0,
+    "BR_RDRAND": 0,
+    "BR_USE_URANDOM": 0,
+    "BR_USE_WIN32_RAND": 0,
+    "BR_USE_UNIX_TIME": 0,
+    "BR_USE_WIN32_TIME": 0,
+    "BR_MSC": 0
+  },
+  "scope": "freestanding native object compilation only",
+  "native_https_qualified": false,
+  "m7_complete": false
+}

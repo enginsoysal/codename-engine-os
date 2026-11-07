@@ -101,7 +101,7 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     if m6:
         inputs=tuple(p for p in inputs if p not in ('kernel/storage/ext2.c','kernel/storage/fs_test.c','kernel/m4/main.c'))
         inputs+=('kernel/install/layout.c','kernel/storage/volume6.c','kernel/install/installer6.c','kernel/install/wizard6.c','build/'+flavor+'/installer-image.c','kernel/install/entry6.c')
-    if m7:inputs+=('kernel/desktop/window.c','kernel/desktop/session.c','kernel/desktop/app.c','kernel/desktop/app-return.S')
+    if m7:inputs+=('kernel/desktop/window.c','kernel/desktop/session.c','kernel/desktop/app.c','kernel/desktop/app-return.S','kernel/network/wire.c','kernel/network/e1000.c','kernel/network/network.c')
     elif milestone=='M5' and not m6:inputs+=('kernel/install/m5.c','build/m5/installer-image.c')
     if distro and not m6:inputs+=('kernel/install/guided.c',)
     kernel=[compile_file(p,'kernel',p.endswith('.S')) for p in inputs]

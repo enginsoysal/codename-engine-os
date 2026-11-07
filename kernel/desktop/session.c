@@ -1,5 +1,6 @@
 #include <engine/desktop/session.h>
 #include <engine/desktop/app.h>
+#include <engine/network/network.h>
 #include <engine/m4.h>
 #include <engine/m3.h>
 #include "build.h"
@@ -9,7 +10,7 @@ enum { OPEN_FILES=1, OPEN_EDITOR, OPEN_SETTINGS, OPEN_CALCULATOR, OPEN_DOWNLOADS
        OPEN_DETAILS, SAVE=20, COPY, CUT, PASTE, FILE_UP, FILE_NEW, FILE_FOLDER,
        STYLE_MINT=40, STYLE_LAVENDER, STYLE_AMBER, STYLE_DARK, STYLE_PAPER,
        CALCULATOR_OFF, CALCULATOR_ON, PREFERENCES_SAVE,
-       DISCARD=60, KEEP_EDITING, CALCULATOR_CRASH=64, APP_SELFTEST, FILE_ROW=100, CALC_KEY=200 };
+       DISCARD=60, KEEP_EDITING, CALCULATOR_CRASH=64, APP_SELFTEST, NETWORK_RETRY, DNS_PROBE, FILE_ROW=100, CALC_KEY=200 };
 
 typedef struct {
     union {
@@ -227,7 +228,19 @@ static void draw_window(unsigned slot) {
     if(w->app==FILES)draw_files(w,app,token);
     if(w->app==SETTINGS)draw_settings(w,app,token);
     if(w->app==CALCULATOR)draw_calculator(w,app,token);
-    if(w->app==DOWNLOADS){text(r.x+20,r.y+65,"Downloads",3,ink());text(r.x+20,r.y+120,"Networking is not implemented in this development slice.",1,ink());text(r.x+20,r.y+150,"M7 is incomplete until real HTTPS tasks pass.",1,ink());}
+    if(w->app==DOWNLOADS){
+        net7_configuration network=net7_current();
+        text(r.x+20,r.y+60,"Your network",3,ink());
+        text(r.x+20,r.y+110,network.message,1,ink());
+        char address[32];decimal(address,network.address>>24);append(address,".",32);char part[24];decimal(part,(network.address>>16)&255);append(address,part,32);append(address,".",32);decimal(part,(network.address>>8)&255);append(address,part,32);append(address,".",32);decimal(part,network.address&255);append(address,part,32);
+        text(r.x+20,r.y+150,"IPv4 address",1,ink());text(r.x+150,r.y+150,address,2,ink());
+        button(token,r.x+20,r.y+200,150,"Retry network",NETWORK_RETRY,0);
+        button(token,r.x+185,r.y+200,190,"Resolve example.com",DNS_PROBE,0);
+        uint32_t resolved=0;unsigned dns=net7_dns_status(&resolved);
+        text(r.x+20,r.y+250,dns==NET7_DNS_READY?"Real DNS lookup completed.":dns==NET7_DNS_PENDING?"Resolving the name...":dns==NET7_DNS_FAILED?"DNS lookup failed. Retry or check the network.":"You can test name resolution here.",1,ink());
+        text(r.x+20,r.y+300,"HTTPS downloading is not implemented in this slice.",1,ink());
+        text(r.x+20,r.y+330,"M7 remains in development until that gate passes.",1,ink());
+    }
     if(w->app==DETAILS){char value[32];text(r.x+20,r.y+65,"Engine OS M7 development",2,ink());text(r.x+20,r.y+105,BUILD_ID,1,ink());
         decimal(value,pages_stats().current_pages*4096);text(r.x+20,r.y+145,"Managed bytes",1,ink());text(r.x+230,r.y+145,value,1,ink());
         decimal(value,pages_stats().peak_pages*4096);text(r.x+20,r.y+175,"Managed peak",1,ink());text(r.x+230,r.y+175,value,1,ink());
@@ -321,6 +334,8 @@ static void action(uint64_t token,unsigned command) {
         else notice(app,"Calculator installation failed. Keep the recovery ISO.");
         whole();
     }
+    if(command==NETWORK_RETRY&&w->app==DOWNLOADS)net7_retry();
+    if(command==DNS_PROBE&&w->app==DOWNLOADS)(void)net7_resolve("example.com");
     if(command==CALCULATOR_CRASH&&w->app==CALCULATOR)send_app(app,APP7_CRASH,0,0,0);
     if(command==APP_SELFTEST&&w->app==DETAILS){
         unsigned free_slot=0;while(free_slot<DESKTOP_WINDOWS&&model.windows[free_slot].live)++free_slot;
@@ -389,15 +404,20 @@ NORETURN void desktop_start(const os_boot_info_v0 *boot,const m6_preferences *pr
        bytes==sizeof(stored)&&stored.magic==preferences.magic&&stored.accent<=0xffffff&&stored.dark<=1&&stored.calculator<=1&&!stored.reserved)preferences=stored;
     if(app7_prepare())serial_text("M7_APP_RUNTIME_MEMORY_UNAVAILABLE\n");
     preferences.calculator=app7_available(CALCULATOR);
+    net7_init();
     desktop_init(&model,display->framebuffer_width,display->framebuffer_height);
     usb_mouse_state(&pointer_x,&pointer_y,&previous_buttons);
     launch(FILES,0);render();serial_text("M7_DESKTOP_READY build=" BUILD_ID "\n");
+    unsigned network_revision=net7_current().revision;
     for(;;){
         __asm__ volatile("cli");
         if(usb_work_pending()){usb_process_changes();continue;}
         int key=input_pop();
-        if(key<0){__asm__ volatile("sti; hlt":::"memory");continue;}
+        unsigned network_work=net7_work_pending();
+        if(key<0&&!network_work){__asm__ volatile("sti; hlt":::"memory");continue;}
         __asm__ volatile("sti");
+        if(network_work){net7_pump();unsigned revision=net7_current().revision;if(revision!=network_revision){network_revision=revision;for(unsigned i=0;i<DESKTOP_WINDOWS;++i)if(model.windows[i].live&&(model.windows[i].app==DOWNLOADS||model.windows[i].app==DETAILS))invalidate(model.windows[i].bounds);}}
+        if(key<0){render();continue;}
         if(key==256)pointer();else{keyboard(key);render();}
     }
 }
