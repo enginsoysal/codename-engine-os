@@ -27,7 +27,7 @@ not satisfy this review. Runtime evidence is stored in `evidence/M7.3`.
 | Recovery and failure | Plain-language purpose, optional technical details, a safe return action and concrete recovery instructions. No raw status code is the ordinary next step. |
 | Partition overview | Disk identity and capacities, readable partition/free-space rows, clear actions and Back to setup. Controller BDF stays out of the ordinary identity display. |
 | Create/format/repair | Readable size/name input and effects explained before review. Quick format is distinguished from secure erasure. Other partitions are preserved where the operation promises that. |
-| Destructive review | Target and consequences remain visible. Keep/Cancel is the safe default. Apply without explicit consent leaves bytes unchanged. |
+| Destructive review | Target and consequences remain visible. Keep/Cancel is the emphasized safe route. Apply without explicit consent leaves bytes unchanged. |
 | Files and folder dialog | Familiar locations, visible path, Back/Forward/Up, named folder creation, delete confirmation and measured fitting of long labels/paths. No Calculator dependency. |
 | Appearance | Consistent body text and controls, light/dark choices and Auto/100/150/200 display size. Unsuitable sizing keeps the existing usable size and gives an explanation; saving persists the choice. |
 | Personal text and advanced output | Existing text uses smooth glyphs; editor wraps by measured advances and terminal cells reserve sufficient width/height. Diagnostics remain optional. |

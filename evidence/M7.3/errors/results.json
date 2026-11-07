@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "build_id": "8bf85110f7ac5a7ee48a824c3cc609dd",
+  "iso_sha256": "1b7979bafa52470614e72ea8c46848a52d02e4158ae6c633279f3e8debc3e9cc",
+  "checks": [
+    "actual native installing state and framebuffer, paused only for capture then resumed to verified success",
+    "real SATA write EIO refuses success and shows readable recovery instructions",
+    "Details from failure opens diagnostics; Return restores failure and Back returns safely",
+    "undersized disk receives concrete 2-GiB guidance without any byte changed",
+    "missing SATA disk displays graphical VMware connection instructions"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "archive": "EngineOS-M73-VMware.zip",
+  "sha256": "c69ed1733fb8ece09001dca0bf56a622efa91b3e2a626c32dd072a9fe776b263",
+  "size": 2618351,
+  "disk": "new growable 20 GiB SATA disk; not preinstalled",
+  "firmware": "UEFI, Secure Boot off",
+  "boot_order_forced": false,
+  "network_required": false,
+  "members": [
+    "EngineOS-M73.iso",
+    "EngineOS.vmdk",
+    "EngineOS.vmx",
+    "Inter-OFL.txt",
+    "LICENSE",
+    "START-HERE.txt",
+    "THIRD-PARTY-NOTICES.txt"
+  ]
+}

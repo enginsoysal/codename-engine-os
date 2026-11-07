@@ -1,6 +1,10 @@
 # Milestones and acceptance contract
 
-## Immediate owner priority — 7 November 2026
+## Current owner priority — 7 November 2026
+
+**M7.3 is complete within M73-VM-v1:** native visual quality, clear guided steps, readable text and actual 4K sizing. Clarity, convenience, user friendliness, graphical quality and readability remain mandatory for later changes. [Delivery](../milestones/m7.3.md), [review](../architecture/usability-review-m73.md), [current tutorial](../handbook/install-m73.md). M8 remains deferred until the owner chooses the next work.
+
+## Historical M7.2 priority — 7 November 2026
 
 Deliver **M7.2: convenient graphical installation → visible real desktop and folder navigation**, before expanding applications or starting M8. The installer must open the persistent desktop immediately, and independent disk boot must pass ordinary firmware discovery using the same VMware configuration and retained NVRAM. [Delivery and acceptance](../milestones/m7.2.md), [design decisions](../architecture/desktop-m72.md), [tutorial](../handbook/install-m72.md). Historical milestone acceptance is retained; it is not a claim that the user has successfully booted the current build.
 

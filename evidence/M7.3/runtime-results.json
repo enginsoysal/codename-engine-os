@@ -1,0 +1,156 @@
+{
+  "passed": true,
+  "build_id": "8bf85110f7ac5a7ee48a824c3cc609dd",
+  "iso_sha256": "1b7979bafa52470614e72ea8c46848a52d02e4158ae6c633279f3e8debc3e9cc",
+  "native_inputs_unchanged": true,
+  "gates": [
+    {
+      "name": "uefi-1280x800",
+      "passed": true,
+      "returncode": 0,
+      "report": "uefi-1280x800/results.json",
+      "report_sha256": "33330c17ca190a6e0d081f84a4f88d6bfa9ccd2c064aaa46baf592ca1ca24c60",
+      "log": "runs/uefi-1280x800.log",
+      "log_sha256": "d448727c58990e2e46715c951f04743ba82276ff6d64c16bda02c458cdefbeb3"
+    },
+    {
+      "name": "uefi-1920x1080",
+      "passed": true,
+      "returncode": 0,
+      "report": "uefi-1920x1080/results.json",
+      "report_sha256": "16779ea02a11d3fa4fed0e07bf53054089551b34ef5bca29f80882e9addbd46d",
+      "log": "runs/uefi-1920x1080.log",
+      "log_sha256": "4c7c0c19574cf163d335fa2135b060895877652e972b62e98f8e35889cfd39e6"
+    },
+    {
+      "name": "uefi-2560x1440",
+      "passed": true,
+      "returncode": 0,
+      "report": "uefi-2560x1440/results.json",
+      "report_sha256": "813918d0e99ff170beac9cfa911f5dfb33e277c01d3ba4a66016dd5f7e5fa734",
+      "log": "runs/uefi-2560x1440.log",
+      "log_sha256": "4bb97287ce02441e2c84b9df1801108b31da49b106120dfd23b737f8e752d542"
+    },
+    {
+      "name": "uefi-3840x2160",
+      "passed": true,
+      "returncode": 0,
+      "report": "uefi-3840x2160/results.json",
+      "report_sha256": "46ce599c4f1d2e2cc947e3e13d32b4068f379550379ee328504b10591285ae43",
+      "log": "runs/uefi-3840x2160.log",
+      "log_sha256": "7162d6fa412a44fb2e79ab64c6ffa41108692c595a10b6adffe4f905b56860b0"
+    },
+    {
+      "name": "bios-1024x768",
+      "passed": true,
+      "returncode": 0,
+      "report": "bios-1024x768/results.json",
+      "report_sha256": "4e68d6be91e86e44010e0a4dc4c8e79cc2f9aab5bf548283fedda762af15bd72",
+      "log": "runs/bios-1024x768.log",
+      "log_sha256": "0c483c85c8c073f35b3d1187cd845996a7efa217d1fa26ccaede83d32b856c5b"
+    },
+    {
+      "name": "low-memory",
+      "passed": true,
+      "returncode": 0,
+      "report": "uefi-1280x800-64mib/results.json",
+      "report_sha256": "33330c17ca190a6e0d081f84a4f88d6bfa9ccd2c064aaa46baf592ca1ca24c60",
+      "log": "runs/low-memory.log",
+      "log_sha256": "ba8d4a49a83273aff9be80405d1feb2c34c86b7ae96722308645c5a94a8e5bdc"
+    },
+    {
+      "name": "surfaces-1280x800",
+      "passed": true,
+      "returncode": 0,
+      "report": "surfaces-1280x800/results.json",
+      "report_sha256": "834d5901ce3f2bc909fa2185c142a32e7c1e6ca8ea6330fe5cd860db00ed5662",
+      "log": "runs/surfaces-1280x800.log",
+      "log_sha256": "dfb715e6ff90d481adcd1720ed3f80588d128825d6a0d3350ee943686a671ac6"
+    },
+    {
+      "name": "surfaces-3840x2160",
+      "passed": true,
+      "returncode": 0,
+      "report": "surfaces-3840x2160/results.json",
+      "report_sha256": "834d5901ce3f2bc909fa2185c142a32e7c1e6ca8ea6330fe5cd860db00ed5662",
+      "log": "runs/surfaces-3840x2160.log",
+      "log_sha256": "c7e835b333c4a94e686607e307d60688cb2a5fd1bbed9635ef68c36f47edf937"
+    },
+    {
+      "name": "displaymode",
+      "passed": true,
+      "returncode": 0,
+      "report": "displaymode/results.json",
+      "report_sha256": "7835d98c21001cf3dd5f7f700cfbf8d5fb34a473ea38e6696653655eaefe1652",
+      "log": "runs/displaymode.log",
+      "log_sha256": "54acb1ec39015fd432b5f061644e3582bbc82cadea533fbd5d46b29c9e012fb4"
+    },
+    {
+      "name": "errors",
+      "passed": true,
+      "returncode": 0,
+      "report": "errors/results.json",
+      "report_sha256": "de4b68ed1626f8b59a233feab7e37d92db6d8afee4a55f58e38114c4576b0e76",
+      "log": "runs/errors.log",
+      "log_sha256": "dbe5e8b028160acf74d5bfa554b46adf6bc7d5c036143cc2eca7416467854c1d"
+    },
+    {
+      "name": "bootentry",
+      "passed": true,
+      "returncode": 0,
+      "report": "bootentry/results.json",
+      "report_sha256": "49c1736cb032f383bf472844827a4ed4d04802faa80da3b8e8f1eee8a0b95a9d",
+      "log": "runs/bootentry.log",
+      "log_sha256": "ad6888ff16f7cc72d2b8fa2e7ff9bfcad351d19ab729a33e0c1d37ee243cdfe8"
+    },
+    {
+      "name": "update",
+      "passed": true,
+      "returncode": 0,
+      "report": "update/results.json",
+      "report_sha256": "274b23823d34c3bffb3fd81b7336311912ef75f882d39f62467e4f55d66aa76a",
+      "log": "runs/update.log",
+      "log_sha256": "d9ee5afe4f0d922467f263664d34dbdc82c2255127ac2611901c9b80d29cd583"
+    },
+    {
+      "name": "vmware-efi",
+      "passed": true,
+      "returncode": 0,
+      "report": "vmware/efi/results.json",
+      "report_sha256": "d67c1e4d9fa1263545a22e71c0c87dea98d843bb51019a953fbf22dc0ad60ef8",
+      "log": "runs/vmware-efi.log",
+      "log_sha256": "1339d41cb32b4ce7be6c560c292d58db882f4aa557aa8f8dc6254c1a8f5fd665"
+    },
+    {
+      "name": "vmware-bios",
+      "passed": true,
+      "returncode": 0,
+      "report": "vmware/bios/results.json",
+      "report_sha256": "8067ec9badbc96f7b8c7cabf91b078b9f4e39f814fb7cb13a18cd864e5e3229c",
+      "log": "runs/vmware-bios.log",
+      "log_sha256": "8f484b951b81fa3e3def7d55cc1463c1b49ba4fbbaffd46d50a5f1a17ab6460a"
+    },
+    {
+      "name": "vmware-starter",
+      "passed": true,
+      "returncode": 0,
+      "report": "vmware/efi-starter/results.json",
+      "report_sha256": "19e81330f93a57bad7efe0de0d9298e00009dc3311cb6f5fd06bc1ef6771aeb5",
+      "log": "runs/vmware-starter.log",
+      "log_sha256": "1339d41cb32b4ce7be6c560c292d58db882f4aa557aa8f8dc6254c1a8f5fd665"
+    }
+  ],
+  "test_sha256": {
+    "tests/m73/bootentry.py": "1aaa2317f4b5ebb00aa07bf7ba42ede307257c472b8be57c77db742c2bfc8bad",
+    "tests/m73/displaymode.py": "e120abb8dbe44275a762d6a29d0d4d099ab196d869aed1143d389933f2802f82",
+    "tests/m73/errors.py": "e6d57c875a90c8746217f1a5c311d80c57ad27dc7942b92904d3f4975dfae89c",
+    "tests/m73/probe.py": "fada346464ebec9f1baf47caf8ac3172048ff136556b02470bb0cfcca802e490",
+    "tests/m73/qualify.py": "dd4aff0824afb8d34154dc16015ffbac02dff7b85345b4c6ccb2def65f8acf1a",
+    "tests/m73/surfaces.py": "949e3dea63e9156c546c13a4e64d1a71b1e100577b843fe49f4ba5f1f0c43483",
+    "tests/m73/ui.py": "ea78bebdb1cda029c38207931c3479077a660c2d039377d2e41482ac7a57a434",
+    "tests/m73/update.py": "07067099459d9fbf86dfe9e640c408f91fed4615e08de89eeb6427b726fc4e1a",
+    "tests/m73/verify.py": "849d8dfd7d302b83de1e34aa83fe66e2b4618438c93ffa8ce1c64a3412e829a5",
+    "tests/m73/visual.py": "db4c526213a156b234587b7fda035443fff64c815445355e955f88e17107bcb3",
+    "tests/m73/vmware.py": "12c31add407376707ba0849cd113620fdd9a9e16314f92a4b524a1c13ffb1560"
+  }
+}

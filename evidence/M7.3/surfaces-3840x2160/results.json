@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "build_id": "8bf85110f7ac5a7ee48a824c3cc609dd",
+  "iso_sha256": "1b7979bafa52470614e72ea8c46848a52d02e4158ae6c633279f3e8debc3e9cc",
+  "checks": [
+    "recovery, missing installation and nonblank guidance captured",
+    "native format refuses unchecked consent without changing a single disk byte",
+    "checked FAT32 format writes real volume and preserves unrelated partition SHA256",
+    "create and repair screens; creation cancel",
+    "whole-disk replacement refuses missing consent",
+    "no measured paragraph overflow"
+  ]
+}

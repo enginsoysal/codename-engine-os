@@ -1,0 +1,19 @@
+{
+  "status": "Historical development notes, not release acceptance",
+  "findings_fixed": [
+    "Replaced magnified 5x7 UI lettering with native-size antialiased coverage",
+    "Separated UI scale from physical framebuffer and input coordinates",
+    "Redesigned wizard and disk/recovery/error layouts; measured text fitting and wrapping",
+    "Corrected failure -> Details navigation and concrete small-disk guidance",
+    "Refreshed M7.3 guide links and opened existing text from its beginning",
+    "Retained the static installation page while updating only verified progress",
+    "Captured progress only at a completed native paint, rather than a partial redraw"
+  ],
+  "harness_findings_fixed": [
+    "Wait for completed native frames before querying controls",
+    "Use the actual New folder command identifier",
+    "Encode the owned x86 OVMF preferred-resolution variable without data padding",
+    "Do not assume optimized boolean debug symbols occupy four bytes"
+  ],
+  "intermediate_candidates": "Earlier M7.3 builds and task transcripts were retained in the ignored build/m73 development archives; they were not tagged or published as accepted releases. All final exact-artifact tasks were repeated on the release candidate."
+}

@@ -1,11 +1,11 @@
 # Engine OS user handbook
 
-Start with **Engine OS 0.7.2**. Extract the prepared VMware ZIP, open EngineOS.vmx and start. Follow the graphical wizard, choose Install, then **Open desktop**. Files opens your real installed home folder immediately. Calculator and network access are unnecessary.
+Start with **Engine OS 0.7.3**. Extract the prepared VMware ZIP, open EngineOS.vmx and start. Follow the graphical wizard, choose Install, then **Open desktop**. Files opens your real installed home folder immediately. Calculator and network access are unnecessary.
 
-- [Download and install in VMware, step by step](install-m72.md)
-- [Explore the desktop and navigate your folders](desktop-m72.md)
-- [Current release, checksums and qualified limits](../releases/m72-v0.7.2.md)
-- [Preserve M7.1 data using Recovery/Update](install-m72.md#preserve-an-existing-m71-installation)
+- [Download and install in VMware, step by step](install-m73.md)
+- [Explore the desktop and navigate your folders](desktop-m73.md)
+- [Current release, checksums and qualified limits](../releases/m73-v0.7.3.md)
+- [Keep personal files using Recovery/Update or roll back](recovery-m73.md)
 - [Manage partitions and format safely](disk-manager-m71.md)
 - [Build and customize your own distribution](distributions.md)
 - [Product principles](../architecture/product-principles.md) and [current status](../roadmap/status.md)
@@ -21,3 +21,5 @@ The prepared VM has a new empty growable 20-GiB SATA disk, two CPUs, 128 MiB RAM
 ## Current product delivery order
 
 M6 real installation is complete within its named VM scope. M7 real desktop/networking is complete within M7-VM-v1; M8 implements separately qualified original MS-DOS and Windows 1.x through Windows 11 application tracks. Engine OS remains the product name. Convenience, optional diagnostics, distribution freedom and measured CPU/RAM use apply throughout. See [the contracts](../roadmap/milestones.md).
+
+[Native display sizing and design decisions](../architecture/graphics-m73.md). The 4K evidence uses an actual framebuffer; firmware mode availability still applies. Choose Appearance for Auto/100%/150%/200% and save preferences.

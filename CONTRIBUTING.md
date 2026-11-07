@@ -8,6 +8,10 @@ All current documents, code comments, UI strings and release notes are English. 
 
 Every behavior/scope change updates contracts/status, user commands, tests/evidence and known limitations in the same coherent change. New findings supersede plans explicitly. Historical tags/reports retain their original identity; do not rewrite their hashes to match new source paths.
 
+## Current UI quality gate
+
+Use the five questions in [product principles](docs/architecture/product-principles.md) and inspect actual native setup/desktop captures at minimum and HiDPI sizes. Do not use browser mockups or enlarged screenshots as 4K proof. The Inter source/rasterizer/output digest is pinned; preserve the full OFL notices. Reproduce M7.3 only in a separate release checkout using [its commands and limits](evidence/M7.3/README.md). New changes require new milestone/revision outputs; never overwrite accepted historical evidence or binaries.
+
 ## Verification and resources
 
 ```powershell

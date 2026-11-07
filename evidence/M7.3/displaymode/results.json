@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "source_sha256": "9cb25623461f666493f013f5c656bd2d920ab9af5ba6be97c8646283c63e77ac",
+  "scope": "host protocol contracts; actual framebuffer proof is in the native resolution tasks",
+  "checks": [
+    "validated preferred 3840x2160 mode selected; each returned info buffer freed",
+    "missing EDID, invalid header/checksum, short GOP info and unsupported pixel format retain current mode",
+    "SetMode failure retains current mode",
+    "mode enumeration bounded to 256"
+  ]
+}

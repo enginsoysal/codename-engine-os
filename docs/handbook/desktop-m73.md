@@ -1,6 +1,6 @@
 # Your Engine OS M7.3 desktop
 
-Candidate documentation. Check the matching release acceptance before testing.
+[M7.3 downloads and exact qualification](../releases/m73-v0.7.3.md).
 
 Files opens automatically after installation and when the installed disk
 starts. The Home folder and its contents are saved on disk. Choose Documents,

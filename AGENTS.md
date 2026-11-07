@@ -36,3 +36,7 @@ The owner requested an open-source project and that every update goes to GitHub.
 - Original project contributions use the root MIT license. Third-party components retain their own notices and require provenance/license review before inclusion.
 - Run OS/storage tests against disposable images or explicitly designated test devices. Never treat the development host disk as a test target.
 - Avoid global tool replacements; prefer pinned project-local tool manifests.
+
+## Accepted release immutability
+
+M4.5, M5, M5.1, M6, M7, M7.1, M7.2 and M7.3 accepted evidence, tags and release binaries are historical proof. Do not rerun a development build/test into their frozen output paths or rewrite accepted hashes. Use a new follow-up prefix/evidence directory; reproduce a historical release only in a separate checkout.

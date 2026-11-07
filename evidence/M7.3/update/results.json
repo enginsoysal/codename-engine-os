@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "build_id": "8bf85110f7ac5a7ee48a824c3cc609dd",
+  "iso_sha256": "1b7979bafa52470614e72ea8c46848a52d02e4158ae6c633279f3e8debc3e9cc",
+  "checks": [
+    "exact accepted M7.2 installation",
+    "native graphical recovery/update/review/confirm",
+    "detached M7.3 desktop with original personal file bytes preserved",
+    "native rollback and unforced retained-NVRAM startup of exact M7.2 build"
+  ]
+}

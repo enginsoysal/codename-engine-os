@@ -1,0 +1,450 @@
+{
+  "passed": true,
+  "build_id": "8bf85110f7ac5a7ee48a824c3cc609dd",
+  "iso_sha256": "1b7979bafa52470614e72ea8c46848a52d02e4158ae6c633279f3e8debc3e9cc",
+  "method": "Coding-agent structured design review, one ordinary surface at a time; representative native captures plus complete task checks across the qualified resolutions. Not a novice study or accessibility certification.",
+  "human_usability_study": false,
+  "questions": [
+    "Is the purpose clear?",
+    "Is the next action convenient?",
+    "Can an ordinary user proceed without terminal syntax?",
+    "Is the visual design coherent?",
+    "Is text readable without overlap or arbitrary mixed sizing?"
+  ],
+  "surfaces": [
+    {
+      "surface": "Welcome",
+      "clarity_reviewed": true,
+      "convenience_reviewed": true,
+      "user_friendliness_reviewed": true,
+      "graphical_quality_reviewed": true,
+      "readability_reviewed": true,
+      "essential_text_overlap_observed": false,
+      "evidence": [
+        {
+          "file": "uefi-1280x800/01-welcome.png",
+          "sha256": "e6a323019a8d3916e311d4f62571addac0882a73c59a389d5196f6b406ab2b77",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        },
+        {
+          "file": "bios-1024x768/01-welcome.png",
+          "sha256": "10ad2bc3d770d354d853a736a4cfd134555866cbc15a5049af4169c940f320bc",
+          "framebuffer_dimensions": [
+            1024,
+            768
+          ]
+        },
+        {
+          "file": "uefi-3840x2160/01-welcome.png",
+          "sha256": "082ce3c4302f3a6897a42bba32fc6c744f1d114427100600a31a8254394ed0a3",
+          "framebuffer_dimensions": [
+            3840,
+            2160
+          ]
+        }
+      ]
+    },
+    {
+      "surface": "Disk and selection guidance",
+      "clarity_reviewed": true,
+      "convenience_reviewed": true,
+      "user_friendliness_reviewed": true,
+      "graphical_quality_reviewed": true,
+      "readability_reviewed": true,
+      "essential_text_overlap_observed": false,
+      "evidence": [
+        {
+          "file": "uefi-1280x800/02-disk.png",
+          "sha256": "972f7143b866e59438132ac1856fa9bdad7eed68138eaa379940a2ff217a9985",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        },
+        {
+          "file": "uefi-1280x800/02-no-selection.png",
+          "sha256": "cfe4a92971b187c73abf964122be9af82b916309cc2bba7cf8dcb253ceee47e6",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        },
+        {
+          "file": "errors/05-disk-too-small.png",
+          "sha256": "428101b855eae08e4ba82278c92548baba8263e2e1611dc6d762b5197aef7d6d",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        },
+        {
+          "file": "errors/06-no-disk-guidance.png",
+          "sha256": "f0aa20822de1517b9c8b38bc12dc881e9c5a6933498a9654c33f02272d0249f5",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        },
+        {
+          "file": "surfaces-1280x800/03-nonblank-guidance.png",
+          "sha256": "765a6061d9beaeddaab388d6663b3a500994dc9bee3ad64480119496ccd72423",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        }
+      ]
+    },
+    {
+      "surface": "Setup",
+      "clarity_reviewed": true,
+      "convenience_reviewed": true,
+      "user_friendliness_reviewed": true,
+      "graphical_quality_reviewed": true,
+      "readability_reviewed": true,
+      "essential_text_overlap_observed": false,
+      "evidence": [
+        {
+          "file": "uefi-1280x800/03-setup.png",
+          "sha256": "dc7d9c9c5254031779f103db2886253838b41c7862ec5704beee49022df9c36f",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        }
+      ]
+    },
+    {
+      "surface": "Style",
+      "clarity_reviewed": true,
+      "convenience_reviewed": true,
+      "user_friendliness_reviewed": true,
+      "graphical_quality_reviewed": true,
+      "readability_reviewed": true,
+      "essential_text_overlap_observed": false,
+      "evidence": [
+        {
+          "file": "bios-1024x768/04-style.png",
+          "sha256": "00e5084f80a494434d0550ecc7fc1f4d3bead11533a05022f3e1b7887e84df95",
+          "framebuffer_dimensions": [
+            1024,
+            768
+          ]
+        }
+      ]
+    },
+    {
+      "surface": "Review and whole-disk consent",
+      "clarity_reviewed": true,
+      "convenience_reviewed": true,
+      "user_friendliness_reviewed": true,
+      "graphical_quality_reviewed": true,
+      "readability_reviewed": true,
+      "essential_text_overlap_observed": false,
+      "evidence": [
+        {
+          "file": "uefi-1280x800/05-review.png",
+          "sha256": "fb14e8f3b35f8d88a6c321578c0b7782e2767276f7c5057730517a9efbf9b44e",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        },
+        {
+          "file": "surfaces-1280x800/12-erase-review.png",
+          "sha256": "02286381d590f34f43fa9f67d3fbd40ac7eb48fa189148c3204fc3c1cd3786a8",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        },
+        {
+          "file": "surfaces-1280x800/13-whole-disk-consent-refused.png",
+          "sha256": "9462febda81305f1f0ba67a4ecaa5448919514d927e0f61a99681d8c8f14c07f",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        }
+      ]
+    },
+    {
+      "surface": "Actual progress",
+      "clarity_reviewed": true,
+      "convenience_reviewed": true,
+      "user_friendliness_reviewed": true,
+      "graphical_quality_reviewed": true,
+      "readability_reviewed": true,
+      "essential_text_overlap_observed": false,
+      "evidence": [
+        {
+          "file": "errors/01-real-installation-progress.png",
+          "sha256": "86bd0f34c2f42354abce4da29813c0f4f0a1fb714274e5296b0d38d545babaff",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        }
+      ]
+    },
+    {
+      "surface": "Finish",
+      "clarity_reviewed": true,
+      "convenience_reviewed": true,
+      "user_friendliness_reviewed": true,
+      "graphical_quality_reviewed": true,
+      "readability_reviewed": true,
+      "essential_text_overlap_observed": false,
+      "evidence": [
+        {
+          "file": "uefi-1280x800/07-finish.png",
+          "sha256": "8f8d6bc08fe34a2acca3a8884c6729ebc3f19b52f8632ca404d04c5e169b5cf8",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        }
+      ]
+    },
+    {
+      "surface": "Recovery and failure",
+      "clarity_reviewed": true,
+      "convenience_reviewed": true,
+      "user_friendliness_reviewed": true,
+      "graphical_quality_reviewed": true,
+      "readability_reviewed": true,
+      "essential_text_overlap_observed": false,
+      "evidence": [
+        {
+          "file": "surfaces-1280x800/01-recovery.png",
+          "sha256": "9e0f6ca14bfb29862cf9bd7e9eeb12b37dd7813d2f736bf73737166dd12f4392",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        },
+        {
+          "file": "surfaces-1280x800/02-no-compatible-install.png",
+          "sha256": "c09c28ce95dc5108fc5aebbfa0e1bcfa4afd34754bec65d2ba4e88a88246f617",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        },
+        {
+          "file": "errors/02-real-write-failure.png",
+          "sha256": "9837b5a9430b8f68c791a32527df5bc9b595724431da0b1f9407c01a598f2e7f",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        },
+        {
+          "file": "errors/03-error-details.png",
+          "sha256": "23758c047478d4f293a0030a9dfec62aa23a23a7f21b169060bb1d664800602e",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        },
+        {
+          "file": "errors/04-return-to-error.png",
+          "sha256": "029578951bd5e983815c8594380f5fd8f91043e6d018d93c17dab7aefed31a3c",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        }
+      ]
+    },
+    {
+      "surface": "Partition overview and operations",
+      "clarity_reviewed": true,
+      "convenience_reviewed": true,
+      "user_friendliness_reviewed": true,
+      "graphical_quality_reviewed": true,
+      "readability_reviewed": true,
+      "essential_text_overlap_observed": false,
+      "evidence": [
+        {
+          "file": "surfaces-1280x800/04-disk-manager.png",
+          "sha256": "9c72755ece729da8fc154a07bd472fc94ef53ee44f2b4765cf1ffd1db3f9af01",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        },
+        {
+          "file": "surfaces-1280x800/09-create-partition.png",
+          "sha256": "986f4304d99f5a8a1d85b1393d18085a75581a35ab034ff37d68e2b0e523233c",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        },
+        {
+          "file": "surfaces-1280x800/10-create-review.png",
+          "sha256": "553edda2a5ed3d2abc13fd7135b4ea77d43b0fa7d5f6bb0f620d85bd0e1d1bf0",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        },
+        {
+          "file": "surfaces-1280x800/05-format-choice.png",
+          "sha256": "67a0d209797893fec97a8dc7ea4d7ca39b2b39b5c43b82c21615ee5966cda3b4",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        },
+        {
+          "file": "surfaces-1280x800/06-format-review.png",
+          "sha256": "b72e5c848c42fbfb9ae94e1ff97d0a8b8284112d5cf1e2bb6981186992363eab",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        },
+        {
+          "file": "surfaces-1280x800/11-gpt-repair.png",
+          "sha256": "b32d12c4d8c82d5a0872c9a4ddf0b4d5158e3c67dda957a5e8e87ecce9ff429d",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        }
+      ]
+    },
+    {
+      "surface": "Files and named folder",
+      "clarity_reviewed": true,
+      "convenience_reviewed": true,
+      "user_friendliness_reviewed": true,
+      "graphical_quality_reviewed": true,
+      "readability_reviewed": true,
+      "essential_text_overlap_observed": false,
+      "evidence": [
+        {
+          "file": "uefi-1280x800/08-home.png",
+          "sha256": "b291a1b57c63730aab0d9fabf8401790c90c28e216851f008c926a1949c7b6b2",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        },
+        {
+          "file": "uefi-1280x800/09-name-your-folder.png",
+          "sha256": "2a4f11bc7275bdccbba7c3641aaf2af078e9ac2487cb066bbe9377d88c848e4a",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        },
+        {
+          "file": "uefi-1280x800/09-documents.png",
+          "sha256": "a74ca95add27eaa6ce93c36799e2ec08d88754e2aef3a373bd9a7138b775790c",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        },
+        {
+          "file": "uefi-1280x800/10-folder.png",
+          "sha256": "d20a9a6e95b71ca2b1528d8cdf3e7946429f81196c5780e630b08fe9bee86e02",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        },
+        {
+          "file": "uefi-3840x2160/08-home.png",
+          "sha256": "05976c2ef4f7bc238527a3efb2cee6b2ad6e8c57418a543c2d1a10866f58be8e",
+          "framebuffer_dimensions": [
+            3840,
+            2160
+          ]
+        }
+      ]
+    },
+    {
+      "surface": "Current readable guide",
+      "clarity_reviewed": true,
+      "convenience_reviewed": true,
+      "user_friendliness_reviewed": true,
+      "graphical_quality_reviewed": true,
+      "readability_reviewed": true,
+      "essential_text_overlap_observed": false,
+      "evidence": [
+        {
+          "file": "uefi-1280x800/12-readable-guide.png",
+          "sha256": "268417b450e0d1f6538518319e6723899090bd0042137bc33c80d77f3760fcad",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        }
+      ]
+    },
+    {
+      "surface": "Appearance and sizing",
+      "clarity_reviewed": true,
+      "convenience_reviewed": true,
+      "user_friendliness_reviewed": true,
+      "graphical_quality_reviewed": true,
+      "readability_reviewed": true,
+      "essential_text_overlap_observed": false,
+      "evidence": [
+        {
+          "file": "uefi-1280x800/12-settings.png",
+          "sha256": "cbad37dc788d8013265969c505bc9885de86b6cdada0813fde724df5462bfde2",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        },
+        {
+          "file": "uefi-1280x800/13-dark.png",
+          "sha256": "bd62bba03585f7f9a9b8c8a93183578d945d1aa0352265e8ba217de8b52dfe8b",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        },
+        {
+          "file": "uefi-1280x800/16-scale200-or-refusal.png",
+          "sha256": "81269cff7b36bee815d1f04cdf43b332fc512d925e6beb45518f7bef0528abf8",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        },
+        {
+          "file": "uefi-3840x2160/17-saved-display.png",
+          "sha256": "b61d4e00d57bc6d204af45938336e7989cd467639a6442211a67fdf1c132fcd7",
+          "framebuffer_dimensions": [
+            3840,
+            2160
+          ]
+        },
+        {
+          "file": "uefi-3840x2160/18-smaller-display-fallback.png",
+          "sha256": "7e40bbd61d383b4209ae03233fc34411413f32c2b016a423341bcec4c800cd00",
+          "framebuffer_dimensions": [
+            1280,
+            800
+          ]
+        }
+      ]
+    }
+  ],
+  "decisions": "docs/architecture/usability-review-m73.md",
+  "remaining_limits": [
+    "ASCII and fixed supported font sizes/scales",
+    "No post-boot GPU mode switching, monitor hotplug or ARM qualification",
+    "Existing bounded editor and optional advanced tools remain development interfaces; arbitrary custom profiles require separate qualification"
+  ]
+}

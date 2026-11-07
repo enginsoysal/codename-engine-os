@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "checks": [
+    "exact short-form FilePath load option independently decoded",
+    "foreign entries and relative order/duplicates preserved, occupied identifier skipped",
+    "readback-verified registration is idempotent: second boot performs zero writes",
+    "missing BootOrder safely created",
+    "read-only NVRAM refuses without overwriting variables",
+    "odd/oversized/wrong-attribute BootOrder rejected without mutation",
+    "exhausted reserved identifier range leaves foreign entries unchanged"
+  ],
+  "source_sha256": "65c2a30af5d7972c3d3716b8752487ebff75bdc24807924f669ea8ed77060443"
+}

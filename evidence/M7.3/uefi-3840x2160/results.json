@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "checks": [
+    "every native setup step and missing-selection guidance captured",
+    "Back preserves choices; verified installation and direct persistent desktop",
+    "scaled actual input opens Documents, creates and enters a real folder",
+    "no measured paragraph overflow; light/dark Settings, display sizes, low-resolution refusal and persisted preference checked",
+    "full OFL license independently CRC-checked on installed disk",
+    "actual framebuffer dimensions; no screenshot resizing",
+    "unforced detached desktop and independently CRC-checked directory retained"
+  ],
+  "build_id": "8bf85110f7ac5a7ee48a824c3cc609dd",
+  "iso_sha256": "1b7979bafa52470614e72ea8c46848a52d02e4158ae6c633279f3e8debc3e9cc",
+  "resolution": [
+    3840,
+    2160
+  ],
+  "ui_scale_percent": 200,
+  "managed_current_bytes": 192512,
+  "managed_peak_bytes": 471040,
+  "navigation_retained_page_delta": 0,
+  "navigation_allocation_failures": 0,
+  "idle_all_cpus_halted": true,
+  "idle_repaint_count": 0
+}

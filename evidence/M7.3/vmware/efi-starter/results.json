@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "firmware": "efi",
+  "checks": [
+    "offline 20-GiB real installation to immediate persistent desktop, keyboard-only folder creation, independent metadata verification",
+    "same VMX and retained NVRAM, optical drive still present but disconnected; two unforced hard-disk boots to desktop; actual folder retained"
+  ],
+  "starter_sha256": "c69ed1733fb8ece09001dca0bf56a622efa91b3e2a626c32dd072a9fe776b263",
+  "independent_container_reader_sha256": "9d930582d0d574bb106d89982c547688e10b8f356192d302cc3d0ae4e8674534",
+  "build_id": "8bf85110f7ac5a7ee48a824c3cc609dd",
+  "iso_sha256": "1b7979bafa52470614e72ea8c46848a52d02e4158ae6c633279f3e8debc3e9cc",
+  "boot_order_forced": false,
+  "same_vm_reused": true,
+  "network_present": false,
+  "existing_vm_inventory_unchanged": true
+}

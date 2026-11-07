@@ -1,7 +1,6 @@
 # Install Engine OS M7.3 in VMware
 
-Candidate guide: use the M7.3 release only after its matching acceptance report
-is marked passed. M7.2 remains the accepted download during qualification.
+M7.3 is qualified within M73-VM-v1. [Downloads and checksums](../releases/m73-v0.7.3.md), [exact acceptance](../../evidence/M7.3/acceptance-results.json).
 
 ## The convenient route
 

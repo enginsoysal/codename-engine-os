@@ -2,7 +2,7 @@
 
 ## M7.3 smooth native UI profile
 
-Build the new visual candidate with `python tools/build/m73.py`. Its separate
+Build the new visual release with `python tools/build/m73.py`. Its separate
 default is `distros/engineos-polished.json`, version 0.7.3, with a readable
 welcome guide and the existing schema-2 appearance/content fields. Use a copied
 profile and `python tools/build/m73.py --profile distros/engineos-polished.json --revision custom`

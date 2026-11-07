@@ -1,6 +1,6 @@
 # M7.3 native graphics and usability
 
-Status: candidate under qualification. A build is not an accepted release.
+Qualified within M73-VM-v1. [Exact acceptance](../../evidence/M7.3/acceptance-results.json); a build alone is not qualification.
 
 ## Decision and implementation
 
@@ -66,7 +66,7 @@ storage, not a claim that the entire OS uses that much managed RAM.
 
 ## Review and evidence
 
-The candidate harness captures native setup pages, missing-selection guidance,
+The accepted harness captures native setup pages, missing-selection guidance,
 disk management, confirmation, recovery, Files and Settings. It performs actual
 installation, normal guest input, folder creation, independent metadata/CRC
 verification and detached disk startup. Qualification results belong under
@@ -76,3 +76,5 @@ Before release, inspect every captured page at minimum and HiDPI sizes for the
 five questions. Essential text must neither overlap nor disappear behind
 controls. A passing scripted task does not establish that a first-time person
 finds the flow convenient, nor qualify every physical screen or Raspberry Pi.
+
+Normative sources: [UEFI console protocols](https://uefi.org/specs/UEFI/2.10/12_Protocols_Console_Support.html), [official Inter distribution](https://github.com/google/fonts/tree/main/ofl/inter). Protocol host fixtures are separate from the real native framebuffer evidence.
