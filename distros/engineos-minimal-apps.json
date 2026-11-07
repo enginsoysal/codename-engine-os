@@ -1,0 +1,17 @@
+{
+  "schema": 3,
+  "id": "minimalapps",
+  "name": "Engine OS Minimal Apps",
+  "version": "0.7.4",
+  "welcome": "Make yourself at home. Your apps, your files, your choice.",
+  "accent": "#62e5bd",
+  "packages": [],
+  "files": [],
+  "desktop": {
+    "dark": false,
+    "calculator": false,
+    "wallpaper": "#142c35",
+    "tagline": "Your space. Your system.",
+    "applications": []
+  }
+}

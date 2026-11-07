@@ -1,0 +1,60 @@
+WELCOME TO ENGINE OS
+
+Start opens your installed applications. Everything in this guide uses the
+native desktop. No terminal commands are needed for ordinary tasks.
+
+YOUR FILES
+Open My files or Documents. Use Home, Back, Forward and Up to navigate.
+Create folder asks for a name. Personal text files open in Text Editor;
+BMP pictures open in Image Viewer and ZIP files open in Archive Manager.
+System folders are protected in Files.
+
+MAKE IT YOURS
+Open Appearance to choose an accent, light or dark windows and display size.
+Save preferences keeps those choices after restarting. Manage applications
+is always available in Settings, even if Software Manager is removed.
+
+YOUR APPLICATIONS
+Software Manager shows installed and available offline applications. Remove
+asks for confirmation, keeps your documents and private data, and refuses
+while the app has open windows. Install restores the verified offline package.
+Files, Settings and shared system services are required and remain protected.
+
+Calculator supports six decimal places, scientific functions and common
+conversions. Scientific results are approximate; angles use degrees.
+
+Clock offers fixed UTC offsets, a timer, stopwatch and session-only daily
+UTC alarm. Timer/alarm messages continue after closing Clock; restarting
+cancels them. Sound and automatic daylight-saving rules are not implemented.
+
+Calendar stores a private note for each selected day. Type your note and
+choose Save note, or press Ctrl+S. Save before selecting another date.
+
+Screenshot saves the actual native screen as BMP in Pictures/Screenshots.
+Image Viewer fits uncompressed 24/32-bit BMP files to its window. Try
+Pictures/ColorStudy.bmp. PNG, JPEG and other codecs are not implemented yet.
+
+Archive Manager lists and extracts non-encrypted Stored/Deflate ZIP files.
+Try Downloads/ArchiveSample.zip. Extraction uses a fresh Downloads folder,
+checks paths and CRCs, and never overwrites an existing personal file.
+The extracted ChimeLong.wav is an original two-second audio sample. Open it
+in Files to launch Media Player.
+There is a 32-member and 64 MiB expanded-data limit; ZIP64 and links are
+not supported. Check the output folder if an interrupted extraction stops.
+
+DISKS AND RECOVERY
+Disk Utility manages other SATA disks with explicit review and consent.
+The running system disk is inspection-only; use installation media to
+change its partitions. Formatting is a quick format, not a secure erase.
+Update & Recovery can restore verified boot files or a complete previous
+recovery slot. Keep the installation ISO for offline recovery and updates.
+
+DEVELOPMENT SCOPE
+Browser opens local HTML/text and checked HTTPS with Back, Home and Links.
+It does not support JavaScript, CSS layout, forms or embedded images.
+Media Player accepts 16-bit PCM WAV, mono/stereo at 44.1/48 kHz, through a
+supported analog HDA output. MP3, video and other codecs are not implemented.
+This M7.4 build is still being qualified. Additional desktop integrations
+remain unfinished. Existing Windows and
+MS-DOS applications are not supported yet. Hardware support is limited to
+the documented virtual profiles. See Help and the matching release notes.

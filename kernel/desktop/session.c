@@ -3,6 +3,11 @@
 #endif
 #include <engine/desktop/session.h>
 #include <engine/desktop/app.h>
+#ifdef ENGINE_M74
+#include <engine/desktop/catalog74.h>
+#include <engine/install/desktop74.h>
+#include <engine/audio74.h>
+#endif
 #include <engine/network/network.h>
 #include <engine/network/download.h>
 #include <engine/network/clock.h>
@@ -11,7 +16,8 @@
 #include "build.h"
 #include "distro.h"
 
-enum { FILES=1, EDITOR, SETTINGS, CALCULATOR, DOWNLOADS, DETAILS, TERMINAL };
+enum { FILES=1, EDITOR, SETTINGS, CALCULATOR, DOWNLOADS, DETAILS, TERMINAL,
+       CLOCK74,CALENDAR74,DISKS74,SOFTWARE74,RECOVERY74,ARCHIVES74,IMAGES74,SCREENSHOT74,MEDIA74,BROWSER74,HELP74 };
 enum { OPEN_FILES=1, OPEN_EDITOR, OPEN_SETTINGS, OPEN_CALCULATOR, OPEN_DOWNLOADS,
        OPEN_DETAILS, OPEN_TERMINAL, SAVE=20, COPY, CUT, PASTE, FILE_UP, FILE_NEW, FILE_FOLDER,
        STYLE_MINT=40, STYLE_LAVENDER, STYLE_AMBER, STYLE_DARK, STYLE_PAPER,
@@ -35,13 +41,22 @@ typedef struct {
     uint32_t source_crc;
     char pending[256];
     unsigned name_cursor,name_selected;
+#ifdef ENGINE_M74
+    unsigned year74,month74,day74;
+    uint64_t offset74,total74;
+    unsigned count74;
+#endif
 } application;
 typedef struct { desktop_rect rect; uint64_t window; unsigned action; } control;
 typedef struct { uint64_t magic; uint32_t accent, dark, calculator, reserved; } preferences7;
 
 static desktop_model model;
 static application apps[DESKTOP_WINDOWS];
+#ifdef ENGINE_M74
+#define DESKTOP_CONTROLS 512u
+#else
 #define DESKTOP_CONTROLS 288u
+#endif
 static control controls[DESKTOP_CONTROLS];
 static unsigned control_count, launcher, pointer_x, pointer_y, previous_buttons;
 static unsigned dragging, drag_resize, drag_x, drag_y;
@@ -53,10 +68,19 @@ static char clipboard[8192];
 static char shell_notice[96];
 static unsigned clipboard_length;
 static unsigned pressure_on;
+#ifdef ENGINE_M74
+static uint64_t transfer_owner74;
+#endif
 static unsigned control_active,focused_action;
 static uint64_t focused_control_window;
 static const os_boot_info_v0 *display;
+#ifdef ENGINE_M74
+#define TITLE74(symbol,kind,id,title,worker,ready) [kind]=title,
+static const char *titles[APP74_KINDS]={[0]="",[1]="Files",[3]="Settings",APP74_CATALOG(TITLE74)};
+#undef TITLE74
+#else
 static const char *titles[]={"", "Files", "Text Editor", "Settings", "Calculator", "Downloads", "System details", "Advanced Terminal"};
+#endif
 
 static unsigned length(const char *s) { unsigned n=0; while(s[n])++n; return n; }
 static int equal(const char *a,const char *b) { while(*a&&*a==*b){++a;++b;}return *a==*b; }
@@ -160,15 +184,35 @@ static unsigned send_app(application *app,unsigned command,unsigned key,const vo
 #ifdef ENGINE_M72
 static void init_files72(application *app);
 #endif
+#ifdef ENGINE_M74
+static void init74(unsigned,application *);
+static void draw74(desktop_window *,application *,uint64_t);
+static unsigned action74(desktop_window *,application *,uint64_t,unsigned);
+static unsigned key74(desktop_window *,application *,uint64_t,int);
+static void tick74(void);
+static void draw_calculator74(desktop_window *,application *,uint64_t);
+#endif
 static uint64_t launch(unsigned kind,const char *path) {
+#ifdef ENGINE_M74
+    if(!app7_available(kind)){copy(shell_notice,"This app is not installed. Open Settings to manage applications.",sizeof(shell_notice));whole();return 0;}
+    if(kind==DISKS74||kind==RECOVERY74||kind==MEDIA74){for(unsigned i=0;i<DESKTOP_WINDOWS;++i)
+        if(model.windows[i].live&&model.windows[i].app==kind){uint64_t existing=desktop_token(&model,i);desktop_minimize(&model,existing,0);desktop_focus(&model,existing);whole();return existing;}}
+#else
     if(kind==CALCULATOR&&!preferences.calculator)return 0;
+#endif
     unsigned offset=model.count*26;
     uint64_t token=desktop_open(&model,kind,(desktop_rect){170+(int)offset,90+(int)offset,700,470});
     if(!token){copy(shell_notice,"Eight windows are open. Close one before opening another.",sizeof(shell_notice));whole();serial_text("M7_WINDOW_LIMIT\n");return 0;}
     shell_notice[0]=0;
     unsigned slot=(unsigned)(uint32_t)token-1;
     application *app=&apps[slot];memset(app,0,sizeof(*app));
-    unsigned opened=(kind==EDITOR||kind==CALCULATOR)?app7_open(slot,kind):0;
+    unsigned opened=
+#ifdef ENGINE_M74
+    app74_worker(kind)
+#else
+    (kind==EDITOR||kind==CALCULATOR)
+#endif
+    ?app7_open(slot,kind):0;
     if(opened){
         app->stopped=1;notice(app,opened==V6_FULL?"Not enough memory. Close an app, then close this window and retry.":"Application could not start. Check its installed package.");
     }
@@ -207,6 +251,9 @@ static uint64_t launch(unsigned kind,const char *path) {
 #endif
     }
     if(kind==DETAILS)resource_log();
+#ifdef ENGINE_M74
+    if(!app->stopped){if(path&&kind>=CLOCK74)copy(app->path,path,256);init74(kind,app);}
+#endif
     launcher=0;task_damage();serial_text("M7_WINDOW_OPEN app=");serial_hex(kind);serial_text("\n");return token;
 }
 
@@ -289,6 +336,16 @@ static const v6_entry *child_at(application *app,unsigned wanted) {
     return 0;
 }
 #ifdef ENGINE_M72
+#ifdef ENGINE_M74
+static void open_file74(const char *path){
+    unsigned n=length(path),kind=EDITOR;
+    if(n>=4&&(equal(path+n-4,".bmp")||equal(path+n-4,".BMP")))kind=IMAGES74;
+    if(n>=4&&(equal(path+n-4,".zip")||equal(path+n-4,".ZIP")))kind=ARCHIVES74;
+    if(n>=4&&(equal(path+n-4,".wav")||equal(path+n-4,".WAV")))kind=MEDIA74;
+    if((n>=5&&equal(path+n-5,".html"))||(n>=4&&equal(path+n-4,".htm")))kind=BROWSER74;
+    launch(kind,path);
+}
+#endif
 #include "files72.inc"
 static void init_files72(application *app){
     memset(&navigation[app-apps],0,sizeof(navigation[0]));char home[256];home72(home);visit72(app,home,1);
@@ -313,6 +370,9 @@ static void draw_files(desktop_window *w,application *app,uint64_t token) {
     text(x,w->bounds.y+w->bounds.height-24,app->notice[0]?app->notice:"Click a folder or a text file. Arrow keys scroll the list.",1,ink());
 }
 static void draw_settings(desktop_window *w,application *app,uint64_t token) {
+#ifdef ENGINE_M74
+    if(app->offset==74){draw74(w,app,token);return;}
+#endif
     int x=w->bounds.x+20,y=w->bounds.y+55;
     text(x,y,"Make Engine OS yours",2,ink());
     text(x,y+40,"Accent",1,ink());
@@ -322,8 +382,13 @@ static void draw_settings(desktop_window *w,application *app,uint64_t token) {
     text(x,y+110,"Appearance",1,ink());
     button(token,x,y+130,130,"Dark windows",STYLE_DARK,preferences.dark);
     button(token,x+140,y+130,130,"Light windows",STYLE_PAPER,!preferences.dark);
+#ifdef ENGINE_M74
+    text(x,y+185,"Applications",1,ink());
+    button(token,x,y+205,240,"Manage applications",10000,0);
+#else
     text(x,y+185,"Optional Calculator component",1,ink());
     button(token,x,y+205,150,preferences.calculator?"Remove Calculator":"Install Calculator",preferences.calculator?CALCULATOR_OFF:CALCULATOR_ON,0);
+#endif
 #ifdef ENGINE_M73
     text(x,y+260,"Display size",1,ink());
     const char *sizes[]={"Auto","100%","150%","200%"};unsigned choice=ui73_scale_choice();
@@ -339,6 +404,9 @@ static void draw_settings(desktop_window *w,application *app,uint64_t token) {
 #endif
 }
 static void draw_calculator(desktop_window *w,application *app,uint64_t token) {
+#ifdef ENGINE_M74
+    draw_calculator74(w,app,token);return;
+#endif
     int x=w->bounds.x+22,y=w->bounds.y+55;char number[32];integer(number,app->number);
     rectangle((desktop_rect){x,y,w->bounds.width-44,50},preferences.dark?0x10212a:0xe5eeed);
     text(x+14,y+16,app->calc_error?"Out of range / invalid operation":number,2,ink());
@@ -374,6 +442,13 @@ static void draw_terminal(desktop_window *w,application *app,uint64_t token){
     }
 }
 
+#ifdef ENGINE_M74
+#include "apps74.inc"
+unsigned desktop74_in_use(unsigned kind){
+    for(unsigned i=0;i<DESKTOP_WINDOWS;++i)if(model.windows[i].live&&model.windows[i].app==kind)return 1;return 0;
+}
+void desktop74_removed(unsigned kind){if(kind==CLOCK74)memset(&time74,0,sizeof(time74));}
+#endif
 static void draw_window(unsigned slot) {
     desktop_window *w=&model.windows[slot];if(w->minimized)return;
     application *app=&apps[slot];desktop_rect r=w->bounds;uint64_t token=desktop_token(&model,slot);
@@ -402,6 +477,9 @@ static void draw_window(unsigned slot) {
         button(token,r.x+22,r.y+190,150,"Save as",CONFIRM_FILENAME,1);button(token,r.x+185,r.y+190,150,"Cancel",KEEP_EDITING,0);
         text(r.x+22,r.y+250,app->notice,1,ink());return;
     }
+#ifdef ENGINE_M74
+    if(app->closing==5||app->closing==6){draw74(w,app,token);return;}
+#endif
     if(app->closing){text(r.x+22,r.y+80,app->closing==2?"Delete this item?":"Keep your unsaved changes?",2,ink());
         if(app->closing==2){const char *name=app->pending;for(unsigned n=0;app->pending[n];++n)if(app->pending[n]=='/')name=app->pending+n+1;text(r.x+22,r.y+110,name,1,ink());}
         button(token,r.x+22,r.y+(app->closing==2?150:130),150,app->closing==2?"Keep item":"Keep editing",KEEP_EDITING,1);
@@ -411,6 +489,9 @@ static void draw_window(unsigned slot) {
     if(w->app==SETTINGS)draw_settings(w,app,token);
     if(w->app==CALCULATOR)draw_calculator(w,app,token);
     if(w->app==TERMINAL)draw_terminal(w,app,token);
+#ifdef ENGINE_M74
+    if(w->app>=CLOCK74)draw74(w,app,token);
+#endif
     if(w->app==DOWNLOADS){
         net7_configuration network=net7_current();
         text(r.x+20,r.y+60,"Your network",3,ink());
@@ -431,7 +512,11 @@ static void draw_window(unsigned slot) {
         button(token,r.x+180,r.y+340,100,"Cancel",DOWNLOAD_CANCEL,0);
         button(token,r.x+295,r.y+340,160,"Open Downloads",DOWNLOAD_FOLDER,0);
         download7_info download=download7_current();
-        text(r.x+20,r.y+390,download.message?download.message:"Download a file securely. Closing this window cancels it.",1,ink());
+        text(r.x+20,r.y+390,
+#ifdef ENGINE_M74
+             app->notice[0]?app->notice:
+#endif
+             download.message?download.message:"Download a file securely. Closing this window cancels it.",1,ink());
         char progress[64],number[24];decimal(number,download.bytes);copy(progress,number,sizeof(progress));append(progress," bytes",sizeof(progress));
         if(download.tls_error){append(progress," - TLS error ",sizeof(progress));decimal(number,download.tls_error);append(progress,number,sizeof(progress));}
         text(r.x+20,r.y+420,progress,1,ink());
@@ -502,6 +587,9 @@ static void render(void) {
     if(step>100)step=100;
     for(unsigned i=0;i<model.count;++i){unsigned slot=model.order[i];desktop_window *w=&model.windows[slot];
         button(desktop_token(&model,slot),130+(int)(i*step),bar+15,(int)step-8,titles[w->app],70,model.focused==slot);}
+#ifdef ENGINE_M74
+    if(model.width>=1000)task_clock74(bar);
+#else
     if(model.width>=1000)text((int)model.width-180,bar+23,
 #ifdef ENGINE_M73
  "Engine OS 0.7.3",
@@ -513,7 +601,14 @@ static void render(void) {
  "Engine OS 0.7",
 #endif
 1,0x95b1bd);
+#endif
     if(launcher){
+#ifdef ENGINE_M74
+        int width=620,height=420,left=16,top=bar-height-12;
+        ui73_round(left,top,width,height,12,paper());text(left+20,top+20,"Your applications",2,ink());
+        unsigned row=0;for(unsigned i=1;i<APP74_KINDS;++i){if(!app7_available(i))continue;
+            button(0,left+16+(int)(row%3)*200,top+65+(int)(row/3)*48,188,titles[i],i,0);++row;}
+#else
         gui6_rect(16,(unsigned)bar-350,300,340,paper());text(34,bar-329,owner.user,2,ink());
         unsigned row=0;for(unsigned i=1;i<=7;++i){
 #ifdef ENGINE_M72
@@ -521,6 +616,7 @@ static void render(void) {
 #endif
             if(i==CALCULATOR&&!preferences.calculator)continue;
             button(0,30,bar-293+(int)row++*38,270,titles[i],i,0);}
+#endif
     }
     gui7_clip_reset();usb_mouse_draw();++paints;painted_pixels+=(uint64_t)dirty.width*dirty.height;
 }
@@ -532,8 +628,18 @@ static void calculator(application *app,char key) {
 static void close_window(uint64_t token,int discard) {
     desktop_window *w=desktop_lookup(&model,token);if(!w)return;
     application *app=&apps[w-model.windows];
-    if(w->app==EDITOR&&app->dirty&&!discard){app->closing=1;invalidate(w->bounds);return;}
+    if((w->app==EDITOR
+#ifdef ENGINE_M74
+        ||w->app==CALENDAR74
+#endif
+       )&&app->dirty&&!discard){app->closing=1;invalidate(w->bounds);return;}
+#ifdef ENGINE_M74
+    if(w->app==BROWSER74)browser_stop74(app,token);
+    if(w->app==MEDIA74)audio74_stop();
+    if(w->app==DOWNLOADS&&(!transfer_owner74||transfer_owner74==token)){download7_cancel();transfer_owner74=0;}
+#else
     if(w->app==DOWNLOADS)download7_cancel();
+#endif
     if(w->app==DETAILS&&pressure_on){pages_limit(0);pressure_on=0;}
     app7_close((unsigned)(w-model.windows));desktop_close(&model,token);memset(app,0,sizeof(*app));task_damage();
 }
@@ -546,6 +652,9 @@ static void action(uint64_t token,unsigned command) {
     if(!token){if(!command){launcher^=1;whole();return;}launch(command,0);whole();return;}
     desktop_window *w=desktop_lookup(&model,token);if(!w)return;
     unsigned slot=(unsigned)(w-model.windows);application *app=&apps[slot];
+#ifdef ENGINE_M74
+    if(action74(w,app,token,command))return;
+#endif
 #ifdef ENGINE_M72
     if(files_action72(w,app,token,command))return;
 #endif
@@ -594,11 +703,36 @@ static void action(uint64_t token,unsigned command) {
         else notice(app,"Calculator installation failed. Keep the recovery ISO.");
         whole();
     }
-    if(command==NETWORK_RETRY&&w->app==DOWNLOADS){download7_cancel();net7_retry();}
+    if(command==NETWORK_RETRY&&w->app==DOWNLOADS){
+#ifdef ENGINE_M74
+        notice(app,"");
+        if(transfer_owner74&&transfer_owner74!=token){notice(app,"Another window is using the connection. Wait for it to finish.");invalidate(w->bounds);return;}
+        transfer_owner74=0;
+#endif
+        download7_cancel();net7_retry();}
     if(command==DNS_PROBE&&w->app==DOWNLOADS){download7_info d=download7_current();if(d.state<DOWNLOAD7_RESOLVING||d.state>DOWNLOAD7_RECEIVING)(void)net7_resolve("example.com");}
     if(command==URL_FOCUS&&w->app==DOWNLOADS){app->entered=0;app->cursor=app->length;}
-    if(command==DOWNLOAD_START&&w->app==DOWNLOADS){unique_path(app->path,"Downloads","Download",".bin");if(app->path[0])(void)download7_start(m6_volume(),app->text,app->path);}
-    if(command==DOWNLOAD_CANCEL&&w->app==DOWNLOADS)download7_cancel();
+    if(command==DOWNLOAD_START&&w->app==DOWNLOADS){
+#ifdef ENGINE_M74
+        notice(app,"");
+        if(transfer_owner74&&transfer_owner74!=token){notice(app,"Another window is using the connection. Wait for it to finish.");invalidate(w->bounds);return;}
+        download7_info running=download7_current();if(running.state>=DOWNLOAD7_RESOLVING&&running.state<=DOWNLOAD7_RECEIVING){notice(app,"A download is already running. Cancel it before starting another.");invalidate(w->bounds);return;}
+#endif
+        unique_path(app->path,"Downloads","Download",".bin");if(app->path[0]){
+            unsigned status=download7_start(m6_volume(),app->text,app->path);
+#ifdef ENGINE_M74
+            if(!status)transfer_owner74=token;
+#else
+            (void)status;
+#endif
+        }}
+    if(command==DOWNLOAD_CANCEL&&w->app==DOWNLOADS){
+#ifdef ENGINE_M74
+        notice(app,"");
+        if(transfer_owner74&&transfer_owner74!=token){notice(app,"The connection belongs to another window. Stop it there.");invalidate(w->bounds);return;}
+        transfer_owner74=0;
+#endif
+        download7_cancel();}
     if(command==MEMORY_LIMIT&&w->app==DETAILS){pressure_on^=1;pages_limit(pressure_on?pages_stats().current_pages:0);serial_text(pressure_on?"M7_MEMORY_LIMIT_ACTIVE\n":"M7_MEMORY_LIMIT_RESTORED\n");resource_log();}
     if(command==DOWNLOAD_FOLDER&&w->app==DOWNLOADS){uint64_t opened=launch(FILES,0);desktop_window *files=desktop_lookup(&model,opened);if(files){root_path(apps[files-model.windows].path,"Downloads");whole();}}
     if(command==CALCULATOR_CRASH&&w->app==CALCULATOR)send_app(app,APP7_CRASH,0,0,0);
@@ -610,7 +744,11 @@ static void action(uint64_t token,unsigned command) {
             if(app7_open(free_slot,CALCULATOR)||!app7_request(free_slot,probe,0,0,0,&apps[free_slot].view))passed=0;
             app7_close(free_slot);if(pages_stats().current_pages!=baseline)passed=0;
         }
+#ifdef ENGINE_M74
+        if(!app7_package(FILES,0))passed=0;
+#else
         if(!app7_package(EDITOR,0))passed=0;
+#endif
         notice(app,passed?"Five real app faults contained; private allocations reclaimed.":"Isolation check failed or unavailable. Keep the ISO.");
         serial_text(passed?"M7_APP_ISOLATION_PASS\n":"M7_APP_ISOLATION_FAILED\n");
     }
@@ -641,6 +779,21 @@ static void pointer(void) {
         if(drag_resize){r.width+=dx;r.height+=dy;if(r.width<480)r.width=480;desktop_window *resizing=desktop_lookup(&model,drag_window);int minimum=resizing&&resizing->app==DOWNLOADS?460:420;
 #ifdef ENGINE_M73
         if(resizing&&resizing->app==SETTINGS)minimum=550;
+#endif
+#ifdef ENGINE_M74
+        if(resizing){int width=480;
+            if(resizing->app==SETTINGS)width=700;
+            if(resizing->app==CLOCK74){width=700;minimum=510;}
+            if(resizing->app==CALENDAR74){width=760;minimum=640;}
+            if(resizing->app==SOFTWARE74){width=820;minimum=620;}
+            if(resizing->app==IMAGES74)width=640;
+            if(resizing->app==SCREENSHOT74)width=660;
+            if(resizing->app==DISKS74){width=850;minimum=620;}
+            if(resizing->app==CALCULATOR){width=660;minimum=650;}
+            if(resizing->app==BROWSER74){width=850;minimum=650;}
+            if(resizing->app==MEDIA74){width=760;minimum=580;}
+            if(r.width<width)r.width=width;
+        }
 #endif
 if(r.height<minimum)r.height=minimum;}else{r.x+=dx;r.y+=dy;}
         desktop_place(&model,drag_window,r);
@@ -695,6 +848,9 @@ static void keyboard(int key) {
     if(model.focused>=DESKTOP_WINDOWS)return;
     desktop_window *w=&model.windows[model.focused];application *app=&apps[model.focused];
     uint64_t token=desktop_token(&model,model.focused);
+#ifdef ENGINE_M74
+    if(!app->closing&&key74(w,app,token,key))return;
+#endif
 #ifdef ENGINE_M72
     if(app->closing==4){
         unsigned count=length(app->pending);
@@ -770,20 +926,69 @@ NORETURN void desktop_start(const os_boot_info_v0 *boot,const m6_preferences *pr
        bytes==sizeof(stored)&&stored.magic==preferences.magic&&stored.accent<=0xffffff&&stored.dark<=1&&stored.calculator<=1&&!stored.reserved)preferences=stored;
     if(app7_prepare())serial_text("M7_APP_RUNTIME_MEMORY_UNAVAILABLE\n");
     preferences.calculator=app7_available(CALCULATOR);
+#ifdef ENGINE_M74
+    unsigned audio_settings[2],audio_bytes=0;
+    if(!v6_verify(m6_volume(),"/System/Settings/audio74.bin")&&!v6_read(m6_volume(),"/System/Settings/audio74.bin",0,audio_settings,sizeof(audio_settings),&audio_bytes)&&
+       audio_bytes==sizeof(audio_settings)&&audio_settings[0]==0x41443734&&audio_settings[1]<=100)audio74_volume(audio_settings[1]);
+#endif
     net7_init();
+#ifdef ENGINE_M74
+    (void)pages_window_peak(1);
+#endif
     desktop_init(&model,display->framebuffer_width,display->framebuffer_height);
     usb_mouse_state(&pointer_x,&pointer_y,&previous_buttons);
     launch(FILES,0);render();resource_log();serial_text("M7_DESKTOP_READY build=" BUILD_ID "\n");
+#ifdef ENGINE_M74
+    clock74_start();
+#endif
     unsigned network_revision=net7_current().revision,download_revision=download7_current().revision;
+#ifdef ENGINE_M74
+    unsigned audio_revision=audio74_current().revision;int carried_key74=-1;
+#endif
     for(;;){
         __asm__ volatile("cli");
         if(usb_work_pending()){usb_process_changes();continue;}
+#ifdef ENGINE_M74
+        int key=carried_key74>=0?carried_key74:input_pop();carried_key74=-1;
+#else
         int key=input_pop();
+#endif
+#ifdef ENGINE_M74
+        unsigned time_work=clock74_pending();if(time_work)clock74_consume();unsigned audio_work=audio74_pending();
+#else
+        unsigned time_work=0,audio_work=0;
+#endif
         unsigned network_work=net7_work_pending();
-        if(key<0&&!network_work){__asm__ volatile("sti; hlt":::"memory");continue;}
+        if(key<0&&!network_work&&!time_work&&!audio_work){__asm__ volatile("sti; hlt":::"memory");continue;}
         __asm__ volatile("sti");
-        if(network_work){net7_pump();unsigned revision=net7_current().revision;if(revision!=network_revision||download7_current().revision!=download_revision){network_revision=revision;download_revision=download7_current().revision;for(unsigned i=0;i<DESKTOP_WINDOWS;++i)if(model.windows[i].live&&(model.windows[i].app==DOWNLOADS||model.windows[i].app==DETAILS))invalidate(model.windows[i].bounds);}}
+#ifdef ENGINE_M74
+        if(time_work)tick74();
+        if(audio_work)audio74_pump();
+        unsigned new_audio_revision=audio74_current().revision;
+        if(new_audio_revision!=audio_revision){audio_revision=new_audio_revision;for(unsigned i=0;i<DESKTOP_WINDOWS;++i)if(model.windows[i].live&&model.windows[i].app==MEDIA74)invalidate(model.windows[i].bounds);}
+#endif
+        if(network_work){net7_pump();unsigned revision=net7_current().revision;if(revision!=network_revision||download7_current().revision!=download_revision){network_revision=revision;download_revision=download7_current().revision;for(unsigned i=0;i<DESKTOP_WINDOWS;++i)if(model.windows[i].live&&(model.windows[i].app==DOWNLOADS||model.windows[i].app==DETAILS))invalidate(model.windows[i].bounds);}
+#ifdef ENGINE_M74
+            browser_pump74();
+            desktop_window *transfer=desktop_lookup(&model,transfer_owner74);download7_info current=download7_current();
+            if(transfer&&transfer->app==DOWNLOADS&&current.state>=DOWNLOAD7_DONE)transfer_owner74=0;
+#endif
+        }
         if(key<0){render();continue;}
-        if(key==256)pointer();else{keyboard(key);render();}
+        if(key==256)pointer();else{keyboard(key);
+#ifdef ENGINE_M74
+            /* Coalesce queued text edits, preserving the first non-text event.
+               Focus/navigation controls still render between ordinary actions. */
+            unsigned focus=model.focused;
+            if(((key>=32&&key<=126)||key==8)&&!launcher&&focus<DESKTOP_WINDOWS&&
+               !apps[focus].closing&&(model.windows[focus].app==EDITOR||model.windows[focus].app==CALENDAR74)){
+                for(unsigned batch=1;batch<16;++batch){
+                    __asm__ volatile("cli");int next=input_pop();__asm__ volatile("sti");
+                    if((next>=32&&next<=126)||next==8)keyboard(next);
+                    else{carried_key74=next;break;}
+                }
+            }
+#endif
+            render();}
     }
 }

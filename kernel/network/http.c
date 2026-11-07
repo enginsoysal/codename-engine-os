@@ -23,7 +23,11 @@ static unsigned line(http7_response *r){
   if(r->state==HTTP7_TRAILERS){r->state=HTTP7_DONE;return 0;}
   if(r->status<200){
    if(r->status==101||++r->interim>4||r->seen_length||r->chunked)return 1;
-   r->state=HTTP7_STATUS;r->encoding=0;r->location[0]=0;return 0;
+   r->state=HTTP7_STATUS;r->encoding=0;r->location[0]=0;
+#ifdef ENGINE_M74
+   r->content_type[0]=0;
+#endif
+   return 0;
   }
   if(r->chunked&&r->seen_length)return 1;
   if(r->status==301||r->status==302||r->status==303||r->status==307||r->status==308){if(!r->location[0])return 1;r->state=HTTP7_REDIRECT;return 0;}
@@ -43,6 +47,9 @@ static unsigned line(http7_response *r){
   for(unsigned n=0;value[n];++n){unsigned digit=(uint8_t)value[n]-'0';if(digit>9||length>(HTTP7_LIMIT-digit)/10)return 1;length=length*10+digit;}r->length=length;
  }else if(equal(p,"transfer-encoding")){if(r->chunked||!equal(value,"chunked"))return 1;r->chunked=1;}
  else if(equal(p,"content-encoding")){if(r->encoding++||!equal(value,"identity"))return 1;}
+#ifdef ENGINE_M74
+ else if(equal(p,"content-type")){unsigned n=0;if(r->content_type[0])return 1;while(value[n]&&n<sizeof(r->content_type)-1){r->content_type[n]=value[n];++n;}r->content_type[n]=0;}
+#endif
  else if(equal(p,"location")){
   if(r->location[0]||end>=sizeof(r->location))return 1;memcpy(r->location,value,end+1);
  }

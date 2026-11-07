@@ -3,7 +3,7 @@ import hashlib,json,re
 from pathlib import Path,PurePosixPath
 from m1 import ROOT
 
-def load(path,desktop=False):
+def load(path,desktop=False,standard_apps=False):
     base=(ROOT/'distros').resolve();path=Path(path).resolve()
     def local(p):
         p=Path(p).resolve()
@@ -12,10 +12,20 @@ def load(path,desktop=False):
     path=local(path);p=json.loads(path.read_text(encoding='utf-8'))
     if not isinstance(p,dict) or type(p.get('schema')) is not int:raise ValueError('Profile schema must be an integer in an object')
     fields={'schema','id','name','version','welcome','accent','packages','files'}
-    if p.get('schema')==2 and desktop:
+    if p.get('schema') in (2,3) and desktop:
         if set(p)!=fields|{'desktop'}:raise ValueError('Unsupported desktop profile fields')
         d=p['desktop']
-        if not isinstance(d,dict) or set(d)!={'dark','calculator','wallpaper','tagline'}:raise ValueError('Unsupported desktop options')
+        expected={'dark','calculator','wallpaper','tagline'}
+        if p['schema']==3:
+            if not standard_apps:raise ValueError('Native application selections require an M7.4 build')
+            expected.add('applications')
+        if not isinstance(d,dict) or set(d)!=expected:raise ValueError('Unsupported desktop options')
+        if p['schema']==3:
+            from m74 import catalogue
+            available={p['name'] for p in catalogue() if p['ready']}
+            if not isinstance(d['applications'],list) or any(not isinstance(v,str) or v not in available for v in d['applications']) or len(d['applications'])!=len(set(d['applications'])):raise ValueError('Invalid native application selection')
+            # Deferred engines cannot be advertised as selectable working apps.
+            if d['calculator']!=('calculator' in d['applications']):raise ValueError('Calculator toggle must match the native application selection')
         if type(d['dark']) is not bool or type(d['calculator']) is not bool:raise ValueError('Desktop toggles must be booleans')
         if not isinstance(d['wallpaper'],str) or not re.fullmatch('#[0-9a-fA-F]{6}',d['wallpaper']):raise ValueError('Invalid desktop wallpaper colour')
         if not isinstance(d['tagline'],str) or not 1<=len(d['tagline'])<=48 or any(ord(c)<32 or ord(c)>126 for c in d['tagline']):raise ValueError('Invalid desktop tagline')
@@ -37,7 +47,9 @@ def load(path,desktop=False):
         if set(r)!={'source','target'}:raise ValueError('Only source/target are supported; executable hooks are forbidden')
         src=PurePosixPath(r['source']);dst=PurePosixPath(r['target'])
         if src.is_absolute() or '..' in src.parts or '\\' in r['source'] or ':' in r['source']:raise ValueError('Invalid source path')
-        if str(dst)!=r['target'] or any(ord(c)<32 for c in r['target']) or not dst.is_absolute() or '..' in dst.parts or not r['target'].startswith(('/Users/test/Documents/','/Data/Packages/')) or '\\' in r['target'] or len(r['target'].encode())>255 or any(len(s.encode())>63 for s in dst.parts):raise ValueError('File target outside distribution data roots')
+        roots=('/Users/test/Documents/','/Data/Packages/')
+        if p['schema']==3:roots+=('/Users/test/Downloads/','/Users/test/Pictures/','/Users/test/Music/')
+        if str(dst)!=r['target'] or any(ord(c)<32 for c in r['target']) or not dst.is_absolute() or '..' in dst.parts or not r['target'].startswith(roots) or '\\' in r['target'] or len(r['target'].encode())>255 or any(len(s.encode())>63 for s in dst.parts):raise ValueError('File target outside distribution data roots')
         if r['target'] in seen:raise ValueError('Duplicate file target')
         seen.add(r['target']);f=local(base/str(src));raw=f.read_bytes()
         if len(raw)>49152:raise ValueError('Distribution file exceeds the native 48 KiB file limit')
@@ -54,4 +66,9 @@ def prepare(work,p):
     text+='#define DISTRO_DESKTOP_CALCULATOR '+str(int(d['calculator']))+'u\n'
     text+='#define DISTRO_DESKTOP_WALLPAPER 0x'+d['wallpaper'][1:]+'u\n'
     text+='#define DISTRO_DESKTOP_TAGLINE '+json.dumps(d['tagline'])+'\n'
+    from m74 import catalogue
+    catalog=catalogue()
+    selected=d.get('applications',[p['name'] for p in catalog if p['ready'] and (p['kind']!=4 or d['calculator'])])
+    mask=sum(1<<p['kind'] for p in catalog if p['name'] in selected)
+    text+='#define DISTRO_APPS74_MASK '+str(mask)+'u\n'
     (work/'distro.h').write_bytes(text.encode())

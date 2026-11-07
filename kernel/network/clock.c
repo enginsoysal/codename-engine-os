@@ -1,6 +1,26 @@
 #include <engine/network/clock.h>
 #include <engine/base.h>
 static uint8_t rtc(unsigned index){out8(0x70,(uint8_t)(0x80|index));return in8(0x71);}
+#ifdef ENGINE_M74
+static volatile unsigned changed74;
+static volatile uint64_t elapsed74;
+void clock74_start(void){
+    uint64_t flags;__asm__ volatile("pushfq;popq %0;cli":"=r"(flags)::"memory");
+    /* Update-ended IRQ, once per RTC second; no periodic PIT polling. */
+    unsigned status=rtc(0x0b);out8(0x70,0x8b);out8(0x71,(uint8_t)(status|0x10));
+    (void)rtc(0x0c);out8(0x70,0);out8(0xa1,in8(0xa1)&~1u);out8(0x21,in8(0x21)&~4u);
+    if(flags&512)__asm__ volatile("sti":::"memory");
+}
+unsigned clock74_irq(uint64_t *frame){
+    if(frame[15]!=40)return 0;
+    unsigned status=rtc(0x0c);out8(0x70,0);
+    if(status&0x10){++elapsed74;changed74=1;}
+    out8(0xa0,0x20);out8(0x20,0x20);return 1;
+}
+unsigned clock74_pending(void){return changed74;}
+uint64_t clock74_elapsed(void){return elapsed74;}
+void clock74_consume(void){changed74=0;}
+#endif
 static unsigned number(unsigned value,unsigned binary){
     if(binary)return value;
     if((value&15)>9||(value>>4)>9)return 255;return (value>>4)*10+(value&15);

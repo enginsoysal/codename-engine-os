@@ -3,6 +3,9 @@
 #endif
 #include <engine/install/m6.h>
 #include "build.h"
+#ifdef ENGINE_M74
+unsigned quiet_progress74;
+#endif
 #ifdef ENGINE_M71
 #include <engine/install/disk71.h>
 static unsigned replace_disk;static d71_disk replacement;static d71_plan erase_plan;
@@ -133,7 +136,15 @@ static unsigned replay_slot(unsigned slot){unsigned bytes,sum;if(slot_header(slo
  uint32_t count;if(slot_read(slot,0,&count,4)||!count||count>(bytes-4)/4)return B_IO;uint64_t end=0;
  /* Validate every destination before changing any boot file. */
  unsigned offset=4;for(unsigned i=0;i<count;++i){uint32_t value;if(offset>bytes||bytes-offset<4||slot_read(slot,offset,&value,4))return B_IO;unsigned size=(value&0x80000000u)?4:4100,lba=value&0x7fffffffu;if(size>bytes-offset)return B_DENIED;uint64_t limit=(uint64_t)lba+8;if((lba&7)||lba<end||(lba&&!(lba>=layout.bios.first&&limit<=layout.bios.last+1)&&!(lba>=layout.esp.first&&limit<=layout.esp.last+1)))return B_DENIED;end=limit;offset+=size;}if(offset!=bytes)return B_DENIED;
- offset=4;for(unsigned i=0;i<count;++i){uint32_t value;if(slot_read(slot,offset,&value,4))return B_IO;unsigned zero=value&0x80000000u;memset(data,0,4096);if((!zero&&slot_read(slot,offset+4,data,4096))||verified(selected,value&0x7fffffffu,data,4096))return B_IO;offset+=zero?4:4100;if(i%16==0)m6_progress(10+i*70/count,"Restoring verified boot files");}return flush(selected);
+ offset=4;for(unsigned i=0;i<count;++i){uint32_t value;if(slot_read(slot,offset,&value,4))return B_IO;unsigned zero=value&0x80000000u;memset(data,0,4096);if(!zero&&slot_read(slot,offset+4,data,4096))return B_IO;
+#ifdef ENGINE_M74
+ if(quiet_progress74&&!(value&0x7fffffffu)){
+     /* Replay only the bootstrap at LBA zero, retaining the protective MBR/GPT. */
+     if(io(selected,0,check,4096,0))return B_IO;memcpy(data+446,check+446,sizeof(data)-446);
+ }
+#endif
+ if(verified(selected,value&0x7fffffffu,data,4096))return B_IO;
+ offset+=zero?4:4100;if(i%16==0)m6_progress(10+i*70/count,"Restoring verified boot files");}return flush(selected);
 }
 unsigned m6_maintenance_prepare(unsigned disk,unsigned mode){
  if(!m6_live()||mode<1||mode>3)return B_DENIED;const storage_disk*d=storage_get(disk);if(!d||d->transport!=STORAGE_AHCI||engine_install_plan(d->sectors,d->sector_bytes,&layout)||activation(disk))return B_DENIED;
@@ -144,5 +155,30 @@ unsigned m6_maintenance(void){const storage_disk*d=storage_get(selected);if(!d||
  m6_progress(5,"Verifying recovery slot");unsigned s=replay_slot(chosen);if(s)return s;if(gpt()||flush(selected))return B_IO;
  if(io(selected,slot_first(chosen),page,4096,0))return B_IO;memcpy(record+24,page+16,32);w32(record+76,chosen);if(activate_record())return B_IO;serial_text("M6_MAINTENANCE_PASS\n");return B_OK;
 }
+#ifdef ENGINE_M74
+unsigned system_disk74(void){return persistent?selected:UINT32_MAX;}
+unsigned recovery74_prepare(unsigned mode){
+    /* Never retarget selected: it is the live volume's backing-device context. */
+    if(!persistent||!volume.mounted||(mode!=1&&mode!=3))return B_DENIED;
+    const storage_disk *d=storage_get(selected);
+    if(!d||d->transport!=STORAGE_AHCI||activation(selected))return B_DENIED;
+    target=*d;active_slot=r32(record+76);maintenance_mode=mode;
+    unsigned bytes,sum;
+    if(io(selected,0,identity,512,0))return B_IO;
+    return slot_header(mode==3?(active_slot^1):active_slot,&bytes,&sum);
+}
+unsigned recovery74_apply(void){
+    const storage_disk *d=storage_get(selected);
+    if(!persistent||!volume.mounted||!d||memcmp(d,&target,sizeof(*d))||
+       (maintenance_mode!=1&&maintenance_mode!=3)||io(selected,0,page,512,0)||memcmp(page,identity,512))return B_DENIED;
+    unsigned chosen=maintenance_mode==3?(active_slot^1):active_slot;
+    quiet_progress74=1;unsigned status=replay_slot(chosen);quiet_progress74=0;
+    if(status)return status;
+    /* Preserve the existing GPT, including unrelated partitions. */
+    if(flush(selected)||io(selected,slot_first(chosen),page,4096,0))return B_IO;
+    memcpy(record+24,page+16,32);w32(record+76,chosen);
+    status=activate_record();maintenance_mode=0;return status;
+}
+#endif
 
 unsigned m6_write_text(const char*path,const void*data,unsigned size){return !persistent?B_DENIED:v6_put(&volume,path,size,source_memory,(void*)data);}

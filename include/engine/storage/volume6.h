@@ -37,4 +37,7 @@ unsigned v6_stream_append(v6_volume*,const void*,unsigned);
 unsigned v6_stream_finish(v6_volume*);
 void v6_stream_abort(v6_volume*);
 #endif
+#ifdef ENGINE_M74
+unsigned v6_read_scratch(v6_volume*,const char*,uint64_t,void*,unsigned,unsigned*,void*);
+#endif
 #endif

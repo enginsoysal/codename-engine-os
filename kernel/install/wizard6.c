@@ -45,6 +45,10 @@ static void button(unsigned x,unsigned y,unsigned w,const char*title,unsigned ac
 #ifdef ENGINE_M71
 static void render(void);
 #include "disk71-ui.inc"
+#ifdef ENGINE_M74
+#include <engine/install/desktop74.h>
+#include "disk74-service.inc"
+#endif
 #endif
 #ifdef ENGINE_M72
 #ifdef ENGINE_M73
@@ -130,7 +134,15 @@ label(x,y+310,maintenance?"Select an Engine OS installation to maintain.":"Insta
  if(step>=6){label(x,y,maintenance==1?"Boot repair complete.":maintenance==2?"Update complete.":maintenance==3?"Rollback complete.":"Installation complete.",3,0xffffff);label(x,y+65,maintenance?"Verified boot files. User data was not formatted.":"Verified system files and persistent user setup.",1,0xa5bac2);label(x,y+115,"1. Power off this virtual machine.",2,0xffffff);label(x,y+155,"2. Disconnect the ISO or USB media.",2,0xffffff);label(x,y+195,"3. Start it again to boot Engine OS.",2,0xffffff);label(x,y+270,DESKTOP_FINISH_TEXT,1,accent);}
  gui6_rect(left+1,bottom-1,width-2,1,0x35464e);label(left+20,bottom+28,"Tab / Enter or mouse",1,0x9fb2ba);if(!busy&&step<5){if(step)button(left+width-300,bottom+14,120,"Back",1,0);button(left+width-160,bottom+14,135,step==4?(maintenance?"Confirm":"Install"):"Next",2,1);}if(step==6)button(left+width-160,bottom+14,135,"Finish",3,1);if(!busy&&step==0){button(body,bottom+14,120,"Details",50,0);button(body+140,bottom+14,120,"Repair",80,0);button(body+280,bottom+14,120,"Update",81,0);button(body+420,bottom+14,140,"Rollback",82,0);}focus=old<controls?old:0;
 }
-void m6_progress(unsigned p,const char*s){percent=p;stage=s;render();serial_text("M6_PROGRESS ");serial_hex(p);serial_text("\n");}
+void m6_progress(unsigned p,const char*s){
+percent=p;stage=s;
+#ifdef ENGINE_M74
+extern unsigned quiet_progress74;if(!quiet_progress74){render();}
+extern void audio74_pump(void);audio74_pump();
+#else
+render();
+#endif
+serial_text("M6_PROGRESS ");serial_hex(p);serial_text("\n");}
 static void testpath(char*p){const char*prefix="/Users/";unsigned n=0;while(*prefix)p[n++]=*prefix++;for(unsigned i=0;preferences.user[i];++i)p[n++]=preferences.user[i];const char*tail="/Documents/large-test.bin";do{p[n++]=*tail;}while(*tail++);}
 static unsigned pattern(void*ctx,uint64_t off,void*p,unsigned n){(void)ctx;for(unsigned i=0;i<n;++i)((uint8_t*)p)[i]=(uint8_t)((off+i)*37+19);return 0;}
 static void terminal_command(void){

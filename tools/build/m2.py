@@ -8,13 +8,14 @@ import struct
 from m1 import ROOT,pinned_tools,command,sha
 from media import package
 BUILD=ROOT/'build/m2'
-def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard",m7=False,m71=False,m72=False,m73=False):
+def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard",m7=False,m71=False,m72=False,m73=False,m74=False):
     global BUILD
+    m73=m73 or m74
     m72=m72 or m73
     m71=m71 or m72
     m7=m7 or m71
     m6=m6 or m7
-    flavor='m73' if m73 else 'm72' if m72 else 'm71' if m71 else 'm7' if m7 else 'm6'
+    flavor='m74' if m74 else 'm73' if m73 else 'm72' if m72 else 'm71' if m71 else 'm7' if m7 else 'm6'
     BUILD=ROOT/'build'/(flavor if m6 else milestone.lower())
     tools=pinned_tools();BUILD.mkdir(parents=True,exist_ok=True)
     sources=[]
@@ -37,8 +38,14 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
         prepare_font(BUILD)
         sources.append(ROOT/'tools/build/font73.py')
         sources.extend(p for p in (ROOT/'third_party/inter').iterdir() if p.is_file())
+    if m74:
+        provenance=json.loads((ROOT/'third_party/miniz/provenance.json').read_text(encoding='utf-8'))
+        for filename,expected in provenance['files_sha256'].items():
+            if sha(ROOT/'third_party/miniz'/filename)!=expected:raise ValueError('Pinned miniz source changed: '+filename)
+        for folder in ('third_party/miniz','third_party/miniz-port'):
+            sources.extend(p for p in (ROOT/folder).iterdir() if p.is_file())
     hashes={p.relative_to(ROOT).as_posix():sha(p) for p in sorted(sources)}
-    identity={'milestone':'M73' if m73 else 'M72' if m72 else 'M71' if m71 else 'M7' if m7 else 'M6' if m6 else milestone,'source_sha256':hashes}
+    identity={'milestone':'M74' if m74 else 'M73' if m73 else 'M72' if m72 else 'M71' if m71 else 'M7' if m7 else 'M6' if m6 else milestone,'source_sha256':hashes}
     if m6:identity['revision']=m6_revision
     build_id=hashlib.sha256(json.dumps(identity,sort_keys=True).encode()).hexdigest()[:32]
     (BUILD/'build.h').write_text(f'#define BUILD_ID "{build_id}"\n',encoding='utf-8')
@@ -51,6 +58,7 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     if m71:common.append('-DENGINE_M71')
     if m72:common.append('-DENGINE_M72')
     if m73:common.append('-DENGINE_M73')
+    if m74:common.append('-DENGINE_M74')
     if m7:
         common.extend(('-DENGINE_M7','-I',ROOT/'third_party/bearssl/inc','-I',ROOT/'third_party/bearssl-port'))
         from trust7 import prepare as prepare_trust
@@ -63,12 +71,26 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
         prepare(BUILD,distro);common.append('-DENGINE_M51')
     elif (BUILD/'distro.json').exists():(BUILD/'distro.json').unlink()
     if m7:
-        for app,kind in [('editor',2),('calculator',4)]:
+        from m74 import applications
+        for app,kind in (applications() if m74 else [('editor',2),('calculator',4)]):
             obj=BUILD/('app7-'+app+'.o')
+            inflate=m74 and app=='archives'
+            port=['-I',ROOT/'third_party/miniz-port','-I',ROOT/'third_party/miniz','-include',ROOT/'third_party/miniz-port/config74.h'] if inflate else []
             command([tools['clang'],'--target=x86_64-unknown-none-elf',*common,'-mcmodel=large',
                      '-fno-pic','-fno-pie','-fno-asynchronous-unwind-tables','-DAPP7_KIND='+str(kind),
-                     '-c',ROOT/'user/desktop7.c','-o',obj])
-            command([tools['ld.lld'],'-T',ROOT/'user/desktop7.ld','--build-id=none','-o',BUILD/('APP7-'+app+'.ELF'),obj])
+                     *port,'-c',ROOT/('user/archive74.c' if inflate else 'user/browser74.c' if m74 and app=='browser' else 'user/desktop7.c'),'-o',obj])
+            objects=[obj]
+            if inflate:
+                vendor=BUILD/'app74-inflate.o'
+                command([tools['clang'],'--target=x86_64-unknown-none-elf',*common,'-mcmodel=large','-fno-pic','-fno-pie',*port,
+                         '-c',ROOT/'third_party/miniz/miniz_tinfl.c','-o',vendor])
+                objects.append(vendor)
+            command([tools['ld.lld'],'-T',ROOT/'user/desktop7.ld','--build-id=none','-o',BUILD/('APP7-'+app+'.ELF'),*objects])
+            if m74:
+                from m5_layout import compact_elf
+                image=BUILD/('APP7-'+app+'.ELF')
+                shutil.copyfile(image,BUILD/('APP7-'+app+'-debug.ELF'))
+                image.write_bytes(compact_elf(image.read_bytes()))
     if milestone=='M5':
         common.append('-DENGINE_M5')
         if m6:
@@ -122,6 +144,7 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     if m7:inputs+=('kernel/desktop/window.c','kernel/desktop/session.c','kernel/desktop/app.c','kernel/desktop/app-return.S','kernel/network/wire.c','kernel/network/e1000.c','kernel/network/network.c','kernel/network/tcp.c','kernel/network/tls.c','kernel/network/calendar.c','kernel/network/clock.c','kernel/network/http.c','kernel/network/download.c')
     if m71:inputs+=('kernel/install/disk71.c',)
     elif milestone=='M5' and not m6:inputs+=('kernel/install/m5.c','build/m5/installer-image.c')
+    if m74:inputs+=('kernel/audio/hda74.c',)
     if distro and not m6:inputs+=('kernel/install/guided.c',)
     kernel=[compile_file(p,'kernel',p.endswith('.S')) for p in inputs]
     if m7:
@@ -140,7 +163,7 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     if command([nm,'-u',BUILD/'KERNEL.ELF']).strip():raise RuntimeError('Undefined kernel symbols')
     map_path=BUILD/'kernel.map';map_path.write_text(map_path.read_text(encoding='utf-8').replace(str(ROOT),'.').replace(ROOT.as_posix(),'.'),encoding='utf-8')
     if m6 and any(sha(ROOT/p)!=value for p,value in hashes.items()):raise RuntimeError('Build inputs changed during compilation; discard mixed outputs and rebuild')
-    artifact_name=(('M73' if m73 else 'M72' if m72 else 'M71' if m71 else 'M7' if m7 else 'M6')+('' if m6_revision=='standard' else m6_revision.upper())) if m6 else milestone
+    artifact_name=(('M74' if m74 else 'M73' if m73 else 'M72' if m72 else 'M71' if m71 else 'M7' if m7 else 'M6')+('' if m6_revision=='standard' else m6_revision.upper())) if m6 else milestone
     if m73:
         from m5_layout import compact_elf
         shutil.copyfile(BUILD/'KERNEL.ELF',BUILD/'KERNEL-debug.ELF')
@@ -152,7 +175,7 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     for filename,name in (('KERNEL.ELF',f'EngineOS-{artifact_name}-kernel.elf'),('kernel.map',f'EngineOS-{artifact_name}-kernel.map'),('USER.ELF',f'EngineOS-{artifact_name}-user.elf')):
         shutil.copyfile(BUILD/filename,dist/name)
     if m7:
-        for app in ['editor','calculator']:shutil.copyfile(BUILD/('APP7-'+app+'.ELF'),dist/('EngineOS-'+artifact_name+'-'+app+'.elf'))
+        for app,kind in (applications() if m74 else [('editor',2),('calculator',4)]):shutil.copyfile(BUILD/('APP7-'+app+'.ELF'),dist/('EngineOS-'+artifact_name+'-'+app+'.elf'))
     artifacts={p.name:{'sha256':sha(p),'size':p.stat().st_size} for p in sorted(dist.glob(f'EngineOS-{artifact_name}*')) if p.is_file()}
     for name in artifacts:
         if re.search(rb'[Cc]:[\\/]+Users[\\/]+',(dist/name).read_bytes()):raise RuntimeError('Host user path in '+name)

@@ -1,0 +1,148 @@
+# M7.4 application guide — development
+
+M7.4 is in development. This guide describes implemented code and limits;
+it is not an acceptance certificate or a published release announcement.
+M7.3 remains the current qualified release.
+
+## Open and manage applications
+
+Choose **Start**, then an installed application. Use its title bar to move it,
+the lower-right corner to resize it, and the upper-right cross to close it.
+Applications with unsaved text ask before closing. Essential controls have
+minimum window dimensions rather than disappearing under other controls.
+
+**Software Manager** lists installed and available offline applications. Choose
+**Open**, **Remove** or **Install**. Removal shows the exact application and
+keeps personal documents and private app data. Close its windows before removing
+it. Files, Settings and shared system services remain protected. If Software
+Manager itself is removed, open **Settings → Manage applications** to reinstall
+it. Package changes replace/remove the app-owned package file through the native
+copy-on-write volume; they do not run arbitrary shell hooks.
+
+Editor, Calculator, Calendar, Help, Browser and the ZIP decoder have separate CPL3 event
+programs. Their executable pages load on demand and are shared between same-app
+windows; last close releases their code and instance pages. Lighter fixed
+system frontends use a validated declarative manifest and the protected broker,
+without starting an otherwise unnecessary process. Trusted
+compositor/file/device broker code remains part of the static kernel; it is
+not counted as removable app RSS. Removing a frontend's manifest disables its
+launcher/integration, without deleting the shared service. These are fixed
+built-in providers, not an arbitrary extension language. Framebuffer memory is
+separate as well. [Implementation choices](../architecture/applications-m74.md).
+
+## Calculator, Clock and Calendar
+
+Calculator offers decimal arithmetic, a Scientific tab and common length,
+mass and temperature conversions. Precision is six decimal places, rounded
+towards zero. Trigonometry uses degrees and scientific results are approximate.
+Invalid operations show a recoverable error; Clear resets the calculation.
+
+Clock offers fixed UTC offsets, a minute timer, a stopwatch and a daily UTC
+alarm. Timer/stopwatch durations use the monotonic HPET clock. The once-per-second
+RTC interrupt wakes the desktop without a continuous high-rate polling loop.
+Timer and alarm messages continue with the window closed. Restarting cancels
+this session state; alarms do not currently play sound or persist after restart.
+Fixed offsets do not automatically follow daylight-saving rules.
+
+In Calendar, choose a day, type a private note and choose **Save note**, or
+press Ctrl+S. Each day's note is stored locally under the owner's AppData.
+Save before changing dates. Calendar reminders and synchronized accounts are
+not implemented. Removing Calendar keeps its notes.
+
+## Pictures and screenshots
+
+Screenshot writes the real framebuffer at its actual resolution into
+**Pictures/Screenshots**, using a new BMP filename. Choose **Open picture** to
+view it. Capture streams through the volume buffer; it does not allocate a
+second full-screen image.
+
+Image Viewer reads uncompressed 24/32-bit BMP files using bounded tiles and fits
+them to the window. Choose an image through its folder picker or open a BMP in
+Files. The sample **Pictures/ColorStudy.bmp** is an original generated image.
+PNG, JPEG, animated formats, rotation and arbitrary zoom are not implemented.
+
+## ZIP archives
+
+Open a ZIP in Files, or choose it from Archive Manager. **Extract all** creates
+a fresh **Downloads/ExtractedN** folder and never overwrites an existing file.
+**Open output folder** opens Files at the result. The original archive remains
+unchanged. The small original **Downloads/ArchiveSample.zip** demonstrates
+Deflate extraction with a nested folder and an original two-second PCM chime.
+Open the extracted ChimeLong.wav in Files to play it.
+
+Supported formats are non-encrypted ZIP Stored and Deflate, at most 32 members
+and 64 MiB total expanded data. ZIP64, links, non-ASCII names, unsupported
+compression methods and unsafe paths are rejected. Each regular file's expanded
+size and CRC are checked before it becomes visible. If a later member fails,
+earlier completed members can remain in the new output folder; check that folder
+before retrying. The current slice does not create ZIP files or support TAR/7z.
+
+Deflate executes in a watchdog-bounded CPL3 worker. Its dictionary/decoder pages
+and the broker's small scratch pages exist only during extraction and are
+released afterwards. The original pinned miniz sources retain their MIT notice
+in **System/Licenses/miniz-MIT.txt**. [Upstream](https://github.com/richgel999/miniz),
+[pin and file hashes](../../third_party/miniz/provenance.json).
+
+## Disks and recovery
+
+Disk Utility inspects disks and manages another supported SATA disk: initialize
+GPT, select unallocated space, create a named partition, choose FAT32 or Engine
+quick format, or delete/erase after explicit review and consent. The running
+system disk is inspection-only. Use installation media to change that disk's
+partitions. Quick format is not a secure erase. Resize, relocation, conversion,
+arbitrary hardware drivers and automatic extra-volume mounting remain outside
+this implementation.
+
+Update & Recovery repairs verified boot files or selects a complete previous
+recovery slot. Review and confirm the operation, keep the disk connected and
+restart afterwards. Personal data and the existing GPT are preserved. A fresh
+installation usually has no previous slot to roll back to. System updates
+still require the appropriate installation ISO; automatic online updates and
+signed update repositories are not implemented.
+
+## Browser and audio
+
+Browser opens local HTML/text and certificate-checked HTTPS pages. Use the
+address field, Back, Home, Stop and Links. Parsing runs in its bounded CPL3
+worker. Source pages are limited to 128 KiB, displayed text to 7,679 bytes and
+links to 16. This is a basic text browser: JavaScript, CSS layout, forms,
+cookies and image rendering are not supported. It cannot replace a modern
+web browser for general websites. Network cancellation preserves the previous
+page, and the temporary download is deleted after parsing.
+
+Media Player is undergoing native qualification. Its implemented decoder
+accepts 16-bit PCM WAV, mono/stereo at 44.1/48 kHz, up to 64 MiB. The new
+analog HDA/MSI path allocates DMA buffers only when playback starts and must
+release them after verified hardware quiescence. Unsupported output hardware
+must leave the desktop usable. MP3, AAC, video and broad hardware support are
+not implemented; playback is not yet qualified.
+
+## Remaining work
+
+Audio qualification, additional desktop integrations, full app-removal and
+profile-omission matrices, native 4K review, VMware lifecycle qualification and
+the M7.4 release remain open. Existing Windows/MS-DOS applications remain M8
+work. [Full contract](../milestones/m7.4.md).
+
+## Build a distribution with a different application set
+
+Schema 3 adds `desktop.applications`, an explicit list of optional package IDs.
+The [standard profile](../../distros/engineos-apps.json) selects all implemented
+apps. The [minimal example](../../distros/engineos-minimal-apps.json) selects none;
+Files, Settings and shared services remain part of the base. Keep `calculator`
+consistent with whether `calculator` appears in that list. Invalid or deferred
+IDs fail profile validation before compilation. Data-only packages can seed
+Documents, Downloads, Pictures and Music; executable installation hooks are
+not allowed.
+
+For an isolated example artifact, run:
+
+```powershell
+python tools/build/m74.py --profile distros/engineos-minimal-apps.json --revision minimal
+```
+
+The result is `EngineOS-M74MINIMAL.iso`, not an overwrite of a historical
+release. Omitted packages retain their verified offline reinstall sources.
+Open Settings → Manage applications to add them later without needing Software
+Manager. Distribution naming, colors and the app set are independent of disk
+safety and destructive-operation confirmations.

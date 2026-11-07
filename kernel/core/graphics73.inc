@@ -17,6 +17,16 @@ const os_boot_info_v0 *ui73_set_scale(unsigned choice){
 unsigned ui73_width(void){return screen->framebuffer_width;}
 unsigned ui73_height(void){return screen->framebuffer_height;}
 uint64_t ui73_framebuffer_bytes(void){return (uint64_t)screen->framebuffer_stride_bytes*screen->framebuffer_height;}
+#ifdef ENGINE_M74
+unsigned ui74_intersects(unsigned x,unsigned y,unsigned w,unsigned h){
+ return !clip7_active||(x<clip7_right&&y<clip7_bottom&&x+w>clip7_left&&y+h>clip7_top);
+}
+uint32_t ui74_rgb(unsigned x,unsigned y){
+ if(x>=screen->framebuffer_width||y>=screen->framebuffer_height)return 0;
+ uint32_t raw=*(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)y*screen->framebuffer_stride_bytes+x*4);
+ return color(raw)&0xffffff;
+}
+#endif
 const os_boot_info_v0 *ui73_begin(const os_boot_info_v0*boot){
  scale73=boot->framebuffer_width>=3840&&boot->framebuffer_height>=2000?4:boot->framebuffer_width>=2560&&boot->framebuffer_height>=1400?3:2;
  view73=*boot;view73.framebuffer_width=boot->framebuffer_width*2/scale73;view73.framebuffer_height=boot->framebuffer_height*2/scale73;active73=1;

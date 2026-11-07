@@ -7,4 +7,9 @@ unsigned download7_start(v6_volume *,const char *,const char *);
 void download7_cancel(void);
 void download7_pump(void);
 download7_info download7_current(void);
+#ifdef ENGINE_M74
+unsigned download74_start(v6_volume *,const char *,const char *,uint64_t);
+unsigned download74_url(char *,unsigned);
+const char *download74_mime(void);
+#endif
 #endif

@@ -1,4 +1,7 @@
 #include <engine/storage/volume6.h>
+#ifdef ENGINE_M74
+#include <engine/audio74.h>
+#endif
 /* Copy-on-write extent volume. Native little-endian x64 format, version 1. */
 _Static_assert(sizeof(v6_entry)==280,"disk entry layout");
 #define TABLE_BYTES (V6_ENTRIES*sizeof(v6_entry))
@@ -93,7 +96,11 @@ static uint64_t allocate(v6_volume*v,uint64_t n){
 unsigned v6_put(v6_volume*v,const char*p,uint64_t size,v6_source source,void*ctx){
  int n;unsigned s=prepare(v,p,&n);if(s)return s;if(v->entries[n].kind==2||(!source&&size))return V6_INVALID;
  uint64_t pages=count(size);if(pages>v->blocks-V6_DATA_START)return V6_FULL;uint64_t first=pages?allocate(v,pages):0;if(pages&&!first)return V6_FULL;
- uint32_t sum=~0u;for(uint64_t i=0;i<pages;++i){unsigned bytes=(unsigned)(size-i*V6_PAGE>V6_PAGE?V6_PAGE:size-i*V6_PAGE);zero(v->page,V6_PAGE);if(source(ctx,i*V6_PAGE,v->page,bytes))return V6_IO;sum=crc_next(sum,v->page,bytes);if(v->write(v->context,first+i,v->page,V6_PAGE)){v->readonly=1;return V6_IO;}}
+ uint32_t sum=~0u;for(uint64_t i=0;i<pages;++i){
+#ifdef ENGINE_M74
+ audio74_pump();
+#endif
+ unsigned bytes=(unsigned)(size-i*V6_PAGE>V6_PAGE?V6_PAGE:size-i*V6_PAGE);zero(v->page,V6_PAGE);if(source(ctx,i*V6_PAGE,v->page,bytes))return V6_IO;sum=crc_next(sum,v->page,bytes);if(v->write(v->context,first+i,v->page,V6_PAGE)){v->readonly=1;return V6_IO;}}
  if(v->flush(v->context)){v->readonly=1;return V6_IO;}
  v6_entry *e=v->pending+n;zero(e,sizeof(*e));unsigned i=0;do{e->path[i]=p[i];}while(p[i++]);e->first=first;e->size=size;e->crc=~sum;e->kind=1;return commit(v);
 }
@@ -102,13 +109,27 @@ unsigned v6_read(v6_volume*v,const char*p,uint64_t off,void*data,unsigned cap,un
  if(e->size-off<cap)cap=(unsigned)(e->size-off);while(*bytes<cap){uint64_t pos=off+*bytes;unsigned at=(unsigned)(pos%V6_PAGE),length=V6_PAGE-at;if(length>cap-*bytes)length=cap-*bytes;if(v->read(v->context,e->first+pos/V6_PAGE,v->page,V6_PAGE))return V6_IO;copy((uint8_t*)data+*bytes,v->page+at,length);*bytes+=length;}return V6_OK;
 }
 unsigned v6_verify(v6_volume*v,const char*p){if(!v->mounted||!valid_path(p))return V6_INVALID;int n=find(v->entries,p);if(n<0)return V6_NOTFOUND;const v6_entry *e=v->entries+n;if(e->kind!=1)return V6_INVALID;uint32_t sum=~0u;
- for(uint64_t i=0;i<count(e->size);++i){if(v->read(v->context,e->first+i,v->page,V6_PAGE))return V6_IO;unsigned bytes=(unsigned)(e->size-i*V6_PAGE>V6_PAGE?V6_PAGE:e->size-i*V6_PAGE);sum=crc_next(sum,v->page,bytes);}return ~sum==e->crc?V6_OK:V6_INVALID;
+ for(uint64_t i=0;i<count(e->size);++i){
+#ifdef ENGINE_M74
+ audio74_pump();
+#endif
+ if(v->read(v->context,e->first+i,v->page,V6_PAGE))return V6_IO;unsigned bytes=(unsigned)(e->size-i*V6_PAGE>V6_PAGE?V6_PAGE:e->size-i*V6_PAGE);sum=crc_next(sum,v->page,bytes);}return ~sum==e->crc?V6_OK:V6_INVALID;
 }
 unsigned v6_remove(v6_volume*v,const char*p){int n;unsigned s=prepare(v,p,&n);if(s)return s;if(!v->entries[n].kind)return V6_NOTFOUND;if(v->entries[n].kind==2){unsigned len=0;while(p[len])++len;for(unsigned i=0;i<V6_ENTRIES;++i)if(v->entries[i].kind){unsigned j=0;while(j<len&&v->entries[i].path[j]==p[j])++j;if(j==len&&v->entries[i].path[j]=='/')return V6_INVALID;}}
  zero(v->pending+n,sizeof(v6_entry));return commit(v);
 }
 uint64_t v6_capacity(const v6_volume*v){return v->blocks>=V6_DATA_START?(v->blocks-V6_DATA_START)*V6_PAGE:0;}
 uint64_t v6_used(const v6_volume*v){uint64_t n=0;for(unsigned i=0;i<V6_ENTRIES;++i)n+=count(v->entries[i].size)*V6_PAGE;return n;}
+#ifdef ENGINE_M74
+unsigned v6_read_scratch(v6_volume *v,const char *p,uint64_t off,void *data,unsigned cap,unsigned *bytes,void *scratch){
+ if(!v||!bytes||!scratch||data==scratch||!v->mounted||!valid_path(p)||(!data&&cap))return V6_INVALID;*bytes=0;
+ int n=find(v->entries,p);if(n<0)return V6_NOTFOUND;const v6_entry *e=v->entries+n;if(e->kind!=1||off>e->size)return V6_INVALID;
+ if(e->size-off<cap)cap=(unsigned)(e->size-off);
+ while(*bytes<cap){uint64_t pos=off+*bytes;unsigned at=(unsigned)(pos%V6_PAGE),length=V6_PAGE-at;if(length>cap-*bytes)length=cap-*bytes;
+  if(v->read(v->context,e->first+pos/V6_PAGE,scratch,V6_PAGE))return V6_IO;copy((uint8_t *)data+*bytes,(uint8_t *)scratch+at,length);*bytes+=length;
+ }return V6_OK;
+}
+#endif
 #ifdef ENGINE_M7
 void v6_stream_abort(v6_volume*v){if(stream7.volume==v)zero(&stream7,sizeof(stream7));}
 unsigned v6_stream_begin(v6_volume*v,const char*p,uint64_t limit){
@@ -119,6 +140,9 @@ unsigned v6_stream_begin(v6_volume*v,const char*p,uint64_t limit){
  unsigned i=0;do{stream7.path[i]=p[i];}while(p[i++]);return V6_OK;
 }
 unsigned v6_stream_append(v6_volume*v,const void*data,unsigned bytes){
+#ifdef ENGINE_M74
+ audio74_pump();
+#endif
  if(stream7.volume!=v||(!data&&bytes)||bytes>V6_PAGE-stream7.used||bytes>stream7.limit-stream7.size)return V6_INVALID;
  if(v->readonly){v6_stream_abort(v);return V6_RO;}
  copy(stream7.page+stream7.used,data,bytes);stream7.used+=bytes;stream7.size+=bytes;stream7.sum=crc_next(stream7.sum,data,bytes);

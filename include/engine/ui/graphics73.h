@@ -15,4 +15,8 @@ void ui73_shadow(unsigned,unsigned,unsigned,unsigned);
 void ui73_fit(unsigned,unsigned,unsigned,const char *,unsigned,uint32_t);
 unsigned ui73_paragraph(unsigned,unsigned,unsigned,unsigned,const char *,uint32_t);
 void ui73_folder(unsigned,unsigned,unsigned,uint32_t);
+#ifdef ENGINE_M74
+uint32_t ui74_rgb(unsigned,unsigned);
+unsigned ui74_intersects(unsigned,unsigned,unsigned,unsigned);
+#endif
 #endif

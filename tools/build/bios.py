@@ -48,9 +48,12 @@ def stages(work,kernel,init,sector_bytes=512,stage_lba=64,kernel_lba=128,video_m
 
 def dual_media(build,milestone='M45'):
     build=Path(build);work=build/'bios';kernel=(build/'KERNEL.ELF').read_bytes();init=(build/'INIT.BIN').read_bytes();fat=(build/'normal/efi-fat.img').read_bytes();dist=ROOT/'dist';work.mkdir(parents=True,exist_ok=True)
-    limit=0x5f8000 if milestone.startswith('M7') else 0x400000
+    # Live M7.4 media carries the offline app cache and an installed-system payload.
+    # This does not change the installed BIOS partition or its separate bound.
+    expanded=milestone.startswith('M74')
+    limit=0xa00000 if expanded else 0x5f8000 if milestone.startswith('M7') else 0x400000
     mbr,stage2,raw,usb_config=stages(work/'usb',kernel,init,kernel_limit=limit)
-    usb=gpt(fat,'Engine OS '+milestone,first=16384 if milestone.startswith('M7') else 8192,bios=(mbr,stage2,raw),bios_limit=limit-0x200000);(dist/('EngineOS-'+milestone+'-usb.img')).write_bytes(usb)
+    usb=gpt(fat,'Engine OS '+milestone,first=32768 if expanded else 16384 if milestone.startswith('M7') else 8192,bios=(mbr,stage2,raw),bios_limit=limit-0x200000);(dist/('EngineOS-'+milestone+'-usb.img')).write_bytes(usb)
     placeholder,cd_stage,cd_raw,ignored=stages(work/'cd-layout',kernel,init,2048,1,17,kernel_limit=limit);blob=placeholder+bytes(1536)+cd_stage+cd_raw;boot_file=work/'bios-cd.img';boot_file.write_bytes(blob)
     iso=pycdlib.PyCdlib();iso.new(interchange_level=3,vol_ident='ENGINE_OS_'+milestone);iso.add_file(str(boot_file),iso_path='/BIOS.IMG;1');iso.add_file(str(build/'normal/efi-fat.img'),iso_path='/EFI.IMG;1');iso.add_eltorito('/BIOS.IMG;1',platform_id=0,boot_load_size=4);iso.add_eltorito('/EFI.IMG;1',platform_id=0xef,efi=True,boot_load_size=1)
     target=dist/('EngineOS-'+milestone+'.iso');iso.write(str(target));iso.close();reader=pycdlib.PyCdlib();reader.open(str(target));extent=reader.get_record(iso_path='/BIOS.IMG;1').extent_location();reader.close()

@@ -52,13 +52,13 @@ export function build(output){
  }
  const releases=JSON.parse(execFileSync('gh',['api','repos/enginsoysal/codename-engine-os/releases?per_page=100'],{cwd:root,encoding:'utf8',maxBuffer:4*1024*1024})).filter(r=>!r.draft);
  const downloads=[];const add=(type,props)=>downloads.push({id:`engine-downloads-${downloads.length+1}`,type,props});
- const current=releases.some(r=>r.tag_name==='m73-v0.7.3')?'M73':releases.some(r=>r.tag_name==='m72-v0.7.2')?'M72':releases.some(r=>r.tag_name==='m71-v0.7.1')?'M71':releases.some(r=>r.tag_name==='m7-v0.7.0')?'M7':'M6';
- const currentLabel=current==='M73'?'M7.3':current==='M72'?'M7.2':current==='M71'?'M7.1':current;
- const tag=current==='M73'?'m73-v0.7.3':current==='M72'?'m72-v0.7.2':current==='M71'?'m71-v0.7.1':current==='M7'?'m7-v0.7.0':'m6-v0.6.0';
- const guide=current==='M73'?'install-m73':current==='M72'?'install-m72':current==='M71'?'install-m71':current==='M7'?'install-m7':'install-m6';
+ const current=releases.some(r=>r.tag_name==='m74-v0.7.4')?'M74':releases.some(r=>r.tag_name==='m73-v0.7.3')?'M73':releases.some(r=>r.tag_name==='m72-v0.7.2')?'M72':releases.some(r=>r.tag_name==='m71-v0.7.1')?'M71':releases.some(r=>r.tag_name==='m7-v0.7.0')?'M7':'M6';
+ const currentLabel=current==='M74'?'M7.4':current==='M73'?'M7.3':current==='M72'?'M7.2':current==='M71'?'M7.1':current;
+ const tag=current==='M74'?'m74-v0.7.4':current==='M73'?'m73-v0.7.3':current==='M72'?'m72-v0.7.2':current==='M71'?'m71-v0.7.1':current==='M7'?'m7-v0.7.0':'m6-v0.6.0';
+ const guide=current==='M74'?'install-m74':current==='M73'?'install-m73':current==='M72'?'install-m72':current==='M71'?'install-m71':current==='M7'?'install-m7':'install-m6';
  add('text',{text:`Download original Engine OS release files directly from GitHub. Check the complete SHA256 value before booting. ${currentLabel} provides the current graphical installer${current!=='M6'?' and installed desktop':''}; use a separate test VM, a SATA test target and disable Secure Boot for public unsigned media. Earlier releases remain historical.`,size:17,color:'#152434'});
  if(releases.some(r=>r.tag_name===tag))add('richtext',{html:`<p><strong>Start here: <a href="${GH}/releases/download/${tag}/EngineOS-${current}.iso">Download the standard Engine OS ${currentLabel} ISO</a></strong></p><p>Use the standard ISO for ordinary VMware testing; NIGHT/MINIMAL/U1 images are separate distribution or update examples. Download the accompanying third-party notices. <a href="${SITE}/blog/docs-handbook-${guide}">Follow the installation tutorial</a>.</p>`,size:17});
-   if(['M72','M73'].includes(current))add('richtext',{html:`<p><strong><a href="${GH}/releases/download/${tag}/EngineOS-${current}-VMware.zip">Easiest start: download the prepared VMware ZIP</a></strong>. Extract it all, open EngineOS.vmx, follow Next and Install, then choose Open desktop. A new blank growable SATA disk is included; networking is unnecessary.</p>`,size:17});
+   if(['M72','M73','M74'].includes(current))add('richtext',{html:`<p><strong><a href="${GH}/releases/download/${tag}/EngineOS-${current}-VMware.zip">Easiest start: download the prepared VMware ZIP</a></strong>. Extract it all, open EngineOS.vmx, follow Next and Install, then choose Open desktop. A new blank growable SATA disk is included; networking is unnecessary.</p>`,size:17});
 add('richtext',{html:`<p><a href="${GH}/releases">Official release history</a> · <a href="${SITE}/blog/docs-releases-${tag.replaceAll('.','-')}">VMware setup and verification</a> · <a href="${SITE}/blog/docs-handbook-${guide}">Missing disk?</a></p>`,size:17});
  let stable=false;
  for(const r of releases){

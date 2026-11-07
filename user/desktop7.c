@@ -1,5 +1,8 @@
 #define APP7_USER
 #include <engine/desktop/app.h>
+#ifdef ENGINE_M74
+#include "calculator74.inc"
+#endif
 
 static void insert(app7_view *v,const char *bytes,unsigned count) {
     if(count>APP7_TEXT-1-v->length)return;
@@ -9,6 +12,9 @@ static void insert(app7_view *v,const char *bytes,unsigned count) {
 }
 
 static void calculate(app7_view *v,unsigned key) {
+#ifdef ENGINE_M74
+    calculate74(v,key);return;
+#endif
     if(key=='C'||key=='c'){
         v->number=v->operand=0;v->operation=v->entered=v->calc_error=0;return;
     }
@@ -46,7 +52,11 @@ __attribute__((noreturn)) void app7_main(void) {
         if(m->command==APP7_CODE_WRITE)*(volatile unsigned *)(uintptr_t)0x100000000=0;
         if(m->command==APP7_BAD_RESULT)v->length=UINT32_MAX;
         if(APP7_KIND==4&&m->command==APP7_KEY)calculate(v,m->key);
-        if(APP7_KIND==2){
+        if(APP7_KIND==2
+#ifdef ENGINE_M74
+           ||APP7_KIND==9||APP7_KIND==18
+#endif
+        ){
             if(m->command==APP7_LOAD){
                 for(unsigned i=0;i<m->bytes;++i)v->text[i]=m->input[i];
                 v->text[m->bytes]=0;v->length=v->cursor=m->bytes;v->dirty=0;

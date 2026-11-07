@@ -110,7 +110,13 @@ static unsigned files_action72(desktop_window*w,application*app,uint64_t token,u
  if(command==NAV_PREVIOUS||command==NAV_NEXT){unsigned rows=w->bounds.height>220?(unsigned)(w->bounds.height-220)/44:1;if(rows>14)rows=14;if(!rows)rows=1;
  if(command==NAV_PREVIOUS)app->offset=app->offset>rows?app->offset-rows:0;else if(child_at(app,app->offset+rows))app->offset+=rows;invalidate(w->bounds);return 1;}
  if(command==FILE_FOLDER){if(!writable72(app->path))notice(app,"Choose Home or one of your folders to create a folder.");else{app->pending[0]=0;app->closing=4;app->notice[0]=0;}invalidate(w->bounds);return 1;}
- if(command>=FILE_ROW&&command<FILE_ROW+V6_ENTRIES){const v6_entry*file=child_at(app,command-FILE_ROW);if(file){if(file->kind==2){char path[256];copy(path,file->path,256);visit72(app,path,1);}else if(writable72(file->path))launch(EDITOR,file->path);else notice(app,"System files are protected here. Personal files open from Home.");}invalidate(w->bounds);return 1;}
+ if(command>=FILE_ROW&&command<FILE_ROW+V6_ENTRIES){const v6_entry*file=child_at(app,command-FILE_ROW);if(file){if(file->kind==2){char path[256];copy(path,file->path,256);visit72(app,path,1);}else if(writable72(file->path)){
+#ifdef ENGINE_M74
+ open_file74(file->path);
+#else
+ launch(EDITOR,file->path);
+#endif
+ }else notice(app,"System files are protected here. Personal files open from Home.");}invalidate(w->bounds);return 1;}
  if(command>=FILE_DELETE_ROW&&command<FILE_DELETE_ROW+V6_ENTRIES){const v6_entry*file=child_at(app,command-FILE_DELETE_ROW);if(file&&!writable72(file->path)){notice(app,"System items are protected in Files.");invalidate(w->bounds);return 1;}}
  (void)token;return 0;
 }

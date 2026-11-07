@@ -27,3 +27,11 @@ The M7 desktop installs separate original Editor and Calculator ELF programs. It
 ## M7.2 focused presentation
 
 The standard workspace profile omits Calculator and foregrounds Files, Home and Documents. The launcher presents Files, Settings and optional diagnostics; existing app code is retained without expanding it. Removing or omitting Calculator does not prevent installation, immediate persistent desktop entry, folder navigation or later disk boot. [M7.2 implementation and actual native tasks](desktop-m72.md).
+
+## M7.4 development classes
+
+The new catalogue distinguishes actual CPL3 event programs from fixed declarative
+broker frontends. Both have independent app-owned installation files and retained
+offline reinstall sources; required shared code remains protected. Frontends do
+not allocate a no-op process. Static broker memory is explicitly separate from
+unloadable worker pages. [How, why and current limits](applications-m74.md).

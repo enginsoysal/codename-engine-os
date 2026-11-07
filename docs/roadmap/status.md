@@ -1,5 +1,9 @@
 # Current status
 
+**M7.4 standard applications are in progress.** The requested full set and
+independent removal/resource criteria are tracked in the [M7.4 contract](../milestones/m7.4.md).
+No M7.4 ISO has been qualified or published. M7.3 remains the current release.
+
 **M7.3 is complete within M73-VM-v1.** Seventeen exact-artifact gates cover the smooth native wizard/folder desktop, actual 4K, scaling/persistence, disk safety, error recovery, resource idle and VMware lifecycles. [Scope](../milestones/m7.3.md), [acceptance](../../evidence/M7.3/acceptance-results.json), [release](../releases/m73-v0.7.3.md), [graphics](../architecture/graphics-m73.md), [installation guide](../handbook/install-m73.md). Physical/ARM qualification and M8 remain separate.
 
 ## Historical M7.2 delivery — 7 November 2026

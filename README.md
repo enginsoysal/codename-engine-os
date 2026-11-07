@@ -4,6 +4,11 @@ An independent, MIT-licensed operating system with its own UEFI loader, kernel a
 
 **Current release: M7.3 — smooth native UI and HiDPI folder desktop.** A refreshed graphical installer, readable native Inter text, saved display sizes and actual 4K task evidence. [Release and downloads](docs/releases/m73-v0.7.3.md), [installer](docs/handbook/install-m73.md), [desktop](docs/handbook/desktop-m73.md), [exact acceptance](evidence/M7.3/acceptance-results.json), [five-question review](docs/architecture/usability-review-m73.md). Qualified virtual profiles only; DOS/Windows and ARM remain later work.
 
+**In progress: M7.4 — independent standard applications.** The requested app set,
+safe removal and low resource use are being implemented and tested. No M7.4
+release is qualified yet. [Contract](docs/milestones/m7.4.md),
+[development application guide](docs/handbook/apps-m74.md).
+
 **Historical completed follow-up: M7.2 — desktop-first installation and real folder navigation.** [Installer](docs/handbook/install-m72.md), [desktop controls](docs/handbook/desktop-m72.md), [scope](docs/milestones/m7.2.md), [exact acceptance](evidence/M7.2/acceptance-results.json). Named virtual profiles only; physical hardware and factory Secure Boot remain unqualified.
 
 The historical [M5 release](https://github.com/enginsoysal/codename-engine-os/releases/tag/m5-v0.5.0) provides BIOS/UEFI live media, a native text installer for a new SATA disk, media-detached installed boot, persistent native files and same-build boot recovery. There is no desktop, network stack or existing Windows app compatibility yet. That historical native data partition is 16 MiB with 48-KiB files; other disk capacity remains unallocated.

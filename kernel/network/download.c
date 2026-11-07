@@ -12,6 +12,8 @@ static unsigned redirects,reserved,request_size,request_sent;
 static char request[3072];
 _Static_assert(sizeof(request)>=sizeof(net7_url)+128,"bounded URL and HTTP headers must fit the request");
 static uint64_t started,last_paint;
+static uint64_t body_limit=HTTP7_LIMIT;
+static unsigned limit_refused;
 static void state(unsigned value,const char *message){info.state=value;info.message=message;++info.revision;}
 static unsigned active(void){return info.state>=DOWNLOAD7_RESOLVING&&info.state<=DOWNLOAD7_RECEIVING;}
 static void fail(const char *message){info.tls_error=tls7_error();tls7_abort();if(volume)v6_stream_abort(volume);reserved=0;state(DOWNLOAD7_FAILED,message);serial_text("M7_DOWNLOAD_FAILED reason=");serial_text(message);serial_text(" tls=");serial_hex(info.tls_error);serial_text("\n");}
@@ -26,18 +28,31 @@ static void make_request(void){
 }
 unsigned download7_start(v6_volume *v,const char *source,const char *path){
  if(active())return 1;tls7_abort();memset(&info,0,sizeof(info));volume=v;reserved=redirects=0;
+ body_limit=HTTP7_LIMIT;limit_refused=0;
  if(!v||!path||!copy(info.path,path,sizeof(info.path))||net7_parse_url(source,&url)){fail("Use a valid https:// address and a new Downloads filename.");return 1;}
  clock7_time now;if(clock7_read(&now)){fail("The UTC hardware clock is invalid. Correct the VM clock and retry.");return 1;}
  if(net7_resolve(url.host)){fail("Cannot resolve this address. Check the network and hardware entropy.");return 1;}
  started=last_paint=m3_clock_ticks();state(DOWNLOAD7_RESOLVING,"Finding the download server...");net7_schedule();return 0;
 }
+#ifdef ENGINE_M74
+unsigned download74_start(v6_volume *v,const char *source,const char *path,uint64_t limit){
+    if(!limit||limit>HTTP7_LIMIT)return 1;unsigned status=download7_start(v,source,path);if(!status)body_limit=limit;return status;
+}
+const char *download74_mime(void){return response.content_type;}
+unsigned download74_url(char *out,unsigned capacity){
+    if(!out||!capacity)return 1;char full[3072]="https://";unsigned n=8,i=0;
+    while(url.host[i])full[n++]=url.host[i++];
+    if(url.port!=443){char digits[6];unsigned count=0,value=url.port;full[n++]=':';do{digits[count++]=(char)('0'+value%10);value/=10;}while(value);while(count)full[n++]=digits[--count];}
+    i=0;while(url.path[i])full[n++]=url.path[i++];full[n]=0;return copy(out,full,capacity)?0:1;
+}
+#endif
 static unsigned reserve(void){
  if(reserved)return 0;
- uint64_t limit=response.seen_length?response.length:HTTP7_LIMIT;if(!limit)limit=1;
+ uint64_t limit=response.seen_length?response.length:body_limit;if(limit>body_limit){limit_refused=1;return 1;}if(!limit)limit=1;
  unsigned result=v6_stream_begin(volume,info.path,limit);if(result){serial_text("M7_DOWNLOAD_RESERVE_FAILED status=");serial_hex(result);serial_text("\n");return result;}reserved=1;return 0;
 }
 static unsigned body(void *context,const void *input,unsigned bytes){
- (void)context;if(reserve())return 1;const uint8_t *data=input;
+ (void)context;if(info.bytes>body_limit||bytes>body_limit-info.bytes){limit_refused=1;return 1;}if(reserve())return 1;const uint8_t *data=input;
  while(bytes){unsigned count=4096-(unsigned)(info.bytes%4096);if(count>bytes)count=bytes;
   unsigned result=v6_stream_append(volume,data,count);if(result){serial_text("M7_DOWNLOAD_WRITE_FAILED status=");serial_hex(result);serial_text("\n");return 1;}info.bytes+=count;data+=count;bytes-=count;
  }return 0;
@@ -77,7 +92,7 @@ void download7_pump(void){
   unsigned count=tls7_read(data,sizeof(data));if(!count)break;
   if(http7_feed(&response,data,count,body,0)){
    serial_text("M7_HTTP_REFUSED status=");serial_hex(response.status);serial_text(" bytes=");serial_hex(response.received);serial_text("\n");
-   fail(response.status&&response.status!=200?"The server did not provide this file. Check its HTTPS address and retry.":"Download response or disk write failed. No partial file was added.");return;
+   fail(limit_refused?"The response exceeds the requested size limit.":response.status&&response.status!=200?"The server did not provide this file. Check its HTTPS address and retry.":"Download response or disk write failed. No partial file was added.");return;
   }
   if(response.state==HTTP7_REDIRECT){if(redirect())fail("This redirect is unsupported or unsafe. Use the final HTTPS address.");return;}
   if(response.state==HTTP7_DONE)break;

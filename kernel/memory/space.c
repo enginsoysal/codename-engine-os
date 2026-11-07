@@ -8,7 +8,9 @@ uint64_t kernel_pd(unsigned i) {return i<4?pd_addresses[i]:0;}
 uint64_t kernel_stack_branch(void) {return stack_branch;}
 uint64_t kernel_space_init(const os_boot_info_v0 *boot) {
     if(boot->kernel.physical_address!=0x200000 || boot->kernel.byte_length>
-#ifdef ENGINE_M7
+#ifdef ENGINE_M74
+       0x800000
+#elif defined(ENGINE_M7)
        0x400000
 #else
        0x200000
@@ -33,7 +35,9 @@ uint64_t kernel_space_init(const os_boot_info_v0 *boot) {
     uint64_t null_pt=need_page();low_pt=null_pt;pd0[0]=null_pt|3;
     for(unsigned i=1;i<512;++i)((uint64_t*)(uintptr_t)null_pt)[i]=(uint64_t)i*4096|3|NX;
     unsigned kernel_chunks=1;
-#ifdef ENGINE_M7
+#ifdef ENGINE_M74
+    kernel_chunks=(unsigned)((boot->kernel.byte_length+0x1fffff)/0x200000);
+#elif defined(ENGINE_M7)
     kernel_chunks=2;
 #endif
     for(unsigned chunk=0;chunk<kernel_chunks;++chunk){

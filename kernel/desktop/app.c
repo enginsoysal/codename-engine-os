@@ -2,21 +2,39 @@
 #include <engine/elf.h>
 #include <engine/m3.h>
 #include <engine/install/m6.h>
+#ifdef ENGINE_M74
+#include <engine/desktop/catalog74.h>
+#include "distro.h"
+#endif
 
 #define APP7_SLOTS 8u
 #define APP7_STACK (USER_BASE+0x40000)
 #define APP7_TRAP_STACK (KERNEL_STACK+0x70000)
 #define NX (UINT64_C(1)<<63)
+#ifdef ENGINE_M74
+#define APP7_OWNED 24u
+#else
+#define APP7_OWNED 12u
+#endif
 typedef struct {
     uint64_t pages[8],vas[8],flags[8],entry;
     unsigned count,refs;
 } program;
 typedef struct {
-    uint64_t owned[12],cr3,pt,mailbox[5];
+    uint64_t owned[APP7_OWNED],cr3,pt,mailbox[5];
     unsigned count,live,kind;
+#ifdef ENGINE_M74
+    unsigned extra_pages;
+#endif
     _Alignas(16) uint8_t fx[512];
 } instance;
+#ifdef ENGINE_M74
+static program programs[APP74_KINDS];
+#define PROGRAM_INDEX(kind) (kind)
+#else
 static program programs[2];
+#define PROGRAM_INDEX(kind) ((kind)==4)
+#endif
 static instance instances[APP7_SLOTS];
 static unsigned transition_ready,current_slot,call_ticks,call_result;
 static uint8_t saved_pic;
@@ -28,11 +46,50 @@ extern uint64_t kernel_entry_pt(void);
 extern const uint8_t app7_editor_image[],app7_calculator_image[];
 extern const unsigned app7_editor_size,app7_calculator_size;
 
+#ifdef ENGINE_M74
+#define DECLARE_IMAGE(symbol,kind,id,title,worker,ready) extern const uint8_t app7_##symbol##_image[]; extern const unsigned app7_##symbol##_size;
+APP74_CATALOG(DECLARE_IMAGE)
+#undef DECLARE_IMAGE
+typedef struct {const char *title,*path,*cache;const uint8_t *image;const unsigned *size;unsigned worker,ready;} package74;
+#define OWNED_FILE_0 "/manifest.json"
+#define OWNED_FILE_1 "/program.elf"
+#define CACHE_SUFFIX_0 ".json"
+#define CACHE_SUFFIX_1 ".elf"
+static const package74 catalog74[APP74_KINDS]={
+    [1]={"Files",0,0,0,0,0,1},[3]={"Settings",0,0,0,0,0,1},
+#define PACKAGE(symbol,kind,id,title,worker,ready) [kind]={title,"/Applications/" #id OWNED_FILE_##worker,"/System/Packages/" #id CACHE_SUFFIX_##worker,app7_##symbol##_image,&app7_##symbol##_size,worker,ready},
+    APP74_CATALOG(PACKAGE)
+#undef PACKAGE
+};
+const char *app74_title(unsigned kind){return kind<APP74_KINDS?catalog74[kind].title:0;}
+unsigned app74_required(unsigned kind){return kind==1||kind==3;}
+unsigned app74_ready(unsigned kind){
+    /* Unfinished applications must not appear as working software. */
+    return kind<APP74_KINDS&&catalog74[kind].ready;
+}
+unsigned app74_worker(unsigned kind){return kind<APP74_KINDS&&catalog74[kind].worker;}
+static unsigned descriptor74_matches(v6_volume *volume,const char *path,unsigned kind){
+    const package74 *p=&catalog74[kind];uint8_t bytes[512];unsigned actual=0;
+    unsigned matching_size=0;
+    for(unsigned i=0;i<V6_ENTRIES;++i){const v6_entry *e=&volume->entries[i];unsigned n=0;while(e->path[n]&&e->path[n]==path[n])++n;
+        if(e->kind==1&&!e->path[n]&&!path[n]&&e->size==*p->size){matching_size=1;break;}}
+    if(!matching_size||!*p->size||*p->size>sizeof(bytes)||v6_verify(volume,path)||v6_read(volume,path,0,bytes,sizeof(bytes),&actual))return 0;
+    return actual==*p->size&&!memcmp(bytes,p->image,actual);
+}
+#endif
 static const char *app_path(unsigned kind) {
+#ifdef ENGINE_M74
+    return kind<APP74_KINDS?catalog74[kind].path:0;
+#else
     return kind==2?"/Applications/TextEditor/program.elf":"/Applications/Calculator/program.elf";
+#endif
 }
 static const char *cache_path(unsigned kind) {
+#ifdef ENGINE_M74
+    return kind<APP74_KINDS?catalog74[kind].cache:0;
+#else
     return kind==2?"/System/Packages/TextEditor.elf":"/System/Packages/Calculator.elf";
+#endif
 }
 static unsigned memory_source(void *ctx,uint64_t off,void *out,unsigned bytes) {
     memcpy(out,(const uint8_t *)ctx+off,bytes);return 0;
@@ -45,6 +102,22 @@ static unsigned directory(v6_volume *volume,const char *path) {
     unsigned status=v6_mkdir(volume,path);return status==V6_EXISTS?0:status;
 }
 unsigned app7_install(v6_volume *volume,unsigned calculator) {
+#ifdef ENGINE_M74
+    extern const uint8_t miniz74_license[];extern const unsigned miniz74_license_size;
+    if(calculator>1)return V6_INVALID;
+    if(directory(volume,"/System/Packages"))return V6_IO;
+    if(directory(volume,"/System/Licenses")||v6_put(volume,"/System/Licenses/miniz-MIT.txt",miniz74_license_size,memory_source,(void *)miniz74_license))return V6_IO;
+    for(unsigned kind=1;kind<APP74_KINDS;++kind){
+        if(app74_required(kind)||!app74_ready(kind))continue;
+        const package74 *p=&catalog74[kind];char folder[96];unsigned n=0;
+        while(p->path[n]&&n<sizeof(folder)-1){folder[n]=p->path[n];++n;}folder[n]=0;
+        while(n&&folder[n]!='/')--n;folder[n]=0;
+        if(!*p->size||directory(volume,folder)||v6_put(volume,p->cache,*p->size,memory_source,(void *)p->image))return V6_IO;
+        if((DISTRO_APPS74_MASK&(1u<<kind))&&(kind!=4||calculator)&&
+           v6_put(volume,p->path,*p->size,memory_source,(void *)p->image))return V6_IO;
+    }
+    return 0;
+#else
     if(!app7_editor_size||!app7_calculator_size||calculator>1)return V6_INVALID;
     if(directory(volume,"/System/Packages")||directory(volume,"/Applications/TextEditor")||directory(volume,"/Applications/Calculator"))return V6_IO;
     if(v6_put(volume,cache_path(2),app7_editor_size,memory_source,(void *)app7_editor_image)||
@@ -52,19 +125,48 @@ unsigned app7_install(v6_volume *volume,unsigned calculator) {
        v6_put(volume,cache_path(4),app7_calculator_size,memory_source,(void *)app7_calculator_image)||
        (calculator&&v6_put(volume,app_path(4),app7_calculator_size,memory_source,(void *)app7_calculator_image)))return V6_IO;
     return 0;
+#endif
 }
 unsigned app7_available(unsigned kind) {
+#ifdef ENGINE_M74
+    if(!app74_ready(kind))return 0;
+    if(app74_required(kind))return 1;
+    v6_volume *volume=m6_volume();if(!volume||!volume->mounted)return 0;
+    static uint64_t generation=UINT64_MAX;static uint32_t known,available;
+    if(volume->generation!=generation){generation=volume->generation;known=available=0;}
+    uint32_t bit=1u<<kind;if(known&bit)return !!(available&bit);
+    unsigned valid=0;
+    if(!app74_worker(kind))valid=descriptor74_matches(volume,app_path(kind),kind);
+    else for(unsigned i=0;i<V6_ENTRIES;++i){const v6_entry *e=&volume->entries[i];const char *path=app_path(kind);unsigned n=0;while(e->path[n]&&e->path[n]==path[n])++n;
+        if(e->kind==1&&!e->path[n]&&!path[n]&&e->size>=64&&e->size<=65536){valid=!v6_verify(volume,path);break;}}
+    known|=bit;if(valid)available|=bit;return valid;
+#else
     if(kind!=2&&kind!=4)return 0;
     return !v6_verify(m6_volume(),app_path(kind));
+#endif
 }
 unsigned app7_package(unsigned kind,unsigned install) {
+#ifdef ENGINE_M74
+    if(!app74_ready(kind)||app74_required(kind)||install>1)return V6_RO;
+    if(desktop74_in_use(kind))return V6_RO;
+#else
     if(kind!=4||install>1)return V6_RO;
+#endif
     for(unsigned i=0;i<APP7_SLOTS;++i)if(instances[i].live&&instances[i].kind==kind)return V6_RO;
-    if(!install)return v6_remove(m6_volume(),app_path(kind));
+    if(!install){unsigned status=v6_remove(m6_volume(),app_path(kind));
+#ifdef ENGINE_M74
+        if(!status)desktop74_removed(kind);
+#endif
+        return status;
+    }
     const v6_entry *file=0;v6_volume *volume=m6_volume();
     for(unsigned i=0;i<V6_ENTRIES;++i){const v6_entry *e=&volume->entries[i];
-        if(e->kind==1&&!memcmp(e->path,cache_path(kind),sizeof("/System/Packages/Calculator.elf"))){file=e;break;}}
+        unsigned n=0;while(e->path[n]&&e->path[n]==cache_path(kind)[n])++n;
+        if(e->kind==1&&!e->path[n]&&!cache_path(kind)[n]){file=e;break;}}
     if(!file||v6_verify(volume,cache_path(kind)))return V6_INVALID;
+#ifdef ENGINE_M74
+    if(!app74_worker(kind)&&!descriptor74_matches(volume,cache_path(kind),kind))return V6_INVALID;
+#endif
     return v6_put(volume,app_path(kind),file->size,cache_source,(void *)cache_path(kind));
 }
 
@@ -105,7 +207,7 @@ static unsigned load_program(unsigned kind,program *p) {
 }
 
 static uint64_t own(instance *p) {
-    if(p->count==12)return 0;
+    if(p->count==APP7_OWNED)return 0;
     uint64_t page=page_alloc();if(page)p->owned[p->count++]=page;return page;
 }
 void app7_close(unsigned slot) {
@@ -113,7 +215,7 @@ void app7_close(unsigned slot) {
     instance *p=&instances[slot];unsigned live=p->live,kind=p->kind;
     while(p->count)page_free(p->owned[--p->count]);
     memset(p,0,sizeof(*p));
-    if(live){program *program=&programs[kind==4];if(program->refs&&!--program->refs)unload(program);}
+    if(live){program *program=&programs[PROGRAM_INDEX(kind)];if(program->refs&&!--program->refs)unload(program);}
 }
 static unsigned transition_stack(void) {
     if(transition_ready)return 0;
@@ -126,9 +228,15 @@ static unsigned transition_stack(void) {
 }
 unsigned app7_prepare(void) { return transition_stack(); }
 unsigned app7_open(unsigned slot,unsigned kind) {
-    if(slot>=APP7_SLOTS||(kind!=2&&kind!=4)||app7_active)return V6_INVALID;
+    if(slot>=APP7_SLOTS||
+#ifdef ENGINE_M74
+       !app74_ready(kind)||!app74_worker(kind)||
+#else
+       (kind!=2&&kind!=4)||
+#endif
+       app7_active)return V6_INVALID;
     app7_close(slot);if(transition_stack())return V6_FULL;
-    program *code=&programs[kind==4];
+    program *code=&programs[PROGRAM_INDEX(kind)];
     if(!code->refs){unsigned s=load_program(kind,code);if(s)return s;}
     instance *p=&instances[slot];p->kind=kind;
     p->cr3=own(p);uint64_t pdpt=own(p),pd=own(p);p->pt=own(p);
@@ -158,10 +266,17 @@ static void transfer(instance *p,unsigned offset,void *buffer,unsigned bytes,int
 unsigned app7_request(unsigned slot,unsigned command,unsigned key,const void *data,unsigned bytes,app7_view *view) {
     if(slot>=APP7_SLOTS||!instances[slot].live||app7_active||bytes>=APP7_TEXT||(!data&&bytes)||!view)return V6_INVALID;
     instance *p=&instances[slot];unsigned header[]={APP7_MAGIC,command,key,bytes};
+#ifdef ENGINE_M74
+    unsigned extra=(p->kind==13&&command==APP74_INFLATE_BEGIN)?APP74_STATE_PAGES:(p->kind==17&&command==APP74_HTML_BEGIN)?3:0;
+    if(extra&&!p->extra_pages){
+        for(unsigned i=0;i<extra;++i){uint64_t page=own(p);if(!page){app7_close(slot);return V6_FULL;}
+            ((uint64_t *)(uintptr_t)p->pt)[((APP74_STATE>>12)&511)+i]=page|7|NX;++p->extra_pages;}
+    }
+#endif
     transfer(p,0,header,sizeof(header),1);
     if(bytes)transfer(p,offsetof(app7_mailbox,input),(void *)data,bytes,1);
     trap_frame frame={0};frame.cs=0x1b;frame.ss=0x23;frame.rflags=0x202;
-    frame.rip=programs[p->kind==4].entry;frame.rsp=APP7_STACK+4096-8;
+    frame.rip=programs[PROGRAM_INDEX(p->kind)].entry;frame.rsp=APP7_STACK+4096-8;
     uint64_t flags;__asm__ volatile("pushfq; popq %0; cli":"=r"(flags)::"memory");
     __asm__ volatile("movq %%cr3,%0":"=r"(app7_kernel_cr3));
     saved_pic=in8(0x21);out8(0x21,0xfe); /* 100-Hz PIT only; restore input IRQs after this bounded call. */
@@ -182,7 +297,12 @@ unsigned app7_request(unsigned slot,unsigned command,unsigned key,const void *da
             if(end)call_result=V6_INVALID;
         }
     }
-    if(!call_result)transfer(p,offsetof(app7_mailbox,view),view,sizeof(*view),0);
+    if(!call_result){transfer(p,offsetof(app7_mailbox,view),view,sizeof(*view),0);
+#ifdef ENGINE_M74
+        if(p->kind==13&&command==APP74_INFLATE_END){while(p->extra_pages){--p->extra_pages;
+            ((uint64_t *)(uintptr_t)p->pt)[((APP74_STATE>>12)&511)+p->extra_pages]=0;page_free(p->owned[--p->count]);}}
+#endif
+    }
     else {serial_text("M7_APP_CONTAINED kind=");serial_hex(p->kind);serial_text(" status=");serial_hex(call_result);serial_text("\n");app7_close(slot);}
     return call_result;
 }

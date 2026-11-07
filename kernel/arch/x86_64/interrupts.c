@@ -44,6 +44,10 @@ void interrupts_set_kernel_stack(uint64_t address) {tss.rsp[0]=address;}
 extern void kernel_panic_screen(void);
 extern void kernel_fault_probe(void);
 uint64_t *exception_dispatch(uint64_t *frame) {
+#ifdef ENGINE_M74
+    extern unsigned clock74_irq(uint64_t *);if(clock74_irq(frame))return frame;
+    extern unsigned audio74_irq(uint64_t *);if(audio74_irq(frame))return frame;
+#endif
 #ifdef ENGINE_M7
     /* The app watchdog owns its user-mode timer deadline before device wait handlers. */
     if(frame[15]==32){
