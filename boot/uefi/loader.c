@@ -3,6 +3,9 @@
 #include <engine/boot/validate_v0.h>
 #include "build.h"
 static efi_boot_services *bs;
+#ifdef ENGINE_M72
+#include "bootentry72.inc"
+#endif
 static os_boot_range reservations[32];
 static unsigned reservation_count;
 static int table_valid(const efi_header *table,uint64_t signature,uint32_t minimum) {
@@ -76,6 +79,19 @@ efi_status efi_main(efi_handle image,efi_system_table *system) {
 #endif
        memcmp(init+16,BUILD_ID,32))fail("initimage manifest");
     elf_plan plan;if(elf_validate(elf,elf_size,&plan))fail("ELF validation");
+#ifdef ENGINE_M72
+    efi_runtime_services*rt=system->runtime;
+    if(!rt||!table_valid(&rt->header,UINT64_C(0x56524553544e5552),sizeof(*rt)))fail("runtime services table");
+    efi_status registration=boot72_register(rt);
+    if(EFI_ERROR(registration)){
+        serial_text("M72_UEFI_BOOT_REGISTER_FAILED status=");serial_hex(registration);serial_text("\n");
+        typedef struct {void*reset;efi_status(*write)(void*,uint16_t*);} boot72_console;
+        boot72_console*output=system->output;
+        if(output&&output->write)output->write(output,(uint16_t*)u"\r\nEngine OS could not save its firmware startup entry.\r\nEnable writable UEFI variables or use the BIOS test profile.\r\nNo installation disk has been erased. See the installation guide.\r\n");
+        fail("Engine OS firmware boot registration; NVRAM must be writable");
+    }
+    serial_text("M72_UEFI_BOOT_REGISTERED\n");
+#endif
     uint64_t kernel_address=plan.low,kernel_pages=(plan.high-plan.low)/4096;
     if(EFI_ERROR(bs->allocate_pages(2,1,kernel_pages,&kernel_address)))fail("kernel fixed allocation");
     reserve(kernel_address,kernel_pages*4096);memset((void*)(uintptr_t)kernel_address,0,(size_t)(kernel_pages*4096));

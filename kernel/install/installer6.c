@@ -93,7 +93,11 @@ unsigned size=0;while(guide[size])++size;if(v6_put(&volume,guidepath,size,source
 }
 static unsigned valid_layout(void){uint32_t expected=0;for(unsigned copy=0;copy<2;++copy){uint64_t at=copy?layout.backup_header:1,table=copy?layout.backup_table:2;if(io(selected,at,page,512,0)||memcmp(page,"EFI PART",8)||r32(page+12)!=92||r64(page+24)!=at||r64(page+32)!=(copy?1:layout.backup_header)||r64(page+72)!=table||r32(page+80)!=128||r32(page+84)!=128||memcmp(page+56,record+56,16))return B_IO;uint32_t crc=r32(page+16),sum=r32(page+88);w32(page+16,0);if(m4_crc(page,92)!=crc||(copy&&sum!=expected))return B_IO;expected=sum;for(unsigned i=0;i<32;++i){if(io(selected,table+i,page,512,0))return B_IO;if(copy){if(memcmp(page,entries+i*512,512))return B_IO;}else memcpy(entries+i*512,page,512);}if(m4_crc(entries,sizeof(entries))!=sum)return B_IO;}
  const engine_partition *parts[]={&layout.bios,&layout.esp,&layout.system_a,&layout.system_b,&layout.data};for(unsigned i=0;i<5;++i)if(r64(entries+i*128+32)!=parts[i]->first||r64(entries+i*128+40)!=parts[i]->last)return B_IO;return B_OK;}
-unsigned m6_open(void){if(m6_live())return B_ABSENT;unsigned found=UINT32_MAX,matches=0;
+unsigned m6_open(void){
+#ifndef ENGINE_M72
+ if(m6_live())return B_ABSENT;
+#endif
+ unsigned found=UINT32_MAX,matches=0;
  for(unsigned i=0;i<storage_count();++i){const storage_disk*d=storage_get(i);engine_install_layout plan;if(!d||engine_install_plan(d->sectors,d->sector_bytes,&plan)||d->transport!=STORAGE_AHCI)continue;
  if(!activation(i)){found=i;++matches;}}
  if(matches!=1)return B_DENIED;selected=found;target=*storage_get(found);if(activation(found))return B_IO;if(memcmp(record+24,BUILD_ID,32)){serial_text("M6_BOOT_VERSION_MISMATCH\n");return B_IO;}if(engine_install_plan(target.sectors,target.sector_bytes,&layout))return B_DENIED;if(valid_layout())return B_IO;configure_volume();unsigned s=v6_mount(&volume);if(s)return s;persistent=1;serial_text("M6_INSTALLED_VOLUME\n");return B_OK;

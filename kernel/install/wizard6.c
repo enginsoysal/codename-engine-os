@@ -29,7 +29,13 @@ static void button(unsigned x,unsigned y,unsigned w,const char*title,unsigned ac
 static void render(void);
 #include "disk71-ui.inc"
 #endif
+#ifdef ENGINE_M72
+#include "wizard72-ui.inc"
+#endif
 static void render(void){
+#ifdef ENGINE_M72
+ if(!u71_mode&&!diagnostics&&!failure&&!installed){render72();return;}
+#endif
  unsigned old=focus;controls=0;gui6_rect(0,0,screen->framebuffer_width,screen->framebuffer_height,0x0c171d);gui6_rect(left,top,width,height,0x3b535c);gui6_rect(left+1,top+1,width-2,height-2,0x101d24);gui6_rect(left+1,top+70,width-2,1,0x35464e);
  label(left+25,top+25,"E",3,accent);label(left+65,top+26,DISTRO_NAME,2,0xffffff);label(left+width-210,top+32,installed?"INSTALLED SYSTEM":"INSTALLATION",2,accent);
  gui6_rect(left+1,top+71,195,height-142,0x14242b);label(left+20,top+100,"MAKE IT YOURS",1,0x98adb5);
@@ -38,7 +44,11 @@ static void render(void){
 #ifdef ENGINE_M71
  if(u71_mode){u71_draw(x,y);focus=old<controls?old:0;return;}
 #endif
- if(diagnostics){label(x,y,"Technical details",3,0xffffff);label(x,y+50,"Build",2,0x95aab4);label(x,y+80,BUILD_ID,1,0xc5d9dd);textnum(x,y+115,pages_stats().current_pages*4096/1024," KiB managed RAM");textnum(x,y+150,pages_stats().peak_pages*4096/1024," KiB peak RAM");if(installed){button(x,y+200,230,"Write test file",60,0);button(x,y+250,230,"Verify test file",61,0);}button(x,y+300,230,"Advanced terminal",64,0);if(notice)label(x,y+355,notice,1,accent);button(x,bottom-65,160,"Return",62,0);return;}
+ if(diagnostics){label(x,y,"Technical details",3,0xffffff);label(x,y+50,"Build",2,0x95aab4);label(x,y+80,BUILD_ID,1,0xc5d9dd);textnum(x,y+115,pages_stats().current_pages*4096/1024," KiB managed RAM");textnum(x,y+150,pages_stats().peak_pages*4096/1024," KiB peak RAM");if(installed){button(x,y+200,230,"Write test file",60,0);button(x,y+250,230,"Verify test file",61,0);}button(x,y+300,230,"Advanced terminal",64,0);if(notice)label(x,y+355,notice,1,accent);button(x,bottom-65,160,"Return",62,0);
+#ifdef ENGINE_M72
+ if(!installed){button(x,y+200,140,"Repair",80,0);button(x+150,y+200,140,"Update",81,0);button(x+300,y+200,140,"Rollback",82,0);}
+#endif
+ return;}
  if(failure){label(x,y,"We could not finish.",3,0xffffff);label(x,y+65,failure,1,0xf4b29d);label(x,y+100,"No installation success is claimed.",1,0xa5bac2);label(x,y+125,"Keep this ISO for recovery. Check Details.",1,0xa5bac2);button(x,bottom-60,160,"Back",63,0);button(x+180,bottom-60,160,"Details",50,0);return;}
  if(installed){label(x,y,"Your system is ready.",3,0xffffff);label(x,y+55,preferences.user,2,accent);label(x,y+90,"Booted from disk. Your settings are persistent.",1,0xa5bac2);textnum(x,y+125,v6_capacity(m6_volume())/(1024*1024)," MiB data capacity");label(x,y+165,DESKTOP_FINISH_TEXT,1,0xa5bac2);button(x,y+210,230,"Change accent",70,0);button(x,y+265,230,"Save preferences",71,1);if(preferences.guide)button(x,y+320,230,"Remove guide",72,0);if(notice)label(x,y+375,notice,1,accent);button(x,bottom-65,180,"Details",50,0);return;}
  if(step==0){label(x,y,"A fresh start.",4,0xffffff);label(x,y+45,"Made yours.",4,0xffffff);label(x,y+115,"A guided setup, with room to choose.",2,0xa5bac2);label(x,y+150,"Review every change before installation.",1,0xa5bac2);gui6_rect(x,y+195,width-250,75,0x1a2c34);label(x+15,y+212,"Your system. Your choices.",2,0xffffff);label(x+15,y+244,DISTRO_WELCOME,1,0xa5bac2);label(x,y+300,"Unsigned BIOS/UEFI media: disable Secure Boot.",1,0x9fb2ba);}
@@ -125,9 +135,18 @@ static void action(unsigned a){
  if(a==21){calculator_selection^=1;render();return;}
 #endif
  if(a>=31&&a<=33){const uint32_t colors[]={0x62e5bd,0x9caeff,0xf4c47c};accent=colors[a-31];preferences.accent=accent;render();return;}if(a==30)return;
- if(a>=80&&a<=82){maintenance=a-79;step=1;focus=0;render();return;}
+ if(a>=80&&a<=82){maintenance=a-79;diagnostics=0;step=1;focus=0;render();return;}
  if(a==1){if(maintenance&&step==4)step=1;else if(step)--step;if(!step)maintenance=0;focus=0;render();return;}
- if(a==3){step=7;focus=0;render();return;}
+ if(a==3){
+#ifdef ENGINE_M72
+ if(!maintenance&&m6_volume()&&!m6_settings(&preferences)){
+ serial_text("M72_FINISH_TO_PERSISTENT_DESKTOP\n");desktop_start(screen,&preferences);}
+#endif
+ step=7;focus=0;render();return;}
+#ifdef ENGINE_M72
+ if(a==83){unsigned s=m6_open();if(!s)s=m6_settings(&preferences);if(!s){serial_text("M72_ISO_TO_PERSISTENT_DESKTOP\n");desktop_start(screen,&preferences);}
+ validation="No single matching installation found. Use this ISO to install or recover.";render();return;}
+#endif
  if(a==2){if(step==1){
 #ifdef ENGINE_M71
  if(chosen>=storage_count()){validation="Select a disk row first, then choose Next.";render();return;}
