@@ -65,7 +65,7 @@ add('richtext',{html:`<p><a href="${GH}/releases">Official release history</a> �
    const label=r.prerelease?'Historical preview':stable?'Earlier release':'Latest stable';if(!r.prerelease)stable=true;
    add('heading',{text:`${r.name||r.tag_name} — ${label}`,level:2,size:27,color:'#152434'});
    add('richtext',{html:`<p>Published ${escape(r.published_at?.slice(0,10)||'unknown')} · <a href="${escape(r.html_url)}">Official release notes</a></p>`,size:15});
-   const assets=[...r.assets].sort((a,b)=>{const rank=n=>/^EngineOS-(?:M6(?:U1|MINIMAL)|M7NIGHT|M71NIGHT)\.iso$/i.test(n)?4:/\.iso$/i.test(n)?0:/\.img$/i.test(n)?1:/sha256/i.test(n)?2:3;return rank(a.name)-rank(b.name)});
+   const assets=[...r.assets].sort((a,b)=>{const rank=n=>/^EngineOS-(?:M6(?:U1|MINIMAL)|M7NIGHT|M71NIGHT|M74MINIMAL)\.iso$/i.test(n)?4:/\.iso$/i.test(n)?0:/\.img$/i.test(n)?1:/sha256/i.test(n)?2:3;return rank(a.name)-rank(b.name)});
    for(const a of assets)add('richtext',{html:`<p><a href="${escape(a.browser_download_url)}"><strong>Download ${escape(a.name)}</strong></a> — ${(a.size/1048576).toFixed(2)} MiB</p>${a.digest?`<pre><code>${escape(a.digest)}</code></pre>`:''}`,size:16});
  }
  posts.push({id:'engine-downloads',slug:'downloads',title:'Downloads and SHA256 verification',status:'published',bodyFormat:'brix',blocks:downloads,category:'downloads',tags:['Downloads','Releases'],author:'Engine OS project',date:new Date().toISOString().slice(0,10),featured:true,meta:[{key:'engine_source_path',value:'@releases'},{key:'engine_source_commit',value:ref}]});

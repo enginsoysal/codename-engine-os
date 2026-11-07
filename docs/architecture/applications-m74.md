@@ -79,12 +79,13 @@ Raising a bound is not a claim that all of that memory is allocated or consumed;
 measure exact live/installed static spans, allocator current/peak, decoder scratch,
 framebuffer and firmware separately.
 
-## Qualification still required
+## Qualification boundaries
 
-The separate calculator and inflate host tests check numerical results and the
-bounded decoder ABI; they are not native desktop acceptance. Native complete
-tasks, all-app removal/omission/restart/resource matrices, 4K review, VMware,
-remaining apps/integrations and public release verification remain separate gates.
+The calculator, inflate and browser host tests check algorithms and bounded
+worker events separately from native acceptance. The first delivery passes
+its complete-task, removal/omission/restart, resource, actual 4K and VMware
+gates in the [exact report](../../evidence/M7.4/acceptance-results.json).
+Richer app capabilities and desktop integrations remain explicit follow-ups.
 
 ## Audio ownership and interoperability
 

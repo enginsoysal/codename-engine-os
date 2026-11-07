@@ -1,8 +1,8 @@
-# M7.4 application guide — development
+# M7.4 application guide
 
-M7.4 is in development. This guide describes implemented code and limits;
-it is not an acceptance certificate or a published release announcement.
-M7.3 remains the current qualified release.
+The first M7.4 app delivery is qualified within M74-VM-v1. This guide describes
+its implemented functions and limits. [Downloads](../releases/m74-v0.7.4.md) ·
+[Exact acceptance](../../evidence/M7.4/acceptance-results.json).
 
 ## Open and manage applications
 
@@ -137,18 +137,19 @@ cookies and image rendering are not supported. It cannot replace a modern
 web browser for general websites. Network cancellation preserves the previous
 page, and the temporary download is deleted after parsing.
 
-Media Player is undergoing native qualification. Its implemented decoder
+Media Player has native PCM capture qualification. Its decoder
 accepts 16-bit PCM WAV, mono/stereo at 44.1/48 kHz, up to 64 MiB. The new
 analog HDA/MSI path allocates DMA buffers only when playback starts and must
 release them after verified hardware quiescence. Unsupported output hardware
 must leave the desktop usable. MP3, AAC, video and broad hardware support are
-not implemented; playback is not yet qualified.
+not implemented. Captured playback qualification uses QEMU HDA; VMware audio
+output has not been independently recorded.
 
 ## Remaining work
 
-Audio qualification, additional desktop integrations, full app-removal and
-profile-omission matrices, native 4K review, VMware lifecycle qualification and
-the M7.4 release remain open. Existing Windows/MS-DOS applications remain M8
+Richer codecs/web rendering, Calendar reminders, advanced editing and additional
+desktop integrations remain follow-ups. The first app delivery passes its
+removal/omission, actual 4K, resource and VMware lifecycle gates. Existing Windows/MS-DOS applications remain M8
 work. [Full contract](../milestones/m7.4.md).
 
 ## Build a distribution with a different application set

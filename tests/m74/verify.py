@@ -12,7 +12,16 @@ def main(commit):
  for name,digest in sources.items():
   if sha(ROOT/name)!=digest or published[name]!=digest:errors.append('Native source differs: '+name)
  artifacts={**standard['artifacts'],**minimal['artifacts'],starter['archive']:{k:starter[k] for k in ['sha256','size']}}
+ private_markers=[str(Path.home()).encode(),str(Path.home()).replace('\\','/').encode(),str(Path.home()).encode('utf-16le')]
  for name,v in artifacts.items():
+  with (ROOT/'dist'/name).open('rb') as stream:
+   tail=b''
+   while True:
+    chunk=stream.read(1024*1024)
+    if not chunk:break
+    block=tail+chunk
+    if any(marker.lower() in block.lower() for marker in private_markers):errors.append('Private host path in artifact: '+name);break
+    tail=block[-512:]
   if sha(ROOT/'dist'/name)!=v['sha256'] or (ROOT/'dist'/name).stat().st_size!=v['size']:errors.append('Artifact differs: '+name)
  native=['apps-development/results.json','audio-development/results.json','packages-4k/results.json','calendar-probe/results.json','uefi-1280x800-64mib/results.json','vmware/efi-starter/results.json','vmware/bios/results.json','omitted-apps/results.json']
  for path in native:
@@ -52,7 +61,7 @@ def main(commit):
  'minimal_build_id':minimal['build_id'],'gate_count':len(gates),'gates':gates,'artifacts':artifacts,'prior_frozen_proofs_verified':history,'prior_binary_artifacts_verified':len(retained),
  'kernel_physical_span_bytes':max(v[4]+v[6] for v in loads)-min(v[4] for v in loads),'font_coverage_bytes':standard['font']['coverage_bytes'],
  'resources':{k:package[k] for k in ['managed_current_bytes','managed_peak_bytes','framebuffer_bytes','opened_window_extra_managed_bytes']},
- 'audio_dma_peak_bound_bytes':24*4096,'actual_4k_framebuffer':True,'human_usability_study':False,'physical_hardware_qualified':False,'arm_raspberry_pi_implemented':False,'windows_dos_runtime_implemented':False,
+ 'artifacts_private_path_scan_passed':not any('Private host path' in e for e in errors),'audio_dma_peak_bound_bytes':24*4096,'actual_4k_framebuffer':True,'human_usability_study':False,'physical_hardware_qualified':False,'arm_raspberry_pi_implemented':False,'windows_dos_runtime_implemented':False,
  'limitations':standard['limits']+['Basic static HTML/text HTTPS browser; no JavaScript/CSS layout/forms/cookies','PCM WAV/HDA only; BMP only; ZIP Stored/Deflate extraction only','Calendar stores local day notes; reminders/synchronization remain future','Fresh installs qualified; cross-version package-cache migration not qualified'],
  'test_sha256':{p.relative_to(ROOT).as_posix():sha(p) for p in sorted((ROOT/'tests/m74').glob('*.py'))},'errors':errors}
  report['evidence_sha256']={p.relative_to(OUT).as_posix():sha(p) for p in sorted(OUT.rglob('*')) if p.is_file() and p.name!='acceptance-results.json'}

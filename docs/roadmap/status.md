@@ -1,8 +1,6 @@
 # Current status
 
-**M7.4 standard applications are in progress.** The requested full set and
-independent removal/resource criteria are tracked in the [M7.4 contract](../milestones/m7.4.md).
-No M7.4 ISO has been qualified or published. M7.3 remains the current release.
+**M7.4 delivers the first bounded standard app suite within M74-VM-v1.** Thirteen gates bind eighteen native providers, independent optional-package removal/reinstall, private-data retention, actual 4K, 64-MiB operation, real ZIP/HTTPS/HDA PCM tasks and VMware BIOS/UEFI lifecycles to exact artifacts. [Acceptance](../../evidence/M7.4/acceptance-results.json), [release and downloads](../releases/m74-v0.7.4.md), [app manual](../handbook/apps-m74.md), [scope and follow-ups](../milestones/m7.4.md). Richer codecs/web rendering, Calendar reminders, advanced editing and additional desktop integrations remain unimplemented follow-ups.
 
 **M7.3 is complete within M73-VM-v1.** Seventeen exact-artifact gates cover the smooth native wizard/folder desktop, actual 4K, scaling/persistence, disk safety, error recovery, resource idle and VMware lifecycles. [Scope](../milestones/m7.3.md), [acceptance](../../evidence/M7.3/acceptance-results.json), [release](../releases/m73-v0.7.3.md), [graphics](../architecture/graphics-m73.md), [installation guide](../handbook/install-m73.md). Physical/ARM qualification and M8 remain separate.
 
@@ -40,6 +38,7 @@ Updated 2026-11-07. Canonical project: [enginsoysal/codename-engine-os](https://
 | M4.5 broader boot/hardware | Complete within M45-VM-v1 | [Fresh acceptance](../../evidence/M4.5/acceptance-results.json), [approved scope](../milestones/m4.5.md), [final ISO and VMware guide](../releases/m45-v0.4.5.md); dual BIOS/UEFI, ordinary storage, checked filesystems, driver status/input/hubs/UAS, faults/resource/SMP and 23 owner-trust checks; physical/factory trust and production key operations are separate unqualified follow-ups |
 | M5 live/install/recovery | Complete within M5-VM-v1 | [Contract](../milestones/m5.md), [acceptance](../../evidence/M5/acceptance-results.json), [installation tutorial](../handbook/install.md); native installer, detached boot, bounded live/persistent volume and same-build repair |
 | M6 real product installation | Complete within M6-VM-v1 | [Native wizard, storage and recovery](../milestones/m6.md), [exact acceptance](../../evidence/M6/acceptance-results.json), [VMware handbook](../handbook/install-m6.md) |
+| M7.4 standard apps | First bounded delivery qualified within M74-VM-v1 | [Exact evidence](../../evidence/M7.4/acceptance-results.json), [all apps and limits](../handbook/apps-m74.md); 16 optional packages, source/data independence, real formats and audio |
 | M7.3 native visual quality and HiDPI | Complete within M73-VM-v1 | [Current evidence](../../evidence/M7.3/acceptance-results.json), [VMware ZIP and ISO](../releases/m73-v0.7.3.md); measured typography, actual 4K, safe scaling and structured design review |
 | M7.2 installation and folder desktop | Complete within M72-VM-v1 | [Historical evidence](../../evidence/M7.2/acceptance-results.json), [VMware starter and ISO](../releases/m72-v0.7.2.md); immediate real persistent desktop plus separately tested independent boot |
 | M7.1 installer disk manager | Complete within M71-VM-v1 | [Exact acceptance](../../evidence/M7.1/acceptance-results.json); GPT/primary-MBR data operations, FAT32/Engine quick formats, explicit whole-disk replacement, equal-capacity disk isolation and detached desktop |

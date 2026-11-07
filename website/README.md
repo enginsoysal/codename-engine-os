@@ -36,6 +36,16 @@ Use an agent-owned browser or the Edge extension for browser work. The owner exp
 
 Current guides focus on the redesigned installer, immediate real persistent Files desktop and the prepared VMware ZIP. Native downloads prefer m72-v0.7.2 and keep historical files/checksums visible. Home retains the preferred editable native Brix design, with M7.2 setup/recovery links and explicit CD-versus-SATA restart guidance. The content publisher handles committed English Markdown and release assets automatically; homepage design still requires an authorized native Brix edit. New verification uses M72-VM-v1 acceptance and preserves prior proof. [Current tutorial](../docs/handbook/install-m72.md), [folder guide](../docs/handbook/desktop-m72.md), [recovery](../docs/handbook/recovery-m72.md).
 
-## M7.3 current delivery
+## Historical M7.3 delivery
 
 Native downloads prefer m73-v0.7.3, including the matching VMware ZIP, full notices and SHA256 values. All committed English Markdown, including the new installation/desktop/recovery and graphics/design review documents, synchronizes into native Brix articles. The homepage keeps the approved native composition and points to M7.3 setup/recovery. Its manual native Brix edit follows the content-sync jobs so optimistic site versions do not conflict. New public readback verifies every canonical source commit and frozen M73-VM-v1 proof; earlier release assets/proofs remain unchanged. [Current guide](../docs/handbook/install-m73.md), [desktop](../docs/handbook/desktop-m73.md), [recovery](../docs/handbook/recovery-m73.md).
+
+## M7.4 application delivery
+
+Native downloads prefer m74-v0.7.4 and its prepared VMware ZIP. English
+installation/app instructions, format limits, package ownership, resource
+figures and exact acceptance synchronize automatically from GitHub. An M7.4
+homepage snapshot and app-guide card retain the approved native composition
+in `website/brix/design.mjs`; native publication/readback is recorded separately
+from article synchronization. [Install](../docs/handbook/install-m74.md),
+[apps](../docs/handbook/apps-m74.md), [release](../docs/releases/m74-v0.7.4.md).

@@ -1,16 +1,17 @@
 # Engine OS user handbook
 
-Start with **Engine OS 0.7.3**. Extract the prepared VMware ZIP, open EngineOS.vmx and start. Follow the graphical wizard, choose Install, then **Open desktop**. Files opens your real installed home folder immediately. Calculator and network access are unnecessary.
+Start with **Engine OS 0.7.4**. Extract the prepared VMware ZIP, open EngineOS.vmx and start. Follow the graphical wizard, choose Install, then **Open desktop**. Files opens your real installed home folder immediately. Calculator and network access are unnecessary.
 
-- [Download and install in VMware, step by step](install-m73.md)
+- [Download and install in VMware, step by step](install-m74.md)
+- [Use the standard apps and manage optional packages](apps-m74.md)
 - [Explore the desktop and navigate your folders](desktop-m73.md)
-- [Current release, checksums and qualified limits](../releases/m73-v0.7.3.md)
-- [Keep personal files using Recovery/Update or roll back](recovery-m73.md)
+- [Current release, checksums and qualified limits](../releases/m74-v0.7.4.md)
+- [Repair boot files and review recovery limits](apps-m74.md#disks-and-recovery)
 - [Manage partitions and format safely](disk-manager-m71.md)
 - [Build and customize your own distribution](distributions.md)
 - [Product principles](../architecture/product-principles.md) and [current status](../roadmap/status.md)
 
-The prepared VM has a new empty growable 20-GiB SATA disk, two CPUs, 128 MiB RAM and Secure Boot off. UEFI startup adds a dedicated boot entry and requires writable firmware variables. Existing-disk replacement requires separate final erasure consent. On later boots disconnect only CD/DVD and keep the SATA hard disk connected. The new tests retain the same VMware configuration/NVRAM and use ordinary disk discovery, without forced boot priority.
+The prepared VM has a new empty growable 20-GiB SATA disk, two CPUs, 128 MiB RAM, NAT networking, HDA audio and Secure Boot off. Use this fresh starter for the app release; cross-version package-cache migration is not qualified. UEFI startup adds a dedicated boot entry and requires writable firmware variables. Existing-disk replacement requires separate final erasure consent. On later boots disconnect only CD/DVD and keep the SATA hard disk connected. The new tests retain the same VMware configuration/NVRAM and use ordinary disk discovery, without forced boot priority.
 
 [Online documentation and downloads](https://engineos.brixcanvas.com) update from canonical GitHub Markdown and official release assets. [Website maintenance](../../website/README.md).
 

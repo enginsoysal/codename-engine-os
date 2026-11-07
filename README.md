@@ -2,12 +2,9 @@
 
 An independent, MIT-licensed operating system with its own UEFI loader, kernel and native user runtime. MS-DOS and Windows 1.x–11 application compatibility is a long-term requirement, followed by Linux/macOS execution environments and ARM64. Those compatibility layers are not implemented yet.
 
-**Current release: M7.3 — smooth native UI and HiDPI folder desktop.** A refreshed graphical installer, readable native Inter text, saved display sizes and actual 4K task evidence. [Release and downloads](docs/releases/m73-v0.7.3.md), [installer](docs/handbook/install-m73.md), [desktop](docs/handbook/desktop-m73.md), [exact acceptance](evidence/M7.3/acceptance-results.json), [five-question review](docs/architecture/usability-review-m73.md). Qualified virtual profiles only; DOS/Windows and ARM remain later work.
+**Current delivery: M7.4 — lightweight native standard applications.** Eighteen native providers, sixteen independently removable packages, verified offline reinstall, local notes, ZIP/BMP/screenshot tools, static HTML/text HTTPS and PCM WAV audio. [Release and downloads](docs/releases/m74-v0.7.4.md), [installer](docs/handbook/install-m74.md), [app guide and limits](docs/handbook/apps-m74.md), [exact acceptance](evidence/M7.4/acceptance-results.json), [five-question review](docs/architecture/usability-review-m74.md). This first bounded app suite is qualified within M74-VM-v1; richer codecs, web rendering and app capabilities remain follow-ups. DOS/Windows and ARM remain later work.
 
-**In progress: M7.4 — independent standard applications.** The requested app set,
-safe removal and low resource use are being implemented and tested. No M7.4
-release is qualified yet. [Contract](docs/milestones/m7.4.md),
-[development application guide](docs/handbook/apps-m74.md).
+**Historical M7.3 visual/HiDPI delivery.** [Release](docs/releases/m73-v0.7.3.md), [scope](docs/milestones/m7.3.md), [frozen acceptance](evidence/M7.3/acceptance-results.json).
 
 **Historical completed follow-up: M7.2 — desktop-first installation and real folder navigation.** [Installer](docs/handbook/install-m72.md), [desktop controls](docs/handbook/desktop-m72.md), [scope](docs/milestones/m7.2.md), [exact acceptance](evidence/M7.2/acceptance-results.json). Named virtual profiles only; physical hardware and factory Secure Boot remain unqualified.
 
@@ -19,9 +16,9 @@ The historical [M5 release](https://github.com/enginsoysal/codename-engine-os/re
 
 ## Install and open your desktop
 
-[Download the prepared VMware VM](https://github.com/enginsoysal/codename-engine-os/releases/download/m73-v0.7.3/EngineOS-M73-VMware.zip) · [Standalone ISO](https://github.com/enginsoysal/codename-engine-os/releases/download/m73-v0.7.3/EngineOS-M73.iso) · [Step-by-step guide](docs/handbook/install-m73.md) · [Release and checksum](docs/releases/m73-v0.7.3.md).
+[Download the prepared VMware VM](https://github.com/enginsoysal/codename-engine-os/releases/download/m74-v0.7.4/EngineOS-M74-VMware.zip) · [Standalone ISO](https://github.com/enginsoysal/codename-engine-os/releases/download/m74-v0.7.4/EngineOS-M74.iso) · [Step-by-step guide](docs/handbook/install-m74.md) · [Release and checksum](docs/releases/m74-v0.7.4.md).
 
-Extract the entire ZIP, open EngineOS.vmx and start. It includes a **new empty** growable 20-GiB SATA disk and the installer ISO. Follow Next, review and Install, then choose **Open desktop**. Files opens your real saved home folder immediately. Browse Documents, create a named folder, use Back/Forward/Up and customize appearance. No network, terminal or optional apps are needed. For future disk boots, disconnect only the CD/DVD ISO and keep the SATA hard disk connected. Existing compatible M7.2 installations can use Recovery/Update to preserve data. [Folder guide](docs/handbook/desktop-m73.md). Auto and 100%/150%/200% display sizes are available in Appearance. [Graphics and resource choices](docs/architecture/graphics-m73.md).
+Extract the entire ZIP, open EngineOS.vmx and start. It includes a **new empty** growable 20-GiB SATA disk and the installer ISO. Follow Next, review and Install, then choose **Open desktop**. Start opens your apps; Settings manages appearance and optional packages. The welcome guide includes an archive-to-audio example. No terminal commands or network are needed for installation. For later disk boots, disconnect only CD/DVD and keep SATA connected. Use a fresh starter for this app release; cross-version package-cache migration is unqualified. [App instructions](docs/handbook/apps-m74.md), [folder controls](docs/handbook/desktop-m73.md), [display sizing](docs/architecture/graphics-m73.md).
 
 The UEFI loader registers an Engine OS fallback startup option while firmware services are active; writable firmware variable storage is required. The entry can remain after cancelled installation. The immediate desktop uses the installation kernel; separate unforced same-VM/NVRAM tests qualify actual detached disk startup. [Boot and UI decisions](docs/architecture/desktop-m72.md). DOS and Windows compatibility remain later work.
 

@@ -49,12 +49,12 @@ change its partitions. Formatting is a quick format, not a secure erase.
 Update & Recovery can restore verified boot files or a complete previous
 recovery slot. Keep the installation ISO for offline recovery and updates.
 
-DEVELOPMENT SCOPE
+WHAT WORKS TODAY
 Browser opens local HTML/text and checked HTTPS with Back, Home and Links.
 It does not support JavaScript, CSS layout, forms or embedded images.
 Media Player accepts 16-bit PCM WAV, mono/stereo at 44.1/48 kHz, through a
 supported analog HDA output. MP3, video and other codecs are not implemented.
-This M7.4 build is still being qualified. Additional desktop integrations
-remain unfinished. Existing Windows and
+Check the matching release notes for this build's exact qualified scope.
+Additional desktop integrations remain future work. Existing Windows and
 MS-DOS applications are not supported yet. Hardware support is limited to
 the documented virtual profiles. See Help and the matching release notes.

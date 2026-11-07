@@ -1,6 +1,6 @@
 # Install Engine OS M7.4 in VMware
 
-M7.4 is being qualified. Do not treat a development ISO as an accepted release. [Application guide](apps-m74.md).
+The first M7.4 app delivery is qualified within M74-VM-v1. [Downloads and checksums](../releases/m74-v0.7.4.md) · [Application guide](apps-m74.md) · [Exact acceptance](../../evidence/M7.4/acceptance-results.json).
 
 ## The convenient route
 
