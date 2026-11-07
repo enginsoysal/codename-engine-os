@@ -1,0 +1,133 @@
+{
+  "passed": true,
+  "group": "regression",
+  "build_id": "6fb1adabffecc22b706ff354859a49d8",
+  "iso_sha256": "cf246e8a9321058633064260f1e5f1766cc4db4f080de8403010409a84f75e5b",
+  "native_source_snapshot_sha256": "a1a67b26ce584cec71cb3fb462ac29d03c22297abb88f03649daf02d17d4b97e",
+  "test_harness_sha256": {
+    "tests/m71/advanced.py": "b015ebf4ebbcc8432077f8237e9828a45a7bad34cc64cecf6df0e76f2b010ea0",
+    "tests/m71/disk.py": "90c0aa36a5040759c918ff116023c1c9395e9ae06f31f4d890ea5f2fa5d988d0",
+    "tests/m71/maintenance.py": "6643cf822c1ccc9e62d8302a78cb91cac57e2da92e329c25b3ea7cea20e9002f",
+    "tests/m71/multidisk.py": "765f3039ce8107df6b5afba6dd575e3b0aeffb7f343b032b8d763da3b23c48c1",
+    "tests/m71/native.py": "8c6ae37dab139560b504b505f4eed13a7c74d9fb5944b48dc52aa1aeb681e34d",
+    "tests/m71/qualify.py": "7746081305fc2788c7c8c271c0d510b6f817632c7add55e3f1d3ae46f83eb0ec",
+    "tests/m71/regression.py": "f81c920a1b5efcf4a66bb44f014d04a628f1ee3e24933fd707d909b02656a105",
+    "tests/m71/verify.py": "999f9a9af5c0380d2b848819c2c0c68ed482fcaabdc02301b4e162cceefd8262",
+    "tests/m71/vmware.py": "ff3a676690680fee56e23c0a580a449fec9c25be21c2c04ba313f10864b3d146",
+    "tests/m7/binary_download.py": "e1858c30b936d1d07777656590391407795193a8745b24916b4c9876d1d47a2c",
+    "tests/m7/clock.py": "bfc5a7f1e3819dbf2503de94195e50428b0c4eb4797a439e40dcfe55bc94162e",
+    "tests/m7/distribution.py": "e550802558ee935e6f57b67b1a11cb93c10bfe7bab68c4c87e637f2d2cee04b2",
+    "tests/m7/firmware.py": "a2d079f1dc6ab925f3ac5d222fac1f43d134c8e3807ef4eae4a9d88a790f0978",
+    "tests/m7/http.py": "90e5f165f6528b1977b1abe40ce438fc2b571ac9f3f04c50bbd3ae4fd5f19b27",
+    "tests/m7/https.py": "13079e1a48966883561bf17e765c71975ea59cc0cb865dbbfaedc12d85ca3527",
+    "tests/m7/https_negative.py": "77bc1a931240d4934d11833e4d7b3bce689476fddb8cec76415e6d2d9336e96a",
+    "tests/m7/isolation.py": "70d92c50d8d8ac255f9f11fc837a31d99bedce662fb0cd847c30728e62aeccad",
+    "tests/m7/maintenance.py": "e7cd040e0f2c48ede49faf5454c2fe2a830468c352320601f94e9d5fa9fd2ab8",
+    "tests/m7/media.py": "24c5987beaca32a0abba9cf3fb09cdb7bbcab10d3ef5e2f758b0fac014b6588d",
+    "tests/m7/network.py": "94f4cdea451d619e3f2a4e9a9230b5aa38ed02b0e86f359a893749715ca54702",
+    "tests/m7/profiles.py": "ba7496d48433612d076ce9d3c1d83a9218f1f26247822613cbef728a0e23446c",
+    "tests/m7/qualify.py": "a2d9e2f8f6141de72432695261dcc72108d76b489b3417773694b6deb90ac70a",
+    "tests/m7/resources.py": "65ae37f71ab93fe1171b4ff49124e2d861813ee7c012b2b62bfec64bb0523f22",
+    "tests/m7/rfb.py": "fba81d95c1deb59e83b0aa63fab72bdc60f6a9fdf6c9ce27a89d2f9ae879541f",
+    "tests/m7/session.py": "452b0d18c0141d34c44b937f1ca637838fcb44ec19a2d747130d77537b4b1af3",
+    "tests/m7/stream.py": "ad40bccacedcde4f1c3f10599d73ea3321bf19c57b9bbd9542265d06e8702f2a",
+    "tests/m7/tcp.py": "663da85b49290bacd8cbdbd5fc44e138fd1fd272c5e4290d64a8bec7e9dc7807",
+    "tests/m7/tls.py": "a30cc1338c8a19f377d9644eccc157cdceb70bae45e369f3ca322d5eabc63691",
+    "tests/m7/usability.py": "718029342e4a131c551824991954b315db1f317bf85d054ba1503153f787fd19",
+    "tests/m7/verify.py": "439c6226ac2d9aaadc2522cc1057b62c498ea6d7a61144d45dfa7473e35c58a4",
+    "tests/m7/vmware.py": "4684dae66347ae00013269af8237a752a166baad7e2b765d30ba870e7adc3efb",
+    "tests/m7/windows.py": "0d46c94967b5528399773db7d30c9a3c2e22a84da1e39e878a06c781e4df1403",
+    "tests/m7/wire.py": "44704324b1551168745c09e66858653b5305bdeeacfb9cd47313f698631568af",
+    "tests/m6/vm.py": "b64028714cead48f38d6112aefbd36472be0985ea6eace04e05fcc0d1d1e7596",
+    "tests/m6/volume.py": "dfd933c854c2c5b57933ea88cc25c93b4e55b6ab13c8e196ab0a689af490a406",
+    "tests/m6/guided.py": "24ef327bdf9c60e42ba7b3ce5bd20f0101c9f8626233947a9ca971516953945b",
+    "tests/m6/workspace.py": "b2e5cf4d8a3834713831686088297a0483a66618a99abd19038f90059bf67d59",
+    "tests/m6/vmware.py": "c1e610cd5a8c9116f41103c09aa8ee91ddf652849371f43093460cd6c4b689d0",
+    "tools/vm/config.py": "0094d23e73a25b97ebca4633c7b3fd82b2b7b89286f87e58aa12336f701455fa",
+    "tools/toolchain-lock.json": "211012fe7407068ee2cde76af21fbf6a13ff5c513fd6b0d18ddb318e03a8f907",
+    "tools/security-toolchain.json": "e4bc4ba9c293c84f32490ed9d56e8ec89f05af3a43a8988e10b2beebb0d302c2"
+  },
+  "gates": [
+    {
+      "test": "regression",
+      "arguments": [
+        "isolation"
+      ],
+      "report": "regression/isolation/results.json",
+      "passed": true,
+      "returncode": 0,
+      "report_sha256": "730d63647da6c523254d62955b8aeeee312d3f4b13f2dd6f4be4ab77a51d0345",
+      "log": "gate-logs/regression-isolation.log",
+      "log_sha256": "2410968b0dbd2e3e0a30bcac29c93369c3f8efb4b8bbc300839f5e46ba94382f"
+    },
+    {
+      "test": "regression",
+      "arguments": [
+        "resources"
+      ],
+      "report": "regression/resources/results.json",
+      "passed": true,
+      "returncode": 0,
+      "report_sha256": "227c1c85045b1a0ea8f845dbe6a88d6fd608809ec724b9d017b8d42ce234ce10",
+      "log": "gate-logs/regression-resources.log",
+      "log_sha256": "dfc9ad72756fafddb46c2efe055fef858c92d004cb84db124343fc1b9606cb54"
+    },
+    {
+      "test": "regression",
+      "arguments": [
+        "distribution"
+      ],
+      "report": "regression/distribution/results.json",
+      "passed": true,
+      "returncode": 0,
+      "report_sha256": "34d298b2a98593eec6b272fe8426690c71325bb92acb3cb95644beae32bf2aff",
+      "log": "gate-logs/regression-distribution.log",
+      "log_sha256": "b856a3eafcdb795549c724b8197401c17996141c2adb26518c3f86308c2b9ae2"
+    },
+    {
+      "test": "regression",
+      "arguments": [
+        "https_negative"
+      ],
+      "report": "regression/https-negative/results.json",
+      "passed": true,
+      "returncode": 0,
+      "report_sha256": "0512dc3ea05965e8c71a33d07b10050516b85155ed9ea987824a215794f408e1",
+      "log": "gate-logs/regression-https_negative.log",
+      "log_sha256": "e09062543ef8cd2802e5c18b2f167de2267e8944bfe0d5a7df01b50e64030f19"
+    },
+    {
+      "test": "regression",
+      "arguments": [
+        "firmware",
+        "--firmware",
+        "bios",
+        "--media",
+        "usb"
+      ],
+      "report": "regression/firmware/bios-usb/results.json",
+      "passed": true,
+      "returncode": 0,
+      "report_sha256": "d5a7267d0b6d716aa283529f6dd240bcf0c7e53024fda4e82105dbf4be06247b",
+      "log": "gate-logs/regression-firmware-firmware-bios-media-usb.log",
+      "log_sha256": "10e5d5f570681b49d92bca3dfe65e144f09316867fe7c72d27e054faedaf5ad8"
+    },
+    {
+      "test": "regression",
+      "arguments": [
+        "firmware",
+        "--firmware",
+        "uefi",
+        "--media",
+        "usb"
+      ],
+      "report": "regression/firmware/uefi-usb/results.json",
+      "passed": true,
+      "returncode": 0,
+      "report_sha256": "6d5308c4a69054c1756d7675c3c800e11e2a0ecd1b3b4bc3ff32343dd497d189",
+      "log": "gate-logs/regression-firmware-firmware-uefi-media-usb.log",
+      "log_sha256": "6311cf5dd82da493a46ae2ff8454eec5df9e814832d9aa20eba4f2246649cb76"
+    }
+  ],
+  "scope": "one group alone does not establish complete M7.1 acceptance"
+}

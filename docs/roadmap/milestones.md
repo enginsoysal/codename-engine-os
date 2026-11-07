@@ -90,9 +90,13 @@ Include supported networking, automatic setup, name resolution, valid-time/certi
 
 **Acceptance:** boot an installed system into the desktop; open/move/resize/switch several windows; create/edit/save/reopen files across restart; change persistent settings; download and verify a real file, reject invalid certificates and recover from network loss; contain an app crash while the desktop remains usable. Measure idle CPU, damage-driven repainting, peak/retained RAM/VRAM and responsiveness under memory pressure. Start with a bounded CPU-rendered path if appropriate; GPU acceleration is added when a target needs it. Publish exact tested limits. A native text editor is not evidence of Windows application compatibility.
 
+## M7.1 — installer disk and partition management
+
+The owner added this before M8 after testing M7 on an existing disk. Deliver native guided partition inspection, GPT/primary-MBR creation/deletion, FAT32/Engine quick formatting, safe cancel/consent and explicit whole-disk replacement through the installer. Preserve other partitions in individual operations, and qualify existing-disk installation through detached desktop boot. Logical partitions, resize/move, non-destructive conversion, secure erase and dual-boot installation remain outside this bounded release. [Contract, choices and acceptance](../milestones/m7.1.md).
+
 ## M8 — original MS-DOS and Windows 1.x through Windows 11 applications
 
-**Priority 3. Depends on:** M6 and M7. Windows remains the first foreign application ecosystem. Explicitly include original MS-DOS programs/games, Windows 1.x/2.x/3.x applications, Windows 95/98/Me and the NT generations through Windows 11. Windows 95 support does not imply early Windows or DOS support. Installer and payload formats/architectures/version expectations are separate inventory fields.
+**Priority 3. Depends on:** M6, M7 and M7.1. Windows remains the first foreign application ecosystem. Explicitly include original MS-DOS programs/games, Windows 1.x/2.x/3.x applications, Windows 95/98/Me and the NT generations through Windows 11. Windows 95 support does not imply early Windows or DOS support. Installer and payload formats/architectures/version expectations are separate inventory fields.
 
 This is a substantial program of independently qualified submilestones, not one loader or a universal flawless-start promise:
 

@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "checks": [
+    "real M7 desktop creates persistent document",
+    "M7.1 Update stages distinct kernel and boots detached desktop with unchanged complete data partition",
+    "M7.1 Rollback restores original M7 build and exact data",
+    "deliberately damaged owned BIOS payload refuses boot; M7.1 ISO repairs stored active slot without data changes"
+  ],
+  "build_id": "6fb1adabffecc22b706ff354859a49d8",
+  "iso_sha256": "cf246e8a9321058633064260f1e5f1766cc4db4f080de8403010409a84f75e5b",
+  "previous_build_id": "d2c55268cc978efc04f371aab52bb3ae",
+  "data_partition_sha256": "e227f301485bc42ab4e7f1c7abee2186512d6e8fc8e8d2cc7581c6dc3db90411"
+}

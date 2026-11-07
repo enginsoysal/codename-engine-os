@@ -8,7 +8,7 @@
   ],
   "firmware": "bios",
   "table": "mbr",
-  "build_id": "eb1fd07f8c884bddab36a3ea647e9803",
-  "iso_sha256": "66d97784939f989ad2cf58547711355438ca1d72ab7402f3bcf1020d03cabcf8",
+  "build_id": "6fb1adabffecc22b706ff354859a49d8",
+  "iso_sha256": "cf246e8a9321058633064260f1e5f1766cc4db4f080de8403010409a84f75e5b",
   "preserved_partition_sha256": "d0ac5ad3f40e3190eb464598aa749659824e84c0b7e76ce0a85d4abdf1940329"
 }

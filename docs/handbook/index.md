@@ -1,14 +1,15 @@
 # Engine OS user handbook
 
-Start with **M7 v0.7.0**. The native graphical installer offers Back, Next, review, Install and Finish. You choose the disk, optional guide/Calculator, local name and accent; the installer creates its partitions. No terminal commands are required for ordinary setup.
+Start with **M7.1 v0.7.1**. The native graphical installer offers Back, Next, review, Install and Finish. You choose the disk, optional guide/Calculator, local name and accent; the installer creates its partitions. Existing-disk replacement requires final whole-disk consent; Manage disks handles individual data operations. No terminal commands are required for ordinary setup.
 
-- [Download and install in VMware, step by step](install-m7.md)
-- [Repair, update or roll back compatible system slots](recovery-m7.md)
+- [Download and install in VMware, step by step](install-m71.md)
+- [Repair, update or roll back compatible system slots](recovery-m71.md)
+- [Manage data partitions and format safely](disk-manager-m71.md)
 - [Build and customize your own distribution](distributions.md)
-- [Current release, checksum and qualified limits](../releases/m7-v0.7.0.md)
+- [Current release, checksum and qualified limits](../releases/m71-v0.7.1.md)
 - [Product principles](../architecture/product-principles.md) and [current status](../roadmap/status.md)
 
-Use a new disposable SATA disk of at least 2 GiB, two CPUs and 128 MiB RAM. Disable Secure Boot. After successful installation, power off, disconnect the ISO and restart. The installed disk enters the real desktop and retains your choices/files. Use e1000e NAT for downloads. [Desktop controls and everyday tasks](desktop-m7.md). MS-DOS/Windows application execution remains M8.
+Use a disposable SATA disk of at least 2 GiB; existing contents require the explicit replacement route. Use two CPUs and 128 MiB RAM. Disable Secure Boot. After successful installation, power off, disconnect the ISO and restart. The installed disk enters the real desktop and retains your choices/files. Use e1000e NAT for downloads. [Desktop controls and everyday tasks](desktop-m7.md). MS-DOS/Windows application execution remains M8.
 
 [Online documentation and downloads](https://engineos.brixcanvas.com) update from canonical GitHub Markdown and official release assets. [Website maintenance](../../website/README.md).
 

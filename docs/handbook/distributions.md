@@ -1,5 +1,9 @@
 # Build your own Engine OS distribution
 
+## M7.1 installer and desktop profiles
+
+Build the current disk-manager media with `python tools/build/m71.py`. Standard uses `distros/engineos-disk.json`; the separately installable Night example uses `python tools/build/m71.py --revision night --profile distros/engineos-disk-night.json`. Both identify version 0.7.1 and retain the Engine OS name. The same implemented schema-2 appearance/optional-app fields below apply; disk consent, protected partitions and core checks cannot be removed by a profile. The final M7.1 custom gate qualifies real Night installation/defaults, Calculator omission/reinstall and restart persistence. Historical M7 profiles/artifacts remain unchanged.
+
 ## M7 native desktop profiles
 
 M7 adds validated schema-2 desktop defaults. The standard profile is `distros/engineos-desktop.json`. The separate `distros/engineos-night.json` example retains the Engine OS name, uses dark windows, a lavender accent and a plum background, and leaves Calculator uninstalled by default. The offline package cache remains available for later installation. Build it with:

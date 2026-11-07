@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checks": [
+    "two identical-capacity SATA disks have distinct selectable controller/port identities",
+    "native format on disk 2 preserves ALL bytes of disk 1 and the other partition on disk 2",
+    "disk navigation returns to disk 1 without writing"
+  ],
+  "build_id": "6fb1adabffecc22b706ff354859a49d8",
+  "iso_sha256": "cf246e8a9321058633064260f1e5f1766cc4db4f080de8403010409a84f75e5b",
+  "untouched_disk_sha256": "2477d93c8afcf087f7e15885b4f99e2527be08595c6e8c8ed510186d348b1b67"
+}

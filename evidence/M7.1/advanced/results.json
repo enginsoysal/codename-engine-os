@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "checks": [
+    "cancelled GPT initialization/clearing preserve full image; confirmed new GPT, typed 128-MiB named partition and quick metadata clear operate through real GUI",
+    "actual corrupted primary GPT refuses ordinary editing; native explicit backup-copy repair restores independently CRC-checked tables and retains foreign payload"
+  ],
+  "build_id": "6fb1adabffecc22b706ff354859a49d8",
+  "iso_sha256": "cf246e8a9321058633064260f1e5f1766cc4db4f080de8403010409a84f75e5b"
+}

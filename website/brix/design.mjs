@@ -23,8 +23,8 @@ export function nativeDesign(){
    text('PROJECT SNAPSHOT / X86-64',10,'#90a6b8',{letterSpacing:'1.5px',py:10}),
    heading('CODENAME: ENGINE OS',18,'#e4edf1',{py:12}),
    text('Original kernel · BIOS + UEFI boot',13,'#35ceba'),
-   text('M7 installed desktop · Custom distributions',12,'#90a6b8'),
-   b('code',{code:'Welcome → Your disk → Components\nYour style → Review → Install → Finish\nDesktop · Files · Editor · HTTPS'}),
+   text('M7.1 desktop · Installer disk manager',12,'#90a6b8'),
+   b('code',{code:'Choose disk → Manage partitions\nReview → Confirm → Install → Finish\nNative desktop · Files · HTTPS'}),
  ]],{bg:{kind:'color',color:dark},border:1,borderColor:'#35ceba',radius:4,padY:18,minH:320,valign:'center'});
  const hero=layout([[
    text('THE ENGINE OS KNOWLEDGE BASE',11,teal,{letterSpacing:'1.6px',weight:600,py:12}),
@@ -37,9 +37,9 @@ export function nativeDesign(){
  hero.props.columns[0].children.at(-1).props.columns[0].width=60;
  hero.props.columns[0].children.at(-1).props.columns[1].width=40;
  const cards=layout([
-   card('01 / FIRST BOOT','Run it in VMware','Download the ISO, choose the VM settings, and know what to expect on screen.','Open the setup guide ↗','docs-handbook-install-m7'),
+   card('01 / FIRST BOOT','Run it in VMware','Download the ISO, choose the VM settings, and know what to expect on screen.','Open the setup guide ↗','docs-handbook-install-m71'),
    card('02 / CUSTOMIZE','Build your own distro.','Choose your own name, accent, wallpaper, dark mode and optional Calculator with a validated distribution profile.','Open the distro guide ↗','docs-handbook-distributions'),
-   card('03 / RECOVERY','Repair and update','Use the graphical recovery choices to repair boot, update or roll back compatible M7 system slots.','Open the recovery guide ↗','docs-handbook-recovery-m7'),
+   card('03 / RECOVERY','Repair and update','Use the graphical recovery choices to repair boot, update or roll back compatible M7/M7.1 system slots.','Open the recovery guide ↗','docs-handbook-recovery-m71'),
  ],{bg:{kind:'color',color:'#ffffff'},border:1,borderColor:'#dbe3e6',divided:true,ruleColor:'#dbe3e6',radius:4,padY:24});
  cards.props.columns.forEach(column=>{column.width=100/3;});
  const bottom=layout([[
@@ -54,7 +54,7 @@ export function nativeDesign(){
  bottom.props.columns.forEach(column=>{column.width=50;});
  const main=layout([[
    hero,heading('A good place to start',27,ink,{py:24}),cards,
-   b('alert',{variant:'warning',title:'Before you install M7',text:'Use a new SATA disk of at least 2 GiB and disable Secure Boot. Follow the graphical wizard and review the selected disk before Install. Setup creates boot/system partitions and uses the remaining aligned capacity for native data. After Finish, power off, disconnect the ISO and restart. The installed disk enters the M7 desktop. Use e1000e NAT for downloads; DOS/Windows applications remain M8.'}),bottom,
+   b('alert',{variant:'warning',title:'Before you install M7.1',text:'Use a new SATA disk of at least 2 GiB and disable Secure Boot. Follow the graphical wizard and review the selected disk before Install. Setup creates boot/system partitions and uses the remaining aligned capacity for native data. After Finish, power off, disconnect the ISO and restart. The installed disk enters the native desktop. Use Manage disks for partition operations, or Erase and install for whole-disk replacement after consent. Use e1000e NAT for downloads; DOS/Windows applications remain M8.'}),bottom,
  ]],{bg:{kind:'color',color:paper},padY:12});
  const footer=b('socialcircles',{copyright:'Codename: Engine OS / MIT licensed · Documentation & releases on GitHub',bg:paper,circleBg:teal,items:[{label:'github',href:'https://github.com/enginsoysal/codename-engine-os'},{label:'website',href:`${site}/blog/documentation`}]});
  return [header,status,main,footer];

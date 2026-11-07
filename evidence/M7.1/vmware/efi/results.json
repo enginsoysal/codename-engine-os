@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "checks": [
+    "real VMware native graphical disk manager and RFB PS/2 keyboard FAT32 format; unchecked consent refuses; unrelated 128-MiB partition bytes preserved",
+    "existing 20-GiB GPT disk replacement follows retained wizard choices and requires separate whole-disk consent before actual installation",
+    "detached desktop with real PS/2 Editor input/save, e1000e DHCP/checked HTTPS and exact persistent document/download bytes across restart"
+  ],
+  "firmware": "efi",
+  "build_id": "6fb1adabffecc22b706ff354859a49d8",
+  "iso_sha256": "cf246e8a9321058633064260f1e5f1766cc4db4f080de8403010409a84f75e5b",
+  "disk_gib": 20,
+  "preserved_partition_sha256": "d0ac5ad3f40e3190eb464598aa749659824e84c0b7e76ce0a85d4abdf1940329",
+  "input_scope": "authenticated loopback RFB of owned guests; no host desktop automation",
+  "existing_vm_inventory_unchanged": true
+}

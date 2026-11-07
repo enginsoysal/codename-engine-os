@@ -52,18 +52,19 @@ export function build(output){
  }
  const releases=JSON.parse(execFileSync('gh',['api','repos/enginsoysal/codename-engine-os/releases?per_page=100'],{cwd:root,encoding:'utf8',maxBuffer:4*1024*1024})).filter(r=>!r.draft);
  const downloads=[];const add=(type,props)=>downloads.push({id:`engine-downloads-${downloads.length+1}`,type,props});
- const current=releases.some(r=>r.tag_name==='m7-v0.7.0')?'M7':'M6';
- const tag=current==='M7'?'m7-v0.7.0':'m6-v0.6.0';
- const guide=current==='M7'?'install-m7':'install-m6';
- add('text',{text:`Download original Engine OS release files directly from GitHub. Check the complete SHA256 value before booting. ${current} provides the current graphical installer${current==='M7'?' and installed desktop':''}; use a separate test VM, a new SATA target and disable Secure Boot for public unsigned media. Earlier releases remain historical.`,size:17,color:'#152434'});
- if(releases.some(r=>r.tag_name===tag))add('richtext',{html:`<p><strong>Start here: <a href="${GH}/releases/download/${tag}/EngineOS-${current}.iso">Download the standard Engine OS ${current} ISO</a></strong></p><p>Use the standard ISO for ordinary VMware testing; NIGHT/MINIMAL/U1 images are separate distribution or update examples. Download the accompanying third-party notices. <a href="${SITE}/blog/docs-handbook-${guide}">Follow the installation tutorial</a>.</p>`,size:17});
+ const current=releases.some(r=>r.tag_name==='m71-v0.7.1')?'M71':releases.some(r=>r.tag_name==='m7-v0.7.0')?'M7':'M6';
+ const currentLabel=current==='M71'?'M7.1':current;
+ const tag=current==='M71'?'m71-v0.7.1':current==='M7'?'m7-v0.7.0':'m6-v0.6.0';
+ const guide=current==='M71'?'install-m71':current==='M7'?'install-m7':'install-m6';
+ add('text',{text:`Download original Engine OS release files directly from GitHub. Check the complete SHA256 value before booting. ${currentLabel} provides the current graphical installer${current!=='M6'?' and installed desktop':''}; use a separate test VM, a new SATA target and disable Secure Boot for public unsigned media. Earlier releases remain historical.`,size:17,color:'#152434'});
+ if(releases.some(r=>r.tag_name===tag))add('richtext',{html:`<p><strong>Start here: <a href="${GH}/releases/download/${tag}/EngineOS-${current}.iso">Download the standard Engine OS ${currentLabel} ISO</a></strong></p><p>Use the standard ISO for ordinary VMware testing; NIGHT/MINIMAL/U1 images are separate distribution or update examples. Download the accompanying third-party notices. <a href="${SITE}/blog/docs-handbook-${guide}">Follow the installation tutorial</a>.</p>`,size:17});
  add('richtext',{html:`<p><a href="${GH}/releases">Official release history</a> · <a href="${SITE}/blog/docs-releases-${tag.replaceAll('.','-')}">VMware setup and verification</a> · <a href="${SITE}/blog/docs-handbook-${guide}">Missing disk?</a></p>`,size:17});
  let stable=false;
  for(const r of releases){
    const label=r.prerelease?'Historical preview':stable?'Earlier release':'Latest stable';if(!r.prerelease)stable=true;
    add('heading',{text:`${r.name||r.tag_name} — ${label}`,level:2,size:27,color:'#152434'});
    add('richtext',{html:`<p>Published ${escape(r.published_at?.slice(0,10)||'unknown')} · <a href="${escape(r.html_url)}">Official release notes</a></p>`,size:15});
-   const assets=[...r.assets].sort((a,b)=>{const rank=n=>/^EngineOS-(?:M6(?:U1|MINIMAL)|M7NIGHT)\.iso$/i.test(n)?4:/\.iso$/i.test(n)?0:/\.img$/i.test(n)?1:/sha256/i.test(n)?2:3;return rank(a.name)-rank(b.name)});
+   const assets=[...r.assets].sort((a,b)=>{const rank=n=>/^EngineOS-(?:M6(?:U1|MINIMAL)|M7NIGHT|M71NIGHT)\.iso$/i.test(n)?4:/\.iso$/i.test(n)?0:/\.img$/i.test(n)?1:/sha256/i.test(n)?2:3;return rank(a.name)-rank(b.name)});
    for(const a of assets)add('richtext',{html:`<p><a href="${escape(a.browser_download_url)}"><strong>Download ${escape(a.name)}</strong></a> — ${(a.size/1048576).toFixed(2)} MiB</p>${a.digest?`<pre><code>${escape(a.digest)}</code></pre>`:''}`,size:16});
  }
  posts.push({id:'engine-downloads',slug:'downloads',title:'Downloads and SHA256 verification',status:'published',bodyFormat:'brix',blocks:downloads,category:'downloads',tags:['Downloads','Releases'],author:'Engine OS project',date:new Date().toISOString().slice(0,10),featured:true,meta:[{key:'engine_source_path',value:'@releases'},{key:'engine_source_commit',value:ref}]});

@@ -143,3 +143,12 @@ Before physical tests: select an explicit test computer; never use the developme
 **Networking/security:** original bounded Intel 8254x/82574 DMA, IPv4 configuration and TCP/HTTP integrate a nonblocking unchanged BearSSL TLS 1.2 engine. RDRAND and explicit UTC/root/hostname checks fail closed. MSI is the qualified VMware route; unsupported legacy routing is refused. Bounded retries and a 4-KiB COW volume stage trade throughput for predictable RAM; no whole-file managed download buffer is needed. Public third-party licenses/source remain available alongside binary releases.
 
 **Qualification:** exact committed source and media digests, automated complete native tasks and independent disk/packet/cryptographic adapters distinguish implementation from claims. VMware visual input/capture targets only owned loopback guests, never the host desktop. All 26 final gates pass, and 146 old accepted proofs remain unchanged. Named VM scope is deliberate; universal hardware, human usability and original DOS/Windows execution require their own evidence.
+
+
+## M7.1 installer disk management
+
+**Choice/how:** original bounded GPT/primary-MBR backend with read-only plans, device/metadata revalidation, verified writes, explicit review/consent and safe cancel. FAT32 metadata is built directly; Engine data formatting reuses the existing native-volume workspace. The GUI separates individual data operations from whole-disk replacement.
+
+**Why/alternatives:** refusing every existing disk forced users into external tools and did not satisfy convenient installation. Silently treating formatting one partition as permission to repartition a whole disk would lose unrelated data. Retaining the qualified boot/system-slot layout and providing an explicit replacement route avoids claiming unimplemented dual-boot placement or filesystem relocation. Noncanonical/ambiguous layouts and protected entries fail closed.
+
+**Verification/limits:** 15 exact-artifact gates include 902 failed/torn writes, independent table/filesystem decoding, native operation/cancel tasks, two equal-capacity disks, actual VMware BIOS/UEFI and retained desktop/custom/update behavior. All 322 previous frozen proofs remain unchanged. Quick format/metadata clear are not secure erasure; torn writes may require explicit repair. [Design](disk-manager-m71.md), [user manual](../handbook/disk-manager-m71.md), [acceptance](../../evidence/M7.1/acceptance-results.json).

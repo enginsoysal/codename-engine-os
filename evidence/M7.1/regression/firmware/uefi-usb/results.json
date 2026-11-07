@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "m7_complete": false,
+  "firmware": "uefi",
+  "media": "usb",
+  "checks": [
+    "exact live medium boots own native wizard",
+    "actual guided blank-target installation",
+    "media-detached native desktop enters CPL3 editor through keyboard controls and saves exact bytes",
+    "second detached desktop boot retains independently CRC-checked document",
+    "idle CPUs halt"
+  ],
+  "build_id": "6fb1adabffecc22b706ff354859a49d8",
+  "iso_sha256": "cf246e8a9321058633064260f1e5f1766cc4db4f080de8403010409a84f75e5b",
+  "usb_sha256": "e65d6de43f18629cb52b865f7d7158632e17211c5b5a15df6ed0978faec626d2",
+  "input": "USB HID",
+  "scope": "named native firmware/media/input and persisted desktop task; complete M7 acceptance is separate"
+}

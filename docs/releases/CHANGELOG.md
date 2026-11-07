@@ -1,5 +1,9 @@
 # Changelog
 
+## M7.1 v0.7.1 — 2026-11-07
+
+Native installer disk manager with GPT/primary-MBR data-partition creation/deletion, actual FAT32/Engine quick formatting, GPT initialization/explicit copy repair and protected entries. Existing-disk installation follows full read-only planning and requires separate whole-disk consent. Equal-capacity disk isolation, cancel/refusal, actual VMware BIOS/UEFI, USB, Night distro, update/rollback/repair and desktop/pressure/TLS regressions pass 15 gates within M71-VM-v1. [Release](m71-v0.7.1.md), [installation](../handbook/install-m71.md), [disk utility](../handbook/disk-manager-m71.md), [acceptance](../../evidence/M7.1/acceptance-results.json). No resize, conversion, secure wipe, selected-partition OS installation or original Windows/DOS runtime claim.
+
 ## M7 v0.7.0 — 2026-11-07
 
 Real installed desktop with movable/resizable windows, keyboard controls, Files, named Editor documents, clipboard, persistent Settings, independently removable native Calculator and optional Advanced Terminal. Separate CPL3 programs contain faults/timeouts. Original Intel e1000/e1000e DHCP/DNS/TCP/HTTP plus checked TLS 1.2 downloads stream to native storage. Custom Night distro, memory-pressure/idle tasks, native BIOS/UEFI ISO/USB and real VMware BIOS/UEFI desktop/download/restart pass within M7-VM-v1. [Release and limits](m7-v0.7.0.md), [VMware tutorial](../handbook/install-m7.md), [exact acceptance](../../evidence/M7/acceptance-results.json). Original DOS/Windows application execution remains M8.

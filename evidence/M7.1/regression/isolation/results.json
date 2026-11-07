@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "m7_complete": false,
+  "checks": [
+    {
+      "name": "separate Calculator ELF executes arithmetic in CPL3, actual UD2 is contained, private space is reaped and a separate Editor still saves useful text",
+      "passed": true
+    },
+    {
+      "name": "UD2, CPU-bound loop timeout, kernel/code writes and malformed output are contained; allocations return to baseline; required Editor removal is denied",
+      "passed": true,
+      "fault_cases": 5
+    },
+    {
+      "name": "Calculator executable removed while Editor/shared services remain usable; clipboard copies real document into a second saved file; independent volume CRC/bytes inspection",
+      "passed": true
+    },
+    {
+      "name": "removed app and actual theme/accent persist across detached boot, existing document reopens, then optional app reinstalls from cache without changing user files",
+      "passed": true
+    }
+  ],
+  "build_id": "6fb1adabffecc22b706ff354859a49d8",
+  "iso_sha256": "cf246e8a9321058633064260f1e5f1766cc4db4f080de8403010409a84f75e5b",
+  "scope": "native desktop/app/package slice; networking and full M7 qualification remain pending"
+}
