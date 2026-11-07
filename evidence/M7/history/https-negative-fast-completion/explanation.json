@@ -1,0 +1,4 @@
+{
+  "cause": "The second 200116-byte public CA download finished before the test could disconnect the cable. Certificate refusal and cancellation cases had passed; cable-loss assertion expected an active request and therefore failed. Add a bounded delivery-delay fixture for deterministic interruption; do not interpret the failed harness as native cable-loss proof.",
+  "observed_build": "1855aff786bd3fb69852c6f2c8a4138a"
+}

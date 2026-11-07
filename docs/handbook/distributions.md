@@ -1,5 +1,19 @@
 # Build your own Engine OS distribution
 
+## M7 native desktop profiles
+
+M7 adds validated schema-2 desktop defaults. The standard profile is `distros/engineos-desktop.json`. The separate `distros/engineos-night.json` example retains the Engine OS name, uses dark windows, a lavender accent and a plum background, and leaves Calculator uninstalled by default. The offline package cache remains available for later installation. Build it with:
+
+```powershell
+python tools/build/m7.py --revision night --profile distros/engineos-night.json
+```
+
+This produces `dist/EngineOS-M7NIGHT.iso` and its own manifest. Fresh installation applies the actual desktop defaults; updating an existing installation does not silently remove an already installed optional app or overwrite saved personal preferences. The wizard permits changing Calculator and guide selection before disk writes.
+
+Schema 2 retains the schema-1 identity/data fields and requires exactly one `desktop` object with boolean `dark` and `calculator`, a six-digit `wallpaper` colour, and a printable `tagline` of at most 48 characters. Accent, installer/distribution name, welcome text and selected data packages remain implemented fields. Unknown options, non-boolean toggles, arbitrary hooks and core-removal fields are rejected. Historical data-only builds refuse schema 2. Core boot/storage checks and TLS policy cannot be bypassed by a profile.
+
+Host schema checks pass; the actual separately built custom desktop ISO still requires its native qualification report before release. [M7 status](../milestones/m7.md).
+
 ## M6 native installer distributions
 
 M6 extends the recipe into its native wizard and installed volume: branding/accent, default guide selection and selected data files affect the real image. User template paths below `/Users/test/` map to the account selected in the wizard. The sample `distros/engineos-minimal.json` keeps the Engine OS identity and excludes guide data by default. Build it with `python tools/build/m6.py --revision minimal --profile distros/engineos-minimal.json`. The separate output is `dist/EngineOS-M6MINIMAL.iso`; this does not replace the main standard media.

@@ -9,6 +9,13 @@ static unsigned command_overflow,terminal;static char command[256];static unsign
 static unsigned maintenance,step,focus,controls,chosen=UINT32_MAX,busy,percent,installed,diagnostics;
 static uint32_t accent=DISTRO_ACCENT;static m6_preferences preferences={"Owner",DISTRO_ACCENT,DISTRO_M6_GUIDE};
 static const char *failure,*stage,*notice,*validation;
+#ifdef ENGINE_M7
+static unsigned calculator_selection=DISTRO_DESKTOP_CALCULATOR;
+unsigned m7_calculator_selection(void){return calculator_selection;}
+#define DESKTOP_FINISH_TEXT "Start again to enter your installed Engine OS desktop."
+#else
+#define DESKTOP_FINISH_TEXT "The desktop will follow in a later release."
+#endif
 typedef struct{unsigned x,y,w,h,action;} control;
 static control buttons[24];static unsigned left,top,width,height,body,bottom;
 static void label(unsigned x,unsigned y,const char*s,unsigned size,uint32_t color){gui6_text(x,y,s,size,color);}
@@ -23,14 +30,26 @@ static void render(void){
  unsigned x=body,y=top+110;
  if(diagnostics){label(x,y,"Technical details",3,0xffffff);label(x,y+50,"Build",2,0x95aab4);label(x,y+80,BUILD_ID,1,0xc5d9dd);textnum(x,y+115,pages_stats().current_pages*4096/1024," KiB managed RAM");textnum(x,y+150,pages_stats().peak_pages*4096/1024," KiB peak RAM");if(installed){button(x,y+200,230,"Write test file",60,0);button(x,y+250,230,"Verify test file",61,0);}button(x,y+300,230,"Advanced terminal",64,0);if(notice)label(x,y+355,notice,1,accent);button(x,bottom-65,160,"Return",62,0);return;}
  if(failure){label(x,y,"We could not finish.",3,0xffffff);label(x,y+65,failure,1,0xf4b29d);label(x,y+100,"No installation success is claimed.",1,0xa5bac2);label(x,y+125,"Keep this ISO for recovery. Check Details.",1,0xa5bac2);button(x,bottom-60,160,"Back",63,0);button(x+180,bottom-60,160,"Details",50,0);return;}
- if(installed){label(x,y,"Your system is ready.",3,0xffffff);label(x,y+55,preferences.user,2,accent);label(x,y+90,"Booted from disk. Your settings are persistent.",1,0xa5bac2);textnum(x,y+125,v6_capacity(m6_volume())/(1024*1024)," MiB data capacity");label(x,y+165,"The desktop will follow in a later release.",1,0xa5bac2);button(x,y+210,230,"Change accent",70,0);button(x,y+265,230,"Save preferences",71,1);if(preferences.guide)button(x,y+320,230,"Remove guide",72,0);if(notice)label(x,y+375,notice,1,accent);button(x,bottom-65,180,"Details",50,0);return;}
+ if(installed){label(x,y,"Your system is ready.",3,0xffffff);label(x,y+55,preferences.user,2,accent);label(x,y+90,"Booted from disk. Your settings are persistent.",1,0xa5bac2);textnum(x,y+125,v6_capacity(m6_volume())/(1024*1024)," MiB data capacity");label(x,y+165,DESKTOP_FINISH_TEXT,1,0xa5bac2);button(x,y+210,230,"Change accent",70,0);button(x,y+265,230,"Save preferences",71,1);if(preferences.guide)button(x,y+320,230,"Remove guide",72,0);if(notice)label(x,y+375,notice,1,accent);button(x,bottom-65,180,"Details",50,0);return;}
  if(step==0){label(x,y,"A fresh start.",4,0xffffff);label(x,y+45,"Made yours.",4,0xffffff);label(x,y+115,"A guided setup, with room to choose.",2,0xa5bac2);label(x,y+150,"Review every change before installation.",1,0xa5bac2);gui6_rect(x,y+195,width-250,75,0x1a2c34);label(x+15,y+212,"Your system. Your choices.",2,0xffffff);label(x+15,y+244,DISTRO_WELCOME,1,0xa5bac2);label(x,y+300,"Unsigned BIOS/UEFI media: disable Secure Boot.",1,0x9fb2ba);}
  if(step==1){label(x,y,"Choose your disk.",3,0xffffff);label(x,y+50,"Only a new supported SATA disk can be installed.",1,0x9fb2ba);unsigned count=storage_count();if(!count)label(x,y+100,"No disk detected. Add a SATA disk in VMware.",1,0xf4b29d);for(unsigned i=0;i<count&&i<4;++i){const storage_disk*d=storage_get(i);char n[20]="Disk ";n[5]=(char)('1'+i);n[6]=0;button(x,y+90+i*55,135,n,100+i,chosen==i);textnum(x+155,y+103+i*55,d->sectors/2097152," GiB");}label(x,y+330,maintenance?"Select an Engine OS installation to maintain.":"Installation prepares the WHOLE selected disk.",1,0xf4b29d);}
- if(step==2){label(x,y,"Keep what you need.",3,0xffffff);label(x,y+55,"Base system and recovery are required.",1,0x9fb2ba);button(x,y+105,300,preferences.guide?"Welcome guide: On":"Welcome guide: Off",20,0);label(x,y+170,"The guide is optional and independently removable.",1,0x9fb2ba);label(x,y+205,"Desktop apps are not included in this release.",1,0x9fb2ba);label(x,y+235,"Your files stay separate from the base system.",1,0x9fb2ba);}
+ if(step==2){label(x,y,"Keep what you need.",3,0xffffff);label(x,y+55,"Base system and recovery are required.",1,0x9fb2ba);button(x,y+105,300,preferences.guide?"Welcome guide: On":"Welcome guide: Off",20,0);
+#ifdef ENGINE_M7
+ button(x,y+160,300,calculator_selection?"Calculator: On":"Calculator: Off",21,0);
+ label(x,y+225,"Desktop, Files and Text Editor are included.",1,0x9fb2ba);
+ label(x,y+255,"Calculator and the guide are optional. Personal files stay separate.",1,0x9fb2ba);
+#else
+ label(x,y+170,"The guide is optional and independently removable.",1,0x9fb2ba);label(x,y+205,"Desktop apps are not included in this release.",1,0x9fb2ba);label(x,y+235,"Your files stay separate from the base system.",1,0x9fb2ba);
+#endif
+}
  if(step==3){label(x,y,"Make yourself at home.",3,0xffffff);label(x,y+55,"Your account name (letters, digits, - or _)",1,0x9fb2ba);button(x,y+85,300,preferences.user,30,0);label(x,y+150,"Setup accent",2,0x9fb2ba);button(x,y+185,135,"Mint",31,accent==0x62e5bd);button(x+150,y+185,135,"Lavender",32,accent==0x9caeff);button(x+300,y+185,135,"Amber",33,accent==0xf4c47c);label(x,y+260,"Click the name field to edit. Tab changes focus.",1,0x9fb2ba);label(x,y+290,"The name and accent survive installed boots.",1,0x9fb2ba);if(validation)label(x,y+320,validation,1,0xf4b29d);}
- if(step==4){label(x,y,"Everything look right?",3,0xffffff);label(x,y+60,maintenance?"Boot files change; user data is preserved.":"Data on the selected disk may be lost.",1,0xf4b29d);textnum(x,y+110,chosen+1," - Selected disk number");textnum(x,y+150,(m6_plan()->data.last-m6_plan()->data.first+1)/2048," MiB data partition");label(x,y+195,"User",1,0x9fb2ba);label(x+90,y+190,preferences.user,2,0xffffff);label(x,y+240,preferences.guide?"Welcome guide included":"Welcome guide excluded",1,0x9fb2ba);label(x,y+280,maintenance==1?"Repair replays the active verified boot slot.":maintenance==2?"Update stages this ISO into the inactive slot.":maintenance==3?"Rollback restores the previous verified boot slot.":"Back changes choices. Install begins disk writes.",1,0xf4b29d);}
+ if(step==4){label(x,y,"Everything look right?",3,0xffffff);label(x,y+60,maintenance?"Boot files change; user data is preserved.":"Data on the selected disk may be lost.",1,0xf4b29d);textnum(x,y+110,chosen+1," - Selected disk number");textnum(x,y+150,(m6_plan()->data.last-m6_plan()->data.first+1)/2048," MiB data partition");label(x,y+195,"User",1,0x9fb2ba);label(x+90,y+190,preferences.user,2,0xffffff);label(x,y+240,preferences.guide?"Welcome guide included":"Welcome guide excluded",1,0x9fb2ba);
+#ifdef ENGINE_M7
+ label(x+320,y+240,calculator_selection?"Calculator included":"Calculator excluded",1,0x9fb2ba);
+#endif
+ label(x,y+280,maintenance==1?"Repair replays the active verified boot slot.":maintenance==2?"Update stages this ISO into the inactive slot.":maintenance==3?"Rollback restores the previous verified boot slot.":"Back changes choices. Install begins disk writes.",1,0xf4b29d);}
  if(step==5){label(x,y,"Getting things ready.",3,0xffffff);label(x,y+70,stage?stage:"Preparing",1,0xa5bac2);gui6_rect(x,y+125,width-250,12,0x35464c);gui6_rect(x,y+125,(width-250)*percent/100,12,accent);textnum(x,y+165,percent," percent verified");label(x,y+230,"Do not disconnect the disk during installation.",1,0xa5bac2);}
- if(step>=6){label(x,y,maintenance==1?"Boot repair complete.":maintenance==2?"Update complete.":maintenance==3?"Rollback complete.":"Installation complete.",3,0xffffff);label(x,y+65,maintenance?"Verified boot files. User data was not formatted.":"Verified system files and persistent user setup.",1,0xa5bac2);label(x,y+115,"1. Power off this virtual machine.",2,0xffffff);label(x,y+155,"2. Disconnect the ISO or USB media.",2,0xffffff);label(x,y+195,"3. Start it again to boot Engine OS.",2,0xffffff);label(x,y+270,"The desktop will follow in a later release.",1,accent);}
+ if(step>=6){label(x,y,maintenance==1?"Boot repair complete.":maintenance==2?"Update complete.":maintenance==3?"Rollback complete.":"Installation complete.",3,0xffffff);label(x,y+65,maintenance?"Verified boot files. User data was not formatted.":"Verified system files and persistent user setup.",1,0xa5bac2);label(x,y+115,"1. Power off this virtual machine.",2,0xffffff);label(x,y+155,"2. Disconnect the ISO or USB media.",2,0xffffff);label(x,y+195,"3. Start it again to boot Engine OS.",2,0xffffff);label(x,y+270,DESKTOP_FINISH_TEXT,1,accent);}
  gui6_rect(left+1,bottom-1,width-2,1,0x35464e);label(left+20,bottom+28,"Tab / Enter or mouse",1,0x9fb2ba);if(!busy&&step<5){if(step)button(left+width-300,bottom+14,120,"Back",1,0);button(left+width-160,bottom+14,135,step==4?(maintenance?"Confirm":"Install"):"Next",2,1);}if(step==6)button(left+width-160,bottom+14,135,"Finish",3,1);if(!busy&&step==0){button(body,bottom+14,120,"Details",50,0);button(body+140,bottom+14,120,"Repair",80,0);button(body+280,bottom+14,120,"Update",81,0);button(body+420,bottom+14,140,"Rollback",82,0);}focus=old<controls?old:0;
 }
 void m6_progress(unsigned p,const char*s){percent=p;stage=s;render();serial_text("M6_PROGRESS ");serial_hex(p);serial_text("\n");}
@@ -55,7 +74,11 @@ static void action(unsigned a){
  if(a==60||a==61){char path[256];testpath(path);unsigned status=a==60?v6_put(m6_volume(),path,2*1024*1024+113,pattern,0):v6_verify(m6_volume(),path);notice=status?"The storage check failed. Keep the ISO for recovery.":a==60?"The test file was saved and committed.":"File integrity verification passed.";serial_text(status?"M6_LARGE_FILE_FAIL\n":"M6_LARGE_FILE_PASS\n");render();return;}
  if(a==72){char path[256]="/Users/";unsigned n=7;for(unsigned i=0;preferences.user[i];++i)path[n++]=preferences.user[i];const char*tail="/Documents/Welcome.txt";do{path[n++]=*tail;}while(*tail++);unsigned s=v6_remove(m6_volume(),path);if(!s||s==V6_NOTFOUND){preferences.guide=0;s=m6_save_settings(&preferences);}notice=s?"The guide could not be removed.":"Guide removed. Other features remain available.";serial_text(s?"M6_GUIDE_REMOVE_FAIL\n":"M6_GUIDE_REMOVED\n");render();return;}
  if(a==70){accent=accent==0x62e5bd?0x9caeff:0x62e5bd;preferences.accent=accent;render();return;}if(a==71){unsigned s=m6_save_settings(&preferences);notice=s?"Preferences could not be saved.":"Your preferences were saved to disk.";serial_text(s?"M6_SETTINGS_SAVE_FAIL\n":"M6_SETTINGS_SAVED\n");render();return;}
- if(a>=100&&a<104){chosen=a-100;render();return;}if(a==20){preferences.guide^=1;render();return;}if(a>=31&&a<=33){const uint32_t colors[]={0x62e5bd,0x9caeff,0xf4c47c};accent=colors[a-31];preferences.accent=accent;render();return;}if(a==30)return;
+ if(a>=100&&a<104){chosen=a-100;render();return;}if(a==20){preferences.guide^=1;render();return;}
+#ifdef ENGINE_M7
+ if(a==21){calculator_selection^=1;render();return;}
+#endif
+ if(a>=31&&a<=33){const uint32_t colors[]={0x62e5bd,0x9caeff,0xf4c47c};accent=colors[a-31];preferences.accent=accent;render();return;}if(a==30)return;
  if(a>=80&&a<=82){maintenance=a-79;step=1;focus=0;render();return;}
  if(a==1){if(maintenance&&step==4)step=1;else if(step)--step;if(!step)maintenance=0;focus=0;render();return;}
  if(a==3){step=7;focus=0;render();return;}
@@ -72,6 +95,10 @@ NORETURN void m6_start(const os_boot_info_v0*boot){screen=boot;left=20;top=20;wi
  for(;;){__asm__ volatile("cli");if(usb_work_pending()){usb_process_changes();continue;}int key=input_pop();if(key<0){__asm__ volatile("sti; hlt":::"memory");continue;}__asm__ volatile("sti");
  if(terminal){if(key==256){unsigned x,y,b;usb_mouse_state(&x,&y,&b);usb_mouse_draw();continue;}if(key==8&&command_length){--command_length;console_text("\b");}else if(key==10){console_text("\n");terminal_command();}else if(key>=32&&key<=126){if(command_length<sizeof(command)-1&&!command_overflow){command[command_length++]=(char)key;char echo[2]={(char)key,0};console_text(echo);}else command_overflow=1;}continue;}
  if(key==256){unsigned x,y,b;usb_mouse_state(&x,&y,&b);if((b&1)&&!(last_buttons&1)){for(unsigned i=0;i<controls;++i){control*c=&buttons[i];if(x>=c->x&&x<c->x+c->w&&y>=c->y&&y<c->y+c->h){focus=i;action(c->action);break;}}}last_buttons=b;usb_mouse_draw();continue;}
+
+#ifdef ENGINE_M7
+ if(key==136&&controls){focus=(focus+controls-1)%controls;render();continue;}
+#endif
  if(key==9&&controls){focus=(focus+1)%controls;render();continue;}if(key==10&&controls){action(buttons[focus].action);continue;}
  if(step==3&&!diagnostics&&focus<controls&&buttons[focus].action==30){unsigned n=0;while(preferences.user[n])++n;if(key==8&&n)preferences.user[n-1]=0;else if(n<31&&((key>='a'&&key<='z')||(key>='A'&&key<='Z')||(key>='0'&&key<='9')||key=='-'||key=='_')){preferences.user[n]=(char)key;preferences.user[n+1]=0;}validation=0;render();}
  }

@@ -38,7 +38,7 @@ def build(revision="standard",profile_path=None,desktop=False):
     if not re.fullmatch("[a-z][a-z0-9]{0,15}",revision):raise ValueError("Invalid build revision")
     prefix="M7" if desktop else "M6"
     name=prefix+("" if revision=="standard" else revision.upper())
-    work=ROOT/'build'/prefix.lower();work.mkdir(parents=True,exist_ok=True);profile=load(profile_path or ROOT/'distros/engineos.json')
+    work=ROOT/'build'/prefix.lower();work.mkdir(parents=True,exist_ok=True);profile=load(profile_path or ROOT/('distros/engineos-desktop.json' if desktop else 'distros/engineos.json'),desktop=desktop)
     if profile['id']=='engineos':profile={**profile,'name':'Engine OS'}
     base=main('M5',distro=profile,m6=True,m6_revision=revision,m7=desktop)
     kernel=compact_elf((work/'KERNEL.ELF').read_bytes());efi=(work/'BOOTX64.EFI').read_bytes();init=(work/'INIT.BIN').read_bytes()
@@ -54,10 +54,12 @@ def build(revision="standard",profile_path=None,desktop=False):
     if live['build_id']!=base['build_id']:raise RuntimeError('Build inputs changed between installed and live images; rebuild with frozen inputs')
     if any(hashlib.sha256((ROOT/p).read_bytes()).hexdigest()!=value for p,value in profile['input_sha256'].items()):raise RuntimeError('Distribution inputs changed during build')
     media=dual_media(work,name)
-    live.update(milestone=prefix,build_revision=revision,distribution=profile,qualification_scope='M7-development' if desktop else 'M6-VM-v1',qualification='Requires the exact artifact acceptance report; building alone does not qualify runtime',release_version=('0.7.0-dev' if desktop else '0.6.0')+('' if revision=='standard' else '+'+revision),installed_kernel_sha256=hashlib.sha256(kernel).hexdigest(),installer_payload_bytes=len(payload),bios_media_layout=media,limits=['Qualify the exact artifact digests against evidence/M6/acceptance-results.json','SATA/AHCI 512-byte logical-sector blank targets only, 2 GiB to 2 TiB','Native extent volume: 1024 entries, 63-byte path components, contiguous copy-on-write files','ISO-assisted verified-slot update/rollback/repair; interrupted boot replay can require ISO recovery','Single local profile, no authentication/ACLs or cross-layout migration; no desktop or Windows/DOS application runtime'])
+    live.update(milestone=prefix,build_revision=revision,distribution=profile,qualification_scope='M7-VM-v1' if desktop else 'M6-VM-v1',qualification='Requires the exact artifact acceptance report; building alone does not qualify runtime',release_version=('0.7.0' if desktop else '0.6.0')+('' if revision=='standard' else '+'+revision),installed_kernel_sha256=hashlib.sha256(kernel).hexdigest(),installer_payload_bytes=len(payload),bios_media_layout=media,limits=['Qualify the exact artifact digests against evidence/M6/acceptance-results.json','SATA/AHCI 512-byte logical-sector blank targets only, 2 GiB to 2 TiB','Native extent volume: 1024 entries, 63-byte path components, contiguous copy-on-write files','ISO-assisted verified-slot update/rollback/repair; interrupted boot replay can require ISO recovery','Single local profile, no authentication/ACLs or cross-layout migration; no desktop or Windows/DOS application runtime'])
     if desktop:
         live['limits']=['M7 development only: no completed desktop acceptance or stable release',
-                        'Native window/file/editor/settings session; app isolation and HTTPS remain pending',
+                        'Original native Editor/Calculator CPL3 apps; trusted compositor, Files, Settings and network broker',
+                        'One bounded TLS 1.2 connection, IPv4 Intel 8254x and hardware RDRAND; correct virtual UTC clock required',
+                        'Editor 8191 bytes; download 64 MiB; 8 windows; 1024 volume entries; 4-KiB streaming buffer',
                         'M6 installed-volume bounds remain; no Windows or DOS application runtime']
     live['artifacts']={p.name:{'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'size':p.stat().st_size} for p in [ROOT/'dist'/('EngineOS-'+name+suffix) for suffix in ('.iso','-usb.img','-kernel.elf','-kernel.map','-user.elf')] if p.is_file()}
     if desktop:

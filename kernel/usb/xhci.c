@@ -51,6 +51,8 @@ static void input_complete(device *d,unsigned bytes){
     if(d->kind==1&&bytes>=8){for(unsigned i=2;i<8;++i)if(data[i]>3){unsigned old=0;for(unsigned j=2;j<8;++j)old|=d->last[j]==data[i];if(!old){char c=key(data[i],data[0]&0x22);
 #ifdef ENGINE_M7
 if((data[0]&0x11)&&data[i]>=4&&data[i]<=29)c=(char)(data[i]-3);
+if(data[i]==43)c=(char)((data[0]&0x44)?135:(data[0]&0x22)?136:9);
+if(data[i]==67)c=(char)137;
 #endif
 if(c){input_feed((uint8_t)c);++key_events;}}}memcpy(d->last,data,8);}
     if(d->kind==2&&bytes>=3){

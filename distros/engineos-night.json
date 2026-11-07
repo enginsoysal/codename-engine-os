@@ -1,0 +1,16 @@
+{
+  "schema": 2,
+  "id": "engineos-night",
+  "name": "Engine OS Night",
+  "version": "0.7.0",
+  "welcome": "A quiet dark desktop. Calculator starts optional and uninstalled.",
+  "accent": "#9caeff",
+  "packages": ["desktop-guide"],
+  "files": [],
+  "desktop": {
+    "dark": true,
+    "calculator": false,
+    "wallpaper": "#241d35",
+    "tagline": "A quieter place to make it yours."
+  }
+}

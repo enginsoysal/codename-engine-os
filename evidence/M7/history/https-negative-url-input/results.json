@@ -1,0 +1,35 @@
+{
+  "passed": false,
+  "m7_complete": false,
+  "cases": [
+    {
+      "scenario": "expired",
+      "passed": true,
+      "tls_error": 54
+    },
+    {
+      "scenario": "wrong-hostname",
+      "passed": true,
+      "tls_error": 56
+    },
+    {
+      "scenario": "untrusted",
+      "passed": true,
+      "tls_error": 62
+    },
+    {
+      "scenario": "downgrade",
+      "passed": true,
+      "tls_error": 0
+    },
+    {
+      "scenario": "native cancellation leaves no completed partial file",
+      "passed": true
+    },
+    {
+      "scenario": "actual virtual cable loss fails transfer and preserves namespace",
+      "passed": true
+    }
+  ],
+  "error": "Traceback (most recent call last):\n  File \"<project-root>\\tests\\m7\\https_negative.py\", line 79, in main\n    type_url(guest,'https://raw.githubusercontent.com/enginsoysal/codename-engine-os/main/LICENSE')\n  File \"<project-root>\\tests\\m7\\https_negative.py\", line 27, in type_url\n    assert actual==url.encode(),('Native URL input differs from intended request',actual,url)\nAssertionError: ('Native URL input differs from intended request', b'https://raw.githubusercontent.com/enginsoysal/codename-engine-os/main/LICENS', 'https://raw.githubusercontent.com/enginsoysal/codename-engine-os/main/LICENSE')\n"
+}

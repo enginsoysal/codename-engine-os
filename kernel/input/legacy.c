@@ -4,7 +4,7 @@
 #endif
 static unsigned ready,head,tail,shift,extended;static uint8_t queue[256];static uint64_t dropped;
 #ifdef ENGINE_M7
-static unsigned control_modifier;
+static unsigned control_modifier,alt_modifier;
 #endif
 static const char plain[58]={0,0,'1','2','3','4','5','6','7','8','9','0','-','=',8,9,'q','w','e','r','t','y','u','i','o','p','[',']',10,0,'a','s','d','f','g','h','j','k','l',';',39,'`',0,92,'z','x','c','v','b','n','m',',','.','/',0,'*',0,' '};
 static const char upper[58]={0,0,'!','@','#','$','%','^','&','*','(',')','_','+',8,9,'Q','W','E','R','T','Y','U','I','O','P','{','}',10,0,'A','S','D','F','G','H','J','K','L',':',34,'~',0,'|','Z','X','C','V','B','N','M','<','>','?',0,'*',0,' '};
@@ -62,11 +62,14 @@ unsigned input_irq(uint64_t *frame){
         if(code==42){shift|=1;continue;}if(code==54){shift|=2;continue;}if(code==170){shift&=~1u;continue;}if(code==182){shift&=~2u;continue;}
 #ifdef ENGINE_M7
         if(code==29){control_modifier=1;extended=0;continue;}if(code==157){control_modifier=0;extended=0;continue;}
+        if(code==56){alt_modifier=1;extended=0;continue;}if(code==184){alt_modifier=0;extended=0;continue;}
+        if(code==68||(extended&&code==91)){enqueue(137);extended=0;continue;}
         if(!(code&128)&&extended){unsigned c=code==75?128:code==77?129:code==71?130:code==79?131:code==83?132:code==72?133:code==80?134:0;if(c)enqueue((uint8_t)c);extended=0;continue;}
         if(code==1){enqueue(27);continue;}
 #endif
         if(code&128){extended=0;continue;}if(extended){extended=0;continue;}if(code<58){uint8_t c=(uint8_t)(shift?upper[code]:plain[code]);
 #ifdef ENGINE_M7
+        if(c==9)c=(uint8_t)(alt_modifier?135:shift?136:9);
         if(control_modifier&&c>='a'&&c<='z')c=(uint8_t)(c-'a'+1);
         if(control_modifier&&c>='A'&&c<='Z')c=(uint8_t)(c-'A'+1);
 #endif

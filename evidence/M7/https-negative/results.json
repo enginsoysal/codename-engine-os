@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "m7_complete": false,
+  "cases": [
+    {
+      "scenario": "expired",
+      "passed": true,
+      "tls_error": 54
+    },
+    {
+      "scenario": "wrong-hostname",
+      "passed": true,
+      "tls_error": 56
+    },
+    {
+      "scenario": "untrusted",
+      "passed": true,
+      "tls_error": 62
+    },
+    {
+      "scenario": "downgrade",
+      "passed": true,
+      "tls_error": 0
+    },
+    {
+      "scenario": "native cancellation leaves no completed partial file",
+      "passed": true
+    },
+    {
+      "scenario": "actual virtual cable loss fails transfer and preserves namespace",
+      "passed": true
+    },
+    {
+      "scenario": "cable recovery renews DHCP and completes a fresh checked HTTPS transfer",
+      "passed": true
+    },
+    {
+      "scenario": "actual invalid virtual RTC refuses secure download and preserves existing file",
+      "passed": true
+    }
+  ],
+  "build_id": "16f58318ff4172b39f95f0d45b843c1c",
+  "iso_sha256": "28502ac82466c030d89a701ef4fc1b816abb458f421cc8359d1e8b62664ed572",
+  "scope": "native negative-security/network slice; full M7 platform/resource qualification pending"
+}

@@ -20,7 +20,7 @@
       "passed": true
     }
   ],
-  "build_id": "4f7b2cf868ba1a8637fab80a4e2f4289",
-  "iso_sha256": "14cf7e79e26690cecde34d7e1632281a056deb4654f650869af50e7232ea95f1",
+  "build_id": "16f58318ff4172b39f95f0d45b843c1c",
+  "iso_sha256": "28502ac82466c030d89a701ef4fc1b816abb458f421cc8359d1e8b62664ed572",
   "scope": "native desktop/app/package slice; networking and full M7 qualification remain pending"
 }

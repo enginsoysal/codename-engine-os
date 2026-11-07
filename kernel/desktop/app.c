@@ -44,13 +44,13 @@ static unsigned cache_source(void *ctx,uint64_t off,void *out,unsigned bytes) {
 static unsigned directory(v6_volume *volume,const char *path) {
     unsigned status=v6_mkdir(volume,path);return status==V6_EXISTS?0:status;
 }
-unsigned app7_install(v6_volume *volume) {
-    if(!app7_editor_size||!app7_calculator_size)return V6_INVALID;
+unsigned app7_install(v6_volume *volume,unsigned calculator) {
+    if(!app7_editor_size||!app7_calculator_size||calculator>1)return V6_INVALID;
     if(directory(volume,"/System/Packages")||directory(volume,"/Applications/TextEditor")||directory(volume,"/Applications/Calculator"))return V6_IO;
     if(v6_put(volume,cache_path(2),app7_editor_size,memory_source,(void *)app7_editor_image)||
        v6_put(volume,app_path(2),app7_editor_size,memory_source,(void *)app7_editor_image)||
        v6_put(volume,cache_path(4),app7_calculator_size,memory_source,(void *)app7_calculator_image)||
-       v6_put(volume,app_path(4),app7_calculator_size,memory_source,(void *)app7_calculator_image))return V6_IO;
+       (calculator&&v6_put(volume,app_path(4),app7_calculator_size,memory_source,(void *)app7_calculator_image)))return V6_IO;
     return 0;
 }
 unsigned app7_available(unsigned kind) {

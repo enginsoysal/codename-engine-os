@@ -1,0 +1,31 @@
+{
+  "passed": false,
+  "m7_complete": false,
+  "cases": [
+    {
+      "scenario": "expired",
+      "passed": true,
+      "tls_error": 54
+    },
+    {
+      "scenario": "wrong-hostname",
+      "passed": true,
+      "tls_error": 56
+    },
+    {
+      "scenario": "untrusted",
+      "passed": true,
+      "tls_error": 62
+    },
+    {
+      "scenario": "downgrade",
+      "passed": true,
+      "tls_error": 0
+    },
+    {
+      "scenario": "native cancellation leaves no completed partial file",
+      "passed": true
+    }
+  ],
+  "error": "Traceback (most recent call last):\n  File \"<project-root>\\tests\\m7\\https_negative.py\", line 61, in main\n    assert state(guest) in (1,2,3)\nAssertionError\n"
+}

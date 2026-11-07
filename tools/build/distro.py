@@ -3,14 +3,23 @@ import hashlib,json,re
 from pathlib import Path,PurePosixPath
 from m1 import ROOT
 
-def load(path):
+def load(path,desktop=False):
     base=(ROOT/'distros').resolve();path=Path(path).resolve()
     def local(p):
         p=Path(p).resolve()
         if not p.is_relative_to(base) or not p.is_file() or p.is_symlink():raise ValueError('Distribution input must be a regular file inside distros/')
         return p
     path=local(path);p=json.loads(path.read_text(encoding='utf-8'))
-    if set(p)!={'schema','id','name','version','welcome','accent','packages','files'} or p['schema']!=1:raise ValueError('Unsupported profile schema/fields')
+    if not isinstance(p,dict) or type(p.get('schema')) is not int:raise ValueError('Profile schema must be an integer in an object')
+    fields={'schema','id','name','version','welcome','accent','packages','files'}
+    if p.get('schema')==2 and desktop:
+        if set(p)!=fields|{'desktop'}:raise ValueError('Unsupported desktop profile fields')
+        d=p['desktop']
+        if not isinstance(d,dict) or set(d)!={'dark','calculator','wallpaper','tagline'}:raise ValueError('Unsupported desktop options')
+        if type(d['dark']) is not bool or type(d['calculator']) is not bool:raise ValueError('Desktop toggles must be booleans')
+        if not isinstance(d['wallpaper'],str) or not re.fullmatch('#[0-9a-fA-F]{6}',d['wallpaper']):raise ValueError('Invalid desktop wallpaper colour')
+        if not isinstance(d['tagline'],str) or not 1<=len(d['tagline'])<=48 or any(ord(c)<32 or ord(c)>126 for c in d['tagline']):raise ValueError('Invalid desktop tagline')
+    elif set(p)!=fields or p['schema']!=1:raise ValueError('Unsupported profile schema/fields')
     for k,limit in [('name',32),('version',16),('welcome',76)]:
         if not isinstance(p[k],str) or not 1<=len(p[k])<=limit or any(ord(c)<32 or ord(c)>126 for c in p[k]):raise ValueError('Profile '+k+' must be bounded printable ASCII')
     if not re.fullmatch('[a-z][a-z0-9-]{0,23}',p['id']) or not re.fullmatch('#[0-9a-fA-F]{6}',p['accent']):raise ValueError('Invalid distribution ID or colour')
@@ -40,4 +49,9 @@ def prepare(work,p):
     text=''.join('#define DISTRO_'+k.upper()+' '+json.dumps(p[k])+'\n' for k in ['name','version','welcome'])
     text+='#define DISTRO_ACCENT 0x'+p['accent'][1:]+'u\n'
     text+='#define DISTRO_M6_GUIDE '+str(int(any(r['target']=='/Users/test/Documents/Welcome.txt' for r in p['resolved_files'])))+'u\n'
+    d=p.get('desktop',{'dark':False,'calculator':True,'wallpaper':'#10252f','tagline':'Your space. Your system.'})
+    text+='#define DISTRO_DESKTOP_DARK '+str(int(d['dark']))+'u\n'
+    text+='#define DISTRO_DESKTOP_CALCULATOR '+str(int(d['calculator']))+'u\n'
+    text+='#define DISTRO_DESKTOP_WALLPAPER 0x'+d['wallpaper'][1:]+'u\n'
+    text+='#define DISTRO_DESKTOP_TAGLINE '+json.dumps(d['tagline'])+'\n'
     (work/'distro.h').write_bytes(text.encode())

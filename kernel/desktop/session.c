@@ -6,13 +6,14 @@
 #include <engine/m4.h>
 #include <engine/m3.h>
 #include "build.h"
+#include "distro.h"
 
 enum { FILES=1, EDITOR, SETTINGS, CALCULATOR, DOWNLOADS, DETAILS };
 enum { OPEN_FILES=1, OPEN_EDITOR, OPEN_SETTINGS, OPEN_CALCULATOR, OPEN_DOWNLOADS,
        OPEN_DETAILS, SAVE=20, COPY, CUT, PASTE, FILE_UP, FILE_NEW, FILE_FOLDER,
        STYLE_MINT=40, STYLE_LAVENDER, STYLE_AMBER, STYLE_DARK, STYLE_PAPER,
        CALCULATOR_OFF, CALCULATOR_ON, PREFERENCES_SAVE,
-       DISCARD=60, KEEP_EDITING, CALCULATOR_CRASH=64, APP_SELFTEST, NETWORK_RETRY, DNS_PROBE, DOWNLOAD_START, DOWNLOAD_CANCEL, DOWNLOAD_FOLDER, URL_FOCUS, FILE_ROW=100, CALC_KEY=200 };
+       DISCARD=60, KEEP_EDITING, CALCULATOR_CRASH=64, APP_SELFTEST, NETWORK_RETRY, DNS_PROBE, DOWNLOAD_START, DOWNLOAD_CANCEL, DOWNLOAD_FOLDER, URL_FOCUS, MEMORY_LIMIT, FILE_ROW=100, CALC_KEY=200 };
 
 typedef struct {
     union {
@@ -41,7 +42,11 @@ static desktop_rect drag_bounds;
 static m6_preferences owner;
 static preferences7 preferences;
 static char clipboard[8192];
+static char shell_notice[96];
 static unsigned clipboard_length;
+static unsigned pressure_on;
+static unsigned control_active,focused_action;
+static uint64_t focused_control_window;
 static const os_boot_info_v0 *display;
 static const char *titles[]={"", "Files", "Text Editor", "Settings", "Calculator", "Downloads", "System details"};
 
@@ -62,6 +67,13 @@ static void integer(char *out,int64_t value) {
 }
 static unsigned memory_source(void *context,uint64_t offset,void *out,unsigned bytes) {
     memcpy(out,(const uint8_t *)context+offset,bytes);return 0;
+}
+static void resource_log(void){
+    page_stats stats=pages_stats();serial_text("M7_DESKTOP_STATS current=");serial_hex(stats.current_pages*4096);
+    serial_text(" peak=");serial_hex(stats.peak_pages*4096);serial_text(" allocation_failures=");serial_hex(stats.allocation_failures);
+    serial_text(" paints=");serial_hex(paints);serial_text(" pixels=");serial_hex(painted_pixels);
+    serial_text(" visible_framebuffer=");serial_hex((uint64_t)display->framebuffer_stride_bytes*display->framebuffer_height);
+    serial_text(" framebuffer_range=");serial_hex(display->framebuffer.byte_length);serial_text("\n");
 }
 static void root_path(char *out,const char *folder) {
     copy(out,"/Users/",256);append(out,owner.user,256);append(out,"/",256);append(out,folder,256);
@@ -88,7 +100,16 @@ static uint32_t paper(void) { return preferences.dark?0x172933:0xf8fafb; }
 static void button(uint64_t window,int x,int y,int width,const char *label,unsigned action,unsigned primary) {
     desktop_rect r={x,y,width,30};
     rectangle(r,primary?preferences.accent:preferences.dark?0x2a414f:0xe6edf0);
-    text(x+9,y+9,label,1,primary?0x102d29:ink());
+    char fitted[64];unsigned columns=width>18?(unsigned)(width-18)/8:0;
+    if(columns>sizeof(fitted)-1)columns=sizeof(fitted)-1;
+    unsigned count=length(label);if(count>columns)count=columns;
+    memcpy(fitted,label,count);fitted[count]=0;
+    if(label[count]&&count>=3){fitted[count-1]='.';fitted[count-2]='.';fitted[count-3]='.';}
+    text(x+9,y+9,fitted,1,primary?0x102d29:ink());
+    if(control_active&&focused_control_window==window&&focused_action==action){
+        rectangle((desktop_rect){x,y,width,2},ink());rectangle((desktop_rect){x,y+28,width,2},ink());
+        rectangle((desktop_rect){x,y,2,30},ink());rectangle((desktop_rect){x+width-2,y,2,30},ink());
+    }
     if(control_count<sizeof(controls)/sizeof(*controls))controls[control_count++]=(control){r,window,action};
 }
 static void unique_path(char *out,const char *folder,const char *prefix,const char *suffix) {
@@ -110,11 +131,13 @@ static uint64_t launch(unsigned kind,const char *path) {
     if(kind==CALCULATOR&&!preferences.calculator)return 0;
     unsigned offset=model.count*26;
     uint64_t token=desktop_open(&model,kind,(desktop_rect){170+(int)offset,90+(int)offset,700,470});
-    if(!token){serial_text("M7_WINDOW_LIMIT\n");return 0;}
+    if(!token){copy(shell_notice,"Eight windows are open. Close one before opening another.",sizeof(shell_notice));whole();serial_text("M7_WINDOW_LIMIT\n");return 0;}
+    shell_notice[0]=0;
     unsigned slot=(unsigned)(uint32_t)token-1;
     application *app=&apps[slot];memset(app,0,sizeof(*app));
-    if((kind==EDITOR||kind==CALCULATOR)&&app7_open(slot,kind)){
-        app->stopped=1;notice(app,"Application could not start. Check its installed package.");
+    unsigned opened=(kind==EDITOR||kind==CALCULATOR)?app7_open(slot,kind):0;
+    if(opened){
+        app->stopped=1;notice(app,opened==V6_FULL?"Not enough memory. Close an app, then close this window and retry.":"Application could not start. Check its installed package.");
     }
     if(kind==FILES)root_path(app->path,"Documents");
     if(kind==DOWNLOADS){copy(app->text,"https://raw.githubusercontent.com/enginsoysal/codename-engine-os/main/LICENSE",sizeof(app->text));app->length=app->cursor=length(app->text);}
@@ -129,6 +152,7 @@ static uint64_t launch(unsigned kind,const char *path) {
         }else unique_path(app->path,"Documents","Note",".txt");
     }
     if(kind==EDITOR&&!app->stopped)send_app(app,APP7_LOAD,0,app->text,app->length);
+    if(kind==DETAILS)resource_log();
     launcher=0;task_damage();serial_text("M7_WINDOW_OPEN app=");serial_hex(kind);serial_text("\n");return token;
 }
 
@@ -262,6 +286,8 @@ static void draw_window(unsigned slot) {
         decimal(value,pages_stats().peak_pages*4096);text(r.x+20,r.y+175,"Managed peak",1,ink());text(r.x+230,r.y+175,value,1,ink());
         decimal(value,paints);text(r.x+20,r.y+205,"Damage repaints",1,ink());text(r.x+230,r.y+205,value,1,ink());
         button(token,r.x+20,r.y+290,260,"Test app isolation",APP_SELFTEST,0);
+        button(token,r.x+20,r.y+340,260,pressure_on?"Restore memory budget":"Limit new app memory",MEMORY_LIMIT,pressure_on);
+        text(r.x+20,r.y+395,pressure_on?"Memory limit active. Existing documents can still be saved.":"Optional diagnostics. Closing Details restores the memory budget.",1,ink());
         text(r.x+20,r.y+250,"Static kernel, app and firmware memory are additional.",1,ink());}
     rectangle((desktop_rect){r.x+r.width-12,r.y+r.height-4,9,2},0x6a858e);
     rectangle((desktop_rect){r.x+r.width-7,r.y+r.height-9,4,2},0x6a858e);
@@ -275,8 +301,8 @@ static void render(void) {
     if(!desktop_take_damage(&model,&dirty))return;
     gui7_clip((unsigned)dirty.x,(unsigned)dirty.y,(unsigned)dirty.width,(unsigned)dirty.height);
     control_count=0;
-    for(unsigned y=0;y<model.height;y+=32)gui6_rect(0,y,model.width,32,0x10252f+(y/64)*0x010101);
-    text(36,30,"Engine OS",3,0xd8e9ec);text(38,64,"Your space. Your system.",1,0x8aabb7);
+    gui6_rect(0,0,model.width,model.height,DISTRO_DESKTOP_WALLPAPER);
+    text(36,30,DISTRO_NAME,3,0xd8e9ec);text(38,64,DISTRO_DESKTOP_TAGLINE,1,0x8aabb7);
     const char *icons[]={"Files","Text Editor","Settings","Calculator","Downloads"};
     for(unsigned i=0;i<5;++i){if(i==3&&!preferences.calculator)continue;
         gui6_rect(38,110+i*83,38,36,preferences.accent);text(49,121+i*83,i==0?"F":i==1?"T":i==2?"S":i==3?"+":"D",2,0x12352e);
@@ -291,11 +317,14 @@ static void render(void) {
     }
     gui7_clip((unsigned)dirty.x,(unsigned)dirty.y,(unsigned)dirty.width,(unsigned)dirty.height);
     int bar=(int)model.height-60;
+    if(shell_notice[0]){gui6_rect(20,(unsigned)bar-40,model.width-40,30,paper());text(30,bar-30,shell_notice,1,ink());}
     gui6_rect(0,(unsigned)bar,model.width,60,0x0b1922);
     button(0,16,bar+15,100,"E  Start",0,launcher);
+    unsigned available=model.width-140-(model.width>=1000?180:0),step=model.count?available/model.count:100;
+    if(step>100)step=100;
     for(unsigned i=0;i<model.count;++i){unsigned slot=model.order[i];desktop_window *w=&model.windows[slot];
-        button(desktop_token(&model,slot),130+(int)i*100,bar+15,92,titles[w->app],70,model.focused==slot);}
-    text((int)model.width-180,bar+23,"M7 development",1,0x95b1bd);
+        button(desktop_token(&model,slot),130+(int)(i*step),bar+15,(int)step-8,titles[w->app],70,model.focused==slot);}
+    if(model.width>=1000)text((int)model.width-180,bar+23,"M7 development",1,0x95b1bd);
     if(launcher){
         gui6_rect(16,(unsigned)bar-305,300,295,paper());text(34,bar-284,owner.user,2,ink());
         unsigned row=0;for(unsigned i=1;i<=6;++i){if(i==CALCULATOR&&!preferences.calculator)continue;
@@ -313,6 +342,7 @@ static void close_window(uint64_t token,int discard) {
     application *app=&apps[w-model.windows];
     if(w->app==EDITOR&&app->dirty&&!discard){app->closing=1;invalidate(w->bounds);return;}
     if(w->app==DOWNLOADS)download7_cancel();
+    if(w->app==DETAILS&&pressure_on){pages_limit(0);pressure_on=0;}
     app7_close((unsigned)(w-model.windows));desktop_close(&model,token);memset(app,0,sizeof(*app));task_damage();
 }
 static void insert(application *app,const char *bytes,unsigned count) {
@@ -356,6 +386,7 @@ static void action(uint64_t token,unsigned command) {
     if(command==URL_FOCUS&&w->app==DOWNLOADS){app->entered=0;app->cursor=app->length;}
     if(command==DOWNLOAD_START&&w->app==DOWNLOADS){unique_path(app->path,"Downloads","Download",".bin");if(app->path[0])(void)download7_start(m6_volume(),app->text,app->path);}
     if(command==DOWNLOAD_CANCEL&&w->app==DOWNLOADS)download7_cancel();
+    if(command==MEMORY_LIMIT&&w->app==DETAILS){pressure_on^=1;pages_limit(pressure_on?pages_stats().current_pages:0);serial_text(pressure_on?"M7_MEMORY_LIMIT_ACTIVE\n":"M7_MEMORY_LIMIT_RESTORED\n");resource_log();}
     if(command==DOWNLOAD_FOLDER&&w->app==DOWNLOADS){uint64_t opened=launch(FILES,0);desktop_window *files=desktop_lookup(&model,opened);if(files){root_path(apps[files-model.windows].path,"Downloads");whole();}}
     if(command==CALCULATOR_CRASH&&w->app==CALCULATOR)send_app(app,APP7_CRASH,0,0,0);
     if(command==APP_SELFTEST&&w->app==DETAILS){
@@ -384,6 +415,7 @@ static void pointer(void) {
         if(drag_resize){r.width+=dx;r.height+=dy;if(r.width<480)r.width=480;if(r.height<420)r.height=420;}else{r.x+=dx;r.y+=dy;}
         desktop_place(&model,drag_window,r);
     }else if(pressed){
+        if(control_active){control_active=0;whole();}
         uint64_t token=desktop_hit(&model,(int)x,(int)y);desktop_window *w=desktop_lookup(&model,token);
         int handled=0;
         /* Controls are generated in paint/stack order: last visible hit wins. */
@@ -391,6 +423,7 @@ static void pointer(void) {
             if((int)x>=r.x&&(int)x<r.x+r.width&&(int)y>=r.y&&(int)y<r.y+r.height&&
                ((launcher?control->window==0:control->window==token)||y>=model.height-60)){
                 if(control->window)desktop_focus(&model,control->window);action(control->window,control->action);handled=1;break;}}
+        if(!handled&&launcher){launcher=0;whole();handled=1;}
         if(!handled&&w){desktop_focus(&model,token);task_damage();desktop_rect r=w->bounds;
             if(y<(unsigned)r.y+35){if(x>(unsigned)(r.x+r.width-52))close_window(token,0);else if(x>(unsigned)(r.x+r.width-90))desktop_minimize(&model,token,1);else {dragging=1;drag_resize=0;}}
             else if(x>=(unsigned)(r.x+r.width-18)&&y>=(unsigned)(r.y+r.height-18)){dragging=1;drag_resize=1;}
@@ -403,8 +436,23 @@ static void pointer(void) {
 }
 
 static void keyboard(int key) {
+    if(key==137){launcher^=1;control_active=0;whole();return;}
+    if(key==135){if(model.count){desktop_focus(&model,desktop_token(&model,model.order[0]));control_active=0;whole();}return;}
+    if(key==9||key==136){
+        uint64_t target=launcher?0:model.focused<DESKTOP_WINDOWS?desktop_token(&model,model.focused):0;
+        unsigned candidates[192],count=0,current=0;
+        for(unsigned n=0;n<control_count;++n){control *c=&controls[n];
+            if(c->window!=target||c->action==70||(launcher&&!c->action))continue;
+            if(control_active&&focused_control_window==target&&focused_action==c->action)current=count+1;
+            candidates[count++]=n;
+        }
+        if(count){unsigned selected=key==136?(current?current+count-2:count-1):(current?current:0);control *c=&controls[candidates[selected%count]];
+            control_active=1;focused_control_window=c->window;focused_action=c->action;whole();}
+        return;
+    }
+    if(key==10&&control_active){uint64_t target=focused_control_window;unsigned command=focused_action;control_active=0;action(target,command);whole();return;}
+    if(control_active){control_active=0;whole();}
     if(key==27){if(launcher){launcher=0;whole();}else if(model.focused<DESKTOP_WINDOWS)close_window(desktop_token(&model,model.focused),0);return;}
-    if(key==9){if(model.count){unsigned slot=model.order[0];desktop_focus(&model,desktop_token(&model,slot));task_damage();}return;}
     if(model.focused>=DESKTOP_WINDOWS)return;
     desktop_window *w=&model.windows[model.focused];application *app=&apps[model.focused];
     uint64_t token=desktop_token(&model,model.focused);
@@ -436,7 +484,7 @@ static void keyboard(int key) {
 }
 
 NORETURN void desktop_start(const os_boot_info_v0 *boot,const m6_preferences *profile) {
-    display=boot;owner=*profile;preferences=(preferences7){UINT64_C(0x3150464552374d45),profile->accent,0,1,0};
+    display=boot;owner=*profile;preferences=(preferences7){UINT64_C(0x3150464552374d45),profile->accent,DISTRO_DESKTOP_DARK,1,0};
     unsigned bytes=0;preferences7 stored;
     if(!v6_verify(m6_volume(),"/System/Settings/desktop7.bin")&&
        !v6_read(m6_volume(),"/System/Settings/desktop7.bin",0,&stored,sizeof(stored),&bytes)&&
@@ -446,7 +494,7 @@ NORETURN void desktop_start(const os_boot_info_v0 *boot,const m6_preferences *pr
     net7_init();
     desktop_init(&model,display->framebuffer_width,display->framebuffer_height);
     usb_mouse_state(&pointer_x,&pointer_y,&previous_buttons);
-    launch(FILES,0);render();serial_text("M7_DESKTOP_READY build=" BUILD_ID "\n");
+    launch(FILES,0);render();resource_log();serial_text("M7_DESKTOP_READY build=" BUILD_ID "\n");
     unsigned network_revision=net7_current().revision,download_revision=download7_current().revision;
     for(;;){
         __asm__ volatile("cli");

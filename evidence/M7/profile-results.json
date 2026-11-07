@@ -1,0 +1,6 @@
+{
+  "passed": true,
+  "m7_complete": false,
+  "scope": "actual profile validation/generated defaults; custom native ISO still requires separate qualification",
+  "negative_cases": 8
+}

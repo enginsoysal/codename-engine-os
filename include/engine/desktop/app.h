@@ -24,7 +24,7 @@ _Static_assert(sizeof(app7_mailbox)<5*4096,"bounded application mailbox");
 #include <engine/storage/volume6.h>
 extern volatile unsigned app7_active;
 unsigned app7_prepare(void);
-unsigned app7_install(v6_volume *);
+unsigned app7_install(v6_volume *,unsigned);
 unsigned app7_package(unsigned,unsigned);
 unsigned app7_available(unsigned);
 unsigned app7_open(unsigned,unsigned);

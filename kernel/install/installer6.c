@@ -53,11 +53,17 @@ unsigned m6_install(const m6_preferences*p){const storage_disk*d=storage_get(sel
  for(unsigned i=0;i<8;++i){const char *names[]={"/System","/Applications","/Users","/Data","/Cache","/Logs","/Temporary","/Volumes"};if(directory(names[i]))return B_IO;}
  if(directory("/System/Settings"))return B_IO;char user[256]="/Users/";memcpy(user+7,p->user,userlen+1);if(directory(user))return B_IO;
  for(unsigned i=0;i<5;++i){const char*names[]={"Desktop","Documents","Downloads","Pictures","AppData"};char sub[256];memcpy(sub,user,7+userlen);sub[7+userlen]='/';unsigned k=0;do{sub[8+userlen+k]=names[i][k];}while(names[i][k++]);if(directory(sub))return B_IO;}
- if(p->guide){char guidepath[256];memcpy(guidepath,user,7+userlen);const char*tail="/Documents/Welcome.txt";unsigned j=0;do{guidepath[7+userlen+j]=tail[j];}while(tail[j++]);const char*guide="Welcome to Engine OS. Your documents persist on disk. The full desktop follows in M7. Remove this guide independently of the base system.\n";unsigned size=0;while(guide[size])++size;if(v6_put(&volume,guidepath,size,source_memory,(void*)guide))return B_IO;}
+ if(p->guide){char guidepath[256];memcpy(guidepath,user,7+userlen);const char*tail="/Documents/Welcome.txt";unsigned j=0;do{guidepath[7+userlen+j]=tail[j];}while(tail[j++]);const char*guide=
+#ifdef ENGINE_M7
+ "Welcome to Engine OS. Open Files, Text Editor, Settings and Downloads from your desktop. Your documents persist on disk.\n";
+#else
+ "Welcome to Engine OS. Your documents persist on disk. The full desktop follows in M7. Remove this guide independently of the base system.\n";
+#endif
+unsigned size=0;while(guide[size])++size;if(v6_put(&volume,guidepath,size,source_memory,(void*)guide))return B_IO;}
  for(unsigned file=0;file<m6_file_count;++file){const m6_distribution_file*f=m6_files+file;if(!p->guide&&equals(f->path,"/Users/test/Documents/Welcome.txt"))continue;char path[256];unsigned n=0,off=0;if(!memcmp(f->path,"/Users/test/",12)){memcpy(path,"/Users/",7);n=7;for(unsigned j=0;j<userlen;++j)path[n++]=p->user[j];path[n++]='/';off=12;}for(;f->path[off]&&n<255;++off)path[n++]=f->path[off];if(f->path[off])return B_DENIED;path[n]=0;for(unsigned j=1;j<n;++j)if(path[j]=='/'){path[j]=0;unsigned status=directory(path);path[j]='/';if(status)return B_IO;}if(v6_put(&volume,path,f->size,source_memory,(void*)f->data))return B_IO;}
 
 #ifdef ENGINE_M7
- if(app7_install(&volume))return B_IO;
+ if(app7_install(&volume,m7_calculator_selection()))return B_IO;
 #endif
  persistent=1;if(m6_save_settings(p)){persistent=0;return B_IO;}m6_progress(90,"Verifying partition and boot setup");if(gpt()||flush(selected)){persistent=0;return B_IO;}
  w32(record+72,2);if(activate_record()){persistent=0;return B_IO;}if(verified(selected,42,record,512)||verified(selected,40,record,512)||flush(selected)){persistent=0;return B_IO;}

@@ -1,0 +1,64 @@
+{
+  "passed": true,
+  "m7_complete": false,
+  "profiles": [
+    {
+      "ram_mib": 64,
+      "cpus": 1,
+      "managed_baseline_bytes": 159744,
+      "managed_peak_bytes": 471040,
+      "second_app_private_bytes": 40960,
+      "allocation_failures_observed": 4,
+      "input_damage_pixels_under_pressure": 469000,
+      "input_repaints_under_pressure": 1,
+      "input_observation_seconds_under_pressure": 0.0,
+      "idle_all_cpus_halted": true,
+      "idle_repaint_count": 0,
+      "interaction_repaints": 5,
+      "interaction_painted_pixels": 5004800
+    },
+    {
+      "ram_mib": 128,
+      "cpus": 2,
+      "managed_baseline_bytes": 192512,
+      "managed_peak_bytes": 471040,
+      "second_app_private_bytes": 40960,
+      "allocation_failures_observed": 4,
+      "input_damage_pixels_under_pressure": 469000,
+      "input_repaints_under_pressure": 1,
+      "input_observation_seconds_under_pressure": 0.0,
+      "idle_all_cpus_halted": true,
+      "idle_repaint_count": 0,
+      "interaction_repaints": 5,
+      "interaction_painted_pixels": 5004800
+    },
+    {
+      "ram_mib": 128,
+      "cpus": 4,
+      "managed_baseline_bytes": 258048,
+      "managed_peak_bytes": 471040,
+      "second_app_private_bytes": 40960,
+      "allocation_failures_observed": 4,
+      "input_damage_pixels_under_pressure": 469000,
+      "input_repaints_under_pressure": 1,
+      "input_observation_seconds_under_pressure": 0.0,
+      "idle_all_cpus_halted": true,
+      "idle_repaint_count": 0,
+      "interaction_repaints": 5,
+      "interaction_painted_pixels": 5004800
+    }
+  ],
+  "checks": [
+    "keyboard-only launcher/buttons",
+    "shared immutable app code",
+    "real allocator admission refusal",
+    "existing editor input/save under pressure",
+    "budget restoration and complete private-page reclamation",
+    "idle halt and stopped painting",
+    "separate static/managed/framebuffer accounting"
+  ],
+  "build_id": "16f58318ff4172b39f95f0d45b843c1c",
+  "iso_sha256": "28502ac82466c030d89a701ef4fc1b816abb458f421cc8359d1e8b62664ed572",
+  "kernel_physical_span_bytes": 1721664,
+  "scope": "named QEMU installed profiles; allocator counts exclude static kernel, firmware/boot reservations and framebuffer; input latency is harness observation, not a human usability study"
+}

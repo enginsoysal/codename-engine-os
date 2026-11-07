@@ -13,7 +13,7 @@ static char request[1024];
 static uint64_t started,last_paint;
 static void state(unsigned value,const char *message){info.state=value;info.message=message;++info.revision;}
 static unsigned active(void){return info.state>=DOWNLOAD7_RESOLVING&&info.state<=DOWNLOAD7_RECEIVING;}
-static void fail(const char *message){info.tls_error=tls7_error();tls7_abort();if(volume)v6_stream_abort(volume);reserved=0;state(DOWNLOAD7_FAILED,message);}
+static void fail(const char *message){info.tls_error=tls7_error();tls7_abort();if(volume)v6_stream_abort(volume);reserved=0;state(DOWNLOAD7_FAILED,message);serial_text("M7_DOWNLOAD_FAILED reason=");serial_text(message);serial_text(" tls=");serial_hex(info.tls_error);serial_text("\n");}
 download7_info download7_current(void){return info;}
 void download7_cancel(void){if(active()){tls7_abort();v6_stream_abort(volume);reserved=0;state(DOWNLOAD7_CANCELLED,"Download cancelled. No partial file was added.");}}
 static unsigned copy(char *out,const char *in,unsigned cap){unsigned n=0;while(n+1<cap&&in[n]){out[n]=in[n];++n;}out[n]=0;return !in[n];}
@@ -33,12 +33,12 @@ unsigned download7_start(v6_volume *v,const char *source,const char *path){
 static unsigned reserve(void){
  if(reserved)return 0;
  uint64_t limit=response.seen_length?response.length:HTTP7_LIMIT;if(!limit)limit=1;
- unsigned result=v6_stream_begin(volume,info.path,limit);if(result)return result;reserved=1;return 0;
+ unsigned result=v6_stream_begin(volume,info.path,limit);if(result){serial_text("M7_DOWNLOAD_RESERVE_FAILED status=");serial_hex(result);serial_text("\n");return result;}reserved=1;return 0;
 }
 static unsigned body(void *context,const void *input,unsigned bytes){
  (void)context;if(reserve())return 1;const uint8_t *data=input;
  while(bytes){unsigned count=4096-(unsigned)(info.bytes%4096);if(count>bytes)count=bytes;
-  if(v6_stream_append(volume,data,count))return 1;info.bytes+=count;data+=count;bytes-=count;
+  unsigned result=v6_stream_append(volume,data,count);if(result){serial_text("M7_DOWNLOAD_WRITE_FAILED status=");serial_hex(result);serial_text("\n");return 1;}info.bytes+=count;data+=count;bytes-=count;
  }return 0;
 }
 static unsigned redirect(void){
@@ -74,7 +74,10 @@ void download7_pump(void){
  uint8_t data[2048];
  for(unsigned budget=0;budget<2;++budget){
   unsigned count=tls7_read(data,sizeof(data));if(!count)break;
-  if(http7_feed(&response,data,count,body,0)){fail("Download response or disk write failed. No partial file was added.");return;}
+  if(http7_feed(&response,data,count,body,0)){
+   serial_text("M7_HTTP_REFUSED status=");serial_hex(response.status);serial_text(" bytes=");serial_hex(response.received);serial_text("\n");
+   fail(response.status&&response.status!=200?"The server did not provide this file. Check its HTTPS address and retry.":"Download response or disk write failed. No partial file was added.");return;
+  }
   if(response.state==HTTP7_REDIRECT){if(redirect())fail("This redirect is unsupported or unsafe. Use the final HTTPS address.");return;}
   if(response.state==HTTP7_DONE)break;
  }

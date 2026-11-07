@@ -4,6 +4,9 @@
 #include <engine/install/layout.h>
 #include <engine/storage/volume6.h>
 typedef struct {char user[32];uint32_t accent,guide;} m6_preferences;
+#ifdef ENGINE_M7
+unsigned m7_calculator_selection(void);
+#endif
 typedef struct {const char*path;const uint8_t*data;unsigned size;} m6_distribution_file;
 extern const m6_distribution_file m6_files[];
 extern const unsigned m6_file_count;

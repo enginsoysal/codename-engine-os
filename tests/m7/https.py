@@ -40,7 +40,7 @@ def main():
     try:
         disk=q.sparse_disk(work/'owned.img',2*1024**3)
         with q.Guest(work/'install',disk,image_name='EngineOS-M7') as guest:
-            h.next(guest);h.next(guest);h.next(guest,2);h.next(guest,2);h.next(guest,5);start=len(guest.log());h.next(guest,1);guest.wait('M6_INSTALL_PASS',start,240)
+            h.next(guest);h.next(guest);h.next(guest,2);h.next(guest,3);h.next(guest,5);start=len(guest.log());h.next(guest,1);guest.wait('M6_INSTALL_PASS',start,240)
         capture=work/'https.pcap'
         extra=['-cpu','max,x2apic=off','-rtc','base=utc,clock=host','-netdev','user,id=engine-net','-device','e1000,id=engine-net-card,netdev=engine-net,mac=52:54:00:12:34:56',
                '-object','filter-dump,id=engine-capture,netdev=engine-net,file='+str(capture)]

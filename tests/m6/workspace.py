@@ -21,7 +21,7 @@ def allocated(path):
     return (high.value<<32)|low
 
 def sparse_disk(path,size):
-    path=Path(path);assert (path.resolve().is_relative_to(BASE.resolve()) or path.resolve().is_relative_to((ROOT/'build/m6/vmware').resolve())) and size>0
+    path=Path(path);assert any(path.resolve().is_relative_to(base.resolve()) for base in (BASE,ROOT/'build/m6/vmware',ROOT/'build/m7/vmware')) and size>0
     with path.open('xb'):pass
     subprocess.run(['fsutil','sparse','setflag',str(path)],check=True,capture_output=True,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
     with path.open('r+b',buffering=0) as file:
