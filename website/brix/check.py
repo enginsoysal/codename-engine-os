@@ -56,16 +56,20 @@ def get(route):
         return page
 
 
-def verify(payload, homepage_release="M7.2"):
+def verify(payload, homepage_release="M7.3"):
     ref = payload["source_commit"]
     home = get("/")
     for text in ["From first boot.", "To what comes next.", "PROJECT SNAPSHOT / X86-64", "Run it in VMware", "Build your own distro.", "Repair and update", "Before you install "+homepage_release]:
         assert text in home.text, f"Missing preferred native design: {text}"
     for fiction in ["Driftlab", "Northwind", "Book now", "Tidemark"]:
         assert fiction not in home.text, f"Template fiction remains: {fiction}"
-    home_guide={"M7.1":"m71","M7.2":"m72"}.get(homepage_release,homepage_release.lower())
+    home_guide={"M7.1":"m71","M7.2":"m72","M7.3":"m73"}.get(homepage_release,homepage_release.lower())
     for slug in ["docs-handbook-install-"+home_guide, "docs-handbook-distributions", "docs-handbook-recovery-"+home_guide]:
         assert f"{ORIGIN}/blog/{slug}" in home.links, f"Stale homepage guide: {slug}"
+    m73 = json.loads((ROOT / "evidence/M7.3/acceptance-results.json").read_text(encoding="utf-8"))
+    assert m73["passed"] and m73["scope_id"] == "M73-VM-v1"
+    for relative,digest in m73["evidence_sha256"].items():
+        assert hashlib.sha256((ROOT / "evidence/M7.3" / relative).read_bytes()).hexdigest() == digest, relative
     m72 = json.loads((ROOT / "evidence/M7.2/acceptance-results.json").read_text(encoding="utf-8"))
     assert m72["passed"] and m72["scope_id"] == "M72-VM-v1"
     for relative,digest in m72["evidence_sha256"].items():
@@ -101,6 +105,8 @@ def verify(payload, homepage_release="M7.2"):
             expected = f"https://github.com/enginsoysal/codename-engine-os/blob/{ref}/{marker}"
             assert expected in page.links, f"Wrong source commit: {route}"
         if post["slug"] == "downloads":
+            assert m73["iso_sha256"] in page.text, "Current M7.3 ISO checksum missing"
+            assert m73["vmware_starter_sha256"] in page.text, "Current VMware ZIP checksum missing"
             assert m72["iso_sha256"] in page.text, "Current M7.2 ISO checksum is not visible"
             assert m72["vmware_starter_sha256"] in page.text, "Prepared VM checksum is not visible"
             assert m71["iso_sha256"] in page.text, "Current M7.1 ISO checksum is not visible"
@@ -127,7 +133,7 @@ def verify(payload, homepage_release="M7.2"):
     for relative, digest in acceptance["evidence_sha256"].items():
         assert hashlib.sha256((ROOT / "evidence/M4.5" / relative).read_bytes()).hexdigest() == digest, relative
     return {"passed": True, "checked_at": datetime.now(timezone.utc).isoformat(), "website": ORIGIN,
-            "native_articles": len(articles), "homepage_release": homepage_release, "homepage_update_pending": homepage_release != "M7.2", "m72_scope": m72["scope_id"], "m72_iso_sha256": m72["iso_sha256"], "m71_scope": m71["scope_id"], "m71_iso_sha256": m71["iso_sha256"], "m7_scope": m7["scope_id"], "m7_iso_sha256": m7["iso_sha256"], "article_source_commit": ref, "english_html_language": True,
+            "native_articles": len(articles), "homepage_release": homepage_release, "homepage_update_pending": homepage_release != "M7.3", "m73_scope": m73["scope_id"], "m73_iso_sha256": m73["iso_sha256"], "m72_scope": m72["scope_id"], "m72_iso_sha256": m72["iso_sha256"], "m71_scope": m71["scope_id"], "m71_iso_sha256": m71["iso_sha256"], "m7_scope": m7["scope_id"], "m7_iso_sha256": m7["iso_sha256"], "article_source_commit": ref, "english_html_language": True,
             "external_website_iframes": 0, "anonymous_https": True, "preferred_homepage_design": True,
             "m45_scope": "M45-VM-v1", "frozen_evidence_hashes_verified": len(acceptance["evidence_sha256"]),
             "m6_scope": m6["scope_id"], "m6_iso_sha256": m6["iso_sha256"], "m6_evidence_hashes_verified": len(m6["evidence_sha256"]),
@@ -142,7 +148,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--payload", type=Path, default=ROOT / "build/brix/site-content.json")
     parser.add_argument("--output", type=Path, default=ROOT / "evidence/documentation/native-brix-results.json")
-    parser.add_argument("--homepage-release", choices=["M6", "M7", "M7.1", "M7.2"], default="M7.2", help="Explicitly record a historical homepage while verifying current articles")
+    parser.add_argument("--homepage-release", choices=["M6", "M7", "M7.1", "M7.2", "M7.3"], default="M7.3", help="Explicitly record a historical homepage while verifying current articles")
     args = parser.parse_args()
     result = verify(json.loads(args.payload.read_text(encoding="utf-8")), args.homepage_release)
     args.output.parent.mkdir(parents=True, exist_ok=True)

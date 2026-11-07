@@ -1,5 +1,24 @@
 # Build your own Engine OS distribution
 
+## M7.3 smooth native UI profile
+
+Build the new visual candidate with `python tools/build/m73.py`. Its separate
+default is `distros/engineos-polished.json`, version 0.7.3, with a readable
+welcome guide and the existing schema-2 appearance/content fields. Use a copied
+profile and `python tools/build/m73.py --profile distros/engineos-polished.json --revision custom`
+for separate output names. The native wizard uses the profile's name and
+welcome text; the Engine OS profile retains the Engine OS product name.
+Desktop accent, light/dark defaults, wallpaper, tagline and data packages retain
+their implemented effects. Existing saved preferences win during an update.
+
+Smooth Inter coverage and supported display sizes are compiled into this UI,
+rather than exposed as arbitrary font/theme plugins. Source forks remain
+possible; a changed font/rasterizer requires a reviewed license/provenance lock
+and new native qualification. [Graphics decisions](../architecture/graphics-m73.md).
+Profile validation alone does not qualify a custom ISO, and core storage consent
+cannot be disabled by a recipe. Earlier profile examples below retain their
+original milestone/build tools.
+
 ## M7.2 desktop-first profile
 
 Build with `python tools/build/m72.py`. The current default is `distros/engineos-workspace.json`: Engine OS, light windows, mint accent, a teal wallpaper and no installed Calculator by default. The same validated schema-2 profile fields remain available. Use `python tools/build/m72.py --profile distros/engineos-workspace.json --revision custom` for separately named media; edit a copied profile to choose actual defaults/content. The desktop remains independent of Calculator, and optional app expansion is not this release's focus. The simplified wizard exposes the guide, account and accent; Calculator selection is controlled by the distro profile rather than cluttering setup. Existing saved appearance wins during update. Core disk consent and firmware boot registration cannot be disabled through a theme. Profile validation is not proof that an arbitrary custom image boots; qualify each image. [Desktop choices and limits](../architecture/desktop-m72.md).
@@ -74,6 +93,6 @@ Sources are relative to `distros/` and must resolve inside it. Additional target
 
 Build with `python tools/build/m51.py --profile distros/my-edition.json`. The output directory follows the profile ID, so keep IDs unique. The manifest records source/input/file SHA256 and build identity; the live and installed filesystem records the recipe at `/System/Distro/profile.json`. Changing selected profile content changes the build identity. Boot repair requires that same distribution/build ISO.
 
-## What can be customized later
+## Beyond the implemented profile fields
 
-MIT source permits forks and component changes. Future desktop, compositor, shell, language, native executable packages and runtime customization need implemented contracts before becoming profile choices. Unknown fields/packages are rejected today, not silently accepted. Disk review, confirmation and recovery guards stay mandatory in every profile. [Product principles](../architecture/product-principles.md), [M5.1 contract](../milestones/m5.1.md).
+MIT source permits forks and component changes. The native desktop is implemented; arbitrary compositor/shell replacement, language packs, new executable packages and runtime plugin customization need their own contracts before becoming profile choices. Unknown fields/packages are rejected, rather than silently accepted. Disk review, confirmation and recovery guards stay mandatory in every profile. [Product principles](../architecture/product-principles.md), [historical M5.1 contract](../milestones/m5.1.md).

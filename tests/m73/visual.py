@@ -41,6 +41,10 @@ def main():
         installed=ui.guest(work/'restart',disk,resolution,a.firmware,'installed',ready='M7_DESKTOP_READY',ram=a.ram);ui.s.normal_boot(installed)
         with installed as g:
             ui.shot(g,out,'11-independent-desktop');assert ui.integer(g,'choice73',True)==expected;assert 'M6_INSTALLED_VOLUME' in g.log();(out/'restart.log').write_bytes(g.log().encode())
+        if resolution==(3840,2160) and a.firmware=='uefi':
+            smaller=ui.guest(work/'smaller-display',disk,(1280,800),media='installed',ready='M7_DESKTOP_READY');ui.s.normal_boot(smaller)
+            with smaller as g:
+                assert ui.integer(g,'choice73',True)==0 and ui.integer(g,'scale73',True)==2;ui.shot(g,out,'18-smaller-display-fallback');(out/'smaller-display.log').write_bytes(g.log().encode())
         assert '/Users/Owner/Documents/design' in ui.s.directories(disk)
         m=json.loads((ROOT/'dist/m73-build-manifest.json').read_text());report.update(passed=True,build_id=m['build_id'],iso_sha256=m['artifacts']['EngineOS-M73.iso']['sha256'],resolution=actual,ui_scale_percent=scale*50,managed_current_bytes=after[0]*4096,managed_peak_bytes=after[1]*4096,navigation_retained_page_delta=after[0]-baseline[0],navigation_allocation_failures=after[3]-baseline[3],idle_all_cpus_halted=True,idle_repaint_count=0,checks=['every native setup step and missing-selection guidance captured','Back preserves choices; verified installation and direct persistent desktop','scaled actual input opens Documents, creates and enters a real folder','no measured paragraph overflow; light/dark Settings, display sizes, low-resolution refusal and persisted preference checked', 'full OFL license independently CRC-checked on installed disk','actual framebuffer dimensions; no screenshot resizing','unforced detached desktop and independently CRC-checked directory retained'])
     except Exception:

@@ -19,3 +19,4 @@ third_party/inter/Inter.ttf binary
 third_party/inter/METADATA.pb text eol=lf
 third_party/inter/OFL.txt whitespace=-blank-at-eol
 .gitattributes text eol=lf
+*.mjs text eol=lf

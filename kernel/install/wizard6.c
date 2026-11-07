@@ -61,10 +61,10 @@ static void render(void){
  if(u71_mode||diagnostics||failure){
   unsigned old=focus;controls=0;gui7_clip_reset();gui6_rect(0,0,screen->framebuffer_width,screen->framebuffer_height,0x152b3a);
   ui73_shadow(left,top,width,height);ui73_round(left,top,width,height,14,0x102a3a);
-  label(left+24,top+28,"Engine OS",3,0xf7fafc);label(left+24,top+78,"Setup and recovery",1,0xb7cbd8);
+  ui73_fit(left+24,top+28,148,DISTRO_NAME,3,0xf7fafc);label(left+24,top+78,"Setup and recovery",1,0xb7cbd8);
   unsigned x=body+10,y=top+92,cw=width-280;
   if(u71_mode)u71_draw(x,y);
-  else if(failure){label(x,y,"Let's get this sorted.",4,0xffffff);ui73_paragraph(x,y+72,cw,4,failure,0xffc3a9);ui73_paragraph(x,y+190,cw,3,"Keep the ISO connected for recovery. Your installation has not been marked successful.",0xb7cbd8);button(x,bottom+14,160,"Back",63,1);button(x+175,bottom+14,160,"Details",50,0);}
+  else if(failure&&!diagnostics){label(x,y,"Let's get this sorted.",4,0xffffff);ui73_paragraph(x,y+72,cw,4,failure,0xffc3a9);ui73_paragraph(x,y+190,cw,3,"Keep the ISO connected for recovery. Your installation has not been marked successful.",0xb7cbd8);button(x,bottom+14,160,"Back",63,1);button(x+175,bottom+14,160,"Details",50,0);}
   else{label(x,y,"Recovery and details",4,0xffffff);ui73_paragraph(x,y+60,cw,2,"Choose an operation below. You will review the selected disk before anything is written.",0xb7cbd8);
    textnum(x,y+128,pages_stats().current_pages*4," KiB managed RAM");textnum(x,y+160,pages_stats().peak_pages*4," KiB peak managed RAM");
    label(x,y+210,"Build",1,0xb7cbd8);label(x,y+238,BUILD_ID,1,0xffffff);
@@ -196,6 +196,13 @@ static void action(unsigned a){
  if(a==2){if(step==1){
 #ifdef ENGINE_M71
  if(chosen>=storage_count()){validation="Select a disk row first, then choose Next.";render();return;}
+#ifdef ENGINE_M73
+ if(!maintenance){const storage_disk*d=storage_get(chosen);
+  if(d->transport!=STORAGE_AHCI||d->sector_bytes!=512){validation="Choose a SATA hard disk with 512-byte sectors. Other disks can be inspected in Manage disks.";render();return;}
+  if(d->sectors<UINT64_C(4194304)){validation="This disk is too small. Choose a SATA disk of at least 2 GiB.";render();return;}
+  if(d->sectors>UINT64_C(4294967296)){validation="This disk exceeds the current 2 TiB installation limit. Choose a smaller test disk.";render();return;}
+ }
+#endif
  unsigned s=maintenance?m6_maintenance_prepare(chosen,maintenance):replace_selected?m71_prepare_replace(chosen):m6_prepare(chosen);
  if(s){validation=s==B_IO?"Disk I/O failed. Check the SATA connection.":maintenance?"No compatible Engine OS installation was found.":replace_selected?"Use a readable SATA disk, 512-byte sectors, 2 GiB to 2 TiB.":"Disk is not blank/eligible. Open Manage disks or choose Erase and install.";render();return;}validation=0;
 #else

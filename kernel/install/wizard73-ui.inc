@@ -11,7 +11,7 @@ static void render72(void){
  gui6_rect(0,0,screen->framebuffer_width,screen->framebuffer_height,0x152b3a);
  ui73_shadow(left,top,width,height);ui73_round(left,top,width,height,14,0xf6f8fa);
  ui73_round(left,top,196,height,14,0x102a3a);gui6_rect(left+180,top,16,height,0x102a3a);
- label(left+24,top+30,"Engine OS",3,0xf7fafc);ui73_fit(left+24,top+78,148,"Make it yours.",1,0xb7cbd8);
+ ui73_fit(left+24,top+30,148,DISTRO_NAME,3,0xf7fafc);ui73_fit(left+24,top+78,148,"Make it yours.",1,0xb7cbd8);
  const char*names[]={"Welcome","Your disk","Your setup","Your style","Review","Installing","Your desktop"};
  for(unsigned i=0;i<7;++i){unsigned sy=top+132+i*49;if(i==step)ui73_round(left+12,sy-7,172,38,7,0x254857);
  char digit[2]={(char)('1'+i),0};label(left+26,sy,digit,2,i<=step?accent:0x8daaba);label(left+52,sy,names[i],1,i==step?0xffffff:0xb7cbd8);}
@@ -19,7 +19,7 @@ static void render72(void){
  label(x,top+28,step==6?"READY TO EXPLORE":"WELCOME TO YOUR WORKSPACE",1,0x486b7b);
  for(unsigned i=0;i<7;++i)ui73_round(x+i*31,top+64,23,3,1,i<=step?0x219d80:0xd4e0e7);
  if(step==0){label(x,y,"A fresh start. Made yours.",4,ink);
- ui73_paragraph(x,y+54,cw,2,"Set up Engine OS, then go straight to your desktop and your folders.",muted);
+ ui73_paragraph(x,y+54,cw,2,DISTRO_WELCOME,muted);
  illustration73(x,y+132,cw);ui73_paragraph(x,y+295,cw,2,"Choose a disk, make it yours and review the changes. Nothing is erased until you choose Install.",muted);
  if(validation)ui73_paragraph(x,y+355,cw,2,validation,0x9a4434);
  else ui73_paragraph(x,y+355,cw,2,"UEFI setup adds a startup entry. Your disk still needs a separate installation confirmation.",muted);

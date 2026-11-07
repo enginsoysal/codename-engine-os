@@ -23,8 +23,8 @@ export function nativeDesign(){
    text('PROJECT SNAPSHOT / X86-64',10,'#90a6b8',{letterSpacing:'1.5px',py:10}),
    heading('CODENAME: ENGINE OS',18,'#e4edf1',{py:12}),
    text('Original kernel · BIOS + UEFI boot',13,'#35ceba'),
-   text('M7.2 · Install, open desktop, explore folders',12,'#90a6b8'),
-   b('code',{code:'Next → Review → Install → Open desktop\nHome · Documents · Your folders\nBack / Forward / Up · Make it yours'}),
+   text('M7.3 · Smooth native UI · HiDPI folder desktop',12,'#90a6b8'),
+   b('code',{code:'Next → Review → Install → Open desktop\nSmooth type · Clear steps · Your folders\nAuto / 100% / 150% / 200%'}),
  ]],{bg:{kind:'color',color:dark},border:1,borderColor:'#35ceba',radius:4,padY:18,minH:320,valign:'center'});
  const hero=layout([[
    text('THE ENGINE OS KNOWLEDGE BASE',11,teal,{letterSpacing:'1.6px',weight:600,py:12}),
@@ -37,9 +37,9 @@ export function nativeDesign(){
  hero.props.columns[0].children.at(-1).props.columns[0].width=60;
  hero.props.columns[0].children.at(-1).props.columns[1].width=40;
  const cards=layout([
-   card('01 / FIRST BOOT','Run it in VMware','Open the prepared VMware VM, follow Next, and enter your real folder desktop.','Open the setup guide ↗','docs-handbook-install-m72'),
+   card('01 / FIRST BOOT','Run it in VMware','Open the prepared VMware VM, follow Next, and enter your real folder desktop.','Open the setup guide ↗','docs-handbook-install-m73'),
    card('02 / CUSTOMIZE','Build your own distro.','Choose your accent, wallpaper, window style and default content with a validated distribution profile.','Open the distro guide ↗','docs-handbook-distributions'),
-   card('03 / RECOVERY','Repair and update','Use the graphical recovery choices to repair boot, update or roll back compatible system slots without formatting your files.','Open the recovery guide ↗','docs-handbook-recovery-m72'),
+   card('03 / RECOVERY','Repair and update','Use the graphical recovery choices to repair boot, update or roll back compatible system slots without formatting your files.','Open the recovery guide ↗','docs-handbook-recovery-m73'),
  ],{bg:{kind:'color',color:'#ffffff'},border:1,borderColor:'#dbe3e6',divided:true,ruleColor:'#dbe3e6',radius:4,padY:24});
  cards.props.columns.forEach(column=>{column.width=100/3;});
  const bottom=layout([[
@@ -54,7 +54,7 @@ export function nativeDesign(){
  bottom.props.columns.forEach(column=>{column.width=50;});
  const main=layout([[
    hero,heading('A good place to start',27,ink,{py:24}),cards,
-   b('alert',{variant:'warning',title:'Before you install M7.2',text:'For the easiest start, extract the VMware ZIP and open EngineOS.vmx. It includes a new empty growable SATA disk and the ISO. Follow Next, review the disk and Install, then choose Open desktop. Files opens your real saved folders immediately. On later starts disconnect only CD/DVD and keep the SATA disk connected. UEFI media adds a startup entry and needs writable firmware variables. Existing-disk erasure needs separate consent. No network or extra apps are needed; DOS/Windows support comes later.'}),bottom,
+   b('alert',{variant:'warning',title:'Before you install M7.3',text:'For the easiest start, extract the VMware ZIP and open EngineOS.vmx. It includes a new empty growable SATA disk and the ISO. Follow Next, review the disk and Install, then choose Open desktop. Files opens your real saved folders immediately. On later starts disconnect only CD/DVD and keep the SATA disk connected. UEFI media adds a startup entry and needs writable firmware variables. Existing-disk erasure needs separate consent. No network or extra apps are needed; DOS/Windows support comes later.'}),bottom,
  ]],{bg:{kind:'color',color:paper},padY:12});
  const footer=b('socialcircles',{copyright:'Codename: Engine OS / MIT licensed · Documentation & releases on GitHub',bg:paper,circleBg:teal,items:[{label:'github',href:'https://github.com/enginsoysal/codename-engine-os'},{label:'website',href:`${site}/blog/documentation`}]});
  return [header,status,main,footer];
