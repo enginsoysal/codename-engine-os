@@ -1,0 +1,8 @@
+{
+  "observed_build_id": "4ac602d8ccca6a3e1dbbdeec63819bc3",
+  "symptom": "third ZIP member absent; earlier Welcome.txt and Notes/Readme.txt remained correct",
+  "trigger": "valid Deflate PCM member with compressed input crossing 4096 bytes",
+  "cause": "broker passed a full decoded chunk to the volume append API after an earlier partial chunk",
+  "fix": "split each decoded output at the remaining volume page boundary; no extra buffer or shared API change",
+  "status": "native repeat passes: all members independently byte/CRC checked; long WAV plays with complete reference capture"
+}

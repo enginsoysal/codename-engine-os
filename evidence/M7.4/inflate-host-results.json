@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "host_only": true,
+  "cases": [
+    {
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "input_chunk": 1,
+      "events": 2
+    },
+    {
+      "source_sha256": "c8f5d0341d54d951a71b136e6e2afcb14d11ed8489a7ae126a8fee0df6ecf193",
+      "bytes": 4096,
+      "input_chunk": 1,
+      "events": 309
+    },
+    {
+      "source_sha256": "fc3ca4604ed7c7c0fdb6a0b0f099c75b7e6534bb2ff3618c38dd70534dfed9e1",
+      "bytes": 120000,
+      "input_chunk": 17,
+      "events": 43
+    },
+    {
+      "source_sha256": "da1cdc57b5d5fc09c714cab7af64aaeb731341ff24a88de2bd75fb6616caf9f2",
+      "bytes": 90000,
+      "input_chunk": 8191,
+      "events": 24
+    },
+    {
+      "source_sha256": "5ae0db5b0a20d3b52286f7bd7cc9077915b9a1487d542debeedaa57bee73473c",
+      "bytes": 179200,
+      "input_chunk": 8191,
+      "events": 44
+    }
+  ],
+  "malformed_cases": 3
+}

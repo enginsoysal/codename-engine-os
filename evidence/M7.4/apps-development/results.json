@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "scope": "development app slice; not full M7.4 acceptance",
+  "checks": [
+    "native Clock, RTC IRQ wakeup, timer and stopwatch input; last-close page recovery",
+    "Calendar note independently checked against installed-volume CRC and retained after unforced disk boot",
+    "Editor removal cancelled, confirmed, executable absence checked, offline reinstall and app-close page recovery",
+    "Native screenshot independently CRC-checked and decoded as a 1280x800 BMP; opened in Image Viewer; close returns pages",
+    "Native decimal Calculator, protected system disk, explicit consent, separate-disk GPT creation and FAT32 format independently decoded",
+    "Native verified boot repair followed by an independent installed-disk boot",
+    "Real ZIP Deflate extraction across the 32-KiB dictionary wrap; independent file bytes/CRCs; transient pages freed before close and files retained after restart",
+    "Real certificate-checked HTTPS page opened through typed address, parsed in CPL3, links displayed, Back returns Home and close returns pages",
+    "Native HDA PCM playback, Pause/Resume, actual captured stereo waveform, persistent volume and complete DMA page recovery before close",
+    "Help opens and pages without depending on installed Text Editor"
+  ],
+  "build_id": "f875d432e6829fde0cd7c3803bad926e",
+  "iso_sha256": "7fa59758cd3cfd72766a64c98a8bb7684324c275aef20c8760f2c3958d014363",
+  "stage": "media-pcm",
+  "repair_gpt_before": "e713ed6bfddec3603992a30d785fa59cffea3d39324057823664e3e369afda42",
+  "repair_gpt_after": "e713ed6bfddec3603992a30d785fa59cffea3d39324057823664e3e369afda42",
+  "audio_capture": {
+    "sample_rate": 48000,
+    "channels": 2,
+    "active_frames": 88337,
+    "frames": 89111,
+    "raw_riff_length": 0,
+    "raw_data_length": 0,
+    "decoded_from_actual_capture_bytes": true
+  }
+}

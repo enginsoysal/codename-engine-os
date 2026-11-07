@@ -1,0 +1,8 @@
+{
+  "passed": false,
+  "scope": "development app slice; not full M7.4 acceptance",
+  "checks": [
+    "native Clock, RTC IRQ wakeup, timer and stopwatch input; last-close page recovery"
+  ],
+  "error": "Traceback (most recent call last):\n  File \"<project-root>\\tests\\m74\\apps.py\", line 81, in main\n    assert q.digest(disk,512,512+16384)==gpt_before\nAssertionError\n"
+}

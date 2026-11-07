@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "build_id": "f875d432e6829fde0cd7c3803bad926e",
+  "human_usability_study": false,
+  "reviewer": "agent native-interface review",
+  "actual_resolutions": [
+    [
+      1280,
+      800
+    ],
+    [
+      3840,
+      2160
+    ]
+  ],
+  "criteria": [
+    "clear task headings, formats and explicit disk/removal effects",
+    "ordinary tasks use named buttons, file associations and retained navigation",
+    "cancel, unsaved-note guards, active-app removal refusal and Settings fallback",
+    "consistent native Inter typography, accents and rounded surfaces",
+    "measured text, meaningful minimum sizes and no observed essential overlap in reviewed flows"
+  ],
+  "reviewed_native_captures": {
+    "apps-development/calculator-decimal.png": "89ac8afbb7665a2084eaa997f1f2e50f374b3a78ce882c550f5a2eb35367bf52",
+    "apps-development/calculator-scientific.png": "16ac02dafbbe77c995e285722e3224e77f3e76913a5edb32d27d70f1bae65842",
+    "apps-development/calendar-saved.png": "e78668ae9ccce57be669000b8c60a964fdb944a1de47890a3fce72d8593174e1",
+    "apps-development/archive-extracted.png": "7ee9fd2aa8d77355eb14105b7dcdae6c0b2093c127882d18e4201326fd702b69",
+    "apps-development/image-viewer.png": "9aa24c27599d5937c2a3497a48acc5866228a5d9cc65b481c724ccee6ac83ebf",
+    "apps-development/media-paused.png": "62fb8a12e843297643a5da6f8d3fc6aca3b118dbbe1682b3191a0ea1c5a8d39e",
+    "apps-development/browser-real-https.png": "ebbb5a4ddbe76205f0265d91300e07135bb56017d039d23fa15b389fe8ba8e8b",
+    "apps-development/recovery-review.png": "1a370984b512d5c26c9b2ec9779d8d04f380fe6cb25a274dc33f0d03905d448b",
+    "packages-4k/private-note-saved.png": "fe588db84b4243a886892360d490587ba2d37e611f48b427eaa8b3d68d889894",
+    "packages-4k/settings-package-fallback.png": "219fdf42608d4f944cbd747cfe6ea9285ba6bef2e863c54a5f1631140ee9d6ca"
+  },
+  "limitations": "First bounded app implementations; no modern web/codec or universal hardware claim. See handbook and exact acceptance."
+}

@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "archive": "EngineOS-M74-VMware.zip",
+  "sha256": "420f5cb468b6209ba762e35d7d82e23d3d5da2b3d2f3abef7e7d15f93aa3951c",
+  "size": 3038832,
+  "disk": "new growable 20 GiB SATA disk; not preinstalled",
+  "firmware": "UEFI, Secure Boot off",
+  "boot_order_forced": false,
+  "network_required": false,
+  "members": [
+    "EngineOS-M74.iso",
+    "EngineOS.vmdk",
+    "EngineOS.vmx",
+    "Inter-OFL.txt",
+    "LICENSE",
+    "START-HERE.txt",
+    "THIRD-PARTY-NOTICES.txt"
+  ]
+}

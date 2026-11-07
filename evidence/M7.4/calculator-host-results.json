@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "host_only": true,
+  "normal_cases": 17,
+  "error_cases": 5,
+  "recovery_cases": 2
+}

@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "build_id": "f875d432e6829fde0cd7c3803bad926e",
+  "iso_sha256": "7fa59758cd3cfd72766a64c98a8bb7684324c275aef20c8760f2c3958d014363",
+  "queued_text_drain_seconds": 0.2819999999992433,
+  "resolution": [
+    3840,
+    2160
+  ],
+  "checks": [
+    "Calendar close/reopen and 19 typed characters on actual 4K",
+    "native Save button persisted a real private note"
+  ]
+}

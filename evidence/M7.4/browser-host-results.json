@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "host_only": true,
+  "chunk_sizes": [
+    1,
+    7,
+    4096
+  ],
+  "checks": [
+    "entities and hrefs across chunk boundaries",
+    "script/style omission",
+    "labels and URLs without replacing page text",
+    "bounded history",
+    "visible truncation and plain text"
+  ],
+  "limits": "basic static HTML/text, no JavaScript, forms, CSS layout or general modern-web compatibility"
+}

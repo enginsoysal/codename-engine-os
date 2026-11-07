@@ -1,0 +1,7 @@
+{
+  "affected_build_id": "445ae67c023f60b043f8ac87cbbb7938",
+  "native_failure": "GPT bytes changed during desktop boot repair",
+  "cause": "Recovery payload at LBA zero spans 4096 bytes, including the protective MBR and initial GPT sectors. Desktop repair omitted the old whole-table reconstruction but still replayed those bytes.",
+  "fix": "Preserve bytes 446 through 4095 of the existing disk during the LBA-zero replay; restore only bootstrap bytes. Keep the GPT entirely unchanged.",
+  "fixed_native_acceptance_pending": true
+}

@@ -1,6 +1,7 @@
 # M7.4 application boundaries and resource decisions
 
-Status: development, not full milestone acceptance. The owner requested the
+Status: the first bounded app delivery is qualified within M74-VM-v1.
+Expanded capabilities remain follow-ups. The owner requested the
 standard application set, attractive convenient UI, low resource consumption
 and independent removal. [Contract](../milestones/m7.4.md),
 [current guide](../handbook/apps-m74.md).
@@ -12,7 +13,7 @@ identities, execution class and readiness. Deferred entries remain hidden and
 cannot be selected by an application profile. The build reads the same catalogue
 instead of maintaining a different Python list.
 
-Editor, Calculator, Calendar, Help and Archive Manager's actual Deflate worker
+Editor, Calculator, Calendar, Help, Browser and Archive Manager's Deflate worker
 have separate original CPL3 ELF programs. Code loads on demand, same-app windows
 share immutable code pages, and last close releases code/private pages. Complex
 untrusted Deflate decoding runs behind the existing watchdog and supervisor
@@ -20,7 +21,7 @@ boundary. The decoder's extra 48 KiB of state exists only during extraction;
 the broker's three scratch pages are similarly transient.
 
 Clock, Downloads, Terminal, System Monitor, Software Manager, Disk Utility,
-Update & Recovery, BMP viewing and Screenshot currently use fixed broker
+Update & Recovery, BMP viewing, Screenshot and Media Player use fixed broker
 frontends. Their optional package file is a small declarative manifest, not an
 empty ELF loaded into a process. The broker accepts the exact built-in descriptor
 bytes; it does not interpret arbitrary manifests as privileged executable code.

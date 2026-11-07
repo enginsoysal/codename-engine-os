@@ -1,5 +1,30 @@
 # Build your own Engine OS distribution
 
+## M7.4 standard application profiles
+
+Build the current app suite with `python tools/build/m74.py`. The standard
+schema-3 profile is `distros/engineos-apps.json`. Its `desktop.applications`
+list selects implemented optional package IDs; Files, Settings and shared
+services remain required. Keep the legacy `calculator` default consistent with
+the list. The simplified wizard exposes the guide, account and accent; change
+apps later through Settings or Software Manager.
+
+`distros/engineos-minimal-apps.json` selects no optional apps. Build separate
+example media with `python tools/build/m74.py --profile distros/engineos-minimal-apps.json --revision minimal`.
+Native acceptance boots that image, verifies all sixteen omissions, installs
+each package offline through Settings and opens them after independent disk
+startup. Omission disables the frontend/worker installation; trusted broker
+code and retained offline sources remain. The standard suite also verifies
+removal/reinstall and private-data retention.
+
+Appearance fields and data-only packages keep their existing behavior; schema
+3 also permits tutorial content in Downloads, Pictures and Music. There are no
+arbitrary executable hooks. A recipe cannot bypass storage consent or remove
+protected core services. [Fields, app IDs and instructions](apps-m74.md#build-a-distribution-with-a-different-application-set),
+[ownership and memory choices](../architecture/applications-m74.md).
+
+The profiles below describe their historical milestone tools and artifacts.
+
 ## M7.3 smooth native UI profile
 
 Build the new visual release with `python tools/build/m73.py`. Its separate

@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "checks": [
+    "actual 4K screenshot independently decoded; capture retains no full-screen buffer",
+    "missing HDA output gives a readable failure and retains no DMA pages",
+    "removed and offline reinstalled Text Editor",
+    "removed and offline reinstalled Calculator",
+    "removed and offline reinstalled Downloads",
+    "removed and offline reinstalled System Monitor",
+    "removed and offline reinstalled Terminal",
+    "removed and offline reinstalled Clock",
+    "removed and offline reinstalled Calendar",
+    "removed and offline reinstalled Disk Utility",
+    "removed and offline reinstalled Software Manager",
+    "removed and offline reinstalled Update & Recovery",
+    "removed and offline reinstalled Archive Manager",
+    "removed and offline reinstalled Image Viewer",
+    "removed and offline reinstalled Screenshot",
+    "removed and offline reinstalled Media Player",
+    "removed and offline reinstalled Browser",
+    "removed and offline reinstalled Help",
+    "active worker removal refused; Calendar note and personal sample files retained after every removal"
+  ],
+  "opened_window_extra_managed_bytes": {
+    "4": 53248,
+    "8": 0,
+    "9": 49152,
+    "10": 0,
+    "11": 0,
+    "12": 0,
+    "13": 57344,
+    "14": 0,
+    "15": 0,
+    "16": 0,
+    "17": 65536,
+    "18": 49152
+  },
+  "managed_current_bytes": 196608,
+  "managed_peak_bytes": 475136,
+  "framebuffer_bytes": 33177600,
+  "build_id": "f875d432e6829fde0cd7c3803bad926e",
+  "iso_sha256": "7fa59758cd3cfd72766a64c98a8bb7684324c275aef20c8760f2c3958d014363"
+}

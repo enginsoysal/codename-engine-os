@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "checks": [
+    "omitted, then offline installed Text Editor",
+    "omitted, then offline installed Calculator",
+    "omitted, then offline installed Downloads",
+    "omitted, then offline installed System Monitor",
+    "omitted, then offline installed Terminal",
+    "omitted, then offline installed Clock",
+    "omitted, then offline installed Calendar",
+    "omitted, then offline installed Disk Utility",
+    "omitted, then offline installed Software Manager",
+    "omitted, then offline installed Update & Recovery",
+    "omitted, then offline installed Archive Manager",
+    "omitted, then offline installed Image Viewer",
+    "omitted, then offline installed Screenshot",
+    "omitted, then offline installed Media Player",
+    "omitted, then offline installed Browser",
+    "omitted, then offline installed Help"
+  ],
+  "managed_current_bytes": 196608,
+  "managed_peak_bytes": 475136,
+  "framebuffer_bytes": 4096000,
+  "build_id": "fcf8b4d0848716bd5aa22e33f95c80d6",
+  "iso_sha256": "dae5ede1390dcac1ee56537242ecfd5d222d211b33170a1a6609d88885525c27"
+}

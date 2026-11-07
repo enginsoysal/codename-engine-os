@@ -1,0 +1,386 @@
+{
+  "passed": true,
+  "scope_id": "M74-VM-v1",
+  "delivery": "first bounded standard application suite; richer capabilities remain explicit follow-ups",
+  "code_source_commit": "ad50b58cb05a1d7a6c0f350999f91e205b44d7cd",
+  "build_id": "f875d432e6829fde0cd7c3803bad926e",
+  "iso_sha256": "7fa59758cd3cfd72766a64c98a8bb7684324c275aef20c8760f2c3958d014363",
+  "vmware_starter_sha256": "420f5cb468b6209ba762e35d7d82e23d3d5da2b3d2f3abef7e7d15f93aa3951c",
+  "minimal_build_id": "fcf8b4d0848716bd5aa22e33f95c80d6",
+  "gate_count": 13,
+  "gates": [
+    {
+      "name": "apps-development",
+      "report": "apps-development/results.json",
+      "passed": true
+    },
+    {
+      "name": "audio-development",
+      "report": "audio-development/results.json",
+      "passed": true
+    },
+    {
+      "name": "packages-4k",
+      "report": "packages-4k/results.json",
+      "passed": true
+    },
+    {
+      "name": "calendar-probe",
+      "report": "calendar-probe/results.json",
+      "passed": true
+    },
+    {
+      "name": "uefi-1280x800-64mib",
+      "report": "uefi-1280x800-64mib/results.json",
+      "passed": true
+    },
+    {
+      "name": "vmware",
+      "report": "vmware/efi-starter/results.json",
+      "passed": true
+    },
+    {
+      "name": "vmware",
+      "report": "vmware/bios/results.json",
+      "passed": true
+    },
+    {
+      "name": "omitted-apps",
+      "report": "omitted-apps/results.json",
+      "passed": true
+    },
+    {
+      "name": "calculator-host-results",
+      "report": "calculator-host-results.json",
+      "passed": true
+    },
+    {
+      "name": "inflate-host-results",
+      "report": "inflate-host-results.json",
+      "passed": true
+    },
+    {
+      "name": "browser-host-results",
+      "report": "browser-host-results.json",
+      "passed": true
+    },
+    {
+      "name": "repository-results",
+      "report": "repository-results.json",
+      "passed": true
+    },
+    {
+      "name": "visual-review",
+      "report": "visual-review.json",
+      "passed": true
+    }
+  ],
+  "artifacts": {
+    "EngineOS-M74.iso": {
+      "sha256": "7fa59758cd3cfd72766a64c98a8bb7684324c275aef20c8760f2c3958d014363",
+      "size": 71587840
+    },
+    "EngineOS-M74-usb.img": {
+      "sha256": "81cb20762793c043f2c72d152ebc6d277049aa4845c301add099e522fd0991e2",
+      "size": 84934656
+    },
+    "EngineOS-M74-kernel.elf": {
+      "sha256": "926f73f7f440b567429856eee07e01b920997410551e1e7a8df47505724928b5",
+      "size": 2961704
+    },
+    "EngineOS-M74-kernel.map": {
+      "sha256": "5a57dd23df90cbf65173c6f1cbb57f5d7775d44435d965f5cd73b0d54c2cf2ff",
+      "size": 332837
+    },
+    "EngineOS-M74-user.elf": {
+      "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f",
+      "size": 68064
+    },
+    "EngineOS-M74-installed-kernel.elf": {
+      "sha256": "a79477f306230c03310427ca12235537cad79cc9f47b44dc02c81e0270fac9d4",
+      "size": 921896
+    },
+    "EngineOS-M74-installed-kernel.map": {
+      "sha256": "9be279f0bfed2725ea8f5c25b9c4ad37c1dc9d3d9d6e485a6a1d05fa8d1a4235",
+      "size": 332545
+    },
+    "EngineOS-M74-editor.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M74-calculator.elf": {
+      "sha256": "5193f62e9f16e90ad96905b6bc2e47152c9a524402c5db6f32c8f8e50e1af8a0",
+      "size": 12976
+    },
+    "EngineOS-M74-calendar.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M74-archives.elf": {
+      "sha256": "9008a959466f7288e7ef99dab89ecb8e40439e9ee693faf825b4c602b98f8a84",
+      "size": 17068
+    },
+    "EngineOS-M74-browser.elf": {
+      "sha256": "3046e4a9af08551315191e2907d572ebde73b54b389b6c3a37dfb41222140cc0",
+      "size": 12639
+    },
+    "EngineOS-M74-help.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M74MINIMAL.iso": {
+      "sha256": "dae5ede1390dcac1ee56537242ecfd5d222d211b33170a1a6609d88885525c27",
+      "size": 71522304
+    },
+    "EngineOS-M74MINIMAL-usb.img": {
+      "sha256": "c7668c6a1665be37701470843041870e3407b3fcacb47f83506d24daf0172cfd",
+      "size": 84934656
+    },
+    "EngineOS-M74MINIMAL-kernel.elf": {
+      "sha256": "d322a0a19878f6646b4935ac310b85e7f953f3a1d3b9cfe1efd2fadabfaed436",
+      "size": 2892072
+    },
+    "EngineOS-M74MINIMAL-kernel.map": {
+      "sha256": "df62df33209f2b84919b24e9fe3ee415c05949dc346edc58f3ede25b09eb7c72",
+      "size": 332545
+    },
+    "EngineOS-M74MINIMAL-user.elf": {
+      "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f",
+      "size": 68064
+    },
+    "EngineOS-M74MINIMAL-installed-kernel.elf": {
+      "sha256": "48261e10265b4589534490131007fc2807eb3363fee11ada2c6d62ea59f18514",
+      "size": 921896
+    },
+    "EngineOS-M74MINIMAL-installed-kernel.map": {
+      "sha256": "5e048ea7259500e7f8b911ce40b3335e9820a64432a7cdb4016f126813756009",
+      "size": 332545
+    },
+    "EngineOS-M74MINIMAL-editor.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M74MINIMAL-calculator.elf": {
+      "sha256": "5193f62e9f16e90ad96905b6bc2e47152c9a524402c5db6f32c8f8e50e1af8a0",
+      "size": 12976
+    },
+    "EngineOS-M74MINIMAL-calendar.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M74MINIMAL-archives.elf": {
+      "sha256": "9008a959466f7288e7ef99dab89ecb8e40439e9ee693faf825b4c602b98f8a84",
+      "size": 17068
+    },
+    "EngineOS-M74MINIMAL-browser.elf": {
+      "sha256": "3046e4a9af08551315191e2907d572ebde73b54b389b6c3a37dfb41222140cc0",
+      "size": 12639
+    },
+    "EngineOS-M74MINIMAL-help.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M74-VMware.zip": {
+      "sha256": "420f5cb468b6209ba762e35d7d82e23d3d5da2b3d2f3abef7e7d15f93aa3951c",
+      "size": 3038832
+    }
+  },
+  "prior_frozen_proofs_verified": 912,
+  "prior_binary_artifacts_verified": 71,
+  "kernel_physical_span_bytes": 2337808,
+  "font_coverage_bytes": 220492,
+  "resources": {
+    "managed_current_bytes": 196608,
+    "managed_peak_bytes": 475136,
+    "framebuffer_bytes": 33177600,
+    "opened_window_extra_managed_bytes": {
+      "4": 53248,
+      "8": 0,
+      "9": 49152,
+      "10": 0,
+      "11": 0,
+      "12": 0,
+      "13": 57344,
+      "14": 0,
+      "15": 0,
+      "16": 0,
+      "17": 65536,
+      "18": 49152
+    }
+  },
+  "artifacts_private_path_scan_passed": true,
+  "audio_dma_peak_bound_bytes": 98304,
+  "actual_4k_framebuffer": true,
+  "human_usability_study": false,
+  "physical_hardware_qualified": false,
+  "arm_raspberry_pi_implemented": false,
+  "windows_dos_runtime_implemented": false,
+  "limitations": [
+    "M7.4 development: not qualified without matching native acceptance evidence",
+    "Original native Editor/Calculator CPL3 event workers; trusted compositor, Files, Settings, Terminal and network broker",
+    "One bounded TLS 1.2 connection, IPv4 Intel 8254x/82574 and hardware RDRAND; correct virtual UTC clock required",
+    "Editor 8191 bytes; download 64 MiB; 8 windows; 1024 volume entries; 4-KiB streaming buffer",
+    "SATA/AHCI 512-byte sectors and M6 installed-volume bounds; one local profile without authentication/ACLs",
+    "Named x86-64 BIOS/UEFI virtual profiles only; Secure Boot disabled; no universal or physical qualification",
+    "Desktop work runs on the BSP; APs halt after original runtime qualification; no Windows or DOS application runtime",
+    "GPT 128x128 canonical tables and primary MBR partitions; FAT32/Engine quick formats; no resize/move or filesystem conversion",
+    "Installation still replaces the whole selected SATA disk after explicit erase consent; no dual-boot installation into a selected partition",
+    "Finish opens the real persistent desktop immediately from the installation session; independent disk boot is qualified separately",
+    "Files browses the installed native volume; additional partitions are not automatically mounted; system folders are read-only in Files",
+    "Inter OFL coverage masks at native physical font sizes, 100/150/200 percent UI scales; no runtime font interpreter",
+    "4K refers to qualified framebuffer modes, not every physical monitor or GPU",
+    "Basic static HTML/text HTTPS browser; no JavaScript/CSS layout/forms/cookies",
+    "PCM WAV/HDA only; BMP only; ZIP Stored/Deflate extraction only",
+    "Calendar stores local day notes; reminders/synchronization remain future",
+    "Fresh installs qualified; cross-version package-cache migration not qualified"
+  ],
+  "test_sha256": {
+    "tests/m74/apps.py": "bdb1e3e5a54f187ce363f6d37fe501e480ea98aa0e4339bdd1588fa27bd7fadd",
+    "tests/m74/audio.py": "1b625b0134b73a2800cfae03b8932a1e65413b1a52f8da6f87bb026f20098681",
+    "tests/m74/browser.py": "7285282c091dee210693edf00d2ff9578097e4d6ad795d72ee5e15fd14391bdd",
+    "tests/m74/calculator.py": "bbe48596c1215f42f2e71abeb72630a4d956de23fd6b8177843fed30c9c947a0",
+    "tests/m74/calendar_probe.py": "6d7fcf304fe698eb5643b87a8866174aa6d9a8dc322e01ffbeb6ccaf6e5c28c2",
+    "tests/m74/capture.py": "f8aa8b5379bd322baf813e6565b45bc1a86fc6ce48a1bf30257f3c3cf3c84677",
+    "tests/m74/inflate.py": "0a4db317e205a3b39e64265d3f282a7ebc257fd681299aa68a4d2f7d63ef700f",
+    "tests/m74/omitted.py": "cd9d5815a5a56f3492fe029be5b003e97fbc2711d6a8be98765097ef8237c0f1",
+    "tests/m74/packages.py": "f6b3bf0ddadc898e82d0bb7eb865287fe3815edc4aad1699948c1c7d450ff771",
+    "tests/m74/ui.py": "990bcd64ba57a5d9791dd7bddfd19f35d77a2b951c42f30bd42fcf3187507f21",
+    "tests/m74/verify.py": "11bd66d760232e5d3d53212d816068c3d105d27538fb31e24de31c99d18edd81",
+    "tests/m74/visual.py": "725a9633a38adc4605283f2764a70f75ead907662817cf84936e71799bab8f97",
+    "tests/m74/vmware.py": "276c973b614485243db9f4544e308e0c9aa738dd9dd8c37d8563a653c894d16c"
+  },
+  "errors": [],
+  "evidence_sha256": {
+    "apps-development/archive-extracted.png": "7ee9fd2aa8d77355eb14105b7dcdae6c0b2093c127882d18e4201326fd702b69",
+    "apps-development/archive-members.png": "951613930b08b649fbba84ad649424417d937c8c615c0ff12da83c10f2170ff6",
+    "apps-development/audio-device-capture.bin": "2bfd45ea52c18beb4e0493892fabc378b822af7cf057d7ced34ea54824a43490",
+    "apps-development/audio-output.wav": "2b5c6e3b0390118e770ad64159e2802e4d32030362d25bd5ee7138cb2e82131c",
+    "apps-development/browser-home.png": "6ec8ca9a117ae51f4d11eb6f632d32578cd68696ce39907190225ac65ffdcd14",
+    "apps-development/browser-links.png": "f0527ed370ba317f68942110cc512de37ec8e617c8b869b787dd64c46b3ba2a9",
+    "apps-development/browser-real-https.png": "ebbb5a4ddbe76205f0265d91300e07135bb56017d039d23fa15b389fe8ba8e8b",
+    "apps-development/calculator-convert.png": "af272537406402aa9feb21c6922a395c4de01c521bdf2fa06ca118a4139a924e",
+    "apps-development/calculator-decimal.png": "89ac8afbb7665a2084eaa997f1f2e50f374b3a78ce882c550f5a2eb35367bf52",
+    "apps-development/calculator-scientific.png": "16ac02dafbbe77c995e285722e3224e77f3e76913a5edb32d27d70f1bae65842",
+    "apps-development/calendar-saved.png": "e78668ae9ccce57be669000b8c60a964fdb944a1de47890a3fce72d8593174e1",
+    "apps-development/calendar.png": "4a9b1eb9094aac0197de763e27c6ff53191214d1715d4450facf1f9f0158b057",
+    "apps-development/clock.png": "595069ef2c36574dc8aa32737239903acb27feef64b331b62a9cdd9687769f86",
+    "apps-development/disk-create-size-name.png": "016644078d87cc2e2b9122435d85fbc0595c4eeec9b5cd86f1c5065ae2e0b3f2",
+    "apps-development/disk-second-blank.png": "c29135a29faf008627ccce136f6422cc141e5ced26253ec4dcd4d7ab3cd28027",
+    "apps-development/disk-second-fat32.png": "b8adfa2d4963a156b289e524b39dac5ba88f999755a65a7f6909e068f658c742",
+    "apps-development/disk-system-protected.png": "1dec40d619b8a6bbe06b1c2507b1f42b33660b08f7f9fbba264fabeaf701ea9b",
+    "apps-development/failure.log": "e296711f8dcb630775a9e8e8d4f44b75b11be3305ae8f9737d28b3a2ec28f285",
+    "apps-development/help-page2.png": "0e1be2ff6838bd38030b3731de7481786c2f74f208eb6afbdad9be40714c7b5f",
+    "apps-development/help.png": "c44e39322b45038b47fd969d5a52512861fc79ade458af10609de37565609373",
+    "apps-development/image-viewer.png": "9aa24c27599d5937c2a3497a48acc5866228a5d9cc65b481c724ccee6ac83ebf",
+    "apps-development/independent-boot.png": "2729671bfb9841380a9ddaaefafce743fae19c9fcf932fbc8e199482ef967ebf",
+    "apps-development/media-finished.png": "78042ebdab4ee9cbd14d22a908d16dce39ab94eaf353ed6b29dbe96fc21e0b58",
+    "apps-development/media-paused.png": "62fb8a12e843297643a5da6f8d3fc6aca3b118dbbe1682b3191a0ea1c5a8d39e",
+    "apps-development/media-ready.png": "2436dfaee3efaa821bb469c4275e909bde4844b718ecc7f18d2c13ea8bca74de",
+    "apps-development/native.log": "7b95c929e4eff53a84ebdfb84ea3201c0f451191aa61b0d556bf5d47c965b13a",
+    "apps-development/recovery-repaired.png": "a4b27ad3d330d1c139f5b4041dd6ce9962b39bf5cad0b30e608e791a54af5960",
+    "apps-development/recovery-review.png": "1a370984b512d5c26c9b2ec9779d8d04f380fe6cb25a274dc33f0d03905d448b",
+    "apps-development/recovery.png": "f99777f19d896053610a5c374f424c4b0d99cadd30bf08035541e3838b13f3e5",
+    "apps-development/removal-review.png": "74da4e1a90d736fddc9adab62b864869b689b42cc1eaf371a8b08f3289804742",
+    "apps-development/removed.png": "d73050dbb87a73ea7782d7773446e7bdff6c3436b2d95e20892c01ce6e97f1c5",
+    "apps-development/restart.log": "df999320f9aa8782585864176bf7d0040b39324cd9e86a61c6a0737fddd5462a",
+    "apps-development/results.json": "20fd6a63b69ff846935881212ee31122b68cef942aa686dd855b15f2e783520d",
+    "apps-development/screenshot-saved.png": "298f28e5340b3dbdb4c176ff2c3f712b8bf3d8087477b58a883ed79f3fcc423b",
+    "apps-development/software.png": "fa494f20ea2dcdd5e51ca3f43c3303b10df05d6fa26767abae40af35767f15e5",
+    "apps-development/stopwatch.png": "cb58c8ebb5a8b452d3f3f2191c1effc1d228cbe6f577fef7c65983619e72d894",
+    "apps-development/timer.png": "f2971c0564cf606b620f4e62fdd9fa900bffef1e1ed671b74ff979f8b9972bba",
+    "archive-regression/diagnosis.json": "240d9cae2fe0039dacefaa4d7104919fde2581f796daf9b05d410f2ae2a39e48",
+    "audio-development/audio-device-capture.bin": "fecece822cc4b5d1755284f7b57d707aa623a3d841f42cc5a5a8710a63d99ca4",
+    "audio-development/audio-output.wav": "be354b4f63770129c4b99a6d3b8d8627f191d0effa8fb7395e264b683234a720",
+    "audio-development/failure.log": "09b0c0ddf483b60f3b32f7700d0c048da1207360804870fc47ca7e05f3aa1c07",
+    "audio-development/media-finished.png": "4e656e494c68ca1f1cec22e0b04d2fcf0a15ed918dd3fbe4c939ea2ca48b3de3",
+    "audio-development/media-paused.png": "d269f76b0ac62b777c6bd214219aad340fff46c8b4fdbcf9c4ab5d3e2f44d014",
+    "audio-development/media-ready.png": "1f558d15e8ec3bc3d1e18e3654a62d0b6a442451a7ea61ab5ee29be91e5ae4f2",
+    "audio-development/native.log": "b91be34805af5713dc8cb2ef30583a9f1db55738c7c5668d515e9f43ec342670",
+    "audio-development/results.json": "3d468c3fd3e0169293e8742d94393605dbba0b0b6e70e48788b6a93473f5622d",
+    "browser-host-results.json": "9a021837e12fc7e740850e063563217f5e121102ff4221248161a3015bfc2084",
+    "calculator-host-results.json": "ed9bbfa7f98315a11d6f897600abcf4fa66982145939074b19de4899e73425ef",
+    "calendar-probe/native.log": "7e561bd9d69a26672b96bcdba4783a0b087b6808c18e143bc32322072bc5f677",
+    "calendar-probe/results.json": "ff6220d764a5d009d34a2ce02e776171214d2331f888840ccb426cf24678bcf0",
+    "calendar-probe/saved.png": "b3be8cadfe27ac12ef18d3cae89de712419ab4921925dd4521b70cca892d0a8e",
+    "calendar-probe/typed.png": "a9675ab287369987d0cf3710b70ab84258b7c8879e496892dec7ce6eaccfa745",
+    "inflate-host-results.json": "bfb7493950e35636b8a14ceca2ce6af8630cf08c833d75d7a8d4499c7191bfb8",
+    "m74-build-manifest.json": "264c03f50959a350fe370fb411a7310f4a6ca0071c6014d90192e0d80cb02a50",
+    "m74-starter-manifest.json": "a13cead2955ac96dac77ea921f1b27dbd20525cbef4891ad903a7d509b8b7010",
+    "m74minimal-build-manifest.json": "f5bbb6552b6257d427156b85d4d5343c2cdf9086a230827659ee513e68be0173",
+    "omitted-apps/desktop-4k.png": "595cb46dc4bcbf2c1ee2d98ce609b47ddffe19b14e7a82bf9e221a71f9c8c240",
+    "omitted-apps/native.log": "fe9db52c37cc9745db16e659e0aae4bca0fa6414e180ec491b54f3520fea3769",
+    "omitted-apps/restart.log": "ae65de3e1e650d4e421186c3edc88f6dd43dda81e3bd5bd5676914add1c46733",
+    "omitted-apps/results.json": "258429d07ebc2b57304f8d0246b1ea802bec1c2b792473369a782942ea0bef62",
+    "omitted-apps/settings-package-fallback.png": "6a2ecdfaaf530b1e1c6cd12ca027d042c452b5e79bcb927b97dc229416a33b72",
+    "packages-4k/app-10.png": "e452184903c5211cacf575dcac787fa8cbe2d172c35dee85e3bfdff348df6994",
+    "packages-4k/app-11.png": "0ca7c546bd0b2320f808554a7437f881c12754ff5e65b298aa0d6598c3759369",
+    "packages-4k/app-12.png": "3ede497149414bb5c681925de23209db7ae7f20580de6eda44c7ad0b62ed6b00",
+    "packages-4k/app-13.png": "f31777372580ef15437b1fd98eb95f41e3a7049b67360ed1d2d21967e21a2648",
+    "packages-4k/app-14.png": "c2a363ebb3be3b54df0bef9fbd2ed873de79b0c9cd05ab02a09c604062c2921d",
+    "packages-4k/app-15.png": "1ca17e65fd72f7c6b58e30220f7684f0ec1c91fa2fea929cb5227d93a8bb4071",
+    "packages-4k/app-16.png": "7a7c0fae88a88333aa12b5a3972847a848c610748e7e9a575a6d89915ae55329",
+    "packages-4k/app-17.png": "b2db4a4524a7867136b40c3306971de7de753ccddd84fbab131732ee3bdfec56",
+    "packages-4k/app-18.png": "40fad37c7889a0499b1d8fb909f84fefeac02acb27dbfc313ddcf6bda182bb14",
+    "packages-4k/app-4.png": "3a9559d78487e08d106866393f1b1af456760485f726832125f338c78d0a6166",
+    "packages-4k/app-8.png": "976c9f28723339617b4065fbd6b0c9d3be28219e7ac819bc062356d2fddd6dcc",
+    "packages-4k/app-9.png": "c3ec03f858ffe7c480d63f9a60abfd905852954c96f33ed5817de87840d9a8e4",
+    "packages-4k/desktop-4k.png": "31474c5eb12f7bd81f41111ee34ddfdc4ac2d017a6209ba4242c02aaad046b1e",
+    "packages-4k/failure.log": "a748e6d9c6a665e9344de12bde979ba830ff1ead0be09c9ea4bfa6401679fd02",
+    "packages-4k/native.log": "e052c18626b8d95150653f2a9ba203ccac9720fdbd5a417e4e095e4773b57b9b",
+    "packages-4k/private-note-saved.png": "fe588db84b4243a886892360d490587ba2d37e611f48b427eaa8b3d68d889894",
+    "packages-4k/private-note-typed.png": "4089be54bd3c7a5b92d737631f28a2dc213d5b237828c076c2e3f2cb548a824b",
+    "packages-4k/restart.log": "fd475d7dfa44b28103529d4fcf20a1465f3c0c9c54c48ce7640bcfda87938d09",
+    "packages-4k/results.json": "b3e0d8ceff7dbcaa59b53b91fdcda7e38abf1df62376327ea02c4074fff23899",
+    "packages-4k/settings-package-fallback.png": "219fdf42608d4f944cbd747cfe6ea9285ba6bef2e863c54a5f1631140ee9d6ca",
+    "README.md": "7334ee7903f5b06c88ecf7b916840201dba64385864d14b76f886571fe933d95",
+    "recovery-regression/diagnosis.json": "76a46c274c09d0ab065c9d8a300ae9094b64e9bf26041c63be676fdc244eb4db",
+    "recovery-regression/failed-native.log": "1280e90e29fb08b699f9f5237eea54a9597ea0c02d3a1d7f23b7489c96854cf4",
+    "recovery-regression/failed-results.json": "20c7a45a2ebe6d9a73a999ba17809cb9cc666e7d532e4347428958a386ba1fff",
+    "repository-results.json": "d35094d727c6ef333cc1c1fcb9558a049efb54729db02133deada84899f34f9b",
+    "uefi-1280x800-64mib/01-welcome.png": "27a7f265e9e7718bdef5e37b4145c32b214ea5d65116d48b97270c4c89b9e3db",
+    "uefi-1280x800-64mib/02-disk.png": "972f7143b866e59438132ac1856fa9bdad7eed68138eaa379940a2ff217a9985",
+    "uefi-1280x800-64mib/02-no-selection.png": "cfe4a92971b187c73abf964122be9af82b916309cc2bba7cf8dcb253ceee47e6",
+    "uefi-1280x800-64mib/03-setup.png": "dc7d9c9c5254031779f103db2886253838b41c7862ec5704beee49022df9c36f",
+    "uefi-1280x800-64mib/04-style.png": "4f879e0c1a5faaf9f3a7a5a3fdd50a2135edbde4e22ba2c93d544bdd3bcf56ac",
+    "uefi-1280x800-64mib/05-review.png": "fb14e8f3b35f8d88a6c321578c0b7782e2767276f7c5057730517a9efbf9b44e",
+    "uefi-1280x800-64mib/07-finish.png": "8f8d6bc08fe34a2acca3a8884c6729ebc3f19b52f8632ca404d04c5e169b5cf8",
+    "uefi-1280x800-64mib/08-home.png": "65494a392f0d96fa47d0e0e7fdb823d2223f4dd042513fc182eda5f7901b4c9f",
+    "uefi-1280x800-64mib/09-documents.png": "39f34e22ab9e2b11912496343ccc44dd0e8ce080d396f9ed9d9e7219caea70ae",
+    "uefi-1280x800-64mib/09-name-your-folder.png": "3cf43e1498194719c63388c4e0fe61b11b8e5768854d64de880272f67f7fdbad",
+    "uefi-1280x800-64mib/10-folder.png": "d757a7d676f7daa0576fba9558ed3b058e239ac7a5c216780b83eaae4688a320",
+    "uefi-1280x800-64mib/11-independent-desktop.png": "4d87e2ed770901ecfb14b68247778516226fb34d38c624941b597f8217a80286",
+    "uefi-1280x800-64mib/12-readable-guide.png": "350e48c6e3aeb81df7d621cc15adb5c222fc46b26c42e90b166f78306f716614",
+    "uefi-1280x800-64mib/12-settings.png": "ec26fcdd17b943950fcc107e6f65582013ace53f588b2288f6dee9df4600ac19",
+    "uefi-1280x800-64mib/13-dark.png": "fe8947516818f471182021cbab7e09d07396fbb366e27a29dfcc0fb1f75abf66",
+    "uefi-1280x800-64mib/14-scale100.png": "3a4db9b3daca7fab2ed337143f5695a8fdebd2de01f753200fce2ea5b1a75234",
+    "uefi-1280x800-64mib/15-scale150.png": "4b0e51ca5872a6b9812668a321dae8eb2ceccda8203ddeb499f24126cc899c0a",
+    "uefi-1280x800-64mib/16-scale200-or-refusal.png": "f815653c61ca1ca246232f0a68ff03b0f60563628fcf65d3ec62ae6eef734eb5",
+    "uefi-1280x800-64mib/17-saved-display.png": "d280ea6e3748b304bbd25379eceb1ced0fd996ed5908c41acc9878fa88aad11f",
+    "uefi-1280x800-64mib/install-desktop.log": "9bfadad485554098ba2514a8c6c47550d413673b9b158c05a28d437e9c70bd04",
+    "uefi-1280x800-64mib/restart.log": "82ecbd288d386247740609cb860628a5f5f26883d2106cdf0ffe9ab85d64d449",
+    "uefi-1280x800-64mib/results.json": "ac9011f6fe8cb00f748d1ba01a53b729a52a8cceaddf282b869a825994e2283b",
+    "visual-review.json": "3858682532a80a473a5b71ac00b7c5a91e339728fc21b8859a75f5888c29c530",
+    "vmware/bios/desktop-home.png": "2c37d0c157606ea2f257e454ad05842aaad4a2c5fbbf49d086f74e51d9d1f7cc",
+    "vmware/bios/detached-desktop-0.png": "2c37d0c157606ea2f257e454ad05842aaad4a2c5fbbf49d086f74e51d9d1f7cc",
+    "vmware/bios/detached-desktop-1.png": "2c37d0c157606ea2f257e454ad05842aaad4a2c5fbbf49d086f74e51d9d1f7cc",
+    "vmware/bios/finish.png": "5a4512c8c7c3a851eaa3335aea385b1c8ce70ff9fde0de8c1383958d9781a327",
+    "vmware/bios/install.log": "4a4b6cacf651bae98e8df92d48b425e2050afdc9494cd173d0eab048cf3fbfc2",
+    "vmware/bios/real-folders.png": "a39e88e9ed11e3a326417f6f33622cabd26dbbddb28b22d5a8e6d50f617d2188",
+    "vmware/bios/restart-0.log": "1526a77ea5ffff507f8b795477705c0f193fcf866059b8a1b333a154012d0c0f",
+    "vmware/bios/restart-1.log": "d9ed69ae0f5ac17d47be89d2704130372ed8010dde310978ad9afe79f87464f9",
+    "vmware/bios/results.json": "f901f38229ef2cc86f7126e8c1bc1a719dbbf5aa2d24d15ca939afeb06b12d6a",
+    "vmware/bios/review.png": "2588785fc65ed508d7fa52ff03a28a3a147c5c68d9405948d8b72d4738b10dff",
+    "vmware/bios/welcome.png": "b2b2af46487041b28259a5a7a69c645ec7099988dfb97f8fb3118ff8747d42fd",
+    "vmware/efi-starter/desktop-home.png": "b13fc954dc9733a67dfefb590c49255b79c72636fc76d33e6911972f4641d55e",
+    "vmware/efi-starter/detached-desktop-0.png": "4030a7f7300e6a0aa7ed4af88f26ef199b6cae288b77f5de8e62c51e79e051f5",
+    "vmware/efi-starter/detached-desktop-1.png": "4030a7f7300e6a0aa7ed4af88f26ef199b6cae288b77f5de8e62c51e79e051f5",
+    "vmware/efi-starter/finish.png": "86e820f4f44bbcb2ef6a0bdddfbf7650527bbf757e6dcc90b6e2fc4da0036e5e",
+    "vmware/efi-starter/install.log": "bc72559686380870cc02e67cf8b2130f379b2f47885897261be1580691214b6b",
+    "vmware/efi-starter/real-folders.png": "d7299e96fc2dac6f7d1e4cb6b0d62fb9ada88cdd4ade1d4ae9b3671aa4cffb60",
+    "vmware/efi-starter/restart-0.log": "9a38c42826dc3b305aa1f03070d619cd9260632c7fbfbe79f2eefb03af47b51c",
+    "vmware/efi-starter/restart-1.log": "7bdc0278aaa9bc1160a7b32fce6fba6539e9e6fa7dbe5d8d1bfd7147cf6a4f30",
+    "vmware/efi-starter/results.json": "f695e68876144b2b11f11711fc142689e21303c3f269966d849f9cc86435162d",
+    "vmware/efi-starter/review.png": "27a223de7705f8bfbec2684b3f82a32770abf46e18e14fa5a470a429456af355",
+    "vmware/efi-starter/welcome.png": "61caba5c85915875e8b4719abfdcbbce9da464af3521216f0b2ab049fd2f1f99"
+  }
+}

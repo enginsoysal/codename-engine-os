@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "scope": "development app slice; not full M7.4 acceptance",
+  "checks": [],
+  "build_id": "f875d432e6829fde0cd7c3803bad926e",
+  "iso_sha256": "7fa59758cd3cfd72766a64c98a8bb7684324c275aef20c8760f2c3958d014363",
+  "stage": "media-pcm",
+  "audio_capture": {
+    "sample_rate": 48000,
+    "channels": 2,
+    "active_frames": 183992,
+    "frames": 194567,
+    "raw_riff_length": 0,
+    "raw_data_length": 0,
+    "decoded_from_actual_capture_bytes": true
+  }
+}
