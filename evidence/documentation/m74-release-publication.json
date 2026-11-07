@@ -1,0 +1,177 @@
+{
+  "status": "passed",
+  "release": "https://github.com/enginsoysal/codename-engine-os/releases/tag/m74-v0.7.4",
+  "target_commit": "4e6ffec0a06416d0a436625f91d5a991c74acfcb",
+  "verified_assets": [
+    {
+      "name": "EngineOS-M74-ACCEPTANCE.json",
+      "sha256": "68ea33221874717ad052bff1aa46a634ac6dd8c23a7775ea3359334115cd1585",
+      "size": 24049
+    },
+    {
+      "name": "EngineOS-M74-archives.elf",
+      "sha256": "9008a959466f7288e7ef99dab89ecb8e40439e9ee693faf825b4c602b98f8a84",
+      "size": 17068
+    },
+    {
+      "name": "EngineOS-M74-browser.elf",
+      "sha256": "3046e4a9af08551315191e2907d572ebde73b54b389b6c3a37dfb41222140cc0",
+      "size": 12639
+    },
+    {
+      "name": "EngineOS-M74-calculator.elf",
+      "sha256": "5193f62e9f16e90ad96905b6bc2e47152c9a524402c5db6f32c8f8e50e1af8a0",
+      "size": 12976
+    },
+    {
+      "name": "EngineOS-M74-calendar.elf",
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    {
+      "name": "EngineOS-M74-editor.elf",
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    {
+      "name": "EngineOS-M74-help.elf",
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    {
+      "name": "EngineOS-M74-installed-kernel.elf",
+      "sha256": "a79477f306230c03310427ca12235537cad79cc9f47b44dc02c81e0270fac9d4",
+      "size": 921896
+    },
+    {
+      "name": "EngineOS-M74-installed-kernel.map",
+      "sha256": "9be279f0bfed2725ea8f5c25b9c4ad37c1dc9d3d9d6e485a6a1d05fa8d1a4235",
+      "size": 332545
+    },
+    {
+      "name": "EngineOS-M74-kernel.elf",
+      "sha256": "926f73f7f440b567429856eee07e01b920997410551e1e7a8df47505724928b5",
+      "size": 2961704
+    },
+    {
+      "name": "EngineOS-M74-kernel.map",
+      "sha256": "5a57dd23df90cbf65173c6f1cbb57f5d7775d44435d965f5cd73b0d54c2cf2ff",
+      "size": 332837
+    },
+    {
+      "name": "EngineOS-M74-SHA256SUMS.txt",
+      "sha256": "dc1b06bc00abc21c85a9e95e00fb995ebb040b8f9a4588390fe218df42986673",
+      "size": 3028
+    },
+    {
+      "name": "EngineOS-M74-THIRD-PARTY-NOTICES.txt",
+      "sha256": "3bfb67ca9ae5a201284710c116a5ebc778caafbc68f06b3a7e61a2b3234dbe9d",
+      "size": 27201
+    },
+    {
+      "name": "EngineOS-M74-usb.img",
+      "sha256": "81cb20762793c043f2c72d152ebc6d277049aa4845c301add099e522fd0991e2",
+      "size": 84934656
+    },
+    {
+      "name": "EngineOS-M74-user.elf",
+      "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f",
+      "size": 68064
+    },
+    {
+      "name": "EngineOS-M74-VMware.zip",
+      "sha256": "420f5cb468b6209ba762e35d7d82e23d3d5da2b3d2f3abef7e7d15f93aa3951c",
+      "size": 3038832
+    },
+    {
+      "name": "EngineOS-M74.iso",
+      "sha256": "7fa59758cd3cfd72766a64c98a8bb7684324c275aef20c8760f2c3958d014363",
+      "size": 71587840
+    },
+    {
+      "name": "EngineOS-M74MINIMAL-archives.elf",
+      "sha256": "9008a959466f7288e7ef99dab89ecb8e40439e9ee693faf825b4c602b98f8a84",
+      "size": 17068
+    },
+    {
+      "name": "EngineOS-M74MINIMAL-browser.elf",
+      "sha256": "3046e4a9af08551315191e2907d572ebde73b54b389b6c3a37dfb41222140cc0",
+      "size": 12639
+    },
+    {
+      "name": "EngineOS-M74MINIMAL-calculator.elf",
+      "sha256": "5193f62e9f16e90ad96905b6bc2e47152c9a524402c5db6f32c8f8e50e1af8a0",
+      "size": 12976
+    },
+    {
+      "name": "EngineOS-M74MINIMAL-calendar.elf",
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    {
+      "name": "EngineOS-M74MINIMAL-editor.elf",
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    {
+      "name": "EngineOS-M74MINIMAL-help.elf",
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    {
+      "name": "EngineOS-M74MINIMAL-installed-kernel.elf",
+      "sha256": "48261e10265b4589534490131007fc2807eb3363fee11ada2c6d62ea59f18514",
+      "size": 921896
+    },
+    {
+      "name": "EngineOS-M74MINIMAL-installed-kernel.map",
+      "sha256": "5e048ea7259500e7f8b911ce40b3335e9820a64432a7cdb4016f126813756009",
+      "size": 332545
+    },
+    {
+      "name": "EngineOS-M74MINIMAL-kernel.elf",
+      "sha256": "d322a0a19878f6646b4935ac310b85e7f953f3a1d3b9cfe1efd2fadabfaed436",
+      "size": 2892072
+    },
+    {
+      "name": "EngineOS-M74MINIMAL-kernel.map",
+      "sha256": "df62df33209f2b84919b24e9fe3ee415c05949dc346edc58f3ede25b09eb7c72",
+      "size": 332545
+    },
+    {
+      "name": "EngineOS-M74MINIMAL-usb.img",
+      "sha256": "c7668c6a1665be37701470843041870e3407b3fcacb47f83506d24daf0172cfd",
+      "size": 84934656
+    },
+    {
+      "name": "EngineOS-M74MINIMAL-user.elf",
+      "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f",
+      "size": 68064
+    },
+    {
+      "name": "EngineOS-M74MINIMAL.iso",
+      "sha256": "dae5ede1390dcac1ee56537242ecfd5d222d211b33170a1a6609d88885525c27",
+      "size": 71522304
+    },
+    {
+      "name": "m74-build-manifest.json",
+      "sha256": "264c03f50959a350fe370fb411a7310f4a6ca0071c6014d90192e0d80cb02a50",
+      "size": 66164
+    },
+    {
+      "name": "m74-starter-manifest.json",
+      "sha256": "a13cead2955ac96dac77ea921f1b27dbd20525cbef4891ad903a7d509b8b7010",
+      "size": 492
+    },
+    {
+      "name": "m74minimal-build-manifest.json",
+      "sha256": "f5bbb6552b6257d427156b85d4d5343c2cdf9086a230827659ee513e68be0173",
+      "size": 63898
+    }
+  ],
+  "homepage": "M7.3; native M7.4 edits retained, BrixCanvas Save rejected twice",
+  "docs_sync_runs": [
+    42415506806,
+    42415715027
+  ]
+}

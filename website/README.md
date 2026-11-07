@@ -49,3 +49,11 @@ homepage snapshot and app-guide card retain the approved native composition
 in `website/brix/design.mjs`; native publication/readback is recorded separately
 from article synchronization. [Install](../docs/handbook/install-m74.md),
 [apps](../docs/handbook/apps-m74.md), [release](../docs/releases/m74-v0.7.4.md).
+
+Publication readback: both M7.4 GitHub content-sync jobs succeeded. All 33
+public release asset digests and sizes match the local qualified artifacts; see
+[publication proof](../evidence/documentation/m74-release-publication.json).
+The public homepage still shows M7.3: the native editor rejected Save twice
+with an explicit save-error message. M7.4 edits remain in the authorized Edge
+editor for recovery. No successful homepage publication is claimed. Current
+articles and downloads are independent of this homepage-only blocker.
