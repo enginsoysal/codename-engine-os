@@ -1,4 +1,5 @@
 #include <engine/desktop/session.h>
+#include <engine/desktop/app.h>
 #include <engine/m4.h>
 #include <engine/m3.h>
 #include "build.h"
@@ -8,13 +9,21 @@ enum { OPEN_FILES=1, OPEN_EDITOR, OPEN_SETTINGS, OPEN_CALCULATOR, OPEN_DOWNLOADS
        OPEN_DETAILS, SAVE=20, COPY, CUT, PASTE, FILE_UP, FILE_NEW, FILE_FOLDER,
        STYLE_MINT=40, STYLE_LAVENDER, STYLE_AMBER, STYLE_DARK, STYLE_PAPER,
        CALCULATOR_OFF, CALCULATOR_ON, PREFERENCES_SAVE,
-       DISCARD=60, KEEP_EDITING, FILE_ROW=100, CALC_KEY=200 };
+       DISCARD=60, KEEP_EDITING, CALCULATOR_CRASH=64, APP_SELFTEST, FILE_ROW=100, CALC_KEY=200 };
 
 typedef struct {
-    char path[256], text[8192], notice[96];
-    unsigned length, cursor, dirty, closing, offset;
-    int64_t number, operand;
-    unsigned operation, entered, calc_error;
+    union {
+        app7_view view;
+        struct {
+            char text[APP7_TEXT];
+            uint32_t length,cursor,dirty,calc_error;
+            int64_t number,operand;
+            uint32_t operation,entered;
+        };
+    };
+    char path[256],notice[96];
+    unsigned closing,offset,stopped,existed;
+    uint32_t source_crc;
 } application;
 typedef struct { desktop_rect rect; uint64_t window; unsigned action; } control;
 typedef struct { uint64_t magic; uint32_t accent, dark, calculator, reserved; } preferences7;
@@ -81,8 +90,17 @@ static void button(uint64_t window,int x,int y,int width,const char *label,unsig
 }
 static void unique_path(char *out,const char *folder,const char *prefix,const char *suffix) {
     char number[24],base[256];root_path(base,folder);append(base,"/",256);
-    for(unsigned i=1;i<10000;++i){copy(out,base,256);append(out,prefix,256);decimal(number,i);append(out,number,256);append(out,suffix,256);if(!entry(out))return;}
+    for(unsigned i=1;i<10000;++i){copy(out,base,256);append(out,prefix,256);decimal(number,i);append(out,number,256);append(out,suffix,256);unsigned reserved=0;for(unsigned slot=0;slot<DESKTOP_WINDOWS;++slot)
+            if(model.windows[slot].live&&model.windows[slot].app==EDITOR&&apps[slot].path!=out&&equal(apps[slot].path,out))reserved=1;
+        if(!entry(out)&&!reserved)return;}
     out[0]=0;
+}
+
+static unsigned send_app(application *app,unsigned command,unsigned key,const void *data,unsigned bytes) {
+    unsigned slot=(unsigned)(app-apps);
+    unsigned status=app->stopped?V6_INVALID:app7_request(slot,command,key,data,bytes,&app->view);
+    if(status){app->stopped=1;notice(app,"Application stopped safely. Close and reopen it.");}
+    return status;
 }
 
 static uint64_t launch(unsigned kind,const char *path) {
@@ -92,6 +110,9 @@ static uint64_t launch(unsigned kind,const char *path) {
     if(!token){serial_text("M7_WINDOW_LIMIT\n");return 0;}
     unsigned slot=(unsigned)(uint32_t)token-1;
     application *app=&apps[slot];memset(app,0,sizeof(*app));
+    if((kind==EDITOR||kind==CALCULATOR)&&app7_open(slot,kind)){
+        app->stopped=1;notice(app,"Application could not start. Check its installed package.");
+    }
     if(kind==FILES)root_path(app->path,"Documents");
     if(kind==EDITOR){
         if(path){
@@ -100,17 +121,22 @@ static uint64_t launch(unsigned kind,const char *path) {
                v6_read(m6_volume(),path,0,app->text,sizeof(app->text)-1,&bytes)){
                 notice(app,"Cannot open this file: integrity, size or I/O error.");
                 unique_path(app->path,"Documents","Note",".txt");
-            }else{copy(app->path,path,sizeof(app->path));app->length=bytes;app->cursor=bytes;app->text[bytes]=0;}
+            }else{copy(app->path,path,sizeof(app->path));app->length=bytes;app->cursor=bytes;app->text[bytes]=0;app->existed=1;app->source_crc=file->crc;}
         }else unique_path(app->path,"Documents","Note",".txt");
     }
+    if(kind==EDITOR&&!app->stopped)send_app(app,APP7_LOAD,0,app->text,app->length);
     launcher=0;task_damage();serial_text("M7_WINDOW_OPEN app=");serial_hex(kind);serial_text("\n");return token;
 }
 
 static void save_document(application *app) {
     if(!app->path[0]){notice(app,"No available document name. Open Files and try again.");return;}
+    const v6_entry *current=entry(app->path);
+    if((current&&(!app->existed||current->crc!=app->source_crc))||(!current&&app->existed)){
+        notice(app,"This document changed on disk. Reopen it before overwriting.");return;
+    }
     unsigned status=v6_put(m6_volume(),app->path,app->length,memory_source,app->text);
     if(status){notice(app,"Save failed. Your unsaved text is still here.");serial_text("M7_DOCUMENT_SAVE_FAILED\n");}
-    else {app->dirty=0;notice(app,"Saved to your Documents folder.");serial_text("M7_DOCUMENT_SAVED\n");}
+    else {app->existed=1;const v6_entry *saved=entry(app->path);if(saved)app->source_crc=saved->crc;send_app(app,APP7_SAVED,0,0,0);notice(app,"Saved to your Documents folder.");serial_text("M7_DOCUMENT_SAVED\n");}
 }
 
 static void draw_editor(desktop_window *w,application *app,uint64_t token) {
@@ -160,7 +186,7 @@ static void draw_files(desktop_window *w,application *app,uint64_t token) {
     }
     text(x,w->bounds.y+w->bounds.height-24,app->notice[0]?app->notice:"Click a folder or a text file. Arrow keys scroll the list.",1,ink());
 }
-static void draw_settings(desktop_window *w,uint64_t token) {
+static void draw_settings(desktop_window *w,application *app,uint64_t token) {
     int x=w->bounds.x+20,y=w->bounds.y+55;
     text(x,y,"Make Engine OS yours",2,ink());
     text(x,y+40,"Accent",1,ink());
@@ -171,9 +197,9 @@ static void draw_settings(desktop_window *w,uint64_t token) {
     button(token,x,y+130,130,"Dark windows",STYLE_DARK,preferences.dark);
     button(token,x+140,y+130,130,"Light windows",STYLE_PAPER,!preferences.dark);
     text(x,y+185,"Optional Calculator component",1,ink());
-    button(token,x,y+205,150,preferences.calculator?"Disable Calculator":"Enable Calculator",preferences.calculator?CALCULATOR_OFF:CALCULATOR_ON,0);
+    button(token,x,y+205,150,preferences.calculator?"Remove Calculator":"Install Calculator",preferences.calculator?CALCULATOR_OFF:CALCULATOR_ON,0);
     button(token,x,y+260,170,"Save preferences",PREFERENCES_SAVE,1);
-    text(x,w->bounds.y+w->bounds.height-28,"Personal files and required components stay available.",1,ink());
+    text(x,w->bounds.y+w->bounds.height-28,app->notice[0]?app->notice:"Personal files and required components stay available.",1,ink());
 }
 static void draw_calculator(desktop_window *w,application *app,uint64_t token) {
     int x=w->bounds.x+22,y=w->bounds.y+55;char number[32];integer(number,app->number);
@@ -181,6 +207,7 @@ static void draw_calculator(desktop_window *w,application *app,uint64_t token) {
     text(x+14,y+16,app->calc_error?"Out of range / invalid operation":number,2,ink());
     const char *labels[]={"7","8","9","/","4","5","6","*","1","2","3","-","C","0","=","+"};
     for(unsigned i=0;i<16;++i)button(token,x+(int)(i%4)*62,y+72+(int)(i/4)*42,52,labels[i],CALC_KEY+i,0);
+    button(token,x+290,y+72,150,"Crash test",CALCULATOR_CRASH,0);
     text(x,y+270,"Checked signed integer arithmetic. Type keys or click.",1,ink());
 }
 
@@ -192,18 +219,20 @@ static void draw_window(unsigned slot) {
     rectangle((desktop_rect){r.x+1,r.y+1,r.width-2,34},preferences.dark?0x253c49:0xdce8ec);
     text(r.x+14,r.y+12,titles[w->app],2,ink());
     text(r.x+r.width-77,r.y+12,"_",2,ink());text(r.x+r.width-42,r.y+12,"x",2,ink());
+    if(app->stopped){text(r.x+22,r.y+80,"Application stopped",2,ink());text(r.x+22,r.y+120,app->notice,1,ink());return;}
     if(app->closing){text(r.x+22,r.y+80,"Keep your unsaved changes?",2,ink());
         button(token,r.x+22,r.y+130,150,"Keep editing",KEEP_EDITING,1);
         button(token,r.x+185,r.y+130,150,"Discard changes",DISCARD,0);return;}
     if(w->app==EDITOR)draw_editor(w,app,token);
     if(w->app==FILES)draw_files(w,app,token);
-    if(w->app==SETTINGS)draw_settings(w,token);
+    if(w->app==SETTINGS)draw_settings(w,app,token);
     if(w->app==CALCULATOR)draw_calculator(w,app,token);
     if(w->app==DOWNLOADS){text(r.x+20,r.y+65,"Downloads",3,ink());text(r.x+20,r.y+120,"Networking is not implemented in this development slice.",1,ink());text(r.x+20,r.y+150,"M7 is incomplete until real HTTPS tasks pass.",1,ink());}
     if(w->app==DETAILS){char value[32];text(r.x+20,r.y+65,"Engine OS M7 development",2,ink());text(r.x+20,r.y+105,BUILD_ID,1,ink());
         decimal(value,pages_stats().current_pages*4096);text(r.x+20,r.y+145,"Managed bytes",1,ink());text(r.x+230,r.y+145,value,1,ink());
         decimal(value,pages_stats().peak_pages*4096);text(r.x+20,r.y+175,"Managed peak",1,ink());text(r.x+230,r.y+175,value,1,ink());
         decimal(value,paints);text(r.x+20,r.y+205,"Damage repaints",1,ink());text(r.x+230,r.y+205,value,1,ink());
+        button(token,r.x+20,r.y+290,260,"Test app isolation",APP_SELFTEST,0);
         text(r.x+20,r.y+250,"Static kernel, app and firmware memory are additional.",1,ink());}
     rectangle((desktop_rect){r.x+r.width-12,r.y+r.height-4,9,2},0x6a858e);
     rectangle((desktop_rect){r.x+r.width-7,r.y+r.height-9,4,2},0x6a858e);
@@ -223,7 +252,15 @@ static void render(void) {
     for(unsigned i=0;i<5;++i){if(i==3&&!preferences.calculator)continue;
         gui6_rect(38,110+i*83,38,36,preferences.accent);text(49,121+i*83,i==0?"F":i==1?"T":i==2?"S":i==3?"+":"D",2,0x12352e);
         text(38,155+i*83,icons[i],1,0xc4d9df);}
-    for(unsigned i=0;i<model.count;++i)draw_window(model.order[i]);
+    for(unsigned i=0;i<model.count;++i){
+        desktop_rect window=model.windows[model.order[i]].bounds;
+        int x=window.x>dirty.x?window.x:dirty.x,y=window.y>dirty.y?window.y:dirty.y;
+        int right=window.x+window.width<dirty.x+dirty.width?window.x+window.width:dirty.x+dirty.width;
+        int bottom=window.y+window.height<dirty.y+dirty.height?window.y+window.height:dirty.y+dirty.height;
+        gui7_clip((unsigned)x,(unsigned)y,right>x?(unsigned)(right-x):0,bottom>y?(unsigned)(bottom-y):0);
+        draw_window(model.order[i]);
+    }
+    gui7_clip((unsigned)dirty.x,(unsigned)dirty.y,(unsigned)dirty.width,(unsigned)dirty.height);
     int bar=(int)model.height-60;
     gui6_rect(0,(unsigned)bar,model.width,60,0x0b1922);
     button(0,16,bar+15,100,"E  Start",0,launcher);
@@ -239,33 +276,18 @@ static void render(void) {
 }
 
 static void calculator(application *app,char key) {
-    if(key=='C'||key=='c'){app->number=app->operand=0;app->operation=app->entered=app->calc_error=0;return;}
-    if(key>='0'&&key<='9'){
-        if(!app->entered){app->number=0;app->entered=1;}
-        int64_t value;if(__builtin_mul_overflow(app->number,(int64_t)10,&value)||__builtin_add_overflow(value,(int64_t)(key-'0'),&value))app->calc_error=1;else app->number=value;return;
-    }
-    if(key=='='){
-        int64_t value=0;int error=0;
-        if(app->operation=='+')error=__builtin_add_overflow(app->operand,app->number,&value);
-        else if(app->operation=='-')error=__builtin_sub_overflow(app->operand,app->number,&value);
-        else if(app->operation=='*')error=__builtin_mul_overflow(app->operand,app->number,&value);
-        else if(app->operation=='/'){
-            if(!app->number||(app->operand==INT64_MIN&&app->number==-1))error=1;else value=app->operand/app->number;
-        }else return;
-        app->calc_error=(unsigned)error;if(!error)app->number=value;app->operation=0;app->entered=0;
-    }else if(key=='+'||key=='-'||key=='*'||key=='/'){app->operand=app->number;app->operation=(unsigned)key;app->entered=0;}
+    send_app(app,APP7_KEY,(unsigned char)key,0,0);
 }
 
 static void close_window(uint64_t token,int discard) {
     desktop_window *w=desktop_lookup(&model,token);if(!w)return;
     application *app=&apps[w-model.windows];
     if(w->app==EDITOR&&app->dirty&&!discard){app->closing=1;invalidate(w->bounds);return;}
-    desktop_close(&model,token);memset(app,0,sizeof(*app));task_damage();
+    app7_close((unsigned)(w-model.windows));desktop_close(&model,token);memset(app,0,sizeof(*app));task_damage();
 }
 static void insert(application *app,const char *bytes,unsigned count) {
     if(count>sizeof(app->text)-1-app->length){notice(app,"This editor has reached its 8191-byte limit. Save your text.");return;}
-    for(unsigned i=app->length+1;i>app->cursor;--i)app->text[i+count-1]=app->text[i-1];
-    memcpy(app->text+app->cursor,bytes,count);app->cursor+=count;app->length+=count;app->dirty=1;
+    send_app(app,APP7_INSERT,0,bytes,count);
 }
 
 static void action(uint64_t token,unsigned command) {
@@ -275,9 +297,10 @@ static void action(uint64_t token,unsigned command) {
     if(command==70){desktop_focus(&model,token);task_damage();return;}
     if(command==DISCARD){close_window(token,1);return;}
     if(command==KEEP_EDITING){app->closing=0;invalidate(w->bounds);return;}
+    if(app->stopped)return;
     if(command==SAVE&&w->app==EDITOR)save_document(app);
     if((command==COPY||command==CUT)&&w->app==EDITOR){memcpy(clipboard,app->text,app->length+1);clipboard_length=app->length;notice(app,"Document copied to the clipboard.");
-        if(command==CUT){app->length=app->cursor=0;app->text[0]=0;app->dirty=1;}}
+        if(command==CUT)send_app(app,APP7_CLEAR,0,0,0);}
     if(command==PASTE&&w->app==EDITOR)insert(app,clipboard,clipboard_length);
     if(command==FILE_UP&&w->app==FILES){char root[256];root_path(root,"");unsigned n=length(app->path),min=length(root)-1;while(n>min&&app->path[n-1]!='/')--n;if(n>min)app->path[n-1]=0;app->offset=0;}
     if(command==FILE_NEW&&w->app==FILES){launch(EDITOR,0);task_damage();}
@@ -285,8 +308,32 @@ static void action(uint64_t token,unsigned command) {
     if(command>=FILE_ROW&&command<CALC_KEY&&w->app==FILES){const v6_entry *file=child_at(app,command-FILE_ROW);if(file){if(file->kind==2){copy(app->path,file->path,sizeof(app->path));app->offset=0;}else launch(EDITOR,file->path);}}
     if(command>=STYLE_MINT&&command<=STYLE_AMBER&&w->app==SETTINGS){const uint32_t colors[]={0x62e5bd,0x9caeff,0xf4c47c};preferences.accent=colors[command-STYLE_MINT];whole();}
     if((command==STYLE_DARK||command==STYLE_PAPER)&&w->app==SETTINGS){preferences.dark=command==STYLE_DARK;whole();}
-    if(command==CALCULATOR_OFF&&w->app==SETTINGS){preferences.calculator=0;for(unsigned i=0;i<DESKTOP_WINDOWS;++i)if(model.windows[i].live&&model.windows[i].app==CALCULATOR)close_window(desktop_token(&model,i),1);whole();}
-    if(command==CALCULATOR_ON&&w->app==SETTINGS){preferences.calculator=1;whole();}
+    if(command==CALCULATOR_OFF&&w->app==SETTINGS){
+        for(unsigned i=0;i<DESKTOP_WINDOWS;++i)if(model.windows[i].live&&model.windows[i].app==CALCULATOR)close_window(desktop_token(&model,i),1);
+        unsigned status=app7_package(CALCULATOR,0);
+        if(!status){preferences.calculator=0;notice(app,"Calculator removed. Your documents are unchanged.");serial_text("M7_CALCULATOR_REMOVED\n");}
+        else notice(app,"Calculator could not be removed. No base component was removed.");
+        whole();
+    }
+    if(command==CALCULATOR_ON&&w->app==SETTINGS){
+        unsigned status=app7_package(CALCULATOR,1);
+        if(!status){preferences.calculator=1;notice(app,"Calculator installed from the offline package cache.");serial_text("M7_CALCULATOR_INSTALLED\n");}
+        else notice(app,"Calculator installation failed. Keep the recovery ISO.");
+        whole();
+    }
+    if(command==CALCULATOR_CRASH&&w->app==CALCULATOR)send_app(app,APP7_CRASH,0,0,0);
+    if(command==APP_SELFTEST&&w->app==DETAILS){
+        unsigned free_slot=0;while(free_slot<DESKTOP_WINDOWS&&model.windows[free_slot].live)++free_slot;
+        unsigned passed=free_slot<DESKTOP_WINDOWS&&app7_available(CALCULATOR);
+        uint64_t baseline=pages_stats().current_pages;
+        for(unsigned probe=APP7_CRASH;passed&&probe<=APP7_BAD_RESULT;++probe){
+            if(app7_open(free_slot,CALCULATOR)||!app7_request(free_slot,probe,0,0,0,&apps[free_slot].view))passed=0;
+            app7_close(free_slot);if(pages_stats().current_pages!=baseline)passed=0;
+        }
+        if(!app7_package(EDITOR,0))passed=0;
+        notice(app,passed?"Five real app faults contained; private allocations reclaimed.":"Isolation check failed or unavailable. Keep the ISO.");
+        serial_text(passed?"M7_APP_ISOLATION_PASS\n":"M7_APP_ISOLATION_FAILED\n");
+    }
     if(command==PREFERENCES_SAVE&&w->app==SETTINGS){unsigned result=v6_put(m6_volume(),"/System/Settings/desktop7.bin",sizeof(preferences),memory_source,&preferences);notice(app,result?"Preferences could not be saved.":"Preferences saved.");serial_text(result?"M7_PREFERENCES_SAVE_FAILED\n":"M7_PREFERENCES_SAVED\n");}
     if(command>=CALC_KEY&&command<CALC_KEY+16&&w->app==CALCULATOR){const char keys[]="789/456*123-C0=+";calculator(app,keys[command-CALC_KEY]);}
     invalidate(w->bounds);
@@ -298,7 +345,7 @@ static void pointer(void) {
     if(released)dragging=0;
     if(dragging&&(buttons&1)){
         desktop_rect r=drag_bounds;int dx=(int)x-(int)drag_x,dy=(int)y-(int)drag_y;
-        if(drag_resize){r.width+=dx;r.height+=dy;}else{r.x+=dx;r.y+=dy;}
+        if(drag_resize){r.width+=dx;r.height+=dy;if(r.width<480)r.width=480;if(r.height<420)r.height=420;}else{r.x+=dx;r.y+=dy;}
         desktop_place(&model,drag_window,r);
     }else if(pressed){
         uint64_t token=desktop_hit(&model,(int)x,(int)y);desktop_window *w=desktop_lookup(&model,token);
@@ -306,7 +353,7 @@ static void pointer(void) {
         /* Controls are generated in paint/stack order: last visible hit wins. */
         for(unsigned i=control_count;i;--i){control *control=&controls[i-1];desktop_rect r=control->rect;
             if((int)x>=r.x&&(int)x<r.x+r.width&&(int)y>=r.y&&(int)y<r.y+r.height&&
-               (control->window==token||y>=model.height-60||launcher)){
+               ((launcher?control->window==0:control->window==token)||y>=model.height-60)){
                 if(control->window)desktop_focus(&model,control->window);action(control->window,control->action);handled=1;break;}}
         if(!handled&&w){desktop_focus(&model,token);task_damage();desktop_rect r=w->bounds;
             if(y<(unsigned)r.y+35){if(x>(unsigned)(r.x+r.width-52))close_window(token,0);else if(x>(unsigned)(r.x+r.width-90))desktop_minimize(&model,token,1);else {dragging=1;drag_resize=0;}}
@@ -328,15 +375,9 @@ static void keyboard(int key) {
     if(app->closing){if(key==10){app->closing=0;invalidate(w->bounds);}return;}
     if(w->app==CALCULATOR){calculator(app,(char)(key==10?'=':key));invalidate(w->bounds);return;}
     if(w->app==FILES){if(key==133&&app->offset)--app->offset;if(key==134&&child_at(app,app->offset+1))++app->offset;invalidate(w->bounds);return;}
-    if(w->app!=EDITOR)return;
+    if(w->app!=EDITOR||app->stopped)return;
     if(key==19){action(token,SAVE);return;}if(key==3){action(token,COPY);return;}if(key==24){action(token,CUT);return;}if(key==22){action(token,PASTE);return;}
-    if(key==128&&app->cursor)--app->cursor;
-    else if(key==129&&app->cursor<app->length)++app->cursor;
-    else if(key==130)app->cursor=0;
-    else if(key==131)app->cursor=app->length;
-    else if(key==8&&app->cursor){for(unsigned i=app->cursor;i<=app->length;++i)app->text[i-1]=app->text[i];--app->cursor;--app->length;app->dirty=1;}
-    else if(key==132&&app->cursor<app->length){for(unsigned i=app->cursor;i<app->length;++i)app->text[i]=app->text[i+1];--app->length;app->dirty=1;}
-    else if((key>=32&&key<=126)||key==10){char value=(char)key;insert(app,&value,1);}
+    send_app(app,APP7_KEY,(unsigned)key,0,0);
     invalidate(w->bounds);
 }
 
@@ -346,6 +387,8 @@ NORETURN void desktop_start(const os_boot_info_v0 *boot,const m6_preferences *pr
     if(!v6_verify(m6_volume(),"/System/Settings/desktop7.bin")&&
        !v6_read(m6_volume(),"/System/Settings/desktop7.bin",0,&stored,sizeof(stored),&bytes)&&
        bytes==sizeof(stored)&&stored.magic==preferences.magic&&stored.accent<=0xffffff&&stored.dark<=1&&stored.calculator<=1&&!stored.reserved)preferences=stored;
+    if(app7_prepare())serial_text("M7_APP_RUNTIME_MEMORY_UNAVAILABLE\n");
+    preferences.calculator=app7_available(CALCULATOR);
     desktop_init(&model,display->framebuffer_width,display->framebuffer_height);
     usb_mouse_state(&pointer_x,&pointer_y,&previous_buttons);
     launch(FILES,0);render();serial_text("M7_DESKTOP_READY build=" BUILD_ID "\n");

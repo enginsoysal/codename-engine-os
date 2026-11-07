@@ -1,0 +1,7 @@
+# BearSSL freestanding adapter
+
+Upstream whitespace is preserved rather than reformatted; the path-specific Git whitespace attribute applies only to that unchanged dependency. The upstream sources are unchanged under `../bearssl`, with their MIT notices and archive provenance retained. This project-owned adapter supplies only the standard memory/string declarations that the portable library needs. Engine OS provides those functions; there is no Linux, Windows or host socket dependency in the native library.
+
+The planned M7 integration uses the state-machine API over the original native transport. It must restrict connections to TLS 1.2 and approved authenticated cipher suites, validate hostnames/chains/validity using explicit trust roots and a valid UTC clock, and supply real entropy. A missing prerequisite is a connection failure; there is no insecure acceptance button. Native HTTPS is not implemented or qualified merely by downloading these sources.
+
+The alternatives were writing cryptography and certificate validation from scratch, or porting a larger TLS runtime. Reusing a small independently licensed cryptographic library avoids presenting unreviewed original cryptography as secure, and matches the bounded-allocation requirement. The OS kernel, desktop, storage, drivers and transport remain original Engine OS code. Upstream currently calls version 0.6 beta quality; this dependency is not a production-security guarantee. [Upstream and license](https://www.bearssl.org/), [X.509 API and limits](https://www.bearssl.org/x509.html).

@@ -11,7 +11,7 @@
       "passed": true
     }
   ],
-  "build_id": "02cb256f9321315403b16fb144cdd947",
-  "iso_sha256": "3631315096e6a911eec42336027d778f8af2acb2e0802a8e1acab1a0408d1c86",
+  "build_id": "4f7b2cf868ba1a8637fab80a4e2f4289",
+  "iso_sha256": "14cf7e79e26690cecde34d7e1632281a056deb4654f650869af50e7232ea95f1",
   "scope": "initial trusted native desktop slice; app isolation, networking and complete M7 qualification remain pending"
 }

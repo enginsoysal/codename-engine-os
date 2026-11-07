@@ -51,6 +51,23 @@ static void pixel(unsigned x,unsigned y,uint32_t rgb) {
     volatile uint32_t *p=(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)y*screen->framebuffer_stride_bytes+x*4);
     *p=color(rgb);
 }
+#ifdef ENGINE_M7
+/* Original ASCII punctuation; no desktop operator or filename delimiter is invisible. */
+static const struct {uint8_t code,rows[7];} punctuation7[]={
+ {33,{4,4,4,4,4,0,4}}, {34,{10,10,10,0,0,0,0}},
+ {35,{10,31,10,10,31,10,0}}, {36,{4,15,20,14,5,30,4}},
+ {37,{25,25,2,4,8,19,19}}, {38,{12,18,20,8,21,18,13}},
+ {39,{4,4,8,0,0,0,0}}, {40,{2,4,8,8,8,4,2}},
+ {41,{8,4,2,2,2,4,8}}, {42,{0,21,14,31,14,21,0}},
+ {43,{0,4,4,31,4,4,0}}, {44,{0,0,0,0,0,4,8}},
+ {60,{2,4,8,16,8,4,2}}, {63,{14,17,1,2,4,0,4}},
+ {64,{14,17,23,21,23,16,14}}, {91,{14,8,8,8,8,8,14}},
+ {92,{16,16,8,4,2,1,1}}, {93,{14,2,2,2,2,2,14}},
+ {94,{4,10,17,0,0,0,0}}, {96,{8,4,2,0,0,0,0}},
+ {123,{2,4,4,8,4,4,2}}, {124,{4,4,4,4,4,4,4}},
+ {125,{8,4,4,2,4,4,8}}, {126,{0,0,9,22,0,0,0}}
+};
+#endif
 static void text(unsigned x,unsigned y,const char *s,unsigned scale,uint32_t rgb) {
     for(;*s;++s,x+=6*scale) {
         char c=*s;
@@ -62,6 +79,10 @@ static void text(unsigned x,unsigned y,const char *s,unsigned scale,uint32_t rgb
             c>='a'&&c<='z'?lower[c-'a']:
 #endif
             c>='A'&&c<='Z'?letters[c-'A']:c>='0'&&c<='9'?digits[c-'0']:0;
+#ifdef ENGINE_M7
+        if(!glyph)for(unsigned i=0;i<sizeof(punctuation7)/sizeof(*punctuation7);++i)
+            if(punctuation7[i].code==(uint8_t)c){glyph=punctuation7[i].rows;break;}
+#endif
         for(unsigned row=0;row<7;++row) {
             unsigned bits=glyph?glyph[row]:c=='-'&&row==3?31:c=='='&&(row==2||row==4)?31:c==':'&&(row==2||row==5)?4:c==';'&&(row==2||row==5||row==6)?4:c=='/'?(1u<<(row*4/6)):c=='.'&&row==6?4:c=='_'&&row==6?31:c=='>'&&row>0&&row<6?(1u<<(2+(row>3?row-3:3-row))):0;
             for(unsigned col=0;col<5;++col)if(bits&(1u<<(4-col)))

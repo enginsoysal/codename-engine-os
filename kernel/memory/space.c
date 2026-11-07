@@ -7,7 +7,13 @@ static uint64_t need_page(void) {uint64_t p=page_alloc();if(!p){serial_text("M2_
 uint64_t kernel_pd(unsigned i) {return i<4?pd_addresses[i]:0;}
 uint64_t kernel_stack_branch(void) {return stack_branch;}
 uint64_t kernel_space_init(const os_boot_info_v0 *boot) {
-    if(boot->kernel.physical_address!=0x200000 || boot->kernel.byte_length>0x200000) {
+    if(boot->kernel.physical_address!=0x200000 || boot->kernel.byte_length>
+#ifdef ENGINE_M7
+       0x400000
+#else
+       0x200000
+#endif
+    ) {
         serial_text("M2_KERNEL_LAYOUT_UNSUPPORTED\n");test_exit(0x31);
     }
     uint32_t a,b,c,d;__asm__ volatile("cpuid":"=a"(a),"=b"(b),"=c"(c),"=d"(d):"a"(0x80000001u),"c"(0));
@@ -26,12 +32,18 @@ uint64_t kernel_space_init(const os_boot_info_v0 *boot) {
     uint64_t *pd0=(uint64_t*)(uintptr_t)pd_addresses[0];
     uint64_t null_pt=need_page();low_pt=null_pt;pd0[0]=null_pt|3;
     for(unsigned i=1;i<512;++i)((uint64_t*)(uintptr_t)null_pt)[i]=(uint64_t)i*4096|3|NX;
-    uint64_t text_pt=need_page();pd0[1]=text_pt|3;
-    for(unsigned i=0;i<512;++i) {
-        uint64_t address=0x200000+(uint64_t)i*4096,flags=3|NX;
-        if(address>=(uint64_t)(uintptr_t)__text_start && address<(uint64_t)(uintptr_t)__text_end)flags=1;
-        else if(address>=(uint64_t)(uintptr_t)__rodata_start && address<(uint64_t)(uintptr_t)__rodata_end)flags=1|NX;
-        ((uint64_t*)(uintptr_t)text_pt)[i]=address|flags;
+    unsigned kernel_chunks=1;
+#ifdef ENGINE_M7
+    kernel_chunks=2;
+#endif
+    for(unsigned chunk=0;chunk<kernel_chunks;++chunk){
+        uint64_t text_pt=need_page();pd0[1+chunk]=text_pt|3;
+        for(unsigned i=0;i<512;++i){
+            uint64_t address=0x200000+(uint64_t)chunk*0x200000+(uint64_t)i*4096,flags=3|NX;
+            if(address>=(uint64_t)(uintptr_t)__text_start&&address<(uint64_t)(uintptr_t)__text_end)flags=1;
+            else if(address>=(uint64_t)(uintptr_t)__rodata_start&&address<(uint64_t)(uintptr_t)__rodata_end)flags=1|NX;
+            ((uint64_t*)(uintptr_t)text_pt)[i]=address|flags;
+        }
     }
     stack_branch=need_page();uint64_t stack_pd=need_page(),stack_pt=need_page();
     ((uint64_t*)(uintptr_t)pml4)[256]=stack_branch|3;

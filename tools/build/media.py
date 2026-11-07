@@ -51,7 +51,7 @@ def fat32(files):
     image[(reserved+fat_sectors)*512:data_start*512]=table
     return image
 
-def gpt(volume,label='Engine OS M1',first=2048,bios=None):
+def gpt(volume,label='Engine OS M1',first=2048,bios=None,bios_limit=0x200000):
     if first<2048 or len(volume)%512:raise ValueError('GPT volume alignment')
     total=first+len(volume)//512+2048
     image=bytearray(total*512);image[450]=0xee;struct.pack_into('<II',image,454,1,total-1);image[510:512]=b'\x55\xaa'
@@ -62,7 +62,7 @@ def gpt(volume,label='Engine OS M1',first=2048,bios=None):
     name=label.encode('utf-16le');entries[56:56+len(name)]=name
     if bios is not None:
         mbr,stage2,kernel=bios
-        if first<8192 or len(mbr)!=512 or len(stage2)!=32768 or not kernel or len(kernel)>0x200000 or len(kernel)%512:raise ValueError('BIOS boot partition bounds')
+        if first<8192 or len(mbr)!=512 or len(stage2)!=32768 or not kernel or bios_limit>0x400000 or len(kernel)>bios_limit or 128+len(kernel)//512>first or len(kernel)%512:raise ValueError('BIOS boot partition bounds')
         entries[128:144]=uuid.UUID('21686148-6449-6e6f-744e-656564454649').bytes_le;entries[144:160]=uuid.UUID('1432896c-811c-4a61-bc1f-a12000000013').bytes_le;struct.pack_into('<QQQ',entries,160,64,128+len(kernel)//512-1,0)
         label_bytes='Engine BIOS'.encode('utf-16le');entries[184:184+len(label_bytes)]=label_bytes;image[:446]=mbr[:446];image[64*512:128*512]=stage2;image[128*512:128*512+len(kernel)]=kernel
     def header(current,backup,table):

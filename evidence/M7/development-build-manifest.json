@@ -1,0 +1,209 @@
+{
+  "milestone": "M7",
+  "build_id": "4f7b2cf868ba1a8637fab80a4e2f4289",
+  "source_sha256": {
+    "boot/bios/mbr.ld": "e1bfb5c0c62f26747f62fd94ecd7fd239e92fa6c4944dad294a634f7d6757452",
+    "boot/bios/mbr.S": "8b8155ed440fda9f277e4a5c1a520dc889647a563d2bb237782175d2f114f0bc",
+    "boot/bios/prepare.c": "7a5f7390e6cf6bbcec71364155a0a29416b98f37b960a1b8d7faeff69e6b0497",
+    "boot/bios/stage2.ld": "bb85684e27f6945c465c9398aa260d311a294fbd67bd38ec8ac3ebc28be33e50",
+    "boot/bios/stage2.S": "3c80a000cd19b1c4894b63a734b31fabc4aa9edc759e04c9c17ad453b9307d44",
+    "boot/uefi/handoff.S": "4d3b9259c88e5b3e2b4d72fee29b82dc495758408c454a09e471f3d69e21c6e9",
+    "boot/uefi/loader.c": "332364fed1a2108a48acf3dd546ac445d9ab9ee62d7dfa62cc49811678538635",
+    "boot/uefi/payload_trust.c": "0017c0dc4f2b6c27844690e7ccf7cb999bc37b20073cfd38be226afb3fc341ae",
+    "boot/uefi/uefi.h": "123461b364cc1435528fff648c9a27c46486dbfdd643b6abe0e4bb215d53fa59",
+    "distros/engineos.json": "ad7c439e7e6fbf1281a88b34d9cb13a54ba334825c493029c3a77c76f8f950db",
+    "distros/packages/welcome-guide/content.txt": "348d1ed691b6756c3a1c672a40db08f95fee66dfd98579bccc8197dc5d342470",
+    "distros/packages/welcome-guide/package.json": "a22560dc818910164d232e6e9005e5739e9143d03d80523e050536f4ee1e74f5",
+    "include/engine/abi/syscall_v0.h": "813dbfe6d652033754cfea1cf7f9c1420ffc35480d5931a21782279d006f6a16",
+    "include/engine/base.h": "edf6264c00bd9c42df8a4ef64bebde4dc16d2afe761c823d1c0366db64efb8f4",
+    "include/engine/boot/boot_v0.h": "97a37818dccb8592acf64db339b8ea701c7dab978e0cb3f6331a3fa569583357",
+    "include/engine/boot/validate_v0.h": "a95a9f47577e7663b972a489d1fe61579bbd314330cf938c9836e5b16b5a91e9",
+    "include/engine/desktop/app.h": "c93ddd8e63b913ef170551fd1394ab1d82c1b4ddf9a3158c9a98546e9242b62a",
+    "include/engine/desktop/session.h": "d6b2d0747f3d272d43ea63ec7622b57b3aa9a765509f871db3c2fc9fde20a340",
+    "include/engine/desktop/window.h": "be0acac4b42b0cf90287af3020ffc00d0821ce89183555c5405d0d1ad8ebde0f",
+    "include/engine/elf.h": "b1b007a9b9b9fab5aec56049c20b123cbacce48288baefb9f421f55eed1f0f29",
+    "include/engine/fs.h": "2b0db9174b8a725354f7c1334308cccc767652aad59b66b2ff77908f173f5a80",
+    "include/engine/install/layout.h": "8c70389ef0d8bfac6c832a3a135dc2fd78ac818b23f68d543874ca8f7ccbb936",
+    "include/engine/install/m6.h": "10c15fecdfb814a0625f6439b6974ea2594e0efa43ee76559bd1ab41cd25be12",
+    "include/engine/m3.h": "78ed87acd647d5d58ed387da11a280a74befcfb0d4504475462e3ec0774cf218",
+    "include/engine/m4.h": "b26af663c448df9d4a36af23f358f72c1c01392ec1141be6f7ea7fa573d840bf",
+    "include/engine/m5.h": "0e72299dadf39cf3c060a1af537ad5b7cd071686f07fa6dd89ce00faffbbd0d5",
+    "include/engine/m5_volume.h": "24eabff5913bc5ec3ea37592afb3783cdaf14d2f96bc8a3c7536972187bc0e65",
+    "include/engine/process.h": "6b2310a17b1410ec2bc864c79ad06de8bfbe1981c9870b5941246989b2a4a96b",
+    "include/engine/sha256.h": "6c3f2b0fbcb01fe4b03ee872ea52360173d5aa513a16d07327978031e7a1b735",
+    "include/engine/storage/volume6.h": "c762851c066e53b3fc514eef780ea23ebd9a2e40a1992a5b7a1d6f0560b11309",
+    "include/engine/storage.h": "37cc0ebce8b3a88c7b8aee5f8d3cd81ffc91e2e8952775c61e155e0a77b1f704",
+    "include/engine/user.h": "fc3afcdec20049fb5cd5692bd23f5119b16fd9ace64693571d7bef2e33778423",
+    "kernel/arch/x86_64/ap.S": "42b2f18d6bbb596997e8b61ac905dcd72d82257dceef666d9dff08b2a0047321",
+    "kernel/arch/x86_64/fault.S": "8f4651a65903c62fc21e3d0c964f28d65077fb86e5130f859ba2513903836abe",
+    "kernel/arch/x86_64/interrupts.c": "38bd9b45812f34d7a83f0e45948df3591be91c00a24eeecaeb6ec80bf7a18594",
+    "kernel/arch/x86_64/linker.ld": "e827271a22c548131fab027b4ee0ca68149bba8ef0c7917eac754d25733b02df",
+    "kernel/arch/x86_64/smp.c": "e6eb15c22867235802d6e89c7c4973377f67bc02eec82f512366463ce4dae6b7",
+    "kernel/arch/x86_64/timer.c": "0c95fe6e9cd535c81eebaa1a3e124b29c84bf0d3127ccb355b819e156b979455",
+    "kernel/core/console.c": "beac426c44dbd065623eb7bcff13d83fa7120e0a078fc83be3da01468ac21687",
+    "kernel/core/display.c": "7a0001c30f367f3a45b7b837d28fa4fe8a5914987142c7c9621b8e704e4b1ee6",
+    "kernel/core/main.c": "92a44b4d00871ecb25061f20eba0c647f0334f69df61ae5ee8a6f2906d1fb1d2",
+    "kernel/desktop/app-return.S": "2ac4c576c2df62e5e134258d347a595dabcc99df5fe4744c1c20b85b053c4d8a",
+    "kernel/desktop/app.c": "ae3c613900d5fea9f491c9a972fc4846cf27d6c88f0c3e3e29f18360b55c3e62",
+    "kernel/desktop/session.c": "1da2e057963c475ee07e1af863a37970f031201119badcc97af04632108a70bb",
+    "kernel/desktop/window.c": "9701c825cf3b89c93fce290d514a0a511ed8d9c02bc5ac6b75ca19b2fb3754e1",
+    "kernel/input/legacy.c": "82dcfe5b710e34ed0e4acc21d418196bc2151cb564f190a42c7a091ad6bd804c",
+    "kernel/input/xhci.c": "a874733569ae7b1a7d909cd764c43b00d2a1d6128d2b39799860fd946e5f6520",
+    "kernel/install/entry6.c": "364add96aee6211be9f5cc892f54ad20ca270b1fb84732815d88b7e28870330d",
+    "kernel/install/guided.c": "7db676c6427dacf660f207bf0cfa4646e0ab1755613e203068e1a14766c97844",
+    "kernel/install/installer6.c": "140aa68f4f77efb49a9a3940d0609cadde6943226d5d22f38fc7390f8e71170e",
+    "kernel/install/layout.c": "d431640b0589a29e805f8ae5cd5b8ad6a5d4dbde9e08c8c107c546e564278797",
+    "kernel/install/m5.c": "29809525515fc52b0e495d19ff591fab176f25146431c22935e8e04e8be31c49",
+    "kernel/install/wizard6.c": "dd99a61639eb1661d5512bbf6a037c9decba05e015e4280b435a0db0cc29bedf",
+    "kernel/m4/main.c": "36743c6887708010f7cc0ce5b87e5cc9df26251e9a38b50131b9cac238c70697",
+    "kernel/memory/pages.c": "aa32a9f3a5168ac9d6ab43eaab2f7a31d137a9eebccfd498ee2f3b44ff5e13d1",
+    "kernel/memory/space.c": "d6b39f98082e98b4d11ffc1de641e1806b939c643bca78900eeac9b584f3f34f",
+    "kernel/process/process.c": "5d0557e87f36bb1b2667d76bd9cd44a8969e9800a4e55b1dbcfbd8f95a759c45",
+    "kernel/scheduler/m3.c": "f4c6a7b889d71ee5bc113ebf53784ef7d55b869052cfa12b4c85bcf5111cad7e",
+    "kernel/storage/ahci.c": "776d83ef467a8fe41450a0decd1bed6ded4f4fbc028b9b2f766acb6b9880eae6",
+    "kernel/storage/ahci45.c": "6d52c7570911cb2dd5ebdbdc02b2ce86848c9293f70f2168d71c1e086b19fd61",
+    "kernel/storage/ext2.c": "81d581fdfcb346d5240b1b3a57e5ae4ad1699426ad1b4ffe205ff6e4f30813ac",
+    "kernel/storage/ext2_read.c": "312d9008d4ea0b70af26d098e00062864ae14919a8b45f7e88f0cbd4a347af51",
+    "kernel/storage/ext2_read_test.c": "dc5f01200f08436f6ec0f5f745f46d7feaded7f9dc8832fd561cb1b3f505a596",
+    "kernel/storage/fat32.c": "1a0276b2a3fe2458fcab16e10d6b302f028140945a8e188035b55c299c74732a",
+    "kernel/storage/fat_test.c": "08b7600005f00c51733ced8d861ce7877eb150d0a01d6144b69a2f6d1863c04b",
+    "kernel/storage/fs_test.c": "4c27af1b7e1d069037abddc1b924b8464816dea44e818214b436cef1ad9c7dfa",
+    "kernel/storage/ide.c": "878094da97e45e5920ffd88b94a144e6b4d418956f0cb890b5b6af3c1e5208ea",
+    "kernel/storage/nvme.c": "908820b84eb6529ddfa26c0779efd47667f784e4da48482ac70dd4ef21721d5a",
+    "kernel/storage/partitions.c": "efca163b0bc5e63b751cbce68e18123d572d585b435643d2dd7fbb8597573578",
+    "kernel/storage/registry.c": "a85a8a69c8e284cdd2418577b2e61f2f92d7a40829d31a6247fbe0635ae538d5",
+    "kernel/storage/virtio_blk.c": "d7e78760db76d538d9a71c3751e129f60baf533de5d804ef33d9733d0aa45f20",
+    "kernel/storage/volume6.c": "4265bd7ef014526709ccd8d6201cbd9b49f0f03bf272fd761adfe42681934fd7",
+    "kernel/usb/xhci.c": "c90db945f456326650669f2ac09e19c1acf5e21fdd1b961bba7384dd82f09b20",
+    "runtime/memory.c": "6d0a1ab7c130552c391beabb8a188b85521685e7d189a628224b99d802d65d25",
+    "runtime/sha256.c": "2d841840e545776a025f28b9af6c57a458c9da729ecee34eede0f6aef8179012",
+    "tools/build/bios.py": "d8b08c41d079cac55fb64907b71e5d9699e5d53a20b6b3fa55a81ad4f9679c7d",
+    "tools/build/data_image.py": "3bc9462dd6ac5d7a862ac5e84efdec4aec66e4828a609719b85b0672bcff5e26",
+    "tools/build/distro.py": "2fef880cf6d933d4f7d535734eedba95dd47b5034cf281d71b369674e887eeb5",
+    "tools/build/ext2_image.py": "d7961e0233fab653a71f0152e0c6fd76d67931819f711c0e5e0775947d8e8c21",
+    "tools/build/fsck.py": "924b9f663080066cb9f6ba34c6a3298ca58ef29a2edcfe8ca85b829e5cf2f671",
+    "tools/build/m1.py": "6ec2a3d19a3e023ae8e503ff2fae5c835dd5e0ab8999423a7d9edae76d6ce1f3",
+    "tools/build/m2.py": "dd5c118f1be8ef859afa636ee0f46c92ef57920dd66377689e4d627561e95326",
+    "tools/build/m3.py": "3fa633b9e45f6ec7df51bb3c658d00928808d42d0435c30b462aa0db21342dbe",
+    "tools/build/m4.py": "413088a97c0876ed54961c2223f980b369bd0bcd35567476eece9b00bd1153be",
+    "tools/build/m45.py": "8f993192a9dcb649442474cb28db0b9eee98d7e8051f987095105fba7eea5cd1",
+    "tools/build/m5.py": "112bf8120acb42a74b1ba6509f6e244b0d9dbf9035a8d79011bde1c6f6570d63",
+    "tools/build/m51.py": "e7f291cc3c5fab09a64952b07e0f5e4cfe41293c3e47af64d2bb5044a8721de4",
+    "tools/build/m5_layout.py": "bd775805d5602bf0f9877759509ba55412f28fff6d7e6ee3820d5216451c9f8c",
+    "tools/build/m6.py": "411a08ce19bd2c96b6d2dd13102f2ee7f1dba06260facbe8c1f78652188f635b",
+    "tools/build/m7.py": "371581edaf532debc8b7af3565fd825a01f9b7a330ebb2bc768b6653c403b41e",
+    "tools/build/media.py": "5ac7a02dfc16a8d7fcd83cba52998f3728c59d0c610f8753639833599ca48788",
+    "tools/build/owner.py": "54023c2a31cb272d2be1dda0d2ff215f3df1d15a0df27fe5c3184c74b2a6ff48",
+    "tools/build/secure.py": "be506380a12f30935da29fe76c87aa72f56f6c5d80aa1e3abd1b96824db72c6d",
+    "tools/security-toolchain.json": "e4bc4ba9c293c84f32490ed9d56e8ec89f05af3a43a8988e10b2beebb0d302c2",
+    "user/desktop7.c": "3d7dba809f880d8a828dbee0a5c21adeb7ca50c5d8543bffa1431e6279f5b985",
+    "user/desktop7.ld": "dc43ef75a0a54f58a652ca5ceb1b977cf20e61c2216d85694a0c774f518c004e",
+    "user/linker.ld": "2c626b4359df6b1088f5027f972159e33e5337720c44a18ac0f1b47164ec32e8",
+    "user/m3.c": "2c73776869dd74fd2045efc7eb1ce9f0f673d899b1bad2125375d7761737c76e",
+    "user/probe.c": "a0307730363807ecb93ab0c48fc491e8be4c62c6d699a5645a7ff18ea765ed36"
+  },
+  "artifacts": {
+    "EngineOS-M7.iso": {
+      "sha256": "14cf7e79e26690cecde34d7e1632281a056deb4654f650869af50e7232ea95f1",
+      "size": 69326848
+    },
+    "EngineOS-M7-usb.img": {
+      "sha256": "91b3511704831afbe334fa23f40c4c2198e3edaccd4234d221109dd4319c6b5b",
+      "size": 76546048
+    },
+    "EngineOS-M7-kernel.elf": {
+      "sha256": "aa0fa607972463785e381207e8f4a94a62ec237d4acf636c1b9e2415ca60d98e",
+      "size": 1618528
+    },
+    "EngineOS-M7-kernel.map": {
+      "sha256": "171026d7a726b66869f61dae781dda73ad25fd51ce71442624d69a85ef062eb6",
+      "size": 109755
+    },
+    "EngineOS-M7-user.elf": {
+      "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f",
+      "size": 68064
+    },
+    "EngineOS-M7-installed-kernel.elf": {
+      "sha256": "75eb333abaeafb34d4520aba3639484bf169274e82dd97c44d829b0da92096fc",
+      "size": 299128
+    },
+    "EngineOS-M7-installed-kernel.map": {
+      "sha256": "5d32760b5bc8ba8d09375753b9fb98309d612a52bce4d2cb02ad885aa7d0affe",
+      "size": 109755
+    },
+    "EngineOS-M7-editor.elf": {
+      "sha256": "a96e88284ab8a869f21ed582e81ccc2f8a88436e01b54f02f71e06e94e024539",
+      "size": 12616
+    },
+    "EngineOS-M7-calculator.elf": {
+      "sha256": "1405b3ec04ed4501a319506af38e7eb596cdca7c8cbbce95714582a31adf5db0",
+      "size": 11880
+    }
+  },
+  "mode": "normal",
+  "limits": [
+    "M7 development only: no completed desktop acceptance or stable release",
+    "Native window/file/editor/settings session; app isolation and HTTPS remain pending",
+    "M6 installed-volume bounds remain; no Windows or DOS application runtime"
+  ],
+  "build_revision": "standard",
+  "distribution": {
+    "schema": 1,
+    "id": "engineos",
+    "name": "Engine OS",
+    "version": "0.6.0",
+    "welcome": "Welcome. Choose an option below. No terminal commands are needed.",
+    "accent": "#39d5bb",
+    "packages": [
+      "welcome-guide"
+    ],
+    "files": [],
+    "resolved_files": [
+      {
+        "source": "distros/packages/welcome-guide/content.txt",
+        "target": "/Users/test/Documents/Welcome.txt",
+        "sha256": "348d1ed691b6756c3a1c672a40db08f95fee66dfd98579bccc8197dc5d342470"
+      }
+    ],
+    "input_sha256": {
+      "distros/engineos.json": "ad7c439e7e6fbf1281a88b34d9cb13a54ba334825c493029c3a77c76f8f950db",
+      "distros/packages/welcome-guide/package.json": "a22560dc818910164d232e6e9005e5739e9143d03d80523e050536f4ee1e74f5",
+      "distros/packages/welcome-guide/content.txt": "348d1ed691b6756c3a1c672a40db08f95fee66dfd98579bccc8197dc5d342470"
+    }
+  },
+  "qualification_scope": "M7-development",
+  "qualification": "Requires the exact artifact acceptance report; building alone does not qualify runtime",
+  "release_version": "0.7.0-dev",
+  "installed_kernel_sha256": "75eb333abaeafb34d4520aba3639484bf169274e82dd97c44d829b0da92096fc",
+  "installer_payload_bytes": 641772,
+  "bios_media_layout": {
+    "kernel_sha256": "aa0fa607972463785e381207e8f4a94a62ec237d4acf636c1b9e2415ca60d98e",
+    "raw_kernel_sha256": "719d9596e196647926e03de0831d20b8d0eb30a5092fbfb4359b388cbeb93d13",
+    "usb": {
+      "BIOS_SECTOR_BYTES": 512,
+      "BIOS_STAGE_BLOCKS": 64,
+      "BIOS_STAGE_LBA": 64,
+      "BIOS_KERNEL_LBA": 128,
+      "BIOS_KERNEL_CHUNKS": 65,
+      "BIOS_KERNEL_BYTES": 2129920,
+      "BIOS_KERNEL_ENTRY": 2097152,
+      "BIOS_KERNEL_CRC": 2682469617,
+      "BIOS_VIDEO_MODE": 324,
+      "BIOS_BAD_BOOT": 0
+    },
+    "iso": {
+      "BIOS_SECTOR_BYTES": 2048,
+      "BIOS_STAGE_BLOCKS": 16,
+      "BIOS_STAGE_LBA": 27,
+      "BIOS_KERNEL_LBA": 43,
+      "BIOS_KERNEL_CHUNKS": 65,
+      "BIOS_KERNEL_BYTES": 2129920,
+      "BIOS_KERNEL_ENTRY": 2097152,
+      "BIOS_KERNEL_CRC": 2682469617,
+      "BIOS_VIDEO_MODE": 324,
+      "BIOS_BAD_BOOT": 0
+    },
+    "iso_bios_extent": 26,
+    "scope": "original EDD/E820/VBE BIOS path; unsigned UEFI path shares the same kernel; Secure Boot applies only to separately signed UEFI media"
+  }
+}

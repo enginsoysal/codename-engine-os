@@ -17,6 +17,12 @@ def embed(work,live):
         if len(r['target'].encode())>228:raise ValueError('M6 profile target leaves insufficient room for the selected account name')
         data=(ROOT/r['source']).read_bytes();text+='static const uint8_t file_'+str(i)+'[]={'+','.join(map(str,data or b'\0'))+'};\n'
     text+='const m6_distribution_file m6_files[]={'+(','.join('{'+json.dumps(r['target'])+',file_'+str(i)+','+str((ROOT/r['source']).stat().st_size)+'}' for i,r in enumerate(records)) or '{0,0,0}')+'};\nconst unsigned m6_file_count='+str(len(records))+';\n'
+    if work.name=='m7':
+        for app in ['editor','calculator']:
+            data=(work/('APP7-'+app+'.ELF')).read_bytes() if live else b''
+            if len(data)>65536:raise ValueError('Native desktop app exceeds the bounded loader size')
+            text+='const uint8_t app7_'+app+'_image[]={'+','.join(map(str,data or b'\0'))+'};\n'
+            text+='const unsigned app7_'+app+'_size='+str(len(data))+';\n'
     (work/'installer-image.c').write_bytes(text.encode())
 
 def pack(parts):
@@ -38,7 +44,8 @@ def build(revision="standard",profile_path=None,desktop=False):
     kernel=compact_elf((work/'KERNEL.ELF').read_bytes());efi=(work/'BOOTX64.EFI').read_bytes();init=(work/'INIT.BIN').read_bytes()
     installed=work/'installed';installed.mkdir(exist_ok=True)
     (installed/'KERNEL.ELF').write_bytes(kernel)
-    mbr,stage,raw,config=stages(installed/'bios',kernel,init,stage_lba=2048,kernel_lba=2112)
+    if desktop:shutil.copyfile(work/'kernel.map',installed/'kernel.map')
+    mbr,stage,raw,config=stages(installed/'bios',kernel,init,stage_lba=2048,kernel_lba=2112,kernel_limit=0x5f8000 if desktop else 0x400000)
     low=bytearray(4096);low[:446]=mbr[:446];low[510:512]=b'\x55\xaa'
     fat=fat32([(4,b'BOOTX64 EFI',efi),(2,b'KERNEL  ELF',kernel),(2,b'INIT    BIN',init)])
     payload=pack([(0,bytes(low)),(2048,stage),(2112,raw),(ESP,trim(fat))])
@@ -53,6 +60,14 @@ def build(revision="standard",profile_path=None,desktop=False):
                         'Native window/file/editor/settings session; app isolation and HTTPS remain pending',
                         'M6 installed-volume bounds remain; no Windows or DOS application runtime']
     live['artifacts']={p.name:{'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'size':p.stat().st_size} for p in [ROOT/'dist'/('EngineOS-'+name+suffix) for suffix in ('.iso','-usb.img','-kernel.elf','-kernel.map','-user.elf')] if p.is_file()}
+    if desktop:
+        for suffix,source in [('.elf',installed/'KERNEL.ELF'),('.map',installed/'kernel.map')]:
+            artifact=ROOT/'dist'/('EngineOS-'+name+'-installed-kernel'+suffix)
+            shutil.copyfile(source,artifact)
+            live['artifacts'][artifact.name]={'sha256':hashlib.sha256(artifact.read_bytes()).hexdigest(),'size':artifact.stat().st_size}
+        for app in ['editor','calculator']:
+            artifact=ROOT/'dist'/('EngineOS-'+name+'-'+app+'.elf')
+            live['artifacts'][artifact.name]={'sha256':hashlib.sha256(artifact.read_bytes()).hexdigest(),'size':artifact.stat().st_size}
     (ROOT/'dist'/(name.lower()+'-build-manifest.json')).write_bytes((json.dumps(live,indent=2)+'\n').encode())
     (ROOT/'dist'/(name+'-SHA256SUMS.txt')).write_bytes(''.join(f'{v["sha256"]}  {k}\n' for k,v in live['artifacts'].items()).encode())
     print(json.dumps({'milestone':prefix+' development','build_id':live['build_id'],'iso':'dist/EngineOS-'+name+'.iso'}))

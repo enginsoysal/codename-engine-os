@@ -1,0 +1,10 @@
+{
+  "upstream": "https://www.bearssl.org/bearssl-0.6.tar.gz",
+  "version": "0.6",
+  "archive_sha256": "6705bba1714961b41a728dfc5debbe348d2966c117649392f8c8139efc83ff14",
+  "license": "MIT",
+  "files": 302,
+  "modifications": [],
+  "scope": "cryptography and TLS only; not an OS kernel, driver or networking stack",
+  "verification": "Downloaded through validated HTTPS; archive hash recorded locally, not an upstream signature claim"
+}

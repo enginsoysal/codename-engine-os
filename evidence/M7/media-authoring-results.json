@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "scope": "actual media authoring and independent byte/GPT inspection, not firmware execution",
+  "m7_complete": false,
+  "checks": [
+    {
+      "name": "larger bounded BIOS payload remains disjoint from EFI, with exact bytes and valid GPT CRCs",
+      "passed": true
+    },
+    {
+      "name": "legacy-size, overlap, excessive-policy and empty-payload refusals",
+      "passed": true,
+      "cases": 4
+    }
+  ],
+  "source_sha256": {
+    "tools/build/media.py": "5ac7a02dfc16a8d7fcd83cba52998f3728c59d0c610f8753639833599ca48788",
+    "tools/build/bios.py": "d8b08c41d079cac55fb64907b71e5d9699e5d53a20b6b3fa55a81ad4f9679c7d"
+  }
+}

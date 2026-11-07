@@ -44,6 +44,13 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
         from distro import prepare
         prepare(BUILD,distro);common.append('-DENGINE_M51')
     elif (BUILD/'distro.json').exists():(BUILD/'distro.json').unlink()
+    if m7:
+        for app,kind in [('editor',2),('calculator',4)]:
+            obj=BUILD/('app7-'+app+'.o')
+            command([tools['clang'],'--target=x86_64-unknown-none-elf',*common,'-mcmodel=large',
+                     '-fno-pic','-fno-pie','-fno-asynchronous-unwind-tables','-DAPP7_KIND='+str(kind),
+                     '-c',ROOT/'user/desktop7.c','-o',obj])
+            command([tools['ld.lld'],'-T',ROOT/'user/desktop7.ld','--build-id=none','-o',BUILD/('APP7-'+app+'.ELF'),obj])
     if milestone=='M5':
         common.append('-DENGINE_M5')
         if m6:
@@ -94,7 +101,7 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     if m6:
         inputs=tuple(p for p in inputs if p not in ('kernel/storage/ext2.c','kernel/storage/fs_test.c','kernel/m4/main.c'))
         inputs+=('kernel/install/layout.c','kernel/storage/volume6.c','kernel/install/installer6.c','kernel/install/wizard6.c','build/'+flavor+'/installer-image.c','kernel/install/entry6.c')
-    if m7:inputs+=('kernel/desktop/window.c','kernel/desktop/session.c')
+    if m7:inputs+=('kernel/desktop/window.c','kernel/desktop/session.c','kernel/desktop/app.c','kernel/desktop/app-return.S')
     elif milestone=='M5' and not m6:inputs+=('kernel/install/m5.c','build/m5/installer-image.c')
     if distro and not m6:inputs+=('kernel/install/guided.c',)
     kernel=[compile_file(p,'kernel',p.endswith('.S')) for p in inputs]
@@ -111,6 +118,8 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     for name in (f'EngineOS-{artifact_name}.iso',f'EngineOS-{artifact_name}-usb.img'):shutil.copyfile(BUILD/'normal'/name,dist/name)
     for filename,name in (('KERNEL.ELF',f'EngineOS-{artifact_name}-kernel.elf'),('kernel.map',f'EngineOS-{artifact_name}-kernel.map'),('USER.ELF',f'EngineOS-{artifact_name}-user.elf')):
         shutil.copyfile(BUILD/filename,dist/name)
+    if m7:
+        for app in ['editor','calculator']:shutil.copyfile(BUILD/('APP7-'+app+'.ELF'),dist/('EngineOS-'+artifact_name+'-'+app+'.elf'))
     artifacts={p.name:{'sha256':sha(p),'size':p.stat().st_size} for p in sorted(dist.glob(f'EngineOS-{artifact_name}*')) if p.is_file()}
     for name in artifacts:
         if re.search(rb'[Cc]:[\\/]+Users[\\/]+',(dist/name).read_bytes()):raise RuntimeError('Host user path in '+name)

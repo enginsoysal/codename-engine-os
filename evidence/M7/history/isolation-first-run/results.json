@@ -1,0 +1,6 @@
+{
+  "passed": false,
+  "m7_complete": false,
+  "checks": [],
+  "error": "Traceback (most recent call last):\n  File \"<project-root>\\tests\\m7\\isolation.py\", line 79, in main\n    calc(guest,pointer)\n  File \"<project-root>\\tests\\m7\\isolation.py\", line 55, in calc\n    _,bounds=window(guest,4)\n  File \"<project-root>\\tests\\m7\\isolation.py\", line 45, in window\n    raise AssertionError('Expected native window missing: '+str(kind))\nAssertionError: Expected native window missing: 4\n"
+}

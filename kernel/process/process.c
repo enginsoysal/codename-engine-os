@@ -1,3 +1,6 @@
+#ifdef ENGINE_M7
+#include <engine/desktop/app.h>
+#endif
 #include <engine/process.h>
 #include <engine/user.h>
 #include <engine/elf.h>
@@ -271,6 +274,9 @@ static unsigned dispatch(process *p,trap_frame *f,int *reschedule) {
     }
 }
 trap_frame *process_trap(trap_frame *frame) {
+#ifdef ENGINE_M7
+    if(app7_active)return app7_trap(frame);
+#endif
 #ifdef ENGINE_M3
     if(m3_active)return m3_trap(frame);
 #endif

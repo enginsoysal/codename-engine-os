@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "build_id": "4f7b2cf868ba1a8637fab80a4e2f4289",
+  "iso_sha256": "14cf7e79e26690cecde34d7e1632281a056deb4654f650869af50e7232ea95f1",
+  "checks": [
+    {
+      "name": "editor",
+      "sha256": "a96e88284ab8a869f21ed582e81ccc2f8a88436e01b54f02f71e06e94e024539",
+      "actual_installed_bytes_match": true
+    },
+    {
+      "name": "calculator",
+      "sha256": "1405b3ec04ed4501a319506af38e7eb596cdca7c8cbbce95714582a31adf5db0",
+      "actual_installed_bytes_match": true
+    }
+  ],
+  "actual_timeout_and_two_forbidden_write_faults_verified": true
+}

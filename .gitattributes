@@ -9,3 +9,6 @@
 *.log text eol=lf
 *.json text eol=lf
 LICENSE text eol=lf
+
+# Preserve upstream BearSSL source formatting and line endings.
+third_party/bearssl/** text eol=lf -whitespace

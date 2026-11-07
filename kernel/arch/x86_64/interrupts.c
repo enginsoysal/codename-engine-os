@@ -1,3 +1,6 @@
+#ifdef ENGINE_M7
+#include <engine/desktop/app.h>
+#endif
 #include <engine/base.h>
 #ifdef ENGINE_M4
 #include <engine/m4.h>
@@ -40,6 +43,10 @@ void interrupts_set_kernel_stack(uint64_t address) {tss.rsp[0]=address;}
 extern void kernel_panic_screen(void);
 extern void kernel_fault_probe(void);
 uint64_t *exception_dispatch(uint64_t *frame) {
+#ifdef ENGINE_M7
+    /* The app watchdog owns its user-mode timer deadline before device wait handlers. */
+    if(app7_active&&frame[15]==32&&(frame[18]&3)==3)return (uint64_t *)app7_trap((trap_frame *)frame);
+#endif
 #ifdef ENGINE_M4
 #ifdef ENGINE_M45
     extern unsigned virtio_storage_irq(uint64_t*);if(virtio_storage_irq(frame))return frame;
