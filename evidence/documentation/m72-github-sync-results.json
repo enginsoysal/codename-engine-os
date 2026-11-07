@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "runs": [
+    {
+      "conclusion": "success",
+      "databaseId": 42374653951,
+      "headSha": "53d6913e753069b37cc6e1e42a8936397bc4becf",
+      "status": "completed",
+      "url": "https://github.com/enginsoysal/codename-engine-os/actions/runs/42374653951"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 42374746230,
+      "headSha": "5b0e054429b8b1e28282ec25e635c72ac7559d5e",
+      "status": "completed",
+      "url": "https://github.com/enginsoysal/codename-engine-os/actions/runs/42374746230"
+    }
+  ],
+  "native_articles": 108,
+  "source_commit": "5b0e054429b8b1e28282ec25e635c72ac7559d5e",
+  "homepage_version": "M7.2"
+}

@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "website": "https://engineos.brixcanvas.com",
+  "version": "M7.2",
+  "native_brix": true,
+  "setup_guide": "/blog/docs-handbook-install-m72",
+  "recovery_guide": "/blog/docs-handbook-recovery-m72",
+  "observed_flow": "Next -> Review -> Install -> Open desktop",
+  "browser_scope": "authorized Edge extension only; no host desktop control",
+  "screenshot": "m72-homepage.png"
+}

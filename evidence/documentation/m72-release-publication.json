@@ -1,0 +1,86 @@
+{
+  "passed": true,
+  "release_url": "https://github.com/enginsoysal/codename-engine-os/releases/tag/m72-v0.7.2",
+  "tag": "m72-v0.7.2",
+  "target_commit": "5b0e054429b8b1e28282ec25e635c72ac7559d5e",
+  "build_id": "f6b3570bdd51bbb3e6e6469c41754766",
+  "asset_count": 15,
+  "assets": {
+    "EngineOS-M72.iso": {
+      "sha256": "0ba955b0a43cf3169b7824c6a82f8340f87acdb1447ae8fccd631916f559d0d4",
+      "size": 70408192,
+      "url": "https://github.com/enginsoysal/codename-engine-os/releases/download/m72-v0.7.2/EngineOS-M72.iso"
+    },
+    "EngineOS-M72-usb.img": {
+      "sha256": "67a77a73d7f0680a054588a1bbd5d88dd744d1084c17ee992616fc08d9150ac9",
+      "size": 76546048,
+      "url": "https://github.com/enginsoysal/codename-engine-os/releases/download/m72-v0.7.2/EngineOS-M72-usb.img"
+    },
+    "EngineOS-M72-kernel.elf": {
+      "sha256": "182e40221ef0c0fddad3374af521e1ad97be49d9865c1a88030a3fb160f918c3",
+      "size": 3283288,
+      "url": "https://github.com/enginsoysal/codename-engine-os/releases/download/m72-v0.7.2/EngineOS-M72-kernel.elf"
+    },
+    "EngineOS-M72-kernel.map": {
+      "sha256": "d87ec1fff1a1e48c2a42e5a40d9909f16ba7cbf23075e4512220e99a22531916",
+      "size": 315373,
+      "url": "https://github.com/enginsoysal/codename-engine-os/releases/download/m72-v0.7.2/EngineOS-M72-kernel.map"
+    },
+    "EngineOS-M72-user.elf": {
+      "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f",
+      "size": 68064,
+      "url": "https://github.com/enginsoysal/codename-engine-os/releases/download/m72-v0.7.2/EngineOS-M72-user.elf"
+    },
+    "EngineOS-M72-installed-kernel.elf": {
+      "sha256": "a2c7a8dedf4fa2b870c7b35ba098c8fb8c2e80a8b1fb251d8f494eeae340d555",
+      "size": 573637,
+      "url": "https://github.com/enginsoysal/codename-engine-os/releases/download/m72-v0.7.2/EngineOS-M72-installed-kernel.elf"
+    },
+    "EngineOS-M72-installed-kernel.map": {
+      "sha256": "15f0f5929c8856a18f8be8add94da3380ed10a5fee43a26cc02a482f000193c5",
+      "size": 315373,
+      "url": "https://github.com/enginsoysal/codename-engine-os/releases/download/m72-v0.7.2/EngineOS-M72-installed-kernel.map"
+    },
+    "EngineOS-M72-editor.elf": {
+      "sha256": "ee330e6fc2a33b1aaf8b90a1ba2777ffdb73d3098fd1898df6b98f7b70cba334",
+      "size": 12616,
+      "url": "https://github.com/enginsoysal/codename-engine-os/releases/download/m72-v0.7.2/EngineOS-M72-editor.elf"
+    },
+    "EngineOS-M72-calculator.elf": {
+      "sha256": "e2e4ccbedc0466cec63634f08088e57fb899f8d80e5ef35c928ee1a0d0216c7d",
+      "size": 11880,
+      "url": "https://github.com/enginsoysal/codename-engine-os/releases/download/m72-v0.7.2/EngineOS-M72-calculator.elf"
+    },
+    "EngineOS-M72-VMware.zip": {
+      "sha256": "044089d9bee14ea46028afa35b9d0896bf3956c66fd10841a891ef20c74da330",
+      "size": 2516952,
+      "url": "https://github.com/enginsoysal/codename-engine-os/releases/download/m72-v0.7.2/EngineOS-M72-VMware.zip"
+    },
+    "m72-build-manifest.json": {
+      "sha256": "56523e17a056771a3331b8825e477d376bef829dcf90e6cab7674301c4fd8858",
+      "size": 54576,
+      "url": "https://github.com/enginsoysal/codename-engine-os/releases/download/m72-v0.7.2/m72-build-manifest.json"
+    },
+    "m72-starter-manifest.json": {
+      "sha256": "8071011b2f8dc145bb545d2625417a6960e8cab43f8d5f31b504ffafddb275e6",
+      "size": 471,
+      "url": "https://github.com/enginsoysal/codename-engine-os/releases/download/m72-v0.7.2/m72-starter-manifest.json"
+    },
+    "EngineOS-M72-THIRD-PARTY-NOTICES.txt": {
+      "sha256": "c823e6c1b931a9393657844a7ed7a99439ef66955039561ef713cbfaa78216a2",
+      "size": 21547,
+      "url": "https://github.com/enginsoysal/codename-engine-os/releases/download/m72-v0.7.2/EngineOS-M72-THIRD-PARTY-NOTICES.txt"
+    },
+    "M72-acceptance-results.json": {
+      "sha256": "e9cdd9ff15aa6cbb9c63f5b17ac3763a78076c72f45f69617ab7493b3f890522",
+      "size": 24897,
+      "url": "https://github.com/enginsoysal/codename-engine-os/releases/download/m72-v0.7.2/M72-acceptance-results.json"
+    },
+    "M72-SHA256SUMS.txt": {
+      "sha256": "46911a8f8b47b35b12f1a7d398cf949ea910a1d110962253c16c0b3acce68dda",
+      "size": 1291,
+      "url": "https://github.com/enginsoysal/codename-engine-os/releases/download/m72-v0.7.2/M72-SHA256SUMS.txt"
+    }
+  },
+  "anonymous_starter_download_verified": true
+}
