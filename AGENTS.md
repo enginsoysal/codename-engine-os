@@ -13,6 +13,8 @@
 
 ## Product requirements
 
+- Owner requirement, 7 November 2026: appearance and convenience are first-class acceptance criteria. Review every ordinary step, error, confirmation and desktop surface for clarity, convenience, user friendliness, graphical quality and readability. Use consistent semantic typography, measured text, spacing and visual hierarchy; reject overlapping or clipped essential text, arbitrary adjacent font sizes and pixel-enlarged bitmap UI fonts. Verify the real native UI at ordinary and HiDPI resolutions, including an actual 3840x2160 framebuffer. Keep user control over suitable scaling. Do not call a browser mockup or an upscaled screenshot proof of native 4K support. Human usability studies remain distinct from the agent's design review.
+
 - Convenience and user friendliness are acceptance requirements from the first boot. Ordinary install/repair tasks must use guided choices, clear review/cancel, readable errors and optional details; terminal syntax and placeholders are not the normal user flow.
 - M6 requires a native graphical Back/Next/Finish wizard with retained customizable choices and meaningful progress. A browser mockup is design evidence only. Optional apps must be independently removable: the desktop/base cannot depend on Calculator. Resolve shared/required dependencies explicitly; never silently cascade app removal into system removal. Follow docs/architecture/components.md.
 - Preserve distribution freedom through validated, versioned profiles and working custom ISO examples. Only advertise configuration choices that affect implemented behavior. Core destructive-operation guards cannot be bypassed by a theme/profile.

@@ -17,7 +17,7 @@ def embed(work,live):
         if len(r['target'].encode())>228:raise ValueError('M6 profile target leaves insufficient room for the selected account name')
         data=(ROOT/r['source']).read_bytes();text+='static const uint8_t file_'+str(i)+'[]={'+','.join(map(str,data or b'\0'))+'};\n'
     text+='const m6_distribution_file m6_files[]={'+(','.join('{'+json.dumps(r['target'])+',file_'+str(i)+','+str((ROOT/r['source']).stat().st_size)+'}' for i,r in enumerate(records)) or '{0,0,0}')+'};\nconst unsigned m6_file_count='+str(len(records))+';\n'
-    if work.name in ['m7','m71','m72']:
+    if work.name in ['m7','m71','m72','m73']:
         for app in ['editor','calculator']:
             data=(work/('APP7-'+app+'.ELF')).read_bytes() if live else b''
             if len(data)>65536:raise ValueError('Native desktop app exceeds the bounded loader size')
@@ -34,15 +34,16 @@ def pack(parts):
             where=lba+offset//512;assert where not in pages;pages[where]=page
     return struct.pack('<I',len(pages))+b''.join(struct.pack('<I',k|(0x80000000 if not any(v) else 0))+(v if any(v) else b'') for k,v in sorted(pages.items()))
 
-def build(revision="standard",profile_path=None,desktop=False,disk_manager=False,desktop_first=False):
+def build(revision="standard",profile_path=None,desktop=False,disk_manager=False,desktop_first=False,polished=False):
     if not re.fullmatch("[a-z][a-z0-9]{0,15}",revision):raise ValueError("Invalid build revision")
+    desktop_first=desktop_first or polished
     disk_manager=disk_manager or desktop_first
     desktop=desktop or disk_manager
-    prefix="M72" if desktop_first else "M71" if disk_manager else "M7" if desktop else "M6"
+    prefix="M73" if polished else "M72" if desktop_first else "M71" if disk_manager else "M7" if desktop else "M6"
     name=prefix+("" if revision=="standard" else revision.upper())
-    work=ROOT/'build'/prefix.lower();work.mkdir(parents=True,exist_ok=True);profile=load(profile_path or ROOT/('distros/engineos-workspace.json' if desktop_first else 'distros/engineos-disk.json' if disk_manager else 'distros/engineos-desktop.json' if desktop else 'distros/engineos.json'),desktop=desktop)
+    work=ROOT/'build'/prefix.lower();work.mkdir(parents=True,exist_ok=True);profile=load(profile_path or ROOT/('distros/engineos-polished.json' if polished else 'distros/engineos-workspace.json' if desktop_first else 'distros/engineos-disk.json' if disk_manager else 'distros/engineos-desktop.json' if desktop else 'distros/engineos.json'),desktop=desktop)
     if profile['id']=='engineos':profile={**profile,'name':'Engine OS'}
-    base=main('M5',distro=profile,m6=True,m6_revision=revision,m7=desktop,m71=disk_manager,m72=desktop_first)
+    base=main('M5',distro=profile,m6=True,m6_revision=revision,m7=desktop,m71=disk_manager,m72=desktop_first,m73=polished)
     kernel=compact_elf((work/'KERNEL.ELF').read_bytes());efi=(work/'BOOTX64.EFI').read_bytes();init=(work/'INIT.BIN').read_bytes()
     installed=work/'installed';installed.mkdir(exist_ok=True)
     (installed/'KERNEL.ELF').write_bytes(kernel)
@@ -52,7 +53,7 @@ def build(revision="standard",profile_path=None,desktop=False,disk_manager=False
     fat=fat32([(4,b'BOOTX64 EFI',efi),(2,b'KERNEL  ELF',kernel),(2,b'INIT    BIN',init)])
     payload=pack([(0,bytes(low)),(2048,stage),(2112,raw),(ESP,trim(fat))])
     (work/'install.pack').write_bytes(payload)
-    live=main('M5',m5_live=True,distro=profile,m6=True,m6_revision=revision,m7=desktop,m71=disk_manager,m72=desktop_first)
+    live=main('M5',m5_live=True,distro=profile,m6=True,m6_revision=revision,m7=desktop,m71=disk_manager,m72=desktop_first,m73=polished)
     if live['build_id']!=base['build_id']:raise RuntimeError('Build inputs changed between installed and live images; rebuild with frozen inputs')
     if any(hashlib.sha256((ROOT/p).read_bytes()).hexdigest()!=value for p,value in profile['input_sha256'].items()):raise RuntimeError('Distribution inputs changed during build')
     media=dual_media(work,name)
@@ -70,6 +71,11 @@ def build(revision="standard",profile_path=None,desktop=False,disk_manager=False
         live.update(qualification_scope='M72-VM-v1',release_version='0.7.2'+('' if revision=='standard' else '+'+revision))
         live['limits'][0]='Qualification requires the matching M72-VM-v1 exact-artifact acceptance report'
         live['limits'] += ['Finish opens the real persistent desktop immediately from the installation session; independent disk boot is qualified separately', 'Files browses the installed native volume; additional partitions are not automatically mounted; system folders are read-only in Files']
+    if polished:
+        live.update(qualification_scope='M73-VM-v1',release_version='0.7.3'+('' if revision=='standard' else '+'+revision))
+        live['limits'][0]='Qualification requires the matching M73-VM-v1 acceptance report'
+        live['limits'] += ['Inter OFL coverage masks at native physical font sizes, 100/150/200 percent UI scales; no runtime font interpreter', '4K refers to qualified framebuffer modes, not every physical monitor or GPU']
+        live['font']=json.loads((work/'font73-manifest.json').read_text(encoding='utf-8'))
     live['artifacts']={p.name:{'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'size':p.stat().st_size} for p in [ROOT/'dist'/('EngineOS-'+name+suffix) for suffix in ('.iso','-usb.img','-kernel.elf','-kernel.map','-user.elf')] if p.is_file()}
     if desktop:
         for suffix,source in [('.elf',installed/'KERNEL.ELF'),('.map',installed/'kernel.map')]:

@@ -68,6 +68,9 @@ static const struct {uint8_t code,rows[7];} punctuation7[]={
  {125,{8,4,4,2,4,4,8}}, {126,{0,0,9,22,0,0,0}}
 };
 #endif
+#ifdef ENGINE_M73
+#include "graphics73.inc"
+#endif
 static void text(unsigned x,unsigned y,const char *s,unsigned scale,uint32_t rgb) {
     for(;*s;++s,x+=6*scale) {
         char c=*s;
@@ -92,6 +95,10 @@ static void text(unsigned x,unsigned y,const char *s,unsigned scale,uint32_t rgb
 }
 void display_boot(const os_boot_info_v0 *boot) {
     screen=boot;if(!boot->framebuffer.byte_length)return;
+#ifdef ENGINE_M73
+    const os_boot_info_v0*v=ui73_begin(boot);rect73(0,0,v->framebuffer_width,v->framebuffer_height,0x101f2c);
+    unsigned x=v->framebuffer_width/2-120,y=v->framebuffer_height/2-40;text73(x,y,"Engine OS",4,0xf2f8fa);text73(x,y+56,"Preparing your workspace...",1,0xa7bbc7);return;
+#endif
     uint32_t accent=color(0x39d5bb),background=color(0x101d2b);
     for(unsigned y=0;y<boot->framebuffer_height;++y) {
         volatile uint32_t *row=(volatile uint32_t*)(uintptr_t)(boot->framebuffer.physical_address+(uint64_t)y*boot->framebuffer_stride_bytes);
@@ -121,7 +128,12 @@ void display_boot(const os_boot_info_v0 *boot) {
     text(40,296,"NO INSTALLER YET",2,0x93aabe);
 #endif
 }
-void kernel_panic_screen(void) {if(screen&&screen->framebuffer.byte_length)text(40,350,"KERNEL PANIC - SEE SERIAL LOG",2,0xff7070);}
+void kernel_panic_screen(void) {
+#ifdef ENGINE_M73
+ if(active73){gui7_clip_reset();rect73(0,0,view73.framebuffer_width,view73.framebuffer_height,0x102a3a);text73(60,100,"Engine OS needs to stop.",4,0xffffff);ui73_paragraph(60,170,view73.framebuffer_width-120,3,"Restart with the ISO connected for recovery. Technical details are available in the serial log.",0xb7cbd8);return;}
+#endif
+ if(screen&&screen->framebuffer.byte_length)text(40,350,"KERNEL PANIC - SEE SERIAL LOG",2,0xff7070);
+}
 #ifdef ENGINE_M2
 static void number(unsigned x,unsigned y,uint64_t value) {
     char out[24];unsigned n=0;do {out[n++]=(char)('0'+value%10);value/=10;}while(value&&n<23);
@@ -165,6 +177,9 @@ void display_m2_result(unsigned failures,uint64_t peak,uint64_t retained,unsigne
 
 #ifdef ENGINE_M4
 void display_console_setup(void){
+#ifdef ENGINE_M73
+ extern unsigned verbose73;if(verbose73){rect73(0,0,view73.framebuffer_width,view73.framebuffer_height,0x101d2b);text73(16,26,"Engine OS - Advanced terminal",3,0xffffff);}return;
+#endif
     if(!screen||!screen->framebuffer.byte_length)return;
     uint32_t bg=color(0x101d2b),accent=color(
 #ifdef ENGINE_M51
@@ -190,11 +205,17 @@ DISTRO_ACCENT
 #endif
 }
 void display_console_cell(unsigned col,unsigned row,char c){
+#ifdef ENGINE_M73
+ extern unsigned verbose73;if(!verbose73)return;rect73(16+col*16,100+row*24,16,24,0x101d2b);char glyph[2]={c,0};text73(16+col*16,100+row*24,glyph,1,0xffffff);return;
+#endif
     if(!screen||!screen->framebuffer.byte_length)return;unsigned x=16+col*12,y=152+row*18;
     for(unsigned dy=0;dy<16;++dy)for(unsigned dx=0;dx<12;++dx)pixel(x+dx,y+dy,0x101d2b);
     char s[2]={c,0};text(x,y,s,2,0xffffff);
 }
 void display_mouse(unsigned x,unsigned y){
+#ifdef ENGINE_M73
+ if(active73){cursor73(x,y);return;}
+#endif
     #ifdef ENGINE_M6
     static uint32_t saved[135];const unsigned cw=9,ch=15;
 #else
@@ -220,6 +241,9 @@ void display_mouse(unsigned x,unsigned y){
 
 #ifdef ENGINE_M6
 void gui6_rect(unsigned x,unsigned y,unsigned w,unsigned h,uint32_t rgb){
+#ifdef ENGINE_M73
+ if(active73){rect73(x,y,w,h,rgb);return;}
+#endif
  if(!screen||x>=screen->framebuffer_width||y>=screen->framebuffer_height)return;
  if(!x&&!y)gui6_repaint=1;
  if(w>screen->framebuffer_width-x)w=screen->framebuffer_width-x;if(h>screen->framebuffer_height-y)h=screen->framebuffer_height-y;
@@ -228,5 +252,9 @@ void gui6_rect(unsigned x,unsigned y,unsigned w,unsigned h,uint32_t rgb){
 #endif
  uint32_t value=color(rgb);for(unsigned j=0;j<h;++j){volatile uint32_t *p=(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)(y+j)*screen->framebuffer_stride_bytes+x*4);for(unsigned i=0;i<w;++i)p[i]=value;}
 }
-void gui6_text(unsigned x,unsigned y,const char*s,unsigned scale,uint32_t rgb){if(screen)text(x,y,s,scale,rgb);}
+void gui6_text(unsigned x,unsigned y,const char*s,unsigned scale,uint32_t rgb){
+#ifdef ENGINE_M73
+ if(active73){text73(x,y,s,scale,rgb);return;}
+#endif
+ if(screen)text(x,y,s,scale,rgb);}
 #endif

@@ -2,6 +2,8 @@
 
 An independent, MIT-licensed operating system with its own UEFI loader, kernel and native user runtime. MS-DOS and Windows 1.x–11 application compatibility is a long-term requirement, followed by Linux/macOS execution environments and ARM64. Those compatibility layers are not implemented yet.
 
+**Visual refresh in progress: M7.3.** Native antialiased text, HiDPI sizing and a five-question usability review are being qualified. [Scope](docs/milestones/m7.3.md), [graphics decisions](docs/architecture/graphics-m73.md). M7.2 remains the accepted release during qualification.
+
 **Current completed follow-up: M7.2 — desktop-first installation and real folder navigation.** [Installer](docs/handbook/install-m72.md), [desktop controls](docs/handbook/desktop-m72.md), [scope](docs/milestones/m7.2.md), [exact acceptance](evidence/M7.2/acceptance-results.json). Named virtual profiles only; physical hardware and factory Secure Boot remain unqualified.
 
 The historical [M5 release](https://github.com/enginsoysal/codename-engine-os/releases/tag/m5-v0.5.0) provides BIOS/UEFI live media, a native text installer for a new SATA disk, media-detached installed boot, persistent native files and same-build boot recovery. There is no desktop, network stack or existing Windows app compatibility yet. That historical native data partition is 16 MiB with 48-KiB files; other disk capacity remains unallocated.

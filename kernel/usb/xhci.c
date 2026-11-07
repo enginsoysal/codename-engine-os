@@ -311,12 +311,21 @@ static unsigned uas_abort_task(device *d){
 static unsigned uas_quiesce(device *d){uint64_t flags;__asm__ volatile("pushfq;popq %0;cli":"=r"(flags)::"memory");unsigned endpoints[]={d->endpoint,d->status_endpoint,d->out_endpoint},status=B_OK;for(unsigned i=0;i<3;++i)if(!(i==0&&d->uas_abort_data_stopped)&&!command(0,(15u<<10)|(endpoints[i]<<16)|(d->slot<<24)))status=B_IO;if(flags&512)__asm__ volatile("sti":::"memory");return status;}
 
 #ifdef ENGINE_M6
-void usb_mouse_limits(unsigned w,unsigned h){mouse_limit_x=w>9?(int)w-9:0;mouse_limit_y=h>15?(int)h-15:0;}
+void usb_mouse_limits(unsigned w,unsigned h){
+#ifdef ENGINE_M73
+ extern unsigned ui73_scale(void);unsigned cw=15*ui73_scale()/2,ch=24*ui73_scale()/2;mouse_limit_x=w>cw?(int)(w-cw):0;mouse_limit_y=h>ch?(int)(h-ch):0;
+#else
+ mouse_limit_x=w>9?(int)w-9:0;mouse_limit_y=h>15?(int)h-15:0;
+#endif
+}
 void usb_mouse_state(unsigned*x,unsigned*y,unsigned*b){
     /* Snapshot the BSP-routed IRQ state without losing a press/release during repaint. */
     uint64_t flags;__asm__ volatile("pushfq; popq %0; cli":"=r"(flags)::"memory");
     if(mouse_press_pending){*x=mouse_press_x;*y=mouse_press_y;*b=mouse_buttons|1u;mouse_press_pending=0;__atomic_store_n(&mouse_dirty,1,__ATOMIC_RELEASE);}
     else{*x=(unsigned)mouse_x;*y=(unsigned)mouse_y;*b=mouse_buttons;__atomic_store_n(&mouse_dirty,0,__ATOMIC_RELEASE);}
+#ifdef ENGINE_M73
+    extern unsigned ui73_scale(void);unsigned factor=ui73_scale();*x=*x*2/factor;*y=*y*2/factor;
+#endif
     if(flags&512)__asm__ volatile("sti":::"memory");
 }
 #endif

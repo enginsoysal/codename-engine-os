@@ -15,3 +15,7 @@ LICENSE text eol=lf
 third_party/bearssl/** text eol=lf -whitespace
 # Keep the digest-pinned public trust bundle identical on Windows checkouts.
 third_party/mozilla-ca/** text eol=lf
+third_party/inter/Inter.ttf binary
+third_party/inter/METADATA.pb text eol=lf
+third_party/inter/OFL.txt whitespace=-blank-at-eol
+.gitattributes text eol=lf

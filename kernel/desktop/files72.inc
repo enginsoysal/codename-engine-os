@@ -9,6 +9,9 @@ static unsigned children72(application *app){
  return total;
 }
 static void folder_icon72(int x,int y,unsigned size,uint32_t tint){
+#ifdef ENGINE_M73
+ ui73_folder((unsigned)x,(unsigned)y,size,tint);return;
+#endif
  rectangle((desktop_rect){x,y,(int)size/2,7},0xbe974d);
  rectangle((desktop_rect){x,y+5,(int)size,(int)size*3/4},tint);
  rectangle((desktop_rect){x+2,y+8,(int)size-4,2},0xffe6ad);
@@ -41,7 +44,11 @@ static void folder_dialog72(desktop_window*w,application*app,uint64_t token){
  folder_icon72(x,y,44,0xf0ce87);text(x+65,y+8,"A new place for your files",2,ink());
  text(x,y+78,"Folder name",1,ink());
  rectangle((desktop_rect){x,y+103,w->bounds.width-56,42},preferences.dark?0x10212a:0xe6eee7);
+ #ifdef ENGINE_M73
+ ui73_fit(x+12,y+114,w->bounds.width-80,app->pending,1,ink());
+#else
  text(x+12,y+119,app->pending,2,ink());
+#endif
  if(control_count<DESKTOP_CONTROLS)controls[control_count++]=(control){{x,y+103,w->bounds.width-56,42},token,NAV_NAME};
  button(token,x,y+178,145,"Create folder",NAV_CREATE,1);button(token,x+158,y+178,120,"Cancel",KEEP_EDITING,0);
  text(x,y+242,app->notice[0]?app->notice:"Type a name, then choose Create folder. Escape cancels.",1,ink());
@@ -59,7 +66,11 @@ static void draw_files72(desktop_window *w,application *app,uint64_t token){
  text(list,y+53,"LOCATION",1,ink());
  char path[128];unsigned columns=list_width>10?(unsigned)(list_width-10)/6:1,n=length(app->path);if(columns>127)columns=127;
  if(n>columns){copy(path,"...",128);append(path,app->path+n-(columns>3?columns-3:0),128);}else copy(path,app->path,128);
+ #ifdef ENGINE_M73
+ ui73_fit(list,y+74,list_width,app->path,1,ink());
+#else
  text(list,y+74,path,1,ink());
+#endif
  rectangle((desktop_rect){list,y+95,list_width,1},preferences.dark?0x35515a:0xd7e1d8);
  unsigned rows=w->bounds.height>220?(unsigned)(w->bounds.height-220)/44:1;if(rows>14)rows=14;if(!rows)rows=1;
  unsigned total=children72(app);
@@ -69,7 +80,11 @@ static void draw_files72(desktop_window *w,application *app,uint64_t token){
  if(file->kind==2)folder_icon72(list+10,fy+5,22,0xf0ce87);else {rectangle((desktop_rect){list+13,fy+4,17,23},0xf7f8ee);rectangle((desktop_rect){list+17,fy+10,9,2},0x88a4a0);}
  char name[64];unsigned limit=list_width>140?(unsigned)(list_width-140)/12:1;if(limit>63)limit=63;const char*full=file->path+(equal(app->path,"/")?1:length(app->path)+1);copy(name,full,limit+1);
  if(length(full)>limit&&limit>=3){name[limit-3]='.';name[limit-2]='.';name[limit-1]='.';}
+ #ifdef ENGINE_M73
+ ui73_fit(list+42,fy+8,list_width-128,full,1,ink());
+#else
  text(list+42,fy+8,name,2,ink());
+#endif
  if(writable72(file->path))button(token,list+list_width-70,fy,70,"Delete",FILE_DELETE_ROW+app->offset+i,0);
  }
  if(!total){folder_icon72(list+30,y+136,54,0xf0ce87);text(list+30,y+207,"Room for something new.",2,ink());text(list+30,y+242,"Choose New folder to get started.",1,ink());}

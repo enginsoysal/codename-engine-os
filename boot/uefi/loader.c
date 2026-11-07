@@ -44,6 +44,9 @@ static void *read_file(efi_file *root,uint16_t *path,uint64_t maximum,uint64_t *
     if(EFI_ERROR(file->close(file)))fail("close file");*length=size;return buffer;
 }
 extern NORETURN void kernel_handoff(os_boot_info_v0*,uint64_t,uint64_t,uint64_t);
+#ifdef ENGINE_M73
+#include "display73.inc"
+#endif
 efi_status efi_main(efi_handle image,efi_system_table *system) {
     serial_init();serial_text("ENGINE_OS_LOADER build=" BUILD_ID "\n");
     if(!system || !table_valid(&system->header,UINT64_C(0x5453595320494249),sizeof(*system)) || !system->boot)fail("system table");
@@ -118,6 +121,9 @@ efi_status efi_main(efi_handle image,efi_system_table *system) {
     boot->initimage=(os_boot_range){(uint64_t)(uintptr_t)init,init_size};
     efi_gop *gop=0;
     if(!EFI_ERROR(bs->locate_protocol(&gop_guid,0,(void**)&gop)) && gop && gop->mode && gop->mode->info && gop->mode->info_size>=36) {
+#ifdef ENGINE_M73
+        preferred_display73(gop);
+#endif
         efi_gop_mode *m=gop->mode;efi_gop_info *v=m->info;
         if(v->format<=1 && m->framebuffer && m->framebuffer<UINT64_C(0x100000000) &&
            m->framebuffer_size<=UINT64_C(0x100000000)-m->framebuffer && v->pixels_per_scanline<=UINT32_MAX/4) {

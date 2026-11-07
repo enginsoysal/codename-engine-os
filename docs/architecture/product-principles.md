@@ -2,6 +2,12 @@
 
 These are product requirements, not optional visual polish.
 
+## Visual quality and usability gate — 7 November 2026
+
+The owner prioritizes the experience of using Engine OS, not the length of its feature list. Every installer step, normal desktop task, confirmation and error must be reviewed against five questions: Is it clear? Is it convenient? Is it user friendly? Is it graphically polished? Is everything readable?
+
+Use an intentional type scale, smooth native text, consistent controls, contrast, whitespace and measured wrapping. Essential instructions cannot overlap, disappear beyond a control or depend on tiny print. Scaling must keep text and input hit targets aligned on ordinary and 4K displays. Increasing framebuffer resolution while enlarging the old pixel font is insufficient. Resource efficiency must coexist with this quality: retain bounded memory, direct clipped rendering and halt at idle. Test actual native framebuffers and complete tasks; distinguish the agent's structured design review from a novice/human usability study.
+
 ## Convenient defaults
 
 Normal tasks must have a discoverable guided path. Boot must explain available actions and their consequences. A new user must not need to translate `N`, raw status codes or sector counts into an installation procedure. Reuse detected capabilities, but never guess a destructive target or hide a storage limit. Keep the safe back/cancel path available until writes begin.

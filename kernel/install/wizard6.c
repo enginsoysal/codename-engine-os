@@ -1,3 +1,6 @@
+#ifdef ENGINE_M73
+#include <engine/ui/graphics73.h>
+#endif
 #ifdef ENGINE_M7
 #include <engine/desktop/session.h>
 #endif
@@ -24,22 +27,52 @@ static control buttons[24];static unsigned left,top,width,height,body,bottom;
 static void label(unsigned x,unsigned y,const char*s,unsigned size,uint32_t color){gui6_text(x,y,s,size,color);}
 static void decimal(uint64_t n,char*b){char temp[24];unsigned i=0,j=0;do{temp[i++]=(char)('0'+n%10);n/=10;}while(n);while(i)b[j++]=temp[--i];b[j]=0;}
 static void textnum(unsigned x,unsigned y,uint64_t n,const char*suffix){char b[64];decimal(n,b);unsigned i=0;while(b[i])++i;unsigned j=0;do{b[i+j]=suffix[j];}while(suffix[j++]);label(x,y,b,2,0xf0f5f5);}
-static void button(unsigned x,unsigned y,unsigned w,const char*title,unsigned action,unsigned primary){unsigned n=controls++;buttons[n]=(control){x,y,w,40,action};uint32_t bg=primary?accent:0x20353e;gui6_rect(x,y,w,40,focus==n?0xe4fff7:0x3a535d);gui6_rect(x+2,y+2,w-4,36,bg);
-#ifdef ENGINE_M72
+static void button(unsigned x,unsigned y,unsigned w,const char*title,unsigned action,unsigned primary){unsigned n=controls++;buttons[n]=(control){x,y,w,40,action};uint32_t bg=primary?accent:0x20353e;
+#ifndef ENGINE_M73
+ gui6_rect(x,y,w,40,focus==n?0xe4fff7:0x3a535d);gui6_rect(x+2,y+2,w-4,36,bg);
+#endif
+
+#if defined(ENGINE_M72) && !defined(ENGINE_M73)
  char fitted[64];unsigned columns=w>26?(w-26)/12:0;if(columns>63)columns=63;unsigned count=0;while(count<columns&&title[count]){fitted[count]=title[count];++count;}fitted[count]=0;
  if(title[count]&&count>=3){fitted[count-3]='.';fitted[count-2]='.';fitted[count-1]='.';}title=fitted;
 #endif
- label(x+13,y+13,title,2,primary?0x112b24:0xffffff);}
+ #ifdef ENGINE_M73
+ ui73_round(x,y,w,40,7,focus==n?0xe0fff5:0x3d5968);ui73_round(x+2,y+2,w-4,36,5,bg);ui73_fit(x+13,y+10,w-26,title,2,primary?0x112b24:0xffffff);
+#else
+ label(x+13,y+13,title,2,primary?0x112b24:0xffffff);
+#endif
+}
 #ifdef ENGINE_M71
 static void render(void);
 #include "disk71-ui.inc"
 #endif
 #ifdef ENGINE_M72
+#ifdef ENGINE_M73
+#include "wizard73-ui.inc"
+#else
 #include "wizard72-ui.inc"
+#endif
 #endif
 static void render(void){
 #ifdef ENGINE_M72
  if(!u71_mode&&!diagnostics&&!failure&&!installed){render72();return;}
+#endif
+#ifdef ENGINE_M73
+ if(u71_mode||diagnostics||failure){
+  unsigned old=focus;controls=0;gui7_clip_reset();gui6_rect(0,0,screen->framebuffer_width,screen->framebuffer_height,0x152b3a);
+  ui73_shadow(left,top,width,height);ui73_round(left,top,width,height,14,0x102a3a);
+  label(left+24,top+28,"Engine OS",3,0xf7fafc);label(left+24,top+78,"Setup and recovery",1,0xb7cbd8);
+  unsigned x=body+10,y=top+92,cw=width-280;
+  if(u71_mode)u71_draw(x,y);
+  else if(failure){label(x,y,"Let's get this sorted.",4,0xffffff);ui73_paragraph(x,y+72,cw,4,failure,0xffc3a9);ui73_paragraph(x,y+190,cw,3,"Keep the ISO connected for recovery. Your installation has not been marked successful.",0xb7cbd8);button(x,bottom+14,160,"Back",63,1);button(x+175,bottom+14,160,"Details",50,0);}
+  else{label(x,y,"Recovery and details",4,0xffffff);ui73_paragraph(x,y+60,cw,2,"Choose an operation below. You will review the selected disk before anything is written.",0xb7cbd8);
+   textnum(x,y+128,pages_stats().current_pages*4," KiB managed RAM");textnum(x,y+160,pages_stats().peak_pages*4," KiB peak managed RAM");
+   label(x,y+210,"Build",1,0xb7cbd8);label(x,y+238,BUILD_ID,1,0xffffff);
+   if(!installed){button(x,y+300,140,"Repair",80,0);button(x+155,y+300,140,"Update",81,0);button(x+310,y+300,140,"Roll back",82,0);}
+   button(x,y+360,230,"Advanced terminal",64,0);if(notice)ui73_paragraph(x,y+418,cw,2,notice,0xffc3a9);button(x,bottom+14,160,"Return",62,1);
+  }
+  focus=old<controls?old:0;serial_text("M73_VIEW step=");serial_hex(step);serial_text("\n");return;
+ }
 #endif
  unsigned old=focus;controls=0;gui6_rect(0,0,screen->framebuffer_width,screen->framebuffer_height,0x0c171d);gui6_rect(left,top,width,height,0x3b535c);gui6_rect(left+1,top+1,width-2,height-2,0x101d24);gui6_rect(left+1,top+70,width-2,1,0x35464e);
  label(left+25,top+25,"E",3,accent);label(left+65,top+26,DISTRO_NAME,2,0xffffff);label(left+width-210,top+32,installed?"INSTALLED SYSTEM":"INSTALLATION",2,accent);
@@ -102,7 +135,11 @@ static void testpath(char*p){const char*prefix="/Users/";unsigned n=0;while(*pre
 static unsigned pattern(void*ctx,uint64_t off,void*p,unsigned n){(void)ctx;for(unsigned i=0;i<n;++i)((uint8_t*)p)[i]=(uint8_t)((off+i)*37+19);return 0;}
 static void terminal_command(void){
  if(command_overflow){command_length=command_overflow=0;console_text("Command too long. No command was executed.\nengine> ");return;}command[command_length]=0;v6_volume*v=m6_volume();
- if(!memcmp(command,"menu",5)){terminal=0;command_length=0;render();return;}
+ if(!memcmp(command,"menu",5)){terminal=0;command_length=0;
+#ifdef ENGINE_M73
+ extern unsigned verbose73;verbose73=0;
+#endif
+ render();return;}
  if(!memcmp(command,"help",5))console_text("menu | help | volume | ls | cat PATH | write PATH TEXT | rm PATH\n");
  else if(!v)console_text("Boot the installed system to access persistent files.\n");
  else if(!memcmp(command,"volume",7)){console_text("Data capacity bytes: ");console_decimal(v6_capacity(v));console_text("\nCurrent file allocation bytes: ");console_decimal(v6_used(v));console_text("\n");}
@@ -129,7 +166,11 @@ static void action(unsigned a){
  if(a==94||a==95){if(a==94&&disk_page)--disk_page;if(a==95&&(disk_page+1)*4<storage_count())++disk_page;render();return;}
  if(a>=100&&a<116){chosen=a-100;replace_selected=replace_consent=0;validation=0;m6_cancel();render();return;}
 #endif
- if(a==64){terminal=1;command_length=command_overflow=0;console_begin(screen);console_text("Engine OS advanced terminal. Type menu to return.\nPersistent file access is available after installed boot.\nType help for commands.\nengine> ");serial_text("M6_TERMINAL_READY\n");return;}
+ if(a==64){
+#ifdef ENGINE_M73
+ extern unsigned verbose73;verbose73=1;
+#endif
+ terminal=1;command_length=command_overflow=0;console_begin(screen);console_text("Engine OS advanced terminal. Type menu to return.\nPersistent file access is available after installed boot.\nType help for commands.\nengine> ");serial_text("M6_TERMINAL_READY\n");return;}
 
  if(a==50){diagnostics=1;focus=0;render();return;}if(a==62){diagnostics=0;focus=0;render();return;}if(a==63){failure=0;maintenance=0;step=0;m6_cancel();focus=0;render();return;}
  if(a==60||a==61){char path[256];testpath(path);unsigned status=a==60?v6_put(m6_volume(),path,2*1024*1024+113,pattern,0):v6_verify(m6_volume(),path);notice=status?"The storage check failed. Keep the ISO for recovery.":a==60?"The test file was saved and committed.":"File integrity verification passed.";serial_text(status?"M6_LARGE_FILE_FAIL\n":"M6_LARGE_FILE_PASS\n");render();return;}
@@ -168,7 +209,21 @@ static void action(unsigned a){
 #endif
 busy=1;step=5;focus=0;render();unsigned s=maintenance?m6_maintenance():m6_install(&preferences);busy=0;if(s){failure="Disk copy or verification failed. Installation is incomplete.";serial_text("M6_INSTALL_FAILED code=");serial_hex(s);serial_text("\n");}else step=6;render();return;}++step;focus=0;render();}
 }
-NORETURN void m6_start(const os_boot_info_v0*boot){screen=boot;left=20;top=20;width=boot->framebuffer_width>1200?1160:boot->framebuffer_width-40;height=boot->framebuffer_height>740?700:boot->framebuffer_height-40;body=left+220;bottom=top+height-70;serial_text("M6_STORAGE_BEGIN\n");usb_mouse_limits(boot->framebuffer_width,boot->framebuffer_height);(void)block_init();(void)nvme_discover();(void)ide_discover();(void)virtio_discover();(void)usb_init();input_init();
+NORETURN void m6_start(const os_boot_info_v0*boot){
+#ifdef ENGINE_M73
+ boot=ui73_begin(boot);
+#endif
+ screen=boot;left=20;top=20;width=boot->framebuffer_width>1200?1160:boot->framebuffer_width-40;height=boot->framebuffer_height>740?700:boot->framebuffer_height-40;
+#ifdef ENGINE_M73
+ left=(boot->framebuffer_width-width)/2;top=(boot->framebuffer_height-height)/2;
+#endif
+ body=left+220;bottom=top+height-70;serial_text("M6_STORAGE_BEGIN\n");usb_mouse_limits(
+#ifdef ENGINE_M73
+ ui73_width(),ui73_height()
+#else
+ boot->framebuffer_width,boot->framebuffer_height
+#endif
+ );(void)block_init();(void)nvme_discover();(void)ide_discover();(void)virtio_discover();(void)usb_init();input_init();
  if(!m6_live()){unsigned s=m6_open();if(s)failure="Installed data volume could not be opened. Boot the ISO for recovery.";else{installed=1;if(m6_settings(&preferences))failure="Saved user settings failed integrity validation.";else accent=preferences.accent;}}
 #ifdef ENGINE_M7
  if(installed&&!failure)desktop_start(boot,&preferences);

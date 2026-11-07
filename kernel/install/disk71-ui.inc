@@ -10,7 +10,14 @@ static void u71_refresh(void){u71_row=UINT32_MAX;u71_page=0;const storage_disk*d
 static void u71_open(unsigned disk){if(screen->framebuffer_width<1024||screen->framebuffer_height<768){validation="Disk manager needs a 1024 x 768 or larger display.";return;}m6_cancel();u71_disk=disk;u71_mode=1;u71_notice=0;u71_refresh();focus=0;}
 static const char*u71_scheme(void){switch(u71_state.scheme){case D71_BLANK:return "Blank boot metadata";case D71_GPT:return u71_state.editable?"GPT - verified mirrors":"GPT - needs repair / read-only";case D71_MBR:return u71_state.editable?"MBR - primary partitions":"MBR - damaged / read-only";case D71_DAMAGED:return "Damaged or unsupported GPT";default:return "Unknown disk contents";}}
 static const char*u71_title(unsigned op){switch(op){case D71_ERASE:return "Clear ALL partition metadata";case D71_INITIALIZE:return "Create an empty GPT table";case D71_CREATE:return "Create a data partition";case D71_DELETE:return "Delete this partition";case D71_FAT32:return "Quick format as FAT32";case D71_NATIVE:return "Quick format as Engine data";case D71_REPAIR_PRIMARY:return "Rebuild GPT from primary copy";default:return "Rebuild GPT from backup copy";}}
+#ifdef ENGINE_M73
+static void u71_identity(unsigned x,unsigned y){char b[32]="Disk ";decimal((uint64_t)u71_disk+1,b+5);label(x,y,b,1,0xffffff);textnum(x+125,y,u71_target.sectors/2048," MiB");label(x,y+28,u71_target.transport==STORAGE_AHCI&&u71_target.sector_bytes==512?"SATA disk - 512-byte sectors":"Inspection only - unsupported installation target",1,0xb7cbd8);}
+#else
 static void u71_identity(unsigned x,unsigned y){char b[32]="Disk ";decimal((uint64_t)u71_disk+1,b+5);label(x,y,b,2,0xffffff);textnum(x+125,y,u71_target.sectors/2048," MiB");textnum(x,y+28,u71_target.bdf," controller BDF");textnum(x+250,y+28,u71_target.unit," port/unit");}
+#endif
+#ifdef ENGINE_M73
+#include "disk73-ui.inc"
+#else
 static void u71_draw(unsigned x,unsigned y){
  label(x,y,u71_mode==1?"Manage disks.":u71_mode==2?"New partition.":u71_mode==3?"Choose a format.":"Review disk changes.",3,0xffffff);u71_identity(x,y+48);
  if(u71_mode==1){label(x,y+104,u71_scheme(),1,0x9fb2ba);button(x+430,y+45,60,"<",201,0);button(x+500,y+45,60,">",202,0);
@@ -32,6 +39,7 @@ static void u71_draw(unsigned x,unsigned y){
  }
  button(x,bottom+14,185,u71_mode==1?"Back to setup":"Back",200,0);
 }
+#endif
 static void u71_review(unsigned op){uint8_t nonce[16];uint32_t low,high;__asm__ volatile("rdtsc":"=a"(low),"=d"(high));memcpy(nonce,&low,4);memcpy(nonce+4,&high,4);memcpy(nonce+8,&u71_state.fingerprint,4);unsigned serial=u71_state.count+u71_disk+1;memcpy(nonce+12,&serial,4);
  unsigned index=u71_row<u71_state.count?u71_state.parts[u71_row].index:u71_row-u71_state.count;uint64_t size=0;for(unsigned i=0;u71_size[i];++i){if(size>UINT64_C(2000000000)){u71_notice="Size exceeds disk limits.";return;}size=size*10+(unsigned)(u71_size[i]-'0');}
  unsigned s=d71_prepare(&u71_device,&u71_state,op,index,size,u71_name,nonce,&u71_plan);if(s){u71_notice=d71_error(s);return;}u71_op=op;u71_mode=4;u71_consent=0;u71_notice=0;focus=0;serial_text("M71_DISK_REVIEW op=");serial_hex(op);serial_text("\n");

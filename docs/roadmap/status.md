@@ -1,5 +1,7 @@
 # Current status
 
+M7.3 visual/HiDPI work is in progress. Candidate builds are not accepted releases. [Scope](../milestones/m7.3.md), [graphics](../architecture/graphics-m73.md), [installation guide](../handbook/install-m73.md).
+
 ## Owner priority — 7 November 2026
 
 **M7.2 is complete within M72-VM-v1: installation and a visible folder desktop before more applications.** The native wizard now ends with Open desktop against the persistent installed volume. Files foregrounds Home, sidebar locations, Back/Forward/Up, named folders and protected system browsing. A new empty-disk VMware starter ZIP removes VM setup ambiguity. UEFI boot registration addresses a reproduced retained-NVRAM USB boot failure; exact-artifact gates include unforced same-VM VMware boots. [Installer](../handbook/install-m72.md), [desktop](../handbook/desktop-m72.md), [scope](../milestones/m7.2.md), [acceptance](../../evidence/M7.2/acceptance-results.json). The original user VM failure is not conclusively diagnosed. M8 remains deferred.

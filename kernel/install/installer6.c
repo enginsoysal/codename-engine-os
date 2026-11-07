@@ -73,7 +73,12 @@ unsigned m6_install(const m6_preferences*p){const storage_disk*d=storage_get(sel
  m6_progress(5,"Preparing system files");unsigned count=r32(m6_bundle),offset=4;for(unsigned i=0;i<count;++i){const uint8_t*r=m6_bundle+offset;unsigned zero=r32(r)&0x80000000u;memset(page,0,4096);if(verified(selected,r32(r)&0x7fffffffu,zero?page:(void*)(r+4),4096))return B_IO;offset+=zero?4:4100;if(i%16==0)m6_progress(5+i*60/count,"Copying and verifying boot files");}
  configure_volume();m6_progress(70,"Creating your data volume");if(v6_format(&volume))return B_IO;
  for(unsigned i=0;i<8;++i){const char *names[]={"/System","/Applications","/Users","/Data","/Cache","/Logs","/Temporary","/Volumes"};if(directory(names[i]))return B_IO;}
- if(directory("/System/Settings"))return B_IO;char user[256]="/Users/";memcpy(user+7,p->user,userlen+1);if(directory(user))return B_IO;
+ if(directory("/System/Settings"))return B_IO;
+#ifdef ENGINE_M73
+ if(directory("/System/Licenses"))return B_IO;
+ {extern const char *ui73_font_license(void);const char *license=ui73_font_license();unsigned size=0;while(license[size])++size;if(v6_put(&volume,"/System/Licenses/Inter-OFL.txt",size,source_memory,(void*)license))return B_IO;}
+#endif
+ char user[256]="/Users/";memcpy(user+7,p->user,userlen+1);if(directory(user))return B_IO;
  for(unsigned i=0;i<5;++i){const char*names[]={"Desktop","Documents","Downloads","Pictures","AppData"};char sub[256];memcpy(sub,user,7+userlen);sub[7+userlen]='/';unsigned k=0;do{sub[8+userlen+k]=names[i][k];}while(names[i][k++]);if(directory(sub))return B_IO;}
  if(p->guide){char guidepath[256];memcpy(guidepath,user,7+userlen);const char*tail="/Documents/Welcome.txt";unsigned j=0;do{guidepath[7+userlen+j]=tail[j];}while(tail[j++]);const char*guide=
 #ifdef ENGINE_M7

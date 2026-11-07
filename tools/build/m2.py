@@ -8,12 +8,13 @@ import struct
 from m1 import ROOT,pinned_tools,command,sha
 from media import package
 BUILD=ROOT/'build/m2'
-def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard",m7=False,m71=False,m72=False):
+def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard",m7=False,m71=False,m72=False,m73=False):
     global BUILD
+    m72=m72 or m73
     m71=m71 or m72
     m7=m7 or m71
     m6=m6 or m7
-    flavor='m72' if m72 else 'm71' if m71 else 'm7' if m7 else 'm6'
+    flavor='m73' if m73 else 'm72' if m72 else 'm71' if m71 else 'm7' if m7 else 'm6'
     BUILD=ROOT/'build'/(flavor if m6 else milestone.lower())
     tools=pinned_tools();BUILD.mkdir(parents=True,exist_ok=True)
     sources=[]
@@ -31,8 +32,13 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     if distro:
         sources.extend(ROOT/p for p in distro['input_sha256'])
         sources.append(ROOT/'tools/build/distro.py')
+    if m73:
+        from font73 import prepare as prepare_font
+        prepare_font(BUILD)
+        sources.append(ROOT/'tools/build/font73.py')
+        sources.extend(p for p in (ROOT/'third_party/inter').iterdir() if p.is_file())
     hashes={p.relative_to(ROOT).as_posix():sha(p) for p in sorted(sources)}
-    identity={'milestone':'M72' if m72 else 'M71' if m71 else 'M7' if m7 else 'M6' if m6 else milestone,'source_sha256':hashes}
+    identity={'milestone':'M73' if m73 else 'M72' if m72 else 'M71' if m71 else 'M7' if m7 else 'M6' if m6 else milestone,'source_sha256':hashes}
     if m6:identity['revision']=m6_revision
     build_id=hashlib.sha256(json.dumps(identity,sort_keys=True).encode()).hexdigest()[:32]
     (BUILD/'build.h').write_text(f'#define BUILD_ID "{build_id}"\n',encoding='utf-8')
@@ -44,6 +50,7 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     if m6:common.append('-DENGINE_M6')
     if m71:common.append('-DENGINE_M71')
     if m72:common.append('-DENGINE_M72')
+    if m73:common.append('-DENGINE_M73')
     if m7:
         common.extend(('-DENGINE_M7','-I',ROOT/'third_party/bearssl/inc','-I',ROOT/'third_party/bearssl-port'))
         from trust7 import prepare as prepare_trust
@@ -133,7 +140,11 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     if command([nm,'-u',BUILD/'KERNEL.ELF']).strip():raise RuntimeError('Undefined kernel symbols')
     map_path=BUILD/'kernel.map';map_path.write_text(map_path.read_text(encoding='utf-8').replace(str(ROOT),'.').replace(ROOT.as_posix(),'.'),encoding='utf-8')
     if m6 and any(sha(ROOT/p)!=value for p,value in hashes.items()):raise RuntimeError('Build inputs changed during compilation; discard mixed outputs and rebuild')
-    artifact_name=(('M72' if m72 else 'M71' if m71 else 'M7' if m7 else 'M6')+('' if m6_revision=='standard' else m6_revision.upper())) if m6 else milestone
+    artifact_name=(('M73' if m73 else 'M72' if m72 else 'M71' if m71 else 'M7' if m7 else 'M6')+('' if m6_revision=='standard' else m6_revision.upper())) if m6 else milestone
+    if m73:
+        from m5_layout import compact_elf
+        shutil.copyfile(BUILD/'KERNEL.ELF',BUILD/'KERNEL-debug.ELF')
+        (BUILD/'KERNEL.ELF').write_bytes(compact_elf((BUILD/'KERNEL.ELF').read_bytes()))
     init=struct.pack('<8sII32s',b'ENGINIT1',48,0,build_id.encode());(BUILD/'INIT.BIN').write_bytes(init)
     package(BUILD/'normal',(BUILD/'BOOTX64.EFI').read_bytes(),(BUILD/'KERNEL.ELF').read_bytes(),init,artifact_name)
     dist=ROOT/'dist';dist.mkdir(exist_ok=True)

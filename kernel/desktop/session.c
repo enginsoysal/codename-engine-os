@@ -1,3 +1,6 @@
+#ifdef ENGINE_M73
+#include <engine/ui/graphics73.h>
+#endif
 #include <engine/desktop/session.h>
 #include <engine/desktop/app.h>
 #include <engine/network/network.h>
@@ -13,6 +16,7 @@ enum { OPEN_FILES=1, OPEN_EDITOR, OPEN_SETTINGS, OPEN_CALCULATOR, OPEN_DOWNLOADS
        OPEN_DETAILS, OPEN_TERMINAL, SAVE=20, COPY, CUT, PASTE, FILE_UP, FILE_NEW, FILE_FOLDER,
        STYLE_MINT=40, STYLE_LAVENDER, STYLE_AMBER, STYLE_DARK, STYLE_PAPER,
        CALCULATOR_OFF, CALCULATOR_ON, PREFERENCES_SAVE,
+       SCALE_AUTO=110,SCALE_100,SCALE_150,SCALE_200,
        DISCARD=60, KEEP_EDITING, CALCULATOR_CRASH=64, APP_SELFTEST, NETWORK_RETRY, DNS_PROBE, DOWNLOAD_START, DOWNLOAD_CANCEL, DOWNLOAD_FOLDER, URL_FOCUS, MEMORY_LIMIT,
        SAVE_AS=80,CONFIRM_FILENAME,FILENAME_FOCUS,TERMINAL_CLEAR,CALC_KEY=200,FILE_ROW=1000,FILE_DELETE_ROW=3000 };
 
@@ -76,7 +80,13 @@ static void resource_log(void){
     page_stats stats=pages_stats();serial_text("M7_DESKTOP_STATS current=");serial_hex(stats.current_pages*4096);
     serial_text(" peak=");serial_hex(stats.peak_pages*4096);serial_text(" allocation_failures=");serial_hex(stats.allocation_failures);
     serial_text(" paints=");serial_hex(paints);serial_text(" pixels=");serial_hex(painted_pixels);
-    serial_text(" visible_framebuffer=");serial_hex((uint64_t)display->framebuffer_stride_bytes*display->framebuffer_height);
+    serial_text(" visible_framebuffer=");serial_hex(
+#ifdef ENGINE_M73
+    ui73_framebuffer_bytes()
+#else
+    (uint64_t)display->framebuffer_stride_bytes*display->framebuffer_height
+#endif
+    );
     serial_text(" framebuffer_range=");serial_hex(display->framebuffer.byte_length);serial_text("\n");
 }
 static void root_path(char *out,const char *folder) {
@@ -102,7 +112,17 @@ static uint32_t ink(void) { return preferences.dark?0xe5eef2:0x1b3441; }
 static uint32_t paper(void) { return preferences.dark?0x172933:0xf8fafb; }
 
 static void button(uint64_t window,int x,int y,int width,const char *label,unsigned action,unsigned primary) {
-    desktop_rect r={x,y,width,30};
+    desktop_rect r={x,y,width,
+#ifdef ENGINE_M73
+    36
+#else
+    30
+#endif
+    };
+#ifdef ENGINE_M73
+    ui73_round((unsigned)x,(unsigned)y,(unsigned)width,36,6,primary?preferences.accent:preferences.dark?0x2a414f:0xe6edf0);
+    ui73_fit((unsigned)x+10,(unsigned)y+8,(unsigned)(width>20?width-20:0),label,1,primary?0x102d29:ink());
+#else
     rectangle(r,primary?preferences.accent:preferences.dark?0x2a414f:0xe6edf0);
     char fitted[64];unsigned columns=width>18?(unsigned)(width-18)/8:0;
     if(columns>sizeof(fitted)-1)columns=sizeof(fitted)-1;
@@ -110,9 +130,14 @@ static void button(uint64_t window,int x,int y,int width,const char *label,unsig
     memcpy(fitted,label,count);fitted[count]=0;
     if(label[count]&&count>=3){fitted[count-1]='.';fitted[count-2]='.';fitted[count-3]='.';}
     text(x+9,y+9,fitted,1,primary?0x102d29:ink());
+#endif
     if(control_active&&focused_control_window==window&&focused_action==action){
+#ifdef ENGINE_M73
+        ui73_round(x,y,width,36,7,ink());ui73_round(x+2,y+2,width-4,32,5,primary?preferences.accent:preferences.dark?0x2a414f:0xe6edf0);ui73_fit(x+10,y+8,width-20,label,1,primary?0x102d29:ink());
+#else
         rectangle((desktop_rect){x,y,width,2},ink());rectangle((desktop_rect){x,y+28,width,2},ink());
         rectangle((desktop_rect){x,y,2,30},ink());rectangle((desktop_rect){x+width-2,y,2,30},ink());
+#endif
     }
     if(control_count<sizeof(controls)/sizeof(*controls))controls[control_count++]=(control){r,window,action};
 }
@@ -149,12 +174,20 @@ static uint64_t launch(unsigned kind,const char *path) {
     }
     if(kind==FILES){
 #ifdef ENGINE_M72
+#ifdef ENGINE_M73
+        int fw=model.width>1200?1080:(int)model.width-112,fh=model.height>900?720:(int)model.height-180;
+        desktop_place(&model,token,(desktop_rect){((int)model.width-fw)/2,((int)model.height-60-fh)/2,fw,fh});
+#else
         desktop_place(&model,token,(desktop_rect){200,94,(int32_t)model.width-244,(int32_t)model.height-188});
+#endif
         init_files72(app);
 #else
         root_path(app->path,"Documents");
 #endif
     }
+#ifdef ENGINE_M73
+    if(kind==SETTINGS)desktop_place(&model,token,(desktop_rect){((int)model.width-700)/2,((int)model.height-60-550)/2,700,550});
+#endif
     if(kind==TERMINAL){copy(app->text,"Engine OS advanced terminal. Type help for commands.\nUse menu, exit or Escape to close this window.\nengine> ",sizeof(app->text));app->length=length(app->text);}
     if(kind==DOWNLOADS){copy(app->text,"https://raw.githubusercontent.com/enginsoysal/codename-engine-os/main/LICENSE",sizeof(app->text));app->length=app->cursor=length(app->text);}
     if(kind==EDITOR){
@@ -199,9 +232,26 @@ static void draw_editor(desktop_window *w,application *app,uint64_t token) {
     int x=w->bounds.x+14,y=w->bounds.y+48,right=w->bounds.x+w->bounds.width-14;
     button(token,x,y,75,"Save",SAVE,1);button(token,x+85,y,85,"Copy all",COPY,0);
     button(token,x+170,y,75,"Cut all",CUT,0);button(token,x+255,y,75,"Paste",PASTE,0);button(token,x+340,y,100,"Save as",SAVE_AS,0);
+#ifdef ENGINE_M73
+    ui73_fit(x,y+44,right-x,app->path,1,ink());
+#else
     text(x,y+44,app->path,1,ink());
+#endif
     rectangle((desktop_rect){x,y+66,right-x,w->bounds.height-155},preferences.dark?0x10212a:0xffffff);
-    int tx=x+10,ty=y+78;unsigned columns=(unsigned)(right-x-20)/12;if(columns<1)columns=1;
+    int tx=x+10,ty=y+78;
+#ifdef ENGINE_M73
+    unsigned available=(unsigned)(right-x-20),rows=(unsigned)(w->bounds.height-180)/24;
+    unsigned cursor_line=0,advance=0;
+    for(unsigned i=0;i<app->cursor;++i){char glyph[2]={app->text[i]=='\t'?' ':app->text[i],0};unsigned a=ui73_measure(glyph,1);if(app->text[i]=='\n'){++cursor_line;advance=0;}else{if(advance+a>available){++cursor_line;advance=0;}advance+=a;}}
+    unsigned first_line=cursor_line>=rows?cursor_line-rows+1:0,line=0;advance=0;
+    for(unsigned i=0;i<=app->length;++i){char c=i<app->length?app->text[i]:0,glyph[2]={c=='\t'?' ':c,0};unsigned a=c&&c!='\n'?ui73_measure(glyph,1):0;
+        if(a&&advance+a>available){++line;advance=0;}
+        if(i==app->cursor&&line>=first_line&&line<first_line+rows)rectangle((desktop_rect){tx+(int)advance,ty+(int)(line-first_line)*24,2,20},preferences.accent);
+        if(!c)break;if(c=='\n'){++line;advance=0;continue;}
+        if(line>=first_line&&line<first_line+rows)text(tx+(int)advance,ty+(int)(line-first_line)*24,glyph,1,ink());advance+=a;
+    }
+#else
+    unsigned columns=(unsigned)(right-x-20)/12;if(columns<1)columns=1;
     unsigned rows=(unsigned)(w->bounds.height>180?w->bounds.height-180:20)/18;
     unsigned cursor_line=0,column=0;
     for(unsigned i=0;i<app->cursor;++i){if(app->text[i]=='\n'||++column>=columns){++cursor_line;column=0;}}
@@ -215,6 +265,7 @@ static void draw_editor(desktop_window *w,application *app,uint64_t token) {
         if(value!='\n'&&line>=first_line&&line<first_line+rows){char glyph[2]={value,0};text(tx+(int)column*12,ty+(int)(line-first_line)*18,glyph,2,ink());}
         if(value=='\n'||++column>=columns){++line;column=0;}
     }
+#endif
     int bottom=w->bounds.y+w->bounds.height;
     text(x,bottom-43,app->dirty?"Unsaved changes":"Saved document",1,app->dirty?0xd49644:ink());
     text(x,bottom-24,app->notice[0]?app->notice:"Ctrl+S save  Ctrl+C copy all  Ctrl+V paste  arrows move",1,ink());
@@ -268,8 +319,19 @@ static void draw_settings(desktop_window *w,application *app,uint64_t token) {
     button(token,x+140,y+130,130,"Light windows",STYLE_PAPER,!preferences.dark);
     text(x,y+185,"Optional Calculator component",1,ink());
     button(token,x,y+205,150,preferences.calculator?"Remove Calculator":"Install Calculator",preferences.calculator?CALCULATOR_OFF:CALCULATOR_ON,0);
+#ifdef ENGINE_M73
+    text(x,y+260,"Display size",1,ink());
+    const char *sizes[]={"Auto","100%","150%","200%"};unsigned choice=ui73_scale_choice();
+    for(unsigned i=0;i<4;++i)button(token,x+(int)i*100,y+286,90,sizes[i],SCALE_AUTO+i,choice==(i?i+1:0));
+    button(token,x,y+338,170,"Save preferences",PREFERENCES_SAVE,1);
+#else
     button(token,x,y+260,170,"Save preferences",PREFERENCES_SAVE,1);
+#endif
+#ifdef ENGINE_M73
+    ui73_paragraph(x,w->bounds.y+w->bounds.height-65,w->bounds.width-40,2,app->notice[0]?app->notice:"Personal files and required components stay available.",ink());
+#else
     text(x,w->bounds.y+w->bounds.height-28,app->notice[0]?app->notice:"Personal files and required components stay available.",1,ink());
+#endif
 }
 static void draw_calculator(desktop_window *w,application *app,uint64_t token) {
     int x=w->bounds.x+22,y=w->bounds.y+55;char number[32];integer(number,app->number);
@@ -292,12 +354,17 @@ static void draw_terminal(desktop_window *w,application *app,uint64_t token){
     desktop_rect r=w->bounds;button(token,r.x+16,r.y+45,100,"Clear",TERMINAL_CLEAR,0);
     text(r.x+135,r.y+56,"Optional advanced commands. Type help; Escape closes.",1,ink());
     rectangle((desktop_rect){r.x+12,r.y+88,r.width-24,r.height-104},preferences.dark?0x10212a:0xffffff);
-    unsigned columns=(unsigned)(r.width-44)/8,visible=(unsigned)(r.height-130)/14,rows=1,column=0;
+    #ifdef ENGINE_M73
+    unsigned cell_width=16,cell_height=24;
+#else
+    unsigned cell_width=8,cell_height=14;
+#endif
+    unsigned columns=(unsigned)(r.width-44)/cell_width,visible=(unsigned)(r.height-130)/cell_height,rows=1,column=0;
     for(unsigned n=0;n<app->length;++n){if(app->text[n]=='\n'){++rows;column=0;}else if(++column>=columns){++rows;column=0;}}
     unsigned first=rows>visible?rows-visible:0,row=0;column=0;
     for(unsigned n=0;n<app->length;++n){char c=app->text[n];
         if(c=='\n'){++row;column=0;continue;}
-        if(row>=first&&row<first+visible){char value[2]={c=='\t'?' ':c,0};text(r.x+22+(int)column*8,r.y+100+(int)(row-first)*14,value,1,ink());}
+        if(row>=first&&row<first+visible){char value[2]={c=='\t'?' ':c,0};text(r.x+22+(int)(column*cell_width),r.y+100+(int)((row-first)*cell_height),value,1,ink());}
         if(++column>=columns){++row;column=0;}
     }
 }
@@ -305,9 +372,17 @@ static void draw_terminal(desktop_window *w,application *app,uint64_t token){
 static void draw_window(unsigned slot) {
     desktop_window *w=&model.windows[slot];if(w->minimized)return;
     application *app=&apps[slot];desktop_rect r=w->bounds;uint64_t token=desktop_token(&model,slot);
+#ifdef ENGINE_M73
+    ui73_shadow((unsigned)r.x,(unsigned)r.y,(unsigned)r.width,(unsigned)r.height);
+    ui73_round((unsigned)r.x,(unsigned)r.y,(unsigned)r.width,(unsigned)r.height,12,preferences.dark?0x47606e:0xc9d7df);
+    ui73_round((unsigned)r.x+1,(unsigned)r.y+1,(unsigned)r.width-2,(unsigned)r.height-2,11,paper());
+    ui73_round((unsigned)r.x+1,(unsigned)r.y+1,(unsigned)r.width-2,39,11,preferences.dark?0x253c49:0xe9f0f4);
+    rectangle((desktop_rect){r.x+1,r.y+23,r.width-2,16},preferences.dark?0x253c49:0xe9f0f4);
+#else
     rectangle(r,model.focused==slot?preferences.accent:0x58717c);
     rectangle((desktop_rect){r.x+1,r.y+1,r.width-2,r.height-2},paper());
     rectangle((desktop_rect){r.x+1,r.y+1,r.width-2,34},preferences.dark?0x253c49:0xdce8ec);
+#endif
     text(r.x+14,r.y+12,titles[w->app],2,ink());
     text(r.x+r.width-77,r.y+12,"_",2,ink());text(r.x+r.width-42,r.y+12,"x",2,ink());
     if(app->stopped){text(r.x+22,r.y+80,"Application stopped",2,ink());text(r.x+22,r.y+120,app->notice,1,ink());return;}
@@ -375,7 +450,7 @@ static void render(void) {
     desktop_rect dirty;
     if(!model.damaged)return;
     /* Invalidate the old cursor before discarding its saved framebuffer pixels. */
-    invalidate((desktop_rect){(int32_t)pointer_x,(int32_t)pointer_y,10,16});
+    invalidate((desktop_rect){(int32_t)pointer_x,(int32_t)pointer_y,16,24});
     if(!desktop_take_damage(&model,&dirty))return;
     gui7_clip((unsigned)dirty.x,(unsigned)dirty.y,(unsigned)dirty.width,(unsigned)dirty.height);
     control_count=0;
@@ -385,13 +460,20 @@ static void render(void) {
     for(int row=dirty.y;row<dirty.y+dirty.height;++row){unsigned shade=(unsigned)row*24/model.height;
         uint32_t base=DISTRO_DESKTOP_WALLPAPER;unsigned r=(base>>16)&255,g=(base>>8)&255,b=base&255;
         gui6_rect(0,(unsigned)row,model.width,1,((r+shade>255?255:r+shade)<<16)|((g+shade>255?255:g+shade)<<8)|(b+shade>255?255:b+shade));}
+#ifndef ENGINE_M73
     for(unsigned i=0;i<12;++i){int ax=(int)model.width-420+(int)i*34,ay=100+(int)i*24;rectangle((desktop_rect){ax,ay,180,5},0x31595c);}
+#endif
 #endif
     text(36,30,DISTRO_NAME,3,0xd8e9ec);text(38,64,DISTRO_DESKTOP_TAGLINE,1,0x8aabb7);
 #ifdef ENGINE_M72
     folder_icon72(40,125,42,0xf0ce87);text(38,175,"My files",1,0xe2eee7);
     folder_icon72(40,220,42,0xf0ce87);text(38,270,"Documents",1,0xe2eee7);
+#ifdef ENGINE_M73
+    ui73_round(40,315,42,42,10,preferences.accent);
+    for(unsigned i=0;i<3;++i){unsigned cy=326+i*10;gui6_rect(48,cy,26,2,0x17382f);ui73_round(i==1?62:52,cy-3,7,8,3,0x17382f);}text(38,365,"Appearance",1,0xe2eee7);
+#else
     gui6_rect(40,318,42,36,preferences.accent);text(52,329,"S",2,0x17382f);text(38,365,"Appearance",1,0xe2eee7);
+#endif
 #else
     const char *icons[]={"Files","Text Editor","Settings","Calculator","Downloads"};
     for(unsigned i=0;i<5;++i){if(i==3&&!preferences.calculator)continue;
@@ -416,7 +498,9 @@ static void render(void) {
     for(unsigned i=0;i<model.count;++i){unsigned slot=model.order[i];desktop_window *w=&model.windows[slot];
         button(desktop_token(&model,slot),130+(int)(i*step),bar+15,(int)step-8,titles[w->app],70,model.focused==slot);}
     if(model.width>=1000)text((int)model.width-180,bar+23,
-#ifdef ENGINE_M72
+#ifdef ENGINE_M73
+ "Engine OS 0.7.3",
+#elif defined(ENGINE_M72)
  "Engine OS 0.7.2",
 #elif defined(ENGINE_M71)
  "Engine OS 0.7.1",
@@ -525,7 +609,20 @@ static void action(uint64_t token,unsigned command) {
         notice(app,passed?"Five real app faults contained; private allocations reclaimed.":"Isolation check failed or unavailable. Keep the ISO.");
         serial_text(passed?"M7_APP_ISOLATION_PASS\n":"M7_APP_ISOLATION_FAILED\n");
     }
-    if(command==PREFERENCES_SAVE&&w->app==SETTINGS){unsigned result=v6_put(m6_volume(),"/System/Settings/desktop7.bin",sizeof(preferences),memory_source,&preferences);notice(app,result?"Preferences could not be saved.":"Preferences saved.");serial_text(result?"M7_PREFERENCES_SAVE_FAILED\n":"M7_PREFERENCES_SAVED\n");}
+#ifdef ENGINE_M73
+    if(command>=SCALE_AUTO&&command<=SCALE_200&&w->app==SETTINGS){
+        unsigned choice=command==SCALE_AUTO?0:command-SCALE_AUTO+1;const os_boot_info_v0 *changed=ui73_set_scale(choice);
+        if(!changed)notice(app,"That size leaves too little room. Choose a smaller size.");
+        else{display=changed;model.width=display->framebuffer_width;model.height=display->framebuffer_height;
+            for(unsigned i=0;i<DESKTOP_WINDOWS;++i)if(model.windows[i].live)desktop_place(&model,desktop_token(&model,i),model.windows[i].bounds);
+            usb_mouse_state(&pointer_x,&pointer_y,&previous_buttons);notice(app,"Display size changed. Save preferences to keep this choice.");whole();}
+    }
+#endif
+    if(command==PREFERENCES_SAVE&&w->app==SETTINGS){unsigned result=v6_put(m6_volume(),"/System/Settings/desktop7.bin",sizeof(preferences),memory_source,&preferences);
+#ifdef ENGINE_M73
+        unsigned saved[4]={0x33375044,ui73_scale_choice(),0,0};if(!result)result=v6_put(m6_volume(),"/System/Settings/display73.bin",sizeof(saved),memory_source,saved);
+#endif
+        notice(app,result?"Preferences could not be saved.":"Preferences saved.");serial_text(result?"M7_PREFERENCES_SAVE_FAILED\n":"M7_PREFERENCES_SAVED\n");}
     if(command>=CALC_KEY&&command<CALC_KEY+16&&w->app==CALCULATOR){const char keys[]="789/456*123-C0=+";calculator(app,keys[command-CALC_KEY]);}
     invalidate(w->bounds);
 }
@@ -536,7 +633,11 @@ static void pointer(void) {
     if(released)dragging=0;
     if(dragging&&(buttons&1)){
         desktop_rect r=drag_bounds;int dx=(int)x-(int)drag_x,dy=(int)y-(int)drag_y;
-        if(drag_resize){r.width+=dx;r.height+=dy;if(r.width<480)r.width=480;desktop_window *resizing=desktop_lookup(&model,drag_window);int minimum=resizing&&resizing->app==DOWNLOADS?460:420;if(r.height<minimum)r.height=minimum;}else{r.x+=dx;r.y+=dy;}
+        if(drag_resize){r.width+=dx;r.height+=dy;if(r.width<480)r.width=480;desktop_window *resizing=desktop_lookup(&model,drag_window);int minimum=resizing&&resizing->app==DOWNLOADS?460:420;
+#ifdef ENGINE_M73
+        if(resizing&&resizing->app==SETTINGS)minimum=550;
+#endif
+if(r.height<minimum)r.height=minimum;}else{r.x+=dx;r.y+=dy;}
         desktop_place(&model,drag_window,r);
     }else if(pressed){
         if(control_active){control_active=0;whole();}
@@ -653,6 +754,10 @@ static void keyboard(int key) {
 }
 
 NORETURN void desktop_start(const os_boot_info_v0 *boot,const m6_preferences *profile) {
+#ifdef ENGINE_M73
+    unsigned scale_data[4],scale_bytes=0;
+    if(!v6_verify(m6_volume(),"/System/Settings/display73.bin")&&!v6_read(m6_volume(),"/System/Settings/display73.bin",0,scale_data,sizeof(scale_data),&scale_bytes)&&scale_bytes==sizeof(scale_data)&&scale_data[0]==0x33375044&&!scale_data[2]&&!scale_data[3]&&(scale_data[1]==0||(scale_data[1]>=2&&scale_data[1]<=4))){const os_boot_info_v0*changed=ui73_set_scale(scale_data[1]);if(changed)boot=changed;}
+#endif
     display=boot;owner=*profile;preferences=(preferences7){UINT64_C(0x3150464552374d45),profile->accent,DISTRO_DESKTOP_DARK,1,0};
     unsigned bytes=0;preferences7 stored;
     if(!v6_verify(m6_volume(),"/System/Settings/desktop7.bin")&&

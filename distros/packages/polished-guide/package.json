@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "id": "polished-guide",
+  "files": [
+    {
+      "source": "packages/polished-guide/content.txt",
+      "target": "/Users/test/Documents/Welcome.txt"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "schema": 2,
+  "id": "engineos",
+  "name": "Engine OS",
+  "version": "0.7.3",
+  "welcome": "A place for your files. A system you can make your own.",
+  "accent": "#62e5bd",
+  "packages": [
+    "polished-guide"
+  ],
+  "files": [],
+  "desktop": {
+    "dark": false,
+    "calculator": false,
+    "wallpaper": "#142c35",
+    "tagline": "Your space. Your system."
+  }
+}
