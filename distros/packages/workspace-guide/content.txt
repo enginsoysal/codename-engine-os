@@ -1,0 +1,29 @@
+Welcome home. This is Engine OS.
+
+Your desktop and folders are real and saved on the installed disk.
+Files starts in Home. Open Documents, Desktop, Downloads or Pictures
+from the sidebar. Click a folder to open it. The location shows where you are.
+
+The upper < and > buttons go Back and Forward. Up opens the parent folder.
+The lower < and > buttons page through a long list.
+Choose New folder, type your own name and press Enter to save it.
+Cancel or Escape keeps everything unchanged. Delete asks for confirmation;
+a folder must be empty before it can be deleted.
+
+System drive shows the installed native volume. System folders are
+protected from changes through Files. Your own folders are under Home.
+Other disks and partitions are not automatically mounted in this release.
+
+Drag a window by its title bar. Resize its lower-right corner.
+The underscore minimizes it; its taskbar button restores it. x closes it.
+Appearance opens Settings. Save preferences keeps your accent and window style.
+My files and Documents on the desktop open additional Files windows.
+
+You do not need a network, terminal or Calculator for these tasks.
+For a later disk boot: power off, disconnect only the CD/DVD ISO,
+keep the SATA hard disk connected, then start the VM again.
+The ISO's Open installed desktop can resume a matching installation.
+
+The product is Engine OS. Original DOS and Windows applications come later.
+Guide: https://engineos.brixcanvas.com/blog/docs-handbook-desktop-m72
+Install: https://engineos.brixcanvas.com/blog/docs-handbook-install-m72

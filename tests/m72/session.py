@@ -44,19 +44,24 @@ def main():
             pointer.click(nx,684);h.shot(g,out,'no-selection-guidance')
             pointer.click(310,225);pointer.click(nx,684);h.shot(g,out,'essentials')
             pointer.click(nx,684);pointer.click(460,315);h.shot(g,out,'personalize')
-            pointer.click(nx,684);h.shot(g,out,'review');before=len(g.log());pointer.click(nx,684);g.wait('M6_INSTALL_PASS',before,240)
+            pointer.click(nx,684);h.shot(g,out,'review');pointer.click(930 if a.firmware=='uefi' else 755,684);pointer.click(nx,684);before=len(g.log());pointer.click(nx,684);g.wait('M6_INSTALL_PASS',before,240)
             h.shot(g,out,'finish');pointer.click(nx,684);g.wait('M72_FINISH_TO_PERSISTENT_DESKTOP');g.wait('M7_DESKTOP_READY');h.shot(g,out,'desktop-home')
+            setup=s.document(disk,'/System/Settings/setup.bin');assert setup[:32].split(b'\0')[0]==b'Owner' and struct.unpack_from('<II',setup,32)==(0x9caeff,1)
             report['checks'].append('native graphical installation: missing selection gives guidance; verified Finish opens real persistent Files without restarting')
             pointer.click(260,325);g.wait('M72_FOLDER_VISIT /Users/Owner/Documents')
             pointer.click(460,158)
             # Real keyboard input, never a console write or host reference action.
             for c in 'projects':h.key(g,c)
             h.key(g,'ret');g.wait('M72_FOLDER_CREATED /Users/Owner/Documents/projects');h.shot(g,out,'folder-created')
+            before_directories=directories(disk);pointer.click(460,158)
+            for c in 'cancelled':h.key(g,c)
+            h.key(g,'esc');assert directories(disk)==before_directories
             # The distributed guide occupies row one; the new folder is row two.
             pointer.click(465,308);g.wait('M72_FOLDER_VISIT /Users/Owner/Documents/projects');h.shot(g,out,'inside-projects')
-            pointer.click(240,158);pointer.click(300,158);pointer.click(360,158)
+            for x,path in [(240,'/Users/Owner/Documents'),(300,'/Users/Owner/Documents/projects'),(360,'/Users/Owner/Documents')]:
+                start=len(g.log());pointer.click(x,158);g.wait('M72_FOLDER_VISIT '+path+'\n',start)
             pointer.click(260,434);g.wait('M72_FOLDER_VISIT /\n');h.shot(g,out,'system-drive')
-            pointer.click(460,158);h.shot(g,out,'system-folder-write-refused')
+            before_directories=directories(disk);pointer.click(460,158);h.shot(g,out,'system-folder-write-refused');assert directories(disk)==before_directories
             pointer.click(260,325);h.shot(g,out,'documents');(out/'install-desktop.log').write_bytes(g.log().encode())
             assert '/Users/Owner/Documents/projects' in directories(disk)
             report['checks'].append('real Home/Documents/sidebar, named persisted folder, folder opening, Back/Forward/Up and read-only system browsing')
@@ -65,6 +70,7 @@ def main():
             guest=q.Guest(work/('restart-'+str(turn)),disk,a.firmware,'installed',image_name='EngineOS-M72',ready='M7_DESKTOP_READY')
             normal_boot(guest,live.folder/'vars.fd' if a.firmware=='uefi' else None)
             with guest as g:
+                current=json.loads((ROOT/'dist/m72-build-manifest.json').read_text());assert 'M7_DESKTOP_READY build='+current['build_id'] in g.log()
                 assert 'M6_INSTALLED_VOLUME' in g.log();h.shot(g,out,'independent-desktop-'+str(turn));(out/('restart-'+str(turn)+'.log')).write_bytes(g.log().encode())
                 assert '/Users/Owner/Documents/projects' in directories(disk)
         report['checks'].append('two ISO/USB-detached boots to desktop without boot order/index forcing, using original installation NVRAM; actual folder metadata CRC verified independently')

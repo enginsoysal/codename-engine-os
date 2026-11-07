@@ -37,7 +37,7 @@ def main():
         if a.starter:
             archive=ROOT/'dist/EngineOS-M72-VMware.zip'
             with zipfile.ZipFile(archive) as z:
-                assert set(z.namelist())=={'EngineOS/'+n for n in ['EngineOS.vmx','EngineOS.vmdk','EngineOS-M72.iso','START-HERE.txt']};z.extractall(work)
+                assert set(z.namelist())=={'EngineOS/'+n for n in ['EngineOS.vmx','EngineOS.vmdk','EngineOS-M72.iso','START-HERE.txt','LICENSE','THIRD-PARTY-NOTICES.txt']};z.extractall(work)
             report['starter_sha256']=hashlib.sha256(archive.read_bytes()).hexdigest()
             original=(work/'EngineOS/EngineOS.vmx').read_text(encoding='utf-8')
             descriptor=work/'EngineOS/EngineOS.vmdk'

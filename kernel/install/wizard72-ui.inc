@@ -57,6 +57,8 @@ static void render72(void){
  gui6_rect(x,y+92,width-295,155,0xe7eee5);char number[24];decimal(chosen+1,number);label(x+18,y+112,"INSTALLATION DISK",1,muted);label(x+220,y+108,number,2,ink);
  label(x+18,y+151,"YOUR NAME",1,muted);label(x+220,y+147,preferences.user,2,ink);
  decimal((m6_plan()->data.last-m6_plan()->data.first+1)/2048,number);label(x+18,y+190,"FILE SPACE (MiB)",1,muted);label(x+220,y+186,number,2,ink);
+ label(x,y+260,preferences.guide?"Welcome guide: Included":"Welcome guide: Excluded",1,muted);
+ char color[16]="Accent #";const char*hex="0123456789ABCDEF";for(unsigned i=0;i<6;++i)color[8+i]=hex[(accent>>(20-i*4))&15];color[14]=0;label(x+300,y+260,color,1,muted);
  label(x,y+277,"Next: a real desktop with your folders, ready to explore.",1,muted);
  if(!maintenance&&replace_selected){button(x,y+325,520,replace_consent?"[X] Erase ALL data on the selected disk":"[ ] Erase ALL data on the selected disk",92,0);}
  if(validation)label(x,y+390,validation,1,0x95472f);}

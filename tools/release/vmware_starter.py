@@ -32,10 +32,16 @@ def main():
     if result.returncode:raise RuntimeError('Could not create the new VMware starter disk')
     (folder/'EngineOS.vmx').write_bytes(configuration().encode())
     shutil.copyfile(ROOT/'dist/EngineOS-M72.iso',folder/'EngineOS-M72.iso')
+    shutil.copyfile(ROOT/'LICENSE',folder/'LICENSE')
+    notices=(ROOT/'dist/EngineOS-M71-THIRD-PARTY-NOTICES.txt').read_text(encoding='utf-8').replace('Engine OS M7.1 third-party notices','Engine OS M7.2 third-party notices',1)
+    (folder/'THIRD-PARTY-NOTICES.txt').write_bytes(notices.encode())
+    (ROOT/'dist/EngineOS-M72-THIRD-PARTY-NOTICES.txt').write_bytes(notices.encode())
     (folder/'START-HERE.txt').write_bytes(b'Engine OS 0.7.2 - VMware starter\n\nExtract the entire ZIP to a local folder. Open EngineOS.vmx in VMware Workstation.\nIf VMware asks, choose I Copied It. Start the VM and follow Next.\nSelect Disk 1. This package contains a NEW empty growable 20 GiB SATA disk.\nAfter Install, choose Open desktop. Browse and create folders in Files.\n\nTo test independent disk boot: power off; disconnect only the CD/DVD ISO.\nKeep Hard Disk (SATA) connected. Start the VM again.\nThe included disk is blank, not a preinstalled desktop or a simulation.\nNetworking is off; it is unnecessary for installation and folder navigation.\nSecure Boot must remain off for this unsigned development build.\n\nGuide: https://engineos.brixcanvas.com/blog/docs-handbook-install-m72\nSource: https://github.com/enginsoysal/codename-engine-os\n')
     archive=ROOT/'dist/EngineOS-M72-VMware.zip'
     with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as output:
-        for file in sorted(folder.iterdir()):output.write(file,'EngineOS/'+file.name)
+        for file in sorted(folder.iterdir()):
+            if b'C:\\Users\\' in file.read_bytes() or b'C:/Users/' in file.read_bytes():raise ValueError('Host user path found in the public package')
+            output.write(file,'EngineOS/'+file.name)
     with zipfile.ZipFile(archive) as check:
         assert check.testzip() is None
         assert check.read('EngineOS/EngineOS.vmx').decode()==configuration()
