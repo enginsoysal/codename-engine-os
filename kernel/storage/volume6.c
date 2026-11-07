@@ -4,6 +4,12 @@ _Static_assert(sizeof(v6_entry)==280,"disk entry layout");
 #define TABLE_BYTES (V6_ENTRIES*sizeof(v6_entry))
 #define TABLE_PAGES ((TABLE_BYTES+V6_PAGE-1)/V6_PAGE)
 #define BANK_PAGES (1+TABLE_PAGES)
+#ifdef ENGINE_M7
+static struct {
+ v6_volume *volume;uint64_t first,pages,size,limit;uint32_t sum;
+ unsigned used;char path[256];uint8_t page[V6_PAGE];
+} stream7;
+#endif
 _Static_assert(2*BANK_PAGES<=V6_DATA_START,"metadata banks must fit before file data");
 static void copy(void *to,const void *from,unsigned n){uint8_t *d=to;const uint8_t *s=from;while(n--)*d++=*s++;}
 static void zero(void *p,unsigned n){uint8_t *d=p;while(n--)*d++=0;}
@@ -77,6 +83,9 @@ static uint64_t allocate(v6_volume*v,uint64_t n){
  uint64_t first=V6_DATA_START;
  /* Each conflict advances past an extent; at most two tables of extents. */
  for(unsigned attempts=0;attempts<=V6_ENTRIES*2;++attempts){if(first>v->blocks||n>v->blocks-first)return 0;uint64_t next=first;
+#ifdef ENGINE_M7
+  if(stream7.volume==v&&first<stream7.first+stream7.pages&&stream7.first<first+n)next=stream7.first+stream7.pages;
+#endif
   for(unsigned bank=0;bank<1+v->previous_valid;++bank){const v6_entry*t=bank?v->previous:v->entries;for(unsigned i=0;i<V6_ENTRIES;++i){uint64_t m=count(t[i].size);if(m&&first<t[i].first+m&&t[i].first<first+n&&next<t[i].first+m)next=t[i].first+m;}}
   if(next==first)return first;first=next;
  }return 0;
@@ -100,3 +109,32 @@ unsigned v6_remove(v6_volume*v,const char*p){int n;unsigned s=prepare(v,p,&n);if
 }
 uint64_t v6_capacity(const v6_volume*v){return v->blocks>=V6_DATA_START?(v->blocks-V6_DATA_START)*V6_PAGE:0;}
 uint64_t v6_used(const v6_volume*v){uint64_t n=0;for(unsigned i=0;i<V6_ENTRIES;++i)n+=count(v->entries[i].size)*V6_PAGE;return n;}
+#ifdef ENGINE_M7
+void v6_stream_abort(v6_volume*v){if(stream7.volume==v)zero(&stream7,sizeof(stream7));}
+unsigned v6_stream_begin(v6_volume*v,const char*p,uint64_t limit){
+ if(stream7.volume||!limit||limit>64u*1024*1024)return V6_LIMIT;
+ int n;unsigned s=prepare(v,p,&n);if(s)return s;if(v->entries[n].kind)return V6_EXISTS;
+ uint64_t pages=count(limit),first=allocate(v,pages);if(!first)return V6_FULL;
+ zero(&stream7,sizeof(stream7));stream7.volume=v;stream7.first=first;stream7.pages=pages;stream7.limit=limit;stream7.sum=~0u;
+ unsigned i=0;do{stream7.path[i]=p[i];}while(p[i++]);return V6_OK;
+}
+unsigned v6_stream_append(v6_volume*v,const void*data,unsigned bytes){
+ if(stream7.volume!=v||(!data&&bytes)||bytes>V6_PAGE-stream7.used||bytes>stream7.limit-stream7.size)return V6_INVALID;
+ if(v->readonly){v6_stream_abort(v);return V6_RO;}
+ copy(stream7.page+stream7.used,data,bytes);stream7.used+=bytes;stream7.size+=bytes;stream7.sum=crc_next(stream7.sum,data,bytes);
+ if(stream7.used==V6_PAGE){
+  if(v->write(v->context,stream7.first+(stream7.size-1)/V6_PAGE,stream7.page,V6_PAGE)){v->readonly=1;v6_stream_abort(v);return V6_IO;}
+  stream7.used=0;zero(stream7.page,V6_PAGE);
+ }return V6_OK;
+}
+unsigned v6_stream_finish(v6_volume*v){
+ if(stream7.volume!=v)return V6_INVALID;
+ int n;unsigned s=prepare(v,stream7.path,&n);
+ if(!s&&v->entries[n].kind)s=V6_EXISTS;
+ if(!s&&stream7.used&&v->write(v->context,stream7.first+stream7.size/V6_PAGE,stream7.page,V6_PAGE)){v->readonly=1;s=V6_IO;}
+ if(!s&&v->flush(v->context)){v->readonly=1;s=V6_IO;}
+ if(!s){v6_entry *e=v->pending+n;zero(e,sizeof(*e));copy(e->path,stream7.path,256);
+  e->kind=1;e->first=stream7.size?stream7.first:0;e->size=stream7.size;e->crc=~stream7.sum;s=commit(v);}
+ v6_stream_abort(v);return s;
+}
+#endif

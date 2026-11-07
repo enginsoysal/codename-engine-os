@@ -1,6 +1,8 @@
 #include <engine/desktop/session.h>
 #include <engine/desktop/app.h>
 #include <engine/network/network.h>
+#include <engine/network/download.h>
+#include <engine/network/clock.h>
 #include <engine/m4.h>
 #include <engine/m3.h>
 #include "build.h"
@@ -10,7 +12,7 @@ enum { OPEN_FILES=1, OPEN_EDITOR, OPEN_SETTINGS, OPEN_CALCULATOR, OPEN_DOWNLOADS
        OPEN_DETAILS, SAVE=20, COPY, CUT, PASTE, FILE_UP, FILE_NEW, FILE_FOLDER,
        STYLE_MINT=40, STYLE_LAVENDER, STYLE_AMBER, STYLE_DARK, STYLE_PAPER,
        CALCULATOR_OFF, CALCULATOR_ON, PREFERENCES_SAVE,
-       DISCARD=60, KEEP_EDITING, CALCULATOR_CRASH=64, APP_SELFTEST, NETWORK_RETRY, DNS_PROBE, FILE_ROW=100, CALC_KEY=200 };
+       DISCARD=60, KEEP_EDITING, CALCULATOR_CRASH=64, APP_SELFTEST, NETWORK_RETRY, DNS_PROBE, DOWNLOAD_START, DOWNLOAD_CANCEL, DOWNLOAD_FOLDER, URL_FOCUS, FILE_ROW=100, CALC_KEY=200 };
 
 typedef struct {
     union {
@@ -115,6 +117,7 @@ static uint64_t launch(unsigned kind,const char *path) {
         app->stopped=1;notice(app,"Application could not start. Check its installed package.");
     }
     if(kind==FILES)root_path(app->path,"Documents");
+    if(kind==DOWNLOADS){copy(app->text,"https://raw.githubusercontent.com/enginsoysal/codename-engine-os/main/LICENSE",sizeof(app->text));app->length=app->cursor=length(app->text);}
     if(kind==EDITOR){
         if(path){
             const v6_entry *file=entry(path);unsigned bytes=0;
@@ -238,8 +241,21 @@ static void draw_window(unsigned slot) {
         button(token,r.x+185,r.y+200,190,"Resolve example.com",DNS_PROBE,0);
         uint32_t resolved=0;unsigned dns=net7_dns_status(&resolved);
         text(r.x+20,r.y+250,dns==NET7_DNS_READY?"Real DNS lookup completed.":dns==NET7_DNS_PENDING?"Resolving the name...":dns==NET7_DNS_FAILED?"DNS lookup failed. Retry or check the network.":"You can test name resolution here.",1,ink());
-        text(r.x+20,r.y+300,"HTTPS downloading is not implemented in this slice.",1,ink());
-        text(r.x+20,r.y+330,"M7 remains in development until that gate passes.",1,ink());
+        text(r.x+20,r.y+278,"HTTPS address - Enter downloads; Ctrl+L selects the address",1,ink());
+        rectangle((desktop_rect){r.x+20,r.y+298,r.width-40,30},app->entered?preferences.accent:0xffffff);
+        unsigned columns=(unsigned)(r.width-60)/8,start=app->cursor>columns?app->cursor-columns:0;
+        char visible[128];unsigned available=app->length-start;if(available>columns)available=columns;if(available>sizeof(visible)-1)available=sizeof(visible)-1;
+        memcpy(visible,app->text+start,available);visible[available]=0;text(r.x+27,r.y+309,visible,1,0x12252e);
+        controls[control_count++]=(control){{r.x+20,r.y+298,r.width-40,30},token,URL_FOCUS};
+        button(token,r.x+20,r.y+340,145,"Download",DOWNLOAD_START,1);
+        button(token,r.x+180,r.y+340,100,"Cancel",DOWNLOAD_CANCEL,0);
+        button(token,r.x+295,r.y+340,160,"Open Downloads",DOWNLOAD_FOLDER,0);
+        download7_info download=download7_current();
+        text(r.x+20,r.y+390,download.message?download.message:"Download a file securely. Closing this window cancels it.",1,ink());
+        char progress[64],number[24];decimal(number,download.bytes);copy(progress,number,sizeof(progress));append(progress," bytes",sizeof(progress));
+        if(download.tls_error){append(progress," - TLS error ",sizeof(progress));decimal(number,download.tls_error);append(progress,number,sizeof(progress));}
+        text(r.x+20,r.y+420,progress,1,ink());
+        clock7_time utc;if(!clock7_read(&utc)){char clock[64];decimal(clock,utc.year);append(clock,"-",64);decimal(number,utc.month);append(clock,number,64);append(clock,"-",64);decimal(number,utc.day);append(clock,number,64);append(clock," UTC ",64);decimal(number,utc.hour);append(clock,number,64);append(clock,":",64);decimal(number,utc.minute);append(clock,number,64);text(r.x+200,r.y+420,clock,1,ink());}
     }
     if(w->app==DETAILS){char value[32];text(r.x+20,r.y+65,"Engine OS M7 development",2,ink());text(r.x+20,r.y+105,BUILD_ID,1,ink());
         decimal(value,pages_stats().current_pages*4096);text(r.x+20,r.y+145,"Managed bytes",1,ink());text(r.x+230,r.y+145,value,1,ink());
@@ -296,6 +312,7 @@ static void close_window(uint64_t token,int discard) {
     desktop_window *w=desktop_lookup(&model,token);if(!w)return;
     application *app=&apps[w-model.windows];
     if(w->app==EDITOR&&app->dirty&&!discard){app->closing=1;invalidate(w->bounds);return;}
+    if(w->app==DOWNLOADS)download7_cancel();
     app7_close((unsigned)(w-model.windows));desktop_close(&model,token);memset(app,0,sizeof(*app));task_damage();
 }
 static void insert(application *app,const char *bytes,unsigned count) {
@@ -334,8 +351,12 @@ static void action(uint64_t token,unsigned command) {
         else notice(app,"Calculator installation failed. Keep the recovery ISO.");
         whole();
     }
-    if(command==NETWORK_RETRY&&w->app==DOWNLOADS)net7_retry();
-    if(command==DNS_PROBE&&w->app==DOWNLOADS)(void)net7_resolve("example.com");
+    if(command==NETWORK_RETRY&&w->app==DOWNLOADS){download7_cancel();net7_retry();}
+    if(command==DNS_PROBE&&w->app==DOWNLOADS){download7_info d=download7_current();if(d.state<DOWNLOAD7_RESOLVING||d.state>DOWNLOAD7_RECEIVING)(void)net7_resolve("example.com");}
+    if(command==URL_FOCUS&&w->app==DOWNLOADS){app->entered=0;app->cursor=app->length;}
+    if(command==DOWNLOAD_START&&w->app==DOWNLOADS){unique_path(app->path,"Downloads","Download",".bin");if(app->path[0])(void)download7_start(m6_volume(),app->text,app->path);}
+    if(command==DOWNLOAD_CANCEL&&w->app==DOWNLOADS)download7_cancel();
+    if(command==DOWNLOAD_FOLDER&&w->app==DOWNLOADS){uint64_t opened=launch(FILES,0);desktop_window *files=desktop_lookup(&model,opened);if(files){root_path(apps[files-model.windows].path,"Downloads");whole();}}
     if(command==CALCULATOR_CRASH&&w->app==CALCULATOR)send_app(app,APP7_CRASH,0,0,0);
     if(command==APP_SELFTEST&&w->app==DETAILS){
         unsigned free_slot=0;while(free_slot<DESKTOP_WINDOWS&&model.windows[free_slot].live)++free_slot;
@@ -390,6 +411,24 @@ static void keyboard(int key) {
     if(app->closing){if(key==10){app->closing=0;invalidate(w->bounds);}return;}
     if(w->app==CALCULATOR){calculator(app,(char)(key==10?'=':key));invalidate(w->bounds);return;}
     if(w->app==FILES){if(key==133&&app->offset)--app->offset;if(key==134&&child_at(app,app->offset+1))++app->offset;invalidate(w->bounds);return;}
+    if(w->app==DOWNLOADS){
+        if(key==10){action(token,DOWNLOAD_START);return;}
+        if(key==12){app->entered=1;app->cursor=app->length;}
+        else if(key==128){if(app->cursor)--app->cursor;app->entered=0;}
+        else if(key==129){if(app->cursor<app->length)++app->cursor;app->entered=0;}
+        else if(key==130){app->cursor=0;app->entered=0;}
+        else if(key==131){app->cursor=app->length;app->entered=0;}
+        else if(key==8||key==132){
+            if(app->entered){app->length=app->cursor=0;app->text[0]=0;app->entered=0;}
+            else if((key==8&&app->cursor)||(key==132&&app->cursor<app->length)){
+                if(key==8)--app->cursor;for(unsigned n=app->cursor;n<app->length;++n)app->text[n]=app->text[n+1];--app->length;
+            }
+        }else if(key>=32&&key<=126){
+            if(app->entered){app->length=app->cursor=0;app->text[0]=0;app->entered=0;}
+            if(app->length<510){for(unsigned n=app->length+1;n>app->cursor;--n)app->text[n]=app->text[n-1];app->text[app->cursor++]=(char)key;++app->length;}
+        }
+        invalidate(w->bounds);return;
+    }
     if(w->app!=EDITOR||app->stopped)return;
     if(key==19){action(token,SAVE);return;}if(key==3){action(token,COPY);return;}if(key==24){action(token,CUT);return;}if(key==22){action(token,PASTE);return;}
     send_app(app,APP7_KEY,(unsigned)key,0,0);
@@ -408,7 +447,7 @@ NORETURN void desktop_start(const os_boot_info_v0 *boot,const m6_preferences *pr
     desktop_init(&model,display->framebuffer_width,display->framebuffer_height);
     usb_mouse_state(&pointer_x,&pointer_y,&previous_buttons);
     launch(FILES,0);render();serial_text("M7_DESKTOP_READY build=" BUILD_ID "\n");
-    unsigned network_revision=net7_current().revision;
+    unsigned network_revision=net7_current().revision,download_revision=download7_current().revision;
     for(;;){
         __asm__ volatile("cli");
         if(usb_work_pending()){usb_process_changes();continue;}
@@ -416,7 +455,7 @@ NORETURN void desktop_start(const os_boot_info_v0 *boot,const m6_preferences *pr
         unsigned network_work=net7_work_pending();
         if(key<0&&!network_work){__asm__ volatile("sti; hlt":::"memory");continue;}
         __asm__ volatile("sti");
-        if(network_work){net7_pump();unsigned revision=net7_current().revision;if(revision!=network_revision){network_revision=revision;for(unsigned i=0;i<DESKTOP_WINDOWS;++i)if(model.windows[i].live&&(model.windows[i].app==DOWNLOADS||model.windows[i].app==DETAILS))invalidate(model.windows[i].bounds);}}
+        if(network_work){net7_pump();unsigned revision=net7_current().revision;if(revision!=network_revision||download7_current().revision!=download_revision){network_revision=revision;download_revision=download7_current().revision;for(unsigned i=0;i<DESKTOP_WINDOWS;++i)if(model.windows[i].live&&(model.windows[i].app==DOWNLOADS||model.windows[i].app==DETAILS))invalidate(model.windows[i].bounds);}}
         if(key<0){render();continue;}
         if(key==256)pointer();else{keyboard(key);render();}
     }

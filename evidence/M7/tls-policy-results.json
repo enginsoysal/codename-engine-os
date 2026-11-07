@@ -1,0 +1,56 @@
+{
+  "passed": true,
+  "m7_complete": false,
+  "scope": "actual TLS wrapper and BearSSL with disposable test-only trust, independent Python/OpenSSL memory peer; no native TCP/RTC/download claim",
+  "production_test_roots_added": false,
+  "cases": [
+    {
+      "scenario": "valid",
+      "passed": true,
+      "tls_error": 0,
+      "start_refused": false
+    },
+    {
+      "scenario": "wrong-hostname",
+      "passed": true,
+      "tls_error": 56,
+      "start_refused": false
+    },
+    {
+      "scenario": "untrusted",
+      "passed": true,
+      "tls_error": 62,
+      "start_refused": false
+    },
+    {
+      "scenario": "expired",
+      "passed": true,
+      "tls_error": 54,
+      "start_refused": false
+    },
+    {
+      "scenario": "future-clock",
+      "passed": true,
+      "tls_error": 54,
+      "start_refused": false
+    },
+    {
+      "scenario": "missing-clock",
+      "passed": true,
+      "tls_error": 1001,
+      "start_refused": true
+    },
+    {
+      "scenario": "missing-entropy",
+      "passed": true,
+      "tls_error": 1002,
+      "start_refused": true
+    },
+    {
+      "scenario": "truncated-transport",
+      "passed": true,
+      "tls_error": 1005,
+      "start_refused": false
+    }
+  ]
+}

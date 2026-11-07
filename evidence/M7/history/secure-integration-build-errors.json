@@ -1,0 +1,12 @@
+{
+  "scope": "development compile/link integration failures, corrected before the native positive-task run",
+  "m7_complete": false,
+  "failures": [
+    "TLS wrapper initially lacked the freestanding string include directory",
+    "TLS wrapper used a non-existent flags setter; corrected to the upstream add_flags API",
+    "Host transport adapter lacked an explicit memmove prototype",
+    "Windows command-line length required linker response files",
+    "Native Windows LLD response tokenizer required Windows-compatible quoting, not POSIX single-quote escaping"
+  ],
+  "corrected_native_build": "1855aff786bd3fb69852c6f2c8a4138a"
+}

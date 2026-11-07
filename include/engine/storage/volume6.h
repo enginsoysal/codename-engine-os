@@ -31,4 +31,10 @@ unsigned v6_remove(v6_volume*,const char*);
 unsigned v6_verify(v6_volume*,const char*);
 uint64_t v6_capacity(const v6_volume*);
 uint64_t v6_used(const v6_volume*);
+#ifdef ENGINE_M7
+unsigned v6_stream_begin(v6_volume*,const char*,uint64_t);
+unsigned v6_stream_append(v6_volume*,const void*,unsigned);
+unsigned v6_stream_finish(v6_volume*);
+void v6_stream_abort(v6_volume*);
+#endif
 #endif

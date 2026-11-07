@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "m7_complete": false,
+  "scope": "actual original C TCP state machine with host packet/time adapter; no native TCP/TLS qualification",
+  "checks": [
+    "sequence wrap handshake and MSS",
+    "bounded queue/device backpressure/retransmission",
+    "invalid ACK and sequence refusal",
+    "duplicate/out-of-order receive",
+    "16 KiB flow control/window update",
+    "half-close/final write",
+    "reset/link loss/timeout",
+    "missing entropy refusal"
+  ]
+}

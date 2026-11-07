@@ -18,4 +18,6 @@ net7_configuration net7_current(void);
 unsigned net7_random(void *,unsigned);
 unsigned net7_resolve(const char *);
 unsigned net7_dns_status(uint32_t *);
+unsigned net7_send_ipv4(uint32_t,unsigned,const void *,unsigned);
+void net7_schedule(void);
 #endif

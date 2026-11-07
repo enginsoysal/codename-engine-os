@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "m7_complete": false,
+  "scope": "actual C storage host execution; not native network download qualification",
+  "checks": [
+    "bounded 4 KiB staging",
+    "concurrent editor allocation avoids stream reservation",
+    "namespace invisible until commit",
+    "exact payload/CRC/remount",
+    "cancellation/limits/path conflict",
+    "write/flush interruption preserves complete namespace"
+  ],
+  "fault_cases": 75
+}

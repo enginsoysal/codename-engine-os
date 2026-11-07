@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "m7_complete": false,
+  "checks": [
+    {
+      "name": "real native DHCP DNS TCP TLS 1.2 certificate/UTC checked GET from raw.githubusercontent.com; exact public MIT license bytes persisted on installed disk",
+      "passed": true
+    }
+  ],
+  "build_id": "1855aff786bd3fb69852c6f2c8a4138a",
+  "iso_sha256": "93a35a232433ca936eee2a979d3b95d5c11cacdeae3b77d7ae35e1743595beeb",
+  "download_sha256": "f33e6631ff9f09cddddf2ec7e319d6094fb42c0cfdbb6d9c30fcbec45cbbf0ca",
+  "download_bytes": 1069,
+  "scope": "native positive HTTPS and restart persistence slice; negative native TLS/network/resource/full M7 gates still pending"
+}

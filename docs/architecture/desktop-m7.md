@@ -1,6 +1,6 @@
 # M7 desktop and native application boundary
 
-Status: implemented desktop/app development slice; networking and complete M7 acceptance remain pending. [Milestone](../milestones/m7.md), [native task evidence](../../evidence/M7/isolation/results.json).
+Status: implemented desktop/app development slice; a first native HTTPS task passes while complete M7 acceptance remains pending. [Milestone](../milestones/m7.md), [native task evidence](../../evidence/M7/isolation/results.json).
 
 ## Windows and painting
 

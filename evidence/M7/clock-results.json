@@ -1,0 +1,6 @@
+{
+  "passed": true,
+  "calendar_days": 29220,
+  "scope": "actual calendar C conversion and RTC freestanding compilation only; no native RTC qualification",
+  "m7_complete": false
+}

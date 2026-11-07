@@ -21,7 +21,11 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
                                    'tools/build/m2.py','tools/build/m4.py','tools/build/m45.py','tools/build/bios.py','tools/build/secure.py','tools/build/owner.py','tools/security-toolchain.json','tools/build/data_image.py','tools/build/ext2_image.py','tools/build/fsck.py','tools/build/m3.py','tools/build/m1.py','tools/build/media.py'))
     if milestone=='M5':sources.extend(sorted((ROOT/'tools/build').glob('m5*.py')))
     if m6:sources.extend(sorted((ROOT/'tools/build').glob('m6*.py')))
-    if m7:sources.extend(sorted((ROOT/'tools/build').glob('m7*.py')))
+    if m7:
+        sources.extend(sorted((ROOT/'tools/build').glob('m7*.py')))
+        sources.extend(ROOT/p for p in ('tools/build/bearssl.py','tools/build/trust7.py'))
+        for folder in ('third_party/bearssl','third_party/bearssl-port','third_party/mozilla-ca'):
+            sources.extend(p for p in (ROOT/folder).rglob('*') if p.is_file())
     if distro:
         sources.extend(ROOT/p for p in distro['input_sha256'])
         sources.append(ROOT/'tools/build/distro.py')
@@ -36,7 +40,10 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     common=['-std=c17','-O2',*debug,'-ffreestanding','-fno-builtin','-fno-stack-protector','-mno-red-zone','-mgeneral-regs-only',
             '-Wall','-Wextra','-Werror','-DENGINE_M2','-I',ROOT/'include','-I',BUILD]
     if m6:common.append('-DENGINE_M6')
-    if m7:common.append('-DENGINE_M7')
+    if m7:
+        common.extend(('-DENGINE_M7','-I',ROOT/'third_party/bearssl/inc','-I',ROOT/'third_party/bearssl-port'))
+        from trust7 import prepare as prepare_trust
+        prepare_trust(BUILD/'trust7.h')
     if milestone in ('M3','M4','M45','M5'):common.append('-DENGINE_M3')
     if milestone in ('M4','M45','M5'):common.append('-DENGINE_M4')
     if milestone in ('M45','M5'):common.append('-DENGINE_M45')
@@ -101,12 +108,22 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     if m6:
         inputs=tuple(p for p in inputs if p not in ('kernel/storage/ext2.c','kernel/storage/fs_test.c','kernel/m4/main.c'))
         inputs+=('kernel/install/layout.c','kernel/storage/volume6.c','kernel/install/installer6.c','kernel/install/wizard6.c','build/'+flavor+'/installer-image.c','kernel/install/entry6.c')
-    if m7:inputs+=('kernel/desktop/window.c','kernel/desktop/session.c','kernel/desktop/app.c','kernel/desktop/app-return.S','kernel/network/wire.c','kernel/network/e1000.c','kernel/network/network.c')
+    if m7:inputs+=('kernel/desktop/window.c','kernel/desktop/session.c','kernel/desktop/app.c','kernel/desktop/app-return.S','kernel/network/wire.c','kernel/network/e1000.c','kernel/network/network.c','kernel/network/tcp.c','kernel/network/tls.c','kernel/network/calendar.c','kernel/network/clock.c','kernel/network/http.c','kernel/network/download.c')
     elif milestone=='M5' and not m6:inputs+=('kernel/install/m5.c','build/m5/installer-image.c')
     if distro and not m6:inputs+=('kernel/install/guided.c',)
     kernel=[compile_file(p,'kernel',p.endswith('.S')) for p in inputs]
-    command([tools['ld.lld'],'-T',ROOT/'kernel/arch/x86_64/linker.ld','--build-id=none','-Map='+str(BUILD/'kernel.map'),
-             '-o',BUILD/'KERNEL.ELF',*kernel])
+    if m7:
+        from bearssl import objects as bearssl_objects
+        dependency=bearssl_objects(ROOT/'build/m7/bearssl-linked',tools,
+            [*common,'-fno-pic','-fno-pie','-fno-asynchronous-unwind-tables'])
+        kernel+=['--start-lib',*dependency,'--end-lib']
+    link=['-T',ROOT/'kernel/arch/x86_64/linker.ld','--build-id=none','-Map='+str(BUILD/'kernel.map'),'-o',BUILD/'KERNEL.ELF',*kernel]
+    if m7:
+        import subprocess
+        response=BUILD/'kernel-link.rsp'
+        response.write_text(subprocess.list2cmdline([str(arg).replace('\\','/') for arg in link]),encoding='utf-8')
+        command([tools['ld.lld'],'@'+str(response)])
+    else:command([tools['ld.lld'],*link])
     nm=Path(tools['clang']).parent/'llvm-nm.exe'
     if command([nm,'-u',BUILD/'KERNEL.ELF']).strip():raise RuntimeError('Undefined kernel symbols')
     map_path=BUILD/'kernel.map';map_path.write_text(map_path.read_text(encoding='utf-8').replace(str(ROOT),'.').replace(ROOT.as_posix(),'.'),encoding='utf-8')

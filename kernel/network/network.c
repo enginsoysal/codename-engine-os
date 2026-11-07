@@ -1,4 +1,7 @@
 #include <engine/network/network.h>
+#include <engine/network/tcp.h>
+#include <engine/network/tls.h>
+#include <engine/network/download.h>
 #include <engine/m3.h>
 typedef struct {uint32_t ip;uint8_t mac[6];uint64_t expires;} arp_entry;
 static arp_entry arp[4];
@@ -31,6 +34,7 @@ unsigned net7_clock_event(void) {
 unsigned net7_work_pending(void) {
     return __atomic_load_n(&work,__ATOMIC_ACQUIRE)||net7_nic_pending();
 }
+void net7_schedule(void){timer(1);__atomic_store_n(&work,1,__ATOMIC_RELEASE);}
 unsigned net7_random(void *output,unsigned bytes) {
     uint32_t a,b,c,d;__asm__ volatile("cpuid":"=a"(a),"=b"(b),"=c"(c),"=d"(d):"a"(1u),"c"(0));
     if(!(c&(1u<<30)))return 0;
@@ -73,6 +77,12 @@ static unsigned resolve_mac(uint32_t destination,uint8_t result[6]) {
     uint64_t now=m3_clock_ticks();
     for(unsigned i=0;i<4;++i)if(arp[i].ip==target&&arp[i].expires>now){memcpy(result,arp[i].mac,6);return 1;}
     request_arp(target);return 0;
+}
+unsigned net7_send_ipv4(uint32_t destination,unsigned protocol,const void *data,unsigned bytes){
+    if(configuration.state!=NET7_CONNECTED||!data||bytes>1480)return 3;
+    uint8_t destination_mac[6];if(!resolve_mac(destination,destination_mac))return 1;
+    ethernet(transmit,destination_mac,0x0800);ip_header(transmit,configuration.address,destination,protocol,bytes);
+    memcpy(transmit+34,data,bytes);return net7_nic_send(transmit,34+bytes);
 }
 static void receive_arp(const uint8_t *packet,unsigned bytes) {
     if(bytes<42||net7_get16(packet+14)!=1||net7_get16(packet+16)!=0x0800||packet[18]!=6||packet[19]!=4)return;
@@ -145,6 +155,7 @@ static void receive(const void *frame,unsigned bytes) {
     const uint8_t *packet=frame;
     if(net7_get16(packet+12)==0x0806){receive_arp(packet,bytes);return;}
     net7_ipv4 ip;if(net7_read_ipv4(frame,bytes,mac,&ip))return;
+    if(ip.protocol==6){tcp7_receive(&ip);return;}
     net7_udp udp;if(net7_read_udp(&ip,&udp))return;
     if(udp.source==67&&udp.destination==68){receive_dhcp(&udp);return;}
     if(ip.destination!=configuration.address&&ip.destination!=UINT32_MAX)return;
@@ -162,7 +173,7 @@ void net7_pump(void) {
     uint64_t now=m3_clock_ticks();net7_nic_info nic=net7_nic_status();
     if(!nic.online||nic.status){
         if(configuration.state!=NET7_DISCONNECTED&&configuration.state!=NET7_NO_INTERFACE){dhcp_state=0;dns_state=NET7_DNS_FAILED;configuration.address=0;state(NET7_DISCONNECTED,"Ethernet disconnected. Your files are unchanged.");}
-        (void)net7_nic_poll(receive);timer(0);return;
+        (void)net7_nic_poll(receive);tcp7_pump();tls7_pump();download7_pump();timer(0);return;
     }
     if(configuration.state==NET7_DISCONNECTED||configuration.state==NET7_NO_INTERFACE||
        (configuration.state==NET7_CONNECTED&&now>=lease_expires))net7_retry();
@@ -178,6 +189,6 @@ void net7_pump(void) {
             else {dns_deadline=now+200;dns_sent=0;(void)dns_send();}
         }
     }
-    timer(dhcp_state||dns_state==NET7_DNS_PENDING);
+    tcp7_pump();tls7_pump();download7_pump();timer(dhcp_state||dns_state==NET7_DNS_PENDING||tcp7_active());
 }
 net7_configuration net7_current(void) {return configuration;}

@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "m7_complete": false,
+  "mutation_cases": 5000,
+  "scope": "actual HTTP parser C with host sinks; no native HTTPS task qualification",
+  "checks": [
+    "fragmented fixed/chunked/close-delimited bodies",
+    "interim response",
+    "HTTPS redirect metadata",
+    "ambiguous framing/oversized/encoded/truncated refusal",
+    "bounded header/trailer/body sizes"
+  ]
+}
