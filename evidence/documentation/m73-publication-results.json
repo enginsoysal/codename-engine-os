@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "release": "https://github.com/enginsoysal/codename-engine-os/releases/tag/m73-v0.7.3",
+  "tag": "m73-v0.7.3",
+  "target_commit": "0ceaf9d4f16a4485c0b453e4daca3b42ce2aee69",
+  "draft": false,
+  "all_assets_uploaded": true,
+  "asset_digests_verified": 15,
+  "anonymous_vmware_zip_bytes_verified": true,
+  "assets": {
+    "EngineOS-M73-THIRD-PARTY-NOTICES.txt": {
+      "size": 26011,
+      "sha256": "a650f6d0efd7e3abd6ad5103d3b34414ab0967259d70522f6833dcb19a710cec"
+    },
+    "EngineOS-M73-VMware.zip": {
+      "size": 2618351,
+      "sha256": "c69ed1733fb8ece09001dca0bf56a622efa91b3e2a626c32dd072a9fe776b263"
+    },
+    "EngineOS-M73-calculator.elf": {
+      "size": 11880,
+      "sha256": "e2e4ccbedc0466cec63634f08088e57fb899f8d80e5ef35c928ee1a0d0216c7d"
+    },
+    "EngineOS-M73-editor.elf": {
+      "size": 12616,
+      "sha256": "ee330e6fc2a33b1aaf8b90a1ba2777ffdb73d3098fd1898df6b98f7b70cba334"
+    },
+    "EngineOS-M73-installed-kernel.elf": {
+      "size": 827589,
+      "sha256": "8cf112cd745cb0727799696e58e300acdf73be06bf8bdbd09a5e3b272f338697"
+    },
+    "EngineOS-M73-installed-kernel.map": {
+      "size": 318220,
+      "sha256": "b8dfbf24f43f799380eaa2933d6b0938dc598aada7888e1345614c399d1d008f"
+    },
+    "EngineOS-M73-kernel.elf": {
+      "size": 2564293,
+      "sha256": "c24eada96c47b13d3ab5d182d69ecac7dc71c80a397819ac3766635d97d4bd31"
+    },
+    "EngineOS-M73-kernel.map": {
+      "size": 318220,
+      "sha256": "774c6a5c11c15e5310ef30d86acc2591b955ab04c62230776fe59bb735dd318e"
+    },
+    "EngineOS-M73-usb.img": {
+      "size": 76546048,
+      "sha256": "8579cb89d1029e2856c3c4153b4fb90f4a0b3b9436bdf103edc0d54a27e1795a"
+    },
+    "EngineOS-M73-user.elf": {
+      "size": 68064,
+      "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f"
+    },
+    "EngineOS-M73.iso": {
+      "size": 71194624,
+      "sha256": "1b7979bafa52470614e72ea8c46848a52d02e4158ae6c633279f3e8debc3e9cc"
+    },
+    "M73-acceptance-results.json": {
+      "size": 33842,
+      "sha256": "a42122ec396e5268438928d0d4bbcb394dbd7ecd3022ecd99125d046dd453222"
+    },
+    "m73-build-manifest.json": {
+      "size": 56473,
+      "sha256": "03aeac6ff756ad092ce7024c423e41e1eb4231180c11d47590bcbbb3978b3a63"
+    },
+    "m73-starter-manifest.json": {
+      "size": 492,
+      "sha256": "2312a5cf570c9aeb522c4bfacf5a6d2b04f4cb5421ce945ca9400cf69c7f060e"
+    },
+    "M73-SHA256SUMS.txt": {
+      "size": 1291,
+      "sha256": "e3f5529b21cebd2065ab8343a9a4216f46857bbd66203abf198327413c7352e0"
+    }
+  }
+}

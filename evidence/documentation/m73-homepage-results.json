@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "website": "https://engineos.brixcanvas.com/",
+  "homepage_release": "M7.3",
+  "native_brix_editable_design_retained": true,
+  "browser_scope": "Owner-authorized Edge extension; browser tab UI only, no host desktop automation",
+  "observed_fields": [
+    "M7.3 native UI / HiDPI snapshot",
+    "supported scale summary",
+    "current installation URL",
+    "current recovery URL",
+    "Before you install M7.3 notice"
+  ],
+  "screenshot": "evidence/documentation/m73-homepage.png",
+  "screenshot_sha256": "b83a2b98220f165625e94cb72ef5cde60676a87a0fe20ab68251ee6f0efa53be",
+  "canonical_docs_commit": "0ceaf9d4f16a4485c0b453e4daca3b42ce2aee69",
+  "public_english_articles_verified": 116,
+  "public_readback": "evidence/documentation/m73-native-brix-results.json",
+  "automatic_sync_runs": [
+    {
+      "id": 42385125918,
+      "event": "push",
+      "head_sha": "0ceaf9d4f16a4485c0b453e4daca3b42ce2aee69",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/enginsoysal/codename-engine-os/actions/runs/42385125918"
+    },
+    {
+      "id": 42385533382,
+      "event": "release",
+      "head_sha": "0ceaf9d4f16a4485c0b453e4daca3b42ce2aee69",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/enginsoysal/codename-engine-os/actions/runs/42385533382"
+    }
+  ]
+}
