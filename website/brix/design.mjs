@@ -39,7 +39,7 @@ export function nativeDesign(){
  const cards=layout([
    card('01 / FIRST BOOT','Run it in VMware','Download the ISO, choose the VM settings, and know what to expect on screen.','Open the setup guide ↗','docs-handbook-install-m7'),
    card('02 / CUSTOMIZE','Build your own distro.','Choose your own name, accent, wallpaper, dark mode and optional Calculator with a validated distribution profile.','Open the distro guide ↗','docs-handbook-distributions'),
-   card('03 / RECOVERY','Repair and update','Use the graphical recovery choices to repair boot, update or roll back compatible system slots.','Open the recovery guide ↗','docs-handbook-recovery-m7'),
+   card('03 / RECOVERY','Repair and update','Use the graphical recovery choices to repair boot, update or roll back compatible M7 system slots.','Open the recovery guide ↗','docs-handbook-recovery-m7'),
  ],{bg:{kind:'color',color:'#ffffff'},border:1,borderColor:'#dbe3e6',divided:true,ruleColor:'#dbe3e6',radius:4,padY:24});
  cards.props.columns.forEach(column=>{column.width=100/3;});
  const bottom=layout([[

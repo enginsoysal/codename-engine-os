@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "website": "https://engineos.brixcanvas.com",
+  "homepage_release": "M7",
+  "homepage_update_pending": false,
+  "english_html_language": true,
+  "external_website_iframes": 0,
+  "native_editable_brix": true,
+  "browser_scope": "owner-restored Edge extension only; owner performed login; no native host desktop input",
+  "checks": [
+    "public installed-desktop snapshot and native file/HTTPS workflow",
+    "current M7 setup/recovery links and distro guide",
+    "implemented distro choices and clear install/restart/e1000e NAT instructions",
+    "no stale M6 text on homepage; original DOS/Windows execution remains M8"
+  ],
+  "screenshot": "evidence/documentation/m7-homepage.png",
+  "screenshot_sha256": "fd6c0e2ec3428e9b1a7c75b05d7fcb0e4336c38d6cdc30a9f14abbd989bf6806",
+  "os_artifacts_changed": false,
+  "historical_91_article_report": "evidence/documentation/m7-native-brix-results.json"
+}
