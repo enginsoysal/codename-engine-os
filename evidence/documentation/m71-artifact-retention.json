@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "frozen_prior_artifacts": [
+    {
+      "manifest": "m6-build-manifest.json",
+      "artifacts_unchanged": 5
+    },
+    {
+      "manifest": "m6u1-build-manifest.json",
+      "artifacts_unchanged": 5
+    },
+    {
+      "manifest": "m6minimal-build-manifest.json",
+      "artifacts_unchanged": 5
+    },
+    {
+      "manifest": "m7-build-manifest.json",
+      "artifacts_unchanged": 9
+    },
+    {
+      "manifest": "m7night-build-manifest.json",
+      "artifacts_unchanged": 9
+    }
+  ],
+  "native_app_binaries_identical_to_m7": {
+    "editor": true,
+    "calculator": true
+  },
+  "scope": "prior local release artifact bytes unchanged; native task acceptance remains M71-VM-v1"
+}

@@ -54,7 +54,7 @@ export function nativeDesign(){
  bottom.props.columns.forEach(column=>{column.width=50;});
  const main=layout([[
    hero,heading('A good place to start',27,ink,{py:24}),cards,
-   b('alert',{variant:'warning',title:'Before you install M7.1',text:'Use a new SATA disk of at least 2 GiB and disable Secure Boot. Follow the graphical wizard and review the selected disk before Install. Setup creates boot/system partitions and uses the remaining aligned capacity for native data. After Finish, power off, disconnect the ISO and restart. The installed disk enters the native desktop. Use Manage disks for partition operations, or Erase and install for whole-disk replacement after consent. Use e1000e NAT for downloads; DOS/Windows applications remain M8.'}),bottom,
+   b('alert',{variant:'warning',title:'Before you install M7.1',text:'Use a SATA test disk of at least 2 GiB and disable Secure Boot. Follow the graphical wizard and review the selected disk before Install. Setup creates boot/system partitions and uses the remaining aligned capacity for native data. After Finish, power off, disconnect the ISO and restart. The installed disk enters the native desktop. Use Manage disks for partition operations, or Erase and install for whole-disk replacement after consent. Use e1000e NAT for downloads; DOS/Windows applications remain M8.'}),bottom,
  ]],{bg:{kind:'color',color:paper},padY:12});
  const footer=b('socialcircles',{copyright:'Codename: Engine OS / MIT licensed · Documentation & releases on GitHub',bg:paper,circleBg:teal,items:[{label:'github',href:'https://github.com/enginsoysal/codename-engine-os'},{label:'website',href:`${site}/blog/documentation`}]});
  return [header,status,main,footer];

@@ -1,1 +1,24 @@
-{"passed": false, "state": "native M7.1 homepage publication pending", "os_acceptance": "evidence/M7.1/acceptance-results.json"}
+{
+  "passed": true,
+  "website": "https://engineos.brixcanvas.com",
+  "homepage_release": "M7.1",
+  "homepage_update_pending": false,
+  "native_editable_brix": true,
+  "browser_scope": "authorized Edge extension only; no native host desktop automation",
+  "checks": [
+    "M7.1 disk-manager snapshot and native desktop workflow visible",
+    "setup/recovery buttons use current M7.1 articles",
+    "notice distinguishes partition operations from confirmed whole-disk replacement",
+    "public anonymous article/download verification passes for 101 English articles"
+  ],
+  "screenshot": "evidence/documentation/m71-homepage.png",
+  "screenshot_sha256": "673bda11e8c9bcbbf062520b6816f4353ecf25da3c6838d4367409a1a199626a",
+  "concurrent_editor_conflict": {
+    "resolved": true,
+    "cause": "automatic content publisher updated the site revision while manual editing began",
+    "resolution": "waited for both publishing jobs to succeed, reloaded latest site, then reapplied native edits without forcing an overwrite"
+  },
+  "publication_workflow": "https://github.com/enginsoysal/codename-engine-os/actions/runs/42369474062",
+  "public_report": "evidence/documentation/m71-native-brix-results.json",
+  "os_artifacts_changed": false
+}

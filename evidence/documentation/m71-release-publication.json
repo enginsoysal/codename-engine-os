@@ -1,0 +1,110 @@
+{
+  "passed": true,
+  "release": "https://github.com/enginsoysal/codename-engine-os/releases/tag/m71-v0.7.1",
+  "tag": "m71-v0.7.1",
+  "target_commitish": "0b61458e04824b7250cb38b3e619a0943dfc9b1a",
+  "asset_count": 25,
+  "assets": {
+    "EngineOS-M71.iso": {
+      "sha256": "cf246e8a9321058633064260f1e5f1766cc4db4f080de8403010409a84f75e5b",
+      "size": 70342656
+    },
+    "EngineOS-M71-usb.img": {
+      "sha256": "e65d6de43f18629cb52b865f7d7158632e17211c5b5a15df6ed0978faec626d2",
+      "size": 76546048
+    },
+    "EngineOS-M71-kernel.elf": {
+      "sha256": "5a4870519b7864db50523a984e001e0ec15fa161949615e9234449e1c1b7d6fd",
+      "size": 3205128
+    },
+    "EngineOS-M71-kernel.map": {
+      "sha256": "0a1c35498fe1699bcb381d92a8af662856d0c9b0479d2f5fc1fc81f2fb47e4d0",
+      "size": 314839
+    },
+    "EngineOS-M71-user.elf": {
+      "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f",
+      "size": 68064
+    },
+    "EngineOS-M71-installed-kernel.elf": {
+      "sha256": "ac921aa09c6b7a1f6ec4109dc3a05f30c7cb0662f9a013f318a5cd5fb11920b6",
+      "size": 557253
+    },
+    "EngineOS-M71-installed-kernel.map": {
+      "sha256": "75381802d03f72d7bd4b528e6884bb594effeb1851f6f0ce30a4dba390dc317d",
+      "size": 314839
+    },
+    "EngineOS-M71-editor.elf": {
+      "sha256": "ee330e6fc2a33b1aaf8b90a1ba2777ffdb73d3098fd1898df6b98f7b70cba334",
+      "size": 12616
+    },
+    "EngineOS-M71-calculator.elf": {
+      "sha256": "e2e4ccbedc0466cec63634f08088e57fb899f8d80e5ef35c928ee1a0d0216c7d",
+      "size": 11880
+    },
+    "m71-build-manifest.json": {
+      "sha256": "2a6f893fb545065b173a5e34eba9603f4e4bf604fca46a78ee3bf5a845243c7b",
+      "size": 53862
+    },
+    "M71-SHA256SUMS.txt": {
+      "sha256": "c7eb90a8ee1f97c285c300a3a25da85f26162a5f3330b27a059d7676631e2002",
+      "size": 822
+    },
+    "EngineOS-M71NIGHT.iso": {
+      "sha256": "1249a5a57e8209ed3328b96b600d9256690afc41e30507a72d371ea852f22cde",
+      "size": 70342656
+    },
+    "EngineOS-M71NIGHT-usb.img": {
+      "sha256": "6904048758922898efd98136c7b8ef053bc652949e6b005eb93314cc7a33e11d",
+      "size": 76546048
+    },
+    "EngineOS-M71NIGHT-kernel.elf": {
+      "sha256": "0a61785c69b9ec33b11afdc91d7da034cfda51ca6469edb52085fff98b836e3a",
+      "size": 3205128
+    },
+    "EngineOS-M71NIGHT-kernel.map": {
+      "sha256": "0d18d4179474747b2540dd584dcad4e1568d8ba9887ab4c2773d1dd986c27e77",
+      "size": 314839
+    },
+    "EngineOS-M71NIGHT-user.elf": {
+      "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f",
+      "size": 68064
+    },
+    "EngineOS-M71NIGHT-installed-kernel.elf": {
+      "sha256": "c869dce43f2cdad3814f8ca4b18ab9127074fe292fa0d5edcb219749e4751b2b",
+      "size": 557253
+    },
+    "EngineOS-M71NIGHT-installed-kernel.map": {
+      "sha256": "a7a245d2beba58fa88253eee5106bf5c5120f69040fa320f2d3dd0a494e42e6b",
+      "size": 314839
+    },
+    "EngineOS-M71NIGHT-editor.elf": {
+      "sha256": "ee330e6fc2a33b1aaf8b90a1ba2777ffdb73d3098fd1898df6b98f7b70cba334",
+      "size": 12616
+    },
+    "EngineOS-M71NIGHT-calculator.elf": {
+      "sha256": "e2e4ccbedc0466cec63634f08088e57fb899f8d80e5ef35c928ee1a0d0216c7d",
+      "size": 11880
+    },
+    "m71night-build-manifest.json": {
+      "sha256": "257327b88b5d97725caa1e6bff67934611ed66b8bc06ee5ab6359263416b3fd7",
+      "size": 53948
+    },
+    "M71NIGHT-SHA256SUMS.txt": {
+      "sha256": "7a36b675be3148eb55904f539560de03669f9be31b2f0a02a4021324b5ac6245",
+      "size": 867
+    },
+    "EngineOS-M71-THIRD-PARTY-NOTICES.txt": {
+      "sha256": "4f2cdd7553c2a5a62eb82e8b15d75d9a4075793e737def8843377983bc7c8517",
+      "size": 21547
+    },
+    "m71-acceptance-results.json": {
+      "sha256": "93a0dff9c2c2d6178ef562109af330c30caaddc88d0147f44a48c6bfd59c3160",
+      "size": 22023
+    },
+    "EngineOS-M71-RELEASE-SHA256SUMS.txt": {
+      "sha256": "8e77c74b73d7fa00c6f7fe07b73fb417420b6b933b2224031030112a9477e319",
+      "size": 2246
+    }
+  },
+  "scope": "public uploaded SHA-256/size checks; native qualification remains evidence/M7.1/acceptance-results.json"
+}
