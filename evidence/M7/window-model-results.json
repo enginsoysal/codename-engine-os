@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "scope": "actual native C host execution and freestanding compilation only",
+  "native_desktop_qualified": false,
+  "m7_complete": false,
+  "source_sha256": "9701c825cf3b89c93fce290d514a0a511ed8d9c02bc5ac6b75ca19b2fb3754e1",
+  "window_model_bytes": 280,
+  "checks": [
+    {
+      "name": "stacking/focus, minimize, close/reuse and stale-token rejection",
+      "passed": true
+    },
+    {
+      "name": "10000 seeded lifecycle/hostile-geometry/hit-order cases, bounded damage and idle consumption",
+      "passed": true,
+      "cases": 10000
+    }
+  ]
+}
