@@ -18,7 +18,7 @@ def main(commit):
  for name,value in artifacts.items():
   p=ROOT/'dist'/name
   if not p.exists() or sha(p)!=value['sha256'] or p.stat().st_size!=value['size']:errors.append('Artifact differs: '+name)
- if not runtime['passed'] or len(runtime['gates'])!=14 or not runtime['native_inputs_unchanged']:errors.append('Runtime gates incomplete')
+ if not runtime['passed'] or len(runtime['gates'])!=15 or not runtime['native_inputs_unchanged']:errors.append('Runtime gates incomplete')
  if runtime['build_id']!=meta['build_id'] or runtime['iso_sha256']!=artifacts['EngineOS-M73.iso']['sha256']:errors.append('Runtime identity differs')
  for name,digest in runtime['test_sha256'].items():
   if sha(ROOT/name)!=digest:errors.append('Harness changed: '+name)

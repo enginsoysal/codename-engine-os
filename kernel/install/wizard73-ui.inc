@@ -4,10 +4,17 @@ static void illustration73(unsigned x,unsigned y,unsigned w){
  gui6_rect(x+24,y+44,w-48,1,0xdce6ec);ui73_round(x+36,y+29,6,6,3,accent);
  for(unsigned i=0;i<3;++i){unsigned fx=x+54+i*(w-92)/3;ui73_folder(fx,y+62,37,0xf1ce88);ui73_round(fx,y+102,48,3,1,0xc7d7df);}
 }
+static volatile unsigned painting73;
+static void progress73(unsigned x,unsigned y,unsigned cw,uint32_t ink,uint32_t muted){
+ gui6_rect(x,y+216,cw,208,0xf6f8fa);ui73_paragraph(x,y+228,cw,2,stage?stage:"Preparing your system",muted);
+ ui73_round(x,y+294,cw,10,5,0xdce6ec);if(percent)ui73_round(x,y+294,cw*percent/100,10,5,0x229d80);
+ char number[24];decimal(percent,number);label(x,y+326,number,3,ink);label(x+65,y+332,"percent copied and verified",1,muted);ui73_paragraph(x,y+378,cw,2,"Keep the disk connected while your system is being saved.",muted);
+}
 static void render72(void){
+ painting73=1;
  static unsigned last=UINT32_MAX;unsigned old=focus;controls=0;gui7_clip_reset();
  unsigned x=body+10,y=top+92,cw=width-280;uint32_t ink=0x193746,muted=0x48616f;
- if(step==5&&last==5)gui7_clip(x,y+210,cw,216);last=step;
+ if(step==5&&last==5){gui7_clip(x,y+210,cw,216);progress73(x,y,cw,ink,muted);goto finished73;}last=step;
  gui6_rect(0,0,screen->framebuffer_width,screen->framebuffer_height,0x152b3a);
  ui73_shadow(left,top,width,height);ui73_round(left,top,width,height,14,0xf6f8fa);
  ui73_round(left,top,196,height,14,0x102a3a);gui6_rect(left+180,top,16,height,0x102a3a);
@@ -28,8 +35,8 @@ static void render72(void){
  ui73_paragraph(x,y+52,cw,2,maintenance?"Choose the existing Engine OS disk to maintain.":"Select your installation disk. Its capacity and connection are shown below.",muted);
  unsigned count=storage_count();if(!count)ui73_paragraph(x,y+124,cw,3,"No supported disk is connected. In VMware, add a SATA hard disk and enable Connect at power on.",0x9a4434);
  for(unsigned row=0;row<4;++row){unsigned i=disk_page*4+row;if(i>=count)break;const storage_disk*d=storage_get(i);unsigned dy=y+100+row*48;char name[24]="Disk ";decimal(i+1,name+5);
- button(x,dy,120,name,100+i,chosen==i);char size[40];decimal(d->sectors/2097152,size);unsigned n=0;while(size[n])++n;const char*tail=" GiB";for(unsigned j=0;tail[j];++j)size[n++]=tail[j];size[n]=0;
- label(x+144,dy+10,size,2,ink);ui73_fit(x+255,dy+10,cw-255,d->transport==STORAGE_AHCI&&d->sector_bytes==512?"SATA - ready for installation":"Available for inspection only",1,muted);}
+ button(x,dy,120,name,100+i,chosen==i);char size[40];decimal(d->sectors<(UINT64_C(2097152))?d->sectors/2048:d->sectors/2097152,size);unsigned n=0;while(size[n])++n;const char*tail=d->sectors<UINT64_C(2097152)?" MiB":" GiB";for(unsigned j=0;tail[j];++j)size[n++]=tail[j];size[n]=0;
+ label(x+144,dy+10,size,2,ink);ui73_fit(x+255,dy+10,cw-255,d->transport==STORAGE_AHCI&&d->sector_bytes==512&&d->sectors>=UINT64_C(4194304)&&d->sectors<=UINT64_C(4294967296)?"SATA - ready for installation":"Available for inspection only",1,muted);}
  if(count>4){button(x+cw-132,y+286,56,"<",94,0);button(x+cw-66,y+286,56,">",95,0);}
  if(!maintenance){button(x,y+322,220,"Manage disks",90,0);button(x+235,y+322,310,replace_selected?"Erase and install: On":"Erase and install: Off",91,replace_selected);}
  ui73_paragraph(x,y+380,cw,2,validation?validation:maintenance?"Maintenance keeps personal files; review before applying changes.":"Installation uses the whole selected disk. Existing data requires a separate erase confirmation.",validation?0x9a4434:muted);}
@@ -48,10 +55,7 @@ static void render72(void){
  if(!maintenance&&replace_selected)button(x,y+328,520,replace_consent?"[X] Erase ALL data on this disk":"[ ] Erase ALL data on this disk",92,0);
  if(validation)ui73_paragraph(x,y+382,cw,2,validation,0x9a4434);
  else if(!replace_selected)ui73_paragraph(x,y+330,cw,2,"Go Back to change anything. Choose Install only when you are ready.",muted);}
- if(step==5){label(x,y,"Making it yours.",4,ink);illustration73(x,y+58,cw);
- gui6_rect(x,y+216,cw,208,0xf6f8fa);ui73_paragraph(x,y+228,cw,2,stage?stage:"Preparing your system",muted);
- ui73_round(x,y+294,cw,10,5,0xdce6ec);if(percent)ui73_round(x,y+294,cw*percent/100,10,5,0x229d80);
- char number[24];decimal(percent,number);label(x,y+326,number,3,ink);label(x+65,y+332,"percent copied and verified",1,muted);ui73_paragraph(x,y+378,cw,2,"Keep the disk connected while your system is being saved.",muted);}
+ if(step==5){label(x,y,"Making it yours.",4,ink);illustration73(x,y+58,cw);progress73(x,y,cw,ink,muted);}
  if(step>=6){label(x,y,maintenance?"Your system is ready.":"Welcome home.",4,ink);illustration73(x,y+62,cw);
  label(x,y+226,maintenance?"Boot files have been verified.":"Your desktop and folders are ready.",3,ink);
  ui73_paragraph(x,y+272,cw,2,maintenance?"Power off, disconnect only the installation ISO, and start the VM again.":"Choose Open desktop to start exploring. Your files are stored on the installed disk.",muted);
@@ -60,5 +64,6 @@ static void render72(void){
  if(!busy&&step<5){if(step)button(left+width-300,bottom+14,120,"Back",1,0);button(left+width-160,bottom+14,135,step==4?(maintenance?"Confirm":"Install"):"Next",2,1);}
  if(step==0){button(x,y+412,300,"Open installed desktop",83,0);button(x+315,y+412,135,"Recovery",50,0);}
  if(step==6)button(left+width-230,bottom+14,205,maintenance?"Finish":"Open desktop",3,1);
- focus=old<controls?old:0;gui7_clip_reset();serial_text("M73_VIEW step=");serial_hex(step);serial_text("\n");
+ finished73:
+ focus=old<controls?old:0;gui7_clip_reset();painting73=0;serial_text("M73_VIEW step=");serial_hex(step);serial_text("\n");
 }

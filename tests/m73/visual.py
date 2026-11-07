@@ -19,7 +19,7 @@ def main():
             point=ui.Pointer(g);ui.shot(g,out,'01-welcome');point.wizard(2);ui.wait_view(g,1);ui.shot(g,out,'02-disk')
             point.wizard(2);ui.shot(g,out,'02-no-selection');point.wizard(100);point.wizard(2);ui.wait_view(g,2);ui.shot(g,out,'03-setup');point.wizard(2);ui.wait_view(g,3);ui.shot(g,out,'04-style');point.wizard(32)
             point.wizard(2);ui.wait_view(g,4);ui.shot(g,out,'05-review');point.wizard(1);point.wizard(2);start=point.wizard(2);g.wait('M6_INSTALL_PASS',start,240);ui.wait_view(g,6,start);ui.shot(g,out,'07-finish')
-            point.wizard(3);g.wait('M7_DESKTOP_READY');baseline=struct.unpack('<4Q',ui.memory(g,ui.symbol('stats',32)[0],32));ui.shot(g,out,'08-home');point.desktop(94);g.wait('M72_FOLDER_VISIT /Users/Owner/Documents');point.desktop(26)
+            point.wizard(3);g.wait('M7_DESKTOP_READY');baseline=struct.unpack('<4Q',ui.memory(g,ui.symbol('stats',32)[0],32));ui.shot(g,out,'08-home');point.desktop(94);g.wait('M72_FOLDER_VISIT /Users/Owner/Documents');point.desktop(26);ui.shot(g,out,'09-name-your-folder')
             for c in 'design':h.key(g,c)
             h.key(g,'ret');g.wait('M72_FOLDER_CREATED /Users/Owner/Documents/design');ui.shot(g,out,'09-documents');point.desktop(1001);g.wait('M72_FOLDER_VISIT /Users/Owner/Documents/design');ui.shot(g,out,'10-folder')
             after=struct.unpack('<4Q',ui.memory(g,ui.symbol('stats',32)[0],32));assert after[0]==baseline[0] and after[3]==baseline[3]
@@ -32,6 +32,7 @@ def main():
             point.desktop(112);ui.shot(g,out,'15-scale150');point.desktop(113);ui.shot(g,out,'16-scale200-or-refusal')
             expected=4 if actual_height(g)>=1536 else 3 if actual_height(g)>=1152 else 2
             assert ui.integer(g,'scale73')==expected;point.desktop(47);g.wait('M7_PREFERENCES_SAVED');ui.shot(g,out,'17-saved-display')
+            assert ui.s.s.document(disk,'/Users/Owner/Documents/Welcome.txt')==(ROOT/'distros/packages/polished-guide/content.txt').read_bytes()
             assert ui.s.s.document(disk,'/System/Licenses/Inter-OFL.txt')==(ROOT/'third_party/inter/OFL.txt').read_bytes()
             assert struct.unpack('<4I',ui.s.s.document(disk,'/System/Settings/display73.bin'))==(0x33375044,expected,0,0)
             assert 'M73_TEXT_OVERFLOW' not in g.log();(out/'install-desktop.log').write_bytes(g.log().encode());scale=ui.integer(g,'scale73')

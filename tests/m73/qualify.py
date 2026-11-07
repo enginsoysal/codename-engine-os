@@ -19,6 +19,7 @@ def main():
  tasks=[('uefi-'+r,['tests/m73/visual.py','--resolution',r],'uefi-'+r+'/results.json') for r in ['1280x800','1920x1080','2560x1440','3840x2160']]
  tasks += [('bios-1024x768',['tests/m73/visual.py','--firmware','bios','--resolution','1024x768'],'bios-1024x768/results.json'),('low-memory',['tests/m73/visual.py','--ram','64'],'uefi-1280x800-64mib/results.json')]
  tasks += [('surfaces-'+r,['tests/m73/surfaces.py','--resolution',r],'surfaces-'+r+'/results.json') for r in ['1280x800','3840x2160']]
+ tasks += [('displaymode',['tests/m73/displaymode.py'],'displaymode/results.json')]
  tasks += [('errors',['tests/m73/errors.py'],'errors/results.json')]
  tasks += [('bootentry',['tests/m73/bootentry.py'],'bootentry/results.json'),('update',['tests/m73/update.py'],'update/results.json')]
  with ThreadPoolExecutor(max_workers=2) as pool:gates=list(pool.map(run,tasks))

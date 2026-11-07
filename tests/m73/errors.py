@@ -10,7 +10,13 @@ def main():
  try:
   disk=q.sparse_disk(work/'progress.img',2*1024**3)
   with ui.guest(work/'progress',disk) as g:
-   point=choose(g);start=point.wizard(2);g.wait('M6_PROGRESS',start);g.qmp('stop')
+   point=choose(g);start=point.wizard(2);g.wait('M6_PROGRESS',start)
+   import time
+   for attempt in range(100):
+    g.qmp('stop')
+    if ui.integer(g,'painting73')==0 and ui.integer(g,'step')==5:break
+    g.qmp('cont');time.sleep(.003)
+   else:raise AssertionError('No completed native progress frame before finishing')
    assert ui.integer(g,'step')==5,'Progress capture must show the actual installing state'
    ui.shot(g,out,'01-real-installation-progress');g.qmp('cont');g.wait('M6_INSTALL_PASS',start,240);ui.wait_view(g,6,start);(out/'progress.log').write_bytes(g.log().encode())
   disk=q.sparse_disk(work/'fault.img',2*1024**3);fault={'event':'write_aio','iotype':'write','errno':5,'sector':2048,'once':False}

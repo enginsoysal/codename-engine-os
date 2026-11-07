@@ -200,7 +200,12 @@ static uint64_t launch(unsigned kind,const char *path) {
             }else{copy(app->path,path,sizeof(app->path));app->length=bytes;app->cursor=bytes;app->text[bytes]=0;app->existed=1;app->source_crc=file->crc;}
         }else unique_path(app->path,"Documents","Note",".txt");
     }
-    if(kind==EDITOR&&!app->stopped)send_app(app,APP7_LOAD,0,app->text,app->length);
+    if(kind==EDITOR&&!app->stopped){send_app(app,APP7_LOAD,0,app->text,app->length);
+#ifdef ENGINE_M73
+        /* Existing documents open at their beginning, including the welcome guide. */
+        if(!app->stopped)send_app(app,APP7_KEY,130,0,0);
+#endif
+    }
     if(kind==DETAILS)resource_log();
     launcher=0;task_damage();serial_text("M7_WINDOW_OPEN app=");serial_hex(kind);serial_text("\n");return token;
 }

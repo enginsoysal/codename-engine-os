@@ -25,8 +25,8 @@ keep the SATA hard disk connected, then start the VM again.
 The ISO's Open installed desktop can resume a matching installation.
 
 The product is Engine OS. Original DOS and Windows applications come later.
-Guide: https://engineos.brixcanvas.com/blog/docs-handbook-desktop-m72
-Install: https://engineos.brixcanvas.com/blog/docs-handbook-install-m72
+Guide: https://engineos.brixcanvas.com/blog/docs-handbook-desktop-m73
+Install: https://engineos.brixcanvas.com/blog/docs-handbook-install-m73
 
 Display size: Appearance > Display size offers Auto, 100%, 150% and 200%.
 Save preferences keeps your choice. A size that leaves too little space
