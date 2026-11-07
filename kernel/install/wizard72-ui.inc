@@ -73,7 +73,7 @@ static void render72(void){
  label(x,y+350,"Disconnect only the CD/DVD ISO, then start the VM.",1,muted);}
  gui6_rect(left+196,bottom-1,width-196,1,0xd4dfd5);label(x,bottom+30,"Mouse or Tab + Enter",1,muted);
  if(!busy&&step<5){if(step)button(left+width-300,bottom+14,120,"Back",1,0);button(left+width-160,bottom+14,135,step==4?(maintenance?"Confirm":"Install"):"Next",2,1);}
- if(step==0){button(x,y+412,200,"Open installed desktop",83,0);button(x+215,y+412,135,"Recovery",50,0);}
+ if(step==0){button(x,y+412,300,"Open installed desktop",83,0);button(x+315,y+412,135,"Recovery",50,0);}
  if(step==6)button(left+width-230,bottom+14,205,maintenance?"Finish":"Open desktop",3,1);
  focus=old<controls?old:0;
 }

@@ -24,7 +24,12 @@ static control buttons[24];static unsigned left,top,width,height,body,bottom;
 static void label(unsigned x,unsigned y,const char*s,unsigned size,uint32_t color){gui6_text(x,y,s,size,color);}
 static void decimal(uint64_t n,char*b){char temp[24];unsigned i=0,j=0;do{temp[i++]=(char)('0'+n%10);n/=10;}while(n);while(i)b[j++]=temp[--i];b[j]=0;}
 static void textnum(unsigned x,unsigned y,uint64_t n,const char*suffix){char b[64];decimal(n,b);unsigned i=0;while(b[i])++i;unsigned j=0;do{b[i+j]=suffix[j];}while(suffix[j++]);label(x,y,b,2,0xf0f5f5);}
-static void button(unsigned x,unsigned y,unsigned w,const char*title,unsigned action,unsigned primary){unsigned n=controls++;buttons[n]=(control){x,y,w,40,action};uint32_t bg=primary?accent:0x20353e;gui6_rect(x,y,w,40,focus==n?0xe4fff7:0x3a535d);gui6_rect(x+2,y+2,w-4,36,bg);label(x+13,y+13,title,2,primary?0x112b24:0xffffff);}
+static void button(unsigned x,unsigned y,unsigned w,const char*title,unsigned action,unsigned primary){unsigned n=controls++;buttons[n]=(control){x,y,w,40,action};uint32_t bg=primary?accent:0x20353e;gui6_rect(x,y,w,40,focus==n?0xe4fff7:0x3a535d);gui6_rect(x+2,y+2,w-4,36,bg);
+#ifdef ENGINE_M72
+ char fitted[64];unsigned columns=w>26?(w-26)/12:0;if(columns>63)columns=63;unsigned count=0;while(count<columns&&title[count]){fitted[count]=title[count];++count;}fitted[count]=0;
+ if(title[count]&&count>=3){fitted[count-3]='.';fitted[count-2]='.';fitted[count-1]='.';}title=fitted;
+#endif
+ label(x+13,y+13,title,2,primary?0x112b24:0xffffff);}
 #ifdef ENGINE_M71
 static void render(void);
 #include "disk71-ui.inc"

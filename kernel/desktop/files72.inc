@@ -55,7 +55,7 @@ static void draw_files72(desktop_window *w,application *app,uint64_t token){
  rectangle((desktop_rect){x,y+48,side-4,w->bounds.height-115},preferences.dark?0x213b43:0xeaf0e9);
  text(x+12,y+65,"YOUR PLACES",1,ink());
  const char*places[]={"Home","Desktop","Documents","Downloads","Pictures","System drive"};
- for(unsigned i=0;i<6;++i){button(token,x+8,y+92+(int)i*37,side-20,"",NAV_HOME+i,0);text(x+16,y+101+(int)i*37,places[i],2,ink());}
+ for(unsigned i=0;i<6;++i){button(token,x+8,y+92+(int)i*37,side-20,"",NAV_HOME+i,0);unsigned scale=length(places[i])*12u<=(unsigned)(side-36)?2:1;text(x+16,y+101+(int)i*37+(scale==1?4:0),places[i],scale,ink());}
  text(list,y+53,"LOCATION",1,ink());
  char path[128];unsigned columns=list_width>10?(unsigned)(list_width-10)/6:1,n=length(app->path);if(columns>127)columns=127;
  if(n>columns){copy(path,"...",128);append(path,app->path+n-(columns>3?columns-3:0),128);}else copy(path,app->path,128);
