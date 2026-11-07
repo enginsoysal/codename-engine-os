@@ -67,6 +67,14 @@ static void terminal_command(void){
  else if(!memcmp(command,"write ",6)){char*p=command+6;unsigned n=0;while(p[n]&&p[n]!=' ')++n;if(!p[n]||memcmp(p,"/Users/",7))console_text("Use write /Users/account/Documents/name.txt TEXT\n");else{p[n++]=0;unsigned bytes=0;while(p[n+bytes])++bytes;extern unsigned m6_write_text(const char*,const void*,unsigned);unsigned s=m6_write_text(p,p+n,bytes);console_text("Write status: ");console_decimal(s);console_text("\n");}}
  else console_text("Unknown command. Type help.\n");command_length=0;console_text("engine> ");
 }
+#ifdef ENGINE_M7
+void m7_terminal_command(const char *line,unsigned bytes){
+ if(!line||bytes>=sizeof(command)){console_text("Command too long. No command was executed.\nengine> ");return;}
+ memset(command,0,sizeof(command));memcpy(command,line,bytes);command_length=bytes;command_overflow=0;
+ if(!memcmp(command,"menu",5)){console_text("Close the terminal window to return.\nengine> ");return;}
+ terminal_command();
+}
+#endif
 static void action(unsigned a){
  if(a==64){terminal=1;command_length=command_overflow=0;console_begin(screen);console_text("Engine OS advanced terminal. Type menu to return.\nPersistent file access is available after installed boot.\nType help for commands.\nengine> ");serial_text("M6_TERMINAL_READY\n");return;}
 

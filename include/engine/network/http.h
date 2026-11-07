@@ -7,7 +7,7 @@ typedef unsigned (*http7_sink)(void *,const void *,unsigned);
 typedef struct {
  unsigned state,status,line_size,header_bytes,interim,seen_length,chunked,encoding,cr;
  uint64_t length,received,remaining;
- char line[2048],location[512];
+ char line[4096],location[3072];
 } http7_response;
 void http7_init(http7_response *);
 unsigned http7_feed(http7_response *,const void *,unsigned,http7_sink,void *);

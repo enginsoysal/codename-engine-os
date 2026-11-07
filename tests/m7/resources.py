@@ -56,14 +56,14 @@ def main():
                 pixels_address=i.symbol('painted_pixels')[0];paints_address=i.symbol('paints')[0]
                 input_pixels_before=struct.unpack('<Q',i.memory(guest,pixels_address,8))[0]
                 input_paints_before=struct.unpack('<Q',i.memory(guest,paints_address,8))[0]
-                started=time.monotonic()
+                started=time.perf_counter()
                 guest.qmp('send-key',{'keys':[{'type':'qcode','data':'b'}],'hold-time':60})
                 end=time.monotonic()+2
                 while time.monotonic()<end:
                     current=i.memory(guest,base+slot*stride,3)
                     if current==b'ab\0':break
                     time.sleep(.01)
-                latency=time.monotonic()-started;assert current==b'ab\0' and latency<2
+                latency=time.perf_counter()-started;assert current==b'ab\0' and latency<2
                 time.sleep(.12)
                 input_pixels=struct.unpack('<Q',i.memory(guest,pixels_address,8))[0]-input_pixels_before
                 input_paints=struct.unpack('<Q',i.memory(guest,paints_address,8))[0]-input_paints_before
@@ -85,7 +85,7 @@ def main():
                 delta_paints=struct.unpack('<Q',i.memory(guest,paints,8))[0]-before_paints
                 delta_pixels=struct.unpack('<Q',i.memory(guest,pixels,8))[0]-before_pixels
                 (out/(label+'.log')).write_bytes(guest.log().encode());h.shot(guest,out,label+'-recovered')
-                report['profiles'].append({'ram_mib':ram,'cpus':cpus,'managed_baseline_bytes':baseline[0]*4096,'managed_peak_bytes':after[1]*4096,
+                report['profiles'].append({'ram_mib':ram,'cpus':cpus,'managed_baseline_bytes':baseline[0]*4096,'managed_peak_including_boot_bytes':after[1]*4096,
                    'second_app_private_bytes':10*4096,'allocation_failures_observed':after[3]-baseline[3],
                    'input_damage_pixels_under_pressure':input_pixels,'input_repaints_under_pressure':input_paints,'input_observation_seconds_under_pressure':round(latency,4),'idle_all_cpus_halted':True,'idle_repaint_count':0,
                    'interaction_repaints':delta_paints,'interaction_painted_pixels':delta_pixels})

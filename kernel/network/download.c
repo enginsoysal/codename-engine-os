@@ -9,7 +9,8 @@ static net7_url url;
 static v6_volume *volume;
 static http7_response response;
 static unsigned redirects,reserved,request_size,request_sent;
-static char request[1024];
+static char request[3072];
+_Static_assert(sizeof(request)>=sizeof(net7_url)+128,"bounded URL and HTTP headers must fit the request");
 static uint64_t started,last_paint;
 static void state(unsigned value,const char *message){info.state=value;info.message=message;++info.revision;}
 static unsigned active(void){return info.state>=DOWNLOAD7_RESOLVING&&info.state<=DOWNLOAD7_RECEIVING;}
@@ -46,7 +47,7 @@ static unsigned redirect(void){
  if(response.location[0]=='/'&&response.location[1]!='/'){
   next=url;if(!copy(next.path,response.location,sizeof(next.path)))return 1;
   /* Revalidate a same-origin absolute path with the same strict URL parser. */
-  char full[800]="https://";unsigned n=8,h=0;while(next.host[h])full[n++]=next.host[h++];
+  char full[3072]="https://";unsigned n=8,h=0;while(next.host[h])full[n++]=next.host[h++];
   if(next.port!=443){char digits[6];unsigned count=0,value=next.port;full[n++]=':';do{digits[count++]=(char)('0'+value%10);value/=10;}while(value);while(count)full[n++]=digits[--count];}
   h=0;while(next.path[h])full[n++]=next.path[h++];full[n]=0;if(net7_parse_url(full,&next))return 1;
  }else if(net7_parse_url(response.location,&next))return 1;

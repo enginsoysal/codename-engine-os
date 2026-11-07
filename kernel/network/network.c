@@ -114,7 +114,8 @@ void net7_retry(void) {
     net7_nic_info nic=net7_nic_status();dns_state=NET7_DNS_IDLE;configuration.address=0;
     memset(arp,0,sizeof(arp));arp_target=0;
     if(!nic.present){state(NET7_NO_INTERFACE,"No supported Ethernet interface was found.");dhcp_state=0;timer(0);return;}
-    if(nic.status||!nic.online){state(NET7_DISCONNECTED,"Ethernet is disconnected. Check the virtual cable.");dhcp_state=0;timer(0);return;}
+    if(nic.status){state(NET7_FAILED,nic.status==7?"Ethernet interrupt routing is unsupported. Check the supported VM adapter guide.":"Ethernet initialization failed. Open System details for its status.");dhcp_state=0;timer(0);return;}
+    if(!nic.online){state(NET7_DISCONNECTED,"Ethernet is disconnected. Check the virtual cable.");dhcp_state=0;timer(0);return;}
     if(!net7_random(&transaction,sizeof(transaction)))transaction=(uint32_t)m3_tsc()^0x374e4554u;
     dhcp_state=1;retries=0;deadline=m3_clock_ticks()+100;state(NET7_CONFIGURING,"Connecting automatically...");
     timer(1);(void)dhcp_send(1);__atomic_store_n(&work,1,__ATOMIC_RELEASE);
@@ -171,6 +172,11 @@ void net7_init(void) {
 void net7_pump(void) {
     __atomic_exchange_n(&work,0,__ATOMIC_ACQ_REL);
     uint64_t now=m3_clock_ticks();net7_nic_info nic=net7_nic_status();
+    if(nic.present&&nic.status){
+        if(configuration.state!=NET7_FAILED){dhcp_state=0;dns_state=NET7_DNS_FAILED;configuration.address=0;
+            state(NET7_FAILED,"Ethernet initialization failed. Open System details for its status.");}
+        (void)net7_nic_poll(receive);tcp7_pump();tls7_pump();download7_pump();timer(0);return;
+    }
     if(!nic.online||nic.status){
         if(configuration.state!=NET7_DISCONNECTED&&configuration.state!=NET7_NO_INTERFACE){dhcp_state=0;dns_state=NET7_DNS_FAILED;configuration.address=0;state(NET7_DISCONNECTED,"Ethernet disconnected. Your files are unchanged.");}
         (void)net7_nic_poll(receive);tcp7_pump();tls7_pump();download7_pump();timer(0);return;

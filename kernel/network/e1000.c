@@ -79,7 +79,7 @@ unsigned net7_nic_init(void) {
     unsigned found=UINT32_MAX;
     for(unsigned bdf=0;bdf<65536;++bdf){
         uint32_t id=pci(bdf,0);if((id&65535)!=0x8086)continue;
-        if((id>>16)!=0x100e&&(id>>16)!=0x100f)continue;
+        if((id>>16)!=0x100e&&(id>>16)!=0x100f&&(id>>16)!=0x10d3)continue;
         if((pci(bdf,8)>>16)!=0x0200)continue;
         found=bdf;break;
     }
@@ -108,6 +108,7 @@ unsigned net7_nic_init(void) {
     for(unsigned i=0;i<TX_COUNT;i+=2){uint64_t page=allocate();if(!page){quarantine(6);return 6;}
         tx_buffers[i]=page;tx_buffers[i+1]=page+2048;tx[i].address=page;tx[i+1].address=page+2048;tx[i].status=tx[i+1].status=1;}
     unsigned uses_msi=msi(found);
+    serial_text("M7_NETWORK_PCI_INTERRUPT id=");serial_hex(pci(found,0));serial_text(" line_pin=");serial_hex(pci(found,0x3c));serial_text(" msi=");serial_hex(uses_msi);serial_text("\n");
     if(!uses_msi){
         legacy_irq=pci(found,0x3c)&255;
         if(legacy_irq<3||legacy_irq>15||legacy_irq==4||legacy_irq==12){quarantine(7);return 7;}

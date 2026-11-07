@@ -64,8 +64,12 @@ def main():
             guest.wait('M7_DHCP_CONFIGURED',timeout=60);t.n.wait_state(guest,3)
             pointer=s.Pointer(guest);pointer.click(55,460);_,bounds=i.window(guest,5)
             for label,url,error in [('expired','https://expired.badssl.com/',54),('wrong-hostname','https://wrong.host.badssl.com/',56),('untrusted','https://self-signed.badssl.com/',62),('downgrade','http://example.com/',0)]:
-                type_url(guest,url);pointer.click(bounds.x+80,bounds.y+355);raw=expect(guest,5)
-                actual=struct.unpack_from('<I',raw,8)[0]
+                attempts=[]
+                for attempt in range(3):
+                    type_url(guest,url);pointer.click(bounds.x+80,bounds.y+355);raw=expect(guest,5)
+                    actual=struct.unpack_from('<I',raw,8)[0];attempts.append(actual)
+                    if actual!=1004:break
+                report.setdefault('transport_attempts',{})[label]=attempts
                 h.shot(guest,out,label);assert actual==error,(label,actual,error)
                 report['cases'].append({'scenario':label,'passed':True,'tls_error':actual})
             guest.qmp('qom-set',{'path':'/objects/engine-delay','property':'status','value':'on'})

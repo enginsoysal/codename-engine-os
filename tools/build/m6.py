@@ -56,11 +56,13 @@ def build(revision="standard",profile_path=None,desktop=False):
     media=dual_media(work,name)
     live.update(milestone=prefix,build_revision=revision,distribution=profile,qualification_scope='M7-VM-v1' if desktop else 'M6-VM-v1',qualification='Requires the exact artifact acceptance report; building alone does not qualify runtime',release_version=('0.7.0' if desktop else '0.6.0')+('' if revision=='standard' else '+'+revision),installed_kernel_sha256=hashlib.sha256(kernel).hexdigest(),installer_payload_bytes=len(payload),bios_media_layout=media,limits=['Qualify the exact artifact digests against evidence/M6/acceptance-results.json','SATA/AHCI 512-byte logical-sector blank targets only, 2 GiB to 2 TiB','Native extent volume: 1024 entries, 63-byte path components, contiguous copy-on-write files','ISO-assisted verified-slot update/rollback/repair; interrupted boot replay can require ISO recovery','Single local profile, no authentication/ACLs or cross-layout migration; no desktop or Windows/DOS application runtime'])
     if desktop:
-        live['limits']=['M7 development only: no completed desktop acceptance or stable release',
-                        'Original native Editor/Calculator CPL3 apps; trusted compositor, Files, Settings and network broker',
-                        'One bounded TLS 1.2 connection, IPv4 Intel 8254x and hardware RDRAND; correct virtual UTC clock required',
+        live['limits']=['Qualification is valid only with the matching M7-VM-v1 acceptance report',
+                        'Original native Editor/Calculator CPL3 event workers; trusted compositor, Files, Settings, Terminal and network broker',
+                        'One bounded TLS 1.2 connection, IPv4 Intel 8254x/82574 and hardware RDRAND; correct virtual UTC clock required',
                         'Editor 8191 bytes; download 64 MiB; 8 windows; 1024 volume entries; 4-KiB streaming buffer',
-                        'M6 installed-volume bounds remain; no Windows or DOS application runtime']
+                        'SATA/AHCI 512-byte sectors and M6 installed-volume bounds; one local profile without authentication/ACLs',
+                        'Named x86-64 BIOS/UEFI virtual profiles only; Secure Boot disabled; no universal or physical qualification',
+                        'Desktop work runs on the BSP; APs halt after original runtime qualification; no Windows or DOS application runtime']
     live['artifacts']={p.name:{'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'size':p.stat().st_size} for p in [ROOT/'dist'/('EngineOS-'+name+suffix) for suffix in ('.iso','-usb.img','-kernel.elf','-kernel.map','-user.elf')] if p.is_file()}
     if desktop:
         for suffix,source in [('.elf',installed/'KERNEL.ELF'),('.map',installed/'kernel.map')]:
@@ -72,7 +74,7 @@ def build(revision="standard",profile_path=None,desktop=False):
             live['artifacts'][artifact.name]={'sha256':hashlib.sha256(artifact.read_bytes()).hexdigest(),'size':artifact.stat().st_size}
     (ROOT/'dist'/(name.lower()+'-build-manifest.json')).write_bytes((json.dumps(live,indent=2)+'\n').encode())
     (ROOT/'dist'/(name+'-SHA256SUMS.txt')).write_bytes(''.join(f'{v["sha256"]}  {k}\n' for k,v in live['artifacts'].items()).encode())
-    print(json.dumps({'milestone':prefix+' development','build_id':live['build_id'],'iso':'dist/EngineOS-'+name+'.iso'}))
+    print(json.dumps({'milestone':prefix+(' candidate' if desktop else ' development'),'build_id':live['build_id'],'iso':'dist/EngineOS-'+name+'.iso'}))
     return live
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--revision',default='standard');parser.add_argument('--profile',type=__import__('pathlib').Path);args=parser.parse_args();build(args.revision,args.profile)

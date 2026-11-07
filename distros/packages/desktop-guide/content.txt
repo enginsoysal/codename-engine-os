@@ -4,7 +4,8 @@ Open Files, Text Editor, Settings, Calculator or Downloads from the icons or Sta
 Move a window by dragging its title bar. Resize its bottom-right corner.
 Use the underscore to minimize; click its taskbar button to restore it.
 
-Text Editor saves your document with Save or Ctrl+S. Reopen it through Files.
+Text Editor saves with Save or Ctrl+S. Save as lets you choose a new filename.
+Reopen it through Files. Files asks before deleting an item.
 Unsaved changes are protected by a close confirmation. The current text limit is 8191 bytes.
 Settings changes the accent and light/dark appearance. Save preferences keeps your choices.
 Calculator is optional. Removing it preserves the desktop and your documents.
@@ -14,8 +15,10 @@ Downloads uses real HTTPS. Check that your virtual Ethernet cable is connected
 and your virtual hardware clock is correct UTC. Use Ctrl+L to replace the address,
 then Download or Enter. Open Downloads shows completed files.
 Cancelled or failed transfers do not add a partial file. Certificate errors cannot be bypassed.
-The current download limit is 64 MiB; the supported network family is Intel 8254x.
+The current download limit is 64 MiB; the supported network family is Intel 8254x/82574.
 
 This is original native Engine OS software. DOS and Windows apps are the next milestone.
 Advanced details remain optional; ordinary desktop tasks need no terminal commands.
 The online handbook and exact supported VM limits are at https://engineos.brixcanvas.com.
+
+Advanced Terminal is available from Start for optional commands and verbose details.

@@ -16,7 +16,7 @@ typedef struct {
     unsigned bytes,flags;
 } net7_tcp;
 typedef struct { uint32_t address,mask,router,dns,server,seconds,type; } net7_lease;
-typedef struct { char host[254],path[256];uint16_t port; } net7_url;
+typedef struct { char host[254],path[2048];uint16_t port; } net7_url;
 static inline uint16_t net7_get16(const void *p){const uint8_t *b=p;return (uint16_t)((unsigned)b[0]<<8|b[1]);}
 static inline uint32_t net7_get32(const void *p){const uint8_t *b=p;return (uint32_t)b[0]<<24|(uint32_t)b[1]<<16|(uint32_t)b[2]<<8|b[3];}
 static inline void net7_put16(void *p,uint16_t v){uint8_t *b=p;b[0]=(uint8_t)(v>>8);b[1]=(uint8_t)v;}

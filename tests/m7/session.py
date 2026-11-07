@@ -37,7 +37,7 @@ class Pointer:
         self.move(x,y);self.down(True);self.move(to_x,to_y);self.down(False)
 
 
-def document(path,wanted):
+def document(path,wanted,limit=1024*1024):
     """Inspect GPT, metadata-bank CRCs and exact persisted bytes independently."""
     with path.open('rb') as disk:
         disk.seek(512);header=bytearray(disk.read(512));assert header[:8]==b'EFI PART'
@@ -59,7 +59,7 @@ def document(path,wanted):
             record=raw[i*280:(i+1)*280]
             if record[:256].split(b'\0')[0].decode()!=wanted:continue
             first,size,crc,kind=struct.unpack_from('<QQII',record,256)
-            assert kind==1 and size<1024*1024
+            assert kind==1 and size<=limit
             disk.seek(start+first*4096);value=disk.read(size)
             assert zlib.crc32(value)==crc
             return value

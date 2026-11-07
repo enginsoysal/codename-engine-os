@@ -22,7 +22,7 @@ class TCP(c.Structure):
 class Lease(c.Structure):
     _fields_=[(n,c.c_uint32) for n in ['address','mask','router','dns','server','seconds','type']]
 class URL(c.Structure):
-    _fields_=[('host',c.c_char*254),('path',c.c_char*256),('port',c.c_uint16)]
+    _fields_=[('host',c.c_char*254),('path',c.c_char*2048),('port',c.c_uint16)]
 
 MAC=b'\x52\x54\x00\x12\x34\x56'
 SOURCE=0x0a000202
@@ -121,6 +121,8 @@ def main():
     for url in ['http://example.com','https://user@example.com/a','https://-bad.example','https://a..b','https://example.com:0','https://example.com:65536','https://example.com/#fragment','https://example.com/a b','https://'+('a'*64)+'.com']:
         parsed=URL();c.memset(c.byref(parsed),0xa5,c.sizeof(parsed));before=bytes(parsed)
         assert lib.net7_parse_url(url.encode(),c.byref(parsed)) and bytes(parsed)==before
+    parsed=URL();assert not lib.net7_parse_url(('https://example.com/'+('x'*2046)).encode(),c.byref(parsed))
+    assert lib.net7_parse_url(('https://example.com/'+('x'*2047)).encode(),c.byref(parsed))
     checks.append({'name':'bounded HTTPS URL/port/path parsing, no credentials/downgrade/control bytes and unchanged outputs on refusal','passed':True})
 
     rng=random.Random(7002)

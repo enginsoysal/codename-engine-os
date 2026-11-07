@@ -1,9 +1,16 @@
 #include <engine/m4.h>
 static unsigned row,column,columns,rows;static char lines[32][96];
+#ifdef ENGINE_M7
+static void (*capture7)(char,void *);static void *capture7_context;
+void console7_capture(void (*sink)(char,void *),void *context){capture7=sink;capture7_context=context;}
+#endif
 extern void display_console_setup(void);
 extern void display_console_cell(unsigned,unsigned,char);
 static void advance(void){column=0;if(row+1<rows){++row;return;}for(unsigned r=1;r<rows;++r)memcpy(lines[r-1],lines[r],96);memset(lines[rows-1],0,96);for(unsigned r=0;r<rows;++r)for(unsigned c=0;c<columns;++c)display_console_cell(c,r,lines[r][c]?lines[r][c]:' ');}
 static void character(char c){
+#ifdef ENGINE_M7
+    if(capture7){capture7(c,capture7_context);serial_char(c);return;}
+#endif
     if(c=='\n'){serial_char(c);advance();return;}if(c==8){if(!column&&row){--row;column=columns;}if(column){--column;lines[row][column]=0;display_console_cell(column,row,' ');serial_text("\b \b");}return;}
     if(c<32||c>126)return;if(column==columns)advance();serial_char(c);lines[row][column]=c;display_console_cell(column,row,c);++column;
 }

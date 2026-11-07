@@ -1,4 +1,4 @@
-"""Build separately named M7 development media; never overwrite accepted M6 assets."""
+"""Build separately named M7 media; never overwrite accepted M6 assets."""
 import argparse
 from pathlib import Path
 from m6 import build

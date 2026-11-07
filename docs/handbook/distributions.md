@@ -12,7 +12,7 @@ This produces `dist/EngineOS-M7NIGHT.iso` and its own manifest. Fresh installati
 
 Schema 2 retains the schema-1 identity/data fields and requires exactly one `desktop` object with boolean `dark` and `calculator`, a six-digit `wallpaper` colour, and a printable `tagline` of at most 48 characters. Accent, installer/distribution name, welcome text and selected data packages remain implemented fields. Unknown options, non-boolean toggles, arbitrary hooks and core-removal fields are rejected. Historical data-only builds refuse schema 2. Core boot/storage checks and TLS policy cannot be bypassed by a profile.
 
-Host schema checks pass; the actual separately built custom desktop ISO still requires its native qualification report before release. [M7 status](../milestones/m7.md).
+Host schema checks and native Night installation/defaults, absent Calculator, real Editor save, offline reinstall and detached restart are exercised in the [custom-profile report](../../evidence/M7/distribution/results.json). Final release identity remains governed by aggregate acceptance. [M7 status](../milestones/m7.md).
 
 ## M6 native installer distributions
 

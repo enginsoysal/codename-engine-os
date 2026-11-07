@@ -1,5 +1,6 @@
 """Qualify real e1000 DMA/interrupt traffic, automatic DHCP and DNS in an owned native guest."""
 import importlib.util
+import argparse
 import json
 from pathlib import Path
 import shutil
@@ -56,14 +57,15 @@ def inspect_capture(path):
 
 
 def main():
-    work=q.new_work('m7-network');out=ROOT/'evidence/M7/network';out.mkdir(parents=True,exist_ok=True)
+    parser=argparse.ArgumentParser();parser.add_argument('--nic',choices=['e1000','e1000e'],default='e1000');args=parser.parse_args()
+    work=q.new_work('m7-network-'+args.nic);out=ROOT/('evidence/M7/network' if args.nic=='e1000' else 'evidence/M7/network-e1000e');out.mkdir(parents=True,exist_ok=True)
     checks=[];result={'passed':False,'m7_complete':False,'checks':checks}
     try:
         disk=q.sparse_disk(work/'owned.img',2*1024**3)
         with q.Guest(work/'install',disk,image_name='EngineOS-M7') as guest:
             h.next(guest);h.next(guest);h.next(guest,2);h.next(guest,3);h.next(guest,5);start=len(guest.log());h.next(guest,1);guest.wait('M6_INSTALL_PASS',start,240)
         capture=work/'ethernet.pcap'
-        extra=['-cpu','max,x2apic=off','-netdev','user,id=engine-net','-device','e1000,id=engine-net-card,netdev=engine-net,mac=52:54:00:12:34:56',
+        extra=['-cpu','max,x2apic=off','-netdev','user,id=engine-net','-device',args.nic+',id=engine-net-card,netdev=engine-net,mac=52:54:00:12:34:56',
                '-object','filter-dump,id=engine-capture,netdev=engine-net,file='+str(capture)]
         with q.Guest(work/'desktop',disk,media='installed',image_name='EngineOS-M7',ready='M7_DESKTOP_READY',extra=extra) as guest:
             guest.wait('M7_NETWORK_E1000_READY');guest.wait('M7_DHCP_CONFIGURED',timeout=60);wait_state(guest,3)
@@ -85,7 +87,7 @@ def main():
             checks.append({'name':'actual link loss/recovery renews configuration and DNS; completed work disables its timer, idle CPUs halt and painting stops','passed':True})
         traffic=inspect_capture(capture);shutil.copyfile(capture,out/'ethernet.pcap')
         manifest=json.loads((ROOT/'dist/m7-build-manifest.json').read_text(encoding='utf-8'))
-        result.update(passed=True,build_id=manifest['build_id'],iso_sha256=manifest['artifacts']['EngineOS-M7.iso']['sha256'],
+        result.update(passed=True,nic=args.nic,cpu_profile="max,x2apic=off; RDRAND exposed",build_id=manifest['build_id'],iso_sha256=manifest['artifacts']['EngineOS-M7.iso']['sha256'],
                       packet_capture=traffic,https_qualified=False,scope='native Ethernet/DHCP/ARP/DNS slice only; TCP/HTTPS and full M7 remain pending')
     except Exception:
         result['error']=q.clean(traceback.format_exc());print(result['error'])

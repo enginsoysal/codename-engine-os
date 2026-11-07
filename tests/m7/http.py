@@ -10,7 +10,7 @@ from m1 import pinned_tools
 
 
 class Response(c.Structure):
-    _fields_=[(n,c.c_uint) for n in ['state','status','line_size','header_bytes','interim','seen_length','chunked','encoding','cr']]+[(n,c.c_uint64) for n in ['length','received','remaining']]+[('line',c.c_char*2048),('location',c.c_char*512)]
+    _fields_=[(n,c.c_uint) for n in ['state','status','line_size','header_bytes','interim','seen_length','chunked','encoding','cr']]+[(n,c.c_uint64) for n in ['length','received','remaining']]+[('line',c.c_char*4096),('location',c.c_char*3072)]
 Sink=c.CFUNCTYPE(c.c_uint,c.c_void_p,c.c_void_p,c.c_uint)
 
 
@@ -53,12 +53,15 @@ def main():
          b'HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\n\r\n0\r\nContent-Length: 2\r\n\r\n',
          b'HTTP/1.1 200 OK\r\nContent-Length: 3\r\n\r\nhi',
          b'HTTP/1.1 200 OK\r\nContent-Length: 1\r\n\r\nextra',
-         b'HTTP/1.1 200 OK\r\nX: '+b'x'*2048+b'\r\n\r\n',
+         b'HTTP/1.1 200 OK\r\nX: '+b'x'*4096+b'\r\n\r\n',
          b'HTTP/1.1 200 OK\r\n'+b'X: x\r\n'*3000+b'\r\n']
     for raw in bad:
         for step in [1,4096]:assert parse(raw,step)[0].state==9
     r,_=parse(b'HTTP/1.1 302 Found\r\nLocation: https://example.com/next\r\n\r\nignored')
     assert r.state==10 and r.location==b'https://example.com/next'
+    long_location=b'https://example.com/download?signature='+b'a'*1500
+    r,_=parse(b'HTTP/1.1 302 Found\r\nLocation: '+long_location+b'\r\n\r\n',31)
+    assert r.state==10 and r.location==long_location
     rng=random.Random(703);base=positives[1][0]
     for _ in range(5000):
         raw=bytearray(base)

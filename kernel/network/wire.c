@@ -129,8 +129,8 @@ unsigned net7_dns_answer(const void *buffer,unsigned bytes,uint16_t transaction,
 
 unsigned net7_parse_url(const char *input,net7_url *out) {
     if(!input||!out)return NET7_INVALID;
-    unsigned size=0;while(size<768&&input[size])++size;
-    if(size<9||size>=768)return NET7_INVALID;
+    unsigned size=0;while(size<3072&&input[size])++size;
+    if(size<9||size>=3072)return NET7_INVALID;
     const char prefix[]="https://";for(unsigned i=0;i<8;++i)if(lower(input[i])!=prefix[i])return NET7_INVALID;
     net7_url url={0};unsigned pos=8,host=0,label=0;url.port=443;
     while(pos<size&&input[pos]!='/'&&input[pos]!='?'&&input[pos]!=':'){
@@ -149,6 +149,6 @@ unsigned net7_parse_url(const char *input,net7_url *out) {
         url.port=(uint16_t)number;
     }
     unsigned path=0;if(pos==size||input[pos]=='?')url.path[path++]='/';
-    while(pos<size){unsigned char value=(unsigned char)input[pos++];if(value<33||value>126||value=='#'||path==255)return NET7_INVALID;url.path[path++]=(char)value;}
+    while(pos<size){unsigned char value=(unsigned char)input[pos++];if(value<33||value>126||value=='#'||path==sizeof(url.path)-1)return NET7_INVALID;url.path[path++]=(char)value;}
     url.path[path]=0;*out=url;return NET7_OK;
 }

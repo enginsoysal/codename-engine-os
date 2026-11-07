@@ -91,7 +91,7 @@ def main():
             assert cr3 and 'M7_APP_FAULT vector=0x0000000000000006' in guest.log()
             checks.append({'name':'separate Calculator ELF executes arithmetic in CPL3, actual UD2 is contained, private space is reaped and a separate Editor still saves useful text','passed':True})
             # Native launcher > System details > actual negative app protocol/MMU probes.
-            pointer.click(55,770);pointer.click(140,697)
+            h.key(guest,'f10');h.key(guest,'tab',6);h.key(guest,'ret')
             _,bounds=window(guest,6)
             pointer.click(bounds.x+20+100,bounds.y+290+15)
             guest.wait('M7_APP_ISOLATION_PASS')

@@ -8,12 +8,13 @@
 #include "build.h"
 #include "distro.h"
 
-enum { FILES=1, EDITOR, SETTINGS, CALCULATOR, DOWNLOADS, DETAILS };
+enum { FILES=1, EDITOR, SETTINGS, CALCULATOR, DOWNLOADS, DETAILS, TERMINAL };
 enum { OPEN_FILES=1, OPEN_EDITOR, OPEN_SETTINGS, OPEN_CALCULATOR, OPEN_DOWNLOADS,
-       OPEN_DETAILS, SAVE=20, COPY, CUT, PASTE, FILE_UP, FILE_NEW, FILE_FOLDER,
+       OPEN_DETAILS, OPEN_TERMINAL, SAVE=20, COPY, CUT, PASTE, FILE_UP, FILE_NEW, FILE_FOLDER,
        STYLE_MINT=40, STYLE_LAVENDER, STYLE_AMBER, STYLE_DARK, STYLE_PAPER,
        CALCULATOR_OFF, CALCULATOR_ON, PREFERENCES_SAVE,
-       DISCARD=60, KEEP_EDITING, CALCULATOR_CRASH=64, APP_SELFTEST, NETWORK_RETRY, DNS_PROBE, DOWNLOAD_START, DOWNLOAD_CANCEL, DOWNLOAD_FOLDER, URL_FOCUS, MEMORY_LIMIT, FILE_ROW=100, CALC_KEY=200 };
+       DISCARD=60, KEEP_EDITING, CALCULATOR_CRASH=64, APP_SELFTEST, NETWORK_RETRY, DNS_PROBE, DOWNLOAD_START, DOWNLOAD_CANCEL, DOWNLOAD_FOLDER, URL_FOCUS, MEMORY_LIMIT,
+       SAVE_AS=80,CONFIRM_FILENAME,FILENAME_FOCUS,TERMINAL_CLEAR,CALC_KEY=200,FILE_ROW=1000,FILE_DELETE_ROW=3000 };
 
 typedef struct {
     union {
@@ -28,13 +29,16 @@ typedef struct {
     char path[256],notice[96];
     unsigned closing,offset,stopped,existed;
     uint32_t source_crc;
+    char pending[256];
+    unsigned name_cursor,name_selected;
 } application;
 typedef struct { desktop_rect rect; uint64_t window; unsigned action; } control;
 typedef struct { uint64_t magic; uint32_t accent, dark, calculator, reserved; } preferences7;
 
 static desktop_model model;
 static application apps[DESKTOP_WINDOWS];
-static control controls[192];
+#define DESKTOP_CONTROLS 288u
+static control controls[DESKTOP_CONTROLS];
 static unsigned control_count, launcher, pointer_x, pointer_y, previous_buttons;
 static unsigned dragging, drag_resize, drag_x, drag_y;
 static uint64_t drag_window, paints, painted_pixels;
@@ -48,7 +52,7 @@ static unsigned pressure_on;
 static unsigned control_active,focused_action;
 static uint64_t focused_control_window;
 static const os_boot_info_v0 *display;
-static const char *titles[]={"", "Files", "Text Editor", "Settings", "Calculator", "Downloads", "System details"};
+static const char *titles[]={"", "Files", "Text Editor", "Settings", "Calculator", "Downloads", "System details", "Advanced Terminal"};
 
 static unsigned length(const char *s) { unsigned n=0; while(s[n])++n; return n; }
 static int equal(const char *a,const char *b) { while(*a&&*a==*b){++a;++b;}return *a==*b; }
@@ -112,13 +116,14 @@ static void button(uint64_t window,int x,int y,int width,const char *label,unsig
     }
     if(control_count<sizeof(controls)/sizeof(*controls))controls[control_count++]=(control){r,window,action};
 }
-static void unique_path(char *out,const char *folder,const char *prefix,const char *suffix) {
-    char number[24],base[256];root_path(base,folder);append(base,"/",256);
+static void unique_in(char *out,const char *directory,const char *prefix,const char *suffix) {
+    char number[24],base[256];copy(base,directory,sizeof(base));if(length(base)&&base[length(base)-1]!='/')append(base,"/",256);
     for(unsigned i=1;i<10000;++i){copy(out,base,256);append(out,prefix,256);decimal(number,i);append(out,number,256);append(out,suffix,256);unsigned reserved=0;for(unsigned slot=0;slot<DESKTOP_WINDOWS;++slot)
             if(model.windows[slot].live&&model.windows[slot].app==EDITOR&&apps[slot].path!=out&&equal(apps[slot].path,out))reserved=1;
         if(!entry(out)&&!reserved)return;}
     out[0]=0;
 }
+static void unique_path(char *out,const char *folder,const char *prefix,const char *suffix){char directory[256];root_path(directory,folder);unique_in(out,directory,prefix,suffix);}
 
 static unsigned send_app(application *app,unsigned command,unsigned key,const void *data,unsigned bytes) {
     unsigned slot=(unsigned)(app-apps);
@@ -140,6 +145,7 @@ static uint64_t launch(unsigned kind,const char *path) {
         app->stopped=1;notice(app,opened==V6_FULL?"Not enough memory. Close an app, then close this window and retry.":"Application could not start. Check its installed package.");
     }
     if(kind==FILES)root_path(app->path,"Documents");
+    if(kind==TERMINAL){copy(app->text,"Engine OS advanced terminal. Type help for commands.\nUse menu, exit or Escape to close this window.\nengine> ",sizeof(app->text));app->length=length(app->text);}
     if(kind==DOWNLOADS){copy(app->text,"https://raw.githubusercontent.com/enginsoysal/codename-engine-os/main/LICENSE",sizeof(app->text));app->length=app->cursor=length(app->text);}
     if(kind==EDITOR){
         if(path){
@@ -164,13 +170,25 @@ static void save_document(application *app) {
     }
     unsigned status=v6_put(m6_volume(),app->path,app->length,memory_source,app->text);
     if(status){notice(app,"Save failed. Your unsaved text is still here.");serial_text("M7_DOCUMENT_SAVE_FAILED\n");}
-    else {app->existed=1;const v6_entry *saved=entry(app->path);if(saved)app->source_crc=saved->crc;send_app(app,APP7_SAVED,0,0,0);notice(app,"Saved to your Documents folder.");serial_text("M7_DOCUMENT_SAVED\n");}
+    else {app->existed=1;const v6_entry *saved=entry(app->path);if(saved)app->source_crc=saved->crc;send_app(app,APP7_SAVED,0,0,0);notice(app,"Saved to the displayed file path.");serial_text("M7_DOCUMENT_SAVED\n");}
 }
 
+static void save_as(application *app){
+    unsigned count=length(app->pending);
+    if(!count||count>63||app->pending[count-1]==' '||app->pending[count-1]=='.'){
+        notice(app,"Choose a filename of 1-63 characters, ending with a letter or extension.");return;}
+    for(unsigned n=0;n<count;++n){unsigned c=(uint8_t)app->pending[n];
+        if(!((c>='a'&&c<='z')||(c>='A'&&c<='Z')||(c>='0'&&c<='9')||c==' '||c=='.'||c=='-'||c=='_')){notice(app,"Use letters, numbers, spaces, a dot, dash or underscore.");return;}}
+    char path[256];root_path(path,"Documents");append(path,"/",sizeof(path));append(path,app->pending,sizeof(path));
+    if(entry(path)){notice(app,"That filename already exists. Choose a new name; no file was overwritten.");return;}
+    if(v6_put(m6_volume(),path,app->length,memory_source,app->text)){notice(app,"Save failed. Your original document and unsaved text are unchanged.");return;}
+    copy(app->path,path,sizeof(app->path));app->existed=1;app->source_crc=entry(path)->crc;
+    send_app(app,APP7_SAVED,0,0,0);app->closing=0;notice(app,"Saved with your chosen filename in Documents.");serial_text("M7_DOCUMENT_SAVE_AS\n");
+}
 static void draw_editor(desktop_window *w,application *app,uint64_t token) {
     int x=w->bounds.x+14,y=w->bounds.y+48,right=w->bounds.x+w->bounds.width-14;
-    button(token,x,y,75,"Save",SAVE,1);button(token,x+85,y,75,"Copy all",COPY,0);
-    button(token,x+170,y,75,"Cut all",CUT,0);button(token,x+255,y,75,"Paste",PASTE,0);
+    button(token,x,y,75,"Save",SAVE,1);button(token,x+85,y,85,"Copy all",COPY,0);
+    button(token,x+170,y,75,"Cut all",CUT,0);button(token,x+255,y,75,"Paste",PASTE,0);button(token,x+340,y,100,"Save as",SAVE_AS,0);
     text(x,y+44,app->path,1,ink());
     rectangle((desktop_rect){x,y+66,right-x,w->bounds.height-155},preferences.dark?0x10212a:0xffffff);
     int tx=x+10,ty=y+78;unsigned columns=(unsigned)(right-x-20)/12;if(columns<1)columns=1;
@@ -209,9 +227,11 @@ static void draw_files(desktop_window *w,application *app,uint64_t token) {
     unsigned rows=(unsigned)(w->bounds.height-145)/30;
     if(rows>14)rows=14;
     for(unsigned i=0;i<rows;++i){const v6_entry *file=child_at(app,app->offset+i);if(!file)break;
-        char label[96];copy(label,file->kind==2?"[Folder] ":"[Text]   ",sizeof(label));append(label,file->path+length(app->path)+1,sizeof(label));
-        button(token,x,y+70+(int)i*30,w->bounds.width-30,label,FILE_ROW+app->offset+i,0);
+        char label[96];copy(label,file->kind==2?"[Folder] ":"[File]   ",sizeof(label));append(label,file->path+length(app->path)+1,sizeof(label));
+        button(token,x,y+70+(int)i*30,w->bounds.width-120,label,FILE_ROW+app->offset+i,0);
+        button(token,x+w->bounds.width-110,y+70+(int)i*30,80,"Delete",FILE_DELETE_ROW+app->offset+i,0);
     }
+    if(!child_at(app,app->offset))text(x,y+80,"This folder is empty. Create a text file or a folder above.",1,ink());
     text(x,w->bounds.y+w->bounds.height-24,app->notice[0]?app->notice:"Click a folder or a text file. Arrow keys scroll the list.",1,ink());
 }
 static void draw_settings(desktop_window *w,application *app,uint64_t token) {
@@ -238,6 +258,27 @@ static void draw_calculator(desktop_window *w,application *app,uint64_t token) {
     button(token,x+290,y+72,150,"Crash test",CALCULATOR_CRASH,0);
     text(x,y+270,"Checked signed integer arithmetic. Type keys or click.",1,ink());
 }
+static void terminal_output(char c,void *context){
+    application *app=context;
+    if(c==8){if(app->length)app->text[--app->length]=0;return;}
+    if(c!='\n'&&c!='\t'&&(c<32||c>126))return;
+    if(app->length>=sizeof(app->text)-1){unsigned remove=0;while(remove<app->length&&app->text[remove]!='\n')++remove;if(remove<app->length)++remove;else remove=app->length/2;
+        for(unsigned n=remove;n<app->length;++n)app->text[n-remove]=app->text[n];app->length-=remove;}
+    app->text[app->length++]=c;app->text[app->length]=0;
+}
+static void draw_terminal(desktop_window *w,application *app,uint64_t token){
+    desktop_rect r=w->bounds;button(token,r.x+16,r.y+45,100,"Clear",TERMINAL_CLEAR,0);
+    text(r.x+135,r.y+56,"Optional advanced commands. Type help; Escape closes.",1,ink());
+    rectangle((desktop_rect){r.x+12,r.y+88,r.width-24,r.height-104},preferences.dark?0x10212a:0xffffff);
+    unsigned columns=(unsigned)(r.width-44)/8,visible=(unsigned)(r.height-130)/14,rows=1,column=0;
+    for(unsigned n=0;n<app->length;++n){if(app->text[n]=='\n'){++rows;column=0;}else if(++column>=columns){++rows;column=0;}}
+    unsigned first=rows>visible?rows-visible:0,row=0;column=0;
+    for(unsigned n=0;n<app->length;++n){char c=app->text[n];
+        if(c=='\n'){++row;column=0;continue;}
+        if(row>=first&&row<first+visible){char value[2]={c=='\t'?' ':c,0};text(r.x+22+(int)column*8,r.y+100+(int)(row-first)*14,value,1,ink());}
+        if(++column>=columns){++row;column=0;}
+    }
+}
 
 static void draw_window(unsigned slot) {
     desktop_window *w=&model.windows[slot];if(w->minimized)return;
@@ -248,13 +289,23 @@ static void draw_window(unsigned slot) {
     text(r.x+14,r.y+12,titles[w->app],2,ink());
     text(r.x+r.width-77,r.y+12,"_",2,ink());text(r.x+r.width-42,r.y+12,"x",2,ink());
     if(app->stopped){text(r.x+22,r.y+80,"Application stopped",2,ink());text(r.x+22,r.y+120,app->notice,1,ink());return;}
-    if(app->closing){text(r.x+22,r.y+80,"Keep your unsaved changes?",2,ink());
-        button(token,r.x+22,r.y+130,150,"Keep editing",KEEP_EDITING,1);
-        button(token,r.x+185,r.y+130,150,"Discard changes",DISCARD,0);return;}
+    if(app->closing==3){
+        text(r.x+22,r.y+75,"Save document as",2,ink());text(r.x+22,r.y+110,"New filename in your Documents folder",1,ink());
+        rectangle((desktop_rect){r.x+22,r.y+135,r.width-44,32},app->name_selected?preferences.accent:preferences.dark?0x10212a:0xffffff);
+        text(r.x+30,r.y+147,app->pending,1,app->name_selected?0x102d29:ink());
+        if(control_count<DESKTOP_CONTROLS)controls[control_count++]=(control){{r.x+22,r.y+135,r.width-44,32},token,FILENAME_FOCUS};
+        button(token,r.x+22,r.y+190,150,"Save as",CONFIRM_FILENAME,1);button(token,r.x+185,r.y+190,150,"Cancel",KEEP_EDITING,0);
+        text(r.x+22,r.y+250,app->notice,1,ink());return;
+    }
+    if(app->closing){text(r.x+22,r.y+80,app->closing==2?"Delete this item?":"Keep your unsaved changes?",2,ink());
+        if(app->closing==2){const char *name=app->pending;for(unsigned n=0;app->pending[n];++n)if(app->pending[n]=='/')name=app->pending+n+1;text(r.x+22,r.y+110,name,1,ink());}
+        button(token,r.x+22,r.y+(app->closing==2?150:130),150,app->closing==2?"Keep item":"Keep editing",KEEP_EDITING,1);
+        button(token,r.x+185,r.y+(app->closing==2?150:130),150,app->closing==2?"Delete item":"Discard changes",DISCARD,0);return;}
     if(w->app==EDITOR)draw_editor(w,app,token);
     if(w->app==FILES)draw_files(w,app,token);
     if(w->app==SETTINGS)draw_settings(w,app,token);
     if(w->app==CALCULATOR)draw_calculator(w,app,token);
+    if(w->app==TERMINAL)draw_terminal(w,app,token);
     if(w->app==DOWNLOADS){
         net7_configuration network=net7_current();
         text(r.x+20,r.y+60,"Your network",3,ink());
@@ -270,7 +321,7 @@ static void draw_window(unsigned slot) {
         unsigned columns=(unsigned)(r.width-60)/8,start=app->cursor>columns?app->cursor-columns:0;
         char visible[128];unsigned available=app->length-start;if(available>columns)available=columns;if(available>sizeof(visible)-1)available=sizeof(visible)-1;
         memcpy(visible,app->text+start,available);visible[available]=0;text(r.x+27,r.y+309,visible,1,0x12252e);
-        controls[control_count++]=(control){{r.x+20,r.y+298,r.width-40,30},token,URL_FOCUS};
+        if(control_count<DESKTOP_CONTROLS)controls[control_count++]=(control){{r.x+20,r.y+298,r.width-40,30},token,URL_FOCUS};
         button(token,r.x+20,r.y+340,145,"Download",DOWNLOAD_START,1);
         button(token,r.x+180,r.y+340,100,"Cancel",DOWNLOAD_CANCEL,0);
         button(token,r.x+295,r.y+340,160,"Open Downloads",DOWNLOAD_FOLDER,0);
@@ -281,14 +332,16 @@ static void draw_window(unsigned slot) {
         text(r.x+20,r.y+420,progress,1,ink());
         clock7_time utc;if(!clock7_read(&utc)){char clock[64];decimal(clock,utc.year);append(clock,"-",64);decimal(number,utc.month);append(clock,number,64);append(clock,"-",64);decimal(number,utc.day);append(clock,number,64);append(clock," UTC ",64);decimal(number,utc.hour);append(clock,number,64);append(clock,":",64);decimal(number,utc.minute);append(clock,number,64);text(r.x+200,r.y+420,clock,1,ink());}
     }
-    if(w->app==DETAILS){char value[32];text(r.x+20,r.y+65,"Engine OS M7 development",2,ink());text(r.x+20,r.y+105,BUILD_ID,1,ink());
+    if(w->app==DETAILS){char value[32];text(r.x+20,r.y+65,"Engine OS 0.7",2,ink());text(r.x+20,r.y+105,BUILD_ID,1,ink());
         decimal(value,pages_stats().current_pages*4096);text(r.x+20,r.y+145,"Managed bytes",1,ink());text(r.x+230,r.y+145,value,1,ink());
         decimal(value,pages_stats().peak_pages*4096);text(r.x+20,r.y+175,"Managed peak",1,ink());text(r.x+230,r.y+175,value,1,ink());
         decimal(value,paints);text(r.x+20,r.y+205,"Damage repaints",1,ink());text(r.x+230,r.y+205,value,1,ink());
         button(token,r.x+20,r.y+290,260,"Test app isolation",APP_SELFTEST,0);
         button(token,r.x+20,r.y+340,260,pressure_on?"Restore memory budget":"Limit new app memory",MEMORY_LIMIT,pressure_on);
         text(r.x+20,r.y+395,pressure_on?"Memory limit active. Existing documents can still be saved.":"Optional diagnostics. Closing Details restores the memory budget.",1,ink());
-        text(r.x+20,r.y+250,"Static kernel, app and firmware memory are additional.",1,ink());}
+        net7_nic_info nic=net7_nic_status();decimal(value,nic.status);
+        text(r.x+20,r.y+235,"Ethernet driver status",1,ink());text(r.x+230,r.y+235,value,1,ink());
+        text(r.x+20,r.y+265,"Static kernel, app and firmware memory are additional.",1,ink());}
     rectangle((desktop_rect){r.x+r.width-12,r.y+r.height-4,9,2},0x6a858e);
     rectangle((desktop_rect){r.x+r.width-7,r.y+r.height-9,4,2},0x6a858e);
 }
@@ -324,11 +377,11 @@ static void render(void) {
     if(step>100)step=100;
     for(unsigned i=0;i<model.count;++i){unsigned slot=model.order[i];desktop_window *w=&model.windows[slot];
         button(desktop_token(&model,slot),130+(int)(i*step),bar+15,(int)step-8,titles[w->app],70,model.focused==slot);}
-    if(model.width>=1000)text((int)model.width-180,bar+23,"M7 development",1,0x95b1bd);
+    if(model.width>=1000)text((int)model.width-180,bar+23,"Engine OS 0.7",1,0x95b1bd);
     if(launcher){
-        gui6_rect(16,(unsigned)bar-305,300,295,paper());text(34,bar-284,owner.user,2,ink());
-        unsigned row=0;for(unsigned i=1;i<=6;++i){if(i==CALCULATOR&&!preferences.calculator)continue;
-            button(0,30,bar-248+(int)row++*38,270,titles[i],i,0);}
+        gui6_rect(16,(unsigned)bar-350,300,340,paper());text(34,bar-329,owner.user,2,ink());
+        unsigned row=0;for(unsigned i=1;i<=7;++i){if(i==CALCULATOR&&!preferences.calculator)continue;
+            button(0,30,bar-293+(int)row++*38,270,titles[i],i,0);}
     }
     gui7_clip_reset();usb_mouse_draw();++paints;painted_pixels+=(uint64_t)dirty.width*dirty.height;
 }
@@ -355,17 +408,35 @@ static void action(uint64_t token,unsigned command) {
     desktop_window *w=desktop_lookup(&model,token);if(!w)return;
     unsigned slot=(unsigned)(w-model.windows);application *app=&apps[slot];
     if(command==70){desktop_focus(&model,token);task_damage();return;}
-    if(command==DISCARD){close_window(token,1);return;}
-    if(command==KEEP_EDITING){app->closing=0;invalidate(w->bounds);return;}
+    if(command==DISCARD){
+        if(app->closing==2&&w->app==FILES){unsigned result=v6_remove(m6_volume(),app->pending);app->closing=0;app->pending[0]=0;
+            notice(app,!result?"Item deleted. Other files are unchanged.":result==V6_INVALID?"The folder is not empty. Nothing was deleted.":"The item could not be deleted. Nothing else changed.");
+            if(!result)serial_text("M7_FILE_DELETED\n");whole();
+        }else close_window(token,1);return;
+    }
+    if(command==KEEP_EDITING){app->closing=0;app->pending[0]=0;invalidate(w->bounds);return;}
     if(app->stopped)return;
     if(command==SAVE&&w->app==EDITOR)save_document(app);
+    if(command==SAVE_AS&&w->app==EDITOR){const char *name=app->path;for(unsigned n=0;app->path[n];++n)if(app->path[n]=='/')name=app->path+n+1;
+        copy(app->pending,name,sizeof(app->pending));app->name_cursor=length(app->pending);app->name_selected=1;app->closing=3;notice(app,"Choose a new name. The original file will be kept.");}
+    if(command==CONFIRM_FILENAME&&w->app==EDITOR&&app->closing==3)save_as(app);
+    if(command==FILENAME_FOCUS&&app->closing==3){app->name_selected=0;app->name_cursor=length(app->pending);}
     if((command==COPY||command==CUT)&&w->app==EDITOR){memcpy(clipboard,app->text,app->length+1);clipboard_length=app->length;notice(app,"Document copied to the clipboard.");
         if(command==CUT)send_app(app,APP7_CLEAR,0,0,0);}
     if(command==PASTE&&w->app==EDITOR)insert(app,clipboard,clipboard_length);
     if(command==FILE_UP&&w->app==FILES){char root[256];root_path(root,"");unsigned n=length(app->path),min=length(root)-1;while(n>min&&app->path[n-1]!='/')--n;if(n>min)app->path[n-1]=0;app->offset=0;}
-    if(command==FILE_NEW&&w->app==FILES){launch(EDITOR,0);task_damage();}
-    if(command==FILE_FOLDER&&w->app==FILES){char path[256];unique_path(path,"Documents","Folder","");unsigned result=path[0]?v6_mkdir(m6_volume(),path):V6_FULL;notice(app,result?"Folder could not be created.":"Folder created in Documents.");}
-    if(command>=FILE_ROW&&command<CALC_KEY&&w->app==FILES){const v6_entry *file=child_at(app,command-FILE_ROW);if(file){if(file->kind==2){copy(app->path,file->path,sizeof(app->path));app->offset=0;}else launch(EDITOR,file->path);}}
+    if(command==FILE_NEW&&w->app==FILES){uint64_t opened=launch(EDITOR,0);desktop_window *created=desktop_lookup(&model,opened);
+        if(created)unique_in(apps[created-model.windows].path,app->path,"Note",".txt");task_damage();}
+    if(command==FILE_FOLDER&&w->app==FILES){char path[256];unique_in(path,app->path,"Folder","");unsigned result=path[0]?v6_mkdir(m6_volume(),path):V6_FULL;notice(app,result?"Folder could not be created.":"Folder created here.");}
+    if(command>=FILE_ROW&&command<FILE_ROW+V6_ENTRIES&&w->app==FILES){const v6_entry *file=child_at(app,command-FILE_ROW);if(file){if(file->kind==2){copy(app->path,file->path,sizeof(app->path));app->offset=0;}else launch(EDITOR,file->path);}}
+    if(command>=FILE_DELETE_ROW&&command<FILE_DELETE_ROW+V6_ENTRIES&&w->app==FILES){
+        const v6_entry *file=child_at(app,command-FILE_DELETE_ROW);if(file){unsigned open=0;
+            for(unsigned n=0;n<DESKTOP_WINDOWS;++n)if(model.windows[n].live&&model.windows[n].app==EDITOR&&equal(apps[n].path,file->path))open=1;
+            if(open)notice(app,"Close the editor for this file before deleting it.");
+            else {copy(app->pending,file->path,sizeof(app->pending));app->closing=2;}
+        }
+    }
+    if(command==TERMINAL_CLEAR&&w->app==TERMINAL){app->length=app->name_cursor=0;app->text[0]=app->pending[0]=0;copy(app->text,"engine> ",sizeof(app->text));app->length=8;}
     if(command>=STYLE_MINT&&command<=STYLE_AMBER&&w->app==SETTINGS){const uint32_t colors[]={0x62e5bd,0x9caeff,0xf4c47c};preferences.accent=colors[command-STYLE_MINT];whole();}
     if((command==STYLE_DARK||command==STYLE_PAPER)&&w->app==SETTINGS){preferences.dark=command==STYLE_DARK;whole();}
     if(command==CALCULATOR_OFF&&w->app==SETTINGS){
@@ -412,7 +483,7 @@ static void pointer(void) {
     if(released)dragging=0;
     if(dragging&&(buttons&1)){
         desktop_rect r=drag_bounds;int dx=(int)x-(int)drag_x,dy=(int)y-(int)drag_y;
-        if(drag_resize){r.width+=dx;r.height+=dy;if(r.width<480)r.width=480;if(r.height<420)r.height=420;}else{r.x+=dx;r.y+=dy;}
+        if(drag_resize){r.width+=dx;r.height+=dy;if(r.width<480)r.width=480;desktop_window *resizing=desktop_lookup(&model,drag_window);int minimum=resizing&&resizing->app==DOWNLOADS?460:420;if(r.height<minimum)r.height=minimum;}else{r.x+=dx;r.y+=dy;}
         desktop_place(&model,drag_window,r);
     }else if(pressed){
         if(control_active){control_active=0;whole();}
@@ -440,7 +511,7 @@ static void keyboard(int key) {
     if(key==135){if(model.count){desktop_focus(&model,desktop_token(&model,model.order[0]));control_active=0;whole();}return;}
     if(key==9||key==136){
         uint64_t target=launcher?0:model.focused<DESKTOP_WINDOWS?desktop_token(&model,model.focused):0;
-        unsigned candidates[192],count=0,current=0;
+        unsigned candidates[DESKTOP_CONTROLS],count=0,current=0;
         for(unsigned n=0;n<control_count;++n){control *c=&controls[n];
             if(c->window!=target||c->action==70||(launcher&&!c->action))continue;
             if(control_active&&focused_control_window==target&&focused_action==c->action)current=count+1;
@@ -452,11 +523,39 @@ static void keyboard(int key) {
     }
     if(key==10&&control_active){uint64_t target=focused_control_window;unsigned command=focused_action;control_active=0;action(target,command);whole();return;}
     if(control_active){control_active=0;whole();}
-    if(key==27){if(launcher){launcher=0;whole();}else if(model.focused<DESKTOP_WINDOWS)close_window(desktop_token(&model,model.focused),0);return;}
+    if(key==27){if(launcher){launcher=0;whole();}else if(model.focused<DESKTOP_WINDOWS){
+        application *focused=&apps[model.focused];if(focused->closing==3){focused->closing=0;invalidate(model.windows[model.focused].bounds);}else close_window(desktop_token(&model,model.focused),0);}return;}
     if(model.focused>=DESKTOP_WINDOWS)return;
     desktop_window *w=&model.windows[model.focused];application *app=&apps[model.focused];
     uint64_t token=desktop_token(&model,model.focused);
+    if(app->closing==3){
+        unsigned count=length(app->pending);
+        if(key==10){save_as(app);invalidate(w->bounds);return;}
+        if(key==1){app->name_selected=1;app->name_cursor=count;}
+        else if(key==128){if(app->name_cursor)--app->name_cursor;app->name_selected=0;}
+        else if(key==129){if(app->name_cursor<count)++app->name_cursor;app->name_selected=0;}
+        else if(key==130){app->name_cursor=0;app->name_selected=0;}
+        else if(key==131){app->name_cursor=count;app->name_selected=0;}
+        else if(key==8||key==132){
+            if(app->name_selected){app->pending[0]=0;app->name_cursor=0;app->name_selected=0;}
+            else if((key==8&&app->name_cursor)||(key==132&&app->name_cursor<count)){
+                if(key==8)--app->name_cursor;for(unsigned n=app->name_cursor;n<count;++n)app->pending[n]=app->pending[n+1];
+            }
+        }else if((key>='a'&&key<='z')||(key>='A'&&key<='Z')||(key>='0'&&key<='9')||key==' '||key=='.'||key=='-'||key=='_'){
+            if(app->name_selected){count=0;app->name_cursor=0;app->pending[0]=0;app->name_selected=0;}
+            if(count<63){for(unsigned n=count+1;n>app->name_cursor;--n)app->pending[n]=app->pending[n-1];app->pending[app->name_cursor++]=(char)key;}
+        }
+        invalidate(w->bounds);return;
+    }
     if(app->closing){if(key==10){app->closing=0;invalidate(w->bounds);}return;}
+    if(w->app==TERMINAL){
+        if(key==10&&(equal(app->pending,"menu")||equal(app->pending,"exit"))){close_window(token,1);return;}
+        console7_capture(terminal_output,app);
+        if(key==10){console_text("\n");m7_terminal_command(app->pending,app->name_cursor);app->pending[0]=0;app->name_cursor=0;}
+        else if(key==8&&app->name_cursor){app->pending[--app->name_cursor]=0;console_text("\b");}
+        else if(key>=32&&key<=126&&app->name_cursor<sizeof(app->pending)-1){app->pending[app->name_cursor++]=(char)key;app->pending[app->name_cursor]=0;char echo[2]={(char)key,0};console_text(echo);}
+        console7_capture(0,0);invalidate(w->bounds);return;
+    }
     if(w->app==CALCULATOR){calculator(app,(char)(key==10?'=':key));invalidate(w->bounds);return;}
     if(w->app==FILES){if(key==133&&app->offset)--app->offset;if(key==134&&child_at(app,app->offset+1))++app->offset;invalidate(w->bounds);return;}
     if(w->app==DOWNLOADS){
@@ -473,7 +572,7 @@ static void keyboard(int key) {
             }
         }else if(key>=32&&key<=126){
             if(app->entered){app->length=app->cursor=0;app->text[0]=0;app->entered=0;}
-            if(app->length<510){for(unsigned n=app->length+1;n>app->cursor;--n)app->text[n]=app->text[n-1];app->text[app->cursor++]=(char)key;++app->length;}
+            if(app->length<3070){for(unsigned n=app->length+1;n>app->cursor;--n)app->text[n]=app->text[n-1];app->text[app->cursor++]=(char)key;++app->length;}
         }
         invalidate(w->bounds);return;
     }
