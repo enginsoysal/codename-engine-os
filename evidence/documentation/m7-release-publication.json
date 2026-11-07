@@ -1,0 +1,110 @@
+{
+  "passed": true,
+  "release": "https://github.com/enginsoysal/codename-engine-os/releases/tag/m7-v0.7.0",
+  "tag": "m7-v0.7.0",
+  "target_commitish": "46ec791a9e35261f7fc4de216f1967e353832789",
+  "assets": {
+    "EngineOS-M7.iso": {
+      "size": 70080512,
+      "sha256": "58aa32971b47c820d53b0e2b6525bb86cd04939311cc6a9ad922b10fa701d98b"
+    },
+    "EngineOS-M7-usb.img": {
+      "size": 76546048,
+      "sha256": "d14dba3e1d2594756c9b16e6a314e02c72d80ca0af49f420552fcdef82db53cd"
+    },
+    "EngineOS-M7-kernel.elf": {
+      "size": 3052864,
+      "sha256": "16d9e911b5856ba6538214765310203b09915fb9090b2f130a7757b3afa8bcbc"
+    },
+    "EngineOS-M7-kernel.map": {
+      "size": 308757,
+      "sha256": "9f83731caa63e013bf6f4b9ad4f0fb10a768bc17d614ec543c4b83a87013b206"
+    },
+    "EngineOS-M7-user.elf": {
+      "size": 68064,
+      "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f"
+    },
+    "EngineOS-M7-installed-kernel.elf": {
+      "size": 528508,
+      "sha256": "a497d5f76442c7cc8eff52372b88bb011bf4bbf5d3fdad5ab15e2d3aa07710cf"
+    },
+    "EngineOS-M7-installed-kernel.map": {
+      "size": 308757,
+      "sha256": "0e4949dc907edba94eec6f03cc58732d079c435ec72aabf1113421a0d0000ced"
+    },
+    "EngineOS-M7-editor.elf": {
+      "size": 12616,
+      "sha256": "ee330e6fc2a33b1aaf8b90a1ba2777ffdb73d3098fd1898df6b98f7b70cba334"
+    },
+    "EngineOS-M7-calculator.elf": {
+      "size": 11880,
+      "sha256": "e2e4ccbedc0466cec63634f08088e57fb899f8d80e5ef35c928ee1a0d0216c7d"
+    },
+    "m7-build-manifest.json": {
+      "size": 53184,
+      "sha256": "e4b46ae03e2e7f5a7bc4d094be58346d3fa4b83e6dbc140c12288d5ab6ddd9b1"
+    },
+    "M7-SHA256SUMS.txt": {
+      "size": 813,
+      "sha256": "61b9e8763479d7a7b59ba19d6307d6425ce331f09a20d708fddb4bdfbcf7e1d7"
+    },
+    "EngineOS-M7NIGHT.iso": {
+      "size": 70080512,
+      "sha256": "68364fd88d5b49e798eee4205dfe45cb7e81c7f362803f0f0c4dfd88fbd29ae1"
+    },
+    "EngineOS-M7NIGHT-usb.img": {
+      "size": 76546048,
+      "sha256": "d2df11e53fc872b164784969014fbc88be0d34b7686b6c80c6561822623883d8"
+    },
+    "EngineOS-M7NIGHT-kernel.elf": {
+      "size": 3052856,
+      "sha256": "6dc059d270ccd58e33efe47b922718490bb5efdf96b54c0700a8ad0a4352d92e"
+    },
+    "EngineOS-M7NIGHT-kernel.map": {
+      "size": 308757,
+      "sha256": "c16ecde5477693aa3a9c190db77fef8ec6c7298857696ad4ca14ba08c7baf67a"
+    },
+    "EngineOS-M7NIGHT-user.elf": {
+      "size": 68064,
+      "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f"
+    },
+    "EngineOS-M7NIGHT-installed-kernel.elf": {
+      "size": 528504,
+      "sha256": "ec100596fcc233b3b621dbf43efc12ba448ef392d823dc87366fe373a653cd3b"
+    },
+    "EngineOS-M7NIGHT-installed-kernel.map": {
+      "size": 308757,
+      "sha256": "8b79b20034d8fd659dfbe2a239da76e2e5af77cdb456cd2914e0172530d61549"
+    },
+    "EngineOS-M7NIGHT-editor.elf": {
+      "size": 12616,
+      "sha256": "ee330e6fc2a33b1aaf8b90a1ba2777ffdb73d3098fd1898df6b98f7b70cba334"
+    },
+    "EngineOS-M7NIGHT-calculator.elf": {
+      "size": 11880,
+      "sha256": "e2e4ccbedc0466cec63634f08088e57fb899f8d80e5ef35c928ee1a0d0216c7d"
+    },
+    "m7night-build-manifest.json": {
+      "size": 53252,
+      "sha256": "4d53ba97912b21e8c0e647d7f638fd7a86791d0a3840daaa86a05b3c9b24e051"
+    },
+    "M7NIGHT-SHA256SUMS.txt": {
+      "size": 858,
+      "sha256": "4f558fde678b15a4464f2fb332d819a9c77bf5137c09dec9bc767b994e72bd8c"
+    },
+    "EngineOS-M7-THIRD-PARTY-NOTICES.txt": {
+      "size": 21545,
+      "sha256": "c3934269a26ebc264e4b0384b13340cc263333c5912613b59c7b9a1193270973"
+    },
+    "m7-acceptance-results.json": {
+      "size": 23968,
+      "sha256": "b3e84b41228ce638c238f0ca0393e6a7819214a4c7ef6561faeab387dac11a74"
+    },
+    "EngineOS-M7-RELEASE-SHA256SUMS.txt": {
+      "size": 2222,
+      "sha256": "dc64fadd04969cba85352b7eab2b1be2538cd874aa5e40fad73eef9fb16fe0d7"
+    }
+  },
+  "asset_count": 25,
+  "scope": "GitHub uploaded-asset SHA-256/size verification; runtime acceptance remains evidence/M7/acceptance-results.json"
+}

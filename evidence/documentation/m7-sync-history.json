@@ -1,0 +1,13 @@
+{
+  "scope": "documentation publication only; no OS runtime gate changed",
+  "source_commit": "46ec791a9e35261f7fc4de216f1967e353832789",
+  "workflow": "https://github.com/enginsoysal/codename-engine-os/actions/runs/42362513018",
+  "workflow_passed": true,
+  "first_anonymous_check": {
+    "passed": false,
+    "reason": "A public CONTRIBUTING article still exposed a different canonical source link immediately after publication. The next direct public read matched the expected commit; the documented rendering cache can retain old content briefly."
+  },
+  "followup_report": "evidence/documentation/m7-native-brix-results.json",
+  "homepage_update_pending": true,
+  "browser_blocker": "No connected Edge extension; agent-owned webview failed to attach. Native host desktop was not operated."
+}
