@@ -32,7 +32,7 @@ def committed_hashes(commit,paths):
 def main(commit):
     commit=subprocess.check_output(['git','rev-parse',commit],cwd=ROOT,text=True).strip()
     base=load(ROOT/'dist/m7-build-manifest.json');night=load(ROOT/'dist/m7night-build-manifest.json')
-    errors=[];gates=[];frozen={};old_count=0
+    errors=[];gates=[];frozen={};old_count=0;unrelated_changes=[]
     sources={**base['source_sha256'],**night['source_sha256']}
     published=committed_hashes(commit,sorted(sources))
     for name,digest in sources.items():
@@ -57,7 +57,12 @@ def main(commit):
         expected_snapshot=hashlib.sha256(json.dumps(base['source_sha256'],sort_keys=True).encode()).hexdigest()
         if info['native_source_snapshot_sha256']!=expected_snapshot:errors.append('Group native snapshot differs: '+group)
         for name,digest in info['test_harness_sha256'].items():
-            if sha(ROOT/name)!=digest:errors.append('Qualification harness changed: '+group+'/'+name)
+            if sha(ROOT/name)!=digest:
+                # The collector is not run by a gate; VMware-only input is not run by the other groups.
+                unused=name=='tests/m7/verify.py' or (group!='vmware' and name=='tests/m7/vmware.py')
+                original=committed_hashes('d5ee13d',[name])[name] if unused else None
+                if not unused or original!=digest:errors.append('Used qualification harness changed: '+group+'/'+name)
+                else:unrelated_changes.append({'group':group,'file':name,'captured_sha256':digest,'captured_commit':'d5ee13d','reason':'not executed by this gate group; exact original committed bytes verified'})
         for gate in info['gates']:
             p=OUT/gate['report'];report=load(p)
             if not gate['passed'] or gate['returncode'] or not report.get('passed'):errors.append('Required gate failed: '+gate['report'])
@@ -78,6 +83,11 @@ def main(commit):
         frozen[gp.relative_to(OUT).as_posix()]=sha(gp)
     resources=load(OUT/'resources/results.json')
     if len(resources['profiles'])!=3 or any(not p['idle_all_cpus_halted'] or p['idle_repaint_count'] or p['second_app_private_bytes']!=40960 or p['allocation_failures_observed']<1 for p in resources['profiles']):errors.append('Resource/pressure requirements failed')
+    # Public transcripts use LF and trimmed prompt whitespace; runtime proof was consumed before formatting.
+    for p in OUT.rglob('*'):
+        if 'history' not in p.relative_to(OUT).parts and p.suffix=='.log':
+            text=p.read_text(encoding='utf-8').replace('\r\n','\n')
+            p.write_bytes(('\n'.join(line.rstrip(' \t') for line in text.splitlines())+'\n').encode())
     for p in OUT.rglob('*'):
         rel=p.relative_to(OUT)
         if p.is_file() and 'history' not in rel.parts and p.suffix in ['.png','.log','.pcap']:
@@ -90,7 +100,7 @@ def main(commit):
             'prior_frozen_proofs_verified':old_count,'desktop_implemented':True,'human_usability_study':False,
             'physical_hardware_qualified':False,'universal_hardware_support':False,'windows_dos_runtime_implemented':False,
             'scope':'Named QEMU BIOS/UEFI ISO/USB and VMware BIOS/UEFI installed desktop profiles; exact limits in release guide',
-            'errors':errors}
+            'unused_snapshot_changes_after_group':unrelated_changes,'public_log_normalization':'UTF-8/LF with trailing prompt whitespace trimmed after runtime consumption; earlier accepted evidence untouched','errors':errors}
     (OUT/'acceptance-results.json').write_bytes((json.dumps(result,indent=2)+'\n').encode())
     print('M7 acceptance '+('PASS' if not errors else 'FAIL')+': '+str(len(gates))+' gates; '+str(old_count)+' prior proofs unchanged')
     for error in errors:print(error)

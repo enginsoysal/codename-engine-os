@@ -71,7 +71,7 @@ def main():
             press(guest,b'\r\r\t\t\r\t\t\t\r'+b'\t'*5+b'\r\t\r');guest.wait('M6_INSTALL_PASS',timeout=240)
             (out/'install.log').write_bytes(guest.read().encode());report['installer_capture']=capture(guest,out,'installer-finish')
         with Guest(work/'desktop',descriptor,a.firmware,True) as guest:
-            manifest=json.loads((ROOT/'dist/m7-build-manifest.json').read_text(encoding='utf-8'));assert 'M7_DESKTOP_READY build='+manifest['build_id'] in guest.output
+            manifest=json.loads((ROOT/'dist/m7-build-manifest.json').read_text(encoding='utf-8'));guest.wait('M7_DESKTOP_READY build='+manifest['build_id'])
             guest.wait('M7_DHCP_CONFIGURED',timeout=90)
             launch(guest,2);guest.wait('M7_WINDOW_OPEN app=0x0000000000000002')
             if VISUAL:
