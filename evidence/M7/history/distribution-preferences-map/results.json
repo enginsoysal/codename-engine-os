@@ -1,0 +1,6 @@
+{
+  "passed": false,
+  "m7_complete": false,
+  "checks": [],
+  "error": "Traceback (most recent call last):\n  File \"<project-root>\\tests\\m7\\distribution.py\", line 43, in main\n    assert preferences(guest)==(0x9caeff,1,0)\nAssertionError\n"
+}

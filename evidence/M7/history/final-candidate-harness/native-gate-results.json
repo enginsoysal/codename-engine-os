@@ -1,0 +1,188 @@
+{
+  "passed": false,
+  "m7_complete": false,
+  "group": "native",
+  "build_id": "696489ac6d1a2b203a6efc39c223dfa3",
+  "iso_sha256": "8383a5d6a9d534ed9b190bcd383850244c85242d23f964c00626d9a075a8606b",
+  "native_source_snapshot_sha256": "c84033aa22843754006b9fc3cfdbe57cabea6a1e369a9d6a5023fccf31df4f28",
+  "test_harness_sha256": {
+    "tests/m7/binary_download.py": "e1858c30b936d1d07777656590391407795193a8745b24916b4c9876d1d47a2c",
+    "tests/m7/clock.py": "108732f55d1c85db46e82e717f794aa8273dfd3b1989e2e39d3dad92e83a1d58",
+    "tests/m7/distribution.py": "e50a4e4450b1f47cd3852257d44e198d80eb4de06b85b576e4dc12301ec90d97",
+    "tests/m7/firmware.py": "a2d079f1dc6ab925f3ac5d222fac1f43d134c8e3807ef4eae4a9d88a790f0978",
+    "tests/m7/http.py": "312650158ed1a8270b6711a8640280ae4fbf7eab294eabdae49b77515f869a75",
+    "tests/m7/https.py": "ec0987481ac1926f7df8455c7a6fc2f79e71f1244121b78cf4a4eb13b473df40",
+    "tests/m7/https_negative.py": "f3caa84c6e43c8851fb9e598afe5b16ca5337ba06531dc7556482603de2a7913",
+    "tests/m7/isolation.py": "41531f68a678cd38736757fe9d1e53a176ce5e6e0963c880a5a75a5d2cfe745b",
+    "tests/m7/maintenance.py": "e7cd040e0f2c48ede49faf5454c2fe2a830468c352320601f94e9d5fa9fd2ab8",
+    "tests/m7/media.py": "9be02c1f63351beab395074f91cf3def878ef96a95c5764517e355a486f89388",
+    "tests/m7/network.py": "694d313b272c55097ff8d2b442d818d9c29a692fd6c9f29373d555694b53582b",
+    "tests/m7/profiles.py": "ba7496d48433612d076ce9d3c1d83a9218f1f26247822613cbef728a0e23446c",
+    "tests/m7/qualify.py": "9dc5f106912f8001344d90c81f8273310a5532a2f1b7e822c91a1baaed493a2d",
+    "tests/m7/resources.py": "0570c469c3403844179fa36646804dae33f9a5f085ff15cea45669e60863a953",
+    "tests/m7/rfb.py": "fba81d95c1deb59e83b0aa63fab72bdc60f6a9fdf6c9ce27a89d2f9ae879541f",
+    "tests/m7/session.py": "ed000ae63502357589fef1047a44fef01cd956a399da1c91d89b903d6a9aecb1",
+    "tests/m7/stream.py": "da8e4d78caf235b6d3564f39ffe63d710c4ce499009e4b25eedf7eae106075ac",
+    "tests/m7/tcp.py": "5c98c0e2dfc2d14f38fd6826c4bf9c1b3d0ddd9d6b7b74289338ef75b6b0874e",
+    "tests/m7/tls.py": "c0f097775c06c5c6becc88ce0681827cc0cc788f5086d6046b459f8c7b32d17a",
+    "tests/m7/usability.py": "e48a437fa3761726f7a4a31bff11bd72d861fb5c8ad8309bf7fdf863783fbbc9",
+    "tests/m7/vmware.py": "b042b4b1e115c0e0fba36705ba1831573346a38bbc6619a970ba625c86a66f4c",
+    "tests/m7/windows.py": "df9efb40608c5efe352f660af77bc0e9edadd5a6ee5d915b82d0b2efc8eb79bf",
+    "tests/m7/wire.py": "6dd8da49b8a96bc65b8c06ba6a42367b3835c66d13084a72ff7627986a0384a8",
+    "tests/m7/fixtures/download-7zip.json": "a85780ee1803dbb8577ac5f6b83d05281bca4f87565e2ab6fdb7022514d05850",
+    "tests/m6/vm.py": "b64028714cead48f38d6112aefbd36472be0985ea6eace04e05fcc0d1d1e7596",
+    "tests/m6/guided.py": "24ef327bdf9c60e42ba7b3ce5bd20f0101c9f8626233947a9ca971516953945b",
+    "tests/m6/workspace.py": "b2e5cf4d8a3834713831686088297a0483a66618a99abd19038f90059bf67d59",
+    "tests/m6/volume.py": "dfd933c854c2c5b57933ea88cc25c93b4e55b6ab13c8e196ab0a689af490a406",
+    "tests/m6/vmware.py": "c1e610cd5a8c9116f41103c09aa8ee91ddf652849371f43093460cd6c4b689d0",
+    "tools/vm/config.py": "0094d23e73a25b97ebca4633c7b3fd82b2b7b89286f87e58aa12336f701455fa",
+    "tools/toolchain-lock.json": "211012fe7407068ee2cde76af21fbf6a13ff5c513fd6b0d18ddb318e03a8f907",
+    "tools/security-toolchain.json": "e4bc4ba9c293c84f32490ed9d56e8ec89f05af3a43a8988e10b2beebb0d302c2"
+  },
+  "gates": [
+    {
+      "test": "usability",
+      "arguments": [],
+      "report": "usability/results.json",
+      "passed": false,
+      "returncode": 1,
+      "report_sha256": "8c512cf130011f18a207c71a07afe6009296dccb43d57ac589822132ce0c490a",
+      "log": "gate-logs/usability.log"
+    },
+    {
+      "test": "resources",
+      "arguments": [],
+      "report": "resources/results.json",
+      "passed": true,
+      "returncode": 0,
+      "report_sha256": "1ef85e0a77c92f820d32ff0080d791afaf565b3b8dfa5f8561e79a31d27c311a",
+      "log": "gate-logs/resources.log"
+    },
+    {
+      "test": "isolation",
+      "arguments": [],
+      "report": "isolation/results.json",
+      "passed": false,
+      "returncode": 1,
+      "report_sha256": "8887a050d664ae217cbeed340f91811fe34db16064bb4f34254db493a35a9925",
+      "log": "gate-logs/isolation.log"
+    },
+    {
+      "test": "session",
+      "arguments": [],
+      "report": "session/results.json",
+      "passed": true,
+      "returncode": 0,
+      "report_sha256": "01313ecd0d49e7ebbb1f0cdcc27e9aa4a951c2d7ac308792678a56d0ddd9c5e9",
+      "log": "gate-logs/session.log"
+    },
+    {
+      "test": "network",
+      "arguments": [
+        "--nic",
+        "e1000"
+      ],
+      "report": "network/results.json",
+      "passed": true,
+      "returncode": 0,
+      "report_sha256": "3daf2085eb43c1f2271d2bdd71b21204cc4749df7061b678faaa607af793296e",
+      "log": "gate-logs/network-nic-e1000.log"
+    },
+    {
+      "test": "network",
+      "arguments": [
+        "--nic",
+        "e1000e"
+      ],
+      "report": "network-e1000e/results.json",
+      "passed": true,
+      "returncode": 0,
+      "report_sha256": "a342737bec4ff7420f5c625b7425b156b55f879092c492e8181c19162e7b54b6",
+      "log": "gate-logs/network-nic-e1000e.log"
+    },
+    {
+      "test": "https",
+      "arguments": [],
+      "report": "https/results.json",
+      "passed": true,
+      "returncode": 0,
+      "report_sha256": "8b57b09bd01fb490d01b468de6e6392eb6782e2b9c44b02a75bd505dd1e16ddc",
+      "log": "gate-logs/https.log"
+    },
+    {
+      "test": "https_negative",
+      "arguments": [],
+      "report": "https-negative/results.json",
+      "passed": false,
+      "returncode": 1,
+      "report_sha256": "d841ac2283bacea5e5ba7698d7c115638a5ea15b219dba01b57d5cbe81bea704",
+      "log": "gate-logs/https_negative.log"
+    },
+    {
+      "test": "binary_download",
+      "arguments": [],
+      "report": "binary-download/results.json",
+      "passed": true,
+      "returncode": 0,
+      "report_sha256": "73ec1de0101f465a8919e056eeefb76e0b97160265379e543ab031995dcff217",
+      "log": "gate-logs/binary_download.log"
+    },
+    {
+      "test": "firmware",
+      "arguments": [
+        "--firmware",
+        "uefi",
+        "--media",
+        "iso"
+      ],
+      "report": "firmware/uefi-iso/results.json",
+      "passed": true,
+      "returncode": 0,
+      "report_sha256": "72a4d9f8dc1f663bfacf9a2a7e7642c9c18ecc69866da95b2fb0c0df5818cc7a",
+      "log": "gate-logs/firmware-firmware-uefi-media-iso.log"
+    },
+    {
+      "test": "firmware",
+      "arguments": [
+        "--firmware",
+        "bios",
+        "--media",
+        "iso"
+      ],
+      "report": "firmware/bios-iso/results.json",
+      "passed": true,
+      "returncode": 0,
+      "report_sha256": "4e4dcaf4509935add853457ae507680f15b42d9edef87544600dc6d730b578a6",
+      "log": "gate-logs/firmware-firmware-bios-media-iso.log"
+    },
+    {
+      "test": "firmware",
+      "arguments": [
+        "--firmware",
+        "uefi",
+        "--media",
+        "usb"
+      ],
+      "report": "firmware/uefi-usb/results.json",
+      "passed": true,
+      "returncode": 0,
+      "report_sha256": "0123e05ab25edee25205eb003809c59c7402d520536da9bae7a1975ee3fc6820",
+      "log": "gate-logs/firmware-firmware-uefi-media-usb.log"
+    },
+    {
+      "test": "firmware",
+      "arguments": [
+        "--firmware",
+        "bios",
+        "--media",
+        "usb"
+      ],
+      "report": "firmware/bios-usb/results.json",
+      "passed": true,
+      "returncode": 0,
+      "report_sha256": "5335cd879e8ea22272bb6f96602e35bd3400a43863034d91d490a80f63bf8629",
+      "log": "gate-logs/firmware-firmware-bios-media-usb.log"
+    }
+  ],
+  "scope": "host checks are not native proof; this group alone never establishes full M7 acceptance"
+}

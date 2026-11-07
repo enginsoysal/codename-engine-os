@@ -1,6 +1,6 @@
 # Install Engine OS M7 in VMware
 
-Release qualification is in progress. The exact final ISO and checksum will be identified in the [release guide](../releases/m7-v0.7.0.md).
+M7 v0.7.0 is accepted within M7-VM-v1. Use the exact ISO and SHA-256 in the [release guide](../releases/m7-v0.7.0.md).
 
 ## Prepare VMware
 
@@ -50,6 +50,6 @@ Open Downloads with NAT connected. Keep the default HTTPS address and choose Dow
 - Secure download refused: check UTC, RDRAND availability and the displayed error. M7 has no proxy, Wi-Fi, captive-portal or IPv6 setup.
 - Calculator absent: it may have been omitted deliberately. Settings can install it from the offline package cache.
 
-Use the matching ISO for Repair, Update and Rollback. The [M6 recovery mechanism](recovery-m6.md) is retained for M7 system slots; choose the M7 ISO, not an older layout. The M7 maintenance test updates to the separately built Night kernel, rolls back, deliberately damages its own BIOS test payload and repairs it while independently verifying the complete data partition remains unchanged. This does not qualify arbitrary app/data migrations. Earlier M5/M5.1 data layouts are not migrated.
+Use the matching ISO for Repair, Update and Rollback. The [recovery guide](recovery-m7.md) is retained for M7 system slots; choose the M7 ISO, not an older layout. The M7 maintenance test updates to the separately built Night kernel, rolls back, deliberately damages its own BIOS test payload and repairs it while independently verifying the complete data partition remains unchanged. This does not qualify arbitrary app/data migrations. Earlier M5/M5.1 data layouts are not migrated.
 
 Original MS-DOS and Windows applications do not run yet. Their separate compatibility tracks are M8.

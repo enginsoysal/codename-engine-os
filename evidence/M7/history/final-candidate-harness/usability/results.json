@@ -1,0 +1,7 @@
+{
+  "passed": false,
+  "m7_complete": false,
+  "human_usability_study": false,
+  "checks": [],
+  "error": "Traceback (most recent call last):\n  File \"<project-root>\\tests\\m7\\usability.py\", line 104, in main\n    h.key(guest,'esc');assert i.model(guest).count==7\nAssertionError\n"
+}

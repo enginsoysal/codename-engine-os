@@ -1,6 +1,6 @@
 # M7 desktop and native application boundary
 
-Status: implemented desktop/app development slice; a first native HTTPS task passes while complete M7 acceptance remains pending. [Milestone](../milestones/m7.md), [native task evidence](../../evidence/M7/isolation/results.json).
+Status: implemented and accepted within M7-VM-v1. [Exact aggregate acceptance](../../evidence/M7/acceptance-results.json). [Milestone](../milestones/m7.md), [native task evidence](../../evidence/M7/isolation/results.json).
 
 ## Windows and painting
 
@@ -24,7 +24,7 @@ The original COW volume commits the executable namespace change. On restart the 
 
 ## Qualification and identity
 
-Native tests perform useful Editor tasks across detached restarts, Calculator arithmetic, a visible real UD2 crash, an infinite-loop deadline, forbidden kernel/code writes, malformed output, private-page reclamation, required-component refusal, executable removal, clipboard use and offline reinstall. Independent GPT/table/payload CRC checks verify actual files. These app checks do not close M7's remaining networking and resource/pressure matrix.
+Native tests perform useful Editor tasks across detached restarts, Calculator arithmetic, a visible real UD2 crash, an infinite-loop deadline, forbidden kernel/code writes, malformed output, private-page reclamation, required-component refusal, executable removal, clipboard use and offline reinstall. Independent GPT/table/payload CRC checks verify actual files. These app checks form one part of the aggregate networking, resource and platform acceptance.
 
 The live installer contains its installation payload and therefore has different data addresses from the installed kernel. M7 publishes separate installed ELF/map artifacts; debugger/resource tests must use the matching installed map. Using the live map initially produced a false empty-window observation, retained as failed harness evidence. Media identity alone is not a substitute for choosing the correct linked image.
 

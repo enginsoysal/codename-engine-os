@@ -131,3 +131,15 @@ Before physical tests: select an explicit test computer; never use the developme
 **Updates:** keep verified boot bundles in two system slots and redundant activation records. Update/rollback/repair replay verified boot assets from the ISO without formatting data. An interrupted replay may require ISO repair rather than automatic boot fallback. Known failed/torn-write models and actual guest transitions govern claims. [Mechanism, alternatives and limitations](storage-m6.md).
 
 **Customization:** persist the chosen local name/accent, make guide data optional/removable and carry supported distro data into the selected user namespace. Do not label a guide checkbox an executable package manager, or a local profile an authenticated multi-user system.
+
+## M7 native desktop decisions
+
+**Rendering:** use an original eight-slot, generation-bound window model and CPU framebuffer regional repainting. A full backing surface for every window would multiply RAM; damage clipping keeps the initial path bounded. Idle uses interrupts/HLT, without animation polling. GPU acceleration remains separate device work.
+
+**Applications:** install separate original Editor/Calculator ELF programs with private CPL3 address spaces, guarded stacks, checked five-page mailboxes and a timer-bound synchronous event ABI. Share immutable code and reclaim private pages after faults. Fully trusted callbacks were rejected as isolation proof; a general scheduler/third-party service ABI remains beyond this shipped worker model. Trusted UI/network/file services are explicitly identified.
+
+**Files and packages:** broker current-directory creation, validated Save as and safe explicit deletion; protect changed/open files and nonempty folders. Optional Calculator owns no shared system dependency and can be truly removed, with an explicit retained offline cache. Arbitrary hooks/dependency migration are not implied. Schema-2 profiles change actual installed defaults and optional selection; a separately booted Night image proves the behavior.
+
+**Networking/security:** original bounded Intel 8254x/82574 DMA, IPv4 configuration and TCP/HTTP integrate a nonblocking unchanged BearSSL TLS 1.2 engine. RDRAND and explicit UTC/root/hostname checks fail closed. MSI is the qualified VMware route; unsupported legacy routing is refused. Bounded retries and a 4-KiB COW volume stage trade throughput for predictable RAM; no whole-file managed download buffer is needed. Public third-party licenses/source remain available alongside binary releases.
+
+**Qualification:** exact committed source and media digests, automated complete native tasks and independent disk/packet/cryptographic adapters distinguish implementation from claims. VMware visual input/capture targets only owned loopback guests, never the host desktop. All 26 final gates pass, and 146 old accepted proofs remain unchanged. Named VM scope is deliberate; universal hardware, human usability and original DOS/Windows execution require their own evidence.

@@ -4,7 +4,7 @@ Approved target architecture. [M4](../milestones/m4-contract.md) implements a bo
 
 ## M6 native implementation
 
-M6 replaces the internal demonstration volume with a capacity-aware native extent volume, while retaining earlier filesystem readers separately. Its actual system bundles, data layout, update/recovery mechanism and explicit limits are documented in [M6 storage](storage-m6.md). The root tree below remains the target namespace: current M6 creates the base categories, selected user folders and system settings; generalized version mount views, guest path/ACL adapters and untrusted app-file services remain future work.
+M6 replaces the internal demonstration volume with a capacity-aware native extent volume, while retaining earlier filesystem readers separately. Its actual system bundles, data layout, update/recovery mechanism and explicit limits are documented in [M6 storage](storage-m6.md). The root tree below remains the target namespace: current M6/M7 creates the base categories, selected user folders and system settings; generalized version mount views, guest path/ACL adapters and untrusted app-file services remain future work.
 
 ## Native root
 

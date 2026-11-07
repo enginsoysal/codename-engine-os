@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "m7_complete": false,
+  "human_usability_study": false,
+  "checks": [
+    "Save as chooses a real persistent filename and refuses an existing name",
+    "dirty close defaults to keeping text",
+    "GUI deletion refuses an open document and asks with safe cancel",
+    "new folders/text use the currently displayed folder",
+    "advanced terminal is a native window with real bounded file commands and protected core removal",
+    "confirmed deletion removes only the selected file and refuses nonempty folders",
+    "eight-window quota gives a visible explanation, then closing one permits another app",
+    "named/nested/terminal files and exact core bytes survive detached restart"
+  ],
+  "build_id": "d2c55268cc978efc04f371aab52bb3ae",
+  "iso_sha256": "58aa32971b47c820d53b0e2b6525bb86cd04939311cc6a9ad922b10fa701d98b"
+}

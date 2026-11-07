@@ -1,5 +1,9 @@
 # Changelog
 
+## M7 v0.7.0 — 2026-11-07
+
+Real installed desktop with movable/resizable windows, keyboard controls, Files, named Editor documents, clipboard, persistent Settings, independently removable native Calculator and optional Advanced Terminal. Separate CPL3 programs contain faults/timeouts. Original Intel e1000/e1000e DHCP/DNS/TCP/HTTP plus checked TLS 1.2 downloads stream to native storage. Custom Night distro, memory-pressure/idle tasks, native BIOS/UEFI ISO/USB and real VMware BIOS/UEFI desktop/download/restart pass within M7-VM-v1. [Release and limits](m7-v0.7.0.md), [VMware tutorial](../handbook/install-m7.md), [exact acceptance](../../evidence/M7/acceptance-results.json). Original DOS/Windows application execution remains M8.
+
 ## M6 v0.6.0 — 2026-11-06
 
 Native graphical Back/Next/Finish installation with retained disk/component/local-name/accent choices, verified copy progress and independent BIOS/UEFI installed boot. Capacity-aware GPT layout, original streaming copy-on-write data volume, persistent settings and independent optional guide removal. Distinct-build update, rollback and ISO-assisted repair preserve data in tested error paths. USB/PS/2 input, custom Minimal distro, low-RAM/idle checks and named QEMU/VMware qualification. [Release notes](m6-v0.6.0.md), [installation](../handbook/install-m6.md), [recovery](../handbook/recovery-m6.md), [exact evidence](../../evidence/M6/acceptance-results.json). Desktop/networking and MS-DOS/Windows application runtimes remain M7/M8.

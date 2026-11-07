@@ -1,0 +1,12 @@
+{
+  "passed": false,
+  "m7_complete": false,
+  "firmware": "bios",
+  "checks": [],
+  "installer_capture": {
+    "passed": true,
+    "scope": "authenticated loopback framebuffer capture of this owned headless VM only"
+  },
+  "error": "Traceback (most recent call last):\n  File \"<project-root>\\tests\\m7\\vmware.py\", line 74, in main\n    manifest=json.loads((ROOT/'dist/m7-build-manifest.json').read_text(encoding='utf-8'));assert 'M7_DESKTOP_READY build='+manifest['build_id'] in guest.output\nAssertionError\n",
+  "existing_vm_inventory_unchanged": true
+}

@@ -1,0 +1,11 @@
+{
+  "passed": false,
+  "m7_complete": false,
+  "checks": [
+    {
+      "name": "separate Calculator ELF executes arithmetic in CPL3, actual UD2 is contained, private space is reaped and a separate Editor still saves useful text",
+      "passed": true
+    }
+  ],
+  "error": "Traceback (most recent call last):\n  File \"<project-root>\\tests\\m7\\isolation.py\", line 95, in main\n    _,bounds=window(guest,6)\n  File \"<project-root>\\tests\\m7\\isolation.py\", line 46, in window\n    raise AssertionError('Expected native window missing: '+str(kind)+'; count='+str(state.count)+'; order='+str(list(state.order))+'; windows='+str([(v.app,v.live,v.minimized) for v in state.windows]))\nAssertionError: Expected native window missing: 6; count=4; order=[0, 1, 2, 3, 0, 0, 0, 0]; windows=[(1, 1, 0), (4, 1, 0), (2, 1, 0), (7, 1, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0)]\n"
+}

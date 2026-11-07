@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "m7_complete": false,
+  "firmware": "bios",
+  "checks": [
+    "real 20-GiB installation and detached native desktop with editor save, settings, optional executable removal/reinstall and certificate-checked HTTPS over VMware e1000e NAT",
+    "second detached VMware boot retains exact independently CRC-checked document and downloaded bytes"
+  ],
+  "installer_capture": {
+    "passed": true,
+    "scope": "authenticated loopback framebuffer capture of this owned headless VM only"
+  },
+  "desktop_capture": {
+    "passed": true,
+    "scope": "authenticated loopback framebuffer capture of this owned headless VM only"
+  },
+  "download_capture": {
+    "passed": true,
+    "scope": "authenticated loopback framebuffer capture of this owned headless VM only"
+  },
+  "restart_capture": {
+    "passed": true,
+    "scope": "authenticated loopback framebuffer capture of this owned headless VM only"
+  },
+  "build_id": "d2c55268cc978efc04f371aab52bb3ae",
+  "iso_sha256": "58aa32971b47c820d53b0e2b6525bb86cd04939311cc6a9ad922b10fa701d98b",
+  "disk_gib": 20,
+  "vmware": {
+    "version": "26.0.1",
+    "build": "25688693"
+  },
+  "input_scope": "owned loopback RFB framebuffer/virtual PS2 editor typing and save; navigation via COM1; no host desktop automation",
+  "existing_vm_inventory_unchanged": true
+}

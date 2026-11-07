@@ -11,8 +11,10 @@
       "passed": true
     }
   ],
-  "build_id": "b94e8c0453109238a694f74a9ab34b0c",
-  "iso_sha256": "bf04fa35c791af812e06df015b7091951b43f1bd154527e87c37b138b3084b3c",
+  "nic": "e1000",
+  "cpu_profile": "max,x2apic=off; RDRAND exposed",
+  "build_id": "d2c55268cc978efc04f371aab52bb3ae",
+  "iso_sha256": "58aa32971b47c820d53b0e2b6525bb86cd04939311cc6a9ad922b10fa701d98b",
   "packet_capture": {
     "frames": 16,
     "dhcp_message_types": [

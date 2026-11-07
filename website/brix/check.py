@@ -56,15 +56,19 @@ def get(route):
         return page
 
 
-def verify(payload):
+def verify(payload, homepage_release="M7"):
     ref = payload["source_commit"]
     home = get("/")
-    for text in ["From first boot.", "To what comes next.", "PROJECT SNAPSHOT / X86-64", "Run it in VMware", "Build your own distro.", "Repair and update", "Before you install M6"]:
+    for text in ["From first boot.", "To what comes next.", "PROJECT SNAPSHOT / X86-64", "Run it in VMware", "Build your own distro.", "Repair and update", "Before you install "+homepage_release]:
         assert text in home.text, f"Missing preferred native design: {text}"
     for fiction in ["Driftlab", "Northwind", "Book now", "Tidemark"]:
         assert fiction not in home.text, f"Template fiction remains: {fiction}"
-    for slug in ["docs-handbook-install-m6", "docs-handbook-distributions", "docs-handbook-recovery-m6"]:
+    for slug in ["docs-handbook-install-"+homepage_release.lower(), "docs-handbook-distributions", "docs-handbook-recovery-"+homepage_release.lower()]:
         assert f"{ORIGIN}/blog/{slug}" in home.links, f"Stale homepage guide: {slug}"
+    m7 = json.loads((ROOT / "evidence/M7/acceptance-results.json").read_text(encoding="utf-8"))
+    assert m7["passed"] and m7["scope_id"] == "M7-VM-v1"
+    for relative, digest in m7["evidence_sha256"].items():
+        assert hashlib.sha256((ROOT / "evidence/M7" / relative).read_bytes()).hexdigest() == digest, relative
     m6 = json.loads((ROOT / "evidence/M6/acceptance-results.json").read_text(encoding="utf-8"))
     assert m6["passed"] and m6["scope_id"] == "M6-VM-v1"
     for relative, digest in m6["evidence_sha256"].items():
@@ -88,6 +92,7 @@ def verify(payload):
             expected = f"https://github.com/enginsoysal/codename-engine-os/blob/{ref}/{marker}"
             assert expected in page.links, f"Wrong source commit: {route}"
         if post["slug"] == "downloads":
+            assert m7["iso_sha256"] in page.text, "Current M7 ISO checksum is not visible"
             assert m6["iso_sha256"] in page.text, "Current M6 ISO checksum is not visible"
             assert ISO_SHA in page.text, "Final ISO checksum is not visible"
             assert m51["iso_sha256"] in page.text, "Current M5.1 ISO checksum is not visible"
@@ -110,7 +115,7 @@ def verify(payload):
     for relative, digest in acceptance["evidence_sha256"].items():
         assert hashlib.sha256((ROOT / "evidence/M4.5" / relative).read_bytes()).hexdigest() == digest, relative
     return {"passed": True, "checked_at": datetime.now(timezone.utc).isoformat(), "website": ORIGIN,
-            "native_articles": len(articles), "article_source_commit": ref, "english_html_language": True,
+            "native_articles": len(articles), "homepage_release": homepage_release, "homepage_update_pending": homepage_release != "M7", "m7_scope": m7["scope_id"], "m7_iso_sha256": m7["iso_sha256"], "article_source_commit": ref, "english_html_language": True,
             "external_website_iframes": 0, "anonymous_https": True, "preferred_homepage_design": True,
             "m45_scope": "M45-VM-v1", "frozen_evidence_hashes_verified": len(acceptance["evidence_sha256"]),
             "m6_scope": m6["scope_id"], "m6_iso_sha256": m6["iso_sha256"], "m6_evidence_hashes_verified": len(m6["evidence_sha256"]),
@@ -125,8 +130,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--payload", type=Path, default=ROOT / "build/brix/site-content.json")
     parser.add_argument("--output", type=Path, default=ROOT / "evidence/documentation/native-brix-results.json")
+    parser.add_argument("--homepage-release", choices=["M6", "M7"], default="M7", help="Explicitly record a historical homepage while verifying current articles")
     args = parser.parse_args()
-    result = verify(json.loads(args.payload.read_text(encoding="utf-8")))
+    result = verify(json.loads(args.payload.read_text(encoding="utf-8")), args.homepage_release)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_bytes((json.dumps(result, indent=2) + "\n").encode("utf-8"))
     print(f"Native BrixCanvas PASS: {result['native_articles']} public English articles; preferred design; all M4.5 evidence unchanged")

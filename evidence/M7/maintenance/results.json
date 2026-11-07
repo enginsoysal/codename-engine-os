@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "m7_complete": false,
+  "checks": [
+    "desktop creates exact persistent document and personal preferences",
+    "distinct original kernel build updates inactive slot and enters its desktop",
+    "entire data partition and app bytes preserved through update and reboot",
+    "rollback restores original build",
+    "deliberately corrupted BIOS payload refuses boot",
+    "ISO repair restores detached BIOS desktop without changing any data-partition bytes"
+  ],
+  "build_id": "d2c55268cc978efc04f371aab52bb3ae",
+  "update_build_id": "b7573bd4c2c21284a8a759f69029691f",
+  "iso_sha256": "58aa32971b47c820d53b0e2b6525bb86cd04939311cc6a9ad922b10fa701d98b",
+  "data_partition_sha256": "cbe1206d512927c518840c6141964568290927ad3c5bcea01075119ca218f00c",
+  "scope": "native verified boot-slot update/rollback/repair between identical app ABIs; no arbitrary package/data migration claim"
+}

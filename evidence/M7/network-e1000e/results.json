@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "m7_complete": false,
+  "checks": [
+    {
+      "name": "actual native e1000 DMA/IRQ path performs DHCP discovery/offer/request/ack and real DNS through QEMU user networking",
+      "passed": true
+    },
+    {
+      "name": "actual link loss/recovery renews configuration and DNS; completed work disables its timer, idle CPUs halt and painting stops",
+      "passed": true
+    }
+  ],
+  "nic": "e1000e",
+  "cpu_profile": "max,x2apic=off; RDRAND exposed",
+  "build_id": "d2c55268cc978efc04f371aab52bb3ae",
+  "iso_sha256": "58aa32971b47c820d53b0e2b6525bb86cd04939311cc6a9ad922b10fa701d98b",
+  "packet_capture": {
+    "frames": 16,
+    "dhcp_message_types": [
+      1,
+      2,
+      3,
+      5,
+      1,
+      2,
+      3,
+      5
+    ],
+    "arp_frames": 4,
+    "dns_queries": 2,
+    "dns_responses": 2
+  },
+  "https_qualified": false,
+  "scope": "native Ethernet/DHCP/ARP/DNS slice only; TCP/HTTPS and full M7 remain pending"
+}

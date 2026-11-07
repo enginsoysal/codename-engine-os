@@ -1,0 +1,8 @@
+{
+  "passed": false,
+  "m7_complete": false,
+  "firmware": "efi",
+  "checks": [],
+  "error": "Traceback (most recent call last):\n  File \"<project-root>\\tests\\m7\\vmware.py\", line 62, in main\n    with Guest(work/'install',descriptor,a.firmware) as guest:\n  File \"<project-root>\\tests\\m6\\vmware.py\", line 23, in __enter__\n    if r.returncode:raise RuntimeError('Owned VMware start failed: '+(r.stdout+r.stderr).replace(str(ROOT),'<project-root>'))\nRuntimeError: Owned VMware start failed: Error: Unknown error\n\n",
+  "existing_vm_inventory_unchanged": true
+}

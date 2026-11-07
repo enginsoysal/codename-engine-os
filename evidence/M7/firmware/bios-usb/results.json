@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "m7_complete": false,
+  "firmware": "bios",
+  "media": "usb",
+  "checks": [
+    "exact live medium boots own native wizard",
+    "actual guided blank-target installation",
+    "media-detached native desktop enters CPL3 editor through keyboard controls and saves exact bytes",
+    "second detached desktop boot retains independently CRC-checked document",
+    "idle CPUs halt"
+  ],
+  "build_id": "d2c55268cc978efc04f371aab52bb3ae",
+  "iso_sha256": "58aa32971b47c820d53b0e2b6525bb86cd04939311cc6a9ad922b10fa701d98b",
+  "usb_sha256": "d14dba3e1d2594756c9b16e6a314e02c72d80ca0af49f420552fcdef82db53cd",
+  "input": "PS/2",
+  "scope": "named native firmware/media/input and persisted desktop task; complete M7 acceptance is separate"
+}

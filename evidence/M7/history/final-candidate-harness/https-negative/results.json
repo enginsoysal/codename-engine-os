@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "m7_complete": false,
+  "cases": [
+    {
+      "scenario": "expired",
+      "passed": true,
+      "tls_error": 54
+    },
+    {
+      "scenario": "wrong-hostname",
+      "passed": true,
+      "tls_error": 56
+    }
+  ],
+  "error": "Traceback (most recent call last):\n  File \"<project-root>\\tests\\m7\\https_negative.py\", line 69, in main\n    h.shot(guest,out,label);assert actual==error,(label,actual,error)\nAssertionError: ('untrusted', 1004, 62)\n"
+}

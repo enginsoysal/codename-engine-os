@@ -1,0 +1,7 @@
+{
+  "passed": false,
+  "m7_complete": false,
+  "human_usability_study": false,
+  "checks": [],
+  "error": "Traceback (most recent call last):\n  File \"<project-root>\\tests\\m7\\usability.py\", line 75, in main\n    current,_=app(guest,7);assert b'my project update' in current.view.text and b'Remove status: 7' in current.view.text\nAssertionError\n"
+}

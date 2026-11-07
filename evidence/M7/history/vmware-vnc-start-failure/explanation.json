@@ -1,0 +1,7 @@
+{
+  "scope": "owned VM test infrastructure failure before Engine OS boot",
+  "initial_hypothesis": "The optional display was suspected because VMware crashed after initializing VNC.",
+  "confirmed_followup": "The same startup crash occurred with VNC disabled. The owned hypervisor log explicitly reported no PCIe slot available for Ethernet0 and failure to register e1000e. The minimal hand-written fixture lacked a PCIe root port.",
+  "correction": "Add a standard PCIe root port to the owned VM profile before testing the PCIe adapter. No Engine OS boot success or VNC runtime success is claimed by these failed attempts.",
+  "existing_user_vms_unchanged": true
+}

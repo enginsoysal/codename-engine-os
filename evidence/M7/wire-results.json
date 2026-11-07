@@ -3,8 +3,8 @@
   "m7_complete": false,
   "native_network_qualified": false,
   "scope": "actual C parser host execution and freestanding compile only; no NIC/DHCP/TCP/TLS runtime claim",
-  "source_sha256": "49cd65631170a064a198d799cfbc187575cbccacbbf6dbd434ff2fcce2c3bb20",
-  "header_sha256": "9b170ca755d4f0048182acb333d7f0a801c402d19045b9f51a75650289b7af5b",
+  "source_sha256": "a35943d656964e18521f591d4c6e15d6786961e933da834bd2221a89d23427dd",
+  "header_sha256": "a585bdc82964844466d104c48729a3ab9e8a20cd7dfff9b8cff0871ab29b2460",
   "checks": [
     {
       "name": "independent IPv4/UDP/TCP checksums, real fields/payload, truncations and corrupted transport rejection",

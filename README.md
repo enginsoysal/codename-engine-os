@@ -2,15 +2,19 @@
 
 An independent, MIT-licensed operating system with its own UEFI loader, kernel and native user runtime. MS-DOS and Windows 1.x–11 application compatibility is a long-term requirement, followed by Linux/macOS execution environments and ARM64. Those compatibility layers are not implemented yet.
 
-**Current completed milestone: M6 — native graphical installation within M6-VM-v1.** [Scope](docs/milestones/m6.md), [acceptance](evidence/M6/acceptance-results.json), [current status](docs/roadmap/status.md). Physical hardware and factory Secure Boot remain unqualified.
+**Current completed milestone: M7 — real installed desktop within M7-VM-v1.** [Scope](docs/milestones/m7.md), [acceptance](evidence/M7/acceptance-results.json), [current status](docs/roadmap/status.md). Physical hardware and factory Secure Boot remain unqualified.
 
 The historical [M5 release](https://github.com/enginsoysal/codename-engine-os/releases/tag/m5-v0.5.0) provides BIOS/UEFI live media, a native text installer for a new SATA disk, media-detached installed boot, persistent native files and same-build boot recovery. There is no desktop, network stack or existing Windows app compatibility yet. That historical native data partition is 16 MiB with 48-KiB files; other disk capacity remains unallocated.
 
 ## Next product milestones
 
-**M6: real installation → M7: real desktop → M8: MS-DOS and Windows 1.x–11 applications.** M6 delivers a native graphical wizard, capacity-aware data volume, persistent local setup and tested ISO-assisted update, rollback and repair. M7 is in progress; M8 is not started. [Desktop implementation status](docs/milestones/m7.md). [M6 implementation status](docs/milestones/m6.md). Existing technical acceptance remains historical; M5.1 does not satisfy the new complete product installation/desktop requirements. [Acceptance gates and choices](docs/roadmap/milestones.md) · [Current status](docs/roadmap/status.md). The product name remains **Engine OS**.
+**M6: real installation → M7: real desktop → M8: MS-DOS and Windows 1.x–11 applications.** M6 delivers a native graphical wizard, capacity-aware data volume, persistent local setup and tested ISO-assisted update, rollback and repair. M7 is complete within M7-VM-v1; M8 is not started. [Desktop implementation status](docs/milestones/m7.md). [M6 implementation status](docs/milestones/m6.md). Existing technical acceptance remains historical; M5.1 does not satisfy the new complete product installation/desktop requirements. [Acceptance gates and choices](docs/roadmap/milestones.md) · [Current status](docs/roadmap/status.md). The product name remains **Engine OS**.
 
-## Install M6
+## Install M7
+
+[Download the M7 ISO](https://github.com/enginsoysal/codename-engine-os/releases/download/m7-v0.7.0/EngineOS-M7.iso) · [VMware tutorial](docs/handbook/install-m7.md) · [Desktop controls](docs/handbook/desktop-m7.md) · [Release/checksum](docs/releases/m7-v0.7.0.md). Follow the native wizard on a new SATA disk, power off, detach the ISO and boot into the real desktop. Use two CPUs, 128 MiB, Secure Boot off and e1000e NAT for downloads. Files, Editor, Settings, optional Calculator and HTTPS downloads work without terminal commands. Original DOS/Windows application execution remains M8.
+
+## Historical M6 installation
 
 [Native installation handbook](docs/handbook/install-m6.md) · [Implementation and qualification](docs/milestones/m6.md) · [Storage/recovery design](docs/architecture/storage-m6.md). The native implementation follows the accepted wizard design; it is not the HTML preview. [Download the M6 ISO](https://github.com/enginsoysal/codename-engine-os/releases/download/m6-v0.6.0/EngineOS-M6.iso). Create a new SATA disk of at least 2 GiB, use two CPUs and 128 MiB RAM, disable Secure Boot, then follow Next, review and Install. After Finish, power off, detach the ISO and boot the installed disk. No manual partition commands are required.
 

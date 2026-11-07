@@ -1,0 +1,3 @@
+# Candidate harness corrections
+
+The first final sweep retained two stale input assumptions: the mouse coordinate for System details selected the newly added Terminal, and a rejected launch left Start open so Escape closed the menu rather than a window. The certificate suite also observed a real TCP timeout before receiving the untrusted certificate. Native code is unchanged by these test corrections. The corrected harness uses keyboard controls, closes the menu before closing the focused window, and records bounded retries for transport timeouts only; a certificate error must still match exactly.

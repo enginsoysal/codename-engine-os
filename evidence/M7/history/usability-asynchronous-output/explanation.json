@@ -1,0 +1,4 @@
+{
+  "cause": "The test inspected the terminal view before the final typed character/Enter/output had been consumed. The retained serial log ends at the unfinished cat command. Earlier named-file, nested-file, terminal write and protected removal checks had completed.",
+  "correction": "Acknowledge each native input prefix and wait for the actual cat output before inspecting the terminal view; retain this failed harness result."
+}

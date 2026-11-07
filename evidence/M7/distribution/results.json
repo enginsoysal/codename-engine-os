@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "m7_complete": false,
+  "checks": [
+    "actual schema-2 custom ISO installs and boots detached",
+    "native dark/lavender/plum desktop and independently inspected missing optional executable",
+    "editor saves real bytes without Calculator",
+    "offline optional executable install and persistent settings",
+    "detached restart retains selected appearance, app and exact document"
+  ],
+  "custom_build_id": "b7573bd4c2c21284a8a759f69029691f",
+  "iso_sha256": "68364fd88d5b49e798eee4205dfe45cb7e81c7f362803f0f0c4dfd88fbd29ae1",
+  "base_build_id": "d2c55268cc978efc04f371aab52bb3ae",
+  "scope": "separate native custom distro installation/defaults/app omission/reinstall and restart persistence; complete M7 acceptance is separate"
+}

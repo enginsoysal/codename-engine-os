@@ -1,6 +1,6 @@
 # M7 native networking
 
-Status: the native Ethernet, TCP/TLS/HTTP and streaming download path is implemented. Final exact-artifact M7 qualification is in progress; historical implementation slices below remain identified.
+Status: the native Ethernet, TCP/TLS/HTTP and streaming download path is implemented. Final exact-artifact M7 qualification passes within M7-VM-v1; historical implementation slices below remain identified.
 
 ## Driver and scheduling
 
@@ -36,7 +36,7 @@ The volume bridge stages at most 4 KiB and reserves an unreferenced contiguous e
 
 ## First native HTTPS task
 
-The installed QEMU guest now completes actual DHCP, DNS, TCP and certificate/UTC-checked TLS 1.2, downloads the public Engine OS MIT license from `raw.githubusercontent.com`, and commits its exact 1,069 bytes to the native volume. An independent reader checks GPT, metadata/payload CRC and byte equality with the public license; a detached restart retains the file. The completed session stops repainting and both CPUs halt. [Exact positive-task evidence](../../evidence/M7/https/results.json) binds the build and ISO digest. This first positive task is not the negative-security, larger-file, VMware, resource-pressure or full M7 release matrix.
+The installed QEMU guest now completes actual DHCP, DNS, TCP and certificate/UTC-checked TLS 1.2, downloads the public Engine OS MIT license from `raw.githubusercontent.com`, and commits its exact 1,069 bytes to the native volume. An independent reader checks GPT, metadata/payload CRC and byte equality with the public license; a detached restart retains the file. The completed session stops repainting and both CPUs halt. [Exact positive-task evidence](../../evidence/M7/https/results.json) binds the build and ISO digest. Separate negative-security, larger-file, VMware and resource-pressure gates also pass in the aggregate acceptance.
 
 ## Native negative cases and VMware routing
 
