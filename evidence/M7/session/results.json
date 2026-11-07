@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "m7_complete": false,
+  "checks": [
+    {
+      "name": "native wizard installs M7, detached desktop opens real editor, keyboard edits and saves exact document bytes; mouse moves/resizes and CPUs halt",
+      "passed": true
+    },
+    {
+      "name": "media-detached restart opens saved document through native Files; independent CRC/data inspection confirms persistence",
+      "passed": true
+    }
+  ],
+  "build_id": "02cb256f9321315403b16fb144cdd947",
+  "iso_sha256": "3631315096e6a911eec42336027d778f8af2acb2e0802a8e1acab1a0408d1c86",
+  "scope": "initial trusted native desktop slice; app isolation, networking and complete M7 qualification remain pending"
+}

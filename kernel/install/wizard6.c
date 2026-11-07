@@ -1,3 +1,6 @@
+#ifdef ENGINE_M7
+#include <engine/desktop/session.h>
+#endif
 #include <engine/install/m6.h>
 #include "build.h"
 #include "distro.h"
@@ -62,6 +65,9 @@ static void action(unsigned a){
 }
 NORETURN void m6_start(const os_boot_info_v0*boot){screen=boot;left=20;top=20;width=boot->framebuffer_width>1200?1160:boot->framebuffer_width-40;height=boot->framebuffer_height>740?700:boot->framebuffer_height-40;body=left+220;bottom=top+height-70;serial_text("M6_STORAGE_BEGIN\n");usb_mouse_limits(boot->framebuffer_width,boot->framebuffer_height);(void)block_init();(void)nvme_discover();(void)ide_discover();(void)virtio_discover();(void)usb_init();input_init();
  if(!m6_live()){unsigned s=m6_open();if(s)failure="Installed data volume could not be opened. Boot the ISO for recovery.";else{installed=1;if(m6_settings(&preferences))failure="Saved user settings failed integrity validation.";else accent=preferences.accent;}}
+#ifdef ENGINE_M7
+ if(installed&&!failure)desktop_start(boot,&preferences);
+#endif
  render();serial_text("M6_WIZARD_READY\n");unsigned last_buttons=0;
  for(;;){__asm__ volatile("cli");if(usb_work_pending()){usb_process_changes();continue;}int key=input_pop();if(key<0){__asm__ volatile("sti; hlt":::"memory");continue;}__asm__ volatile("sti");
  if(terminal){if(key==256){unsigned x,y,b;usb_mouse_state(&x,&y,&b);usb_mouse_draw();continue;}if(key==8&&command_length){--command_length;console_text("\b");}else if(key==10){console_text("\n");terminal_command();}else if(key>=32&&key<=126){if(command_length<sizeof(command)-1&&!command_overflow){command[command_length++]=(char)key;char echo[2]={(char)key,0};console_text(echo);}else command_overflow=1;}continue;}

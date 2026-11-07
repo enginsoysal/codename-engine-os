@@ -8,9 +8,11 @@ import struct
 from m1 import ROOT,pinned_tools,command,sha
 from media import package
 BUILD=ROOT/'build/m2'
-def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard"):
+def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard",m7=False):
     global BUILD
-    BUILD=ROOT/'build'/('m6' if m6 else milestone.lower())
+    m6=m6 or m7
+    flavor='m7' if m7 else 'm6'
+    BUILD=ROOT/'build'/(flavor if m6 else milestone.lower())
     tools=pinned_tools();BUILD.mkdir(parents=True,exist_ok=True)
     sources=[]
     for folder in ('boot','kernel','include','runtime','user'):
@@ -19,11 +21,12 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
                                    'tools/build/m2.py','tools/build/m4.py','tools/build/m45.py','tools/build/bios.py','tools/build/secure.py','tools/build/owner.py','tools/security-toolchain.json','tools/build/data_image.py','tools/build/ext2_image.py','tools/build/fsck.py','tools/build/m3.py','tools/build/m1.py','tools/build/media.py'))
     if milestone=='M5':sources.extend(sorted((ROOT/'tools/build').glob('m5*.py')))
     if m6:sources.extend(sorted((ROOT/'tools/build').glob('m6*.py')))
+    if m7:sources.extend(sorted((ROOT/'tools/build').glob('m7*.py')))
     if distro:
         sources.extend(ROOT/p for p in distro['input_sha256'])
         sources.append(ROOT/'tools/build/distro.py')
     hashes={p.relative_to(ROOT).as_posix():sha(p) for p in sorted(sources)}
-    identity={'milestone':'M6' if m6 else milestone,'source_sha256':hashes}
+    identity={'milestone':'M7' if m7 else 'M6' if m6 else milestone,'source_sha256':hashes}
     if m6:identity['revision']=m6_revision
     build_id=hashlib.sha256(json.dumps(identity,sort_keys=True).encode()).hexdigest()[:32]
     (BUILD/'build.h').write_text(f'#define BUILD_ID "{build_id}"\n',encoding='utf-8')
@@ -33,6 +36,7 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     common=['-std=c17','-O2',*debug,'-ffreestanding','-fno-builtin','-fno-stack-protector','-mno-red-zone','-mgeneral-regs-only',
             '-Wall','-Wextra','-Werror','-DENGINE_M2','-I',ROOT/'include','-I',BUILD]
     if m6:common.append('-DENGINE_M6')
+    if m7:common.append('-DENGINE_M7')
     if milestone in ('M3','M4','M45','M5'):common.append('-DENGINE_M3')
     if milestone in ('M4','M45','M5'):common.append('-DENGINE_M4')
     if milestone in ('M45','M5'):common.append('-DENGINE_M45')
@@ -89,8 +93,9 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     if milestone in ('M45','M5'):inputs+=('kernel/storage/registry.c','kernel/storage/partitions.c','kernel/storage/nvme.c','kernel/storage/ide.c','kernel/storage/virtio_blk.c','kernel/storage/fat32.c','kernel/storage/fat_test.c','kernel/storage/ext2_read.c','kernel/storage/ext2_read_test.c')
     if m6:
         inputs=tuple(p for p in inputs if p not in ('kernel/storage/ext2.c','kernel/storage/fs_test.c','kernel/m4/main.c'))
-        inputs+=('kernel/install/layout.c','kernel/storage/volume6.c','kernel/install/installer6.c','kernel/install/wizard6.c','build/m6/installer-image.c','kernel/install/entry6.c')
-    elif milestone=='M5':inputs+=('kernel/install/m5.c','build/m5/installer-image.c')
+        inputs+=('kernel/install/layout.c','kernel/storage/volume6.c','kernel/install/installer6.c','kernel/install/wizard6.c','build/'+flavor+'/installer-image.c','kernel/install/entry6.c')
+    if m7:inputs+=('kernel/desktop/window.c','kernel/desktop/session.c')
+    elif milestone=='M5' and not m6:inputs+=('kernel/install/m5.c','build/m5/installer-image.c')
     if distro and not m6:inputs+=('kernel/install/guided.c',)
     kernel=[compile_file(p,'kernel',p.endswith('.S')) for p in inputs]
     command([tools['ld.lld'],'-T',ROOT/'kernel/arch/x86_64/linker.ld','--build-id=none','-Map='+str(BUILD/'kernel.map'),
@@ -99,7 +104,7 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     if command([nm,'-u',BUILD/'KERNEL.ELF']).strip():raise RuntimeError('Undefined kernel symbols')
     map_path=BUILD/'kernel.map';map_path.write_text(map_path.read_text(encoding='utf-8').replace(str(ROOT),'.').replace(ROOT.as_posix(),'.'),encoding='utf-8')
     if m6 and any(sha(ROOT/p)!=value for p,value in hashes.items()):raise RuntimeError('Build inputs changed during compilation; discard mixed outputs and rebuild')
-    artifact_name=('M6' if m6_revision=='standard' else 'M6'+m6_revision.upper()) if m6 else milestone
+    artifact_name=(('M7' if m7 else 'M6')+('' if m6_revision=='standard' else m6_revision.upper())) if m6 else milestone
     init=struct.pack('<8sII32s',b'ENGINIT1',48,0,build_id.encode());(BUILD/'INIT.BIN').write_bytes(init)
     package(BUILD/'normal',(BUILD/'BOOTX64.EFI').read_bytes(),(BUILD/'KERNEL.ELF').read_bytes(),init,artifact_name)
     dist=ROOT/'dist';dist.mkdir(exist_ok=True)

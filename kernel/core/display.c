@@ -35,10 +35,18 @@ static const os_boot_info_v0 *screen;
 #ifdef ENGINE_M6
 static unsigned gui6_repaint;
 #endif
+#ifdef ENGINE_M7
+static unsigned clip7_active,clip7_left,clip7_top,clip7_right,clip7_bottom;
+void gui7_clip(unsigned x,unsigned y,unsigned w,unsigned h){clip7_left=x;clip7_top=y;clip7_right=x+w;clip7_bottom=y+h;clip7_active=1;gui6_repaint=1;}
+void gui7_clip_reset(void){clip7_active=0;}
+#endif
 static uint32_t color(uint32_t rgb) {
     return screen->framebuffer_format==2?rgb:((rgb&255)<<16)|(rgb&0xff00)|((rgb>>16)&255);
 }
 static void pixel(unsigned x,unsigned y,uint32_t rgb) {
+#ifdef ENGINE_M7
+    if(clip7_active&&(x<clip7_left||x>=clip7_right||y<clip7_top||y>=clip7_bottom))return;
+#endif
     if(x>=screen->framebuffer_width||y>=screen->framebuffer_height)return;
     volatile uint32_t *p=(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)y*screen->framebuffer_stride_bytes+x*4);
     *p=color(rgb);
@@ -194,6 +202,9 @@ void gui6_rect(unsigned x,unsigned y,unsigned w,unsigned h,uint32_t rgb){
  if(!screen||x>=screen->framebuffer_width||y>=screen->framebuffer_height)return;
  if(!x&&!y)gui6_repaint=1;
  if(w>screen->framebuffer_width-x)w=screen->framebuffer_width-x;if(h>screen->framebuffer_height-y)h=screen->framebuffer_height-y;
+#ifdef ENGINE_M7
+ if(clip7_active){unsigned right=x+w,bottom=y+h;if(x<clip7_left)x=clip7_left;if(y<clip7_top)y=clip7_top;if(right>clip7_right)right=clip7_right;if(bottom>clip7_bottom)bottom=clip7_bottom;if(x>=right||y>=bottom)return;w=right-x;h=bottom-y;}
+#endif
  uint32_t value=color(rgb);for(unsigned j=0;j<h;++j){volatile uint32_t *p=(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)(y+j)*screen->framebuffer_stride_bytes+x*4);for(unsigned i=0;i<w;++i)p[i]=value;}
 }
 void gui6_text(unsigned x,unsigned y,const char*s,unsigned scale,uint32_t rgb){if(screen)text(x,y,s,scale,rgb);}

@@ -21,7 +21,8 @@ def digest(path,start=0,length=None):
     return h.hexdigest()
 
 class Guest:
-    def __init__(self,folder,disk,firmware='uefi',media='iso',ram=128,cpus=2,extra=None,fault=None,image_name="EngineOS-M6",ps2_only=False):
+    def __init__(self,folder,disk,firmware='uefi',media='iso',ram=128,cpus=2,extra=None,fault=None,image_name="EngineOS-M6",ps2_only=False,ready="M6_WIZARD_READY"):
+        self.ready=ready
         self.image_name=image_name
         self.expected_build_id=None
         if media!='installed':
@@ -51,7 +52,7 @@ class Guest:
         self.process=subprocess.Popen(self.args,stdout=subprocess.PIPE,stderr=subprocess.PIPE,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
         self.sock=connect(self.port,self.process);self.stream=self.sock.makefile('rwb');self.stream.readline();self.qmp('qmp_capabilities')
         try:
-            self.wait('M6_WIZARD_READY')
+            self.wait(self.ready)
             if self.expected_build_id:assert 'ENGINE_OS_KERNEL_ENTRY build='+self.expected_build_id in self.log(),'Unexpected actual kernel build'
             return self
         except Exception:

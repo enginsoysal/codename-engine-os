@@ -29,6 +29,11 @@ static uint64_t push(ring *r,uint64_t parameter,uint32_t status,uint32_t control
 static char key(unsigned code,unsigned shifted){
     if(code>=4&&code<=29)return (char)((shifted?'A':'a')+code-4);
     if(code>=30&&code<=39)return (shifted?"!@#$%^&*()":"1234567890")[code-30];
+#ifdef ENGINE_M7
+    if(code==41)return 27;
+    if(code==80)return (char)128;if(code==79)return (char)129;if(code==74)return (char)130;
+    if(code==77)return (char)131;if(code==76)return (char)132;if(code==82)return (char)133;if(code==81)return (char)134;
+#endif
     if(code==40)return 10;if(code==42)return 8;if(code==43)return 9;if(code==44)return ' ';
     if(code>=45&&code<=56)return (shifted?"_+{}|~:\"~<>?":"-=[]\\#;'`,./")[code-45];return 0;
 }
@@ -43,7 +48,11 @@ void m6_pointer_report(int dx,int dy,unsigned buttons){
 #endif
 static void input_complete(device *d,unsigned bytes){
     uint8_t *data=(uint8_t*)(uintptr_t)(d->buffer+512);if(d->kind==9){for(unsigned i=0;i<bytes;++i)if(data[i]){__atomic_fetch_or(&pending_hubs,1u<<(unsigned)(d-devices),__ATOMIC_RELEASE);break;}return;}
-    if(d->kind==1&&bytes>=8){for(unsigned i=2;i<8;++i)if(data[i]>3){unsigned old=0;for(unsigned j=2;j<8;++j)old|=d->last[j]==data[i];if(!old){char c=key(data[i],data[0]&0x22);if(c){input_feed((uint8_t)c);++key_events;}}}memcpy(d->last,data,8);}
+    if(d->kind==1&&bytes>=8){for(unsigned i=2;i<8;++i)if(data[i]>3){unsigned old=0;for(unsigned j=2;j<8;++j)old|=d->last[j]==data[i];if(!old){char c=key(data[i],data[0]&0x22);
+#ifdef ENGINE_M7
+if((data[0]&0x11)&&data[i]>=4&&data[i]<=29)c=(char)(data[i]-3);
+#endif
+if(c){input_feed((uint8_t)c);++key_events;}}}memcpy(d->last,data,8);}
     if(d->kind==2&&bytes>=3){
 #ifdef ENGINE_M6
         m6_pointer_report((int8_t)data[1],(int8_t)data[2],data[0]&7);
