@@ -30,6 +30,33 @@ launcher/integration, without deleting the shared service. These are fixed
 built-in providers, not an arbitrary extension language. Framebuffer memory is
 separate as well. [Implementation choices](../architecture/applications-m74.md).
 
+## Standard application reference
+
+| Application | Ordinary task | Current boundary |
+|---|---|---|
+| Files | Browse Home, create folders, open documents/media | Native installed volume; extra partitions are not auto-mounted |
+| Settings | Appearance, scaling, saved preferences, app management | Protected fallback provider |
+| Text Editor | Open, edit, Save/Save as, clipboard, cursor movement | 8,191-byte documents; richer editing/encodings remain future |
+| Calculator | Decimal, scientific functions, conversions | Six decimal places; approximate scientific results |
+| Terminal | Optional advanced native commands | Engine commands; no DOS/Windows shell compatibility |
+| Clock | UTC offsets, timer, stopwatch, daily alarm | Session state; fixed offsets; visual alarm |
+| Calendar | Browse Gregorian months and save day notes | Local notes; reminders/accounts remain future |
+| System Monitor | Inspect managed memory and native system details | Allocator figures exclude static kernel/framebuffer/firmware |
+| Disk Utility | Inspect disks; manage another supported SATA disk | Current system disk remains read-only here |
+| Software Manager | Remove/reinstall fixed offline packages | No arbitrary third-party package repositories |
+| Update & Recovery | Verified boot repair and previous-slot rollback | No automatic online system updates |
+| Archive Manager | List and extract ZIP into a new folder | Stored/Deflate, 32 members, 64 MiB expanded; no archive creation |
+| Image Viewer | Open a BMP and fit it to the window | Uncompressed 24/32-bit BMP |
+| Screenshot | Save native-resolution framebuffer | BMP; streaming capture |
+| Media Player | Open WAV, Play/Pause/Resume/Stop, volume | PCM 16-bit WAV and supported analog HDA/MSI |
+| Browser | Local HTML/text and checked HTTPS, Back/Home/Links | Basic static text rendering |
+| Help | Read the built-in guide and turn pages | Offline; independent of Text Editor |
+| Downloads | Save a file from a typed HTTPS URL | One shared checked TLS connection; 64 MiB maximum |
+
+The first two providers are required. The other sixteen are optional. The
+existing [desktop controls](desktop-m73.md) explain Files, Editor, clipboard,
+Terminal, Downloads and appearance. New ordinary tasks are described below.
+
 ## Calculator, Clock and Calendar
 
 Calculator offers decimal arithmetic, a Scientific tab and common length,

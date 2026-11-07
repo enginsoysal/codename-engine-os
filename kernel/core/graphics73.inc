@@ -1,6 +1,9 @@
 /* Original clipped CPU compositor. Font coverage is generated from OFL Inter. */
 #include <engine/ui/graphics73.h>
 #include "font73.h"
+#ifdef ENGINE_M74
+#include <engine/audio74.h>
+#endif
 static unsigned scale73=2,active73;
 static unsigned choice73;
 unsigned verbose73;
@@ -51,7 +54,11 @@ static void rect73(unsigned x,unsigned y,unsigned w,unsigned h,uint32_t rgb){
  if(clip7_active){if(x<clip7_left)x=clip7_left;if(y<clip7_top)y=clip7_top;if(right>clip7_right)right=clip7_right;if(bottom>clip7_bottom)bottom=clip7_bottom;}
  if(x>=right||y>=bottom)return;
  unsigned px=phys73(x),py=phys73(y),pr=phys73(right),pb=phys73(bottom);uint32_t value=color(rgb);
- for(unsigned j=py;j<pb;++j){volatile uint32_t*p=(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)j*screen->framebuffer_stride_bytes+px*4);for(unsigned i=px;i<pr;++i)*p++=value;}
+ for(unsigned j=py;j<pb;++j){
+#ifdef ENGINE_M74
+ if(!(j&15)&&audio74_pending())audio74_pump();
+#endif
+ volatile uint32_t*p=(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)j*screen->framebuffer_stride_bytes+px*4);for(unsigned i=px;i<pr;++i)*p++=value;}
 }
 static void round_alpha73(unsigned x,unsigned y,unsigned w,unsigned h,unsigned radius,uint32_t rgb,unsigned alpha){
  if(!w||!h)return;unsigned px=phys73(x),py=phys73(y),pw=phys73(x+w)-px,ph=phys73(y+h)-py,r=phys73(radius);
@@ -59,14 +66,18 @@ static void round_alpha73(unsigned x,unsigned y,unsigned w,unsigned h,unsigned r
  unsigned l=px,t=py,right=px+pw,bottom=py+ph;
  if(clip7_active){if(l<phys73(clip7_left))l=phys73(clip7_left);if(t<phys73(clip7_top))t=phys73(clip7_top);if(right>phys73(clip7_right))right=phys73(clip7_right);if(bottom>phys73(clip7_bottom))bottom=phys73(clip7_bottom);}
  if(right>screen->framebuffer_width)right=screen->framebuffer_width;if(bottom>screen->framebuffer_height)bottom=screen->framebuffer_height;
- for(unsigned yy=t;yy<bottom;++yy)for(unsigned xx=l;xx<right;++xx){
+ for(unsigned yy=t;yy<bottom;++yy){
+#ifdef ENGINE_M74
+ if(!(yy&15)&&audio74_pending())audio74_pump();
+#endif
+ for(unsigned xx=l;xx<right;++xx){
  unsigned dx=xx-px,dy=yy-py;
  /* Shadow interiors are covered by the opaque surface: never blend them. */
  if(alpha<255&&dx>=r&&dx<pw-r&&dy>=r&&dy<ph-r)continue;
  if(!r||(dx>=r&&dx<pw-r)||(dy>=r&&dy<ph-r)){blend73(xx,yy,rgb,alpha,0);continue;}
  int cx=(int)(dx<r?r:pw-r),cy=(int)(dy<r?r:ph-r);unsigned covered=0;
  for(unsigned sy=0;sy<4;++sy)for(unsigned sx=0;sx<4;++sx){int vx=(int)dx*8+(int)sx*2+1-cx*8,vy=(int)dy*8+(int)sy*2+1-cy*8;if(vx*vx+vy*vy<=(int)(r*r*64))++covered;}
- blend73(xx,yy,rgb,(covered*alpha+8)/16,0);}
+ blend73(xx,yy,rgb,(covered*alpha+8)/16,0);}}
 }
 void ui73_round(unsigned x,unsigned y,unsigned w,unsigned h,unsigned r,uint32_t c){round_alpha73(x,y,w,h,r,c,255);}
 void ui73_shadow(unsigned x,unsigned y,unsigned w,unsigned h){

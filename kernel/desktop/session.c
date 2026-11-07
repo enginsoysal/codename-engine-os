@@ -954,7 +954,7 @@ NORETURN void desktop_start(const os_boot_info_v0 *boot,const m6_preferences *pr
         int key=input_pop();
 #endif
 #ifdef ENGINE_M74
-        unsigned time_work=clock74_pending();if(time_work)clock74_consume();unsigned audio_work=audio74_pending();
+        unsigned time_work=clock74_pending();if(time_work)clock74_consume();unsigned audio_work=audio74_pending()||audio74_current().revision!=audio_revision;
 #else
         unsigned time_work=0,audio_work=0;
 #endif

@@ -11,7 +11,7 @@ ROOT=Path(__file__).resolve().parents[2]
 def module(name,path):
     spec=importlib.util.spec_from_file_location(name,path);value=importlib.util.module_from_spec(spec);spec.loader.exec_module(value);return value
 s=module('session72',ROOT/'tests/m72/session.py');q,h=s.q,s.h
-MAPS74={installed:(ROOT/path).read_text(encoding="utf-8") for installed,path in [(False,"build/m74/kernel.map"),(True,"dist/"+IMAGE74+"-installed-kernel.map")]}
+MAPS74={installed:(ROOT/path).read_text(encoding="utf-8") for installed,path in [(False,"dist/"+IMAGE74+"-kernel.map"),(True,"dist/"+IMAGE74+"-installed-kernel.map")]}
 
 def symbol(name,size=None,installed=False):
     text=MAPS74[installed]

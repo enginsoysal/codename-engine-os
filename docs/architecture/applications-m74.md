@@ -118,3 +118,27 @@ to the next ordinary event-loop iteration, so navigation and focus actions keep
 their ordering and rebuild controls normally. There is no extra input buffer,
 allocation or polling timer. The native 4K reopen/type/save probe checks this
 behavior rather than hiding input lag with long test sleeps.
+
+## Partial decoder output and the volume stream contract
+
+The multi-file ZIP/audio task exposed a valid Deflate stream whose input boundary
+produced a partial output page before the end of the file. The volume append API
+requires each call to fit the remaining current 4-KiB page. The ZIP broker now
+splits decoder output at that existing page boundary instead of assuming every
+non-final output chunk is page aligned. This adds no buffer and does not change
+the shared volume API. The original failed attempt safely retained its earlier
+completed files and did not commit the failing member. Native extraction now
+checks all three sample members, including the 192,044-byte WAV, against the
+independent ZIP reader's bytes and CRCs.
+
+## Audio service during compositor work
+
+The multi-second WAV test exposed audio starvation while the CPU compositor
+painted a window. Rectangle and rounded-surface loops now service pending HDA
+interrupt work every sixteen physical rows. They do not start a polling timer
+or allocate a second framebuffer. The audio reader uses its dedicated scratch
+page, so it cannot corrupt a concurrent volume operation. Audio revision
+changes also count as desktop work before the idle halt check: an end/error
+inside a paint produces a prompt status repaint instead of waiting for the
+next unrelated interrupt. Native PCM capture, uninterrupted reference waveform,
+Pause/Resume and last-buffer page release are required together.

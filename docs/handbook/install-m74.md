@@ -19,8 +19,8 @@ The UEFI loader can create a startup entry even if you later cancel setup.
 2. **Your disk:** select Disk 1. Check its capacity. Manage disks is optional.
    Installation uses the whole disk. For a disk containing data, enable Erase
    and install; you must also confirm its consequences at Review.
-3. **Your setup:** Desktop and Files are included. Choose the optional Calculator and
-   welcome guide. Other standard apps are selected by the distribution profile. Removing optional content does not remove the desktop.
+3. **Your setup:** Desktop and Files are included. Choose the optional welcome guide. Standard apps are selected by the
+   distribution profile; change them later in Settings. Removing optional content does not remove the desktop.
 4. **Your style:** keep Owner or edit the account name. Choose an accent.
 5. **Review:** check the disk, account and choices. Back preserves your choices.
    Only choose Install when the whole selected disk may be used. An existing

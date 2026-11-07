@@ -70,7 +70,12 @@ static unsigned zip_file74(application *app,const zip_entry74 *e,const char *tar
             consumed+=(uint64_t)app->operand;out=app->text;bytes=app->length;
         }else consumed+=n;
         if(bytes>e->size-produced){status=V6_INVALID;break;}produced+=bytes;crc=crc_next74(crc,out,bytes);
-        if(bytes&&active){status=v6_stream_append(volume,out,bytes);if(status)break;}
+        if(bytes&&active){
+            unsigned written=0;
+            while(written<bytes){unsigned part=4096-(unsigned)((produced-bytes+written)%4096);if(part>bytes-written)part=bytes-written;
+                status=v6_stream_append(volume,(const uint8_t *)out+written,part);if(status)break;written+=part;}
+            if(status)break;
+        }
         if(e->method==8){if(!app->operation)break;if(!app->operand&&!bytes){status=V6_INVALID;break;}}
         else if(consumed==e->compressed)break;
     }

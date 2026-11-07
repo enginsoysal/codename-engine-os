@@ -60,6 +60,10 @@ def main():
                     raw=ui.memory(g,ui.symbol('info74',64)[0],64);message=struct.unpack_from('<Q',raw,56)[0]
                     raise AssertionError('Audio did not start: '+ui.memory(g,message,192).split(b'\0')[0].decode(errors='replace'))
                 time.sleep(.05)
+            raw=ui.memory(g,ui.symbol('info74',64)[0],64)
+            if struct.unpack_from('<I',raw,0)[0]!=1:
+                message=struct.unpack_from('<Q',raw,56)[0]
+                raise AssertionError('Playback stopped while drawing: '+ui.memory(g,message,192).split(b'\0')[0].decode(errors='replace'))
             # Pause and resume through the actual primary button, while retaining bounded DMA pages.
             p.desktop(18001,settle=False);raw=ui.memory(g,ui.symbol('info74',64)[0],64)
             assert struct.unpack_from('<I',raw,0)[0]==2,'Primary control did not pause the real stream'
