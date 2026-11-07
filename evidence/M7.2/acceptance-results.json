@@ -153,7 +153,7 @@
     "scope": "allocator excludes static kernel, firmware/boot reservations and framebuffer; no physical-hardware or human usability claim"
   },
   "evidence_sha256": {
-    "baseline/m71-normal-firmware.log": "829e3b181527dae58bb6b20c5b22abb0eaf80d171d5d23788a4d8df89c1998e7",
+    "baseline/m71-normal-firmware.log": "cc66ffe11eb4328e207aca6c0b524534934a244b7e460cbc81ab06df6b506c6c",
     "baseline/m71-normal-firmware.png": "9a110ba2405a88fc03e5a99869620fa344816be15724faf43119dd5d0014fafa",
     "baseline/results.json": "3b72958d02e8d164aea05e415cb6277a3328b9cac61436bce9705cf4c69f03fd",
     "bootentry/results.json": "49c1736cb032f383bf472844827a4ed4d04802faa80da3b8e8f1eee8a0b95a9d",
@@ -257,7 +257,7 @@
     "qemu-uefi-usb/system-folder-write-refused.png": "520985099f7b0b57065d608b3aff95dba7a00ff357317791cf3510856172042f",
     "qemu-uefi-usb/welcome.png": "69ba97787204d1072bcb53b529bce505c7d361301587ed173c01d3847ea0a91c",
     "README.md": "41d573bea1b9785073e290c52bd7925ce94348014f12a52dd540180b3c0fbce4",
-    "repository-results.json": "c262079ead1c340c9365de72a970235df5e6603df05df4c8c05a6b131ca9943d",
+    "repository-results.json": "fb2484f3d50e868eb299218e2c023c76641a2d112031c01d06895b1ea1d3362c",
     "resources/128-2.log": "d7f71248b7b2da7cd8ee77f8b1f4598432f4f26a64b00b7b57c7d7f4b67cfd82",
     "resources/128-4.log": "26176151e22a555b13350db276be4941c2176362379d75c94557d6a467d65c70",
     "resources/128mib-2cpu.png": "a4ec135cfb192da2f7c65f39c396175606d675308e1e16946b24930a17e7cd58",

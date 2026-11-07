@@ -6,7 +6,7 @@ import re
 ROOT=Path(__file__).resolve().parents[1]
 def main(milestone="M2"):
     output=ROOT/'evidence'/milestone;output.mkdir(parents=True,exist_ok=True)
-    (output/'repository-results.json').write_text('{"passed": false, "state": "checking"}\n',encoding='utf-8')
+    (output/'repository-results.json').write_bytes(b'{"passed": false, "state": "checking"}\n')
     docs=[];scripts=[]
     for p in ROOT.rglob('*'):
         if not p.is_file():continue
@@ -37,7 +37,7 @@ def main(milestone="M2"):
             {'name':'all current Python sources parse','passed':True,'scripts':len(scripts)},
             {'name':'clean root and milestone/source directory boundaries','passed':True},
             {'name':'Windows generation scope retained without false qualification','passed':True}]
-    (output/'repository-results.json').write_text(json.dumps({'passed':True,'checks':checks},indent=2)+'\n',encoding='utf-8')
+    (output/'repository-results.json').write_bytes((json.dumps({'passed':True,'checks':checks},indent=2)+'\n').encode('utf-8'))
     print(f'Repository PASS: {len(docs)} English documents, {len(scripts)} Python files, links/commands/layout/inventory')
 if __name__=='__main__':
     import argparse
