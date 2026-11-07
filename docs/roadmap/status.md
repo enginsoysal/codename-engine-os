@@ -10,6 +10,8 @@ The product remains **Engine OS**. The next delivery order is:
 
 **M6 is complete within M6-VM-v1 and M7 within M7-VM-v1**; M8 is not started under these revised acceptance contracts. The [M7 desktop](../milestones/m7.md) passes 26 exact-artifact gates, including native documents, networking/HTTPS, app containment, resource pressure, custom distro and VMware BIOS/UEFI tasks. [Acceptance](../../evidence/M7/acceptance-results.json), [VMware tutorial](../handbook/install-m7.md). Completed M0–M5.1 remain historical technical achievements within their named scopes. The historical M5.1 installer is a working bounded prototype, not completion of the new product installation or desktop requirements. The native M6 wizard, scalable installed volume, user preferences, data distribution selection and ISO-assisted update/rollback/repair are implemented. The historical M6 artifact passes the [M6 acceptance gates](../../evidence/M6/acceptance-results.json); [release and VMware instructions](../releases/m6-v0.6.0.md) identify that earlier ISO. The current M7 ISO and desktop guide are linked above. Completion is bounded by the named virtual profiles. See [M6 delivery slices](../milestones/m6.md). [Detailed gates and implementation choices](milestones.md).
 
+**M7.1 is in progress:** installer disk/partition management and explicit existing-disk replacement, before M8. [Contract and limits](../milestones/m7.1.md). M7 remains the stable release until M7.1 acceptance.
+
 Convenience, optional advanced diagnostics, distribution freedom and measured CPU/RAM efficiency remain requirements throughout. A splash screen, loader, theme or successful launch alone cannot close these milestones.
 
 ## Documentation website

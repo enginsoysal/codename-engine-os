@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "checks": [
+    "no selection and nonblank disk stay in guided setup; unchecked confirmation and cancel preserve entire disk; FAT32/native format, delete and create preserve unrelated partition bytes/entry",
+    "same previously partitioned disk installs only after separate whole-disk review/consent; actual verified system and app copy completes",
+    "media-detached desktop, actual original Editor save and independent exact-byte check across restart"
+  ],
+  "firmware": "uefi",
+  "table": "gpt",
+  "build_id": "eb1fd07f8c884bddab36a3ea647e9803",
+  "iso_sha256": "66d97784939f989ad2cf58547711355438ca1d72ab7402f3bcf1020d03cabcf8",
+  "preserved_partition_sha256": "d0ac5ad3f40e3190eb464598aa749659824e84c0b7e76ce0a85d4abdf1940329"
+}

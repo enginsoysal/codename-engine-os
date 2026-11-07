@@ -17,7 +17,7 @@ def embed(work,live):
         if len(r['target'].encode())>228:raise ValueError('M6 profile target leaves insufficient room for the selected account name')
         data=(ROOT/r['source']).read_bytes();text+='static const uint8_t file_'+str(i)+'[]={'+','.join(map(str,data or b'\0'))+'};\n'
     text+='const m6_distribution_file m6_files[]={'+(','.join('{'+json.dumps(r['target'])+',file_'+str(i)+','+str((ROOT/r['source']).stat().st_size)+'}' for i,r in enumerate(records)) or '{0,0,0}')+'};\nconst unsigned m6_file_count='+str(len(records))+';\n'
-    if work.name=='m7':
+    if work.name in ['m7','m71']:
         for app in ['editor','calculator']:
             data=(work/('APP7-'+app+'.ELF')).read_bytes() if live else b''
             if len(data)>65536:raise ValueError('Native desktop app exceeds the bounded loader size')
@@ -34,13 +34,14 @@ def pack(parts):
             where=lba+offset//512;assert where not in pages;pages[where]=page
     return struct.pack('<I',len(pages))+b''.join(struct.pack('<I',k|(0x80000000 if not any(v) else 0))+(v if any(v) else b'') for k,v in sorted(pages.items()))
 
-def build(revision="standard",profile_path=None,desktop=False):
+def build(revision="standard",profile_path=None,desktop=False,disk_manager=False):
     if not re.fullmatch("[a-z][a-z0-9]{0,15}",revision):raise ValueError("Invalid build revision")
-    prefix="M7" if desktop else "M6"
+    desktop=desktop or disk_manager
+    prefix="M71" if disk_manager else "M7" if desktop else "M6"
     name=prefix+("" if revision=="standard" else revision.upper())
-    work=ROOT/'build'/prefix.lower();work.mkdir(parents=True,exist_ok=True);profile=load(profile_path or ROOT/('distros/engineos-desktop.json' if desktop else 'distros/engineos.json'),desktop=desktop)
+    work=ROOT/'build'/prefix.lower();work.mkdir(parents=True,exist_ok=True);profile=load(profile_path or ROOT/('distros/engineos-disk.json' if disk_manager else 'distros/engineos-desktop.json' if desktop else 'distros/engineos.json'),desktop=desktop)
     if profile['id']=='engineos':profile={**profile,'name':'Engine OS'}
-    base=main('M5',distro=profile,m6=True,m6_revision=revision,m7=desktop)
+    base=main('M5',distro=profile,m6=True,m6_revision=revision,m7=desktop,m71=disk_manager)
     kernel=compact_elf((work/'KERNEL.ELF').read_bytes());efi=(work/'BOOTX64.EFI').read_bytes();init=(work/'INIT.BIN').read_bytes()
     installed=work/'installed';installed.mkdir(exist_ok=True)
     (installed/'KERNEL.ELF').write_bytes(kernel)
@@ -50,11 +51,11 @@ def build(revision="standard",profile_path=None,desktop=False):
     fat=fat32([(4,b'BOOTX64 EFI',efi),(2,b'KERNEL  ELF',kernel),(2,b'INIT    BIN',init)])
     payload=pack([(0,bytes(low)),(2048,stage),(2112,raw),(ESP,trim(fat))])
     (work/'install.pack').write_bytes(payload)
-    live=main('M5',m5_live=True,distro=profile,m6=True,m6_revision=revision,m7=desktop)
+    live=main('M5',m5_live=True,distro=profile,m6=True,m6_revision=revision,m7=desktop,m71=disk_manager)
     if live['build_id']!=base['build_id']:raise RuntimeError('Build inputs changed between installed and live images; rebuild with frozen inputs')
     if any(hashlib.sha256((ROOT/p).read_bytes()).hexdigest()!=value for p,value in profile['input_sha256'].items()):raise RuntimeError('Distribution inputs changed during build')
     media=dual_media(work,name)
-    live.update(milestone=prefix,build_revision=revision,distribution=profile,qualification_scope='M7-VM-v1' if desktop else 'M6-VM-v1',qualification='Requires the exact artifact acceptance report; building alone does not qualify runtime',release_version=('0.7.0' if desktop else '0.6.0')+('' if revision=='standard' else '+'+revision),installed_kernel_sha256=hashlib.sha256(kernel).hexdigest(),installer_payload_bytes=len(payload),bios_media_layout=media,limits=['Qualify the exact artifact digests against evidence/M6/acceptance-results.json','SATA/AHCI 512-byte logical-sector blank targets only, 2 GiB to 2 TiB','Native extent volume: 1024 entries, 63-byte path components, contiguous copy-on-write files','ISO-assisted verified-slot update/rollback/repair; interrupted boot replay can require ISO recovery','Single local profile, no authentication/ACLs or cross-layout migration; no desktop or Windows/DOS application runtime'])
+    live.update(milestone=prefix,build_revision=revision,distribution=profile,qualification_scope='M71-VM-v1' if disk_manager else 'M7-VM-v1' if desktop else 'M6-VM-v1',qualification='Requires the exact artifact acceptance report; building alone does not qualify runtime',release_version=('0.7.1' if disk_manager else '0.7.0' if desktop else '0.6.0')+('' if revision=='standard' else '+'+revision),installed_kernel_sha256=hashlib.sha256(kernel).hexdigest(),installer_payload_bytes=len(payload),bios_media_layout=media,limits=['Qualify the exact artifact digests against evidence/M6/acceptance-results.json','SATA/AHCI 512-byte logical-sector blank targets only, 2 GiB to 2 TiB','Native extent volume: 1024 entries, 63-byte path components, contiguous copy-on-write files','ISO-assisted verified-slot update/rollback/repair; interrupted boot replay can require ISO recovery','Single local profile, no authentication/ACLs or cross-layout migration; no desktop or Windows/DOS application runtime'])
     if desktop:
         live['limits']=['Qualification is valid only with the matching M7-VM-v1 acceptance report',
                         'Original native Editor/Calculator CPL3 event workers; trusted compositor, Files, Settings, Terminal and network broker',
@@ -63,6 +64,7 @@ def build(revision="standard",profile_path=None,desktop=False):
                         'SATA/AHCI 512-byte sectors and M6 installed-volume bounds; one local profile without authentication/ACLs',
                         'Named x86-64 BIOS/UEFI virtual profiles only; Secure Boot disabled; no universal or physical qualification',
                         'Desktop work runs on the BSP; APs halt after original runtime qualification; no Windows or DOS application runtime']
+    if disk_manager:live['limits'][0]='Qualification requires the matching M71-VM-v1 acceptance report';live['limits'] += ['GPT 128x128 canonical tables and primary MBR partitions; FAT32/Engine quick formats; no resize/move or filesystem conversion', 'Installation still replaces the whole selected SATA disk after explicit erase consent; no dual-boot installation into a selected partition']
     live['artifacts']={p.name:{'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'size':p.stat().st_size} for p in [ROOT/'dist'/('EngineOS-'+name+suffix) for suffix in ('.iso','-usb.img','-kernel.elf','-kernel.map','-user.elf')] if p.is_file()}
     if desktop:
         for suffix,source in [('.elf',installed/'KERNEL.ELF'),('.map',installed/'kernel.map')]:

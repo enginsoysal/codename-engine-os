@@ -1,0 +1,18 @@
+{
+  "schema": 2,
+  "id": "engineos",
+  "name": "Engine OS",
+  "version": "0.7.1",
+  "welcome": "Install your desktop. Your documents and choices stay yours.",
+  "accent": "#39d5bb",
+  "packages": [
+    "desktop-guide"
+  ],
+  "files": [],
+  "desktop": {
+    "dark": false,
+    "calculator": true,
+    "wallpaper": "#142c35",
+    "tagline": "Your space. Your system."
+  }
+}

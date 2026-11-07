@@ -377,7 +377,13 @@ static void render(void) {
     if(step>100)step=100;
     for(unsigned i=0;i<model.count;++i){unsigned slot=model.order[i];desktop_window *w=&model.windows[slot];
         button(desktop_token(&model,slot),130+(int)(i*step),bar+15,(int)step-8,titles[w->app],70,model.focused==slot);}
-    if(model.width>=1000)text((int)model.width-180,bar+23,"Engine OS 0.7",1,0x95b1bd);
+    if(model.width>=1000)text((int)model.width-180,bar+23,
+#ifdef ENGINE_M71
+ "Engine OS 0.7.1",
+#else
+ "Engine OS 0.7",
+#endif
+1,0x95b1bd);
     if(launcher){
         gui6_rect(16,(unsigned)bar-350,300,340,paper());text(34,bar-329,owner.user,2,ink());
         unsigned row=0;for(unsigned i=1;i<=7;++i){if(i==CALCULATOR&&!preferences.calculator)continue;

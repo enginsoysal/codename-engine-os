@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "scope": "actual C host adapter, not native installer proof",
+  "checks": [
+    {
+      "name": "GPT create and actual FAT32 BPB/backup/FSInfo/two-FAT/root geometry; unrelated payload and table entries preserved",
+      "passed": true
+    },
+    {
+      "name": "actual native-volume format then delete only selected entry; prepare/cancel writes nothing; foreign data stays exact",
+      "passed": true
+    },
+    {
+      "name": "changed metadata and forged out-of-bounds plans refuse before writes",
+      "passed": true
+    },
+    {
+      "name": "invalid primary CRC blocks edits; explicit backup repair restores verified mirrors",
+      "passed": true
+    },
+    {
+      "name": "explicit divergent-mirror repair retains chosen usable bounds; read-only GPT attrs and changed format boot identity refuse mutation",
+      "passed": true
+    },
+    {
+      "name": "primary MBR format/create preserves boot code and foreign/extended entries; extended containers refuse destructive operations",
+      "passed": true
+    },
+    {
+      "name": "every write/flush interruption (refused and torn) reports failure; writes stay inside table/selected-partition footprint",
+      "passed": true,
+      "fault_cases": 902
+    },
+    {
+      "name": "300 deterministic GPT table corruptions refuse editing instead of accepting a damaged primary",
+      "passed": true
+    }
+  ],
+  "state_bytes": 46664,
+  "plan_bytes": 88,
+  "source_sha256": "8dcc9df5753224af4bb96e2bca8dfdde85c88b48f2b81653c9af11f300f3a952"
+}

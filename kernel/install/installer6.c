@@ -3,6 +3,10 @@
 #endif
 #include <engine/install/m6.h>
 #include "build.h"
+#ifdef ENGINE_M71
+#include <engine/install/disk71.h>
+static unsigned replace_disk;static d71_disk replacement;static d71_plan erase_plan;
+#endif
 static engine_install_layout layout;static storage_disk target;static unsigned selected=UINT32_MAX,persistent;
 static unsigned restarting,maintenance_mode,active_slot;static v6_volume volume;static uint8_t page[4096],check[4096],entries[16384],identity[512],record[512];
 static int equals(const char*a,const char*b){while(*a&&*a==*b){++a;++b;}return *a==*b;}
@@ -21,7 +25,22 @@ static unsigned activation(unsigned);
 static unsigned blank(unsigned disk){const storage_disk*d=storage_get(disk);for(unsigned i=0;i<97;++i){uint64_t lba=i<64?i:d->sectors-(i-63);if(io(disk,lba,page,512,0))return B_IO;for(unsigned j=0;j<512;++j)if(page[j])return B_DENIED;}return B_OK;}
 unsigned m6_live(void){return m6_bundle_size!=0;}
 unsigned m6_prepare(unsigned disk){m6_cancel();const storage_disk*d=storage_get(disk);if(!m6_live()||!d||!d->readable||d->transport!=STORAGE_AHCI||engine_install_plan(d->sectors,d->sector_bytes,&layout))return B_DENIED;unsigned s=blank(disk);restarting=0;if(s==B_DENIED){if(io(disk,40,record,512,0)||memcmp(record,"ENGINEI6",8)||r64(record+8)!=d->sectors||r32(record+72)!=1||r32(record+508)!=m4_crc(record,508))return B_DENIED;if(activation(disk)!=B_DENIED)return B_DENIED;restarting=1;}else if(s)return s;target=*d;selected=disk;if(io(disk,0,identity,512,0)){m6_cancel();return B_IO;}return B_OK;}
-void m6_cancel(void){if(!persistent)selected=UINT32_MAX;}
+void m6_cancel(void){if(!persistent)selected=UINT32_MAX;
+#ifdef ENGINE_M71
+ replace_disk=0;
+#endif
+}
+#ifdef ENGINE_M71
+static unsigned utility_read(void*c,uint64_t l,void*p,unsigned n){return io((unsigned)(uintptr_t)c,l,p,n,0);}
+static unsigned utility_write(void*c,uint64_t l,void*p,unsigned n){return io((unsigned)(uintptr_t)c,l,p,n,1);}
+static unsigned utility_flush(void*c){return flush((unsigned)(uintptr_t)c);}
+static d71_device utility(unsigned disk){const storage_disk*d=storage_get(disk);return (d71_device){(void*)(uintptr_t)disk,utility_read,utility_write,utility_flush,d?d->sectors:0,d?d->sector_bytes:0};}
+v6_volume*m71_workspace(void){return !persistent?&volume:0;}
+unsigned m71_prepare_replace(unsigned disk){m6_cancel();const storage_disk*d=storage_get(disk);if(!m6_live()||!d||!d->readable||d->transport!=STORAGE_AHCI||engine_install_plan(d->sectors,d->sector_bytes,&layout))return B_DENIED;
+ d71_device dev=utility(disk);if(d71_scan(&dev,&replacement)||d71_prepare(&dev,&replacement,D71_ERASE,0,0,0,0,&erase_plan))return B_IO;
+ target=*d;selected=disk;restarting=0;if(io(disk,0,identity,512,0))return B_IO;replace_disk=1;return B_OK;
+}
+#endif
 const engine_install_layout *m6_plan(void){return &layout;}
 v6_volume *m6_volume(void){return persistent?&volume:0;}
 static void partition(unsigned n,const uint8_t*type,engine_partition part,const char*name){uint8_t*p=entries+n*128;memcpy(p,type,16);memcpy(p+16,record+56,16);p[31]^=(uint8_t)(n+1);w64(p+32,part.first);w64(p+40,part.last);for(unsigned i=0;name[i]&&i<36;++i)p[56+i*2]=(uint8_t)name[i];}
@@ -46,6 +65,9 @@ static unsigned bundle_valid(void){if(m6_bundle_size<4||m4_crc(m6_bundle,m6_bund
 }
 unsigned m6_install(const m6_preferences*p){const storage_disk*d=storage_get(selected);if(!d||persistent||!m6_live()||!bundle_valid()||memcmp(d,&target,sizeof(*d))||io(selected,0,page,512,0)||memcmp(page,identity,512))return B_DENIED;
  unsigned userlen=0;while(userlen<32&&p->user[userlen]){char c=p->user[userlen++];if(!((c>='A'&&c<='Z')||(c>='a'&&c<='z')||(c>='0'&&c<='9')||c=='_'||c=='-'))return B_DENIED;}if(!userlen||userlen==32||p->guide>1)return B_DENIED;
+#ifdef ENGINE_M71
+ if(replace_disk){replace_disk=0;d71_device dev=utility(selected);unsigned erase_status=d71_apply(&dev,&replacement,&erase_plan,&volume);if(erase_status)return erase_status==D71_CHANGED?B_DENIED:B_IO;serial_text("M71_REPLACEMENT_METADATA_CLEARED\n");}
+#endif
  unsigned s=restarting?B_OK:blank(selected);if(s)return s;if(restarting){if(io(selected,40,record,512,0)||memcmp(record,"ENGINEI6",8)||r64(record+8)!=target.sectors||r32(record+72)!=1||r32(record+508)!=m4_crc(record,508))return B_DENIED;if(activation(selected)!=B_DENIED)return B_DENIED;}memset(record,0,512);memcpy(record,"ENGINEI6",8);w64(record+8,layout.sectors);memcpy(record+24,BUILD_ID,32);uint32_t low,high;__asm__ volatile("rdtsc":"=a"(low),"=d"(high));w64(record+56,((uint64_t)high<<32)|low);w64(record+64,layout.sectors^target.bdf^low);w32(record+72,1);w32(record+508,m4_crc(record,508));if(verified(selected,40,record,512)||flush(selected))return B_IO;
  if(save_slot(0))return B_IO;w32(record+76,0);
  m6_progress(5,"Preparing system files");unsigned count=r32(m6_bundle),offset=4;for(unsigned i=0;i<count;++i){const uint8_t*r=m6_bundle+offset;unsigned zero=r32(r)&0x80000000u;memset(page,0,4096);if(verified(selected,r32(r)&0x7fffffffu,zero?page:(void*)(r+4),4096))return B_IO;offset+=zero?4:4100;if(i%16==0)m6_progress(5+i*60/count,"Copying and verifying boot files");}

@@ -16,6 +16,10 @@ extern const uint8_t m6_bundle[];
 extern const unsigned m6_bundle_size,m6_bundle_crc;
 unsigned m6_live(void);
 unsigned m6_prepare(unsigned);
+#ifdef ENGINE_M71
+unsigned m71_prepare_replace(unsigned);
+v6_volume *m71_workspace(void);
+#endif
 unsigned m6_install(const m6_preferences*);
 unsigned m6_open(void);
 unsigned m6_maintenance_prepare(unsigned,unsigned);
