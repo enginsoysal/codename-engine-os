@@ -73,7 +73,7 @@ unsigned d71_prepare(const d71_device*d,const d71_disk*s,unsigned op,unsigned in
  if(!s->editable)return D71_PROTECTED;
  if(op==D71_CREATE){if(index>=s->gaps||!mib||mib>UINT64_MAX/2048)return D71_INVALID;d71_gap gap=s->free[index];uint64_t n=mib*2048;if(n>gap.last-gap.first+1)return D71_FULL;
   unsigned available=0;if(s->scheme==D71_MBR){for(unsigned i=0;i<4;++i)if(!s->mbr[446+i*16+4]&&!r32(s->mbr+446+i*16+12))available=1;}else {unsigned c=(s->valid_copies&1)?0:1;for(unsigned i=0;i<128;++i)if(zero(s->tables[c]+i*128,16))available=1;}
-  if(!available)return D71_FULL;p->first=gap.first;p->last=gap.first+n-1;unsigned j=0;if(name)for(;name[j]&&j<36;++j){if((unsigned char)name[j]<32||(unsigned char)name[j]>126)return D71_INVALID;p->name[j]=name[j];}if(name&&name[j])return D71_INVALID;return 0;
+  if(!available)return D71_FULL;p->first=gap.first;p->last=gap.first+n-1;unsigned j=0;if(s->scheme==D71_MBR)return 0;if(name)for(;name[j]&&j<36;++j){if((unsigned char)name[j]<32||(unsigned char)name[j]>126)return D71_INVALID;p->name[j]=name[j];}if(name&&name[j])return D71_INVALID;return 0;
  }
  const d71_partition*v=find(s,index);if(!v)return D71_INVALID;if(v->protected)return D71_PROTECTED;p->first=v->first;p->last=v->last;
  if(op==D71_DELETE)return 0;

@@ -115,6 +115,14 @@ def main():
         checks.append({'name':'GPT create and actual FAT32 BPB/backup/FSInfo/two-FAT/root geometry; unrelated payload and table entries preserved','passed':True})
         s=scan(d);p=plan(d,s,6,s.parts[0].index);assert apply(d,s,p)==0;assert d.raw(first)[:8]==b'ENGINEV6';assert scan(d).parts[0].format==b'Engine'
         assert all(d.data[i]==b for i,b in foreign.items())
+        @v.IO
+        def volume_read(ctx,block,p,amount):return d._read(None,first+block*8,p,amount)
+        @v.IO
+        def volume_write(ctx,block,p,amount):return d._write(None,first+block*8,p,amount)
+        @v.FLUSH
+        def volume_flush(ctx):return d._flush(None)
+        mounted=v.Volume(context=None,read=volume_read,write=volume_write,flush=volume_flush,blocks=(last-first+1)//8)
+        lib.v6_mount.argtypes=[c.POINTER(v.Volume)];assert lib.v6_mount(c.byref(mounted))==0 and mounted.mounted
         saved=dict(d.data);s=scan(d);p=plan(d,s,4,s.parts[0].index);assert d.data==saved;assert apply(d,s,p)==0
         assert gpt(d)==[parts[1]] and all(d.data[i]==b for i,b in foreign.items())
         checks.append({'name':'actual native-volume format then delete only selected entry; prepare/cancel writes nothing; foreign data stays exact','passed':True})
