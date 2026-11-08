@@ -1,0 +1,110 @@
+{
+  "passed": true,
+  "release": "https://github.com/enginsoysal/codename-engine-os/releases/tag/m75-v0.7.5",
+  "target_commit": "2e7b2dd3090c96a4086054cbcaf621e8334ffbdb",
+  "build_id": "13e9012ba486fcbc908a81ba9e66ad3c",
+  "verified_assets": [
+    {
+      "name": "EngineOS-M75-ACCEPTANCE.json",
+      "sha256": "4d19de98f5e88200ea22b3021bccc456a2090059b0b4774d4cc3cd28ddeb1411",
+      "size": 18743
+    },
+    {
+      "name": "EngineOS-M75-archives.elf",
+      "sha256": "9008a959466f7288e7ef99dab89ecb8e40439e9ee693faf825b4c602b98f8a84",
+      "size": 17068
+    },
+    {
+      "name": "EngineOS-M75-browser.elf",
+      "sha256": "3046e4a9af08551315191e2907d572ebde73b54b389b6c3a37dfb41222140cc0",
+      "size": 12639
+    },
+    {
+      "name": "EngineOS-M75-calculator.elf",
+      "sha256": "5193f62e9f16e90ad96905b6bc2e47152c9a524402c5db6f32c8f8e50e1af8a0",
+      "size": 12976
+    },
+    {
+      "name": "EngineOS-M75-calendar.elf",
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    {
+      "name": "EngineOS-M75-editor.elf",
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    {
+      "name": "EngineOS-M75-help.elf",
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    {
+      "name": "EngineOS-M75-installed-kernel.elf",
+      "sha256": "0cd37ab66cc3132fcc62ae72e6835a838e90d08c666d7dcd4c1387e77783165a",
+      "size": 926008
+    },
+    {
+      "name": "EngineOS-M75-installed-kernel.map",
+      "sha256": "d22b9c6350177ca1f411d2cbc36a80e8d88f69f0b9d94dcd40d09c4cf1dad4d4",
+      "size": 333874
+    },
+    {
+      "name": "EngineOS-M75-kernel.elf",
+      "sha256": "314675440fadd42bf288991549f6f06764c9a863dde9e86bb1f15fe6f8521c29",
+      "size": 2978104
+    },
+    {
+      "name": "EngineOS-M75-kernel.map",
+      "sha256": "660ca4d68a2c0e4c1f6dbc51820638be4ec635b569c7b2db5bf61d2edffc76cd",
+      "size": 334166
+    },
+    {
+      "name": "EngineOS-M75-SHA256SUMS.txt",
+      "sha256": "064c96ebefefa9559aaaec5800a39b5c7f53125ac82210fc8383d2e2ac05f531",
+      "size": 1655
+    },
+    {
+      "name": "EngineOS-M75-THIRD-PARTY-NOTICES.txt",
+      "sha256": "6eee72e18f22e5094a648c2a337ff522eda7bcad4af5a645a51aa413aba60c09",
+      "size": 27201
+    },
+    {
+      "name": "EngineOS-M75-usb.img",
+      "sha256": "959052e6ad3e18eef190ed437986580ab06e56ec296445f9f6e38ae359f22a7b",
+      "size": 84934656
+    },
+    {
+      "name": "EngineOS-M75-user.elf",
+      "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f",
+      "size": 68064
+    },
+    {
+      "name": "EngineOS-M75-VMware.zip",
+      "sha256": "4a34c8a8036c9db9f4686ce2b6ee82ee09dfd61811b7ae7613b4cfcac7649a0f",
+      "size": 3058296
+    },
+    {
+      "name": "EngineOS-M75.iso",
+      "sha256": "60ab725a6c71d8d12d41c532010bc60f68aed43cfffca473de6e23a2c1465125",
+      "size": 71620608
+    },
+    {
+      "name": "m75-build-manifest.json",
+      "sha256": "93e19ad3a67e8df2a6e293b89d6e2a9195373a0c549faeb5b0e92c28581b1958",
+      "size": 66612
+    },
+    {
+      "name": "m75-starter-manifest.json",
+      "sha256": "627ab45397bd0b0c1980bca2bd59a1ccbcd9c7444a13307a84a6f108517a68fb",
+      "size": 492
+    }
+  ],
+  "homepage_updated": false,
+  "docs_push_run": 42476777737,
+  "docs_release_run": 42476929810,
+  "docs_push_conclusion": "success",
+  "docs_release_conclusion": "success",
+  "public_manuals_verified": 129,
+  "public_guide": "https://engineos.brixcanvas.com/blog/docs-handbook-install-m75"
+}
