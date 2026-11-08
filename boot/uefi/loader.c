@@ -43,6 +43,9 @@ static void *read_file(efi_file *root,uint16_t *path,uint64_t maximum,uint64_t *
     if(EFI_ERROR(file->read(file,&actual,buffer))||actual!=size)fail("short boot file");
     if(EFI_ERROR(file->close(file)))fail("close file");*length=size;return buffer;
 }
+#ifdef ENGINE_SETUP_MEDIA75
+#include "chain75.inc"
+#endif
 extern NORETURN void kernel_handoff(os_boot_info_v0*,uint64_t,uint64_t,uint64_t);
 #ifdef ENGINE_M73
 #include "display73.inc"
@@ -64,6 +67,11 @@ efi_status efi_main(efi_handle image,efi_system_table *system) {
     reserve(loader_start,loader_end-loader_start);
     if(EFI_ERROR(bs->handle_protocol(loaded->device,&fs_guid,(void**)&fs))||!fs ||
        EFI_ERROR(fs->open_volume(fs,&root))||!root)fail("boot filesystem");
+#ifdef ENGINE_SETUP_MEDIA75
+    chain75_try(image,system,loaded);
+#elif defined(ENGINE_M75)
+    serial_text("M75_INSTALLED_LOADER\n");
+#endif
     uint64_t elf_size=0,init_size=0;
     uint8_t *elf=read_file(root,(uint16_t*)u"\\KERNEL.ELF",4*1024*1024,&elf_size);
     uint8_t *init=read_file(root,(uint16_t*)u"\\INIT.BIN",4096,&init_size);

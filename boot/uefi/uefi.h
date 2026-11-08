@@ -33,8 +33,12 @@ typedef struct {
     void *allocate_pool,*free_pool,*create_event,*set_timer,*wait_event,*signal_event,*close_event,*check_event;
     void *install_protocol,*reinstall_protocol,*uninstall_protocol;
     efi_status (*handle_protocol)(efi_handle,efi_guid*,void**);
-    void *reserved,*register_notify,*locate_handle,*locate_device_path,*install_config;
-    void *load_image,*start_image,*exit_image,*unload_image;
+    void *reserved,*register_notify;
+    efi_status (*locate_handle)(uint32_t,efi_guid*,void*,uint64_t*,efi_handle*);
+    void *locate_device_path,*install_config;
+    efi_status (*load_image)(uint8_t,efi_handle,void*,void*,uint64_t,efi_handle*);
+    efi_status (*start_image)(efi_handle,uint64_t*,uint16_t**);
+    void *exit_image,*unload_image;
     efi_status (*exit_boot_services)(efi_handle,uint64_t);
     void *next_count,*stall;
     efi_status (*watchdog)(uint64_t,uint64_t,uint64_t,uint16_t*);

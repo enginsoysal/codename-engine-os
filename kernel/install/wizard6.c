@@ -52,7 +52,11 @@ static void render(void);
 #endif
 #ifdef ENGINE_M72
 #ifdef ENGINE_M73
+#ifdef ENGINE_M75
+#include "wizard75-ui.inc"
+#else
 #include "wizard73-ui.inc"
+#endif
 #else
 #include "wizard72-ui.inc"
 #endif
@@ -63,12 +67,15 @@ static void render(void){
 #endif
 #ifdef ENGINE_M73
  if(u71_mode||diagnostics||failure){
+#ifdef ENGINE_M75
+ previous_mode75=1;
+#endif
   unsigned old=focus;controls=0;gui7_clip_reset();gui6_rect(0,0,screen->framebuffer_width,screen->framebuffer_height,0x152b3a);
   ui73_shadow(left,top,width,height);ui73_round(left,top,width,height,14,0x102a3a);
   ui73_fit(left+24,top+28,148,DISTRO_NAME,3,0xf7fafc);label(left+24,top+78,"Setup and recovery",1,0xb7cbd8);
   unsigned x=body+10,y=top+92,cw=width-280;
   if(u71_mode)u71_draw(x,y);
-  else if(failure&&!diagnostics){label(x,y,"Let's get this sorted.",4,0xffffff);ui73_paragraph(x,y+72,cw,4,failure,0xffc3a9);ui73_paragraph(x,y+190,cw,3,"Keep the ISO connected for recovery. Your installation has not been marked successful.",0xb7cbd8);button(x,bottom+14,160,"Back",63,1);button(x+175,bottom+14,160,"Details",50,0);}
+  else if(failure&&!diagnostics){label(x,y,"Let's get this sorted.",4,0xffffff);ui73_paragraph(x,y+72,cw,2,failure,0xffc3a9);ui73_paragraph(x,y+190,cw,2,"Keep the ISO connected for recovery. Your installation has not been marked successful.",0xb7cbd8);button(x,bottom+14,160,"Back",63,1);button(x+175,bottom+14,160,"Details",50,0);}
   else{label(x,y,"Recovery and details",4,0xffffff);ui73_paragraph(x,y+60,cw,2,"Choose an operation below. You will review the selected disk before anything is written.",0xb7cbd8);
    textnum(x,y+128,pages_stats().current_pages*4," KiB managed RAM");textnum(x,y+160,pages_stats().peak_pages*4," KiB peak managed RAM");
    label(x,y+210,"Build",1,0xb7cbd8);label(x,y+238,BUILD_ID,1,0xffffff);
@@ -170,13 +177,26 @@ void m7_terminal_command(const char *line,unsigned bytes){
 }
 #endif
 static void action(unsigned a){
+#ifdef ENGINE_M75
+ if(a==84&&step==6&&!failure){serial_text("M75_USER_RESTART\n");out8(0xcf9,6);for(unsigned i=0;i<100000;++i){if(!(in8(0x64)&2)){out8(0x64,0xfe);break;}}failure="Restart did not complete. Power this VM off and start it again. Keep the hard disk connected.";render();return;}
+ if(a==85){validation=0;render();return;}
+ if(a==86){diagnostics=1;focus=0;render();return;}
+#endif
 #ifdef ENGINE_M71
- if(u71_mode){(void)u71_action(a);return;}
+ if(u71_mode){(void)u71_action(a);
+#ifdef ENGINE_M75
+ if(!u71_mode){inspect75(chosen);render();}
+#endif
+return;}
  if(a==90){if(chosen>=storage_count()){validation="Select a disk row first.";render();return;}u71_open(chosen);render();return;}
  if(a==91){replace_selected^=1;replace_consent=0;validation=0;m6_cancel();render();return;}
  if(a==92){replace_consent^=1;validation=0;render();return;}
  if(a==94||a==95){if(a==94&&disk_page)--disk_page;if(a==95&&(disk_page+1)*4<storage_count())++disk_page;render();return;}
- if(a>=100&&a<116){chosen=a-100;replace_selected=replace_consent=0;validation=0;m6_cancel();render();return;}
+ if(a>=100&&a<116){chosen=a-100;replace_selected=replace_consent=0;validation=0;m6_cancel();
+#ifdef ENGINE_M75
+inspect75(chosen);
+#endif
+render();return;}
 #endif
  if(a==64){
 #ifdef ENGINE_M73
@@ -184,7 +204,13 @@ static void action(unsigned a){
 #endif
  terminal=1;command_length=command_overflow=0;console_begin(screen);console_text("Engine OS advanced terminal. Type menu to return.\nPersistent file access is available after installed boot.\nType help for commands.\nengine> ");serial_text("M6_TERMINAL_READY\n");return;}
 
- if(a==50){diagnostics=1;focus=0;render();return;}if(a==62){diagnostics=0;focus=0;render();return;}if(a==63){failure=0;maintenance=0;step=0;m6_cancel();focus=0;render();return;}
+ if(a==50){diagnostics=1;focus=0;render();return;}if(a==62){diagnostics=0;focus=0;render();return;}if(a==63){failure=0;maintenance=0;step=
+#ifdef ENGINE_M75
+1
+#else
+0
+#endif
+;m6_cancel();focus=0;render();return;}
  if(a==60||a==61){char path[256];testpath(path);unsigned status=a==60?v6_put(m6_volume(),path,2*1024*1024+113,pattern,0):v6_verify(m6_volume(),path);notice=status?"The storage check failed. Keep the ISO for recovery.":a==60?"The test file was saved and committed.":"File integrity verification passed.";serial_text(status?"M6_LARGE_FILE_FAIL\n":"M6_LARGE_FILE_PASS\n");render();return;}
  if(a==72){char path[256]="/Users/";unsigned n=7;for(unsigned i=0;preferences.user[i];++i)path[n++]=preferences.user[i];const char*tail="/Documents/Welcome.txt";do{path[n++]=*tail;}while(*tail++);unsigned s=v6_remove(m6_volume(),path);if(!s||s==V6_NOTFOUND){preferences.guide=0;s=m6_save_settings(&preferences);}notice=s?"The guide could not be removed.":"Guide removed. Other features remain available.";serial_text(s?"M6_GUIDE_REMOVE_FAIL\n":"M6_GUIDE_REMOVED\n");render();return;}
  if(a==70){accent=accent==0x62e5bd?0x9caeff:0x62e5bd;preferences.accent=accent;render();return;}if(a==71){unsigned s=m6_save_settings(&preferences);notice=s?"Preferences could not be saved.":"Your preferences were saved to disk.";serial_text(s?"M6_SETTINGS_SAVE_FAIL\n":"M6_SETTINGS_SAVED\n");render();return;}
@@ -192,9 +218,17 @@ static void action(unsigned a){
 #ifdef ENGINE_M7
  if(a==21){calculator_selection^=1;render();return;}
 #endif
- if(a>=31&&a<=33){const uint32_t colors[]={0x62e5bd,0x9caeff,0xf4c47c};accent=colors[a-31];preferences.accent=accent;render();return;}if(a==30)return;
+ if(a>=31&&a<=33){const uint32_t colors[]={0x62e5bd,0x9caeff,0xf4c47c};accent=colors[a-31];preferences.accent=accent;render();return;}if(a==30){
+#ifdef ENGINE_M75
+ render();
+#endif
+return;}
  if(a>=80&&a<=82){maintenance=a-79;diagnostics=0;step=1;focus=0;render();return;}
- if(a==1){if(maintenance&&step==4)step=1;else if(step)--step;if(!step)maintenance=0;focus=0;render();return;}
+ if(a==1){
+#ifdef ENGINE_M75
+ replace_consent=0;
+#endif
+if(maintenance&&step==4)step=1;else if(step)--step;if(!step)maintenance=0;focus=0;render();return;}
  if(a==3){
 #ifdef ENGINE_M72
  if(!maintenance&&m6_volume()&&!m6_settings(&preferences)){
@@ -216,7 +250,13 @@ static void action(unsigned a){
  }
 #endif
  unsigned s=maintenance?m6_maintenance_prepare(chosen,maintenance):replace_selected?m71_prepare_replace(chosen):m6_prepare(chosen);
- if(s){validation=s==B_IO?"Disk I/O failed. Check the SATA connection.":maintenance?"No compatible Engine OS installation was found.":replace_selected?"Use a readable SATA disk, 512-byte sectors, 2 GiB to 2 TiB.":"Disk is not blank/eligible. Open Manage disks or choose Erase and install.";render();return;}validation=0;
+ if(s){validation=s==B_IO?"Disk I/O failed. Check the SATA connection.":maintenance?"No compatible Engine OS installation was found.":replace_selected?"Use a readable SATA disk, 512-byte sectors, 2 GiB to 2 TiB.":
+#ifdef ENGINE_M75
+"This disk contains data. Choose Use the whole disk, then confirm erasing it at Review."
+#else
+"Disk is not blank/eligible. Open Manage disks or choose Erase and install."
+#endif
+;render();return;}validation=0;
 #else
  unsigned s=maintenance?m6_maintenance_prepare(chosen,maintenance):m6_prepare(chosen);if(s){failure=s==B_DENIED?"Choose a blank SATA disk, 512-byte sectors, 2 GiB or larger.":"Disk I/O failed. Check the connection and try again.";render();return;}
 #endif
@@ -254,6 +294,11 @@ NORETURN void m6_start(const os_boot_info_v0*boot){
 
 #ifdef ENGINE_M7
  if(key==136&&controls){focus=(focus+controls-1)%controls;render();continue;}
+#endif
+#ifdef ENGINE_M75
+ if(key==27&&step>0&&step<5&&!diagnostics&&!u71_mode){action(1);continue;}
+ if(key==32&&controls&&buttons[focus].action!=30){action(buttons[focus].action);continue;}
+ if(key==10&&step==3&&controls&&buttons[focus].action==30){action(2);continue;}
 #endif
  if(key==9&&controls){focus=(focus+1)%controls;render();continue;}if(key==10&&controls){action(buttons[focus].action);continue;}
 #ifdef ENGINE_M71

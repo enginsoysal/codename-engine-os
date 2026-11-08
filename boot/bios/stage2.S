@@ -17,6 +17,9 @@ stage2_entry:
     orb $2,%al
     outb %al,$0x92
     sti
+#if BIOS_CHAIN75
+    call chain75
+#endif
     xorw %ax,%ax
     movw %ax,%es
     movl $0x32454256,%es:0x4000
@@ -229,3 +232,7 @@ memory_error: .asciz "BIOS_REJECT: kernel region unavailable before copy\r\n"
 bios_e820_count: .word 0
 bios_video: .byte 0
 .section .note.GNU-stack,"",@progbits
+
+#if BIOS_CHAIN75
+#include "chain75.inc"
+#endif

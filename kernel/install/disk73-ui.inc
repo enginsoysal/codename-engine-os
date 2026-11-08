@@ -6,8 +6,20 @@ static void u71_draw(unsigned x,unsigned y){
  if(u71_mode==1){ui73_fit(x,y+104,cw,u71_scheme(),1,muted);button(x+cw-132,y+43,58,"<",201,0);button(x+cw-66,y+43,58,">",202,0);
   unsigned total=u71_state.count+u71_state.gaps;
   for(unsigned row=0;row<4;++row){unsigned item=u71_page*4+row;if(item>=total)break;unsigned pos=y+134+row*48;char name[64];uint64_t first,last;
-   if(item<u71_state.count){const d71_partition*p=u71_state.parts+item;memcpy(name,"Partition ",10);decimal(p->index+1,name+10);first=p->first;last=p->last;button(x,pos,160,name,300+row,u71_row==item);ui73_fit(x+175,pos,cw-325,p->name,1,muted);ui73_fit(x+175,pos+22,cw-325,p->protected?"Protected":p->format,1,muted);}
-   else{d71_gap g=u71_state.free[item-u71_state.count];first=g.first;last=g.last;button(x,pos,160,"Free space",300+row,u71_row==item);}
+   if(item<u71_state.count){const d71_partition*p=u71_state.parts+item;memcpy(name,"Partition ",10);decimal(p->index+1,name+10);first=p->first;last=p->last;
+#ifdef ENGINE_M75
+button(x,pos,cw,"",300+row,0);if(u71_row==item)gui6_rect(x+2,pos+2,4,36,accent);label(x+13,pos+10,name,2,0xffffff);
+#else
+button(x,pos,160,name,300+row,u71_row==item);
+#endif
+ui73_fit(x+175,pos,cw-325,p->name,1,muted);ui73_fit(x+175,pos+22,cw-325,p->protected?"Protected":p->format,1,muted);}
+   else{d71_gap g=u71_state.free[item-u71_state.count];first=g.first;last=g.last;
+#ifdef ENGINE_M75
+button(x,pos,cw,"",300+row,0);if(u71_row==item)gui6_rect(x+2,pos+2,4,36,accent);label(x+13,pos+10,"Free space",2,0xffffff);
+#else
+button(x,pos,160,"Free space",300+row,u71_row==item);
+#endif
+}
    textnum(x+cw-140,pos+10,(last-first+1)/2048," MiB");
   }
   button(x,y+326,56,"<",203,0);button(x+66,y+326,56,">",204,0);button(x+138,y+326,145,"Refresh",205,0);

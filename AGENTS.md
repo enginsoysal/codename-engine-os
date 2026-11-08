@@ -13,6 +13,8 @@
 
 ## Product requirements
 
+- Owner requirement, 8 November 2026: review every installation step for inexperienced children and older adults. Disk choices must be an obvious bounded list with whole-row hit targets, visible selection and useful disabled actions. Next must not clear/reload the entire UI. Completion requires actual installed startup, including the common retained-ISO case; a live-session desktop is insufficient. Keep novice scenario review distinct from a real human study.
+
 - Owner requirement, 7 November 2026: appearance and convenience are first-class acceptance criteria. Review every ordinary step, error, confirmation and desktop surface for clarity, convenience, user friendliness, graphical quality and readability. Use consistent semantic typography, measured text, spacing and visual hierarchy; reject overlapping or clipped essential text, arbitrary adjacent font sizes and pixel-enlarged bitmap UI fonts. Verify the real native UI at ordinary and HiDPI resolutions, including an actual 3840x2160 framebuffer. Keep user control over suitable scaling. Do not call a browser mockup or an upscaled screenshot proof of native 4K support. Human usability studies remain distinct from the agent's design review.
 
 - Convenience and user friendliness are acceptance requirements from the first boot. Ordinary install/repair tasks must use guided choices, clear review/cancel, readable errors and optional details; terminal syntax and placeholders are not the normal user flow.

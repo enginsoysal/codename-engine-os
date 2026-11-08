@@ -31,7 +31,8 @@ def stages(work,kernel,init,sector_bytes=512,stage_lba=64,kernel_lba=128,video_m
     if sector_bytes not in (512,2048) or len(init)!=48:raise ValueError('BIOS profile')
     work=Path(work);work.mkdir(parents=True,exist_ok=True);raw,entry=flatten64(kernel,kernel_limit);tools=pinned_tools();blocks=32768//sector_bytes
     defines={'BIOS_SECTOR_BYTES':sector_bytes,'BIOS_STAGE_BLOCKS':blocks,'BIOS_STAGE_LBA':stage_lba,'BIOS_KERNEL_LBA':kernel_lba,'BIOS_KERNEL_CHUNKS':len(raw)//32768,'BIOS_KERNEL_BYTES':len(raw),'BIOS_KERNEL_ENTRY':entry,'BIOS_KERNEL_CRC':zlib.crc32(raw),'BIOS_VIDEO_MODE':video_mode,'BIOS_BAD_BOOT':int(bad_boot)}
-    header=''.join(f'#define {name} {value}\n' for name,value in defines.items())+'#ifndef __ASSEMBLER__\nstatic const unsigned char bios_init[]={'+','.join(map(str,init))+'};\n#endif\n';(work/'bios-config.h').write_bytes(header.encode())
+    defines['BIOS_CHAIN75']=int('/m75/' in work.as_posix() and '/installed/' not in work.as_posix())
+    header=''.join(f'#define {name} {value}\n' for name,value in defines.items())+'#ifndef __ASSEMBLER__\nstatic const unsigned char bios_init[]={'+','.join(map(str,init))+'};\n#endif\n';(work/'bios-config.h').write_bytes((header+'#define BIOS_BUILD75 \"'+init[16:].decode()+'\"\n').encode())
     def command(args):
         p=subprocess.run(list(map(str,args)),cwd=ROOT,capture_output=True,text=True)
         if p.returncode:raise RuntimeError(p.stderr.replace(str(ROOT),'<project-root>'))
@@ -50,7 +51,7 @@ def dual_media(build,milestone='M45'):
     build=Path(build);work=build/'bios';kernel=(build/'KERNEL.ELF').read_bytes();init=(build/'INIT.BIN').read_bytes();fat=(build/'normal/efi-fat.img').read_bytes();dist=ROOT/'dist';work.mkdir(parents=True,exist_ok=True)
     # Live M7.4 media carries the offline app cache and an installed-system payload.
     # This does not change the installed BIOS partition or its separate bound.
-    expanded=milestone.startswith('M74')
+    expanded=milestone.startswith(('M74','M75'))
     limit=0xa00000 if expanded else 0x5f8000 if milestone.startswith('M7') else 0x400000
     mbr,stage2,raw,usb_config=stages(work/'usb',kernel,init,kernel_limit=limit)
     usb=gpt(fat,'Engine OS '+milestone,first=32768 if expanded else 16384 if milestone.startswith('M7') else 8192,bios=(mbr,stage2,raw),bios_limit=limit-0x200000);(dist/('EngineOS-'+milestone+'-usb.img')).write_bytes(usb)

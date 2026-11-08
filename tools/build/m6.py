@@ -13,14 +13,14 @@ def embed(work,live):
     text='#include <engine/install/m6.h>\nconst uint8_t m6_bundle[]={'+','.join(map(str,data or b'\0'))+'};\n'
     text+=f'const unsigned m6_bundle_size={len(data)};\nconst unsigned m6_bundle_crc={zlib.crc32(data)}u;\n'
     profile=json.loads((work/'distro.json').read_text(encoding='utf-8'))
-    records=profile['resolved_files'] if live or work.name!='m74' else []
+    records=profile['resolved_files'] if live or work.name not in ['m74','m75'] else []
     for i,r in enumerate(records):
         if len(r['target'].encode())>228:raise ValueError('M6 profile target leaves insufficient room for the selected account name')
         data=(ROOT/r['source']).read_bytes();text+='static const uint8_t file_'+str(i)+'[]={'+','.join(map(str,data or b'\0'))+'};\n'
     text+='const m6_distribution_file m6_files[]={'+(','.join('{'+json.dumps(r['target'])+',file_'+str(i)+','+str((ROOT/r['source']).stat().st_size)+'}' for i,r in enumerate(records)) or '{0,0,0}')+'};\nconst unsigned m6_file_count='+str(len(records))+';\n'
-    if work.name in ['m7','m71','m72','m73','m74']:
+    if work.name in ['m7','m71','m72','m73','m74','m75']:
         from m74 import catalogue,descriptor
-        packages=catalogue() if work.name=='m74' else [dict(name=app,worker=True,ready=True) for app in ['editor','calculator']]
+        packages=catalogue() if work.name in ['m74','m75'] else [dict(name=app,worker=True,ready=True) for app in ['editor','calculator']]
         for package in packages:
             app=package['name'];data=b''
             if package['ready']:
@@ -28,7 +28,7 @@ def embed(work,live):
             if len(data)>65536:raise ValueError('Native desktop app exceeds the bounded loader size')
             text+='const uint8_t app7_'+app+'_image[]={'+','.join(map(str,data or b'\0'))+'};\n'
             text+='const unsigned app7_'+app+'_size='+str(len(data))+';\n'
-    if work.name=='m74':
+    if work.name in ['m74','m75']:
         license=(ROOT/'third_party/miniz/LICENSE').read_bytes()
         text+='const uint8_t miniz74_license[]={'+','.join(map(str,license))+'};\nconst unsigned miniz74_license_size='+str(len(license))+';\n'
     (work/'installer-image.c').write_bytes(text.encode())
@@ -42,27 +42,30 @@ def pack(parts):
             where=lba+offset//512;assert where not in pages;pages[where]=page
     return struct.pack('<I',len(pages))+b''.join(struct.pack('<I',k|(0x80000000 if not any(v) else 0))+(v if any(v) else b'') for k,v in sorted(pages.items()))
 
-def build(revision="standard",profile_path=None,desktop=False,disk_manager=False,desktop_first=False,polished=False,standard_apps=False):
+def build(revision="standard",profile_path=None,desktop=False,disk_manager=False,desktop_first=False,polished=False,standard_apps=False,installer_ux=False):
     if not re.fullmatch("[a-z][a-z0-9]{0,15}",revision):raise ValueError("Invalid build revision")
+    standard_apps=standard_apps or installer_ux
     polished=polished or standard_apps
     desktop_first=desktop_first or polished
     disk_manager=disk_manager or desktop_first
     desktop=desktop or disk_manager
-    prefix="M74" if standard_apps else "M73" if polished else "M72" if desktop_first else "M71" if disk_manager else "M7" if desktop else "M6"
+    prefix="M75" if installer_ux else "M74" if standard_apps else "M73" if polished else "M72" if desktop_first else "M71" if disk_manager else "M7" if desktop else "M6"
     name=prefix+("" if revision=="standard" else revision.upper())
     work=ROOT/'build'/prefix.lower();work.mkdir(parents=True,exist_ok=True);profile=load(profile_path or ROOT/('distros/engineos-apps.json' if standard_apps else 'distros/engineos-polished.json' if polished else 'distros/engineos-workspace.json' if desktop_first else 'distros/engineos-disk.json' if disk_manager else 'distros/engineos-desktop.json' if desktop else 'distros/engineos.json'),desktop=desktop,standard_apps=standard_apps)
     if profile['id']=='engineos':profile={**profile,'name':'Engine OS'}
-    base=main('M5',distro=profile,m6=True,m6_revision=revision,m7=desktop,m71=disk_manager,m72=desktop_first,m73=polished,m74=standard_apps)
+    base=main('M5',distro=profile,m6=True,m6_revision=revision,m7=desktop,m71=disk_manager,m72=desktop_first,m73=polished,m74=standard_apps,m75=installer_ux)
     kernel=compact_elf((work/'KERNEL.ELF').read_bytes());efi=(work/'BOOTX64.EFI').read_bytes();init=(work/'INIT.BIN').read_bytes()
     installed=work/'installed';installed.mkdir(exist_ok=True)
     (installed/'KERNEL.ELF').write_bytes(kernel)
     if desktop:shutil.copyfile(work/'kernel.map',installed/'kernel.map')
     mbr,stage,raw,config=stages(installed/'bios',kernel,init,stage_lba=2048,kernel_lba=2112,kernel_limit=0x5f8000 if desktop else 0x400000)
     low=bytearray(4096);low[:446]=mbr[:446];low[510:512]=b'\x55\xaa'
-    fat=fat32([(4,b'BOOTX64 EFI',efi),(2,b'KERNEL  ELF',kernel),(2,b'INIT    BIN',init)])
+    fat_files=[(4,b'BOOTX64 EFI',efi),(2,b'KERNEL  ELF',kernel),(2,b'INIT    BIN',init)]
+    if installer_ux:fat_files.append((2,b'ENGINE  DSK',b'ENGDISK1'+base['build_id'].encode()))
+    fat=fat32(fat_files)
     payload=pack([(0,bytes(low)),(2048,stage),(2112,raw),(ESP,trim(fat))])
     (work/'install.pack').write_bytes(payload)
-    live=main('M5',m5_live=True,distro=profile,m6=True,m6_revision=revision,m7=desktop,m71=disk_manager,m72=desktop_first,m73=polished,m74=standard_apps)
+    live=main('M5',m5_live=True,distro=profile,m6=True,m6_revision=revision,m7=desktop,m71=disk_manager,m72=desktop_first,m73=polished,m74=standard_apps,m75=installer_ux)
     if live['build_id']!=base['build_id']:raise RuntimeError('Build inputs changed between installed and live images; rebuild with frozen inputs')
     if any(hashlib.sha256((ROOT/p).read_bytes()).hexdigest()!=value for p,value in profile['input_sha256'].items()):raise RuntimeError('Distribution inputs changed during build')
     media=dual_media(work,name)
@@ -92,6 +95,9 @@ def build(revision="standard",profile_path=None,desktop=False,disk_manager=False
         live['native_packages']=[{**p,'execution_class':'cpl3-event-worker' if p['worker'] else 'fixed-broker-frontend',
                                  'owned_file':'/Applications/'+p['folder']+('/program.elf' if p['worker'] else '/manifest.json')}
                                 for p in catalogue() if p['ready']]
+    if installer_ux:
+        live.update(qualification_scope='M75-VM-v1',release_version='0.7.5'+('' if revision=='standard' else '+'+revision))
+        live['limits'][0]='Requires matching M75-VM-v1 exact-artifact acceptance; no human usability study'
     live['artifacts']={p.name:{'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'size':p.stat().st_size} for p in [ROOT/'dist'/('EngineOS-'+name+suffix) for suffix in ('.iso','-usb.img','-kernel.elf','-kernel.map','-user.elf')] if p.is_file()}
     if desktop:
         for suffix,source in [('.elf',installed/'KERNEL.ELF'),('.map',installed/'kernel.map')]:
