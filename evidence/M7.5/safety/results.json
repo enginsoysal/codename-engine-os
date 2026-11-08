@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checks": [
+    "existing data rejected by default; full review and separate erase consent; Disk tools return; Back cancels without writes",
+    "missing disk and unsupported capacity produce in-place guidance without a misleading success",
+    "injected SATA write failure never reports success; Back returns to disk choice with personal choices retained"
+  ],
+  "build_id": "13e9012ba486fcbc908a81ba9e66ad3c",
+  "iso_sha256": "60ab725a6c71d8d12d41c532010bc60f68aed43cfffca473de6e23a2c1465125"
+}

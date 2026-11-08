@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "checks": [
+    "full-width capacity-column click selects Disk 2 among equal-capacity GPT disks",
+    "separate erase choice and review consent before actual replacement",
+    "ordinary restart loads Disk 2 installed kernel and desktop with matching ISO attached",
+    "entire unselected Disk 1 SHA256 unchanged; selected volume metadata CRC independently checked"
+  ],
+  "build_id": "13e9012ba486fcbc908a81ba9e66ad3c",
+  "iso_sha256": "60ab725a6c71d8d12d41c532010bc60f68aed43cfffca473de6e23a2c1465125",
+  "unselected_disk_sha256": "5f96acb45c551bf78cdd098d4d323cf58fd770f914fe16cf660091923fbe85f8"
+}

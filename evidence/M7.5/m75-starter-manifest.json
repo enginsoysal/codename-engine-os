@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "archive": "EngineOS-M75-VMware.zip",
+  "sha256": "4a34c8a8036c9db9f4686ce2b6ee82ee09dfd61811b7ae7613b4cfcac7649a0f",
+  "size": 3058296,
+  "disk": "new growable 20 GiB SATA disk; not preinstalled",
+  "firmware": "UEFI, Secure Boot off",
+  "boot_order_forced": false,
+  "network_required": false,
+  "members": [
+    "EngineOS-M75.iso",
+    "EngineOS.vmdk",
+    "EngineOS.vmx",
+    "Inter-OFL.txt",
+    "LICENSE",
+    "START-HERE.txt",
+    "THIRD-PARTY-NOTICES.txt"
+  ]
+}

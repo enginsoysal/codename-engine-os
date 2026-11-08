@@ -41,7 +41,7 @@ def main():
     if state(g,'step')==5 and state(g,'painting73')==0:break
     g.qmp('cont');time.sleep(.005)
    else:raise AssertionError('Could not observe a completed progress frame')
-   ui.h.shot(g,out,'07-real-progress');g.qmp('cont');g.wait('M6_INSTALL_PASS',start,240);ui.wait_view(g,6,start);ui.shot(g,out,'08-ready-restart')
+   ui.raw_shot(g,out,'07-real-progress');g.qmp('cont');g.wait('M6_INSTALL_PASS',start,240);ui.wait_view(g,6,start);ui.shot(g,out,'08-ready-restart')
    assert state(g,'full_frames75')==1
    report['checks']+=['all seven native steps captured; full-width disk selection and disabled Next before selection','guide/account/accent choices retained through Back; readable review before writes','outer frame drawn once; keyboard focus repaints rings only; real installation progress']
    report['frames']={key:state(g,key) for key in ['full_frames75','content_frames75','focus_frames75','name_frames75']}

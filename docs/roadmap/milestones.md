@@ -1,6 +1,10 @@
 # Milestones and acceptance contract
 
-## Current owner priority — 7 November 2026
+## Current owner priority — 8 November 2026
+
+M7.5 follows owner-reported installation confusion and startup failure. The novice path now uses a visible disk list, retained choices, bounded partial redraw and actual installed Restart. [Nine-gate acceptance](../../evidence/M7.5/acceptance-results.json), [manual](../handbook/install-m75.md), [scope and limits](../milestones/m7.5.md). Exact original-owner VM diagnosis and human studies remain separate.
+
+## Historical owner priority — 7 November 2026
 
 **M7.3 is complete within M73-VM-v1:** native visual quality, clear guided steps, readable text and actual 4K sizing. Clarity, convenience, user friendliness, graphical quality and readability remain mandatory for later changes. [Delivery](../milestones/m7.3.md), [review](../architecture/usability-review-m73.md), [current tutorial](../handbook/install-m73.md). M8 remains deferred until the owner chooses the next work.
 

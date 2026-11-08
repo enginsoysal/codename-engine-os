@@ -57,3 +57,13 @@ The public homepage still shows M7.3: the native editor rejected Save twice
 with an explicit save-error message. M7.4 edits remain in the authorized Edge
 editor for recovery. No successful homepage publication is claimed. Current
 articles and downloads are independent of this homepage-only blocker.
+
+## M7.5 installation follow-up
+
+Native downloads prefer m75-v0.7.5 when the release is published. The updated
+English installer manual, seven-step reference review, exact acceptance and
+restart guidance synchronize from GitHub. The VMware ZIP instruction now ends
+with Restart to Engine OS; matching media may stay connected. Homepage editing
+is separate from article publication; no new successful homepage edit is claimed.
+[Current installation guide](../docs/handbook/install-m75.md),
+[release](../docs/releases/m75-v0.7.5.md).

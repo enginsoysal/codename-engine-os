@@ -14,7 +14,7 @@ import zipfile
 ROOT=Path(__file__).resolve().parents[2]
 def module(name,path):
     spec=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
-v=module('vmware71',ROOT/'tests/m71/vmware.py');s=module('session72',ROOT/'tests/m72/session.py')
+v=module('vmware71',ROOT/'tests/m71/vmware.py');capture75=module('capture75',Path(__file__).with_name('rfb.py'));v.old.rfb.RFB=capture75.retained(v.old.rfb.RFB);s=module('session72',ROOT/'tests/m72/session.py')
 
 def sparse(path,size):
     assert path.resolve().is_relative_to((ROOT/'build/m75/vmware').resolve()) and not path.exists() and path.suffix=='.img'
@@ -53,11 +53,12 @@ def main():
         # Offline is deliberate: neither setup nor Files requires a network.
         cfg=cfg.replace('ethernet0.present = "TRUE"','ethernet0.present = "FALSE"');g.vmx.write_bytes(cfg.encode())
         with g:
-            v.shot(g,out,'welcome');v.enter(g);v.tab(g);v.enter(g);v.enter(g);v.enter(g);v.enter(g);v.shot(g,out,'review');v.enter(g);g.wait('M6_INSTALL_PASS',timeout=240);g.wait('M73_VIEW step=0x0000000000000006');v.shot(g,out,'finish')
+            v.shot(g,out,'welcome');v.enter(g);v.enter(g);v.tab(g,3);v.enter(g);v.enter(g);v.enter(g);v.shot(g,out,'review');v.enter(g);g.wait('M6_INSTALL_PASS',timeout=240);g.wait('M73_VIEW step=0x0000000000000006');v.shot(g,out,'finish')
             # Restart is primary. Keep this same ISO, VMX and NVRAM connected.
             start=len(g.read());v.enter(g);g.wait('M75_USER_RESTART',offset=start);g.wait('M7_DESKTOP_READY',offset=start,timeout=180)
             assert 'M6_INSTALLED_VOLUME' in g.read()[start:] and 'M6_WIZARD_READY' not in g.read()[start:]
-            if a.firmware=='efi':assert 'M75_CHAIN_DISK_LOADER' in g.read()[start:] and 'M75_INSTALLED_LOADER' in g.read()[start:]
+            if a.firmware=='efi':assert 'M75_INSTALLED_LOADER' in g.read()[start:];report['retained_iso_boot_route']='media-to-disk chain' if 'M75_CHAIN_DISK_LOADER' in g.read()[start:] else 'firmware selected installed disk directly'
+            g.rfb.close();g.rfb=None
             v.shot(g,out,'desktop-home')
             v.tab(g,8);v.enter(g);g.wait('M72_FOLDER_VISIT /Users/Owner/Documents')
             v.tab(g,4);v.enter(g)

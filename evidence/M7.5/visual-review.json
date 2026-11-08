@@ -1,0 +1,85 @@
+{
+  "passed": true,
+  "build_id": "13e9012ba486fcbc908a81ba9e66ad3c",
+  "review_type": "agent visual and novice-scenario review of actual native screenshots",
+  "human_usability_study": false,
+  "novice_scenarios": [
+    "inexperienced 11-year-old",
+    "inexperienced 60-year-old"
+  ],
+  "questions": [
+    "Is the action clear?",
+    "Is the sequence convenient?",
+    "Can it be completed without IT commands?",
+    "Is the appearance coherent?",
+    "Is essential text readable and separated?"
+  ],
+  "steps": [
+    {
+      "step": "Welcome",
+      "assessment": "Short three-action explanation; default Next; recovery secondary",
+      "agent_review_passed": true
+    },
+    {
+      "step": "Choose a disk",
+      "assessment": "Bordered list, full-width rows, radio state and unavailable Next; automatic empty-disk preparation",
+      "agent_review_passed": true
+    },
+    {
+      "step": "Your apps",
+      "assessment": "Included essentials stated; guide can be removed; optional packages managed later",
+      "agent_review_passed": true
+    },
+    {
+      "step": "Your style",
+      "assessment": "Outlined name field, rules, visible colour choices; Back and editing retain state",
+      "agent_review_passed": true
+    },
+    {
+      "step": "Review",
+      "assessment": "Named disk/capacity/account/guide/colour; existing-data erasure separately confirmed",
+      "agent_review_passed": true
+    },
+    {
+      "step": "Installing",
+      "assessment": "Real stage/progress only; no active navigation while writing; actionable failure",
+      "agent_review_passed": true
+    },
+    {
+      "step": "Ready",
+      "assessment": "Primary Restart; secondary immediate desktop; actual independent loader proven separately",
+      "agent_review_passed": true
+    }
+  ],
+  "resolutions_reviewed": [
+    [
+      1280,
+      800
+    ],
+    [
+      1024,
+      768
+    ],
+    [
+      3840,
+      2160
+    ]
+  ],
+  "screenshots_resized_for_evidence": false,
+  "findings_fixed": [
+    "old footer/selection paint remnants removed",
+    "whole-row disk and partition hit regions",
+    "retained outer frame and focus/name/progress damage",
+    "plain selected-empty/existing/unsupported states",
+    "matching-media installed restart, with independent disk startup proof"
+  ],
+  "limits": [
+    "No actual child/older-adult study; future user feedback can reveal more problems",
+    "No screen-reader or localization qualification",
+    "Original owner VM configuration has not been reproduced"
+  ],
+  "capture_notes": [
+    "Stopped QEMU progress is decoded from actual VRAM because the timer-driven VGA cache can retain earlier pixels",
+    "VMware loopback RFB capture retains rectangles and reconnects after hardware reset; it never controls a host desktop"
+  ]
+}

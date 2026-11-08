@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "checks": [
+    "all seven native steps captured; full-width disk selection and disabled Next before selection",
+    "guide/account/accent choices retained through Back; readable review before writes",
+    "outer frame drawn once; keyboard focus repaints rings only; real installation progress",
+    "ordinary Restart with ISO still connected loads installed kernel (zero installer bundle), mounted disk and real desktop",
+    "separate unforced boot with ISO absent and original NVRAM; independent metadata/CRC reader confirms account/accent/guide choices"
+  ],
+  "firmware": "uefi",
+  "resolution": [
+    1280,
+    800
+  ],
+  "ram_mib": 128,
+  "human_usability_study": false,
+  "build_id": "8355f1c516bbc755dbd3c082ae162f84",
+  "iso_sha256": "da5f116e354b264d80cac07582e7df85311d3fccd00e8d98b3109cd731ce5862",
+  "frames": {
+    "full_frames75": 1,
+    "content_frames75": 21,
+    "focus_frames75": 1
+  },
+  "managed_current_bytes": 192512
+}

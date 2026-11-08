@@ -1,6 +1,6 @@
 # Architecture
 
-The current M7.3 native UI uses smooth measured text, shared logical/physical scaling and bounded direct framebuffer rendering. [Graphics decisions](graphics-m73.md), [five-question review](usability-review-m73.md), [current delivery status](../roadmap/status.md). The foreign runtime layers below remain planned, not implemented app compatibility.
+The M7.5 installer adds explicit disk lists, partial redraw and actual installed restart. [Installer design and source comparison](installer-m75.md), [current manual](../handbook/install-m75.md). The shared M7.3 native UI uses smooth measured text, shared logical/physical scaling and bounded direct framebuffer rendering. [Graphics decisions](graphics-m73.md), [five-question review](usability-review-m73.md), [current delivery status](../roadmap/status.md). The foreign runtime layers below remain planned, not implemented app compatibility.
 
 Baseline: M0 contracts, M1 boot and M2 protected native processes. [M3](../milestones/m3.md) qualifies native threads, waits, anonymous VM/COW/pressure and 1/2/4 active CPUs in a bounded VM profile. Planned interfaces are distinguished from implementation. See [status](../roadmap/status.md) and [evidence](../../evidence/M2/README.md).
 

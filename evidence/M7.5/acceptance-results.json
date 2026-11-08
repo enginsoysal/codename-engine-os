@@ -1,0 +1,253 @@
+{
+  "passed": true,
+  "scope_id": "M75-VM-v1",
+  "code_source_commit": "3ea998e117f189c73de7b0b1bc12c730ec699d75",
+  "build_id": "13e9012ba486fcbc908a81ba9e66ad3c",
+  "iso_sha256": "60ab725a6c71d8d12d41c532010bc60f68aed43cfffca473de6e23a2c1465125",
+  "vmware_starter_sha256": "4a34c8a8036c9db9f4686ce2b6ee82ee09dfd61811b7ae7613b4cfcac7649a0f",
+  "gates": [
+    {
+      "report": "journey/uefi-1280x800-64/results.json",
+      "passed": true
+    },
+    {
+      "report": "journey/uefi-3840x2160-128/results.json",
+      "passed": true
+    },
+    {
+      "report": "journey/bios-1280x800-128/results.json",
+      "passed": true
+    },
+    {
+      "report": "safety/results.json",
+      "passed": true
+    },
+    {
+      "report": "replacement/results.json",
+      "passed": true
+    },
+    {
+      "report": "vmware/efi-starter/results.json",
+      "passed": true
+    },
+    {
+      "report": "vmware/bios/results.json",
+      "passed": true
+    },
+    {
+      "report": "repository-results.json",
+      "passed": true
+    },
+    {
+      "report": "visual-review.json",
+      "passed": true
+    }
+  ],
+  "gate_count": 9,
+  "artifacts": {
+    "EngineOS-M75.iso": {
+      "sha256": "60ab725a6c71d8d12d41c532010bc60f68aed43cfffca473de6e23a2c1465125",
+      "size": 71620608
+    },
+    "EngineOS-M75-usb.img": {
+      "sha256": "959052e6ad3e18eef190ed437986580ab06e56ec296445f9f6e38ae359f22a7b",
+      "size": 84934656
+    },
+    "EngineOS-M75-kernel.elf": {
+      "sha256": "314675440fadd42bf288991549f6f06764c9a863dde9e86bb1f15fe6f8521c29",
+      "size": 2978104
+    },
+    "EngineOS-M75-kernel.map": {
+      "sha256": "660ca4d68a2c0e4c1f6dbc51820638be4ec635b569c7b2db5bf61d2edffc76cd",
+      "size": 334166
+    },
+    "EngineOS-M75-user.elf": {
+      "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f",
+      "size": 68064
+    },
+    "EngineOS-M75-installed-kernel.elf": {
+      "sha256": "0cd37ab66cc3132fcc62ae72e6835a838e90d08c666d7dcd4c1387e77783165a",
+      "size": 926008
+    },
+    "EngineOS-M75-installed-kernel.map": {
+      "sha256": "d22b9c6350177ca1f411d2cbc36a80e8d88f69f0b9d94dcd40d09c4cf1dad4d4",
+      "size": 333874
+    },
+    "EngineOS-M75-editor.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M75-calculator.elf": {
+      "sha256": "5193f62e9f16e90ad96905b6bc2e47152c9a524402c5db6f32c8f8e50e1af8a0",
+      "size": 12976
+    },
+    "EngineOS-M75-calendar.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M75-archives.elf": {
+      "sha256": "9008a959466f7288e7ef99dab89ecb8e40439e9ee693faf825b4c602b98f8a84",
+      "size": 17068
+    },
+    "EngineOS-M75-browser.elf": {
+      "sha256": "3046e4a9af08551315191e2907d572ebde73b54b389b6c3a37dfb41222140cc0",
+      "size": 12639
+    },
+    "EngineOS-M75-help.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M75-VMware.zip": {
+      "sha256": "4a34c8a8036c9db9f4686ce2b6ee82ee09dfd61811b7ae7613b4cfcac7649a0f",
+      "size": 3058296
+    }
+  },
+  "prior_frozen_proofs_verified": 1043,
+  "prior_binary_artifacts_verified": 98,
+  "kernel_physical_span_bytes": 2342256,
+  "managed_idle_bytes": 192512,
+  "actual_4k_framebuffer": true,
+  "actual_64_mib_guest": true,
+  "human_usability_study": false,
+  "physical_hardware_qualified": false,
+  "original_user_vm_failure_diagnosed": false,
+  "windows_dos_runtime_implemented": false,
+  "limitations": [
+    "Requires matching M75-VM-v1 exact-artifact acceptance; no human usability study",
+    "Original native Editor/Calculator CPL3 event workers; trusted compositor, Files, Settings, Terminal and network broker",
+    "One bounded TLS 1.2 connection, IPv4 Intel 8254x/82574 and hardware RDRAND; correct virtual UTC clock required",
+    "Editor 8191 bytes; download 64 MiB; 8 windows; 1024 volume entries; 4-KiB streaming buffer",
+    "SATA/AHCI 512-byte sectors and M6 installed-volume bounds; one local profile without authentication/ACLs",
+    "Named x86-64 BIOS/UEFI virtual profiles only; Secure Boot disabled; no universal or physical qualification",
+    "Desktop work runs on the BSP; APs halt after original runtime qualification; no Windows or DOS application runtime",
+    "GPT 128x128 canonical tables and primary MBR partitions; FAT32/Engine quick formats; no resize/move or filesystem conversion",
+    "Installation still replaces the whole selected SATA disk after explicit erase consent; no dual-boot installation into a selected partition",
+    "Finish opens the real persistent desktop immediately from the installation session; independent disk boot is qualified separately",
+    "Files browses the installed native volume; additional partitions are not automatically mounted; system folders are read-only in Files",
+    "Inter OFL coverage masks at native physical font sizes, 100/150/200 percent UI scales; no runtime font interpreter",
+    "4K refers to qualified framebuffer modes, not every physical monitor or GPU",
+    "Named x86-64 virtual profiles; original user VM configuration has not been independently reproduced",
+    "No human novice study or guarantee for every child/older adult",
+    "Matching-media redirection only; cross-release application migration not qualified"
+  ],
+  "final_reproduction_harness_sha256": {
+    "tests/m75/journey.py": "20e3195d56c9609f2b33402a8baae385c270a181507e98226154663f043fe569",
+    "tests/m75/replacement.py": "bfea1681afa3e7db047ac21f426935c9f78f9149f6559c62034c35b7c66bc67c",
+    "tests/m75/rfb.py": "30c63814c4e0c19d5626df1f2b2dbb7bd3557780bb6a11c89fbbdde8a87ba349",
+    "tests/m75/safety.py": "0a06bf36e17431f9bc1afc879eff4b0d9207aa69e2bbde0844f5d2309d6cb637",
+    "tests/m75/ui.py": "20b38cdad90c66117979eac9816ce5c52f4790359f67fd1173eec5657c44a030",
+    "tests/m75/verify.py": "bf5a39f19144b8c4d4fb52abd7580a792c9e27f6e97d850e92838570da1c610e",
+    "tests/m75/vmware.py": "b2a054ca9d4d3ce8c636f3ce49968ace697ffe7defac90a9cc4a1b8e9f1c35ac"
+  },
+  "evidence_sha256": {
+    "journey/bios-1280x800-128/01-welcome.png": "558d6ef7132ccf56fd5eea5c99919c19afbed36d63dca1b619d1c2a37c21855a",
+    "journey/bios-1280x800-128/02-select-a-disk-disabled-next.png": "4d9a3849989d064a8fdb5be6e75a371a1f60fa5246c75640a77f3be6eda3240f",
+    "journey/bios-1280x800-128/03-full-row-selected.png": "8f64ba60a2dc4968eb7eaf91951620638239feeefb97c85a5f520fed8315d226",
+    "journey/bios-1280x800-128/04-your-apps.png": "0b29087fe6c2e55af7b9f7e722f775c52030ff115a9f57b4b7572dcbd51cb57f",
+    "journey/bios-1280x800-128/05-your-style.png": "a9325bdc0befee1a01ee8f8ca246fc7995a6a09496f0cf0df6060ad294f1996b",
+    "journey/bios-1280x800-128/06-review.png": "a486445f2bd4ce3a4e34ff927b4cf935613b80c8704cdd092528ccf5400f8090",
+    "journey/bios-1280x800-128/07-real-progress-capture.json": "1e5745d12ffc492332f651577a6cd02acf106b7ccc10669686d1dae6c4e76c71",
+    "journey/bios-1280x800-128/07-real-progress.png": "9e9826d2d3179475bde1d400258f6811b2f8e813c041c46af5d30c17f5d0f314",
+    "journey/bios-1280x800-128/08-ready-restart.png": "e7ac0eaa1762622204730e5ebf57a9c9c23a6f2cd014121e1e2c1b7f552be15e",
+    "journey/bios-1280x800-128/09-restarted-installed-desktop-iso-connected.png": "2b99d976ae6dd3e0f61a95ac59b85fea587741ff18914d2f2f887fea8768fb3d",
+    "journey/bios-1280x800-128/09b-real-folder-navigation.png": "bbfee5cf035be86699da99aaa6b0c2c03352b381ce6412ecfd3dddbb4920faf9",
+    "journey/bios-1280x800-128/09c-installed-calculator.png": "2c08d93b819a757c8a8a7b180c22d1384d6863fe15ee8369cbb5f5514a469ac6",
+    "journey/bios-1280x800-128/10-desktop-without-iso.png": "c876a7ac60e5dd5540bf0c471462732d2af4e2881ee9bf240f1926512dd33ddd",
+    "journey/bios-1280x800-128/detached.log": "4f193fe7ec15c1325e730e81fc3fed92fbd8686c22629648a890717a06f7c0f3",
+    "journey/bios-1280x800-128/install-and-restart.log": "4ab37aaeadb2b22a9f1989601994885de7d8055f372b5d2c54c05bcc3bd8323d",
+    "journey/bios-1280x800-128/results.json": "a053adfd8640e0997fd278a86f48958329bc5e151799dbe8ed617d2100cb7e70",
+    "journey/uefi-1280x800-128/01-welcome.png": "2af043bae2c96ab06dbcb641af56bd1a9e604a70b3ec7ef6b3bad1ef5034ea67",
+    "journey/uefi-1280x800-128/02-select-a-disk-disabled-next.png": "4c74c20400f25ffbdf5e9b5b239ad1d91fd28904361ba3f0974f9b401f083f35",
+    "journey/uefi-1280x800-128/03-full-row-selected.png": "8df08b25769e7e77f19a87a066b9a282b68a6a0398daf2855b3125233000427b",
+    "journey/uefi-1280x800-128/04-your-apps.png": "fce320386a99b153513e526bc597058103af743d7a20defd8668ab28bd1f3128",
+    "journey/uefi-1280x800-128/05-your-style.png": "515f6a053af0ba9e5cfe6948287623503176affd6da34e1a973a6464196df885",
+    "journey/uefi-1280x800-128/06-review.png": "6d79a79d74cd8d92682e98926a2ccc4b6c4515e406ad8baafac0db24a8a8f8ba",
+    "journey/uefi-1280x800-128/07-real-progress.png": "4fe069d0caa18ca12787ee0df3d1d07ed53a3ce68e8b76f25c5c5865296cd04c",
+    "journey/uefi-1280x800-128/08-ready-restart.png": "23c3083ab1592cbe481021875d89c58187072531ce480e2533ace090f058e764",
+    "journey/uefi-1280x800-128/09-restarted-installed-desktop-iso-connected.png": "dcad7ba1c3f3ea9731965d8ee243488156bc410f1bc0ccdb26eb36ca30c5ba5b",
+    "journey/uefi-1280x800-128/10-desktop-without-iso.png": "eb361f37b9e067029869599e0e71b07dd1fb56ec31fd9018051ba5aff0ce8c28",
+    "journey/uefi-1280x800-128/detached.log": "9b93d5fe3a7a001a417d8db68124fbab21853ef0b640769743dff2acef6c84d0",
+    "journey/uefi-1280x800-128/install-and-restart.log": "45a7e442e1f24d4cc343944450dcc9e18d92fb5a8a2838240c6de6e1fba2d410",
+    "journey/uefi-1280x800-128/last-run.log": "d71e17a67ae0e9779dc25c386546a689f395703276f9cd3e2b963b689637e37e",
+    "journey/uefi-1280x800-128/results.json": "cba39fc3851b7c34314ce30eca7ae7f3afad1c501405906c9898f226c9ab9b65",
+    "journey/uefi-1280x800-64/01-welcome.png": "2af043bae2c96ab06dbcb641af56bd1a9e604a70b3ec7ef6b3bad1ef5034ea67",
+    "journey/uefi-1280x800-64/02-select-a-disk-disabled-next.png": "855baa4bc2e74439424f8ab4efe31f444ed26545d411f3747beb338c0b08a93d",
+    "journey/uefi-1280x800-64/03-full-row-selected.png": "9f9869bd71425270a38eda696e8d63f8fd9097577135add2bf8792bd6d33e0d2",
+    "journey/uefi-1280x800-64/04-your-apps.png": "f2868b799fdc532fbc81932e857e01c52501b1cd8ae6124df4309f7a17bb8a74",
+    "journey/uefi-1280x800-64/05-your-style.png": "a15bb33fd42c46e64237848425f882c972eca6cd2f90f8a94a4727b7c375f741",
+    "journey/uefi-1280x800-64/06-review.png": "8d838e293d47342a2bbd516d0d2ceb3b433b9631ff64b7420e7f5bfd5d305d49",
+    "journey/uefi-1280x800-64/07-real-progress-capture.json": "e423cf56547bfafc0a3087747e409eccaa76651d74ff56903ba455020a2b3496",
+    "journey/uefi-1280x800-64/07-real-progress.png": "f4a1879377c8353115e3fe1d06a5358b6a6a8f92c57e1762b6d57699445f1315",
+    "journey/uefi-1280x800-64/08-ready-restart.png": "9d435a7fbe5039fe8c9edf71869aa16ef90aa0a7015ffdab60eb8af64251e2d3",
+    "journey/uefi-1280x800-64/09-restarted-installed-desktop-iso-connected.png": "aa46b79d797062ad2e4dd9a68b3a50e5df03a4de225eff5b21790cdd9933da9d",
+    "journey/uefi-1280x800-64/09b-real-folder-navigation.png": "42341bb784be97e531dc051753ca051c0dc4b9e726aefc4d9a9827d76e019c77",
+    "journey/uefi-1280x800-64/09c-installed-calculator.png": "918d08f2070452e537720fc1ccedc5e27ff71c8bd60c8c573a0baaff2f30b71c",
+    "journey/uefi-1280x800-64/10-desktop-without-iso.png": "aa46b79d797062ad2e4dd9a68b3a50e5df03a4de225eff5b21790cdd9933da9d",
+    "journey/uefi-1280x800-64/detached.log": "bc9b6e9bfc9d80e10a6e23d997fa26ae587464b136d1d439f2502f86f7211783",
+    "journey/uefi-1280x800-64/install-and-restart.log": "b4813740c228ac30e64f5b14a26a5e7f1cb89f2251d7035652df8f11995c5aa2",
+    "journey/uefi-1280x800-64/results.json": "22a9cf70b1d258871b88daee6ab59f68f025be2e7194f4abba32cebfdddb302a",
+    "journey/uefi-3840x2160-128/01-welcome.png": "681c660e26a66793f010ef6b5575cd12c581a2547880781e2758337668103375",
+    "journey/uefi-3840x2160-128/02-select-a-disk-disabled-next.png": "2d2e566ad024916d73e6e3122e20456131c689702dea85fcb7287cb4d4d5c2cc",
+    "journey/uefi-3840x2160-128/03-full-row-selected.png": "7bf7afde99ce069000bf81dae9df733838f4e84e32d2955bc0da72febbff4822",
+    "journey/uefi-3840x2160-128/04-your-apps.png": "442bfcb233b135c6fee9c82655f011e2ae7f367e619f7edda456b6c78345bc05",
+    "journey/uefi-3840x2160-128/05-your-style.png": "73c55f5eb241fe9baf8f1dfe085bd2198c44fe7b3a210a1cdb72d97b4303a3f0",
+    "journey/uefi-3840x2160-128/06-review.png": "faf89c52abb4e0a74b5be698a85e436898ebe0d18c693c596e64b16c32066869",
+    "journey/uefi-3840x2160-128/07-real-progress-capture.json": "42ed1b4826b7420d9d1686d3e5edd4a55b89bdf5f16c04139ad24358f3394ebf",
+    "journey/uefi-3840x2160-128/07-real-progress.png": "9a295833b364387aed1a0889620a42e3806af62643e7b21a9596b21c75c26464",
+    "journey/uefi-3840x2160-128/08-ready-restart.png": "7fd6e75fa591afade3e72811b2ac987f535a9ac7b497df189c372bcc6244e0c5",
+    "journey/uefi-3840x2160-128/09-restarted-installed-desktop-iso-connected.png": "0586f91d5ea7d64473d7e323a55ae67fc3d6cbf575b53f97dc9fc5e1824a31ea",
+    "journey/uefi-3840x2160-128/09b-real-folder-navigation.png": "e081483b6dcfad26b9cb0ef92f3aa758051abc59b374b54d10cfd72f490f623b",
+    "journey/uefi-3840x2160-128/09c-installed-calculator.png": "e937a3e7de1e57f95dfd1b2fa71662a96d6099cffa1ed78c6b7a1c4cd7d262f6",
+    "journey/uefi-3840x2160-128/10-desktop-without-iso.png": "4a2c2ed95aee4d7ace9bfd3f1e544baaac05ed734952253e4638a2463d7eef38",
+    "journey/uefi-3840x2160-128/detached.log": "5b5cd6222ff92c99b50d04a185f96b613a454d059ed89680c53be85f8a17a2c2",
+    "journey/uefi-3840x2160-128/install-and-restart.log": "70299dbf172d0f4fd76a540883fd4ef892c205a6696270db54d9959fb1064599",
+    "journey/uefi-3840x2160-128/results.json": "e277726520b3ad860965d0f5d64f76df16329a4f8b4a19030dfcc308e82f400d",
+    "m75-build-manifest.json": "93e19ad3a67e8df2a6e293b89d6e2a9195373a0c549faeb5b0e92c28581b1958",
+    "m75-starter-manifest.json": "627ab45397bd0b0c1980bca2bd59a1ccbcd9c7444a13307a84a6f108517a68fb",
+    "README.md": "80ebba7708175ca4078a0cfe17dcfacd11038188046aee83d1fc6c2052209621",
+    "replacement/01-equal-disks-selected-second.png": "2614d2f46b39b89e962b0aee884cf1291a9e93a4c7f90cfd09a655d7f1cde62e",
+    "replacement/02-review-disk-two.png": "2a7a27910036d2e6fc1531a22d66898ef52c26ec74ec5b7742d2ba3b8dd27d35",
+    "replacement/03-verified-finish.png": "fe2aedb6b9ba62be5a15326c97187bbc069c895ead1d07a78bfffbfdc8157adc",
+    "replacement/04-restarted-disk-two.png": "175ccdb005f22f8b9ac930d6af69a27d9c32f68cf02f1a305c3268c852cf2285",
+    "replacement/install.log": "1cb787b02a930f0ba991479379d429d84f0bd24de639df5f3fa6db773fbd3faf",
+    "replacement/results.json": "050964aa9798fd252f9f2a853e57507c252b3fd634f5fdc1cd97666ca31c263a",
+    "repository-results.json": "d8ae8a86fa2f876d7112319e745632e26c10e61bce6883c5adb9580877434c79",
+    "safety/01-existing-disk-guidance.png": "70b59926bfb50a43fb3418a77eee8e6f3824c2dc4e773ebecdb7f85b9ceff6cf",
+    "safety/02-disk-tools.png": "59eba9f96642001fcd212e7c1a3c8a34c1055b7f3e24387cd36ba045b7971759",
+    "safety/03-erasure-permission-required.png": "81d532c2ead5ab50c55457b138ebaf125d6deeaf0f50a62f3ece4bb5eb7f0d57",
+    "safety/04-erasure-confirmed.png": "43f7fbb62fd03befacdbc440a8e3b3860338d845f54fab40ad6c255acd7fe756",
+    "safety/05-too-small-actionable.png": "02d97b8aa7f30e75c50a814daeb8bca41369ee3cae12b5917f57104ada9411fc",
+    "safety/06-no-disk-actionable.png": "aa405b4fe6666ae615e669cc2fecdc5d9eefde34854e6ee0dbea76bb0ff8d696",
+    "safety/07-write-failure.png": "4aa937b0967e78cb22b1b3f0627a652993811b3a1499b7b50eb8885ebbcaf1ee",
+    "safety/08-recoverable-return.png": "e6fcabc10cc6e6a4d9185d21e8bd2d5618e4b185ef744f7f42dccc4067a3a4dc",
+    "safety/absent.log": "bab7267831fc9dcc3516c3f20c5791079832bcb075c2713fa8da9ba51abd2455",
+    "safety/existing.log": "3c6144d5031b394cf270c83c24cf1150322461f4d502ecd378c660b2e90acf3b",
+    "safety/failure.log": "6bf26a87d203c512bcf4b146014282d0391df2999bf4388bd1a0e30aa6d94619",
+    "safety/last-run.log": "bd95d0eb5a56a8dafa6882b828fb6fdd0292d39668875e3d5192521cb0172b31",
+    "safety/results.json": "9651be84b6e0e1ccbfb195cfe4c84efa8b29b638b9aa7ddef0439426b446b190",
+    "visual-review.json": "f5161e3cf1d1430003be35848693550f23c76b7f767fb2128953c97443318cea",
+    "vmware/bios/desktop-home.png": "4ab6e0c0bbf6e027cf29fc95536e4d1b9ffd0fc429a7807381284e6e8de4a200",
+    "vmware/bios/detached-desktop-0.png": "4ab6e0c0bbf6e027cf29fc95536e4d1b9ffd0fc429a7807381284e6e8de4a200",
+    "vmware/bios/detached-desktop-1.png": "4ab6e0c0bbf6e027cf29fc95536e4d1b9ffd0fc429a7807381284e6e8de4a200",
+    "vmware/bios/finish.png": "575fa5564d0bee7d027b03996045bedc4101f7fc4e30547da570d2945f11443c",
+    "vmware/bios/install.log": "4d8d42be1fbdd40a39ebc320c71ba5b63b3f050fb7b80457faec0bf412822f31",
+    "vmware/bios/real-folders.png": "aaafbdbb409eda3ff3d857ac49454c2998080e45bdee44630d4c7ff6d6a08357",
+    "vmware/bios/restart-0.log": "44f4c87884e1385743f1c171b5514a5401bc657ee11c60e3dd5713fdc16dcc08",
+    "vmware/bios/restart-1.log": "8175ba850f129eb1b2e8187a8b78b59f4ae689a5cbff3c84ff935f1251d0ec6e",
+    "vmware/bios/results.json": "4f0bd3ceda4941d0aeadd9f96436f6fa7bf193f910f9d2249682763efcd317b3",
+    "vmware/bios/review.png": "fab9f96ef992f68874c07756316383e7d20f660dcb0d4331870878f94b68c076",
+    "vmware/bios/welcome.png": "a6fc2cb0e21215d3720303c5f10fc0acaa82798c2ffb1d376ea0bc945878bb35",
+    "vmware/efi-starter/desktop-home.png": "5f96b2d9aca0767e0c9292e68e866dcefffb3e1668fcf80aacf12fd2be1ac6c8",
+    "vmware/efi-starter/detached-desktop-0.png": "5f96b2d9aca0767e0c9292e68e866dcefffb3e1668fcf80aacf12fd2be1ac6c8",
+    "vmware/efi-starter/detached-desktop-1.png": "5f96b2d9aca0767e0c9292e68e866dcefffb3e1668fcf80aacf12fd2be1ac6c8",
+    "vmware/efi-starter/finish.png": "b440e5f3102489f033e0334f7e103e07d13a04bdda70603a23c9f6bfcd723550",
+    "vmware/efi-starter/install.log": "5f6cdc1c2b817c92b304a40d7f21d77c1ee7ec7f6322dc9b98ca0e90d6f19656",
+    "vmware/efi-starter/last-run.log": "feaaee74602bac8a5d1d580947cee902376d9f4503b48cd04e2158abc7088658",
+    "vmware/efi-starter/real-folders.png": "76a9c4fd6931f8bfb583633b45a86c8f46a919ea77cf93e87e99a3b06bb7f3dc",
+    "vmware/efi-starter/restart-0.log": "6552259153b9170be34ae02eb77b2c1b38ead70238ebce6be844598492646d8b",
+    "vmware/efi-starter/restart-1.log": "7f55e3851ec337d7eb6d64206b88d4e43105f7115db355231d892cad504d29ce",
+    "vmware/efi-starter/results.json": "66cc9ca5ef7f47db1383107eab0d8f51a1063b11d58fe3f6e9df7555d5c505ed",
+    "vmware/efi-starter/review.png": "b3187ff7cce0dfd97d09dfdad0955203e597464d3cf2c1372a8d5e9dfd868bb0",
+    "vmware/efi-starter/welcome.png": "558d6ef7132ccf56fd5eea5c99919c19afbed36d63dca1b619d1c2a37c21855a"
+  }
+}

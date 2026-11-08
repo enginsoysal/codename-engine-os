@@ -40,3 +40,7 @@ The marker is not cryptographic trust or universal hardware qualification. Exist
 ## Limits
 
 Named x86-64 VMware/QEMU profiles, unsigned media and supported SATA bounds remain. OS installation consumes the selected whole disk after consent; no dual boot or resize. Cross-release package migration and physical hardware are separate. The exact original user failure needs its own screen/log/configuration; reproducing a retained-ISO return to setup cannot establish every previous failure's cause.
+
+## Qualified resource observations
+
+The accepted installed kernel physical span is 2,342,256 bytes, including fixed UI/font data. The tested QEMU installed idle state retains 192,512 managed bytes; this excludes the kernel, firmware/boot reservations and visible framebuffer. A 3840x2160 32-bit visible framebuffer alone is 33,177,600 bytes. Do not add these observations to claim a universal peak or equate guest RAM with OS consumption. The exact 64-MiB guest is checked through QMP memory size. The ordinary wizard draws its outer frame once; focus and name counters establish damage-only updates. Idle desktop CPUs halt with no repeated repaint. [Evidence](../../evidence/M7.5/acceptance-results.json).
