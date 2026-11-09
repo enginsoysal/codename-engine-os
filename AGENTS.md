@@ -13,6 +13,8 @@
 
 ## Product requirements
 
+- Owner-reported M9 starter failure, 9 November 2026: an enabled e1000e NIC without PCIe root ports crashed VMware. Starter qualification must retain every shipped device enabled and may add only owned observation channels. Offline tests remain separate. Drain COM1 observations while waiting for frames; test instrumentation must not stall the guest.
+
 - Owner requirement, 8 November 2026: review every installation step for inexperienced children and older adults. Disk choices must be an obvious bounded list with whole-row hit targets, visible selection and useful disabled actions. Next must not clear/reload the entire UI. Completion requires actual installed startup, including the common retained-ISO case; a live-session desktop is insufficient. Keep novice scenario review distinct from a real human study.
 
 - Owner priority, 9 November 2026: M9 automatic hardware support now precedes further M8 application expansion. First address stuttering VMware folder-window movement with measured graphics/input improvements and automatic supported-device binding. Do not infer complete hardware support, GPU acceleration or smoothness from an enumerated adapter or a screenshot.
@@ -43,4 +45,4 @@ The owner requested an open-source project and that every update goes to GitHub.
 
 ## Accepted release immutability
 
-M4.5, M5, M5.1, M6, M7, M7.1, M7.2, M7.3, M7.4, M7.5, M8 and the M9-GFX-VM-v1 delivery accepted evidence, tags and release binaries are historical proof. Do not rerun a development build/test into their frozen output paths or rewrite accepted hashes. Use a new follow-up prefix/evidence directory; reproduce a historical release only in a separate checkout.
+M4.5, M5, M5.1, M6, M7, M7.1, M7.2, M7.3, M7.4, M7.5, M8, the M9-GFX-VM-v1 delivery and the M91-STARTER-v1 correction accepted evidence, tags and release binaries are historical proof. Do not rerun a development build/test into their frozen output paths or rewrite accepted hashes. Use a new follow-up prefix/evidence directory; reproduce a historical release only in a separate checkout.

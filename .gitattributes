@@ -37,3 +37,5 @@ third_party/libmspack/** -text -whitespace
 evidence/M8/**/*.log -text -whitespace
 
 evidence/M9/**/*.log -text -whitespace
+
+evidence/M9.1/**/*.log -text -whitespace

@@ -1,5 +1,7 @@
 # Install Engine OS M9 and check window movement
 
+**VMware starter correction:** the original M9 ZIP can fail during enabled Ethernet initialization because PCIe root ports are missing. The earlier offline starter test missed this defect. Use the corrected M9.1 package; its M9 ISO is unchanged. [Corrected package and instructions](install-m91.md). IDE/SCSI installation support is not added.
+
 M9 starts with automatic supported VMware graphics and pointer setup. Use the matching M9 ISO and VMware package together. Qualification status and remaining work are recorded in the [M9 contract](../milestones/m9.md).
 
 ## Easiest VMware start

@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "scope_id": "M91-STARTER-v1",
+  "packaging_only": true,
+  "iso_unchanged": true,
+  "iso_sha256": "019d3c07c6a2b8c20ed8089ae7ab6ab95f901de6267aa1132c5577803211eb52",
+  "build_id": "99330ec79585f07190eb9f49f9c8fbe8",
+  "shipped_ethernet_and_sound_kept_enabled": true,
+  "installed_restart_and_two_detached_boots": true,
+  "original_payload_count": 106,
+  "artifacts": {
+    "EngineOS-M91-VMware.zip": {
+      "sha256": "f2d88a5777556ec6a85f9dd8c974c38e4efb49c82c8dc43d09141baafc7fab41",
+      "size": 8833244
+    },
+    "EngineOS-M91-THIRD-PARTY-NOTICES.txt": {
+      "sha256": "43cc4c3bd1a5b29950f33667952ed31762680425a6615477c1f715c10c2a73fe",
+      "size": 59662
+    },
+    "m91-starter-manifest.json": {
+      "sha256": "b8fcc1b622feb8482bb8042fd5e4d7d961bfff6c375429371ac0ff21cfbbf439",
+      "size": 546
+    }
+  },
+  "frozen_m9_acceptance_sha256": "9303159439211763878506083c9f5211a84c74a0f76f1cf4121d41cedb5c316d",
+  "source_sha256": {
+    "tools/release/vmware_starter91.py": "890242f2cdc19ec905ad99b5293cd63ebcc911097d7ccabae8cf1e25dd3e6170",
+    "tests/m91/vmware.py": "e67d59c8228bb34d8027fcbbf103c9da37c7284400f4a97e13ab10718bc350db",
+    "tests/m91/verify.py": "24249d28c90b56f8c68cef00240886289bb7448808c89c79b89182417497b52f"
+  },
+  "limits": [
+    "UEFI prepared starter only; kernel/ISO unchanged",
+    "IDE installation and unqualified SCSI controllers remain unsupported",
+    "No new graphics, 3D or universal device qualification"
+  ],
+  "evidence_sha256": {
+    "incident.json": "b18442d0b9ad87a6f36811a27f27bef14185a42b338f6ffa23d33374d13bc2c7",
+    "m91-starter-manifest.json": "b8fcc1b622feb8482bb8042fd5e4d7d961bfff6c375429371ac0ff21cfbbf439",
+    "repository-results.json": "36c980666801c34d09e375f74d3f1c62937fc4e89409591f6013d249207c46a5",
+    "vmware/efi-starter/desktop-home.png": "81942eb9381f3cba70187fefb51ece0fe953b651304a18cde09ed87dccae9e54",
+    "vmware/efi-starter/detached-desktop-0.png": "81942eb9381f3cba70187fefb51ece0fe953b651304a18cde09ed87dccae9e54",
+    "vmware/efi-starter/detached-desktop-1.png": "8cdd1b3e3b3a6f4733b541a342927db1d00f37d800719cbd9a3239b75e744ebd",
+    "vmware/efi-starter/finish.png": "0fca97ebc8bf44df7d0ec4daca7360149f44bc345faa6590f42ff8bd9bb4a96a",
+    "vmware/efi-starter/install.log": "117f0ef3a0facd24966a020d5179090a9d07ca92226c8b10e16fa64c8c8e1bb0",
+    "vmware/efi-starter/launcher-focus.png": "7901cf77483111893d50f6ebe959146688a572edf1d60be846561b1fabf7c541",
+    "vmware/efi-starter/original-windows-archive-task.png": "75baafe3185f393cd243d65ad8434c7e5ab4deee53a44996995123c1b18edb95",
+    "vmware/efi-starter/original-windows-program.png": "75baafe3185f393cd243d65ad8434c7e5ab4deee53a44996995123c1b18edb95",
+    "vmware/efi-starter/real-folders.png": "1b8444692e0d990fac2552ae0a2490196150d1455892b553ff7250a47b0df4c2",
+    "vmware/efi-starter/reinstalled-windows-product.png": "75baafe3185f393cd243d65ad8434c7e5ab4deee53a44996995123c1b18edb95",
+    "vmware/efi-starter/removed-windows-product.png": "364727a3def5b725bce7fc521fc81bba290f99347d6603dd546db882cc993a29",
+    "vmware/efi-starter/restart-0.log": "f21ad0cc1f0f00609571ba32bfb0e9dfee1c7961d35d0adca1baeffdb31d7532",
+    "vmware/efi-starter/restart-1.log": "f7c6cecb5d919732108683bf59ffa3470f60b8fac2d662111135308dcf52e655",
+    "vmware/efi-starter/results.json": "b285c6d82fe08016b011ac834617f8b0ee428a05ea804aa6f8785fcfd6af3101",
+    "vmware/efi-starter/review.png": "8479dc85aecc61076d226db852c5a220df881d29633b29d386d7172326629aad",
+    "vmware/efi-starter/welcome.png": "a3a0426aeee299d326daa3ad14e4a52df1f6c76e9d4806ef2604e40e6d6a0686",
+    "vmware/efi-starter/windows-apps.png": "cede228e23ebe8ef6145362525af6ec96d0d5e041b8c880220a40138c9c8c01c"
+  }
+}

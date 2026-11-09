@@ -1,0 +1,19 @@
+{
+  "scope": "Read-only diagnosis of owner-provided failing M9 starter; distinct from owned regression fixtures",
+  "source_log_sha256": "0a67c34f0251008b94ed6b02e7a85b358598bba896ca0918bdbf01bd92468c16",
+  "observed_messages": [
+    "No PCIe slot available for Ethernet0.  Remove Ethernet0 and try again.",
+    "E1000PCI: failed to register e1000e device.",
+    "E1000: unable to start e1000e Ethernet adapter's PCI.",
+    "Exception 0xc0000005 (access violation) has occurred."
+  ],
+  "shipped_defect": "e1000e enabled without PCIe root-port bridge configuration",
+  "test_gap": "M9 starter lifecycle explicitly disabled Ethernet; it did not validate the shipped enabled device set",
+  "other_screenshots": {
+    "ide": "Known inspection-only installation target in current M9",
+    "scsi": "Unsupported controller in current M9; not a missing partition"
+  },
+  "owner_vm_modified": false,
+  "host_settings_modified": false,
+  "raw_private_log_published": false
+}

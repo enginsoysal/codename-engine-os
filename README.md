@@ -1,5 +1,7 @@
 # Codename: Engine OS
 
+**VMware starter correction:** the original M9 ZIP can fail during enabled Ethernet initialization because PCIe root ports are missing. The earlier offline starter test missed this defect. Use the corrected M9.1 package; its M9 ISO is unchanged. [Corrected package and instructions](docs/handbook/install-m91.md). IDE/SCSI installation support is not added.
+
 **Current delivery: M9 graphics-first slice (M9-GFX-VM-v1).** Automatic supported VMware graphics/pointer setup, buffered composition and cached Files-window movement pass 12 exact-artifact gates. The broader M9 hardware program remains in progress. [Release/downloads](docs/releases/m9-v0.9.0.md), [VMware guide](docs/handbook/install-m9.md), [scope](docs/milestones/m9.md), [acceptance](evidence/M9/acceptance-results.json).
 
 An independent, MIT-licensed operating system with its own UEFI loader, kernel and native user runtime. MS-DOS and Windows 1.x–11 application compatibility is a long-term requirement, followed by Linux/macOS execution environments and ARM64. General compatibility is not available. M8 delivers a first bounded original Windows console/MSI profile; the wider compatibility program remains in progress.
@@ -22,7 +24,7 @@ The historical [M5 release](https://github.com/enginsoysal/codename-engine-os/re
 
 ## Install and start your desktop
 
-[Download the prepared VMware VM](https://github.com/enginsoysal/codename-engine-os/releases/download/m9-v0.9.0/EngineOS-M9-VMware.zip) · [Standalone ISO](https://github.com/enginsoysal/codename-engine-os/releases/download/m9-v0.9.0/EngineOS-M9.iso) · [Step-by-step guide](docs/handbook/install-m9.md) · [Release and checksums](docs/releases/m9-v0.9.0.md).
+[Download the prepared VMware VM](https://github.com/enginsoysal/codename-engine-os/releases/download/m91-v0.9.1/EngineOS-M91-VMware.zip) · [Standalone ISO](https://github.com/enginsoysal/codename-engine-os/releases/download/m9-v0.9.0/EngineOS-M9.iso) · [Step-by-step guide](docs/handbook/install-m9.md) · [Release and checksums](docs/releases/m9-v0.9.0.md).
 
 Extract the entire ZIP, open EngineOS.vmx and start. Select a disk row in the bordered list, follow Next, review and Install Engine OS, then **Restart to Engine OS**. The matching ISO may remain attached. The new empty growable 20-GiB SATA disk is included. No commands, online account or network are required. On later independent boots disconnect only CD/DVD and keep the same hard disk connected. Use a fresh starter; cross-release package migration is unqualified. [Apps and limits](docs/handbook/apps-m74.md), [folder controls](docs/handbook/desktop-m73.md).
 

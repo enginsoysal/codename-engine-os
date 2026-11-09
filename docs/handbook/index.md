@@ -1,5 +1,7 @@
 # Engine OS user handbook
 
+**VMware starter correction:** the original M9 ZIP can fail during enabled Ethernet initialization because PCIe root ports are missing. The earlier offline starter test missed this defect. Use the corrected M9.1 package; its M9 ISO is unchanged. [Corrected package and instructions](install-m91.md). IDE/SCSI installation support is not added.
+
 Start with **Engine OS 0.9.0**. Extract the prepared VMware ZIP, open EngineOS.vmx and start. Select a disk row in the bordered list, follow Next, review, Install Engine OS and **Restart to Engine OS**. This starts the actual installed system. The matching ISO may stay connected. No commands or network are needed.
 
 - [Download and install in VMware, step by step](install-m9.md)
