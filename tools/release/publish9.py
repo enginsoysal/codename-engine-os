@@ -1,5 +1,5 @@
 """Publish only the exact accepted M9 artifacts; anonymously verify primary downloads."""
-import argparse,datetime,hashlib,json,subprocess,urllib.request
+import argparse,datetime,hashlib,json,subprocess,urllib.request,shutil
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2];TAG='m9-v0.9.0';REPO='enginsoysal/codename-engine-os'
 def gh(*args):return subprocess.check_output(['gh',*args],cwd=ROOT,text=True,encoding='utf-8')
@@ -10,13 +10,15 @@ def main():
     accepted=load(ROOT/'evidence/M9/acceptance-results.json');assert accepted['passed'] and accepted['scope_id']=='M9-GFX-VM-v1'
     files={name:ROOT/'dist'/name for name in accepted['artifacts']}
     for name,value in accepted['artifacts'].items():assert sha(files[name])==value['sha256'],name
+    shutil.copyfile(ROOT/'evidence/M9/acceptance-results.json',ROOT/'dist/m9-acceptance-results.json')
     files.update({'7z2606-src.tar.xz':ROOT/'third_party/7zip/7z2606-src.tar.xz',
-                  'm9-acceptance-results.json':ROOT/'evidence/M9/acceptance-results.json',
+                  'm9-acceptance-results.json':ROOT/'dist/m9-acceptance-results.json',
                   'm9-build-manifest.json':ROOT/'dist/m9-build-manifest.json',
                   'm9-starter-manifest.json':ROOT/'dist/m9-starter-manifest.json'})
     sums=ROOT/'dist/M9-SHA256SUMS.txt'
     sums.write_bytes(''.join(sha(path)+'  '+name+'\n' for name,path in sorted(files.items())).encode())
     files[sums.name]=sums
+    assert all(name==path.name for name,path in files.items()),'Upload filenames must match checksum entries'
     if a.action=='stage':
         assert not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True,encoding='utf-8').strip(),'Commit the final release first'
         commit=gh('api','repos/'+REPO+'/commits/main','--jq','.sha').strip()
