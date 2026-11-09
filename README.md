@@ -137,4 +137,4 @@ Original contributions use the [MIT license](LICENSE). External build tools and 
 
 ## Build the current graphics edition
 
-Run `python tools/build/m9.py`, then `python tools/release/vmware_starter9.py`. These write isolated M9 outputs and preserve accepted M4.5-M8 artifacts. Native guest and graphics gates live under `tests/m9`; `python tests/m9/verify.py --source-commit 1217eb2` binds the published native inputs to the reports. A successful local build alone is not release qualification.
+Use a separate checkout to reproduce accepted M9 media. Run `python tools/build/m9.py`, then `python tools/release/vmware_starter9.py`. These write isolated M9 outputs and preserve accepted M4.5-M8 artifacts. Native guest and graphics gates live under `tests/m9`; `python tests/m9/verify.py --source-commit 1217eb2` binds the published native inputs to the reports. A successful local build alone is not release qualification.

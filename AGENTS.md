@@ -43,4 +43,4 @@ The owner requested an open-source project and that every update goes to GitHub.
 
 ## Accepted release immutability
 
-M4.5, M5, M5.1, M6, M7, M7.1, M7.2, M7.3, M7.4, M7.5 and M8 accepted evidence, tags and release binaries are historical proof. Do not rerun a development build/test into their frozen output paths or rewrite accepted hashes. Use a new follow-up prefix/evidence directory; reproduce a historical release only in a separate checkout.
+M4.5, M5, M5.1, M6, M7, M7.1, M7.2, M7.3, M7.4, M7.5, M8 and the M9-GFX-VM-v1 delivery accepted evidence, tags and release binaries are historical proof. Do not rerun a development build/test into their frozen output paths or rewrite accepted hashes. Use a new follow-up prefix/evidence directory; reproduce a historical release only in a separate checkout.
