@@ -5,7 +5,7 @@
 static uint64_t length(engine_partition p) { return p.last-p.first+1; }
 unsigned engine_install_plan(uint64_t sectors, uint32_t sector_bytes, engine_install_layout *out) {
     if (!out) return ENGINE_LAYOUT_INVALID;
-    /* The first M6 transport contract is SATA/AHCI with 512-byte sectors. */
+    /* The installed layout uses 512-byte logical sectors independently of its controller. */
     if (sector_bytes!=512 || sectors>MAX_SECTORS) return ENGINE_LAYOUT_UNSUPPORTED;
     if (sectors<UINT64_C(2)*1024*MIB_SECTORS) return ENGINE_LAYOUT_TOO_SMALL;
     engine_install_layout p={0};

@@ -34,11 +34,11 @@ static void render72(void){
  }
  if(step==1){label(x,y,"Where should we live?",3,ink);
  label(x,y+41,"Choose the disk for Engine OS. Your files will live here.",1,muted);
- unsigned count=storage_count();if(!count){label(x,y+105,"No supported disk is connected.",2,0x95472f);label(x,y+143,"VMware: add a SATA hard disk and connect it at power on.",1,muted);}
+ unsigned count=storage_count();if(!count){label(x,y+105,"No supported disk is connected.",2,0x95472f);label(x,y+143,"VMware: add a supported hard disk and connect it at power on.",1,muted);}
  for(unsigned row=0;row<4;++row){unsigned i=disk_page*4+row;if(i>=count)break;const storage_disk*d=storage_get(i);
  char name[24]="Disk ";decimal(i+1,name+5);unsigned dy=y+77+row*55;
  button(x,dy,135,name,100+i,chosen==i);char size[48];decimal(d->sectors/2097152,size);unsigned n=0;while(size[n])++n;const char*s=" GiB  /  ";for(unsigned j=0;s[j];++j)size[n++]=s[j];size[n]=0;label(x+154,dy+10,size,2,ink);
- label(x+310,dy+14,d->transport==STORAGE_AHCI&&d->sector_bytes==512?"SATA - installation supported":"Browse only - unsupported install target",1,muted);}
+ label(x+310,dy+14,storage_writable(d)&&d->sector_bytes==512?"Disk - installation supported":"Browse only - unsupported install target",1,muted);}
  if(count>4){button(x+420,y+77,60,"<",94,0);button(x+490,y+77,60,">",95,0);}
  label(x,y+307,"Installation uses the whole disk. Review before erasing.",1,0x95472f);
  if(!maintenance){button(x,y+333,220,"Manage disks",90,0);button(x+235,y+333,310,replace_selected?"Erase and install: ON":"Erase and install: OFF",91,replace_selected);}
@@ -69,7 +69,7 @@ static void render72(void){
  if(step>=6){label(x,y,maintenance?"All set.":"Welcome home.",4,ink);preview72(x,y+65,width-295);
  label(x,y+232,maintenance?"Boot files verified. Your personal files were kept.":"Your desktop and folders are ready on the installed disk.",1,muted);
  label(x,y+272,maintenance?"Power off, disconnect the ISO, then start again.":"Choose Open desktop. Start exploring right now.",2,ink);
- label(x,y+324,"For future boots: keep the SATA hard disk connected.",1,muted);
+ label(x,y+324,"For future boots: keep the supported hard disk connected.",1,muted);
  label(x,y+350,"Disconnect only the CD/DVD ISO, then start the VM.",1,muted);}
  gui6_rect(left+196,bottom-1,width-196,1,0xd4dfd5);label(x,bottom+30,"Mouse or Tab + Enter",1,muted);
  if(!busy&&step<5){if(step)button(left+width-300,bottom+14,120,"Back",1,0);button(left+width-160,bottom+14,135,step==4?(maintenance?"Confirm":"Install"):"Next",2,1);}

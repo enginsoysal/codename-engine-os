@@ -62,6 +62,9 @@ uint64_t *exception_dispatch(uint64_t *frame) {
     if(net7_nic_irq(frame))return frame;
 #endif
 #ifdef ENGINE_M4
+#ifdef ENGINE_M92
+    extern unsigned scsi92_irq(uint64_t*);if(scsi92_irq(frame))return frame;
+#endif
 #ifdef ENGINE_M45
     extern unsigned virtio_storage_irq(uint64_t*);if(virtio_storage_irq(frame))return frame;
     extern unsigned nvme_irq(uint64_t*);if(nvme_irq(frame))return frame;

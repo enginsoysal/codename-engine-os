@@ -1,5 +1,7 @@
 # Current status
 
+**Current work: M9.2 storage and window boundaries.** IDE/SATA/SCSI installation and independent startup, common writable-storage capability, additional NVMe/VirtIO writes, and reachable partially off-screen windows are being implemented and tested. No M9.2 artifact is qualified yet. [Contract](../milestones/m9.2.md), [design and verification](../architecture/storage-m92.md).
+
 **VMware starter correction:** the original M9 ZIP can fail during enabled Ethernet initialization because PCIe root ports are missing. The earlier offline starter test missed this defect. Use the corrected M9.1 package; its M9 ISO is unchanged. [Corrected package and instructions](../handbook/install-m91.md). IDE/SCSI installation support is not added.
 
 **M9 graphics-first slice is qualified within M9-GFX-VM-v1:** automatic supported VMware video/pointer binding, bounded buffered composition, cached movement and correct native ordinary/4K frames. Twelve exact-artifact gates include installed BIOS/UEFI lifecycles, original app regression, a 64-MiB guest journey, bounded-buffer fallback, resource/idle checks and a measured sequential M8/M9 comparison. [Release/downloads](../releases/m9-v0.9.0.md), [guide](../handbook/install-m9.md), [acceptance](../../evidence/M9/acceptance-results.json). Broader M9 hardware support, runtime display changes and 3D remain in progress. [Remaining stages](../milestones/m9.md).

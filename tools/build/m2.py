@@ -8,8 +8,9 @@ import struct
 from m1 import ROOT,pinned_tools,command,sha
 from media import package
 BUILD=ROOT/'build/m2'
-def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard",m7=False,m71=False,m72=False,m73=False,m74=False,m75=False,m8=False,m9=False):
+def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard",m7=False,m71=False,m72=False,m73=False,m74=False,m75=False,m8=False,m9=False,m92=False):
     global BUILD
+    m9=m9 or m92
     m8=m8 or m9
     m75=m75 or m8
     m74=m74 or m75
@@ -18,7 +19,7 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     m71=m71 or m72
     m7=m7 or m71
     m6=m6 or m7
-    flavor='m9' if m9 else 'm8' if m8 else 'm75' if m75 else 'm74' if m74 else 'm73' if m73 else 'm72' if m72 else 'm71' if m71 else 'm7' if m7 else 'm6'
+    flavor='m92' if m92 else 'm9' if m9 else 'm8' if m8 else 'm75' if m75 else 'm74' if m74 else 'm73' if m73 else 'm72' if m72 else 'm71' if m71 else 'm7' if m7 else 'm6'
     BUILD=ROOT/'build'/(flavor if m6 else milestone.lower())
     tools=pinned_tools();BUILD.mkdir(parents=True,exist_ok=True)
     sources=[]
@@ -58,7 +59,7 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
             sources.extend(p for p in (ROOT/folder).rglob('*') if p.is_file())
     if m9:sources.extend(sorted((ROOT/'tools/build').glob('m9*.py')))
     hashes={p.relative_to(ROOT).as_posix():sha(p) for p in sorted(sources)}
-    identity={'milestone':'M9' if m9 else 'M8' if m8 else 'M75' if m75 else 'M74' if m74 else 'M73' if m73 else 'M72' if m72 else 'M71' if m71 else 'M7' if m7 else 'M6' if m6 else milestone,'source_sha256':hashes}
+    identity={'milestone':'M92' if m92 else 'M9' if m9 else 'M8' if m8 else 'M75' if m75 else 'M74' if m74 else 'M73' if m73 else 'M72' if m72 else 'M71' if m71 else 'M7' if m7 else 'M6' if m6 else milestone,'source_sha256':hashes}
     if m6:identity['revision']=m6_revision
     build_id=hashlib.sha256(json.dumps(identity,sort_keys=True).encode()).hexdigest()[:32]
     (BUILD/'build.h').write_text(f'#define BUILD_ID "{build_id}"\n',encoding='utf-8')
@@ -75,6 +76,7 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     if m75:common.append('-DENGINE_M75')
     if m8:common.append('-DENGINE_M8')
     if m9:common.append('-DENGINE_M9')
+    if m92:common.append('-DENGINE_M92')
     if m75 and m5_live:common.append('-DENGINE_SETUP_MEDIA75')
     if m7:
         common.extend(('-DENGINE_M7','-I',ROOT/'third_party/bearssl/inc','-I',ROOT/'third_party/bearssl-port'))
@@ -158,6 +160,7 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     if milestone in ('M3','M4','M45','M5'):inputs+=('kernel/arch/x86_64/timer.c','kernel/scheduler/m3.c','kernel/arch/x86_64/smp.c','kernel/arch/x86_64/ap.S')
     if milestone in ('M4','M45','M5'):inputs+=(('kernel/storage/ahci45.c' if milestone in ('M45','M5') else 'kernel/storage/ahci.c'),'kernel/storage/ext2.c','kernel/storage/fs_test.c','kernel/input/legacy.c',('kernel/usb/xhci.c' if milestone in ('M45','M5') else 'kernel/input/xhci.c'),'kernel/core/console.c','kernel/m4/main.c')
     if milestone in ('M45','M5'):inputs+=('kernel/storage/registry.c','kernel/storage/partitions.c','kernel/storage/nvme.c','kernel/storage/ide.c','kernel/storage/virtio_blk.c','kernel/storage/fat32.c','kernel/storage/fat_test.c','kernel/storage/ext2_read.c','kernel/storage/ext2_read_test.c')
+    if m92:inputs+=('kernel/storage/scsi92.c',)
     if m6:
         inputs=tuple(p for p in inputs if p not in ('kernel/storage/ext2.c','kernel/storage/fs_test.c','kernel/m4/main.c'))
         inputs+=('kernel/install/layout.c','kernel/storage/volume6.c','kernel/install/installer6.c','kernel/install/wizard6.c','build/'+flavor+'/installer-image.c','kernel/install/entry6.c')
@@ -184,7 +187,7 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     if command([nm,'-u',BUILD/'KERNEL.ELF']).strip():raise RuntimeError('Undefined kernel symbols')
     map_path=BUILD/'kernel.map';map_path.write_text(map_path.read_text(encoding='utf-8').replace(str(ROOT),'.').replace(ROOT.as_posix(),'.'),encoding='utf-8')
     if m6 and any(sha(ROOT/p)!=value for p,value in hashes.items()):raise RuntimeError('Build inputs changed during compilation; discard mixed outputs and rebuild')
-    artifact_name=(('M9' if m9 else 'M8' if m8 else 'M75' if m75 else 'M74' if m74 else 'M73' if m73 else 'M72' if m72 else 'M71' if m71 else 'M7' if m7 else 'M6')+('' if m6_revision=='standard' else m6_revision.upper())) if m6 else milestone
+    artifact_name=(('M92' if m92 else 'M9' if m9 else 'M8' if m8 else 'M75' if m75 else 'M74' if m74 else 'M73' if m73 else 'M72' if m72 else 'M71' if m71 else 'M7' if m7 else 'M6')+('' if m6_revision=='standard' else m6_revision.upper())) if m6 else milestone
     if m73:
         from m5_layout import compact_elf
         shutil.copyfile(BUILD/'KERNEL.ELF',BUILD/'KERNEL-debug.ELF')

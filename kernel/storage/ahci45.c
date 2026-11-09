@@ -1,4 +1,8 @@
 #include <engine/storage.h>
+#ifdef ENGINE_M92
+unsigned m5_sata_transfer(unsigned,uint64_t,void*,unsigned,unsigned);
+unsigned m5_sata_flush(unsigned);
+#endif
 typedef struct {volatile uint32_t *hba;uint64_t list,fis,table,bounce;unsigned bdf,irq,dead;} controller;
 typedef struct {storage_disk disk;unsigned controller,port;} sata_disk;
 static controller controllers[4];static sata_disk devices[STORAGE_MAX];static unsigned controller_count,disk_count,active=UINT32_MAX,selected=UINT32_MAX,fs_enabled;
@@ -67,7 +71,12 @@ static unsigned bind(unsigned bdf){
         if((id[106]&0xd000)==0x5000){uint64_t words=(uint64_t)id[117]|((uint64_t)id[118]<<16);d->disk.sector_bytes=words<=UINT32_MAX/2?(unsigned)words*2:0;}
         d->disk.readable=(id[83]&(1u<<10))&&d->disk.sectors&&d->disk.sectors<=UINT64_C(0x1000000000000)&&(d->disk.sector_bytes==512||d->disk.sector_bytes==4096);
         if(d->disk.readable&&d->disk.sector_bytes==512&&d->disk.sectors==M4_SECTORS&&command(0x25,0,512)==B_OK){const uint8_t *h=(void*)(uintptr_t)c->bounce;uint32_t version,crc;uint64_t size;memcpy(&version,h+16,4);memcpy(&size,h+24,8);memcpy(&crc,h+508,4);d->disk.marked=!memcmp(h,M4_HEADER,16)&&version==2&&size==M4_SECTORS&&m4_crc(h,508)==crc;if(d->disk.marked&&selected==UINT32_MAX)selected=n;}
-        (void)storage_register(d->disk,read_disk);if(stop_active())break;
+        #ifdef ENGINE_M92
+        (void)storage_register_io(d->disk,read_disk,m5_sata_transfer,m5_sata_flush);
+#else
+        (void)storage_register(d->disk,read_disk);
+#endif
+        if(stop_active())break;
     }
     return B_OK;
 }

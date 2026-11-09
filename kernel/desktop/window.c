@@ -58,8 +58,14 @@ desktop_window *desktop_lookup(desktop_model *m, uint64_t token) {
 static desktop_rect constrained(desktop_model *m, desktop_rect r) {
     r.width = minimum(maximum(r.width, DESKTOP_MIN_WIDTH), (int32_t)m->width);
     r.height = minimum(maximum(r.height, DESKTOP_MIN_HEIGHT), (int32_t)m->height - 60);
+#ifdef ENGINE_M92
+    /* Keep a useful title-bar grip while allowing side/bottom overlap. */
+    r.x = minimum(maximum(r.x, 160-r.width), (int32_t)m->width-160);
+    r.y = minimum(maximum(r.y, 0), (int32_t)m->height-95);
+#else
     r.x = minimum(maximum(r.x, 0), (int32_t)m->width - r.width);
     r.y = minimum(maximum(r.y, 0), (int32_t)m->height - 60 - r.height);
+#endif
     return r;
 }
 

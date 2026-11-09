@@ -110,11 +110,11 @@ static void render(void){
  if(step==0){label(x,y,"A fresh start.",4,0xffffff);label(x,y+45,"Made yours.",4,0xffffff);label(x,y+115,"A guided setup, with room to choose.",2,0xa5bac2);label(x,y+150,"Review every change before installation.",1,0xa5bac2);gui6_rect(x,y+195,width-250,75,0x1a2c34);label(x+15,y+212,"Your system. Your choices.",2,0xffffff);label(x+15,y+244,DISTRO_WELCOME,1,0xa5bac2);label(x,y+300,"Unsigned BIOS/UEFI media: disable Secure Boot.",1,0x9fb2ba);}
  if(step==1){label(x,y,"Choose your disk.",3,0xffffff);label(x,y+50,
 #ifdef ENGINE_M71
- maintenance?"Select an existing Engine OS system.":"Select a SATA disk. Manage partitions or choose whole-disk replacement.",
+ maintenance?"Select an existing Engine OS system.":"Select a supported disk. Manage partitions or choose whole-disk replacement.",
 #else
- "Only a new supported SATA disk can be installed.",
+ "Only a new supported supported disk can be installed.",
 #endif
-1,0x9fb2ba);unsigned count=storage_count();if(!count)label(x,y+100,"No disk detected. Add a SATA disk in VMware.",1,0xf4b29d);for(unsigned row=0;row<4;++row){unsigned i=row;
+1,0x9fb2ba);unsigned count=storage_count();if(!count)label(x,y+100,"No disk detected. Add a supported disk in VMware.",1,0xf4b29d);for(unsigned row=0;row<4;++row){unsigned i=row;
 #ifdef ENGINE_M71
  i+=disk_page*4;
 #endif
@@ -254,13 +254,13 @@ if(maintenance&&step==4)step=1;else if(step)--step;if(!step)maintenance=0;focus=
  if(chosen>=storage_count()){validation="Select a disk row first, then choose Next.";render();return;}
 #ifdef ENGINE_M73
  if(!maintenance){const storage_disk*d=storage_get(chosen);
-  if(d->transport!=STORAGE_AHCI||d->sector_bytes!=512){validation="Choose a SATA hard disk with 512-byte sectors. Other disks can be inspected in Manage disks.";render();return;}
-  if(d->sectors<UINT64_C(4194304)){validation="This disk is too small. Choose a SATA disk of at least 2 GiB.";render();return;}
+  if(!storage_writable(d)||d->sector_bytes!=512){validation="Choose a supported hard disk with 512-byte sectors. Other disks can be inspected in Manage disks.";render();return;}
+  if(d->sectors<UINT64_C(4194304)){validation="This disk is too small. Choose a supported disk of at least 2 GiB.";render();return;}
   if(d->sectors>UINT64_C(4294967296)){validation="This disk exceeds the current 2 TiB installation limit. Choose a smaller test disk.";render();return;}
  }
 #endif
  unsigned s=maintenance?m6_maintenance_prepare(chosen,maintenance):replace_selected?m71_prepare_replace(chosen):m6_prepare(chosen);
- if(s){validation=s==B_IO?"Disk I/O failed. Check the SATA connection.":maintenance?"No compatible Engine OS installation was found.":replace_selected?"Use a readable SATA disk, 512-byte sectors, 2 GiB to 2 TiB.":
+ if(s){validation=s==B_IO?"Disk I/O failed. Check the disk connection.":maintenance?"No compatible Engine OS installation was found.":replace_selected?"Use a readable supported disk, 512-byte sectors, 2 GiB to 2 TiB.":
 #ifdef ENGINE_M75
 "This disk contains data. Choose Use the whole disk, then confirm erasing it at Review."
 #else
@@ -268,7 +268,7 @@ if(maintenance&&step==4)step=1;else if(step)--step;if(!step)maintenance=0;focus=
 #endif
 ;render();return;}validation=0;
 #else
- unsigned s=maintenance?m6_maintenance_prepare(chosen,maintenance):m6_prepare(chosen);if(s){failure=s==B_DENIED?"Choose a blank SATA disk, 512-byte sectors, 2 GiB or larger.":"Disk I/O failed. Check the connection and try again.";render();return;}
+ unsigned s=maintenance?m6_maintenance_prepare(chosen,maintenance):m6_prepare(chosen);if(s){failure=s==B_DENIED?"Choose a blank supported disk, 512-byte sectors, 2 GiB or larger.":"Disk I/O failed. Check the connection and try again.";render();return;}
 #endif
 }
  if(step==1&&maintenance){step=4;focus=0;render();return;}
@@ -292,7 +292,11 @@ NORETURN void m6_start(const os_boot_info_v0*boot){
 #else
  boot->framebuffer_width,boot->framebuffer_height
 #endif
- );(void)block_init();(void)nvme_discover();(void)ide_discover();(void)virtio_discover();(void)usb_init();input_init();
+ );(void)block_init();(void)nvme_discover();(void)ide_discover();
+#ifdef ENGINE_M92
+(void)scsi92_discover();
+#endif
+(void)virtio_discover();(void)usb_init();input_init();
  if(!m6_live()){unsigned s=m6_open();if(s)failure="Installed data volume could not be opened. Boot the ISO for recovery.";else{installed=1;if(m6_settings(&preferences))failure="Saved user settings failed integrity validation.";else accent=preferences.accent;}}
 #ifdef ENGINE_M7
  if(installed&&!failure)desktop_start(boot,&preferences);

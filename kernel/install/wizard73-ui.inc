@@ -33,10 +33,10 @@ static void render72(void){
  }
  if(step==1){label(x,y,"Where should Engine OS live?",4,ink);
  ui73_paragraph(x,y+52,cw,2,maintenance?"Choose the existing Engine OS disk to maintain.":"Select your installation disk. Its capacity and connection are shown below.",muted);
- unsigned count=storage_count();if(!count)ui73_paragraph(x,y+124,cw,3,"No supported disk is connected. In VMware, add a SATA hard disk and enable Connect at power on.",0x9a4434);
+ unsigned count=storage_count();if(!count)ui73_paragraph(x,y+124,cw,3,"No supported disk is connected. In VMware, add a supported hard disk and enable Connect at power on.",0x9a4434);
  for(unsigned row=0;row<4;++row){unsigned i=disk_page*4+row;if(i>=count)break;const storage_disk*d=storage_get(i);unsigned dy=y+100+row*48;char name[24]="Disk ";decimal(i+1,name+5);
  button(x,dy,120,name,100+i,chosen==i);char size[40];decimal(d->sectors<(UINT64_C(2097152))?d->sectors/2048:d->sectors/2097152,size);unsigned n=0;while(size[n])++n;const char*tail=d->sectors<UINT64_C(2097152)?" MiB":" GiB";for(unsigned j=0;tail[j];++j)size[n++]=tail[j];size[n]=0;
- label(x+144,dy+10,size,2,ink);ui73_fit(x+255,dy+10,cw-255,d->transport==STORAGE_AHCI&&d->sector_bytes==512&&d->sectors>=UINT64_C(4194304)&&d->sectors<=UINT64_C(4294967296)?"SATA - ready for installation":"Available for inspection only",1,muted);}
+ label(x+144,dy+10,size,2,ink);ui73_fit(x+255,dy+10,cw-255,storage_writable(d)&&d->sector_bytes==512&&d->sectors>=UINT64_C(4194304)&&d->sectors<=UINT64_C(4294967296)?"Ready for installation":"Available for inspection only",1,muted);}
  if(count>4){button(x+cw-132,y+286,56,"<",94,0);button(x+cw-66,y+286,56,">",95,0);}
  if(!maintenance){button(x,y+322,220,"Manage disks",90,0);button(x+235,y+322,310,replace_selected?"Erase and install: On":"Erase and install: Off",91,replace_selected);}
  ui73_paragraph(x,y+380,cw,2,validation?validation:maintenance?"Maintenance keeps personal files; review before applying changes.":"Installation uses the whole selected disk. Existing data requires a separate erase confirmation.",validation?0x9a4434:muted);}
@@ -59,7 +59,7 @@ static void render72(void){
  if(step>=6){label(x,y,maintenance?"Your system is ready.":"Welcome home.",4,ink);illustration73(x,y+62,cw);
  label(x,y+226,maintenance?"Boot files have been verified.":"Your desktop and folders are ready.",3,ink);
  ui73_paragraph(x,y+272,cw,2,maintenance?"Power off, disconnect only the installation ISO, and start the VM again.":"Choose Open desktop to start exploring. Your files are stored on the installed disk.",muted);
- ui73_round(x,y+338,cw,82,8,0xe8eff4);ui73_paragraph(x+16,y+352,cw-32,2,"For later boots, keep the SATA hard disk connected. Disconnect only the CD/DVD installation media.",muted);}
+ ui73_round(x,y+338,cw,82,8,0xe8eff4);ui73_paragraph(x+16,y+352,cw-32,2,"For later boots, keep the supported hard disk connected. Disconnect only the CD/DVD installation media.",muted);}
  gui6_rect(left+196,bottom-1,width-196,1,0xd8e3e9);label(x,bottom+25,"Mouse or Tab and Enter",1,muted);
  if(!busy&&step<5){if(step)button(left+width-300,bottom+14,120,"Back",1,0);button(left+width-160,bottom+14,135,step==4?(maintenance?"Confirm":"Install"):"Next",2,1);}
  if(step==0){button(x,y+412,300,"Open installed desktop",83,0);button(x+315,y+412,135,"Recovery",50,0);}

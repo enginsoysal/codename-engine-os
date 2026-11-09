@@ -1,5 +1,7 @@
 # Codename: Engine OS
 
+**Current implementation priority: M9.2 automatic writable storage and window boundaries.** IDE/SATA/SCSI installation and standalone startup, NVMe/VirtIO writes and safely clipped partially off-screen windows are being tested per controller. This work is not yet a qualified release. [Scope](docs/milestones/m9.2.md), [design](docs/architecture/storage-m92.md).
+
 **VMware starter correction:** the original M9 ZIP can fail during enabled Ethernet initialization because PCIe root ports are missing. The earlier offline starter test missed this defect. Use the corrected M9.1 package; its M9 ISO is unchanged. [Corrected package and instructions](docs/handbook/install-m91.md). IDE/SCSI installation support is not added.
 
 **Current delivery: M9 graphics-first slice (M9-GFX-VM-v1).** Automatic supported VMware graphics/pointer setup, buffered composition and cached Files-window movement pass 12 exact-artifact gates. The broader M9 hardware program remains in progress. [Release/downloads](docs/releases/m9-v0.9.0.md), [VMware guide](docs/handbook/install-m9.md), [scope](docs/milestones/m9.md), [acceptance](evidence/M9/acceptance-results.json).

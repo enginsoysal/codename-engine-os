@@ -17,7 +17,7 @@ static void tap75(unsigned x,unsigned y,unsigned w,unsigned h,const char*text,un
  if(kind!=2&&controls<24){unsigned i=controls++;buttons[i]=(control){x,y,w,h,action};title75[i]=text;kind75[i]=kind;}
  ui73_fit(x+16,y+(h-22)/2,w-32,text,2,ink);
 }
-static unsigned suitable75(const storage_disk*d){return d&&d->readable&&d->transport==STORAGE_AHCI&&d->sector_bytes==512&&d->sectors>=UINT64_C(4194304)&&d->sectors<=UINT64_C(4294967296);}
+static unsigned suitable75(const storage_disk*d){return d&&d->readable&&storage_writable(d)&&d->sector_bytes==512&&d->sectors>=UINT64_C(4194304)&&d->sectors<=UINT64_C(4294967296);}
 static void inspect75(unsigned disk){const storage_disk*d=storage_get(disk);chosen_state75=3;if(!suitable75(d))return;unsigned status=m6_prepare(disk);chosen_state75=status==B_OK?1:status==B_IO?4:2;m6_cancel();}
 static void diskname75(unsigned disk,char*out){memcpy(out,"Disk ",5);decimal(disk+1,out+5);}
 static void capacity75(const storage_disk*d,char*out){decimal(d->sectors/2097152,out);unsigned n=0;while(out[n])++n;memcpy(out+n," GiB",5);}
@@ -66,16 +66,16 @@ static void render72(void){
  if(step==1){label(x,y,maintenance?"Choose your Engine OS disk":"Choose an installation disk",4,ink);ui73_paragraph(x,y+49,cw,2,"Click a row in the list. The selected row is highlighted.",muted);
   unsigned count=storage_count();ui73_round(x,y+98,cw,266,10,0xc5d5dd);ui73_round(x+2,y+100,cw-4,262,8,0xffffff);
   label(x+20,y+113,"INSTALLATION DISKS",1,muted);label(x+cw-118,y+113,"CAPACITY",1,muted);
-  if(!count)ui73_paragraph(x+22,y+166,cw-44,2,"No disk found. Power off VMware, add a SATA hard disk and connect it at power on. Then start again.",0x994334);
+  if(!count)ui73_paragraph(x+22,y+166,cw-44,2,"No disk found. Power off VMware, add a supported hard disk and connect it at power on. Then start again.",0x994334);
   for(unsigned row=0;row<4;++row){unsigned i=disk_page*4+row;if(i>=count)break;const storage_disk*d=storage_get(i);unsigned dy=y+145+row*53;char name[32],size[32];diskname75(i,name);capacity75(d,size);
    uint32_t bg=chosen==i?0xe1f5ec:0xffffff;gui6_rect(x+4,dy,cw-8,52,bg);if(chosen==i)gui6_rect(x+4,dy,4,52,0x229d80);
    if(controls<24){unsigned at=controls++;buttons[at]=(control){x+4,dy,cw-8,52,100+i};title75[at]="";kind75[at]=0;}
    ui73_round(x+20,dy+17,18,18,9,chosen==i?0x238d73:0xa7bcc8);ui73_round(x+23,dy+20,12,12,6,bg);if(chosen==i)ui73_round(x+26,dy+23,6,6,3,0x238d73);
-   label(x+52,dy+6,name,2,ink);ui73_fit(x+52,dy+31,cw-205,suitable75(d)?(chosen==i?(chosen_state75==1?"Selected - empty disk":chosen_state75==2?"Selected - contains existing data":"Selected - check connection"):"SATA hard disk") : "Cannot install here - inspection only",1,muted);label(x+cw-118,dy+15,size,2,ink);
+   label(x+52,dy+6,name,2,ink);ui73_fit(x+52,dy+31,cw-205,suitable75(d)?(chosen==i?(chosen_state75==1?"Selected - empty disk":chosen_state75==2?"Selected - contains existing data":"Selected - check connection"):"supported hard disk") : "Cannot install here - inspection only",1,muted);label(x+cw-118,dy+15,size,2,ink);
   }
   if(count>4){tap75(x,y+373,82,42,"Prev",94,0);tap75(x+92,y+373,82,42,"Next",95,0);}
   else if(!maintenance){tap75(x,y+377,180,44,"Disk tools...",90,chosen<count?0:2);if(chosen_state75==2)tap75(x+194,y+377,cw-194,44,replace_selected?"[x] Erase this disk and install":"[ ] Erase this disk and install",91,0);else if(chosen_state75==1)label(x+200,y+390,"Empty disk - ready to install",2,ink);}
-  ui73_paragraph(x,y+435,cw,1,validation?validation:chosen>=count?"Select a disk above to enable Next.":chosen_state75==1?"The installer will prepare this empty disk automatically.":chosen_state75==3?"This disk cannot be used for installation. Choose a SATA disk, 2 GiB to 2 TiB.":chosen_state75==4?"This disk could not be read. Check its SATA connection and try again.":replace_selected?"Review will ask for separate permission before erasing this disk.":"This disk contains files. Back them up before choosing Erase this disk and install.",validation?0x994334:muted);
+  ui73_paragraph(x,y+435,cw,1,validation?validation:chosen>=count?"Select a disk above to enable Next.":chosen_state75==1?"The installer will prepare this empty disk automatically.":chosen_state75==3?"This disk cannot be used for installation. Choose a supported disk, 2 GiB to 2 TiB.":chosen_state75==4?"This disk could not be read. Check its disk connection and try again.":replace_selected?"Review will ask for separate permission before erasing this disk.":"This disk contains files. Back them up before choosing Erase this disk and install.",validation?0x994334:muted);
  }
  if(step==2){label(x,y,"Your everyday essentials.",4,ink);ui73_paragraph(x,y+53,cw,2,"Files, Settings and the desktop are ready for you. Standard apps are included with this build.",muted);art75(x,y+119,cw);
   label(x,y+270,"Make changes whenever you like.",3,ink);ui73_paragraph(x,y+315,cw,2,"Remove or reinstall optional apps in Settings. Your files stay separate, and the system keeps working.",muted);tap75(x,y+390,cw,52,preferences.guide?"[x] Include the getting-started guide":"[ ] Include the getting-started guide",20,0);

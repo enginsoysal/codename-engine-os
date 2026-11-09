@@ -11,13 +11,32 @@ static unsigned read_disk(unsigned context,uint64_t lba,void *buffer){
     if(context>=disk_count)return B_DENIED;ide_disk *d=&disks[context];if(lba>=d->sectors)return B_DENIED;out8(d->control,2);out8(d->io+6,(uint8_t)(0xe0|(d->slave<<4)|(d->lba48?0:((lba>>24)&15))));delay(d->control);unsigned s=wait(d,0);if(s)return s;
     if(d->lba48){out8(d->io+2,0);out8(d->io+3,(uint8_t)(lba>>24));out8(d->io+4,(uint8_t)(lba>>32));out8(d->io+5,(uint8_t)(lba>>40));}out8(d->io+2,1);out8(d->io+3,(uint8_t)lba);out8(d->io+4,(uint8_t)(lba>>8));out8(d->io+5,(uint8_t)(lba>>16));out8(d->io+7,d->lba48?0x24:0x20);delay(d->control);if((s=wait(d,1)))return s;transfer(d,buffer,d->bytes);return wait(d,0);
 }
+
+#ifdef ENGINE_M92
+static unsigned io92(unsigned context,uint64_t lba,void*buffer,unsigned bytes,unsigned write){
+ if(context>=disk_count||!buffer||!bytes||bytes>4096)return B_DENIED;ide_disk*d=&disks[context];if(bytes%d->bytes||lba>=d->sectors||bytes/d->bytes>d->sectors-lba)return B_DENIED;
+ if(!write){uint8_t*p=buffer;while(bytes){unsigned s=read_disk(context,lba++,p);if(s)return s;p+=d->bytes;bytes-=d->bytes;}return B_OK;}
+ out8(d->control,2);out8(d->io+6,(uint8_t)(0xe0|(d->slave<<4)|(d->lba48?0:((lba>>24)&15))));delay(d->control);unsigned status=wait(d,0);if(status)return status;
+ unsigned sectors=bytes/d->bytes;if(d->lba48){out8(d->io+2,0);out8(d->io+3,(uint8_t)(lba>>24));out8(d->io+4,(uint8_t)(lba>>32));out8(d->io+5,(uint8_t)(lba>>40));}
+ out8(d->io+2,(uint8_t)sectors);out8(d->io+3,(uint8_t)lba);out8(d->io+4,(uint8_t)(lba>>8));out8(d->io+5,(uint8_t)(lba>>16));out8(d->io+7,d->lba48?0x34:0x30);delay(d->control);
+ const uint8_t*p=buffer;for(unsigned sector=0;sector<sectors;++sector){if((status=wait(d,1)))return status;for(unsigned i=0;i<d->bytes;i+=2){uint16_t value=(uint16_t)p[i]|((uint16_t)p[i+1]<<8);__asm__ volatile("outw %0,%1"::"a"(value),"Nd"(d->io));}p+=d->bytes;delay(d->control);}
+ (void)in8(d->io+7);return wait(d,0);
+}
+static unsigned flush92(unsigned context){if(context>=disk_count)return B_DENIED;ide_disk*d=&disks[context];out8(d->control,2);out8(d->io+6,(uint8_t)(0xe0|(d->slave<<4)));delay(d->control);unsigned s=wait(d,0);if(s)return s;out8(d->io+7,d->lba48?0xea:0xe7);delay(d->control);return wait(d,0);}
+#endif
+
 static void channel(unsigned bdf,uint16_t io,uint16_t control,unsigned channel_number){
     if(!io||!control||channel_count==8)return;for(unsigned i=0;i<channel_count;++i)if(channels[i]==io)return;channels[channel_count++]=io;out8(control,6);delay(control);out8(control,2);delay(control);
     for(unsigned slave=0;slave<2&&disk_count<8&&storage_count()<STORAGE_MAX;++slave){ide_disk d={io,control,slave,512,0,0};out8(io+6,(uint8_t)(0xa0|(slave<<4)));delay(control);unsigned status=in8(io+7);if(!status||status==255)continue;
         out8(io+2,0);out8(io+3,0);out8(io+4,0);out8(io+5,0);out8(io+7,0xec);delay(control);if(wait(&d,1))continue;uint16_t id[256];transfer(&d,id,512);
         d.lba48=!!(id[83]&(1u<<10));d.sectors=d.lba48?((uint64_t)id[100]|((uint64_t)id[101]<<16)|((uint64_t)id[102]<<32)|((uint64_t)id[103]<<48)):((uint64_t)id[60]|((uint64_t)id[61]<<16));
         if((id[106]&0xd000)==0x5000){uint64_t words=(uint64_t)id[117]|((uint64_t)id[118]<<16);d.bytes=words<=UINT32_MAX/2?(unsigned)words*2:0;}
-        unsigned readable=(id[49]&(1u<<9))&&d.sectors&&d.sectors<=(d.lba48?UINT64_C(0x1000000000000):UINT64_C(0x10000000))&&(d.bytes==512||d.bytes==4096);unsigned n=disk_count++;disks[n]=d;storage_disk item={STORAGE_IDE,bdf,channel_number*2+slave,d.bytes,readable,0,d.sectors,n,0};(void)storage_register(item,read_disk);
+        unsigned readable=(id[49]&(1u<<9))&&d.sectors&&d.sectors<=(d.lba48?UINT64_C(0x1000000000000):UINT64_C(0x10000000))&&(d.bytes==512||d.bytes==4096);unsigned n=disk_count++;disks[n]=d;storage_disk item={STORAGE_IDE,bdf,channel_number*2+slave,d.bytes,readable,0,d.sectors,n,0};
+#ifdef ENGINE_M92
+        (void)storage_register_io(item,read_disk,io92,flush92);
+#else
+        (void)storage_register(item,read_disk);
+#endif
     }
 }
 unsigned ide_discover(void){

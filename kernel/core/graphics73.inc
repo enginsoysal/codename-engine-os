@@ -29,7 +29,11 @@ unsigned ui73_height(void){return screen->framebuffer_height;}
 uint64_t ui73_framebuffer_bytes(void){return (uint64_t)screen->framebuffer_stride_bytes*screen->framebuffer_height;}
 #ifdef ENGINE_M74
 unsigned ui74_intersects(unsigned x,unsigned y,unsigned w,unsigned h){
+#ifdef ENGINE_M92
+ int64_t sx=(int32_t)x,sy=(int32_t)y;return !clip7_active||(sx<clip7_right&&sy<clip7_bottom&&sx+w>clip7_left&&sy+h>clip7_top);
+#else
  return !clip7_active||(x<clip7_right&&y<clip7_bottom&&x+w>clip7_left&&y+h>clip7_top);
+#endif
 }
 uint32_t ui74_rgb(unsigned x,unsigned y){
  if(x>=screen->framebuffer_width||y>=screen->framebuffer_height)return 0;
@@ -46,7 +50,12 @@ const os_boot_info_v0 *ui73_begin(const os_boot_info_v0*boot){
  serial_text("M73_DISPLAY physical=");serial_hex(boot->framebuffer_width);serial_text("x");serial_hex(boot->framebuffer_height);serial_text(" scale_half=");serial_hex(scale73);serial_text(" logical=");serial_hex(view73.framebuffer_width);serial_text("x");serial_hex(view73.framebuffer_height);serial_text("\n");
  return &view73;
 }
+#ifdef ENGINE_M92
+static int32_t signed_phys92(int64_t n){int64_t value=n*scale73;return (int32_t)(value>=0?value/2:-((-value+1)/2));}
+static unsigned phys73(unsigned n){return (unsigned)signed_phys92((int32_t)n);}
+#else
 static unsigned phys73(unsigned n){return n*scale73/2;}
+#endif
 static void blend73(unsigned x,unsigned y,uint32_t rgb,unsigned a,unsigned clipped){
  if(!a||x>=screen->framebuffer_width||y>=screen->framebuffer_height)return;
  if(clipped&&clip7_active&&(x<phys73(clip7_left)||x>=phys73(clip7_right)||y<phys73(clip7_top)||y>=phys73(clip7_bottom)))return;
@@ -58,6 +67,11 @@ static void blend73(unsigned x,unsigned y,uint32_t rgb,unsigned a,unsigned clipp
 }
 static void rect73(unsigned x,unsigned y,unsigned w,unsigned h,uint32_t rgb){
  if(!x&&!y)gui6_repaint=1;
+#ifdef ENGINE_M92
+ int64_t sx=(int32_t)x,sy=(int32_t)y,ex=sx+w,ey=sy+h;
+ if(sx<0)sx=0;if(sy<0)sy=0;if(ex>view73.framebuffer_width)ex=view73.framebuffer_width;if(ey>view73.framebuffer_height)ey=view73.framebuffer_height;
+ if(sx>=ex||sy>=ey)return;x=(unsigned)sx;y=(unsigned)sy;w=(unsigned)(ex-sx);h=(unsigned)(ey-sy);
+#endif
  if(x>=view73.framebuffer_width||y>=view73.framebuffer_height)return;
  if(w>view73.framebuffer_width-x)w=view73.framebuffer_width-x;if(h>view73.framebuffer_height-y)h=view73.framebuffer_height-y;
  unsigned right=x+w,bottom=y+h;
@@ -74,9 +88,20 @@ static void rect73(unsigned x,unsigned y,unsigned w,unsigned h,uint32_t rgb){
  volatile uint32_t*p=pixel73(px,j);for(unsigned i=px;i<pr;++i)*p++=value;}
 }
 static void round_alpha73(unsigned x,unsigned y,unsigned w,unsigned h,unsigned radius,uint32_t rgb,unsigned alpha){
- if(!w||!h)return;unsigned px=phys73(x),py=phys73(y),pw=phys73(x+w)-px,ph=phys73(y+h)-py,r=phys73(radius);
+ if(!w||!h)return;
+#ifdef ENGINE_M92
+ int px=signed_phys92((int32_t)x),py=signed_phys92((int32_t)y);int ex=signed_phys92((int64_t)(int32_t)x+w),ey=signed_phys92((int64_t)(int32_t)y+h);
+ if(ex<=0||ey<=0||px>=(int)screen->framebuffer_width||py>=(int)screen->framebuffer_height)return;
+ unsigned pw=(unsigned)(ex-px),ph=(unsigned)(ey-py),r=phys73(radius);
+#else
+ unsigned px=phys73(x),py=phys73(y),pw=phys73(x+w)-px,ph=phys73(y+h)-py,r=phys73(radius);
+#endif
  if(r>pw/2)r=pw/2;if(r>ph/2)r=ph/2;
+#ifdef ENGINE_M92
+ unsigned l=px<0?0:(unsigned)px,t=py<0?0:(unsigned)py,right=(unsigned)ex,bottom=(unsigned)ey;
+#else
  unsigned l=px,t=py,right=px+pw,bottom=py+ph;
+#endif
  if(clip7_active){if(l<phys73(clip7_left))l=phys73(clip7_left);if(t<phys73(clip7_top))t=phys73(clip7_top);if(right>phys73(clip7_right))right=phys73(clip7_right);if(bottom>phys73(clip7_bottom))bottom=phys73(clip7_bottom);}
  if(right>screen->framebuffer_width)right=screen->framebuffer_width;if(bottom>screen->framebuffer_height)bottom=screen->framebuffer_height;
 #ifdef ENGINE_M9
@@ -97,7 +122,11 @@ static void round_alpha73(unsigned x,unsigned y,unsigned w,unsigned h,unsigned r
 }
 void ui73_round(unsigned x,unsigned y,unsigned w,unsigned h,unsigned r,uint32_t c){round_alpha73(x,y,w,h,r,c,255);}
 void ui73_shadow(unsigned x,unsigned y,unsigned w,unsigned h){
- for(unsigned i=8;i;--i)if(x>=i&&y>=i)round_alpha73(x-i,y-i+4,w+2*i,h+2*i,12+i,0x081824,3);
+ for(unsigned i=8;i;--i)
+#ifndef ENGINE_M92
+ if(x>=i&&y>=i)
+#endif
+ round_alpha73(x-i,y-i+4,w+2*i,h+2*i,12+i,0x081824,3);
 }
 static const font73_face *face73(unsigned role){
  unsigned logical=role>=4?32:role==3?24:16,actual=logical*scale73/2;

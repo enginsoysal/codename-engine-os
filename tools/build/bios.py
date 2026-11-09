@@ -36,7 +36,7 @@ def stages(work,kernel,init,sector_bytes=512,stage_lba=64,kernel_lba=128,video_m
         raw+=init+bytes((-len(init))%32768)
         if 0x200000+len(raw)>kernel_limit:raise ValueError('BIOS module load bound')
         defines.update(BIOS_KERNEL_CHUNKS=len(raw)//32768,BIOS_KERNEL_BYTES=len(raw),BIOS_KERNEL_CRC=zlib.crc32(raw))
-    defines['BIOS_CHAIN75']=int(any(part in work.as_posix() for part in ('/m75/','/m8/','/m9/')) and '/installed/' not in work.as_posix())
+    defines['BIOS_CHAIN75']=int(any(part in work.as_posix() for part in ('/m75/','/m8/','/m9/','/m92/')) and '/installed/' not in work.as_posix())
     header=''.join(f'#define {name} {value}\n' for name,value in defines.items())+'#ifndef __ASSEMBLER__\nstatic const unsigned char bios_init[]={'+','.join(map(str,init[:48]))+'};\n#endif\n';(work/'bios-config.h').write_bytes((header+'#define BIOS_BUILD75 \"'+init[16:48].decode()+'\"\n').encode())
     def command(args):
         p=subprocess.run(list(map(str,args)),cwd=ROOT,capture_output=True,text=True)

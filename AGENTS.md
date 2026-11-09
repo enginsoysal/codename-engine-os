@@ -13,6 +13,8 @@
 
 ## Product requirements
 
+- Owner priority, 9 November 2026: complete real IDE/SATA/SCSI installation and independent startup through automatic native controller support. Installer admission must use verified read/write/flush capability rather than a SATA name check. Test each implemented controller/firmware combination with shipped devices enabled. Also support reachable partially off-screen window movement with safe signed clipping. Do not label the broader hardware program universally complete from a virtual controller matrix.
+
 - Owner-reported M9 starter failure, 9 November 2026: an enabled e1000e NIC without PCIe root ports crashed VMware. Starter qualification must retain every shipped device enabled and may add only owned observation channels. Offline tests remain separate. Drain COM1 observations while waiting for frames; test instrumentation must not stall the guest.
 
 - Owner requirement, 8 November 2026: review every installation step for inexperienced children and older adults. Disk choices must be an obvious bounded list with whole-row hit targets, visible selection and useful disabled actions. Next must not clear/reload the entire UI. Completion requires actual installed startup, including the common retained-ISO case; a live-session desktop is insufficient. Keep novice scenario review distinct from a real human study.

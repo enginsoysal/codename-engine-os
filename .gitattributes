@@ -39,3 +39,5 @@ evidence/M8/**/*.log -text -whitespace
 evidence/M9/**/*.log -text -whitespace
 
 evidence/M9.1/**/*.log -text -whitespace
+
+evidence/M9.2/**/*.log -text -whitespace

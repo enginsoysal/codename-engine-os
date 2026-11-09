@@ -19,6 +19,10 @@ static unsigned submit(nvme_controller *c,uint32_t cmd[16],unsigned io){
 static void prp(uint32_t cmd[16],uint64_t address){cmd[6]=(uint32_t)address;cmd[7]=(uint32_t)(address>>32);}
 static unsigned identify(nvme_controller *c,unsigned nsid,unsigned cns){uint32_t cmd[16]={6,nsid};cmd[10]=cns;prp(cmd,c->buffer);memset((void*)(uintptr_t)c->buffer,0,4096);return submit(c,cmd,0);}
 static unsigned read_namespace(unsigned context,uint64_t lba,void *buffer){if(context>=namespace_count)return B_DENIED;nvme_namespace *n=&namespaces[context];nvme_controller *c=&controllers[n->controller];uint32_t cmd[16]={2,n->nsid};prp(cmd,c->buffer);cmd[10]=(uint32_t)lba;cmd[11]=(uint32_t)(lba>>32);unsigned s=submit(c,cmd,1);if(!s)memcpy(buffer,(void*)(uintptr_t)c->buffer,n->sector_bytes);return s;}
+#ifdef ENGINE_M92
+static unsigned io92(unsigned context,uint64_t lba,void*buffer,unsigned bytes,unsigned write){if(context>=namespace_count||!buffer||!bytes||bytes>4096)return B_DENIED;nvme_namespace*n=&namespaces[context];if(bytes%n->sector_bytes)return B_DENIED;nvme_controller*c=&controllers[n->controller];uint32_t cmd[16]={write?1u:2u,n->nsid};prp(cmd,c->buffer);cmd[10]=(uint32_t)lba;cmd[11]=(uint32_t)(lba>>32);cmd[12]=bytes/n->sector_bytes-1;if(write)memcpy((void*)(uintptr_t)c->buffer,buffer,bytes);unsigned status=submit(c,cmd,1);if(!status&&!write)memcpy(buffer,(void*)(uintptr_t)c->buffer,bytes);return status;}
+static unsigned flush92(unsigned context){if(context>=namespace_count)return B_DENIED;nvme_namespace*n=&namespaces[context];uint32_t cmd[16]={0,n->nsid};return submit(&controllers[n->controller],cmd,1);}
+#endif
 static unsigned bind(unsigned bdf){
     if(controller_count==2)return B_DENIED;unsigned bar=pci(bdf,16);if(bar&1)return B_UNSUPPORTED;uint64_t physical=bar&~15u;if((bar&6)==4)physical|=(uint64_t)pci(bdf,20)<<32;if(physical<0x10000000||physical>UINT64_C(0x000ffffffff00000))return B_UNSUPPORTED;
     uint64_t pd=page_alloc();if(!pd)return B_IO;uint64_t aligned=physical&~UINT64_C(0x1fffff);((uint64_t*)(uintptr_t)pd)[0]=aligned|UINT64_C(0x800000000000009b);((uint64_t*)(uintptr_t)pd)[1]=(aligned+0x200000)|UINT64_C(0x800000000000009b);unsigned branch=3+controller_count;((uint64_t*)(uintptr_t)kernel_stack_branch())[branch]=pd|3;
@@ -34,7 +38,13 @@ static unsigned bind(unsigned bdf){
     if(identify(c,0,1))return B_IO;uint32_t cmd[16]={5};prp(cmd,c->cq);cmd[10]=1|(15u<<16);cmd[11]=1|(c->irq?2:0);if(submit(c,cmd,0))return B_IO;memset(cmd,0,sizeof(cmd));cmd[0]=1;prp(cmd,c->sq);cmd[10]=1|(15u<<16);cmd[11]=1|(1u<<16);if(submit(c,cmd,0))return B_IO;
     if(identify(c,0,2))return B_IO;uint32_t ids[STORAGE_MAX];memcpy(ids,(void*)(uintptr_t)c->buffer,sizeof(ids));
     for(unsigned i=0;i<STORAGE_MAX&&ids[i]&&namespace_count<STORAGE_MAX&&storage_count()<STORAGE_MAX;++i){if(identify(c,ids[i],0))return B_IO;const uint8_t *data=(void*)(uintptr_t)c->buffer;uint64_t sectors=r64(data);unsigned format=data[26]&15,bits=data[128+format*4+2];uint16_t metadata;memcpy(&metadata,data+128+format*4,2);unsigned bytes=bits<32?1u<<bits:0,readable=sectors&&!metadata&&(bytes==512||bytes==4096);
-        unsigned context=namespace_count++;namespaces[context]=(nvme_namespace){ci,ids[i],bytes};storage_disk d={STORAGE_NVME,bdf,ids[i],bytes,readable,0,sectors,context,0};(void)storage_register(d,read_namespace);}
+        unsigned context=namespace_count++;namespaces[context]=(nvme_namespace){ci,ids[i],bytes};storage_disk d={STORAGE_NVME,bdf,ids[i],bytes,readable,0,sectors,context,0};
+#ifdef ENGINE_M92
+(void)storage_register_io(d,read_namespace,io92,flush92);
+#else
+(void)storage_register(d,read_namespace);
+#endif
+}
     serial_text("M45_NVME_CONTROLLER_READY irq=");serial_hex(c->irq);serial_text("\n");return B_OK;
 }
 unsigned nvme_discover(void){unsigned failures=0;for(unsigned bus=0;bus<256;++bus)for(unsigned dev=0;dev<32;++dev){unsigned first=(bus<<8)|(dev<<3);if((pci(first,0)&65535)==65535)continue;unsigned functions=(pci(first,12)&0x800000)?8:1;for(unsigned f=0;f<functions;++f)if((pci(first|f,8)>>8)==0x010802){unsigned s=bind(first|f);if(s){++failures;serial_text("M45_NVME_BIND_FAILED status=");serial_hex(s);serial_text("\n");}}}return failures?B_IO:B_OK;}

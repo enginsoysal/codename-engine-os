@@ -812,9 +812,21 @@ static unsigned move_cached9(desktop_rect old,desktop_rect moved){
  if(old.x==moved.x&&old.y==moved.y)return 1;
  /* Recompose the complete title/footer; never split their glyphs across blits. */
  unsigned scale=ui73_scale();desktop_rect inner={moved.x+16,moved.y+40,moved.width-32,moved.height-88};
+#ifdef ENGINE_M92
+ int delta_x=moved.x-old.x,delta_y=moved.y-old.y,left=inner.x,top=inner.y,right=inner.x+inner.width,bottom=inner.y+inner.height;
+ int visible_w=(int)model.width,visible_h=(int)model.height-60;
+ if(left<0)left=0;if(left<delta_x)left=delta_x;if(top<0)top=0;if(top<delta_y)top=delta_y;
+ if(right>visible_w)right=visible_w;if(right>visible_w+delta_x)right=visible_w+delta_x;
+ if(bottom>visible_h)bottom=visible_h;if(bottom>visible_h+delta_y)bottom=visible_h+delta_y;
+ if(left>=right||top>=bottom)return 0;inner=(desktop_rect){left,top,right-left,bottom-top};
+ unsigned sx=(unsigned)(left-delta_x)*scale/2,sy=(unsigned)(top-delta_y)*scale/2;
+ unsigned dx=(unsigned)left*scale/2,dy=(unsigned)top*scale/2;
+ unsigned w=(unsigned)right*scale/2-dx,h=(unsigned)bottom*scale/2-dy;
+#else
  unsigned sx=(unsigned)(old.x+16)*scale/2,sy=(unsigned)(old.y+40)*scale/2;
  unsigned dx=(unsigned)inner.x*scale/2,dy=(unsigned)inner.y*scale/2;
  unsigned w=(unsigned)(moved.x+moved.width-16)*scale/2-dx,h=(unsigned)(moved.y+moved.height-48)*scale/2-dy;
+#endif
  /* At 150% an odd logical translation changes sampling phase: repaint exactly. */
  if(scale==3&&(((old.x-moved.x)|(old.y-moved.y))&1))return 0;
  graphics9_begin_batch();
