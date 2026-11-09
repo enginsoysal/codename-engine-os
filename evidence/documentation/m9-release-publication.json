@@ -1,0 +1,160 @@
+{
+  "passed": true,
+  "tag": "m9-v0.9.0",
+  "release": "https://github.com/enginsoysal/codename-engine-os/releases/tag/m9-v0.9.0",
+  "release_id": 439191578,
+  "checked_at": "2026-11-09T13:53:07.385012+00:00",
+  "all_remote_asset_digests_and_sizes_match": true,
+  "asset_count": 20,
+  "assets": {
+    "EngineOS-M9.iso": {
+      "sha256": "019d3c07c6a2b8c20ed8089ae7ab6ab95f901de6267aa1132c5577803211eb52",
+      "size": 74110976
+    },
+    "EngineOS-M9-usb.img": {
+      "sha256": "ff29502c47ad0e93d66ba6f3c049d67cc88ff132e0a4725662daf818dd6932d3",
+      "size": 84934656
+    },
+    "EngineOS-M9-kernel.elf": {
+      "sha256": "682508c23a5dfdeba2cecc0b6f4c787e40961d397221f9bf5ae4a8db69fa52a0",
+      "size": 3293524
+    },
+    "EngineOS-M9-kernel.map": {
+      "sha256": "6d58b82bd6966a19241bfdebfdf9ecc978119fb50d2ab7e63db3a71846a1551b",
+      "size": 345342
+    },
+    "EngineOS-M9-user.elf": {
+      "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f",
+      "size": 68064
+    },
+    "EngineOS-M9-installed-kernel.elf": {
+      "sha256": "d4323aa1a9c495e67e880bf301ccf8e7ae40847911f4546f5aba457cc89f41b6",
+      "size": 999764
+    },
+    "EngineOS-M9-installed-kernel.map": {
+      "sha256": "88564cdfc939506994fcdcc8c6fe067195d234fc94dfc40129d3962c48aa5ddb",
+      "size": 345050
+    },
+    "EngineOS-M9-editor.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M9-calculator.elf": {
+      "sha256": "5193f62e9f16e90ad96905b6bc2e47152c9a524402c5db6f32c8f8e50e1af8a0",
+      "size": 12976
+    },
+    "EngineOS-M9-calendar.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M9-archives.elf": {
+      "sha256": "9008a959466f7288e7ef99dab89ecb8e40439e9ee693faf825b4c602b98f8a84",
+      "size": 17068
+    },
+    "EngineOS-M9-browser.elf": {
+      "sha256": "3046e4a9af08551315191e2907d572ebde73b54b389b6c3a37dfb41222140cc0",
+      "size": 12639
+    },
+    "EngineOS-M9-help.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M9-VMware.zip": {
+      "sha256": "327f0584bf6ef70a6cf71cd3c2ed0724ac93584982c6fd3ea75ecefa93ac0f6d",
+      "size": 8833191
+    },
+    "EngineOS-M9-THIRD-PARTY-NOTICES.txt": {
+      "sha256": "43cc4c3bd1a5b29950f33667952ed31762680425a6615477c1f715c10c2a73fe",
+      "size": 59662
+    },
+    "7z2606-src.tar.xz": {
+      "sha256": "a4e374c8f864f51df48c2cfd0e1413ec3b2ea030deae852d6a655402ebb61ac4",
+      "size": 1567328
+    },
+    "m9-acceptance-results.json": {
+      "sha256": "9303159439211763878506083c9f5211a84c74a0f76f1cf4121d41cedb5c316d",
+      "size": 17127
+    },
+    "m9-build-manifest.json": {
+      "sha256": "ca03737baacbdd4538b150657afb25863de56ed3d9f39198b14fa668dc89f1ca",
+      "size": 70671
+    },
+    "m9-starter-manifest.json": {
+      "sha256": "7116571a56427c80ea7249c0bfe3444a1ee8f2c19229ac2206efef07dd350eb6",
+      "size": 545
+    },
+    "M9-SHA256SUMS.txt": {
+      "sha256": "c59ae3c2548da2640cc33a78539ee27814794d02420dbbfca3ac3c5f9521388d",
+      "size": 1720
+    }
+  },
+  "anonymous_complete_primary_downloads": {
+    "EngineOS-M9.iso": {
+      "sha256": "019d3c07c6a2b8c20ed8089ae7ab6ab95f901de6267aa1132c5577803211eb52",
+      "size": 74110976,
+      "anonymous": true
+    },
+    "EngineOS-M9-VMware.zip": {
+      "sha256": "327f0584bf6ef70a6cf71cd3c2ed0724ac93584982c6fd3ea75ecefa93ac0f6d",
+      "size": 8833191,
+      "anonymous": true
+    }
+  },
+  "release_source_commit": "92a37466387eda3fc6cc4ed2dec3e9caf9dff3aa",
+  "homepage_updated": false,
+  "documentation_sync": {
+    "passed": true,
+    "source_commit": "0a96cbfb88594a95da35d933de25caaad295a3cd",
+    "workflow": {
+      "conclusion": "success",
+      "headSha": "0a96cbfb88594a95da35d933de25caaad295a3cd",
+      "status": "completed",
+      "url": "https://github.com/enginsoysal/codename-engine-os/actions/runs/42630030795"
+    },
+    "anonymous_public_pages": {
+      "https://engineos.brixcanvas.com/blog/docs-handbook-install-m9": {
+        "passed": true,
+        "anonymous_https": true,
+        "no_external_embed": true,
+        "canonical_source": "https://github.com/enginsoysal/codename-engine-os/blob/0a96cbfb88594a95da35d933de25caaad295a3cd/docs/handbook/install-m9.md"
+      },
+      "https://engineos.brixcanvas.com/blog/docs-architecture-graphics-m9": {
+        "passed": true,
+        "anonymous_https": true,
+        "no_external_embed": true,
+        "canonical_source": "https://github.com/enginsoysal/codename-engine-os/blob/0a96cbfb88594a95da35d933de25caaad295a3cd/docs/architecture/graphics-m9.md"
+      },
+      "https://engineos.brixcanvas.com/blog/docs-milestones-m9": {
+        "passed": true,
+        "anonymous_https": true,
+        "no_external_embed": true,
+        "canonical_source": "https://github.com/enginsoysal/codename-engine-os/blob/0a96cbfb88594a95da35d933de25caaad295a3cd/docs/milestones/m9.md"
+      },
+      "https://engineos.brixcanvas.com/blog/docs-releases-m9-v0-9-0": {
+        "passed": true,
+        "anonymous_https": true,
+        "no_external_embed": true,
+        "canonical_source": "https://github.com/enginsoysal/codename-engine-os/blob/0a96cbfb88594a95da35d933de25caaad295a3cd/docs/releases/m9-v0.9.0.md"
+      },
+      "https://engineos.brixcanvas.com/blog/docs-roadmap-status": {
+        "passed": true,
+        "anonymous_https": true,
+        "no_external_embed": true,
+        "canonical_source": "https://github.com/enginsoysal/codename-engine-os/blob/0a96cbfb88594a95da35d933de25caaad295a3cd/docs/roadmap/status.md"
+      },
+      "https://engineos.brixcanvas.com/blog/downloads": {
+        "passed": true,
+        "anonymous_https": true,
+        "no_external_embed": true,
+        "current_m9_iso_and_starter": true,
+        "iso_sha256_visible": true
+      },
+      "https://engineos.brixcanvas.com/blog/documentation": {
+        "passed": true,
+        "anonymous_https": true,
+        "no_external_embed": true
+      }
+    },
+    "checked_at": "2026-11-09T14:00:34.808148+00:00"
+  }
+}
