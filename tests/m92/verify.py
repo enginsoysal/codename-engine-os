@@ -12,6 +12,10 @@ def main():
  names=list(meta['source_sha256']);raw=subprocess.check_output(['git','cat-file','--batch'],cwd=ROOT,input=''.join(commit+':'+n+'\n' for n in names).encode());at=0
  for name in names:
   end=raw.index(b'\n',at);header=raw[at:end].split();assert len(header)==3 and header[1]==b'blob',name;size=int(header[2]);content=raw[end+1:end+1+size];at=end+size+2;assert hashlib.sha256(content).hexdigest()==meta['source_sha256'][name]==sha(ROOT/name),name
+ harness=[x.relative_to(ROOT).as_posix() for x in sorted((ROOT/'tests/m92').glob('*')) if x.is_file()]
+ raw=subprocess.check_output(['git','cat-file','--batch'],cwd=ROOT,input=''.join(commit+':'+n+'\n' for n in harness).encode());at=0
+ for name in harness:
+  end=raw.index(b'\n',at);header=raw[at:end].split();assert len(header)==3 and header[1]==b'blob',name;size=int(header[2]);content=raw[end+1:end+1+size];at=end+size+2;assert hashlib.sha256(content).hexdigest()==sha(ROOT/name),'Harness differs from published source: '+name
  OUT.mkdir(parents=True,exist_ok=True);gates=[];reports={}
  def gate(directory,filename='results.json',native=True):
   source=ROOT/'build/m92'/directory;value=load(source/filename);assert value['passed'],directory
@@ -32,7 +36,7 @@ def main():
  for controller in ['ide','mptsas']:gate('replacement/'+controller);gate('safety/'+controller)
  gate('negative-pvscsi');gate('readonly-virtio');gate('window-host',native=False);gate('storage-host',native=False)
  for issue in ['scsi-target1-ovmf','scsi-target0-mixed-ovmf']:
-  known=ROOT/'build/m92/known-issues'/issue;assert not load(known/'results.json')['passed'] and not load(known/'results.json')['qualified'];dest=OUT/'known-issues'/issue;dest.mkdir(parents=True,exist_ok=True)
+  known=ROOT/'build/m92/known-issues'/issue;assert not load(known/'results.json')['passed'] and not load(known/'results.json')['qualified'] and load(known/'results.json')['known_failure_reproduced'] and load(known/'results.json')['build_id']==meta['build_id'] and load(known/'results.json')['iso_sha256']==iso;dest=OUT/'known-issues'/issue;dest.mkdir(parents=True,exist_ok=True)
   for name in ['results.json','last-run.log']:shutil.copyfile(known/name,dest/name)
  for resolution in ['1280x800','2560x1440','3840x2160']:
   r=gate('native-motion/M92-'+resolution);assert r['framebuffer']==list(map(int,resolution.split('x'))) and r['managed_bytes_before_drag']==r['managed_bytes_after_drag'] and r['idle_processors_halted'] and r['idle_repaint_unchanged'];assert len(r['comparisons'])==6 and all(v['whole_viewport_matches_full_repaint'] for v in r['comparisons'])

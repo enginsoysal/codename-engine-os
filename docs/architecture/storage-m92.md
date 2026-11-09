@@ -39,3 +39,7 @@ The first SCSI capacity implementation uses READ CAPACITY(10), LUN 0 and a bound
 The exact enabled-device starter regression exposed a real keyboard IRQ arriving during protected Windows application removal. The legacy input handler previously rejected every CPL3 interrupt frame, allowing a genuine device interrupt to fall into the old process-fault path. M9.2 services initialized hardware input independently of the interrupted privilege level, queues bounded input and returns to the same protected frame. User software still cannot invoke privileged interrupt gates or access device ports.
 
 The regression injects neutral Shift key edges during real Windows workers and requires the native `M92_INPUT_IRQ_CPL3_SERVICED` observation, successful removal/reinstall and subsequent disk-only startup. Waiting until workers finish or disabling keyboard/network devices would hide the failure and is not an acceptable fix.
+
+## Exact compiled and executed source bytes
+
+Native qualification binds every declared input to both the working bytes and the published Git blobs. Six native sources were compiled with CRLF endings on Windows; explicit attributes preserve those exact bytes across checkouts. Qualification harness sources are preserved as executed as well. No post-build normalization, source-hash substitution or changed ISO is accepted. A future formatting conversion requires its own new build and qualification; it cannot silently change the accepted delivery.
