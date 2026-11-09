@@ -21,9 +21,14 @@ def main():
         assert not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip(),'Commit the final release first'
         commit=gh('api','repos/'+REPO+'/commits/main','--jq','.sha').strip()
         local=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();assert local==commit,'Push the release commit first'
-        gh('release','create',TAG,'--repo',REPO,'--draft','--target',commit,'--title','Engine OS 0.9.0 — VMware graphics and automatic pointer setup','--notes-file','docs/releases/m9-v0.9.0.md')
+        gh('release','create',TAG,'--repo',REPO,'--draft','--target',commit,'--title','Engine OS 0.9.0 â€” VMware graphics and automatic pointer setup','--notes-file','docs/releases/m9-v0.9.0.md')
         gh('release','upload',TAG,'--repo',REPO,*[str(x) for x in files.values()])
-    remote=json.loads(gh('api','repos/'+REPO+'/releases/tags/'+TAG))
+    # GitHub's tag endpoint excludes unpublished drafts. Authenticated listing
+    # exposes the owned draft so its complete asset set can be checked first.
+    candidates=json.loads(gh('api','repos/'+REPO+'/releases?per_page=100'))
+    matches=[value for value in candidates if value['tag_name']==TAG]
+    assert len(matches)==1,'Expected one owned release for the tag'
+    remote=matches[0]
     expected={name:{'sha256':sha(path),'size':path.stat().st_size} for name,path in files.items()}
     assert {x['name'] for x in remote['assets']}==set(expected),'Unexpected remote asset set'
     for asset in remote['assets']:
