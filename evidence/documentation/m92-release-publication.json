@@ -1,0 +1,178 @@
+{
+  "passed": true,
+  "tag": "m92-v0.9.2",
+  "release": "https://github.com/enginsoysal/codename-engine-os/releases/tag/m92-v0.9.2",
+  "release_id": 439339004,
+  "checked_at": "2026-11-09T15:59:40.986984+00:00",
+  "all_remote_asset_digests_and_sizes_match": true,
+  "asset_count": 20,
+  "assets": {
+    "EngineOS-M92.iso": {
+      "sha256": "bdf22eff371890867a7271a4461989a50d64feeec45f67699dba7b216e9c8bf2",
+      "size": 74176512
+    },
+    "EngineOS-M92-usb.img": {
+      "sha256": "8e5a4ffb1831141461c6e96dd39f9cc1af3b5c80d1551375ac1ad9ca4c5fca55",
+      "size": 84934656
+    },
+    "EngineOS-M92-kernel.elf": {
+      "sha256": "d1f6c438ee670fe7a50c3d2c662c36298d6ffca104e96c11b04b0232770f8921",
+      "size": 3350868
+    },
+    "EngineOS-M92-kernel.map": {
+      "sha256": "8e4bc959ea39b0d6a7ee9edb61319c28bf2ddaee02b598bd7f50d83747cbfaf2",
+      "size": 350555
+    },
+    "EngineOS-M92-user.elf": {
+      "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f",
+      "size": 68064
+    },
+    "EngineOS-M92-installed-kernel.elf": {
+      "sha256": "f55ee156b58833d64a8cb83e0ac27427141a08ee6a5966ccfd6ce69f19c2d333",
+      "size": 1020244
+    },
+    "EngineOS-M92-installed-kernel.map": {
+      "sha256": "022c491e931109a957ec1ccd129003e4ddda7a067c9c80c5c5b0355487034f44",
+      "size": 350263
+    },
+    "EngineOS-M92-editor.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M92-calculator.elf": {
+      "sha256": "5193f62e9f16e90ad96905b6bc2e47152c9a524402c5db6f32c8f8e50e1af8a0",
+      "size": 12976
+    },
+    "EngineOS-M92-calendar.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M92-archives.elf": {
+      "sha256": "9008a959466f7288e7ef99dab89ecb8e40439e9ee693faf825b4c602b98f8a84",
+      "size": 17068
+    },
+    "EngineOS-M92-browser.elf": {
+      "sha256": "3046e4a9af08551315191e2907d572ebde73b54b389b6c3a37dfb41222140cc0",
+      "size": 12639
+    },
+    "EngineOS-M92-help.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M92-VMware.zip": {
+      "sha256": "2289f3909b35a4b77e8ae30051c4c8db5ff5e288b4073fc5e75e68e1fd5971eb",
+      "size": 8872439
+    },
+    "EngineOS-M92-THIRD-PARTY-NOTICES.txt": {
+      "sha256": "f9f99f6e2f64f9cf7afe818a137e1e20655788e53adc55fea7000f487849d30d",
+      "size": 59664
+    },
+    "7z2606-src.tar.xz": {
+      "sha256": "a4e374c8f864f51df48c2cfd0e1413ec3b2ea030deae852d6a655402ebb61ac4",
+      "size": 1567328
+    },
+    "m92-acceptance-results.json": {
+      "sha256": "d1d0f60b9a8679ddf75f58ac64eab67605a9e30220495dadc5a4d866c9529f50",
+      "size": 46800
+    },
+    "m92-build-manifest.json": {
+      "sha256": "0e0b9906809bafde9e62b86c09854c7d78f68f6fd0440298a3b9e34b1b0e8da6",
+      "size": 71160
+    },
+    "m92-starter-manifest.json": {
+      "sha256": "bd2825a6f03d24a79b375dda3434db9a87d635ebcec1b4cda7a87235baa424c5",
+      "size": 547
+    },
+    "M92-SHA256SUMS.txt": {
+      "sha256": "9c5396a97e888af433c92f9a08e1e56d674bd4e1a5a850648220cf9c6e5c1b96",
+      "size": 1738
+    }
+  },
+  "anonymous_complete_primary_downloads": {
+    "EngineOS-M92.iso": {
+      "sha256": "bdf22eff371890867a7271a4461989a50d64feeec45f67699dba7b216e9c8bf2",
+      "size": 74176512,
+      "anonymous": true
+    },
+    "EngineOS-M92-VMware.zip": {
+      "sha256": "2289f3909b35a4b77e8ae30051c4c8db5ff5e288b4073fc5e75e68e1fd5971eb",
+      "size": 8872439,
+      "anonymous": true
+    }
+  },
+  "public_source_archive": {
+    "passed": true,
+    "anonymous_complete_source_archive": true,
+    "tag": "m92-v0.9.2",
+    "requested_url": "https://api.github.com/repos/enginsoysal/codename-engine-os/tarball/m92-v0.9.2",
+    "resolved_url": "https://codeload.github.com/enginsoysal/codename-engine-os/legacy.tar.gz/refs/tags/m92-v0.9.2",
+    "size": 47678637,
+    "archive_sha256": "2d3b4aa5595aa861dae3dc566fc230fbd55f1c34ef590705484ee5313d94361a",
+    "native_input_files_verified": 522,
+    "executed_harness_files_verified": 18,
+    "exact_source_files_verified": 540,
+    "method": "Streamed full public GitHub source archive; compared raw member bytes to compiled-input and executed-harness SHA256 records; no extraction or line-ending conversion",
+    "checked_at": "2026-11-09T16:01:55.887133+00:00",
+    "qualified_evidence_files_verified": 304,
+    "public_source_and_qualification_bytes_match": true
+  },
+  "qualification_git_bytes_verified": {
+    "commit": "523544eda15dd0fd97ce73b41a2a4c45b0160e93",
+    "evidence_and_harness_files": 321,
+    "exact_raw_bytes": true
+  },
+  "website": {
+    "passed": true,
+    "workflow_run": "https://github.com/enginsoysal/codename-engine-os/actions/runs/42650200023",
+    "workflow_id": 42650200023,
+    "workflow_conclusion": "success",
+    "source_commit": "523544eda15dd0fd97ce73b41a2a4c45b0160e93",
+    "pages": {
+      "https://engineos.brixcanvas.com/blog/docs-handbook-install-m92": {
+        "passed": true,
+        "anonymous_https": true,
+        "rendered_visible_content_checked": true,
+        "canonical_source": "https://github.com/enginsoysal/codename-engine-os/blob/523544eda15dd0fd97ce73b41a2a4c45b0160e93/docs/handbook/install-m92.md"
+      },
+      "https://engineos.brixcanvas.com/blog/docs-releases-m92-v0-9-2": {
+        "passed": true,
+        "anonymous_https": true,
+        "rendered_visible_content_checked": true,
+        "canonical_source": "https://github.com/enginsoysal/codename-engine-os/blob/523544eda15dd0fd97ce73b41a2a4c45b0160e93/docs/releases/m92-v0.9.2.md",
+        "current_iso_and_starter_visible": true,
+        "complete_sha256_values_visible": true
+      },
+      "https://engineos.brixcanvas.com/blog/docs-roadmap-status": {
+        "passed": true,
+        "anonymous_https": true,
+        "rendered_visible_content_checked": true,
+        "canonical_source": "https://github.com/enginsoysal/codename-engine-os/blob/523544eda15dd0fd97ce73b41a2a4c45b0160e93/docs/roadmap/status.md"
+      },
+      "https://engineos.brixcanvas.com/blog/docs-milestones-m9-2": {
+        "passed": true,
+        "anonymous_https": true,
+        "rendered_visible_content_checked": true,
+        "canonical_source": "https://github.com/enginsoysal/codename-engine-os/blob/523544eda15dd0fd97ce73b41a2a4c45b0160e93/docs/milestones/m9.2.md"
+      },
+      "https://engineos.brixcanvas.com/blog/docs-handbook-index": {
+        "passed": true,
+        "anonymous_https": true,
+        "rendered_visible_content_checked": true,
+        "canonical_source": "https://github.com/enginsoysal/codename-engine-os/blob/523544eda15dd0fd97ce73b41a2a4c45b0160e93/docs/handbook/index.md"
+      },
+      "https://engineos.brixcanvas.com/blog/downloads": {
+        "passed": true,
+        "anonymous_https": true,
+        "rendered_visible_content_checked": true,
+        "current_iso_and_starter_visible": true,
+        "complete_sha256_values_visible": true
+      },
+      "https://engineos.brixcanvas.com/blog/documentation": {
+        "passed": true,
+        "anonymous_https": true,
+        "rendered_visible_content_checked": true
+      }
+    },
+    "checked_at": "2026-11-09T16:05:18.054093+00:00"
+  }
+}
