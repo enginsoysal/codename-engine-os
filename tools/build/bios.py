@@ -36,7 +36,7 @@ def stages(work,kernel,init,sector_bytes=512,stage_lba=64,kernel_lba=128,video_m
         raw+=init+bytes((-len(init))%32768)
         if 0x200000+len(raw)>kernel_limit:raise ValueError('BIOS module load bound')
         defines.update(BIOS_KERNEL_CHUNKS=len(raw)//32768,BIOS_KERNEL_BYTES=len(raw),BIOS_KERNEL_CRC=zlib.crc32(raw))
-    defines['BIOS_CHAIN75']=int(any(part in work.as_posix() for part in ('/m75/','/m8/')) and '/installed/' not in work.as_posix())
+    defines['BIOS_CHAIN75']=int(any(part in work.as_posix() for part in ('/m75/','/m8/','/m9/')) and '/installed/' not in work.as_posix())
     header=''.join(f'#define {name} {value}\n' for name,value in defines.items())+'#ifndef __ASSEMBLER__\nstatic const unsigned char bios_init[]={'+','.join(map(str,init[:48]))+'};\n#endif\n';(work/'bios-config.h').write_bytes((header+'#define BIOS_BUILD75 \"'+init[16:48].decode()+'\"\n').encode())
     def command(args):
         p=subprocess.run(list(map(str,args)),cwd=ROOT,capture_output=True,text=True)
@@ -56,8 +56,8 @@ def dual_media(build,milestone='M45'):
     build=Path(build);work=build/'bios';kernel=(build/'KERNEL.ELF').read_bytes();init=(build/'INIT.BIN').read_bytes();fat=(build/'normal/efi-fat.img').read_bytes();dist=ROOT/'dist';work.mkdir(parents=True,exist_ok=True)
     # Live M7.4 media carries the offline app cache and an installed-system payload.
     # This does not change the installed BIOS partition or its separate bound.
-    expanded=milestone.startswith(('M74','M75','M8'))
-    limit=0xe00000 if milestone.startswith('M8') else 0xa00000 if expanded else 0x5f8000 if milestone.startswith('M7') else 0x400000
+    expanded=milestone.startswith(('M74','M75','M8','M9'))
+    limit=0xe00000 if milestone.startswith(('M8','M9')) else 0xa00000 if expanded else 0x5f8000 if milestone.startswith('M7') else 0x400000
     mbr,stage2,raw,usb_config=stages(work/'usb',kernel,init,kernel_limit=limit)
     usb=gpt(fat,'Engine OS '+milestone,first=32768 if expanded else 16384 if milestone.startswith('M7') else 8192,bios=(mbr,stage2,raw),bios_limit=limit-0x200000);(dist/('EngineOS-'+milestone+'-usb.img')).write_bytes(usb)
     placeholder,cd_stage,cd_raw,ignored=stages(work/'cd-layout',kernel,init,2048,1,17,kernel_limit=limit);blob=placeholder+bytes(1536)+cd_stage+cd_raw;boot_file=work/'bios-cd.img';boot_file.write_bytes(blob)

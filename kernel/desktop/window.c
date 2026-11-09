@@ -118,6 +118,10 @@ int desktop_close(desktop_model *m, uint64_t token) {
 int desktop_place(desktop_model *m, uint64_t token, desktop_rect r) {
     desktop_window *w = desktop_lookup(m, token);
     if (!w) return 0;
+#ifdef ENGINE_M9
+    r=constrained(m,r);
+    if(r.x==w->bounds.x&&r.y==w->bounds.y&&r.width==w->bounds.width&&r.height==w->bounds.height)return 1;
+#endif
     desktop_damage(m, w->bounds);
     w->bounds = constrained(m, r);
     desktop_damage(m, w->bounds);

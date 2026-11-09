@@ -50,6 +50,24 @@ uint64_t page_alloc(void) {
     }
     ++stats.allocation_failures;unlock();return 0;
 }
+#ifdef ENGINE_M9
+/* Optional contiguous graphics storage; all pages retain normal allocator ownership. */
+uint64_t pages_alloc_run(unsigned count) {
+    if(!count||count>8192)return 0;
+    lock();
+    if(stats.current_pages>admission_limit||count>admission_limit-stats.current_pages){++stats.allocation_failures;unlock();return 0;}
+    unsigned run=0,start=0;
+    for(unsigned page=256;page<WORDS*64u;++page){
+        if(free_bits[page/64]&(UINT64_C(1)<<(page%64))){if(!run)start=page;if(++run==count){
+            for(unsigned at=start;at<start+count;++at)free_bits[at/64]&=~(UINT64_C(1)<<(at%64));
+            stats.current_pages+=count;if(stats.current_pages>stats.peak_pages)stats.peak_pages=stats.current_pages;
+            if(stats.current_pages>window_peak)window_peak=stats.current_pages;
+            unlock();uint64_t address=(uint64_t)start*4096;memset((void*)(uintptr_t)address,0,(uint64_t)count*4096);return address;
+        }}else run=0;
+    }
+    ++stats.allocation_failures;unlock();return 0;
+}
+#endif
 void page_free(uint64_t address) {
     lock();
     if((address&4095)||address>=UINT64_C(0x40000000))corrupt();

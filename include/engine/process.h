@@ -19,6 +19,9 @@ typedef struct {uint64_t current_pages,peak_pages,total_pages,allocation_failure
 enum execution_abi { EXEC_NATIVE64=1,EXEC_WINDOWS_X86,EXEC_WINDOWS_X64,EXEC_WIN16,
                      EXEC_LINUX_X64,EXEC_DARWIN_X64 };
 uint64_t page_alloc(void);
+#ifdef ENGINE_M9
+uint64_t pages_alloc_run(unsigned);
+#endif
 void page_free(uint64_t);
 void pages_init(const os_boot_info_v0*);
 page_stats pages_stats(void);

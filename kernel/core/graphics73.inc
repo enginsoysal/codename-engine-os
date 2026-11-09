@@ -8,6 +8,13 @@ static unsigned scale73=2,active73;
 static unsigned choice73;
 unsigned verbose73;
 static os_boot_info_v0 view73;
+static volatile uint32_t *pixel73(unsigned x,unsigned y){
+#ifdef ENGINE_M9
+ return pixel9(x,y);
+#else
+ return (volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)y*screen->framebuffer_stride_bytes+x*4);
+#endif
+}
 unsigned ui73_scale(void){return scale73;}
 unsigned ui73_scale_choice(void){return choice73;}
 const char *ui73_font_license(void){return font73_license;}
@@ -26,11 +33,14 @@ unsigned ui74_intersects(unsigned x,unsigned y,unsigned w,unsigned h){
 }
 uint32_t ui74_rgb(unsigned x,unsigned y){
  if(x>=screen->framebuffer_width||y>=screen->framebuffer_height)return 0;
- uint32_t raw=*(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)y*screen->framebuffer_stride_bytes+x*4);
+ uint32_t raw=*pixel73(x,y);
  return color(raw)&0xffffff;
 }
 #endif
 const os_boot_info_v0 *ui73_begin(const os_boot_info_v0*boot){
+#ifdef ENGINE_M9
+ graphics9_begin();
+#endif
  scale73=boot->framebuffer_width>=3840&&boot->framebuffer_height>=2000?4:boot->framebuffer_width>=2560&&boot->framebuffer_height>=1400?3:2;
  view73=*boot;view73.framebuffer_width=boot->framebuffer_width*2/scale73;view73.framebuffer_height=boot->framebuffer_height*2/scale73;active73=1;
  serial_text("M73_DISPLAY physical=");serial_hex(boot->framebuffer_width);serial_text("x");serial_hex(boot->framebuffer_height);serial_text(" scale_half=");serial_hex(scale73);serial_text(" logical=");serial_hex(view73.framebuffer_width);serial_text("x");serial_hex(view73.framebuffer_height);serial_text("\n");
@@ -40,7 +50,7 @@ static unsigned phys73(unsigned n){return n*scale73/2;}
 static void blend73(unsigned x,unsigned y,uint32_t rgb,unsigned a,unsigned clipped){
  if(!a||x>=screen->framebuffer_width||y>=screen->framebuffer_height)return;
  if(clipped&&clip7_active&&(x<phys73(clip7_left)||x>=phys73(clip7_right)||y<phys73(clip7_top)||y>=phys73(clip7_bottom)))return;
- volatile uint32_t*p=(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)y*screen->framebuffer_stride_bytes+x*4);
+ volatile uint32_t*p=pixel73(x,y);
  uint32_t fg=color(rgb);if(a==255){*p=fg;return;}uint32_t bg=*p;
  unsigned r=(((fg>>16)&255)*a+((bg>>16)&255)*(255-a)+127)/255;
  unsigned g=(((fg>>8)&255)*a+((bg>>8)&255)*(255-a)+127)/255;
@@ -54,11 +64,14 @@ static void rect73(unsigned x,unsigned y,unsigned w,unsigned h,uint32_t rgb){
  if(clip7_active){if(x<clip7_left)x=clip7_left;if(y<clip7_top)y=clip7_top;if(right>clip7_right)right=clip7_right;if(bottom>clip7_bottom)bottom=clip7_bottom;}
  if(x>=right||y>=bottom)return;
  unsigned px=phys73(x),py=phys73(y),pr=phys73(right),pb=phys73(bottom);uint32_t value=color(rgb);
+#ifdef ENGINE_M9
+ graphics9_dirty(px,py,pr-px,pb-py);
+#endif
  for(unsigned j=py;j<pb;++j){
 #ifdef ENGINE_M74
  if(!(j&15)&&audio74_pending())audio74_pump();
 #endif
- volatile uint32_t*p=(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)j*screen->framebuffer_stride_bytes+px*4);for(unsigned i=px;i<pr;++i)*p++=value;}
+ volatile uint32_t*p=pixel73(px,j);for(unsigned i=px;i<pr;++i)*p++=value;}
 }
 static void round_alpha73(unsigned x,unsigned y,unsigned w,unsigned h,unsigned radius,uint32_t rgb,unsigned alpha){
  if(!w||!h)return;unsigned px=phys73(x),py=phys73(y),pw=phys73(x+w)-px,ph=phys73(y+h)-py,r=phys73(radius);
@@ -66,6 +79,9 @@ static void round_alpha73(unsigned x,unsigned y,unsigned w,unsigned h,unsigned r
  unsigned l=px,t=py,right=px+pw,bottom=py+ph;
  if(clip7_active){if(l<phys73(clip7_left))l=phys73(clip7_left);if(t<phys73(clip7_top))t=phys73(clip7_top);if(right>phys73(clip7_right))right=phys73(clip7_right);if(bottom>phys73(clip7_bottom))bottom=phys73(clip7_bottom);}
  if(right>screen->framebuffer_width)right=screen->framebuffer_width;if(bottom>screen->framebuffer_height)bottom=screen->framebuffer_height;
+#ifdef ENGINE_M9
+ if(l<right&&t<bottom)graphics9_dirty(l,t,right-l,bottom-t);
+#endif
  for(unsigned yy=t;yy<bottom;++yy){
 #ifdef ENGINE_M74
  if(!(yy&15)&&audio74_pending())audio74_pump();
@@ -92,6 +108,13 @@ unsigned ui73_measure(const char*s,unsigned role){const font73_face*f=face73(rol
 static void text73(unsigned x,unsigned y,const char*s,unsigned role,uint32_t rgb){
  const font73_face*f=face73(role);unsigned pen=phys73(x),baseline=phys73(y)+f->ascent;
  for(unsigned n=0;s[n]&&n<1024;++n){unsigned c=(uint8_t)s[n];if(c<32||c>126)c='?';const font73_glyph*g=&font73_glyphs[f->first+c-32];unsigned pixel_index=0;
+#ifdef ENGINE_M9
+ int left=(int)pen+g->x,top=(int)baseline+g->y,right=left+g->width,bottom=top+g->height;
+ if(clip7_active){if(left<(int)phys73(clip7_left))left=(int)phys73(clip7_left);if(top<(int)phys73(clip7_top))top=(int)phys73(clip7_top);if(right>(int)phys73(clip7_right))right=(int)phys73(clip7_right);if(bottom>(int)phys73(clip7_bottom))bottom=(int)phys73(clip7_bottom);}
+ if(left<0)left=0;if(top<0)top=0;
+ if(right<=left||bottom<=top){pen+=g->advance;continue;}
+ graphics9_dirty((unsigned)left,(unsigned)top,(unsigned)(right-left),(unsigned)(bottom-top));
+#endif
  for(unsigned at=0;at<g->bytes;at+=2){unsigned count=font73_data[g->offset+at],alpha=font73_data[g->offset+at+1];
  for(unsigned i=0;i<count;++i,++pixel_index)if(alpha&&g->width){int dx=(int)pen+g->x+(int)(pixel_index%g->width),dy=(int)baseline+g->y+(int)(pixel_index/g->width);if(dx>=0&&dy>=0)blend73((unsigned)dx,(unsigned)dy,rgb,alpha,1);}}
  pen+=g->advance;}
@@ -111,6 +134,9 @@ void ui73_folder(unsigned x,unsigned y,unsigned size,uint32_t tint){
  ui73_round(x,y,size/2,11,4,0xc3974e);ui73_round(x,y+6,size,size*3/4,5,tint);ui73_round(x+2,y+8,size-4,3,1,0xffe7b2);
 }
 static void cursor73(unsigned x,unsigned y){
+#ifdef ENGINE_M9
+ if(shadow9){graphics9_cursor(x,y,scale73);return;}
+#endif
  static uint32_t saved[32*48];static unsigned ox,oy,visible;
  unsigned w=phys73(15),h=phys73(24);if(gui6_repaint){visible=0;gui6_repaint=0;}
  if(visible)for(unsigned j=0;j<h;++j)for(unsigned i=0;i<w;++i){volatile uint32_t*p=(volatile uint32_t*)(uintptr_t)(screen->framebuffer.physical_address+(uint64_t)(oy+j)*screen->framebuffer_stride_bytes+(ox+i)*4);*p=saved[j*w+i];}

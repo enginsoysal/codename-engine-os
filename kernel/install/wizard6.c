@@ -1,5 +1,8 @@
 #ifdef ENGINE_M73
 #include <engine/ui/graphics73.h>
+#ifdef ENGINE_M9
+#include <engine/ui/graphics9.h>
+#endif
 #endif
 #ifdef ENGINE_M7
 #include <engine/desktop/session.h>
@@ -61,7 +64,11 @@ static void render(void);
 #include "wizard72-ui.inc"
 #endif
 #endif
+#ifdef ENGINE_M9
+static void render_body9(void){
+#else
 static void render(void){
+#endif
 #ifdef ENGINE_M72
  if(!u71_mode&&!diagnostics&&!failure&&!installed){render72();return;}
 #endif
@@ -141,6 +148,9 @@ label(x,y+310,maintenance?"Select an Engine OS installation to maintain.":"Insta
  if(step>=6){label(x,y,maintenance==1?"Boot repair complete.":maintenance==2?"Update complete.":maintenance==3?"Rollback complete.":"Installation complete.",3,0xffffff);label(x,y+65,maintenance?"Verified boot files. User data was not formatted.":"Verified system files and persistent user setup.",1,0xa5bac2);label(x,y+115,"1. Power off this virtual machine.",2,0xffffff);label(x,y+155,"2. Disconnect the ISO or USB media.",2,0xffffff);label(x,y+195,"3. Start it again to boot Engine OS.",2,0xffffff);label(x,y+270,DESKTOP_FINISH_TEXT,1,accent);}
  gui6_rect(left+1,bottom-1,width-2,1,0x35464e);label(left+20,bottom+28,"Tab / Enter or mouse",1,0x9fb2ba);if(!busy&&step<5){if(step)button(left+width-300,bottom+14,120,"Back",1,0);button(left+width-160,bottom+14,135,step==4?(maintenance?"Confirm":"Install"):"Next",2,1);}if(step==6)button(left+width-160,bottom+14,135,"Finish",3,1);if(!busy&&step==0){button(body,bottom+14,120,"Details",50,0);button(body+140,bottom+14,120,"Repair",80,0);button(body+280,bottom+14,120,"Update",81,0);button(body+420,bottom+14,140,"Rollback",82,0);}focus=old<controls?old:0;
 }
+#ifdef ENGINE_M9
+static void render(void){graphics9_hide_cursor();render_body9();graphics9_flush();usb_mouse_draw();}
+#endif
 void m6_progress(unsigned p,const char*s){
 percent=p;stage=s;
 #ifdef ENGINE_M74

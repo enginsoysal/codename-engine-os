@@ -35,3 +35,5 @@ third_party/libmspack/** -text -whitespace
 
 # M8 serial proofs retain their captured line endings and measured hashes.
 evidence/M8/**/*.log -text -whitespace
+
+evidence/M9/**/*.log -text -whitespace

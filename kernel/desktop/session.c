@@ -1,5 +1,8 @@
 #ifdef ENGINE_M73
 #include <engine/ui/graphics73.h>
+#ifdef ENGINE_M9
+#include <engine/ui/graphics9.h>
+#endif
 #endif
 #include <engine/desktop/session.h>
 #include <engine/desktop/app.h>
@@ -528,7 +531,13 @@ static void draw_window(unsigned slot) {
         text(r.x+20,r.y+420,progress,1,ink());
         clock7_time utc;if(!clock7_read(&utc)){char clock[64];decimal(clock,utc.year);append(clock,"-",64);decimal(number,utc.month);append(clock,number,64);append(clock,"-",64);decimal(number,utc.day);append(clock,number,64);append(clock," UTC ",64);decimal(number,utc.hour);append(clock,number,64);append(clock,":",64);decimal(number,utc.minute);append(clock,number,64);text(r.x+200,r.y+420,clock,1,ink());}
     }
-    if(w->app==DETAILS){char value[32];text(r.x+20,r.y+65,"Engine OS 0.7",2,ink());text(r.x+20,r.y+105,BUILD_ID,1,ink());
+    if(w->app==DETAILS){char value[32];text(r.x+20,r.y+65,
+#ifdef ENGINE_M9
+        "Engine OS 0.9",
+#else
+        "Engine OS 0.7",
+#endif
+        2,ink());text(r.x+20,r.y+105,BUILD_ID,1,ink());
         decimal(value,pages_stats().current_pages*4096);text(r.x+20,r.y+145,"Managed bytes",1,ink());text(r.x+230,r.y+145,value,1,ink());
         decimal(value,pages_stats().peak_pages*4096);text(r.x+20,r.y+175,"Managed peak",1,ink());text(r.x+230,r.y+175,value,1,ink());
         decimal(value,paints);text(r.x+20,r.y+205,"Damage repaints",1,ink());text(r.x+230,r.y+205,value,1,ink());
@@ -537,7 +546,12 @@ static void draw_window(unsigned slot) {
         text(r.x+20,r.y+395,pressure_on?"Memory limit active. Existing documents can still be saved.":"Optional diagnostics. Closing Details restores the memory budget.",1,ink());
         net7_nic_info nic=net7_nic_status();decimal(value,nic.status);
         text(r.x+20,r.y+235,"Ethernet driver status",1,ink());text(r.x+230,r.y+235,value,1,ink());
-        text(r.x+20,r.y+265,"Static kernel, app and firmware memory are additional.",1,ink());}
+        text(r.x+20,r.y+265,"Static kernel, app and firmware memory are additional.",1,ink());
+#ifdef ENGINE_M9
+        unsigned backend=graphics9_current()->backend;
+        text(r.x+20,r.y+430,backend==2?"Graphics: VMware SVGA II / buffered 2D":backend==1?"Graphics: buffered framebuffer / 2D":"Graphics: direct framebuffer fallback",1,ink());
+#endif
+    }
     rectangle((desktop_rect){r.x+r.width-12,r.y+r.height-4,9,2},0x6a858e);
     rectangle((desktop_rect){r.x+r.width-7,r.y+r.height-9,4,2},0x6a858e);
 }
@@ -546,7 +560,11 @@ static void render(void) {
     desktop_rect dirty;
     if(!model.damaged)return;
     /* Invalidate the old cursor before discarding its saved framebuffer pixels. */
+#ifdef ENGINE_M9
+    graphics9_hide_cursor();
+#else
     invalidate((desktop_rect){(int32_t)pointer_x,(int32_t)pointer_y,16,24});
+#endif
     if(!desktop_take_damage(&model,&dirty))return;
     gui7_clip((unsigned)dirty.x,(unsigned)dirty.y,(unsigned)dirty.width,(unsigned)dirty.height);
     control_count=0;
@@ -776,10 +794,50 @@ static void action(uint64_t token,unsigned command) {
     invalidate(w->bounds);
 }
 
+#ifdef ENGINE_M9
+static struct {uint64_t frames,ticks,longest,bins[16];} drag9;
+static void redraw_rect9(desktop_rect r){if(r.width>0&&r.height>0){invalidate(r);render();}}
+static void redraw_outside9(desktop_rect outer,desktop_rect inner){
+ int left=outer.x>inner.x?outer.x:inner.x,top=outer.y>inner.y?outer.y:inner.y;
+ int right=outer.x+outer.width<inner.x+inner.width?outer.x+outer.width:inner.x+inner.width;
+ int bottom=outer.y+outer.height<inner.y+inner.height?outer.y+outer.height:inner.y+inner.height;
+ if(right<=left||bottom<=top){redraw_rect9(outer);return;}
+ redraw_rect9((desktop_rect){outer.x,outer.y,outer.width,top-outer.y});
+ redraw_rect9((desktop_rect){outer.x,bottom,outer.width,outer.y+outer.height-bottom});
+ redraw_rect9((desktop_rect){outer.x,top,left-outer.x,bottom-top});
+ redraw_rect9((desktop_rect){right,top,outer.x+outer.width-right,bottom-top});
+}
+static unsigned move_cached9(desktop_rect old,desktop_rect moved){
+ if(old.width!=moved.width||old.height!=moved.height||old.width<=32||old.height<=96)return 0;
+ if(old.x==moved.x&&old.y==moved.y)return 1;
+ /* Recompose the complete title/footer; never split their glyphs across blits. */
+ unsigned scale=ui73_scale();desktop_rect inner={moved.x+16,moved.y+40,moved.width-32,moved.height-88};
+ unsigned sx=(unsigned)(old.x+16)*scale/2,sy=(unsigned)(old.y+40)*scale/2;
+ unsigned dx=(unsigned)inner.x*scale/2,dy=(unsigned)inner.y*scale/2;
+ unsigned w=(unsigned)(moved.x+moved.width-16)*scale/2-dx,h=(unsigned)(moved.y+moved.height-48)*scale/2-dy;
+ /* At 150% an odd logical translation changes sampling phase: repaint exactly. */
+ if(scale==3&&(((old.x-moved.x)|(old.y-moved.y))&1))return 0;
+ graphics9_begin_batch();
+ if(!graphics9_move(sx,sy,dx,dy,w,h)){graphics9_end_batch();return 0;}
+ model.damaged=0;
+ redraw_outside9((desktop_rect){old.x-12,old.y-12,old.width+24,old.height+24},inner);
+ redraw_outside9((desktop_rect){moved.x-12,moved.y-12,moved.width+24,moved.height+24},inner);
+ graphics9_end_batch();
+ return 1;
+}
+#endif
 static void pointer(void) {
     unsigned x,y,buttons;usb_mouse_state(&x,&y,&buttons);
+#ifdef ENGINE_M9
+    if(x==pointer_x&&y==pointer_y&&buttons==previous_buttons)return;
+    uint64_t began9=m3_clock_ticks();unsigned moved9=dragging&&(buttons&1);
+#endif
     unsigned pressed=(buttons&1)&&!(previous_buttons&1),released=!(buttons&1)&&(previous_buttons&1);
-    if(released)dragging=0;
+    if(released){dragging=0;
+#ifdef ENGINE_M9
+      if(drag9.frames){serial_text("M9_DRAG_PROFILE frames=");serial_hex(drag9.frames);serial_text(" ticks=");serial_hex(drag9.ticks);serial_text(" max_ticks=");serial_hex(drag9.longest);serial_text(" cached=");serial_hex(graphics9_current()->copy_frames);serial_text("\n");}
+#endif
+    }
     if(dragging&&(buttons&1)){
         desktop_rect r=drag_bounds;int dx=(int)x-(int)drag_x,dy=(int)y-(int)drag_y;
         if(drag_resize){r.width+=dx;r.height+=dy;if(r.width<480)r.width=480;desktop_window *resizing=desktop_lookup(&model,drag_window);int minimum=resizing&&resizing->app==DOWNLOADS?460:420;
@@ -802,7 +860,14 @@ static void pointer(void) {
         }
 #endif
 if(r.height<minimum)r.height=minimum;}else{r.x+=dx;r.y+=dy;}
+#ifdef ENGINE_M9
+        desktop_window *moving9=desktop_lookup(&model,drag_window);desktop_rect old9=moving9?moving9->bounds:r;
+        unsigned cache9=moving9&&!drag_resize&&!model.damaged&&model.count&&model.order[model.count-1]==(unsigned)(moving9-model.windows);
+#endif
         desktop_place(&model,drag_window,r);
+#ifdef ENGINE_M9
+        if(cache9)(void)move_cached9(old9,moving9->bounds);
+#endif
     }else if(pressed){
         if(control_active){control_active=0;whole();}
         uint64_t token=desktop_hit(&model,(int)x,(int)y);desktop_window *w=desktop_lookup(&model,token);
@@ -830,6 +895,9 @@ if(r.height<minimum)r.height=minimum;}else{r.x+=dx;r.y+=dy;}
     }
     /* Preserve the previously drawn cursor region until damage has been consumed. */
     render();pointer_x=x;pointer_y=y;previous_buttons=buttons;usb_mouse_draw();
+#ifdef ENGINE_M9
+    if(moved9){uint64_t elapsed=m3_clock_ticks()-began9;++drag9.frames;drag9.ticks+=elapsed;if(elapsed>drag9.longest)drag9.longest=elapsed;++drag9.bins[elapsed<15?elapsed:15];}
+#endif
 }
 
 static void keyboard(int key) {

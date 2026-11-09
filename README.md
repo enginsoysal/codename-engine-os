@@ -1,5 +1,7 @@
 # Codename: Engine OS
 
+**Current priority: M9 — responsive VMware graphics and automatic supported-device setup.** Implementation and measurement are in progress; M8 remains the latest accepted release. [Scope and remaining hardware stages](docs/milestones/m9.md).
+
 An independent, MIT-licensed operating system with its own UEFI loader, kernel and native user runtime. MS-DOS and Windows 1.x–11 application compatibility is a long-term requirement, followed by Linux/macOS execution environments and ARM64. General compatibility is not available. M8 delivers a first bounded original Windows console/MSI profile; the wider compatibility program remains in progress.
 
 **Current delivery: M8 — install, run and remove an original Windows app.** The original **7-Zip 26.06 x64 MSI**, original executable and DLL run inside Engine OS. The native Windows Apps frontend offers explicit install/remove consent, useful archive tasks, cancellation and recovery. [Release/downloads](docs/releases/m8-v0.8.0.md), [install in VMware](docs/handbook/install-m8.md), [app guide](docs/handbook/windows-apps-m8.md), [architecture](docs/architecture/windows-runtime-m8.md), [exact acceptance](evidence/M8/acceptance-results.json). Only the named console profile is qualified; Windows GUI, general MSI, DOS and all-generation compatibility remain separate work. Repeated examples use fresh numbered outputs; existing-ZIP update is unsupported.

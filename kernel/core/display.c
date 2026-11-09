@@ -69,6 +69,9 @@ static const struct {uint8_t code,rows[7];} punctuation7[]={
 };
 #endif
 #ifdef ENGINE_M73
+#ifdef ENGINE_M9
+#include "graphics9.inc"
+#endif
 #include "graphics73.inc"
 #endif
 static void text(unsigned x,unsigned y,const char *s,unsigned scale,uint32_t rgb) {
@@ -130,7 +133,11 @@ void display_boot(const os_boot_info_v0 *boot) {
 }
 void kernel_panic_screen(void) {
 #ifdef ENGINE_M73
- if(active73){gui7_clip_reset();rect73(0,0,view73.framebuffer_width,view73.framebuffer_height,0x102a3a);text73(60,100,"Engine OS needs to stop.",4,0xffffff);ui73_paragraph(60,170,view73.framebuffer_width-120,3,"Restart with the ISO connected for recovery. Technical details are available in the serial log.",0xb7cbd8);return;}
+ if(active73){gui7_clip_reset();rect73(0,0,view73.framebuffer_width,view73.framebuffer_height,0x102a3a);text73(60,100,"Engine OS needs to stop.",4,0xffffff);ui73_paragraph(60,170,view73.framebuffer_width-120,3,"Restart with the ISO connected for recovery. Technical details are available in the serial log.",0xb7cbd8);
+#ifdef ENGINE_M9
+ graphics9_flush();
+#endif
+ return;}
 #endif
  if(screen&&screen->framebuffer.byte_length)text(40,350,"KERNEL PANIC - SEE SERIAL LOG",2,0xff7070);
 }

@@ -18,8 +18,15 @@ static int mouse_reply(void){
     return -1;
 }
 static unsigned mouse_command(uint8_t value){if(!writable())return 0;out8(0x64,0xd4);if(!writable())return 0;out8(0x60,value);return mouse_reply()==0xfa;}
+#ifdef ENGINE_M9
+#include "vmmouse9.inc"
+#endif
 static void mouse_byte(uint8_t value){
-    if(!mouse_index&&(!(value&8)||value==0xfa))return;mouse_packet[mouse_index++]=value;if(mouse_index!=mouse_bytes)return;mouse_index=0;if(mouse_packet[0]&0xc0)return;
+    if(!mouse_index&&(!(value&8)||value==0xfa))return;mouse_packet[mouse_index++]=value;if(mouse_index!=mouse_bytes)return;mouse_index=0;
+#ifdef ENGINE_M9
+    if(vm9_input())return;
+#endif
+    if(mouse_packet[0]&0xc0)return;
     int dx=(int)mouse_packet[1]-((mouse_packet[0]&0x10)?256:0),dy=(int)mouse_packet[2]-((mouse_packet[0]&0x20)?256:0);m6_pointer_report(dx,-dy,mouse_packet[0]&7);
 }
 #endif
@@ -36,6 +43,9 @@ if(writable()){out8(0x64,0x60);if(writable())out8(0x60,config);}}
     #ifdef ENGINE_M6
     if(writable())out8(0x64,0xa8);
     unsigned mouse=0;if(mouse_command(0xf6)&&mouse_command(0xf2)){int id=mouse_reply();if(id==0||id==3||id==4){mouse_bytes=id?4:3;mouse=mouse_command(0xf4);}}serial_text(mouse?"M6_PS2_MOUSE_ONLINE\n":"M6_PS2_MOUSE_UNAVAILABLE\n");
+#ifdef ENGINE_M9
+    if(mouse)vm9_start();
+#endif
     out8(0x3f9,1);ready=1;out8(0x21,0xe9);out8(0xa1,0xef);
 #else
     out8(0x3f9,1);ready=1;out8(0x21,0xed);out8(0xa1,255);

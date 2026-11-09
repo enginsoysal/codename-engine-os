@@ -5,6 +5,9 @@ typedef struct {unsigned slot,port,kind,endpoint,packet,interval,parent,hub_port
 #define USB_MAX_DEVICES 8
 static device devices[USB_MAX_DEVICES];static unsigned device_count,active,context_size,event_index,event_cycle=1,mouse_dirty,mouse_buttons;static int mouse_x=600,mouse_y=80;
 static int mouse_limit_x=1200,mouse_limit_y=650;
+#ifdef ENGINE_M9
+static unsigned mouse_width9=1215,mouse_height9=674;
+#endif
 #ifdef ENGINE_M6
 static unsigned mouse_press_pending,mouse_press_x,mouse_press_y;
 #endif
@@ -45,6 +48,12 @@ void m6_pointer_report(int dx,int dy,unsigned buttons){
     if((mouse_buttons&1)&&!(old_buttons&1)&&!mouse_press_pending){mouse_press_x=(unsigned)mouse_x;mouse_press_y=(unsigned)mouse_y;mouse_press_pending=1;}
     ++mouse_events;__atomic_store_n(&mouse_dirty,1,__ATOMIC_RELEASE);
 }
+#ifdef ENGINE_M9
+void m9_pointer_absolute(unsigned x,unsigned y,unsigned buttons){
+ int target_x=(int)((uint64_t)x*(mouse_width9-1)/65535),target_y=(int)((uint64_t)y*(mouse_height9-1)/65535);
+ m6_pointer_report(target_x-mouse_x,target_y-mouse_y,buttons);
+}
+#endif
 #endif
 static void input_complete(device *d,unsigned bytes){
     uint8_t *data=(uint8_t*)(uintptr_t)(d->buffer+512);if(d->kind==9){for(unsigned i=0;i<bytes;++i)if(data[i]){__atomic_fetch_or(&pending_hubs,1u<<(unsigned)(d-devices),__ATOMIC_RELEASE);break;}return;}
@@ -312,6 +321,9 @@ static unsigned uas_quiesce(device *d){uint64_t flags;__asm__ volatile("pushfq;p
 
 #ifdef ENGINE_M6
 void usb_mouse_limits(unsigned w,unsigned h){
+#ifdef ENGINE_M9
+ if(w&&h){mouse_width9=w;mouse_height9=h;}
+#endif
 #ifdef ENGINE_M73
  extern unsigned ui73_scale(void);unsigned cw=15*ui73_scale()/2,ch=24*ui73_scale()/2;mouse_limit_x=w>cw?(int)(w-cw):0;mouse_limit_y=h>ch?(int)(h-ch):0;
 #else

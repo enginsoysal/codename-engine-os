@@ -15,6 +15,8 @@
 
 - Owner requirement, 8 November 2026: review every installation step for inexperienced children and older adults. Disk choices must be an obvious bounded list with whole-row hit targets, visible selection and useful disabled actions. Next must not clear/reload the entire UI. Completion requires actual installed startup, including the common retained-ISO case; a live-session desktop is insufficient. Keep novice scenario review distinct from a real human study.
 
+- Owner priority, 9 November 2026: M9 automatic hardware support now precedes further M8 application expansion. First address stuttering VMware folder-window movement with measured graphics/input improvements and automatic supported-device binding. Do not infer complete hardware support, GPU acceleration or smoothness from an enumerated adapter or a screenshot.
+
 - Owner requirement, 7 November 2026: appearance and convenience are first-class acceptance criteria. Review every ordinary step, error, confirmation and desktop surface for clarity, convenience, user friendliness, graphical quality and readability. Use consistent semantic typography, measured text, spacing and visual hierarchy; reject overlapping or clipped essential text, arbitrary adjacent font sizes and pixel-enlarged bitmap UI fonts. Verify the real native UI at ordinary and HiDPI resolutions, including an actual 3840x2160 framebuffer. Keep user control over suitable scaling. Do not call a browser mockup or an upscaled screenshot proof of native 4K support. Human usability studies remain distinct from the agent's design review.
 
 - Convenience and user friendliness are acceptance requirements from the first boot. Ordinary install/repair tasks must use guided choices, clear review/cancel, readable errors and optional details; terminal syntax and placeholders are not the normal user flow.
@@ -41,4 +43,4 @@ The owner requested an open-source project and that every update goes to GitHub.
 
 ## Accepted release immutability
 
-M4.5, M5, M5.1, M6, M7, M7.1, M7.2, M7.3, M7.4 and M7.5 accepted evidence, tags and release binaries are historical proof. Do not rerun a development build/test into their frozen output paths or rewrite accepted hashes. Use a new follow-up prefix/evidence directory; reproduce a historical release only in a separate checkout.
+M4.5, M5, M5.1, M6, M7, M7.1, M7.2, M7.3, M7.4, M7.5 and M8 accepted evidence, tags and release binaries are historical proof. Do not rerun a development build/test into their frozen output paths or rewrite accepted hashes. Use a new follow-up prefix/evidence directory; reproduce a historical release only in a separate checkout.
