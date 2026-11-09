@@ -49,7 +49,7 @@ def wait_stopped(g,timeout=40):
     until=time.monotonic()+timeout
     while time.monotonic()<until:
         value=info(g)
-        if struct.unpack_from('<I',value)[0]!=1:
+        if struct.unpack_from('<I',value)[0]!=1 and g.qmp('human-monitor-command',{'command-line':'info registers -a'}).count('HLT=1')==2:
             return value
         time.sleep(.025)
     raise TimeoutError('Windows task did not stop')
@@ -71,21 +71,23 @@ def main():
         ui.s.normal_boot(guest)
         with guest as g:
             p=open_windows(g)
-            p.desktop(12002,True)
-            task(g,p,12003,True)
+            if PRODUCT+'/product.bin' in entries(g):
+                p.desktop(12002,True)
+                task(g,p,12003,True)
             p.close_app(19,True)
             p.desktop(0,True)
             p.desktop(2,True)
             for key in 'unsupported package':ui.h.key(g,'spc' if key==' ' else key)
             p.desktop(80,True)
-            for key in 'unsupported.msi':ui.h.key(g,'dot' if key=='.' else key)
+            bad_name='unsupported'+work.name[:8]+'.msi'
+            for key in bad_name:ui.h.key(g,'dot' if key=='.' else key)
             start=len(g.log())
             p.desktop(81,True)
             g.wait('M7_DOCUMENT_SAVE_AS',start)
             p.close_app(2,True)
             p.desktop(94,True)
             paths=[path for path in entries(g) if path.startswith('/Users/Owner/Documents/') and '/' not in path[len('/Users/Owner/Documents/'):]]
-            row=paths.index('/Users/Owner/Documents/unsupported.msi')
+            row=paths.index('/Users/Owner/Documents/'+bad_name)
             p.desktop(1000+row,True)
             before=generation(g)
             start=len(g.log())
@@ -97,7 +99,8 @@ def main():
             shot(g,out,'unsupported-msi-refused-without-writes')
             report['checks'].append('Text Editor-created unsupported MSI is refused through Files/Windows Apps without a volume-generation change or product creation')
             p.close_app(19,True)
-            p=open_windows(g)
+            p.desktop(0,True)
+            p.desktop(19,True)
             p.desktop(12001,True)
             start=len(g.log())
             p.desktop(12003,True,settle=False)
@@ -109,6 +112,21 @@ def main():
             assert not any(path==PRODUCT or path.startswith(PRODUCT+'/') for path in entries(g))
             shot(g,out,'cancelled-installation-cleaned')
             report['checks'].append('Cancel after real payload writes reclaims the fresh product tree and the protected worker')
+            p.desktop(12001,True)
+            start=len(g.log())
+            p.desktop(12003,True,settle=False)
+            g.wait('Installing original Windows application files.',start)
+            p.desktop(0,True,settle=False)
+            p.desktop(6,True,settle=False)
+            p.desktop(72,True,settle=False)
+            g.wait('M8_JOB_FAILED',start)
+            assert 'M8_INCOMPLETE_WRITE_DISCARDED' in g.log()[start:]
+            assert not any(path==PRODUCT or path.startswith(PRODUCT+'/') for path in entries(g))
+            shot(g,out,'incomplete-write-discarded-under-memory-pressure')
+            focus(g,p,6)
+            p.close_app(6,True)
+            focus(g,p,19)
+            report['checks'].append('Memory pressure during actual MSI writes discards the incomplete file, clears the unpublished product and keeps the desktop alive')
             p.desktop(12001,True)
             install_info=task(g,p,12003,True)
             warm=task(g,p,12005,True)

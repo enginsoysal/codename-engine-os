@@ -35,9 +35,11 @@ static void remove_product8(void){
  /* Validate every owned path before modifying anything, even for a damaged manifest. */
  for(unsigned i=0;i<m->count;++i){const char*p=m->files[i].path;check8(p[255]==0&&len8(p)>len8(ROOT8)+1&&!memcmp(p,ROOT8,len8(ROOT8))&&p[len8(ROOT8)]=='/',"Product manifest contains an invalid owned path.");}
  for(unsigned i=0;i<m->count;++i){installed_file8*f=m->files+i;w8_file_info info;if(!stat8(f->path,&info)){if(file_matches8(f)){check8(!remove8(f->path),"Removal was interrupted; retry Remove to finish safely.");}else ++kept;}progress8((i+1)*90/(m->count?m->count:1),"Removing unchanged product files; keeping your documents.");}
- check8(!remove8(path),"Product registration could not be removed; retry Remove.");
- char plan[256];path_msi8(plan,"install.plan");w8_file_info info;if(!prepared&&!stat8(plan,&info))check8(!remove8(plan),"Recovery plan could not be cleared.");
- path_msi8(path,"Lang");(void)remove8(path);path_msi8(path,"metadata.bin");if(!stat8(path,&info))(void)remove8(path);(void)remove8(ROOT8);
+ char marker[256];copy8(marker,path,256);w8_file_info info;
+ path_msi8(path,"Lang");if(!stat8(path,&info)&&info.kind==2)(void)remove8(path);
+ path_msi8(path,"metadata.bin");if(!stat8(path,&info))check8(!remove8(path),"Product metadata cleanup was interrupted; retry Remove.");
+ char plan[256];path_msi8(plan,"install.plan");if(!prepared&&!stat8(plan,&info))check8(!remove8(plan),"Recovery plan could not be cleared.");
+ check8(!remove8(marker),"Product registration could not be removed; retry Remove.");(void)remove8(ROOT8);
  progress8(100,kept?"Removed. Modified product files were preserved; your documents are unchanged.":"Removed. Your documents are unchanged.");free8(m);
 }
 void msi8_execute(void){

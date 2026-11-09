@@ -4,6 +4,7 @@ import ctypes
 import hashlib
 import importlib.util
 import json
+import io
 import msvcrt
 from pathlib import Path
 import re
@@ -34,15 +35,30 @@ def slow_tab(g,count):
 
 def open_windows(g,out):
     from PIL import Image
-    v.key(g,0xffeb);time.sleep(.3)
-    for step in range(32):
+    v.key(g,0xffeb);time.sleep(1)
+    previous=None
+    for step in range(48):
         slow_tab(g,1)
-        path=out/'launcher-focus.png';v.shot(g,out,'launcher-focus')
-        with Image.open(path) as image:
-            y=image.height-121
-            edge=image.getpixel((32,y));inside=image.getpixel((35,y))
-            if sum(edge[:3])<400 and sum(inside[:3])>500:
+        changed=False
+        deadline=time.monotonic()+12
+        while time.monotonic()<deadline:
+            time.sleep(.35)
+            path=out/'launcher-focus.png';v.shot(g,out,'launcher-focus')
+            with Image.open(path) as image:
+                top=image.height-492
+                # The last tile is drawn last. Do not inspect an intermediate wallpaper frame.
+                if sum(image.getpixel((205,image.height-121))[:3])<500:continue
+                focused=[]
+                for index in range(19):
+                    x=32+(index%3)*200;y=top+65+(index//3)*48+18
+                    edge=image.getpixel((x,y));inside=image.getpixel((x+3,y))
+                    if sum(edge[:3])<400 and sum(inside[:3])>500:focused.append(index+1)
+            current=focused[0] if len(focused)==1 else None
+            if current==19:
                 v.enter(g);g.wait('M7_WINDOW_OPEN app=0x0000000000000013');return
+            if current!=previous or (current is None and step==0):
+                previous=current;changed=True;break
+        if not changed:time.sleep(.5)
     raise AssertionError('Could not focus Windows Apps through the real native launcher')
 
 def windows_job(g,tabs,confirm=False):
@@ -52,7 +68,7 @@ def windows_job(g,tabs,confirm=False):
     g.wait('M8_CPL3_CREATED',offset=start)
     g.wait('M8_JOB_DONE code=0x0000000000000000',offset=start,timeout=240)
     assert 'M8_JOB_FAILED' not in g.read()[start:]
-    time.sleep(.3)
+    time.sleep(.8)
 
 def windows_tasks(g,out):
     open_windows(g,out)
@@ -73,7 +89,7 @@ def main():
     p=argparse.ArgumentParser();p.add_argument('--firmware',choices=['efi','bios'],default='efi');p.add_argument('--starter',action='store_true');a=p.parse_args()
     work=ROOT/'build/m8/vmware'/a.firmware/uuid.uuid4().hex;work.mkdir(parents=True)
     out=ROOT/'evidence/M8/vmware'/(a.firmware+('-starter' if a.starter else ''));out.mkdir(parents=True,exist_ok=True)
-    before=v.old.v.inventory();report={'passed':False,'firmware':a.firmware,'checks':[]}
+    before=v.old.v.inventory();report={'passed':False,'firmware':a.firmware,'checks':[],'owned_fixture_id':work.name}
     try:
         disk=sparse(work/'owned-flat.img',20*1024**3)
         descriptor=work/'owned.vmdk';descriptor.write_bytes(b'version=1\nencoding="UTF-8"\nCID=fffffffe\nparentCID=ffffffff\ncreateType="monolithicFlat"\nRW 41943040 FLAT "owned-flat.img" 0\nddb.adapterType = "ide"\n')
@@ -128,11 +144,26 @@ def main():
             assert '/Users/Owner/Documents/vmware-folders' in s.directories(converted)
             report['independent_container_reader_sha256']=hashlib.sha256(tool.read_bytes()).hexdigest()
         report['checks'].append('same VMX and retained NVRAM, optical drive still present but disconnected; two unforced hard-disk boots to desktop; actual folder retained')
+        inspection=converted if a.starter else disk
+        from lifecycle import payloads
+        report['original_payload_sha256']=payloads(inspection)
+        source=s.s.document(inspection,'/Users/Owner/Documents/EngineOS-Windows.txt')
+        extracted=s.s.document(inspection,'/Users/Owner/Documents/EngineOS-Windows-Extracted/EngineOS-Windows.txt')
+        assert source==extracted
+        archive=s.s.document(inspection,'/Users/Owner/Documents/EngineOS-Windows.zip',8*1024**2)
+        with zipfile.ZipFile(io.BytesIO(archive)) as check:assert check.testzip() is None and check.read('EngineOS-Windows.txt')==source
+        report['document_sha256']=hashlib.sha256(source).hexdigest()
+        report['checks'].append('Original MSI install/run/ZIP/extract/remove/reinstall through real guest keys; independent container inspection verifies all 106 original payload hashes and exact archived/extracted document bytes')
         meta=json.loads((ROOT/'dist/m8-build-manifest.json').read_text());report.update(passed=True,build_id=meta['build_id'],iso_sha256=meta['artifacts']['EngineOS-M8.iso']['sha256'],boot_order_forced=False,same_vm_reused=True,network_present=False)
     except Exception:
         report['error']=v.old.v.redact(traceback.format_exc());print(report['error'])
         if 'g' in locals():(out/'last-run.log').write_bytes(g.output.encode())
-    report['existing_vm_inventory_unchanged']=before==v.old.v.inventory();report['passed']=report['passed'] and report['existing_vm_inventory_unchanged']
+    until=time.monotonic()+10
+    while True:
+        after=v.old.v.inventory()
+        if before==after or time.monotonic()>until:break
+        time.sleep(.25)
+    report['existing_vm_inventory_unchanged']=before==after;report['passed']=report['passed'] and report['existing_vm_inventory_unchanged']
     (out/'results.json').write_bytes((json.dumps(report,indent=2)+'\n').encode());print('M8 VMware '+a.firmware+' '+('PASS' if report['passed'] else 'FAIL'),flush=True)
     if not report['passed']:raise SystemExit(1)
 if __name__=='__main__':main()

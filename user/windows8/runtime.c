@@ -46,7 +46,7 @@ int64_t seek8(int f,int64_t n,unsigned from){return (int64_t)sys8(W8_SYS_SEEK,(u
 int close8(int f){return (int)sys8(W8_SYS_CLOSE,(unsigned)f,0,0,0,0);}
 int stat8(const char*p,w8_file_info*out){return (int)sys8(W8_SYS_STAT,(uint64_t)p,(uint64_t)out,0,0,0);}
 unsigned load8(const char*p,void**out,unsigned max){w8_file_info info;if(stat8(p,&info)||info.kind!=1||info.size>max)return 0;void*data=alloc8((size_t)info.size+1);if(!data)return 0;int f=open8(p,0);if(f<0){free8(data);return 0;}int got=read8(f,data,(unsigned)info.size);close8(f);if(got<0||(unsigned)got!=info.size){free8(data);return 0;}((char*)data)[info.size]=0;*out=data;return (unsigned)info.size;}
-int save8(const char*p,const void*data,unsigned n){int f=open8(p,1);if(f<0)return 1;unsigned bad=write8(f,data,n)!=(int)n;return close8(f)||bad;}
+int save8(const char*p,const void*data,unsigned n){int f=open8(p,1);if(f<0)return 1;if(write8(f,data,n)!=(int)n){(void)sys8(W8_SYS_CLOSE,(unsigned)f,1,0,0,0);return 1;}return close8(f)!=0;}
 int mkdir8(const char*p){return (int)sys8(W8_SYS_MKDIR,(uint64_t)p,0,0,0,0);}
 int remove8(const char*p){return (int)sys8(W8_SYS_DELETE,(uint64_t)p,0,0,0,0);}
 void progress8(unsigned p,const char*text){job8->percent=p;copy8(job8->message,text,sizeof(job8->message));sys8(W8_SYS_YIELD,0,0,0,0,0);}

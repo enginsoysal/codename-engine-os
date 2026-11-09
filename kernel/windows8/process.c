@@ -78,9 +78,12 @@ static void finish8(unsigned status){snapshot8();info8.status=status;info8.state
 static void release8(void){write_clear8();while(count8)page_free(owned8[--count8]);cr3_8=pd8=entry8=0;memset(files8,0,sizeof(files8));}
 static unsigned rollback8(void){
  if(!created_root8)return 0;v6_volume*v=m6_volume();
+ char plan[256],product[256];copy8(plan,input8.product_root,256);copy8(product,input8.product_root,256);
+ unsigned root_length=length8(input8.product_root);memcpy(plan+root_length,"/install.plan",14);memcpy(product+root_length,"/product.bin",13);
  for(unsigned pass=0;pass<V6_ENTRIES;++pass){const char*chosen=0;unsigned longest=0;
-  for(unsigned i=0;i<V6_ENTRIES;++i){const v6_entry*e=v->entries+i;if(e->kind&&prefix8(e->path,input8.product_root)){unsigned n=length8(e->path);if(n>longest){chosen=e->path;longest=n;}}}
-  if(!chosen){created_root8=0;return 0;}char path[256];copy8(path,chosen,256);if(v6_remove(v,path))return 1;
+  for(unsigned i=0;i<V6_ENTRIES;++i){const v6_entry*e=v->entries+i;if(e->kind&&prefix8(e->path,input8.product_root)&&!equal8(e->path,input8.product_root)&&!equal8(e->path,plan)&&!equal8(e->path,product)){unsigned n=length8(e->path);if(n>longest){chosen=e->path;longest=n;}}}
+  if(!chosen){if(find8(product)&&v6_remove(v,product))return 1;if(find8(plan)&&v6_remove(v,plan))return 1;if(find8(input8.product_root)&&v6_remove(v,input8.product_root))return 1;created_root8=0;return 0;}
+  char path[256];copy8(path,chosen,256);if(v6_remove(v,path))return 1;
  }return 1;
 }
 void w8_cancel(void){if(info8.state==1){cancel8=1;info8.state=3;info8.status=1;copy8(info8.message,"Operation cancelled. Uncommitted file writes were discarded.",sizeof(info8.message));release8();if(rollback8())copy8(info8.message,"Cancelled. Disk cleanup was interrupted; use Recover / remove.",sizeof(info8.message));++info8.revision;}}
@@ -117,7 +120,7 @@ void w8_pump(void){
  __asm__ volatile("fxrstor64 %0"::"m"(fx8):"memory");w8_enter(&context8,cr3_8);__asm__ volatile("fxsave64 %0":"=m"(fx8)::"memory");
  __asm__ volatile("wrmsr"::"a"((uint32_t)old_gs8),"d"((uint32_t)(old_gs8>>32)),"c"(0xc0000101u));out8(0x21,pic8);interrupts_set_kernel_stack(KERNEL_STACK_TOP);if(flags&512)__asm__ volatile("sti":::"memory");
  ++info8.quanta;if(count8>info8.peak_pages)info8.peak_pages=count8;
- if(info8.state!=1){serial_text(info8.status?"M8_JOB_FAILED code=":"M8_JOB_DONE code=");serial_hex(info8.status);serial_text("\n");release8();if(info8.status&&rollback8())copy8(info8.message,"Installation failed and cleanup was interrupted; use Recover / remove.",sizeof(info8.message));}
+ if(info8.state!=1){serial_text(info8.status?"M8_JOB_FAILED code=":"M8_JOB_DONE code=");serial_hex(info8.status);serial_text("\n");release8();if(info8.status&&created_root8){unsigned cleanup=rollback8();copy8(info8.message,cleanup?"Installation stopped and cleanup was interrupted; use Recover / remove.":"Installation stopped. Its new files were removed. Restore resources, then choose Install again.",sizeof(info8.message));}}
 }
 
 #include <engine/network/clock.h>
@@ -159,7 +162,7 @@ static int64_t dispatch8(trap_frame*f){
   if(h->position>h->size)h->size=h->position;return (int64_t)c;
  }
  case W8_SYS_SEEK:{if(a>=32||!files8[a].live||c>2)return -1;file8*h=files8+a;int64_t base=c==0?0:c==1?(int64_t)h->position:(int64_t)h->size,offset=(int64_t)b,position;if(__builtin_add_overflow(base,offset,&position)||position<0||position>64*1024*1024)return -1;h->position=(uint64_t)position;return position;}
- case W8_SYS_CLOSE:return close8((unsigned)a,1)?-1:0;
+ case W8_SYS_CLOSE:if(b>1)return -1;if(b&&a<32&&files8[a].live&&files8[a].write)serial_text("M8_INCOMPLETE_WRITE_DISCARDED\n");return close8((unsigned)a,b?0:1)?-1:0;
  case W8_SYS_STAT:{if(string8(a,path,256)||!path8(path,0))return -1;const v6_entry*e=find8(path);if(!e)return -1;w8_file_info result;information8(e,&result);return user8(b,&result,sizeof(result),1)?-1:0;}
  case W8_SYS_ENUM:{
   if(string8(a,path,256)||!path8(path,0)||c>=V6_ENTRIES)return -1;unsigned len=length8(path);v6_volume*v=m6_volume();

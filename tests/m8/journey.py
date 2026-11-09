@@ -57,6 +57,10 @@ def task(g,p,action,installed=False,timeout=180):
             state,command,status,percent=struct.unpack_from('<4I',info)
             message=info[304:496].split(b'\0')[0].decode(errors='replace')
             assert state==2 and status==0,(state,status,message,log[-3000:])
+            idle_deadline=time.monotonic()+30
+            while g.qmp('human-monitor-command',{'command-line':'info registers -a'}).count('HLT=1')!=2:
+                if time.monotonic()>idle_deadline:raise TimeoutError('Job cleanup and native repaint did not finish')
+                time.sleep(.025)
             return info
         time.sleep(.05)
     print(g.qmp('human-monitor-command',{'command-line':'info registers -a'}),flush=True)
