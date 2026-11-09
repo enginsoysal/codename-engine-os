@@ -51,12 +51,24 @@ if(writable()){out8(0x64,0x60);if(writable())out8(0x60,config);}}
     out8(0x3f9,1);ready=1;out8(0x21,0xed);out8(0xa1,255);
 #endif
 }
+#ifdef ENGINE_M92
+static unsigned user_irqs92;
+#endif
 unsigned input_irq(uint64_t *frame){
-    if(!ready||(frame[18]&3))return 0;unsigned vector=(unsigned)frame[15];if(vector!=33&&vector!=36
+    if(!ready
+#ifndef ENGINE_M92
+       ||(frame[18]&3)
+#endif
+    )return 0;unsigned vector=(unsigned)frame[15];if(vector!=33&&vector!=36
 #ifdef ENGINE_M6
        &&vector!=44
 #endif
     )return 0;
+#ifdef ENGINE_M92
+    /* A hardware interrupt belongs to its device even when it interrupts CPL3.
+       Queue bounded input and return to the same protected process frame. */
+    if((frame[18]&3)&&!user_irqs92++){serial_text("M92_INPUT_IRQ_CPL3_SERVICED\n");}
+#endif
     if(vector==36){for(unsigned i=0;i<64&&(in8(0x3fd)&1);++i){uint8_t c=in8(0x3f8);enqueue(c==13?10:c);}}
     else for(unsigned i=0;i<32&&(in8(0x64)&1);++i){uint8_t status=in8(0x64),code=in8(0x60);
 #ifdef ENGINE_M6

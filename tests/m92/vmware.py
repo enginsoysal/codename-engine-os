@@ -68,6 +68,11 @@ def windows_job(g,tabs,confirm=False):
     slow_tab(g,tabs);v.enter(g)
     if confirm:slow_tab(g,2);v.enter(g)
     g.wait('M8_CPL3_CREATED',offset=start)
+    # Neutral physical keyboard edges exercise hardware IRQs during a real
+    # protected Windows worker without typing into its frontend.
+    for _ in range(48):
+        g.connect_display().key(0xffe1,True);time.sleep(.01)
+        g.connect_display().key(0xffe1,False);g.read();time.sleep(.01)
     g.wait('M8_JOB_DONE code=0x0000000000000000',offset=start,timeout=240)
     assert 'M8_JOB_FAILED' not in g.read()[start:]
     time.sleep(.8)
@@ -139,6 +144,8 @@ def main():
             assert 'ENGINE_OS_KERNEL_ENTRY build='+meta['build_id'] in g.read()
             if not a.storage_only:
                 windows_tasks(g,out)
+                assert 'M92_INPUT_IRQ_CPL3_SERVICED' in g.read(),'No protected-worker keyboard IRQ observed'
+                report['hardware_input_during_protected_worker_verified']=True
                 v.key(g,0xff1b)
             v.tab(g,8);v.enter(g);g.wait('M72_FOLDER_VISIT /Users/Owner/Documents')
             v.tab(g,4);v.enter(g)
