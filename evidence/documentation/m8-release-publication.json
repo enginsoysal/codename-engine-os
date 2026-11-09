@@ -1,0 +1,161 @@
+{
+  "passed": true,
+  "release": "https://github.com/enginsoysal/codename-engine-os/releases/tag/m8-v0.8.0",
+  "tag": "m8-v0.8.0",
+  "release_id": 439033567,
+  "release_source_commit": "9e41c6879181bc8e0bfcd88a3f4b6d3bc7eb30e3",
+  "checked_at": "2026-11-09T11:12:46.415989+00:00",
+  "all_remote_asset_digests_and_sizes_match": true,
+  "asset_count": 20,
+  "assets": {
+    "EngineOS-M8.iso": {
+      "sha256": "c9ff89627da42e0efaea8baa4c48c425b525e77002cb6ce63410ae0fc3692589",
+      "size": 74110976
+    },
+    "EngineOS-M8-usb.img": {
+      "sha256": "7079f2cb52563996838a0b2d7316e5b52084512aef4df32c42a85d8b3c7504df",
+      "size": 84934656
+    },
+    "EngineOS-M8-kernel.elf": {
+      "sha256": "a656c30eb6198dc7a4648f83f2630ddd334a84da2c8acc50d08a7612c2e56b64",
+      "size": 3268932
+    },
+    "EngineOS-M8-kernel.map": {
+      "sha256": "641185eb368c2dfcbebe181dcc356817efd13cd112f3a1b60e380e89eb49a6ec",
+      "size": 342650
+    },
+    "EngineOS-M8-user.elf": {
+      "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f",
+      "size": 68064
+    },
+    "EngineOS-M8-installed-kernel.elf": {
+      "sha256": "4497fac635a026e3706d36403afaa4767759899f8db417aca0e634d30a730895",
+      "size": 991556
+    },
+    "EngineOS-M8-installed-kernel.map": {
+      "sha256": "f45107716da21917666e6b604db9e024178efd450f065b272529e5cc0ac6d3e2",
+      "size": 342358
+    },
+    "EngineOS-M8-editor.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M8-calculator.elf": {
+      "sha256": "5193f62e9f16e90ad96905b6bc2e47152c9a524402c5db6f32c8f8e50e1af8a0",
+      "size": 12976
+    },
+    "EngineOS-M8-calendar.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M8-archives.elf": {
+      "sha256": "9008a959466f7288e7ef99dab89ecb8e40439e9ee693faf825b4c602b98f8a84",
+      "size": 17068
+    },
+    "EngineOS-M8-browser.elf": {
+      "sha256": "3046e4a9af08551315191e2907d572ebde73b54b389b6c3a37dfb41222140cc0",
+      "size": 12639
+    },
+    "EngineOS-M8-help.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M8-VMware.zip": {
+      "sha256": "eaceabf3d5644b1ad3a2e454d21c7575ffb67d3b00b6623acbb3fdf79b0e23dd",
+      "size": 8797720
+    },
+    "EngineOS-M8-THIRD-PARTY-NOTICES.txt": {
+      "sha256": "a5b136d0154a88301bd0e59a7b9ed9eeb335ae7b366620f9789aa53d3fd68ed6",
+      "size": 59662
+    },
+    "7z2606-src.tar.xz": {
+      "sha256": "a4e374c8f864f51df48c2cfd0e1413ec3b2ea030deae852d6a655402ebb61ac4",
+      "size": 1567328
+    },
+    "m8-acceptance-results.json": {
+      "sha256": "25500acfe012c0e19269328892c11bdafb5bae18de1a147e1699529133806e63",
+      "size": 19802
+    },
+    "m8-build-manifest.json": {
+      "sha256": "febcc86bac1672f85f902f0b2d19cbca53a44cd66a7d5a766ee8286279be45ac",
+      "size": 70143
+    },
+    "m8-starter-manifest.json": {
+      "sha256": "19753e728b71e8305b459ae4e469ae6c2eb77dd5d4eaefc6f5d1669cc2c93b28",
+      "size": 545
+    },
+    "M8-SHA256SUMS.txt": {
+      "sha256": "89a445887f11d1199aa9413022f4ebb162b0b8f6abbcc248f093cd2bf193cfde",
+      "size": 1720
+    }
+  },
+  "anonymous_downloads": {
+    "EngineOS-M8.iso": {
+      "sha256": "c9ff89627da42e0efaea8baa4c48c425b525e77002cb6ce63410ae0fc3692589",
+      "size": 74110976,
+      "anonymous_https": true
+    },
+    "EngineOS-M8-VMware.zip": {
+      "sha256": "eaceabf3d5644b1ad3a2e454d21c7575ffb67d3b00b6623acbb3fdf79b0e23dd",
+      "size": 8797720,
+      "anonymous_https": true
+    }
+  },
+  "documentation_sync": {
+    "passed": true,
+    "source_commit": "9e41c6879181bc8e0bfcd88a3f4b6d3bc7eb30e3",
+    "workflows": [
+      {
+        "conclusion": "success",
+        "headSha": "9e41c6879181bc8e0bfcd88a3f4b6d3bc7eb30e3",
+        "status": "completed",
+        "url": "https://github.com/enginsoysal/codename-engine-os/actions/runs/42606952668"
+      },
+      {
+        "conclusion": "success",
+        "headSha": "9e41c6879181bc8e0bfcd88a3f4b6d3bc7eb30e3",
+        "status": "completed",
+        "url": "https://github.com/enginsoysal/codename-engine-os/actions/runs/42607121471"
+      }
+    ],
+    "anonymous_public_pages": {
+      "https://engineos.brixcanvas.com/blog/docs-handbook-install-m8": {
+        "passed": true,
+        "canonical_source": "https://github.com/enginsoysal/codename-engine-os/blob/9e41c6879181bc8e0bfcd88a3f4b6d3bc7eb30e3/docs/handbook/install-m8.md",
+        "english": true,
+        "no_external_embed": true
+      },
+      "https://engineos.brixcanvas.com/blog/docs-handbook-windows-apps-m8": {
+        "passed": true,
+        "canonical_source": "https://github.com/enginsoysal/codename-engine-os/blob/9e41c6879181bc8e0bfcd88a3f4b6d3bc7eb30e3/docs/handbook/windows-apps-m8.md",
+        "english": true,
+        "no_external_embed": true
+      },
+      "https://engineos.brixcanvas.com/blog/docs-releases-m8-v0-8-0": {
+        "passed": true,
+        "canonical_source": "https://github.com/enginsoysal/codename-engine-os/blob/9e41c6879181bc8e0bfcd88a3f4b6d3bc7eb30e3/docs/releases/m8-v0.8.0.md",
+        "english": true,
+        "no_external_embed": true
+      },
+      "https://engineos.brixcanvas.com/blog/docs-roadmap-status": {
+        "passed": true,
+        "canonical_source": "https://github.com/enginsoysal/codename-engine-os/blob/9e41c6879181bc8e0bfcd88a3f4b6d3bc7eb30e3/docs/roadmap/status.md",
+        "english": true,
+        "no_external_embed": true
+      },
+      "https://engineos.brixcanvas.com/blog/downloads": {
+        "passed": true,
+        "current_m8_iso_and_starter": true,
+        "iso_sha256_visible": true,
+        "english": true
+      },
+      "https://engineos.brixcanvas.com/blog/documentation": {
+        "passed": true,
+        "current_guides_indexed": true,
+        "english": true
+      }
+    },
+    "checked_at": "2026-11-09T11:14:47.358255+00:00"
+  },
+  "homepage_updated": false
+}
