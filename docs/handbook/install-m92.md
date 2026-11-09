@@ -18,6 +18,8 @@ IDE, SATA and SCSI are different hardware interfaces. Engine OS supplies its own
 
 The qualification matrix is maintained in [M9.2](../milestones/m9.2.md). Installation uses 512-byte logical sectors and a whole target from 2 GiB through the documented 2-TiB limit. A discovered 4-KiB-sector disk is not an installable target. Additional partitions are not automatically mounted in Files. VMware BusLogic requires a compatible device preset and BIOS; a hypervisor refusal before the guest runs cannot be repaired by a guest driver.
 
+QEMU is a separate platform. The tested PVSCSI implementation is refused for inconsistent transfer lengths, and the tested OVMF/LSI SAS multi-disk restart combinations remain unqualified. Use the VMware matrix for the controller/firmware combinations validated through installation and independent startup. Do not infer QEMU boot support from successful native disk operations.
+
 An empty list indicates no usable device was discovered. An inspection-only row means the disk cannot safely be used for installation. Formatting does not repair a missing controller implementation. Open Details for the actual condition; do not erase unrelated disks or disable safeguards.
 
 ## Windows and desktop movement

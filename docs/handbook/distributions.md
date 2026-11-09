@@ -1,5 +1,13 @@
 # Build your own Engine OS distribution
 
+## Current M9.2 hardware edition
+
+Start from `distros/engineos-hardware.json`. Use a separate checkout for a custom edition, keep a distinct profile ID and build with `python tools/build/m92.py --profile distros/my-edition.json --revision custom`. The custom suffix produces separate `EngineOS-M92CUSTOM` media; qualify that edition independently. Do not overwrite the accepted standard release or infer that its checks qualify a changed profile.
+
+The schema-3 optional application list, accent, account defaults, welcome text and bounded data packages retain their validated contracts. The hardware guide is a separate data package. Files, Settings, shared services and destructive-operation guards remain required; removing Calculator does not remove them. Controller binding is automatic and follows native capabilities rather than an editable bus-name allowlist. Arbitrary driver plugins, alternate kernels at runtime and a general application package ecosystem remain separate work.
+
+[Current installation/controller guide](install-m92.md), [storage decisions](../architecture/storage-m92.md). The older build commands below describe their named historical profiles.
+
 ## M7.4 standard application profiles
 
 Build the current app suite with `python tools/build/m74.py`. The standard

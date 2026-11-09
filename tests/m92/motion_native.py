@@ -46,14 +46,14 @@ def main():
             assert 'ENGINE_OS_KERNEL_ENTRY build='+meta['build_id'] in g.log()
             p=ui.Pointer(g);model=ui.symbol('model',installed=True)[0]
             rect=struct.unpack('<4i',ui.memory(g,model,16));scale=ui.integer(g,'scale73',True)
-            grab=(rect[0]+220,rect[1]+18);p.logical(*grab,True)
+            grab=((rect[0]+220)&~1,(rect[1]+18)&~1);p.logical(*grab,True)
             wait(g,lambda:ui.integer(g,'previous_buttons',True)==0 and ui.integer(g,'pointer_x',True)==grab[0] and ui.integer(g,'pointer_y',True)==grab[1])
             p.down(True)
             wait(g,lambda:ui.memory(g,ui.symbol('dragging',installed=True)[0],1)[0]==1)
             pages_before=struct.unpack('<4Q',ui.memory(g,ui.symbol('stats',32,True)[0],32))
             timings=[];x,y=grab
             viewport=struct.unpack('<2I',ui.memory(g,model+240,8));width,height=viewport
-            positions=[(0,100),(grab[0],grab[1]),(width-20,130),(grab[0],grab[1]),(grab[0],height-110),(grab[0],grab[1])]
+            positions=[(0,100),(grab[0],grab[1]),((width-20)&~1,130),(grab[0],grab[1]),(grab[0],(height-110)&~1),(grab[0],grab[1])]
             comparisons=[]
             for index,(nx,ny) in enumerate(positions):
                 if not index%2:p.down(True)

@@ -10,8 +10,9 @@ def main():
  try:
   helper=ui.module('fixture71',ROOT/'tests/m71/native.py');keep=q.sparse_disk(work/'keep.img',2*1024**3);target=q.sparse_disk(work/'target.img',2*1024**3);helper.fixture(keep);parts=helper.fixture(target)
   before=q.digest(keep);original=q.digest(target,0,2*1024**2)
-  extra=['-drive',f'if=none,id=second,format=raw,file={target}','-device','ide-hd,bus=pata.1,drive=second' if a.controller=='ide' else 'scsi-hd,bus=scsi.0,scsi-id=1,drive=second']
-  with ui.guest(work/'install',keep,extra=extra,controller=a.controller) as g:
+  extra=['-drive',f'if=none,id=second,format=raw,file={target}','-device','ide-hd,bus=pata.1,drive=second' if a.controller=='ide' else 'scsi-hd,bus=scsi.0,scsi-id=0,drive=second']
+  if a.controller=='mptsas':extra=extra[:2]+['-device','mptsas1068,id=scsi']+extra[2:]
+  with ui.guest(work/'install',keep,extra=extra,controller='sata' if a.controller=='mptsas' else 'ide') as g:
    p=ui.Pointer(g);click(g,p,2);click(g,p,101,True);assert state(g,'chosen')==1 and not control(g,2);ui.shot(g,out,'01-equal-disks-selected-second')
    partition_before=q.digest(target,parts[0][0]*512,(parts[0][1]-parts[0][0]+1)*512)
    click(g,p,90);click(g,p,301);click(g,p,212);click(g,p,224);click(g,p,226);at=click(g,p,228);g.wait('M71_DISK_APPLIED op=0x0000000000000005',at)
@@ -24,9 +25,12 @@ def main():
    assert q.digest(keep)==before and q.digest(target,parts[0][0]*512,(parts[0][1]-parts[0][0]+1)*512)==partition_before
    ui.shot(g,out,'partition-managed');click(g,p,200);original=q.digest(target,0,2*1024**2)
    click(g,p,91);click(g,p,2);click(g,p,2);click(g,p,2);assert not control(g,2);ui.shot(g,out,'02-review-disk-two');assert q.digest(target,0,2*1024**2)==original
-   click(g,p,92);start=click(g,p,2);g.wait('M6_INSTALL_PASS',start,240);ui.wait_view(g,6,start);ui.shot(g,out,'03-verified-finish');start=click(g,p,84);g.wait('M7_DESKTOP_READY',start,150);assert ui.integer(g,'m6_bundle_size',True)==0;ui.shot(g,out,'04-restarted-disk-two');(out/'install.log').write_bytes(g.log().encode())
+   click(g,p,92);start=click(g,p,2);g.wait('M6_INSTALL_PASS',start,240);ui.wait_view(g,6,start);ui.shot(g,out,'03-verified-finish')
+   if a.controller=='ide':
+    start=click(g,p,84);g.wait('M7_DESKTOP_READY',start,150);assert ui.integer(g,'m6_bundle_size',True)==0;ui.shot(g,out,'04-restarted-disk-two')
+   (out/'install.log').write_bytes(g.log().encode())
   assert q.digest(keep)==before,'Unselected equal-capacity disk changed';assert '/Users/Owner/Documents' in ui.s.directories(target)
-  report.update(passed=True,unselected_disk_sha256=before,checks=['Native FAT32/Engine format, delete and create preserve the unrelated partition and complete other disk','full-width capacity-column click selects Disk 2 among equal-capacity GPT disks','separate erase choice and review consent before actual replacement','ordinary restart loads Disk 2 installed kernel and desktop with matching ISO attached','entire unselected Disk 1 SHA256 unchanged; selected volume metadata CRC independently checked'])
+  report.update(passed=True,retained_iso_restart_tested=a.controller=='ide',scope='native disk utility, guarded replacement and independent persisted-data verification; VMware separately qualifies SCSI startup',topology='SATA keeper and LSI SAS target 0' if a.controller=='mptsas' else 'IDE primary and secondary channel disks',unselected_disk_sha256=before,checks=['Native FAT32/Engine format, delete and create preserve the unrelated partition and complete other disk','full-width capacity-column click selects Disk 2 among equal-capacity GPT disks','separate erase choice and review consent before actual replacement','IDE ordinary restart loads Disk 2; QEMU LSI SAS boot remains separately unqualified','entire unselected Disk 1 SHA256 unchanged; selected volume metadata CRC independently checked'])
  except Exception:
   report['error']=q.clean(traceback.format_exc());print(report['error'])
   if 'g' in locals():(out/'last-run.log').write_bytes(g.log().encode())
