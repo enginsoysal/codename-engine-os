@@ -1,0 +1,82 @@
+{
+  "passed": true,
+  "release": "https://github.com/enginsoysal/codename-engine-os/releases/tag/m91-v0.9.1",
+  "tag": "m91-v0.9.1",
+  "source_commit": "fd27232a89fab7aa3ad7e51131fae6378260e221",
+  "assets": {
+    "EngineOS-M91-VMware.zip": {
+      "sha256": "f2d88a5777556ec6a85f9dd8c974c38e4efb49c82c8dc43d09141baafc7fab41",
+      "size": 8833244
+    },
+    "EngineOS-M91-THIRD-PARTY-NOTICES.txt": {
+      "sha256": "43cc4c3bd1a5b29950f33667952ed31762680425a6615477c1f715c10c2a73fe",
+      "size": 59662
+    },
+    "m91-starter-manifest.json": {
+      "sha256": "b8fcc1b622feb8482bb8042fd5e4d7d961bfff6c375429371ac0ff21cfbbf439",
+      "size": 546
+    },
+    "m91-acceptance-results.json": {
+      "sha256": "191bd99eb7f2e9c2c2233ef7408e7076f10f5ae2d6746b7d25d631db350a306e",
+      "size": 3718
+    },
+    "M91-SHA256SUMS.txt": {
+      "sha256": "0519368ae978ef932c487fc8570bc7558e35403075e00980aa3942d4bced892d",
+      "size": 463
+    },
+    "7z2606-src.tar.xz": {
+      "sha256": "a4e374c8f864f51df48c2cfd0e1413ec3b2ea030deae852d6a655402ebb61ac4",
+      "size": 1567328
+    }
+  },
+  "remote_asset_digests_verified": true,
+  "anonymous_complete_zip_download_verified": true,
+  "iso_unchanged": true,
+  "iso_sha256": "019d3c07c6a2b8c20ed8089ae7ab6ab95f901de6267aa1132c5577803211eb52",
+  "old_release_notes_corrected": true,
+  "checked_at": "2026-11-09T14:21:03.501059+00:00",
+  "owner_vm_modified": false,
+  "documentation_sync": {
+    "passed": true,
+    "source_commit": "fd27232a89fab7aa3ad7e51131fae6378260e221",
+    "workflow": {
+      "conclusion": "success",
+      "headSha": "92a37466387eda3fc6cc4ed2dec3e9caf9dff3aa",
+      "status": "completed",
+      "url": "https://github.com/enginsoysal/codename-engine-os/actions/runs/42633887755"
+    },
+    "anonymous_public_pages": {
+      "https://engineos.brixcanvas.com/blog/docs-handbook-install-m91": {
+        "passed": true,
+        "anonymous_https": true,
+        "canonical_source": "https://github.com/enginsoysal/codename-engine-os/blob/fd27232a89fab7aa3ad7e51131fae6378260e221/docs/handbook/install-m91.md"
+      },
+      "https://engineos.brixcanvas.com/blog/docs-releases-m91-v0-9-1": {
+        "passed": true,
+        "anonymous_https": true,
+        "canonical_source": "https://github.com/enginsoysal/codename-engine-os/blob/fd27232a89fab7aa3ad7e51131fae6378260e221/docs/releases/m91-v0.9.1.md"
+      },
+      "https://engineos.brixcanvas.com/blog/docs-handbook-install-m9": {
+        "passed": true,
+        "anonymous_https": true,
+        "canonical_source": "https://github.com/enginsoysal/codename-engine-os/blob/fd27232a89fab7aa3ad7e51131fae6378260e221/docs/handbook/install-m9.md"
+      },
+      "https://engineos.brixcanvas.com/blog/docs-roadmap-status": {
+        "passed": true,
+        "anonymous_https": true,
+        "canonical_source": "https://github.com/enginsoysal/codename-engine-os/blob/fd27232a89fab7aa3ad7e51131fae6378260e221/docs/roadmap/status.md"
+      },
+      "https://engineos.brixcanvas.com/blog/downloads": {
+        "passed": true,
+        "anonymous_https": true,
+        "corrected_starter_visible": true,
+        "corrected_sha256_visible": true
+      },
+      "https://engineos.brixcanvas.com/blog/documentation": {
+        "passed": true,
+        "anonymous_https": true
+      }
+    },
+    "checked_at": "2026-11-09T14:24:07.032379+00:00"
+  }
+}
