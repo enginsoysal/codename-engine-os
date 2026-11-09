@@ -13,7 +13,7 @@ ROOT=ui.ROOT
 
 def stable_shot(g,out,name):
     until=time.monotonic()+30
-    while g.qmp('human-monitor-command',{'command-line':'info registers -a'}).count('HLT=1')!=2:
+    while g.qmp('human-monitor-command',{'command-line':'info registers -a'}).count('HLT=1')!=len(g.qmp('query-cpus-fast')):
         if time.monotonic()>until:raise TimeoutError('Native frame did not finish')
         time.sleep(.025)
     g.qmp('stop')
@@ -58,7 +58,7 @@ def task(g,p,action,installed=False,timeout=180):
             message=info[304:496].split(b'\0')[0].decode(errors='replace')
             assert state==2 and status==0,(state,status,message,log[-3000:])
             idle_deadline=time.monotonic()+30
-            while g.qmp('human-monitor-command',{'command-line':'info registers -a'}).count('HLT=1')!=2:
+            while g.qmp('human-monitor-command',{'command-line':'info registers -a'}).count('HLT=1')!=len(g.qmp('query-cpus-fast')):
                 if time.monotonic()>idle_deadline:raise TimeoutError('Job cleanup and native repaint did not finish')
                 time.sleep(.025)
             return info

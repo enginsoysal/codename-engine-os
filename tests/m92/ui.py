@@ -19,7 +19,7 @@ def guest(*args,controller='sata',**kwargs):
         elif controller=='nvme':extra=['-device','nvme,serial=ENGINEOS92,drive=target'+boot]
         elif controller=='virtio':extra=['-device','virtio-blk-pci,drive=target'+boot]
         else:raise ValueError('Unknown owned QEMU controller')
-        del value.args[at-1:at+1];value.args+=extra
+        value.args[at-1:at+1]=extra
     return value
 
 
@@ -47,7 +47,7 @@ class Pointer(_BasePointer):
             installed='M7_DESKTOP_READY' in self.guest.log()
             dirty=integer(self.guest,'mouse_dirty',installed)
             pending=memory(self.guest,symbol('mouse_press_pending',installed=installed)[0],1)[0]
-            halted=self.guest.qmp('human-monitor-command',{'command-line':'info registers -a'}).count('HLT=1')==2
+            halted=self.guest.qmp('human-monitor-command',{'command-line':'info registers -a'}).count('HLT=1')==len(self.guest.qmp('query-cpus-fast'))
             if not dirty and not pending and halted:return
             if time.monotonic()>deadline:raise TimeoutError('Guest did not consume the previous pointer edge')
             time.sleep(.025)
@@ -55,3 +55,18 @@ class Pointer(_BasePointer):
         self.move(x,y);self.drain()
         self.down(True);self.drain()
         self.down(False);self.drain()
+    def desktop(self,action,installed=False,settle=True):
+        g=self.guest;until=time.monotonic()+15
+        while True:
+            count=integer(g,'control_count',installed);raw=memory(g,symbol('controls',16384,installed)[0],count*32)
+            matches=[struct.unpack_from('<iiiiQI',raw,i*32) for i in range(count) if struct.unpack_from('<iiiiQI',raw,i*32)[5]==action]
+            if matches:break
+            if time.monotonic()>until:raise AssertionError((action,count))
+            time.sleep(.05)
+        x,y,w,h,_,_=matches[-1];at=symbol('paints',8,installed)[0];before=memory(g,at,8);self.logical(x+w//2,y+h//2,installed)
+        until=time.monotonic()+15
+        while True:
+            painted=memory(g,at,8)!=before
+            if painted and (not settle or g.qmp('human-monitor-command',{'command-line':'info registers -a'}).count('HLT=1')==len(g.qmp('query-cpus-fast'))):break
+            if time.monotonic()>until:raise TimeoutError('Native desktop did not finish input and painting')
+            time.sleep(.025)
