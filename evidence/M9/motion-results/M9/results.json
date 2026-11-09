@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "image": "M9",
+  "build_id": "99330ec79585f07190eb9f49f9c8fbe8",
+  "iso_sha256": "019d3c07c6a2b8c20ed8089ae7ab6ab95f901de6267aa1132c5577803211eb52",
+  "method": "host pointer event to first exact visible Files title patch; raw loopback RFB, same fixture procedure for baseline and candidate",
+  "human_motion_study": false,
+  "completed_frames": 24,
+  "framebuffer": [
+    1024,
+    768
+  ],
+  "visible_frames": 24,
+  "event_to_visible_ms": [
+    697.8396000049543,
+    295.8890000008978,
+    346.5842000005068,
+    797.2942000051262,
+    816.2977000029059,
+    933.5660999931861,
+    706.5933999983827,
+    192.36619998991955,
+    696.2982999975793,
+    262.7589000039734,
+    455.1147000020137,
+    428.95030000363477,
+    706.0941999952774,
+    297.55599999043625,
+    357.2685000108322,
+    1034.995899986825,
+    759.9972000025446,
+    669.4475999975111,
+    538.6558000027435,
+    226.223999998183,
+    306.71869999787305,
+    645.638300004066,
+    948.0831999971997,
+    622.5146999931894
+  ],
+  "median_ms": 634.0764999986277,
+  "p95_ms": 933.5660999931861,
+  "max_ms": 1034.995899986825,
+  "driver_fifo_active": true,
+  "native_drag_profiles": [
+    "M9_DRAG_PROFILE frames=0x0000000000000018 ticks=0x0000000000000047 max_ticks=0x0000000000000019 cached=0x0000000000000018\r"
+  ],
+  "existing_vm_inventory_unchanged": true
+}

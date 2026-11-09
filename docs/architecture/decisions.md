@@ -169,3 +169,11 @@ Before physical tests: select an explicit test computer; never use the developme
 **Why/alternatives:** an original executable performing verified archive tasks demonstrates binary execution; host MSI execution, a native replacement or payload copying alone would not. A first console profile is testable without pretending Windows GUI/Explorer support exists. Recoverable file transactions and immutable grant boundaries protect the native system and user data.
 
 **Verification/limits:** [architecture, tradeoffs and boundaries](windows-runtime-m8.md), [first delivery contract](../milestones/m8-msi.md). General MSI, DOS, Win16/Win32, Windows GUI, services/drivers and universal Windows-version compatibility remain separate work. Host format/storage checks are distinct from complete guest execution and VMware qualification.
+
+## M9 graphics-first automatic VMware setup
+
+**Choice/how:** admit one bounded RAM composition buffer, copy unchanged top-window client pixels, recompose exposed/title/footer regions and publish the complete movement batch. Keep the cursor separate. Automatically bind compatible SVGA II presentation and VMware absolute-pointer input, with validated ranges, bounded waits and fallbacks.
+
+**Why/alternatives:** repeated framebuffer reads and font composition caused unnecessary movement work. One screen buffer bounds retained memory independently of window count. Full per-window surfaces consume more RAM; a complete 3D stack would delay the immediate desktop improvement. Recognition alone is insufficient, so actual visible input, independent full-repaint comparisons, resources and installed lifecycles are required.
+
+**Verification/limits:** [implementation and memory accounting](graphics-m9.md), [exact-artifact acceptance](../../evidence/M9/acceptance-results.json). The paired ordinary-resolution QEMU observation improves median and p95 by about 39%. This is not monitor FPS; the 4K TCG evidence qualifies correct output, not real-time smoothness. Firmware display modes, physical GPU families, 3D and the remaining hardware program stay separate.

@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "scope": "actual C allocator host execution; separate from native graphics/device acceptance",
+  "checks": [
+    "Contiguous ownership, adjacent allocations, admission refusal, reclamation and zeroed reuse",
+    "Fragmented free pages never become a false contiguous run",
+    "Bounds, whole-request admission and repeated no-leak release"
+  ],
+  "source_sha256": {
+    "kernel/memory/pages.c": "7ff65ee4b76a22419b58f031b1a514cb592cea1f5475c466be0a2cbe2ad36ca9",
+    "runtime/memory.c": "347823b0c99de119e0bf9d73dabdeadc3e448ac6c9045809d0dce3a132a1505e",
+    "tests/m9/allocator_host.c": "2021b27e0cfe6c686b6402b60c8f0d46d12078b7f4b3fd52e79612d11534db61",
+    "tests/m9/allocator.py": "971d1a63ee3a43a2105993ce1b13f2ccef17f203ed94f13fb096e74d4f726045"
+  }
+}

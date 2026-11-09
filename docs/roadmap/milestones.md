@@ -1,6 +1,10 @@
 # Milestones and acceptance contract
 
-## Current owner priority — 8 November 2026
+## Current owner priority - 9 November 2026
+
+M9 automatic hardware support precedes further Windows application expansion. The first graphics slice is qualified within M9-GFX-VM-v1: supported VMware video/pointer binding, buffered cached window movement, resource/idle behavior, real installation and existing-app regression. The broader hardware program remains in progress. [Scope and remaining stages](../milestones/m9.md), [graphics decisions](../architecture/graphics-m9.md), [guide](../handbook/install-m9.md).
+
+## Historical owner priority — 8 November 2026
 
 M7.5 follows owner-reported installation confusion and startup failure. The novice path now uses a visible disk list, retained choices, bounded partial redraw and actual installed Restart. [Nine-gate acceptance](../../evidence/M7.5/acceptance-results.json), [manual](../handbook/install-m75.md), [scope and limits](../milestones/m7.5.md). Exact original-owner VM diagnosis and human studies remain separate.
 

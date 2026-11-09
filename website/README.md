@@ -80,3 +80,14 @@ a separate native Brix edit; article synchronization does not prove a homepage
 redesign. [Installation](../docs/handbook/install-m8.md),
 [Windows app guide](../docs/handbook/windows-apps-m8.md),
 [release](../docs/releases/m8-v0.8.0.md).
+
+
+## M9 graphics-first delivery
+
+After publication, downloads prefer `m9-v0.9.0` and its matching ISO/VMware ZIP.
+The current English installation guide explains automatic supported VMware
+graphics/pointer binding, RAM-buffer accounting, firmware-resolution limits and
+the retained original Windows console profile. Broader M9 hardware support
+remains in progress. Article/download synchronization does not edit the native
+BrixCanvas homepage. [Guide](../docs/handbook/install-m9.md),
+[scope](../docs/milestones/m9.md), [release](../docs/releases/m9-v0.9.0.md).

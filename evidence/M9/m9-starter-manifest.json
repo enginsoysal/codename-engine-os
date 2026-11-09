@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "archive": "EngineOS-M9-VMware.zip",
+  "sha256": "327f0584bf6ef70a6cf71cd3c2ed0724ac93584982c6fd3ea75ecefa93ac0f6d",
+  "size": 8833191,
+  "disk": "new growable 20 GiB SATA disk; not preinstalled",
+  "firmware": "UEFI, Secure Boot off",
+  "boot_order_forced": false,
+  "network_required": false,
+  "members": [
+    "7z2606-src.tar.xz",
+    "EngineOS-M9.iso",
+    "EngineOS.vmdk",
+    "EngineOS.vmx",
+    "Inter-OFL.txt",
+    "libmspack-LGPL-2.1.txt",
+    "LICENSE",
+    "START-HERE.txt",
+    "THIRD-PARTY-NOTICES.txt"
+  ]
+}

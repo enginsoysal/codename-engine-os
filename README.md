@@ -1,10 +1,10 @@
 # Codename: Engine OS
 
-**Current priority: M9 — responsive VMware graphics and automatic supported-device setup.** Implementation and measurement are in progress; M8 remains the latest accepted release. [Scope and remaining hardware stages](docs/milestones/m9.md).
+**Current delivery: M9 graphics-first slice (M9-GFX-VM-v1).** Automatic supported VMware graphics/pointer setup, buffered composition and cached Files-window movement pass 12 exact-artifact gates. The broader M9 hardware program remains in progress. [Release/downloads](docs/releases/m9-v0.9.0.md), [VMware guide](docs/handbook/install-m9.md), [scope](docs/milestones/m9.md), [acceptance](evidence/M9/acceptance-results.json).
 
 An independent, MIT-licensed operating system with its own UEFI loader, kernel and native user runtime. MS-DOS and Windows 1.x–11 application compatibility is a long-term requirement, followed by Linux/macOS execution environments and ARM64. General compatibility is not available. M8 delivers a first bounded original Windows console/MSI profile; the wider compatibility program remains in progress.
 
-**Current delivery: M8 — install, run and remove an original Windows app.** The original **7-Zip 26.06 x64 MSI**, original executable and DLL run inside Engine OS. The native Windows Apps frontend offers explicit install/remove consent, useful archive tasks, cancellation and recovery. [Release/downloads](docs/releases/m8-v0.8.0.md), [install in VMware](docs/handbook/install-m8.md), [app guide](docs/handbook/windows-apps-m8.md), [architecture](docs/architecture/windows-runtime-m8.md), [exact acceptance](evidence/M8/acceptance-results.json). Only the named console profile is qualified; Windows GUI, general MSI, DOS and all-generation compatibility remain separate work. Repeated examples use fresh numbered outputs; existing-ZIP update is unsupported.
+**Previous application delivery: M8 — install, run and remove an original Windows app.** The original **7-Zip 26.06 x64 MSI**, original executable and DLL run inside Engine OS. The native Windows Apps frontend offers explicit install/remove consent, useful archive tasks, cancellation and recovery. [Release/downloads](docs/releases/m8-v0.8.0.md), [install in VMware](docs/handbook/install-m8.md), [app guide](docs/handbook/windows-apps-m8.md), [architecture](docs/architecture/windows-runtime-m8.md), [exact acceptance](evidence/M8/acceptance-results.json). Only the named console profile is qualified; Windows GUI, general MSI, DOS and all-generation compatibility remain separate work. Repeated examples use fresh numbered outputs; existing-ZIP update is unsupported.
 
 **Historical M7.5 — clear installation and real installed restart.** Visible whole-row disk selection, useful disabled Next, automatic empty-disk setup, guarded erasure, retained choices and partial redraw. The final primary action restarts into the actual installed system, including the matching-ISO-connected case. Nine exact-artifact gates cover native 4K/64-MiB journeys, negative cases, equal-capacity disk isolation and VMware BIOS/UEFI restart plus independent disk boots. [Release/downloads](docs/releases/m75-v0.7.5.md), [installation guide](docs/handbook/install-m75.md), [design and reference review](docs/architecture/installer-m75.md), [acceptance](evidence/M7.5/acceptance-results.json). Agent novice review is not a human study; the owner's exact prior VM failure remains undiagnosed.
 
@@ -22,7 +22,7 @@ The historical [M5 release](https://github.com/enginsoysal/codename-engine-os/re
 
 ## Install and start your desktop
 
-[Download the prepared VMware VM](https://github.com/enginsoysal/codename-engine-os/releases/download/m8-v0.8.0/EngineOS-M8-VMware.zip) · [Standalone ISO](https://github.com/enginsoysal/codename-engine-os/releases/download/m8-v0.8.0/EngineOS-M8.iso) · [Step-by-step guide](docs/handbook/install-m8.md) · [Release and checksums](docs/releases/m8-v0.8.0.md).
+[Download the prepared VMware VM](https://github.com/enginsoysal/codename-engine-os/releases/download/m9-v0.9.0/EngineOS-M9-VMware.zip) · [Standalone ISO](https://github.com/enginsoysal/codename-engine-os/releases/download/m9-v0.9.0/EngineOS-M9.iso) · [Step-by-step guide](docs/handbook/install-m9.md) · [Release and checksums](docs/releases/m9-v0.9.0.md).
 
 Extract the entire ZIP, open EngineOS.vmx and start. Select a disk row in the bordered list, follow Next, review and Install Engine OS, then **Restart to Engine OS**. The matching ISO may remain attached. The new empty growable 20-GiB SATA disk is included. No commands, online account or network are required. On later independent boots disconnect only CD/DVD and keep the same hard disk connected. Use a fresh starter; cross-release package migration is unqualified. [Apps and limits](docs/handbook/apps-m74.md), [folder controls](docs/handbook/desktop-m73.md).
 
@@ -134,3 +134,7 @@ All current documentation, comments, UI strings and new release notes are Englis
 Resource efficiency is a primary requirement: shared immutable code, bounded allocation and queues, separate peak/retained/boot memory accounting, and HLT when idle. A small guest-RAM test does not establish a universal product minimum or remove application resource requirements.
 
 Original contributions use the [MIT license](LICENSE). External build tools and future reused components retain their own licenses and require recorded provenance. Existing binaries remain unmodified compatibility targets; claims are qualified per version, architecture and task, never inferred from a boot screen.
+
+## Build the current graphics edition
+
+Run `python tools/build/m9.py`, then `python tools/release/vmware_starter9.py`. These write isolated M9 outputs and preserve accepted M4.5-M8 artifacts. Native guest and graphics gates live under `tests/m9`; `python tests/m9/verify.py --source-commit 1217eb2` binds the published native inputs to the reports. A successful local build alone is not release qualification.

@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "build_id": "99330ec79585f07190eb9f49f9c8fbe8",
+  "iso_sha256": "019d3c07c6a2b8c20ed8089ae7ab6ab95f901de6267aa1132c5577803211eb52",
+  "human_usability_study": false,
+  "questions": [
+    {
+      "question": "Is the ordinary path clear?",
+      "passed": true,
+      "evidence": "Visible seven-step setup, obvious Next, explicit disk selection, real installed restart and Files locations."
+    },
+    {
+      "question": "Is it convenient?",
+      "passed": true,
+      "evidence": "Prepared blank-disk VMware package; no network, terminal syntax or guest driver installer needed."
+    },
+    {
+      "question": "Is it user friendly?",
+      "passed": true,
+      "evidence": "Existing disk erasure remains separately confirmed; matching ISO retained restart and two detached boots verified."
+    },
+    {
+      "question": "Is the native graphics result coherent?",
+      "passed": true,
+      "evidence": "VMware Files movement restores exposed background and window edges; native cached versus full repaint is compared independently."
+    },
+    {
+      "question": "Is essential text readable?",
+      "passed": true,
+      "evidence": "Real ordinary-resolution installer/Files and actual 3840x2160 Windows Apps use shared measured antialiased typography; reviewed captures show no essential text overlap."
+    }
+  ],
+  "reviewed_captures": [
+    "vmware/efi-starter/welcome.png",
+    "vmware/efi-starter/real-folders.png",
+    "motion-results/M9/after-drag.png",
+    "journey/uefi-3840x2160-128/original-windows-7zip-running.png",
+    "native-motion/M9-3840x2160/moved-frame.png"
+  ],
+  "limits": [
+    "Agent scenario and screenshot review; no child/older-adult human study",
+    "Not a monitor FPS measurement or universal GPU/physical-hardware claim"
+  ]
+}

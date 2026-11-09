@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "method": "Sequential M8 then M9 on the same host; no other owned guest test running; QEMU TCG, 2 vCPUs, 128 MiB, 1280x800, 24 alternating native Files-window moves each. Host event to completed composition includes QMP overhead; not monitor FPS.",
+  "baseline_build_id": "b7b21d8752c413c9a1fdcec268fb4dfc",
+  "candidate_build_id": "99330ec79585f07190eb9f49f9c8fbe8",
+  "baseline_median_ms": 682.8034999998636,
+  "candidate_median_ms": 417.24574999534525,
+  "baseline_p95_ms": 886.8262000032701,
+  "candidate_p95_ms": 541.4445999922464,
+  "median_reduction_percent": 38.8922654914,
+  "p95_reduction_percent": 38.9458047145822,
+  "one_host_observation_not_universal_guarantee": true
+}

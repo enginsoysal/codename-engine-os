@@ -50,6 +50,7 @@ def main():
             wait(g,lambda:ui.integer(g,'previous_buttons',True)==0 and ui.integer(g,'pointer_x',True)==grab[0] and ui.integer(g,'pointer_y',True)==grab[1])
             p.down(True)
             wait(g,lambda:ui.memory(g,ui.symbol('dragging',installed=True)[0],1)[0]==1)
+            pages_before=struct.unpack('<4Q',ui.memory(g,ui.symbol('stats',32,True)[0],32))
             timings=[];x,y=grab
             for index in range(args.frames):
                 nx,ny=(grab[0]+24,grab[1]+20) if index%2==0 else grab
@@ -76,6 +77,18 @@ def main():
                 assert result['graphics']['copy_frames']>=args.frames-2
                 before=ui.memory(g,ui.symbol('paints',8,True)[0],8);time.sleep(.3);assert ui.memory(g,ui.symbol('paints',8,True)[0],8)==before
                 assert g.qmp('human-monitor-command',{'command-line':'info registers -a'}).count('HLT=1')==2
+            idle_before=ui.memory(g,ui.symbol('paints',8,True)[0],8);time.sleep(.3)
+            assert ui.memory(g,ui.symbol('paints',8,True)[0],8)==idle_before
+            assert g.qmp('human-monitor-command',{'command-line':'info registers -a'}).count('HLT=1')==2
+            pages_after=struct.unpack('<4Q',ui.memory(g,ui.symbol('stats',32,True)[0],32))
+            assert pages_after[0]==pages_before[0],'Dragging retained managed pages'
+            result['managed_bytes_before_drag']=pages_before[0]*4096
+            result['managed_bytes_after_drag']=pages_after[0]*4096
+            result['idle_processors_halted']=True
+            result['idle_repaint_unchanged']=True
+            if args.image=='M9':
+                profile=struct.unpack('<19Q',ui.memory(g,ui.symbol('drag9',152,True)[0],152))
+                result['native_drag_profile']={'frames':profile[0],'ticks_10ms':profile[1],'longest_ticks_10ms':profile[2],'bins_ticks_0_to_15_or_more':list(profile[3:])}
             (out/'serial.log').write_bytes(g.log().encode())
     except Exception:
         result['passed']=False

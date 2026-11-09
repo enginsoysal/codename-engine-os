@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "build_id": "99330ec79585f07190eb9f49f9c8fbe8",
+  "iso_sha256": "019d3c07c6a2b8c20ed8089ae7ab6ab95f901de6267aa1132c5577803211eb52",
+  "ram_mib": 128,
+  "actual_framebuffer": [
+    4096,
+    2160
+  ],
+  "shadow_bytes": 0,
+  "backend": 0,
+  "idle_processors_halted": true,
+  "scope": "Native wizard boot only; not application or installation qualification for this display profile"
+}

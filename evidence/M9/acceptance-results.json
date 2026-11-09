@@ -1,0 +1,251 @@
+{
+  "passed": true,
+  "scope_id": "M9-GFX-VM-v1",
+  "code_source_commit": "1217eb25855c73a6ce757e9a41b97309e9f37c8b",
+  "build_id": "99330ec79585f07190eb9f49f9c8fbe8",
+  "iso_sha256": "019d3c07c6a2b8c20ed8089ae7ab6ab95f901de6267aa1132c5577803211eb52",
+  "vmware_starter_sha256": "327f0584bf6ef70a6cf71cd3c2ed0724ac93584982c6fd3ea75ecefa93ac0f6d",
+  "gates": [
+    {
+      "report": "journey/uefi-3840x2160-128/results.json",
+      "passed": true
+    },
+    {
+      "report": "journey/bios-1280x800-64/results.json",
+      "passed": true
+    },
+    {
+      "report": "native-motion/M9-1280x800/results.json",
+      "passed": true
+    },
+    {
+      "report": "native-motion/M9-3840x2160/results.json",
+      "passed": true
+    },
+    {
+      "report": "motion-results/M9/results.json",
+      "passed": true
+    },
+    {
+      "report": "fallback/results.json",
+      "passed": true
+    },
+    {
+      "report": "allocator/results.json",
+      "passed": true
+    },
+    {
+      "report": "performance/results.json",
+      "passed": true
+    },
+    {
+      "report": "vmware/efi-starter/results.json",
+      "passed": true
+    },
+    {
+      "report": "vmware/bios/results.json",
+      "passed": true
+    },
+    {
+      "report": "repository-results.json",
+      "passed": true
+    },
+    {
+      "report": "visual-review.json",
+      "passed": true
+    }
+  ],
+  "gate_count": 12,
+  "artifacts": {
+    "EngineOS-M9.iso": {
+      "sha256": "019d3c07c6a2b8c20ed8089ae7ab6ab95f901de6267aa1132c5577803211eb52",
+      "size": 74110976
+    },
+    "EngineOS-M9-usb.img": {
+      "sha256": "ff29502c47ad0e93d66ba6f3c049d67cc88ff132e0a4725662daf818dd6932d3",
+      "size": 84934656
+    },
+    "EngineOS-M9-kernel.elf": {
+      "sha256": "682508c23a5dfdeba2cecc0b6f4c787e40961d397221f9bf5ae4a8db69fa52a0",
+      "size": 3293524
+    },
+    "EngineOS-M9-kernel.map": {
+      "sha256": "6d58b82bd6966a19241bfdebfdf9ecc978119fb50d2ab7e63db3a71846a1551b",
+      "size": 345342
+    },
+    "EngineOS-M9-user.elf": {
+      "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f",
+      "size": 68064
+    },
+    "EngineOS-M9-installed-kernel.elf": {
+      "sha256": "d4323aa1a9c495e67e880bf301ccf8e7ae40847911f4546f5aba457cc89f41b6",
+      "size": 999764
+    },
+    "EngineOS-M9-installed-kernel.map": {
+      "sha256": "88564cdfc939506994fcdcc8c6fe067195d234fc94dfc40129d3962c48aa5ddb",
+      "size": 345050
+    },
+    "EngineOS-M9-editor.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M9-calculator.elf": {
+      "sha256": "5193f62e9f16e90ad96905b6bc2e47152c9a524402c5db6f32c8f8e50e1af8a0",
+      "size": 12976
+    },
+    "EngineOS-M9-calendar.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M9-archives.elf": {
+      "sha256": "9008a959466f7288e7ef99dab89ecb8e40439e9ee693faf825b4c602b98f8a84",
+      "size": 17068
+    },
+    "EngineOS-M9-browser.elf": {
+      "sha256": "3046e4a9af08551315191e2907d572ebde73b54b389b6c3a37dfb41222140cc0",
+      "size": 12639
+    },
+    "EngineOS-M9-help.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M9-VMware.zip": {
+      "sha256": "327f0584bf6ef70a6cf71cd3c2ed0724ac93584982c6fd3ea75ecefa93ac0f6d",
+      "size": 8833191
+    },
+    "EngineOS-M9-THIRD-PARTY-NOTICES.txt": {
+      "sha256": "43cc4c3bd1a5b29950f33667952ed31762680425a6615477c1f715c10c2a73fe",
+      "size": 59662
+    }
+  },
+  "prior_frozen_proofs_verified": 1261,
+  "prior_binary_artifacts_verified": 127,
+  "actual_4k_framebuffer": true,
+  "tested_64_mib_application_journey": true,
+  "tested_over_cap_framebuffer_wizard_fallback_only": true,
+  "human_usability_study": false,
+  "physical_hardware_qualified": false,
+  "gpu_3d_acceleration": false,
+  "complete_m9_hardware_program": false,
+  "limits": [
+    "Requires matching M9-GFX-VM-v1 exact-artifact acceptance; broader Plug and Play remains in progress",
+    "Only original 7-Zip 26.06 x64 MSI and console executable/DLL; Windows GUI and shell integration are unavailable",
+    "One protected Windows job and one Windows thread on one assigned processor; ZIP examples use -mmt=off",
+    "Windows heap 32 MiB, owned page budget 10000 pages, demand-grown stack up to 8 MiB; one writer up to 8 MiB",
+    "Native extent volume: 1024 entries, 63-byte components, 64-MiB native file limit; Windows I/O has separate bounds",
+    "Selected Win64 APIs and a digest-pinned MSI console adapter, not a general Windows Installer service",
+    "Named x86-64 VMware/QEMU BIOS and UEFI profiles only; Secure Boot disabled; no physical/ARM qualification",
+    "Fresh installation and same-build recovery; cross-release application migration is unqualified",
+    "Single local account without authentication or native ACLs; Windows writes are brokered to current user data",
+    "Real native scalable framebuffer UI; no Windows GPU acceleration, DirectX or universal device support",
+    "Native app capabilities and dependencies retain their documented M7.4 limits; no human usability study",
+    "Bounded buffered software 2D composition and optional automatic VMware SVGA II presentation; no 3D or universal GPU driver",
+    "Firmware display mode retained; runtime mode changes and universal GPU binding remain follow-ups",
+    "Motion timing includes test-observation overhead and is not monitor FPS"
+  ],
+  "reproduction_harness_sha256": {
+    "tests/m9/allocator.py": "971d1a63ee3a43a2105993ce1b13f2ccef17f203ed94f13fb096e74d4f726045",
+    "tests/m9/allocator_host.c": "2021b27e0cfe6c686b6402b60c8f0d46d12078b7f4b3fd52e79612d11534db61",
+    "tests/m9/fallback.py": "b95965f9b9f459d7f4d1b36beac3f8ca8d4820bb03885fbbd953bdb504c29c26",
+    "tests/m9/journey.py": "acb22b40a0a9f1cb0e49e7d85efd0086818ca6805bc4cc71bca48d916e99ba18",
+    "tests/m9/lifecycle.py": "5efc7fe3f9cd1efd56bde35f0e77cfb2e1c8b3587a6102ad3972ea2cef1af66c",
+    "tests/m9/motion_native.py": "c31363e98d228c2a38f9bb1ae58d75d01fd5ec177dbcfef8b4ed8876db559515",
+    "tests/m9/motion_vmware.py": "ae95a89636e29907b85bb3c7437585cd96542070874a6b909ff4216ee0b50570",
+    "tests/m9/rfb.py": "7248e2821e8a93f87b9659089a0c3efadeead2ca5f675a8df48aa079711a62ec",
+    "tests/m9/ui.py": "5e06fc13e4903c69a48fe29809dff41654aad0f181d639b2afeb3440f87faeeb",
+    "tests/m9/verify.py": "9f289fc773eb763b0c218138359f8259b66ea99fab12754af7c320544c06e492",
+    "tests/m9/vmware.py": "234bb47c07d7fb28e944ea75ad1839c3ba92e42493d9cf5dd3f8405831bd5eed"
+  },
+  "evidence_sha256": {
+    "allocator/results.json": "8fd3e6c26317cd19108e3f9f4028a4d46dfd7541575a38cbc7041bc7cb1ff5cf",
+    "fallback/fallback-welcome-capture.json": "252c142b2946fe30a6abba385a4b148d58e65349edc8266be6339f1b2f563a79",
+    "fallback/fallback-welcome.png": "987e390331686813082bc040668c7040af34db4654b1741e4efcdaf8eb13609c",
+    "fallback/results.json": "be3bd82d21f03455e68811d429ae91b45d9f8faba56ab82af8081c07075da86e",
+    "fallback/serial.log": "39b72e5a274242343a072aaec31a5e968681f81d0fd0799f639b99597f3d4e89",
+    "journey/bios-1280x800-64/install-consent-capture.json": "35de00b0781074a9881d9e7a684c9a6eab28b69e5f4319fae6c43c3b7342c1d7",
+    "journey/bios-1280x800-64/install-consent.png": "fcfa8db2aa17903652c8586a77304ebc67faa6cb3299bf576076e8283a03a4e6",
+    "journey/bios-1280x800-64/installed-original-msi-capture.json": "403ecf808d5c7cf5a3856d12dcfbb447a0b66f1b1bd7c2baed463f2520308034",
+    "journey/bios-1280x800-64/installed-original-msi.png": "54d0a0212f7a941389e160e1bf8e42e3e572ac6757eab1d3f4094c2b1d354f70",
+    "journey/bios-1280x800-64/original-7zip-created-archive-capture.json": "ab669c3fb69e1ec54b48716b425cc4b24a761555c18ddc6af1bbac02c16d44f7",
+    "journey/bios-1280x800-64/original-7zip-created-archive.png": "b98050c7d6a9e2491a6a348ca13dbe5e9edbca9687474d120cea476f140720f8",
+    "journey/bios-1280x800-64/original-7zip-extracted-archive-capture.json": "295f78c4a2ab3b53e80c0676cf6d4dcd7ef84a6461a3521b5a6bd02733cb50aa",
+    "journey/bios-1280x800-64/original-7zip-extracted-archive.png": "59cd1a4ec203ac1c4270a6765d66f07118dd938919f6fe978f362e5acb102543",
+    "journey/bios-1280x800-64/original-msi-preview-capture.json": "b4a46f9820b75b53d2b44160c1f36f6ced7e13b06e945f34d5ecb67e95af5dcd",
+    "journey/bios-1280x800-64/original-msi-preview.png": "e179bd7c088d3432be368029e7dbc2dc1d4c45c1c289f1849c757e62f646e252",
+    "journey/bios-1280x800-64/original-windows-7zip-running-capture.json": "09f70b881d803853bf15c9b390d34bebdb515c55451903eaec66674330cb5bf1",
+    "journey/bios-1280x800-64/original-windows-7zip-running.png": "923bf36f94467360183e2983220a15be25e2602c9a47e1c3b45d49b192f26a14",
+    "journey/bios-1280x800-64/results.json": "5cce839e94fa5de0d12efed74c9055f3e8374b35df0a89b62da58ea8bb2506ee",
+    "journey/bios-1280x800-64/serial.log": "3c7760ca15a45c0bb205a646f0f9c498adc1da0b64f2da65430128834145362d",
+    "journey/bios-1280x800-64/windows-apps-capture.json": "ae84af2fb4368ce25f836f60dff7278e507523be5199fc34ac2cab3a5e6a3fbe",
+    "journey/bios-1280x800-64/windows-apps.png": "05eccc0a8e47829964be98e3a220d6d1e2a2b0f21cda942f2e85f88d17aaf8a2",
+    "journey/uefi-3840x2160-128/install-consent-capture.json": "c9896c4d2e8dd42634a98410363fe12b1acc65d8510767cfd4482984eba7d7df",
+    "journey/uefi-3840x2160-128/install-consent.png": "e04a7c5e5900e9a59cbac686ce0adfffd074e976b8ed5a8ac8f0d0e8d810d80b",
+    "journey/uefi-3840x2160-128/installed-original-msi-capture.json": "49437302f4f7423ec3137f74cc0384981108c378d18fd5aa2b10ae92edfaa10a",
+    "journey/uefi-3840x2160-128/installed-original-msi.png": "eef4b78a5561fa294c0417d7a316fdfb7a4ec6b34888fded5df0a1f1dc1b4235",
+    "journey/uefi-3840x2160-128/original-7zip-created-archive-capture.json": "bbcd2b0852263e8da615603f57909fba4f056e660462efee84de356d03da74dd",
+    "journey/uefi-3840x2160-128/original-7zip-created-archive.png": "eed6e760b621d724bfb94fc9fa9e1b9466486eebbaab178fc39105f050d6e332",
+    "journey/uefi-3840x2160-128/original-7zip-extracted-archive-capture.json": "a34959f1ee9fa288eb6f64a4b5381228cddb5cf8a79c82ff60e126dc63f97c17",
+    "journey/uefi-3840x2160-128/original-7zip-extracted-archive.png": "000603265d84c8176aa4b931cd429f3cfe8e5a47a3cb909e4a28f17ad0b565d0",
+    "journey/uefi-3840x2160-128/original-msi-preview-capture.json": "8e73b1f5925b696026d29df63b3c09d35ee6bb971e858c4d9e323509f0d750c2",
+    "journey/uefi-3840x2160-128/original-msi-preview.png": "bce87a7c58b8027a5559e4d5e30e996f0e3bc1fdbd4ce857e65fa92248485aea",
+    "journey/uefi-3840x2160-128/original-windows-7zip-running-capture.json": "402da0214bbb20a4f34fac085856428bd835efacfecd14d10887708dc3e40067",
+    "journey/uefi-3840x2160-128/original-windows-7zip-running.png": "20c44335a8783270beec25ef3462ef608898ab165c13c52c94e2a4bc63498fc0",
+    "journey/uefi-3840x2160-128/results.json": "e455869746c3696b4789fdbe1f15bb0fb5e4ac092d14d312c8cda57d5b69528f",
+    "journey/uefi-3840x2160-128/serial.log": "bb119c5584eb14ec79df3dc27987759100a02188f98c08c42a8027de495d64f8",
+    "journey/uefi-3840x2160-128/windows-apps-capture.json": "6c4a5cdac0157d652bd294007eb189cff7e954ba737f2b71e783f0c957a04ffd",
+    "journey/uefi-3840x2160-128/windows-apps.png": "408a54d875dbf16d7bc1de08fac5a3e809ce11a6a4213754f2b1504468728c21",
+    "m9-build-manifest.json": "ca03737baacbdd4538b150657afb25863de56ed3d9f39198b14fa668dc89f1ca",
+    "m9-starter-manifest.json": "7116571a56427c80ea7249c0bfe3444a1ee8f2c19229ac2206efef07dd350eb6",
+    "motion-results/M9/after-drag.png": "cf33d43e320fce15b4e2566c486a496e654a9cc54e9b26173e499ee14be9da86",
+    "motion-results/M9/before-drag.png": "0493328cebc4387d5b55611898144e31bdf7ccb3bbf7ac681f743d63c92d2efc",
+    "motion-results/M9/latest-motion.png": "cf33d43e320fce15b4e2566c486a496e654a9cc54e9b26173e499ee14be9da86",
+    "motion-results/M9/results.json": "15a8296058a759beac7af3d5f365b3db0e908b4713f25aad120f4006acce7b50",
+    "motion-results/M9/serial.log": "57bb4ce7c20112256d19ec71358de1d96409645c147da53acbabd5763a727866",
+    "native-motion/M9-1280x800/full-repaint-frame.png": "1f627e7e26e728dfcb107cb537b1e586e00ba99556da18cc6e4809a2c66e4ec6",
+    "native-motion/M9-1280x800/moved-frame.png": "1f627e7e26e728dfcb107cb537b1e586e00ba99556da18cc6e4809a2c66e4ec6",
+    "native-motion/M9-1280x800/results.json": "07383d08533d32fc5c351a0cb5bd3c4c2b24bb1fb0e66c6b55dcd1bcf90a8bf4",
+    "native-motion/M9-1280x800/serial.log": "6be1e3e4b5ccfa37e054f3e6e7fcd727e71e9c54adb706de75f05ecdb08b76df",
+    "native-motion/M9-3840x2160/full-repaint-frame.png": "e9c3aaa6ad77a0bddab052d620b72eebea8095991e67ad8ed957ce3f875084e8",
+    "native-motion/M9-3840x2160/moved-frame.png": "e9c3aaa6ad77a0bddab052d620b72eebea8095991e67ad8ed957ce3f875084e8",
+    "native-motion/M9-3840x2160/results.json": "98048e0a8cf1351da23004cb7cdc9d6f4269f90cadb737866069a28f6a0f9e19",
+    "native-motion/M9-3840x2160/serial.log": "613fe9a194956c09b8ad2f2e387286acd3fb0561ed347647d3871be97b9879da",
+    "performance/m8-baseline-results.json": "e104b37f0ce19dba7e577d4db50055870089dfd4cac7379debf9648a2029ebbc",
+    "performance/results.json": "c9c41a9f2a9f9f10f8a923106cc22635a08aa57101351fee226028abd25f931a",
+    "repository-results.json": "7d524dee97f9361ac07e7395bdfccc64360e01e0a041e5ed27b19902d4bcc3b8",
+    "visual-review.json": "bee7e41e136e00d8def3b68259b038367b7552a27fd140a1e3519d87872a98f9",
+    "vmware/bios/desktop-home.png": "82d209b3a4691ea9473aa17b5d6bfb4a4a575c1b784efb9ac81eb14841dd6ca7",
+    "vmware/bios/detached-desktop-0.png": "875bbb0de1694a8f7bf42a6c7c3f70b5e73168216930edf155025c97a36417fa",
+    "vmware/bios/detached-desktop-1.png": "1443bf0b8161f2e2f84e41811e81d5f9d515d27580b7984201511d3e290af515",
+    "vmware/bios/finish.png": "1319c473b6374aee5ab2ecd5ca9d6204e6d0ac6fe1130a9d942d101a2d0c43d0",
+    "vmware/bios/install.log": "f945d80b8708f3abb5ed96854221cba630733b7a3314d1b09089f30ea195fb3b",
+    "vmware/bios/launcher-focus.png": "d6543d585d39eba086849aa0ce42171f87c6309915c6d2be9e4caf79c4310bef",
+    "vmware/bios/original-windows-archive-task.png": "db61d686ef5e7d06a961bdf075caee248a928a4ed695e8bc9d4662c77b44e098",
+    "vmware/bios/original-windows-program.png": "3fa11d392af43b981d2b0a950e6ad7ff018009b113f731d21a0cc25cd8e30fcc",
+    "vmware/bios/real-folders.png": "e631333f09a1f2a8aa32cc509f6b922f7c3280a2b23f3ee9f165ad836fff7fbc",
+    "vmware/bios/reinstalled-windows-product.png": "bb22c697472d30f7e352d0bd0b3099260d85ed933f5405fe9dc07555f708fb7c",
+    "vmware/bios/removed-windows-product.png": "1d24aceab6bfd9d8c21ad9237844f3ce49989ad951e5c725c6fdd76a302d7bec",
+    "vmware/bios/restart-0.log": "70c3e485ca9ef7577c22c8d980a58c6d461798076d137eea5021580e26aa5e98",
+    "vmware/bios/restart-1.log": "5b05ce9684fd9de5f2e013412c363218eedde12e43b218094281a3e7c3f269c5",
+    "vmware/bios/results.json": "983790307860bfc64e2bee07e159816c474e37a1c9790efa3e6a9392537e26b8",
+    "vmware/bios/review.png": "e3ea377949b9da833b719681aa56aacad29485aad082a2ec2ba9c8c2b43ac465",
+    "vmware/bios/welcome.png": "782117f1919a44dcac9fa24abcd20a60898a5f8092ceff7d0fdc28089af13dbc",
+    "vmware/bios/windows-apps.png": "b22ac1e3cfb4ca59b497dff7418de49f57a30ed42afe152942d96e04ee2c0b83",
+    "vmware/efi-starter/desktop-home.png": "78f4f6be266adeae03861c00b7a0cd2f8236435ed292c1d23f706950a6168b5c",
+    "vmware/efi-starter/detached-desktop-0.png": "15f4d16d471b919656657cc9a5545fa5c8060d0d9fd9a78c639bdee4c5b85710",
+    "vmware/efi-starter/detached-desktop-1.png": "86caadcdb90d9069954f9d27d3f6d17d8b987327c1da22ebe761e2504ef08ca2",
+    "vmware/efi-starter/finish.png": "0fca97ebc8bf44df7d0ec4daca7360149f44bc345faa6590f42ff8bd9bb4a96a",
+    "vmware/efi-starter/install.log": "26ffa56cb9e3049e384fbe21ddcbf04afc5c2d3021c8467629a6d6c899444d1b",
+    "vmware/efi-starter/launcher-focus.png": "07053a77eb128a22daced8c50c81128aead2967a45937acbdd9435123484413f",
+    "vmware/efi-starter/original-windows-archive-task.png": "0d502f3f6da353ed21b40bb4080fd257006f3191a73654ab6af15b159f75fbdd",
+    "vmware/efi-starter/original-windows-program.png": "0d502f3f6da353ed21b40bb4080fd257006f3191a73654ab6af15b159f75fbdd",
+    "vmware/efi-starter/real-folders.png": "b8361ec508380540d6db73f76c081ecd877368e892ce7e13a1d0504e5d59d940",
+    "vmware/efi-starter/reinstalled-windows-product.png": "0d502f3f6da353ed21b40bb4080fd257006f3191a73654ab6af15b159f75fbdd",
+    "vmware/efi-starter/removed-windows-product.png": "9233d83974d71765de58550131115b004cd58849306164987d7ed907ea04aab6",
+    "vmware/efi-starter/restart-0.log": "256fe729030c1a3633b3d1e95037f147c0fdcc7f592169d1ebbe8353dcc6715d",
+    "vmware/efi-starter/restart-1.log": "bf6b372cd1df51006f84368bbf8d518d9a6c683477484be5581ee11fae72946f",
+    "vmware/efi-starter/results.json": "6f9fcaec25a86763c7e1260dc73da4952ecce1206b8c22026857d7aaa65120b1",
+    "vmware/efi-starter/review.png": "8479dc85aecc61076d226db852c5a220df881d29633b29d386d7172326629aad",
+    "vmware/efi-starter/welcome.png": "a3a0426aeee299d326daa3ad14e4a52df1f6c76e9d4806ef2604e40e6d6a0686",
+    "vmware/efi-starter/windows-apps.png": "5594ef0860e226b7af05fa38871c4d81d5fb1983f9febef2fab6747fe24b861d"
+  }
+}
