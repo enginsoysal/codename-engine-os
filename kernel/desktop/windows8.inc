@@ -65,6 +65,9 @@ static void draw_windows8(desktop_window*w,application*app,uint64_t token){
   button(token,x,w->bounds.y+w->bounds.height-57,140,"Previous",OUTPUT_PREV8,0);button(token,x+154,w->bounds.y+w->bounds.height-57,140,"More output",OUTPUT_NEXT8,0);
  }
 }
+static void sample_name8(char*out,const char*base,unsigned number,const char*extension){
+ copy(out,base,256);if(number){char suffix[24];decimal(suffix,number+1);append(out,"-",256);append(out,suffix,256);}append(out,extension,256);
+}
 static unsigned action_windows8(desktop_window*w,application*app,uint64_t token,unsigned command){
  (void)token;if(w->app!=WINDOWS8||command<PREVIEW8||command>LICENSE8)return 0;
  if(command==LICENSE8){app->calc_error=1;app->offset=0;invalidate(w->bounds);return 1;}
@@ -74,10 +77,24 @@ static unsigned action_windows8(desktop_window*w,application*app,uint64_t token,
  if(command==CANCEL8){w8_cancel();invalidate(w->bounds);return 1;}
  if(w8_pending()){notice(app,"A Windows task is already running. Wait or cancel it.");invalidate(w->bounds);return 1;}
  if(command==INSTALL8||command==REMOVE8){app->number=command==INSTALL8?1:2;invalidate(w->bounds);return 1;}
- unsigned job=0;const char*source=app->path,*arguments="";
+ unsigned job=0;const char*source=app->path,*arguments="";char sample_arguments[512];
  if(command==CONFIRM8){job=app->number==1?W8_INSTALL:app->number==2?W8_REMOVE:0;app->number=0;}
  if(command==PREVIEW8)job=W8_PREVIEW;
  if(command==INFO8||command==ZIP8||command==EXTRACT8){job=W8_RUN;source=PRODUCT_ROOT8 "/7z.exe";arguments=command==INFO8?"i":command==ZIP8?"a -tzip -mx=1 -mmt=off -y EngineOS-Windows.zip EngineOS-Windows.txt":"x -mmt=off -y -oEngineOS-Windows-Extracted EngineOS-Windows.zip";}
+ if(command==ZIP8||command==EXTRACT8){
+  char path[256],name[256],archive[256];unsigned chosen=100,latest=100;
+  for(unsigned i=0;i<100;++i){sample_name8(name,"EngineOS-Windows",i,".zip");root_path(path,"Documents/");append(path,name,256);if(entry(path))latest=i;}chosen=latest==100?0:latest+1;
+  if(command==ZIP8){
+   if(chosen==100){notice(app,"The sample archive limit was reached. Move or remove old sample archives in Documents, then try again.");invalidate(w->bounds);return 1;}
+   sample_name8(archive,"EngineOS-Windows",chosen,".zip");copy(sample_arguments,"a -tzip -mx=1 -mmt=off -y ",512);append(sample_arguments,archive,512);append(sample_arguments," EngineOS-Windows.txt",512);
+  }else{
+   if(latest==100){notice(app,"Create a test archive first, then choose Extract test archive.");invalidate(w->bounds);return 1;}
+   sample_name8(archive,"EngineOS-Windows",latest,".zip");chosen=100;
+   for(unsigned i=0;i<100;++i){sample_name8(name,"EngineOS-Windows-Extracted",i,"");root_path(path,"Documents/");append(path,name,256);if(!entry(path)){chosen=i;break;}}
+   if(chosen==100){notice(app,"The sample folder limit was reached. Move or remove old extraction folders in Documents, then try again.");invalidate(w->bounds);return 1;}
+   sample_name8(name,"EngineOS-Windows-Extracted",chosen,"");copy(sample_arguments,"x -mmt=off -y -o",512);append(sample_arguments,name,512);append(sample_arguments," ",512);append(sample_arguments,archive,512);
+  }arguments=sample_arguments;
+ }
  if(job){
   char user[256];root_path(user,"");unsigned n=length(user);if(n&&user[n-1]=='/')user[n-1]=0;
   if(command==ZIP8){char path[256];root_path(path,"Documents/EngineOS-Windows.txt");if(!entry(path)){static const char sample[]="Created in Engine OS and archived by the original Windows 7-Zip application.\n";if(v6_put(m6_volume(),path,sizeof(sample)-1,memory_source,(void*)sample)){notice(app,"The sample document could not be created.");invalidate(w->bounds);return 1;}}}
