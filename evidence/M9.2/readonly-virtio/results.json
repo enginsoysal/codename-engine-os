@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "build_id": "739982bfc3a704393db0464d145ebd71",
+  "iso_sha256": "bdf22eff371890867a7271a4461989a50d64feeec45f67699dba7b216e9c8bf2",
+  "unchanged_disk_sha256": "a7c744c13cc101ed66c29f672f92455547889cc586ce6d44fe76ae824958ea51",
+  "checks": [
+    "Actual VirtIO read-only feature negotiation allows inspection and refuses installation",
+    "No writable admission, installer success or changed disk bytes"
+  ]
+}

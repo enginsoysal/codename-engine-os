@@ -1,0 +1,13 @@
+{
+  "passed": false,
+  "qualified": false,
+  "known_failure_reproduced": true,
+  "build_id": "739982bfc3a704393db0464d145ebd71",
+  "iso_sha256": "bdf22eff371890867a7271a4461989a50d64feeec45f67699dba7b216e9c8bf2",
+  "test_topology": "LSI SAS targets 0 and 1",
+  "root_cause": "Not conclusively diagnosed; firmware visibility is a hypothesis, not an established cause.",
+  "installation_verified": true,
+  "independent_startup_qualified": false,
+  "known_issue": "Native installation completes but retained-ISO restart returns to live setup. VMware SAS startup has separate passing controller/firmware lifecycles.",
+  "unselected_disk_sha256": "23980ebdf02fd98dbc37d17520e357cbfc288ba613262b5748d372c7f39591f3"
+}

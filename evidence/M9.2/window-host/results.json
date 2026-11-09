@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "scope": "Actual C model host execution; native graphics proof remains separate",
+  "checks": [
+    "Partial side/bottom overlap with reachable title-bar grip",
+    "Extreme signed origins and dimensions remain bounded",
+    "Viewport-clipped damage and stale-token refusal"
+  ],
+  "source_sha256": {
+    "tests/m92/window_host.c": "fcd7b382dac191a83ad33262d7483a044358e9cd0d3c0225c25fa0bc17b8f919",
+    "kernel/desktop/window.c": "a673ce3b5365b426f2b5b6faec4b64c4f13dc000b9e929b2770490f3f3537ac7",
+    "runtime/memory.c": "347823b0c99de119e0bf9d73dabdeadc3e448ac6c9045809d0dce3a132a1505e"
+  }
+}

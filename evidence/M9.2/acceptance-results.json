@@ -1,0 +1,613 @@
+{
+  "passed": true,
+  "scope_id": "M92-STORAGE-VM-v1",
+  "code_source_commit": "5f4b886038505bedbc5138731dcb7b86ce132dfe",
+  "build_id": "739982bfc3a704393db0464d145ebd71",
+  "iso_sha256": "bdf22eff371890867a7271a4461989a50d64feeec45f67699dba7b216e9c8bf2",
+  "vmware_starter_sha256": "2289f3909b35a4b77e8ae30051c4c8db5ff5e288b4073fc5e75e68e1fd5971eb",
+  "controller_firmware_matrix": [
+    {
+      "controller": "sata",
+      "firmware": "efi",
+      "passed": true
+    },
+    {
+      "controller": "sata",
+      "firmware": "bios",
+      "passed": true
+    },
+    {
+      "controller": "ide",
+      "firmware": "efi",
+      "passed": true
+    },
+    {
+      "controller": "ide",
+      "firmware": "bios",
+      "passed": true
+    },
+    {
+      "controller": "lsilogic",
+      "firmware": "efi",
+      "passed": true
+    },
+    {
+      "controller": "lsilogic",
+      "firmware": "bios",
+      "passed": true
+    },
+    {
+      "controller": "lsisas1068",
+      "firmware": "efi",
+      "passed": true
+    },
+    {
+      "controller": "lsisas1068",
+      "firmware": "bios",
+      "passed": true
+    },
+    {
+      "controller": "pvscsi",
+      "firmware": "efi",
+      "passed": true
+    },
+    {
+      "controller": "pvscsi",
+      "firmware": "bios",
+      "passed": true
+    },
+    {
+      "controller": "nvme",
+      "firmware": "efi",
+      "passed": true
+    },
+    {
+      "controller": "nvme",
+      "firmware": "bios",
+      "passed": true
+    },
+    {
+      "controller": "buslogic",
+      "firmware": "bios",
+      "passed": true
+    }
+  ],
+  "gates": [
+    {
+      "report": "vmware-results/sata-efi/results.json",
+      "passed": true
+    },
+    {
+      "report": "vmware-results/sata-bios/results.json",
+      "passed": true
+    },
+    {
+      "report": "vmware-results/ide-efi/results.json",
+      "passed": true
+    },
+    {
+      "report": "vmware-results/ide-bios/results.json",
+      "passed": true
+    },
+    {
+      "report": "vmware-results/lsilogic-efi/results.json",
+      "passed": true
+    },
+    {
+      "report": "vmware-results/lsilogic-bios/results.json",
+      "passed": true
+    },
+    {
+      "report": "vmware-results/lsisas1068-efi/results.json",
+      "passed": true
+    },
+    {
+      "report": "vmware-results/lsisas1068-bios/results.json",
+      "passed": true
+    },
+    {
+      "report": "vmware-results/pvscsi-efi/results.json",
+      "passed": true
+    },
+    {
+      "report": "vmware-results/pvscsi-bios/results.json",
+      "passed": true
+    },
+    {
+      "report": "vmware-results/nvme-efi/results.json",
+      "passed": true
+    },
+    {
+      "report": "vmware-results/nvme-bios/results.json",
+      "passed": true
+    },
+    {
+      "report": "vmware-results/buslogic-bios/results.json",
+      "passed": true
+    },
+    {
+      "report": "vmware-results/sata-efi-starter/results.json",
+      "passed": true
+    },
+    {
+      "report": "replacement/ide/results.json",
+      "passed": true
+    },
+    {
+      "report": "safety/ide/results.json",
+      "passed": true
+    },
+    {
+      "report": "replacement/mptsas/results.json",
+      "passed": true
+    },
+    {
+      "report": "safety/mptsas/results.json",
+      "passed": true
+    },
+    {
+      "report": "negative-pvscsi/results.json",
+      "passed": true
+    },
+    {
+      "report": "readonly-virtio/results.json",
+      "passed": true
+    },
+    {
+      "report": "window-host/results.json",
+      "passed": true
+    },
+    {
+      "report": "storage-host/results.json",
+      "passed": true
+    },
+    {
+      "report": "native-motion/M92-1280x800/results.json",
+      "passed": true
+    },
+    {
+      "report": "native-motion/M92-2560x1440/results.json",
+      "passed": true
+    },
+    {
+      "report": "native-motion/M92-3840x2160/results.json",
+      "passed": true
+    },
+    {
+      "report": "journey/virtio-uefi-1280x800-128-2/results.json",
+      "passed": true
+    },
+    {
+      "report": "journey/ide-bios-1280x800-64-1/results.json",
+      "passed": true
+    },
+    {
+      "report": "journey/nvme-uefi-3840x2160-128-2/results.json",
+      "passed": true
+    },
+    {
+      "report": "repository-results.json",
+      "passed": true
+    },
+    {
+      "report": "visual-review.json",
+      "passed": true
+    }
+  ],
+  "gate_count": 30,
+  "artifacts": {
+    "EngineOS-M92.iso": {
+      "sha256": "bdf22eff371890867a7271a4461989a50d64feeec45f67699dba7b216e9c8bf2",
+      "size": 74176512
+    },
+    "EngineOS-M92-usb.img": {
+      "sha256": "8e5a4ffb1831141461c6e96dd39f9cc1af3b5c80d1551375ac1ad9ca4c5fca55",
+      "size": 84934656
+    },
+    "EngineOS-M92-kernel.elf": {
+      "sha256": "d1f6c438ee670fe7a50c3d2c662c36298d6ffca104e96c11b04b0232770f8921",
+      "size": 3350868
+    },
+    "EngineOS-M92-kernel.map": {
+      "sha256": "8e4bc959ea39b0d6a7ee9edb61319c28bf2ddaee02b598bd7f50d83747cbfaf2",
+      "size": 350555
+    },
+    "EngineOS-M92-user.elf": {
+      "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f",
+      "size": 68064
+    },
+    "EngineOS-M92-installed-kernel.elf": {
+      "sha256": "f55ee156b58833d64a8cb83e0ac27427141a08ee6a5966ccfd6ce69f19c2d333",
+      "size": 1020244
+    },
+    "EngineOS-M92-installed-kernel.map": {
+      "sha256": "022c491e931109a957ec1ccd129003e4ddda7a067c9c80c5c5b0355487034f44",
+      "size": 350263
+    },
+    "EngineOS-M92-editor.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M92-calculator.elf": {
+      "sha256": "5193f62e9f16e90ad96905b6bc2e47152c9a524402c5db6f32c8f8e50e1af8a0",
+      "size": 12976
+    },
+    "EngineOS-M92-calendar.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M92-archives.elf": {
+      "sha256": "9008a959466f7288e7ef99dab89ecb8e40439e9ee693faf825b4c602b98f8a84",
+      "size": 17068
+    },
+    "EngineOS-M92-browser.elf": {
+      "sha256": "3046e4a9af08551315191e2907d572ebde73b54b389b6c3a37dfb41222140cc0",
+      "size": 12639
+    },
+    "EngineOS-M92-help.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M92-VMware.zip": {
+      "sha256": "2289f3909b35a4b77e8ae30051c4c8db5ff5e288b4073fc5e75e68e1fd5971eb",
+      "size": 8872439
+    },
+    "EngineOS-M92-THIRD-PARTY-NOTICES.txt": {
+      "sha256": "f9f99f6e2f64f9cf7afe818a137e1e20655788e53adc55fea7000f487849d30d",
+      "size": 59664
+    }
+  },
+  "prior_frozen_proofs_verified": 1371,
+  "prior_binary_artifacts_verified": 145,
+  "actual_4k_framebuffer": true,
+  "tested_64_mib_single_cpu_application_journey": true,
+  "human_usability_study": false,
+  "physical_hardware_qualified": false,
+  "gpu_3d_acceleration": false,
+  "complete_m9_hardware_program": false,
+  "limits": [
+    "Requires matching M92-STORAGE-VM-v1 exact-artifact controller/task acceptance; broader hardware support remains in progress",
+    "Only original 7-Zip 26.06 x64 MSI and console executable/DLL; Windows GUI and shell integration are unavailable",
+    "One protected Windows job and one Windows thread on one assigned processor; ZIP examples use -mmt=off",
+    "Windows heap 32 MiB, owned page budget 10000 pages, demand-grown stack up to 8 MiB; one writer up to 8 MiB",
+    "Native extent volume: 1024 entries, 63-byte components, 64-MiB native file limit; Windows I/O has separate bounds",
+    "Selected Win64 APIs and a digest-pinned MSI console adapter, not a general Windows Installer service",
+    "Named x86-64 VMware/QEMU BIOS and UEFI profiles only; Secure Boot disabled; no physical/ARM qualification",
+    "Fresh installation and same-build recovery; cross-release application migration is unqualified",
+    "Single local account without authentication or native ACLs; Windows writes are brokered to current user data",
+    "Real native scalable framebuffer UI; no Windows GPU acceleration, DirectX or universal device support",
+    "Native app capabilities and dependencies retain their documented M7.4 limits; no human usability study",
+    "Bounded buffered software 2D composition and optional automatic VMware SVGA II presentation; no 3D or universal GPU driver",
+    "Installation requires a supported native controller with read/write/flush, 512-byte logical sectors and a 2-GiB to 2-TiB target; no 4Kn installation",
+    "Partially off-screen windows retain a reachable title-bar grip; no multi-monitor desktop",
+    "BusLogic uses BIOS with the compatible freebsd device preset; the actual kernel remains x86-64",
+    "QEMU PVSCSI short completion is refused; VMware PVSCSI is separately tested",
+    "QEMU/OVMF retained-ISO startup from LSI SAS in the tested multi-disk topologies remains unqualified; see known-issues",
+    "No physical controllers, 4Kn installation, universal device support or multiple-monitor desktop qualification"
+  ],
+  "reproduction_harness_sha256": {
+    "tests/m92/controls.py": "1aa14ddd6803355af3e132c716aa99159b75aa83c1f02726c25d47cd9ae46c1d",
+    "tests/m92/journey.py": "642c3aec8f590e3c1ae316aacf7e97d4740c116a585fd7254feb0accfbbf59b1",
+    "tests/m92/known_boot.py": "185699ab71c5e4fb7282f80402885a70677bf663fd5ddcaf99789c02d8f55c3f",
+    "tests/m92/matrix.py": "c2adb6f70ae41eee0a0b36cc70e94fd4f76b269830e48b162267aca6f2e13761",
+    "tests/m92/motion_native.py": "f5cbcca28a6b1d0ba76e71631436ffadee50c5fcca7e2a71b600a1a6971fd3b1",
+    "tests/m92/negative.py": "56ad6744e321ac35aec44d92e240fa138745fbd73bd562ed768c51166d8fec5a",
+    "tests/m92/probe.py": "26125232100cb125cc92f86e80d43a3a150399cad7492ebcc0b636e565d7be2e",
+    "tests/m92/probe_vmware.py": "968f85ac3182f6bd0f99d1c1abf5240f01bab58b934fe8189c8b393dbace4def",
+    "tests/m92/readonly.py": "71d6e2bd35e15a4ae6872fbf3a989f3f11e5c2c7121bb59a434a23975c8e318e",
+    "tests/m92/replacement.py": "16f2611d3c68049d073fc62a1adda1b4e88f324b2642c62cc21fe151f1e8d420",
+    "tests/m92/safety.py": "843896a90b23f0723ff8fcf6f582c0e46f5bf5930b435ef8ad5af3993bec0706",
+    "tests/m92/storage_host.c": "857a9991a05c29f3f4aaae6a3887ba17e692607d8251d0dd1e179a8b20a98c24",
+    "tests/m92/storage_host.py": "934024d4e6904fd84340e37bcc5789af2074a4762cf3bc1a77b087b27f7c8920",
+    "tests/m92/ui.py": "29a8b96d77792742b769c56bc8165633b8dce1a153d6a342b5074097289daf91",
+    "tests/m92/verify.py": "a037a6cb84821676a17e57217e92dca8d711dcd271232f986aeccc492a27274c",
+    "tests/m92/vmware.py": "ad6c89937b9e04493c140bce5c273165309bdf98222ffdc3503bea807e96045c",
+    "tests/m92/window_host.c": "fcd7b382dac191a83ad33262d7483a044358e9cd0d3c0225c25fa0bc17b8f919",
+    "tests/m92/window_host.py": "4fb7d6c79c6c5d5b1c734c392b23e69e91bb642eef0cd2bec8f85b8c915596d6"
+  },
+  "evidence_sha256": {
+    "journey/ide-bios-1280x800-64-1/install-consent-capture.json": "c07ee6bdb29bfb5f5d8d3e33959cd2cafddc60010c46a428f8f73e71589fbe18",
+    "journey/ide-bios-1280x800-64-1/install-consent.png": "9b33ac63281bfdb18156a6ae50cc7820050ebff2f6b1d7f1154490861321aab5",
+    "journey/ide-bios-1280x800-64-1/installed-original-msi-capture.json": "73f8df96af61abadb73134c7be0d585e36cb0639b39c998dca3931709cf1004e",
+    "journey/ide-bios-1280x800-64-1/installed-original-msi.png": "e3ee85e6d21bcef8b9f697b89272b51d6ab884e1eab33444b5e64068a81b5293",
+    "journey/ide-bios-1280x800-64-1/original-7zip-created-archive-capture.json": "70640d7d4052681035bde7ccf6eaddee5b3503a56997556d7383f6d3879c690d",
+    "journey/ide-bios-1280x800-64-1/original-7zip-created-archive.png": "d9401dfa3698762dd9ed98cf07076ba2812c84e202ec0800ca896e469db40618",
+    "journey/ide-bios-1280x800-64-1/original-7zip-extracted-archive-capture.json": "51f39cc40b4f8fbe83c53fab0fd4dfeccf2f081accb778000c5b4e8dc228c671",
+    "journey/ide-bios-1280x800-64-1/original-7zip-extracted-archive.png": "6ac5e061f94e51d14410f54415f487af16bb4b1195c24273be1638fcc9f5b161",
+    "journey/ide-bios-1280x800-64-1/original-msi-preview-capture.json": "685bbcb49ab0f8ca6f7e7296440114765cecedbe863b37db3c458ad358552b26",
+    "journey/ide-bios-1280x800-64-1/original-msi-preview.png": "b8fb6598db7b66d4a6fffbe9e183aa8014f718f4add317fc6a921e147bb1ef98",
+    "journey/ide-bios-1280x800-64-1/original-windows-7zip-running-capture.json": "4cdf01f55834a8342bec0b113aa4f5e367f3c8649a392bc9872394de4bf0b6d3",
+    "journey/ide-bios-1280x800-64-1/original-windows-7zip-running.png": "fe2c07d2bdebfda82fc7353d308479cfbfe4cbdabd0898d85291c2cdd411f2fc",
+    "journey/ide-bios-1280x800-64-1/results.json": "a6471279b685ac8b9219d7a6d94e27a4b7120595d5d976c5b9f8882612b312e1",
+    "journey/ide-bios-1280x800-64-1/serial.log": "7b8d7f36bd521a9f2996a20c05ab6361332468f112078659dfb6f26cb60bfbf8",
+    "journey/ide-bios-1280x800-64-1/windows-apps-capture.json": "77bbb6f3dbe4b19c15b3d507fee0370a624c04aa007e0055d03d0ba345af6515",
+    "journey/ide-bios-1280x800-64-1/windows-apps.png": "2c44862094c8c6d04b5109fac991217ff07e9d114d4266e5fdcea82470f751a1",
+    "journey/nvme-uefi-3840x2160-128-2/install-consent-capture.json": "447fd44e4a544d87b573740aeacd8eb1f42091a9b5428eb6dc1cf8bc85924ac1",
+    "journey/nvme-uefi-3840x2160-128-2/install-consent.png": "558b090f5790567d55246f76731681fcff182febd7a5ebf994cfb29b343f0526",
+    "journey/nvme-uefi-3840x2160-128-2/installed-original-msi-capture.json": "b87035f0ca85526acf8d95b3d160d9863183f479ad577572515c94970a2faf47",
+    "journey/nvme-uefi-3840x2160-128-2/installed-original-msi.png": "a6f9827aaeb3faac1a1ba03efffa0343680f4a4a36ed15c7384901791864086a",
+    "journey/nvme-uefi-3840x2160-128-2/original-7zip-created-archive-capture.json": "d216b348900bc007dc5103087c187970fd3504387c21701f2ef5dea764eb9076",
+    "journey/nvme-uefi-3840x2160-128-2/original-7zip-created-archive.png": "a3468cf0af1824fc477ddb0321da1e234bf9c437dc03b4f3e7166fee57208ff9",
+    "journey/nvme-uefi-3840x2160-128-2/original-7zip-extracted-archive-capture.json": "eca6f5c89c1e91a6211c183137d03d08f1ada4a054d72d62c06ac54686f461ad",
+    "journey/nvme-uefi-3840x2160-128-2/original-7zip-extracted-archive.png": "c8df4dda4f46b36a3903fdb9fa58cce9368669a704e9741f55ef5c726402b425",
+    "journey/nvme-uefi-3840x2160-128-2/original-msi-preview-capture.json": "d238342d0e0a7e43b5722fb7ccce728b74a4394ffa75ec10823191baf9215633",
+    "journey/nvme-uefi-3840x2160-128-2/original-msi-preview.png": "daed4ae7af7fb153ae4df7389d5e9455ae8ae548d7ecec539455281c402cae99",
+    "journey/nvme-uefi-3840x2160-128-2/original-windows-7zip-running-capture.json": "3c83ce881426fb4d14c4166cb9e8e7103eb05aa10a56c817d30283f69e6c8ae5",
+    "journey/nvme-uefi-3840x2160-128-2/original-windows-7zip-running.png": "c3cbae290df42e6c9623b67f5951f038a32b530524a6e1e8439d69bc1a003ba5",
+    "journey/nvme-uefi-3840x2160-128-2/results.json": "003d279325eb4d1a43ade9e6e444993cf4718de63833601455bf8b66961e52d3",
+    "journey/nvme-uefi-3840x2160-128-2/serial.log": "c8a49b6a312289c4472c0717c6201b46c2b77b36ecd9aea15b8b9f3f698a8a5f",
+    "journey/nvme-uefi-3840x2160-128-2/windows-apps-capture.json": "351f4fb263019184ff6e22687ef1010b50829d02200d237dcbc529ce28d32569",
+    "journey/nvme-uefi-3840x2160-128-2/windows-apps.png": "d78348dff1979db1b5ef419bf05b03cdaf5d8ea4b4e04e581a55461e7b397dc8",
+    "journey/virtio-uefi-1280x800-128-2/install-consent-capture.json": "b09905eafd414c07302770589096ec3939c2317a593cb63491c2191b6df9d751",
+    "journey/virtio-uefi-1280x800-128-2/install-consent.png": "97ce18bd38235ccf0e3dded25fbd236b4d79c7ed4752723d947244fdfbd8f25e",
+    "journey/virtio-uefi-1280x800-128-2/installed-original-msi-capture.json": "fe94e8b4c0ab19ab7a85c1b6c3cab7b7a2c0dca35f6cc33fa5e8e3587810adb7",
+    "journey/virtio-uefi-1280x800-128-2/installed-original-msi.png": "8b8c8c1b7542c10608c827362f27dfef5bb695dc993968771fbe1ecc4d3de03b",
+    "journey/virtio-uefi-1280x800-128-2/original-7zip-created-archive-capture.json": "875b2887d6a6382a2ee91861feea211169abc89ab2c2096e534a9c41bf79bb6f",
+    "journey/virtio-uefi-1280x800-128-2/original-7zip-created-archive.png": "39f3a8b830e3d45aab3730e9eebddef5af081c4940e1d4cad91211635ddc9595",
+    "journey/virtio-uefi-1280x800-128-2/original-7zip-extracted-archive-capture.json": "3f28d14530e66dd6872a4d300fc877de0526f1e764b150d7d948a831c7e4dc93",
+    "journey/virtio-uefi-1280x800-128-2/original-7zip-extracted-archive.png": "20de0c26bb371ce264c18d0ec2ceed0c878adb9411e0b07509843e04a84df549",
+    "journey/virtio-uefi-1280x800-128-2/original-msi-preview-capture.json": "55a5af275927295463cdba48a92ebc9b413a1ccc7ba45e241a7b13dabfea057c",
+    "journey/virtio-uefi-1280x800-128-2/original-msi-preview.png": "259ef54e2be24e8987bb81bae690e114dd307fd9d5e82a728257a8c1b87ae776",
+    "journey/virtio-uefi-1280x800-128-2/original-windows-7zip-running-capture.json": "db0ce1a02bb047dae9dac5295a2fa901b85548f66ebab6e3013532930733cc6c",
+    "journey/virtio-uefi-1280x800-128-2/original-windows-7zip-running.png": "dd958ebc39aebe2e0a719c027ed4d3166820dd9e9cd7353079ee00ad6532ccce",
+    "journey/virtio-uefi-1280x800-128-2/results.json": "5c3c0fd66d7d6eb9f6d2e63998a759e789cc9e912d864b6246dd4ab8de22a596",
+    "journey/virtio-uefi-1280x800-128-2/serial.log": "d83d1495ddb77d758cd3cd575e1eadd0a8a454edbbea7885343a33335044532e",
+    "journey/virtio-uefi-1280x800-128-2/windows-apps-capture.json": "df932131ecc67b5f8a51e29749443d75a8d65899868e58687f03a11112d5c5e3",
+    "journey/virtio-uefi-1280x800-128-2/windows-apps.png": "d21896424c5b7843f1e511ce4f0bf3620f191e1bfd83fa4cc320d693b0d53d89",
+    "known-issues/scsi-target0-mixed-ovmf/last-run.log": "b1ec535e28f6fd1e0b028256c21d3704cf50f9a92bb31578742e0adcdc68df33",
+    "known-issues/scsi-target0-mixed-ovmf/results.json": "3300fc926872f94f468b107b1aa7f6141cda59c39acc159957e32512e2a2e3b8",
+    "known-issues/scsi-target1-ovmf/last-run.log": "ec323a3a920eb2244774c6342ffee5054349ab6bdf4e513e252dab84ab23dff5",
+    "known-issues/scsi-target1-ovmf/results.json": "5bc7367765fbca666f1b5702318348537f145cd31065d7dc25ff0d8fef57dfa4",
+    "m92-build-manifest.json": "0e0b9906809bafde9e62b86c09854c7d78f68f6fd0440298a3b9e34b1b0e8da6",
+    "m92-starter-manifest.json": "bd2825a6f03d24a79b375dda3434db9a87d635ebcec1b4cda7a87235baa424c5",
+    "native-motion/M92-1280x800/cached-0.png": "b50c0170507fb45831a9cd6118a7845f53fdb7524611ecaa59b2283bae82d4f9",
+    "native-motion/M92-1280x800/cached-1.png": "e2bcb193ebf014cd2f742334eb6aaf269bfc821493b2c436072c9a9c349adf1c",
+    "native-motion/M92-1280x800/cached-2.png": "a9b649977f058913c095a4eed4ba62575b94a79b6ef2df0143af67c3eecb7702",
+    "native-motion/M92-1280x800/cached-3.png": "8dc44cefb513dae8b992f2bb6ee2dd03cd79d0012caca1317c08c95eaa304557",
+    "native-motion/M92-1280x800/cached-4.png": "87f7bea483e026b390de50069f46e56f3dd17cb4f39ed17bd8fc9d6637840a7f",
+    "native-motion/M92-1280x800/cached-5.png": "e2bcb193ebf014cd2f742334eb6aaf269bfc821493b2c436072c9a9c349adf1c",
+    "native-motion/M92-1280x800/full-0.png": "b50c0170507fb45831a9cd6118a7845f53fdb7524611ecaa59b2283bae82d4f9",
+    "native-motion/M92-1280x800/full-1.png": "e2bcb193ebf014cd2f742334eb6aaf269bfc821493b2c436072c9a9c349adf1c",
+    "native-motion/M92-1280x800/full-2.png": "a9b649977f058913c095a4eed4ba62575b94a79b6ef2df0143af67c3eecb7702",
+    "native-motion/M92-1280x800/full-3.png": "e2bcb193ebf014cd2f742334eb6aaf269bfc821493b2c436072c9a9c349adf1c",
+    "native-motion/M92-1280x800/full-4.png": "87f7bea483e026b390de50069f46e56f3dd17cb4f39ed17bd8fc9d6637840a7f",
+    "native-motion/M92-1280x800/full-5.png": "e2bcb193ebf014cd2f742334eb6aaf269bfc821493b2c436072c9a9c349adf1c",
+    "native-motion/M92-1280x800/results.json": "916c458d24a30b4617b3cd8bfbe55eef98402d52358111c0e426c93354ee8311",
+    "native-motion/M92-1280x800/serial.log": "93be09ed2a5cd347507198d7d74a5874e51addf16c223c5e1ba3d805d7698b4d",
+    "native-motion/M92-2560x1440/cached-0.png": "22ea5f1eb2778d47a6d27b4f1a1ebb98886bad4b3b6818a73af336c1b289002a",
+    "native-motion/M92-2560x1440/cached-1.png": "93414d4591c18663109bbdba75597b83aee1a74783a61c88e75e722e3f01370f",
+    "native-motion/M92-2560x1440/cached-2.png": "6cc61ad1be1bbe1e0459cf736fb24891597df01523764a816dc11d550311e302",
+    "native-motion/M92-2560x1440/cached-3.png": "93414d4591c18663109bbdba75597b83aee1a74783a61c88e75e722e3f01370f",
+    "native-motion/M92-2560x1440/cached-4.png": "c04cbf705a6162422f86d5e37da480c9108e62ca5d1411d0e9d67c53aead1d36",
+    "native-motion/M92-2560x1440/cached-5.png": "93414d4591c18663109bbdba75597b83aee1a74783a61c88e75e722e3f01370f",
+    "native-motion/M92-2560x1440/full-0.png": "22ea5f1eb2778d47a6d27b4f1a1ebb98886bad4b3b6818a73af336c1b289002a",
+    "native-motion/M92-2560x1440/full-1.png": "93414d4591c18663109bbdba75597b83aee1a74783a61c88e75e722e3f01370f",
+    "native-motion/M92-2560x1440/full-2.png": "6cc61ad1be1bbe1e0459cf736fb24891597df01523764a816dc11d550311e302",
+    "native-motion/M92-2560x1440/full-3.png": "93414d4591c18663109bbdba75597b83aee1a74783a61c88e75e722e3f01370f",
+    "native-motion/M92-2560x1440/full-4.png": "c04cbf705a6162422f86d5e37da480c9108e62ca5d1411d0e9d67c53aead1d36",
+    "native-motion/M92-2560x1440/full-5.png": "93414d4591c18663109bbdba75597b83aee1a74783a61c88e75e722e3f01370f",
+    "native-motion/M92-2560x1440/results.json": "a061ee061b6d413b1bafad68fe781ec3ff6ae1719de9741a43c2adf3d53edd63",
+    "native-motion/M92-2560x1440/serial.log": "caeedd622cbd7aa27f7409f30e7d003f40412ebcc4730c74404dd3fe76f17217",
+    "native-motion/M92-3840x2160/cached-0.png": "cc3b1b2cdc35a77f7a2e0d61637a319b3aa3153f0a8c3f9a0ea03c4e92ef2287",
+    "native-motion/M92-3840x2160/cached-1.png": "558c2286ce692725d8d88805943da9b31ff07c51a2f41fbe16dbd9f2f6f9aaa5",
+    "native-motion/M92-3840x2160/cached-2.png": "ea46b17329559a486dc7ff7369b75f90aed89c42fdb28cedf1bdb6a1fae16644",
+    "native-motion/M92-3840x2160/cached-3.png": "558c2286ce692725d8d88805943da9b31ff07c51a2f41fbe16dbd9f2f6f9aaa5",
+    "native-motion/M92-3840x2160/cached-4.png": "8907ff53f00d1e59428850b3a1ca1df8fe7e2d288243c3e62b606033592b3c5a",
+    "native-motion/M92-3840x2160/cached-5.png": "558c2286ce692725d8d88805943da9b31ff07c51a2f41fbe16dbd9f2f6f9aaa5",
+    "native-motion/M92-3840x2160/full-0.png": "cc3b1b2cdc35a77f7a2e0d61637a319b3aa3153f0a8c3f9a0ea03c4e92ef2287",
+    "native-motion/M92-3840x2160/full-1.png": "558c2286ce692725d8d88805943da9b31ff07c51a2f41fbe16dbd9f2f6f9aaa5",
+    "native-motion/M92-3840x2160/full-2.png": "ea46b17329559a486dc7ff7369b75f90aed89c42fdb28cedf1bdb6a1fae16644",
+    "native-motion/M92-3840x2160/full-3.png": "558c2286ce692725d8d88805943da9b31ff07c51a2f41fbe16dbd9f2f6f9aaa5",
+    "native-motion/M92-3840x2160/full-4.png": "8907ff53f00d1e59428850b3a1ca1df8fe7e2d288243c3e62b606033592b3c5a",
+    "native-motion/M92-3840x2160/full-5.png": "558c2286ce692725d8d88805943da9b31ff07c51a2f41fbe16dbd9f2f6f9aaa5",
+    "native-motion/M92-3840x2160/results.json": "4b27af4c5d11a154b718d1866a9b8bf738f3481e35e75c2e6d809238b827d246",
+    "native-motion/M92-3840x2160/serial.log": "b3170e6cefe16a46735c25c09924edb9cf54b7d285b7c41f3c1b5d7459096e27",
+    "negative-pvscsi/no-false-installation.png": "917043839f3f3167b9bcb24b191c1aa5c960d94bd76145b7eae356f65aa35144",
+    "negative-pvscsi/results.json": "6c4fb779db0055d0a1c60b94a8aec1e20b7c28fa13636769503d2619f70989c4",
+    "negative-pvscsi/serial.log": "786a6c056e1ef39a561d450e157a634e843b8315dc96ce2c5105702172e024f5",
+    "readonly-virtio/read-only-inspection.png": "26b32265db6f26408db29aaeb773efb2587c5063f2783782592c673fc0228c5f",
+    "readonly-virtio/results.json": "ae8e8a0e584cd344ae869f46cfd4d4d7a350accdbf785343f6e6fb183534e993",
+    "readonly-virtio/serial.log": "b5c840b27ddd5e7ba4e85e218c1718b12b1aec9b6b25e2afa4680d6a4da1f192",
+    "replacement/ide/01-equal-disks-selected-second.png": "6c7685b7cc4597f2865f93605cab08050aa2b0b0b7f7070f9154c954ad2850b6",
+    "replacement/ide/02-review-disk-two.png": "e4da7cbca6c7f4e74fa6096d47d940cd82de1b59233aaa5a93e8ae20a425e138",
+    "replacement/ide/03-verified-finish.png": "fe2aedb6b9ba62be5a15326c97187bbc069c895ead1d07a78bfffbfdc8157adc",
+    "replacement/ide/04-restarted-disk-two.png": "7306c50e3dacb29db20443268e9d9c259f07f2c057371bb5204f035d06322101",
+    "replacement/ide/install.log": "8c595eb0131984179b5e38f1e10108847eaba85812cd4bf2dbc63b409f3df0b7",
+    "replacement/ide/partition-managed.png": "d20e33c29a79b2c59190d5c80fa2711bd31abec9b12ce8bce3b6aef4d95a3532",
+    "replacement/ide/results.json": "94f6fb2894d2ecf2c912307e1176c94f9013ca329c65d387dc549c99900eae57",
+    "replacement/mptsas/01-equal-disks-selected-second.png": "6c7685b7cc4597f2865f93605cab08050aa2b0b0b7f7070f9154c954ad2850b6",
+    "replacement/mptsas/02-review-disk-two.png": "e4da7cbca6c7f4e74fa6096d47d940cd82de1b59233aaa5a93e8ae20a425e138",
+    "replacement/mptsas/03-verified-finish.png": "fe2aedb6b9ba62be5a15326c97187bbc069c895ead1d07a78bfffbfdc8157adc",
+    "replacement/mptsas/install.log": "89768a629245d76a889126a8d44100eb50e81404744f9455d8fea02c458a3cfe",
+    "replacement/mptsas/partition-managed.png": "d20e33c29a79b2c59190d5c80fa2711bd31abec9b12ce8bce3b6aef4d95a3532",
+    "replacement/mptsas/results.json": "f352bdf32272a4987877f92bba443bdf0d10745bb5f99b83834740ffad5a5dc4",
+    "repository-results.json": "bbdceb9721b342f0a015b9f99fa8f6538e9324ee71a51480ddaddeb9f3b4c576",
+    "safety/ide/01-existing-disk-guidance.png": "c1e60d0acf0658c3bde644ccd52e1ec3ecf1932324c726b7e35dc51fe683bd6b",
+    "safety/ide/02-disk-tools.png": "95d84dab952f699f14feacaa0de569efdb819ed56806082fa2e904495b1d5c65",
+    "safety/ide/03-erasure-permission-required.png": "f0fc05b33bd5f28e6dbb3e81d55d189671c1804394a1ded1f799fd53e0493af2",
+    "safety/ide/04-erasure-confirmed.png": "43f7fbb62fd03befacdbc440a8e3b3860338d845f54fab40ad6c255acd7fe756",
+    "safety/ide/05-too-small-actionable.png": "20c55f8ce09726500bc81aee7a402993e4390bcc263dee656d14827a581af073",
+    "safety/ide/06-no-disk-actionable.png": "917043839f3f3167b9bcb24b191c1aa5c960d94bd76145b7eae356f65aa35144",
+    "safety/ide/07-write-failure.png": "4aa937b0967e78cb22b1b3f0627a652993811b3a1499b7b50eb8885ebbcaf1ee",
+    "safety/ide/08-recoverable-return.png": "034605897eae2fd178fa1ca4b5175eeaedeca07dae38f210f0125dbf87256e85",
+    "safety/ide/absent.log": "a8fdde7aaa4701fb3de39b802f7fb459b276954cb21ae06d81d3f05a61c7ad9e",
+    "safety/ide/existing.log": "c99e4868626d717775a60a1daf95bae5514fcf3c880a4522c273df8150e4fb2d",
+    "safety/ide/failure.log": "2e847fa2bcd358dbe57dfaf3ee1df53892a466c0b679d049f706527062b9d60e",
+    "safety/ide/results.json": "2a4bd18a4c46770a5f3ded8583ee14029d26b0901cf36555f19db1dcbb4ce834",
+    "safety/mptsas/01-existing-disk-guidance.png": "c1e60d0acf0658c3bde644ccd52e1ec3ecf1932324c726b7e35dc51fe683bd6b",
+    "safety/mptsas/02-disk-tools.png": "95d84dab952f699f14feacaa0de569efdb819ed56806082fa2e904495b1d5c65",
+    "safety/mptsas/03-erasure-permission-required.png": "f0fc05b33bd5f28e6dbb3e81d55d189671c1804394a1ded1f799fd53e0493af2",
+    "safety/mptsas/04-erasure-confirmed.png": "43f7fbb62fd03befacdbc440a8e3b3860338d845f54fab40ad6c255acd7fe756",
+    "safety/mptsas/05-too-small-actionable.png": "20c55f8ce09726500bc81aee7a402993e4390bcc263dee656d14827a581af073",
+    "safety/mptsas/06-no-disk-actionable.png": "917043839f3f3167b9bcb24b191c1aa5c960d94bd76145b7eae356f65aa35144",
+    "safety/mptsas/07-write-failure.png": "4aa937b0967e78cb22b1b3f0627a652993811b3a1499b7b50eb8885ebbcaf1ee",
+    "safety/mptsas/08-recoverable-return.png": "034605897eae2fd178fa1ca4b5175eeaedeca07dae38f210f0125dbf87256e85",
+    "safety/mptsas/absent.log": "103120e514635024fc71a5226687a46627a0608a0b9c142998e0ab9ee50dc621",
+    "safety/mptsas/existing.log": "a38f741c771cd1aee80baa27610c86b74c753268e08daecac9c504f62541b12e",
+    "safety/mptsas/failure.log": "782d0e2ca097077e85e9c4d9b36bd3ebcd6c636fe2f1fe0ad88bdc95d0e468f5",
+    "safety/mptsas/results.json": "2a4bd18a4c46770a5f3ded8583ee14029d26b0901cf36555f19db1dcbb4ce834",
+    "storage-host/results.json": "70c711e1dbc4412c063494c085141b678386b167727fa300e4cea356be131530",
+    "visual-review.json": "bbdd37c78b4b9d7febafa3ab8c5efd87fcbba51835b2388e1b2be9011f10be29",
+    "vmware-results/buslogic-bios/desktop-home.png": "261729e73ef223b4e02ea72c16fb31e69f8a1eacda5bd36333e6732f10a2dfd5",
+    "vmware-results/buslogic-bios/detached-desktop-0.png": "40d7fedc84bc08574f6364d4042973778a3eb07ebf4a1c9e1e3561def497509c",
+    "vmware-results/buslogic-bios/detached-desktop-1.png": "40d7fedc84bc08574f6364d4042973778a3eb07ebf4a1c9e1e3561def497509c",
+    "vmware-results/buslogic-bios/finish.png": "84ebef640cbd08521caf83614fbf3f1396675b6085f2d052d1459f7f18bbd43d",
+    "vmware-results/buslogic-bios/install.log": "e9a9a7a3f72375a4873b970225a302480ddd34cebb8112f8cd911ed10fc1cccd",
+    "vmware-results/buslogic-bios/real-folders.png": "05b1c9252f711577a34fdb640939a0c73489ddcd1d80f7a457e9be8f2e087d12",
+    "vmware-results/buslogic-bios/restart-0.log": "1de85b0a433fa8367817a16a022efc5d989bf11907c7bedc60ac46853c2ac031",
+    "vmware-results/buslogic-bios/restart-1.log": "3e7267816d779669e79b9b8deddf0433abc02ad5e4795bf66c41ac69d53646d2",
+    "vmware-results/buslogic-bios/results.json": "71daafdc2cd7a82c74b6b7e898f3440164297797cf1e2fc7472043bddbee9659",
+    "vmware-results/buslogic-bios/review.png": "e3ea377949b9da833b719681aa56aacad29485aad082a2ec2ba9c8c2b43ac465",
+    "vmware-results/buslogic-bios/welcome.png": "782117f1919a44dcac9fa24abcd20a60898a5f8092ceff7d0fdc28089af13dbc",
+    "vmware-results/ide-bios/desktop-home.png": "cdfa774188eda0ebae2905d21f61bfe20e6a16da3e2ae06e3093b2e0936dcf41",
+    "vmware-results/ide-bios/detached-desktop-0.png": "cdfa774188eda0ebae2905d21f61bfe20e6a16da3e2ae06e3093b2e0936dcf41",
+    "vmware-results/ide-bios/detached-desktop-1.png": "cdfa774188eda0ebae2905d21f61bfe20e6a16da3e2ae06e3093b2e0936dcf41",
+    "vmware-results/ide-bios/finish.png": "84ebef640cbd08521caf83614fbf3f1396675b6085f2d052d1459f7f18bbd43d",
+    "vmware-results/ide-bios/install.log": "e5e4b59e3da660d83359a176dcf09413e0a2675d81045726d433c7c34225f002",
+    "vmware-results/ide-bios/real-folders.png": "86a06197ebb51dc13a782ead9eb53958a5c9f6258c61dbed1db9e955e4967dd0",
+    "vmware-results/ide-bios/restart-0.log": "647a0fb33e62738f4ef0bae0beec9411fa25ca872b6fd6f3f9a329af0ffbf166",
+    "vmware-results/ide-bios/restart-1.log": "e3d51f44bf5b42bc95fffd996afec475c986595c6828dc9e4ec68832d760a9f4",
+    "vmware-results/ide-bios/results.json": "d4d10995ad119aa7c879c470794325b9e44da0da140bf99d5cc201a1b84028c0",
+    "vmware-results/ide-bios/review.png": "e3ea377949b9da833b719681aa56aacad29485aad082a2ec2ba9c8c2b43ac465",
+    "vmware-results/ide-bios/welcome.png": "782117f1919a44dcac9fa24abcd20a60898a5f8092ceff7d0fdc28089af13dbc",
+    "vmware-results/ide-efi/desktop-home.png": "bcfee68e836e1b5da25b3a671d2cb92d4691f86a3093c82bb2b5658cc979682a",
+    "vmware-results/ide-efi/detached-desktop-0.png": "bcfee68e836e1b5da25b3a671d2cb92d4691f86a3093c82bb2b5658cc979682a",
+    "vmware-results/ide-efi/detached-desktop-1.png": "bcfee68e836e1b5da25b3a671d2cb92d4691f86a3093c82bb2b5658cc979682a",
+    "vmware-results/ide-efi/finish.png": "0fca97ebc8bf44df7d0ec4daca7360149f44bc345faa6590f42ff8bd9bb4a96a",
+    "vmware-results/ide-efi/install.log": "b48a7552b87a8adad919b71415b495c41a164c72fca2150051a2c347c2c4bc43",
+    "vmware-results/ide-efi/real-folders.png": "b6c2bc37ff515f75335e5e4ffcdccc2a249e1375f2832d284a36eb568f5a5fde",
+    "vmware-results/ide-efi/restart-0.log": "946401335e3532e6574b7fcce2b3d5d6797135cf2b2868427143da968a7e15b9",
+    "vmware-results/ide-efi/restart-1.log": "e07f6f55000889f49f0a88baf6fa3c2bb22be88de71a3b4490124e5bfdcefcad",
+    "vmware-results/ide-efi/results.json": "28fc38c6cdf0a6cda3466ba3dd9ea91477eb822dfcb60ec00c1c152b635a6bd5",
+    "vmware-results/ide-efi/review.png": "8479dc85aecc61076d226db852c5a220df881d29633b29d386d7172326629aad",
+    "vmware-results/ide-efi/welcome.png": "a3a0426aeee299d326daa3ad14e4a52df1f6c76e9d4806ef2604e40e6d6a0686",
+    "vmware-results/lsilogic-bios/desktop-home.png": "8ee0660cd76fa7cd3899d6eb5507223f0bbf007cc215952ba3c723f529c5ed42",
+    "vmware-results/lsilogic-bios/detached-desktop-0.png": "8ee0660cd76fa7cd3899d6eb5507223f0bbf007cc215952ba3c723f529c5ed42",
+    "vmware-results/lsilogic-bios/detached-desktop-1.png": "57ec824fd7a40c1a3e958e3f770f4989c77ff574935a1a8e9f399b9f73b6c0ba",
+    "vmware-results/lsilogic-bios/finish.png": "84ebef640cbd08521caf83614fbf3f1396675b6085f2d052d1459f7f18bbd43d",
+    "vmware-results/lsilogic-bios/install.log": "400b9d34dfe464e1b1aded2d42e4524492d0c3a86404aea8243a47dcb9737447",
+    "vmware-results/lsilogic-bios/real-folders.png": "b59693bccfee326b5c721cb020222bce79896967b55947a73141da6b4ad82a67",
+    "vmware-results/lsilogic-bios/restart-0.log": "f752c81bb6760ea3fa40cbf859bf4ae4d25a0fd9f3e2bc0aa2c05b916a36e3b2",
+    "vmware-results/lsilogic-bios/restart-1.log": "741245fbcb24c23dac7862f50601b3d27120e3b12fc962d17de344ffcc235e8f",
+    "vmware-results/lsilogic-bios/results.json": "1a5359d9dd70afefcec50d86e49f560bf93869ac9153b401b8cf399af6cd4155",
+    "vmware-results/lsilogic-bios/review.png": "e3ea377949b9da833b719681aa56aacad29485aad082a2ec2ba9c8c2b43ac465",
+    "vmware-results/lsilogic-bios/welcome.png": "782117f1919a44dcac9fa24abcd20a60898a5f8092ceff7d0fdc28089af13dbc",
+    "vmware-results/lsilogic-efi/desktop-home.png": "d4555a9381af2cd9bf801b82c27542458dd38c9b39a3751b99f35cab8389c17f",
+    "vmware-results/lsilogic-efi/detached-desktop-0.png": "d4555a9381af2cd9bf801b82c27542458dd38c9b39a3751b99f35cab8389c17f",
+    "vmware-results/lsilogic-efi/detached-desktop-1.png": "d4555a9381af2cd9bf801b82c27542458dd38c9b39a3751b99f35cab8389c17f",
+    "vmware-results/lsilogic-efi/finish.png": "0fca97ebc8bf44df7d0ec4daca7360149f44bc345faa6590f42ff8bd9bb4a96a",
+    "vmware-results/lsilogic-efi/install.log": "a409321af43233d2f71419808c2f6e1e65ee02139fedf8e8091f85906fbab999",
+    "vmware-results/lsilogic-efi/real-folders.png": "5227bdbb71bc3e17d4e2c772519eb6cd89eba490ef413a8de669c2f334b49d0b",
+    "vmware-results/lsilogic-efi/restart-0.log": "d880eea874b9e6193f5081153e1c8c1b1210c74393178b1ca7f9ef0fe9024b44",
+    "vmware-results/lsilogic-efi/restart-1.log": "4af2fab45ce275501c0e247e291cc735b19a9344bc93e28d2c4b29352dccb4bc",
+    "vmware-results/lsilogic-efi/results.json": "1105d27b76319ed6bb6da50d6074a4d5e115b186d1803e1f3e3fd8fcd0df07a8",
+    "vmware-results/lsilogic-efi/review.png": "8479dc85aecc61076d226db852c5a220df881d29633b29d386d7172326629aad",
+    "vmware-results/lsilogic-efi/welcome.png": "a3a0426aeee299d326daa3ad14e4a52df1f6c76e9d4806ef2604e40e6d6a0686",
+    "vmware-results/lsisas1068-bios/desktop-home.png": "57ec824fd7a40c1a3e958e3f770f4989c77ff574935a1a8e9f399b9f73b6c0ba",
+    "vmware-results/lsisas1068-bios/detached-desktop-0.png": "da692db03adf029b9dff39bc3ac9d939041ea22429d285f5a33e74dc9dd84210",
+    "vmware-results/lsisas1068-bios/detached-desktop-1.png": "da692db03adf029b9dff39bc3ac9d939041ea22429d285f5a33e74dc9dd84210",
+    "vmware-results/lsisas1068-bios/finish.png": "84ebef640cbd08521caf83614fbf3f1396675b6085f2d052d1459f7f18bbd43d",
+    "vmware-results/lsisas1068-bios/install.log": "e9a961a7ae952c4779d87d60a67cd98decb3a1e677044fb0e4e29594f6c79b19",
+    "vmware-results/lsisas1068-bios/real-folders.png": "805f07240a606fa6933d3c522af0a63143aff935200c6d73a1595c10c033af2e",
+    "vmware-results/lsisas1068-bios/restart-0.log": "de4c8ddfcf61d47ba8f8c83e75a413177a349b21c403599ba88164ff1fee4535",
+    "vmware-results/lsisas1068-bios/restart-1.log": "714a805f4c06365466973350004276e46ae2ae56bfceaf095561b798ff658472",
+    "vmware-results/lsisas1068-bios/results.json": "b8c7b5a7a7ebf01a56ce4f4e43253d075fa10fe54b4f1fbaf2c206db98069efd",
+    "vmware-results/lsisas1068-bios/review.png": "e3ea377949b9da833b719681aa56aacad29485aad082a2ec2ba9c8c2b43ac465",
+    "vmware-results/lsisas1068-bios/welcome.png": "782117f1919a44dcac9fa24abcd20a60898a5f8092ceff7d0fdc28089af13dbc",
+    "vmware-results/lsisas1068-efi/desktop-home.png": "8d5be7d511d6371a03eca96dfef4568af003719c401cbf483d5c3c7ad50edb57",
+    "vmware-results/lsisas1068-efi/detached-desktop-0.png": "8d5be7d511d6371a03eca96dfef4568af003719c401cbf483d5c3c7ad50edb57",
+    "vmware-results/lsisas1068-efi/detached-desktop-1.png": "8d5be7d511d6371a03eca96dfef4568af003719c401cbf483d5c3c7ad50edb57",
+    "vmware-results/lsisas1068-efi/finish.png": "0fca97ebc8bf44df7d0ec4daca7360149f44bc345faa6590f42ff8bd9bb4a96a",
+    "vmware-results/lsisas1068-efi/install.log": "723c59381a21290fed030eb9e70e401303b7e0f2f15ec37556f6bb4b6d897838",
+    "vmware-results/lsisas1068-efi/real-folders.png": "76d948c5ff06566c2759c5e57555c727e14ca50556362c6b1275a84e559e86e4",
+    "vmware-results/lsisas1068-efi/restart-0.log": "0a7b59899b3963f60de68b80f95d53360efca802ed0239c98d8c5303f27ac729",
+    "vmware-results/lsisas1068-efi/restart-1.log": "33cbdcae36bfb1c82f15311d4a591f6f954d49fb47c70097d004940a36c40978",
+    "vmware-results/lsisas1068-efi/results.json": "5a69c608a7ef8b7088fc943bcf9705e3e45627b85487313ea9a700c8fe8e2472",
+    "vmware-results/lsisas1068-efi/review.png": "8479dc85aecc61076d226db852c5a220df881d29633b29d386d7172326629aad",
+    "vmware-results/lsisas1068-efi/welcome.png": "a3a0426aeee299d326daa3ad14e4a52df1f6c76e9d4806ef2604e40e6d6a0686",
+    "vmware-results/nvme-bios/desktop-home.png": "261729e73ef223b4e02ea72c16fb31e69f8a1eacda5bd36333e6732f10a2dfd5",
+    "vmware-results/nvme-bios/detached-desktop-0.png": "261729e73ef223b4e02ea72c16fb31e69f8a1eacda5bd36333e6732f10a2dfd5",
+    "vmware-results/nvme-bios/detached-desktop-1.png": "261729e73ef223b4e02ea72c16fb31e69f8a1eacda5bd36333e6732f10a2dfd5",
+    "vmware-results/nvme-bios/finish.png": "84ebef640cbd08521caf83614fbf3f1396675b6085f2d052d1459f7f18bbd43d",
+    "vmware-results/nvme-bios/install.log": "0d3bd216a037e1075d677b4adb996d09f8ac972a25c23af39bd07261e655ea56",
+    "vmware-results/nvme-bios/real-folders.png": "c7da0c1f87d006ac278884a5b2b46c0b070e747e72231b367c2700816ab1fccb",
+    "vmware-results/nvme-bios/restart-0.log": "ec61902b9aa20757810d65ea37f9181efdbe9fab6f333818907a93b4a4073310",
+    "vmware-results/nvme-bios/restart-1.log": "169dea419694238b5bec3187a675e17c121a7a7db56c85a3740b8947ce183297",
+    "vmware-results/nvme-bios/results.json": "1b6f3c6ff754a5c1c671eeff9f20bfd5ffe947ceebb28e4688d3f6852c636ee0",
+    "vmware-results/nvme-bios/review.png": "e3ea377949b9da833b719681aa56aacad29485aad082a2ec2ba9c8c2b43ac465",
+    "vmware-results/nvme-bios/welcome.png": "782117f1919a44dcac9fa24abcd20a60898a5f8092ceff7d0fdc28089af13dbc",
+    "vmware-results/nvme-efi/desktop-home.png": "82f7681c48f32037bcafe0faae18f628c6ae362c16b9e3874e43163a13713774",
+    "vmware-results/nvme-efi/detached-desktop-0.png": "82f7681c48f32037bcafe0faae18f628c6ae362c16b9e3874e43163a13713774",
+    "vmware-results/nvme-efi/detached-desktop-1.png": "31747421280d9b923852e685e43582b051116c1afc9f56a7b9860580d46f0346",
+    "vmware-results/nvme-efi/finish.png": "0fca97ebc8bf44df7d0ec4daca7360149f44bc345faa6590f42ff8bd9bb4a96a",
+    "vmware-results/nvme-efi/install.log": "0cb6c548db41d283362fe5fbbf3fe47ce8f0a1cd6604113f48aab441ecc8a7d4",
+    "vmware-results/nvme-efi/real-folders.png": "65a4389dcc862fcff20f76bee9b6183ccddc504ca975627eb034554a510ee4ea",
+    "vmware-results/nvme-efi/restart-0.log": "fce5f0374b229020d16c7afb07da95b17b0dc560efdfb8a8a2c45480a1fe91f3",
+    "vmware-results/nvme-efi/restart-1.log": "1983c5273db5dc14946670602473da4a9ac0e681671804015b887514db8ce72f",
+    "vmware-results/nvme-efi/results.json": "143c6fbc7cfcc88d75043f4b02e833bcf90ab3f5f0fd2192d807887089a617f2",
+    "vmware-results/nvme-efi/review.png": "8479dc85aecc61076d226db852c5a220df881d29633b29d386d7172326629aad",
+    "vmware-results/nvme-efi/welcome.png": "a3a0426aeee299d326daa3ad14e4a52df1f6c76e9d4806ef2604e40e6d6a0686",
+    "vmware-results/pvscsi-bios/desktop-home.png": "ca3a949b9edee65c2463eeb3088b26551256e27e1ae013d7e2d68ed30e787791",
+    "vmware-results/pvscsi-bios/detached-desktop-0.png": "ca3a949b9edee65c2463eeb3088b26551256e27e1ae013d7e2d68ed30e787791",
+    "vmware-results/pvscsi-bios/detached-desktop-1.png": "ca3a949b9edee65c2463eeb3088b26551256e27e1ae013d7e2d68ed30e787791",
+    "vmware-results/pvscsi-bios/finish.png": "84ebef640cbd08521caf83614fbf3f1396675b6085f2d052d1459f7f18bbd43d",
+    "vmware-results/pvscsi-bios/install.log": "fd9edf733e69c0ff45fe3ff474ac177cf9121a9c1e2476ca53c60a72ccf4b8fd",
+    "vmware-results/pvscsi-bios/real-folders.png": "d3bf569415dfc402e92c831bca4e13a7730b19b35f7e4f6c9c857356aa913c18",
+    "vmware-results/pvscsi-bios/restart-0.log": "e26aa8a1a73686591a18dddca91de37875b940c520d23055e430e234a4f02e0e",
+    "vmware-results/pvscsi-bios/restart-1.log": "e963eb4e6ca754625fe33fb813d2d9b33ad077cdc33ecbdbad05dd5eeec4edf8",
+    "vmware-results/pvscsi-bios/results.json": "0640be4579b5820219a90616fd8ddd3b8aee819d26113b4d908e40c0556e0993",
+    "vmware-results/pvscsi-bios/review.png": "e3ea377949b9da833b719681aa56aacad29485aad082a2ec2ba9c8c2b43ac465",
+    "vmware-results/pvscsi-bios/welcome.png": "782117f1919a44dcac9fa24abcd20a60898a5f8092ceff7d0fdc28089af13dbc",
+    "vmware-results/pvscsi-efi/desktop-home.png": "454314ec7521b35e5eaa9c5036f1b80d348cd619b5a6088632830197ef470fa4",
+    "vmware-results/pvscsi-efi/detached-desktop-0.png": "454314ec7521b35e5eaa9c5036f1b80d348cd619b5a6088632830197ef470fa4",
+    "vmware-results/pvscsi-efi/detached-desktop-1.png": "454314ec7521b35e5eaa9c5036f1b80d348cd619b5a6088632830197ef470fa4",
+    "vmware-results/pvscsi-efi/finish.png": "0fca97ebc8bf44df7d0ec4daca7360149f44bc345faa6590f42ff8bd9bb4a96a",
+    "vmware-results/pvscsi-efi/install.log": "8ae6f65dc17f0e2de79f73623af97ce7827da545ed8be278a24c04986f2bc6e7",
+    "vmware-results/pvscsi-efi/real-folders.png": "d5408837ea8e21846226302cd60ba5be8eb8489677513c84cae24f4d5c09d9aa",
+    "vmware-results/pvscsi-efi/restart-0.log": "0910116f1510b5cd62c8f560a98ab096d5b31702cbbdd4996b2f645151953167",
+    "vmware-results/pvscsi-efi/restart-1.log": "f550ad30e35c7da73c3f861f8301d651a6511a638fb6ed5bc6418ab35b270c07",
+    "vmware-results/pvscsi-efi/results.json": "b0903d383d227f1cf29f8e48aee09fbcb9feef77935104e5b4c4ca152d031c7e",
+    "vmware-results/pvscsi-efi/review.png": "8479dc85aecc61076d226db852c5a220df881d29633b29d386d7172326629aad",
+    "vmware-results/pvscsi-efi/welcome.png": "a3a0426aeee299d326daa3ad14e4a52df1f6c76e9d4806ef2604e40e6d6a0686",
+    "vmware-results/sata-bios/desktop-home.png": "0a2786cb52a6e8adba4b03a5e53aaba09c41b3dc8bd3d961726b70583da5b7a9",
+    "vmware-results/sata-bios/detached-desktop-0.png": "0a2786cb52a6e8adba4b03a5e53aaba09c41b3dc8bd3d961726b70583da5b7a9",
+    "vmware-results/sata-bios/detached-desktop-1.png": "0a2786cb52a6e8adba4b03a5e53aaba09c41b3dc8bd3d961726b70583da5b7a9",
+    "vmware-results/sata-bios/finish.png": "84ebef640cbd08521caf83614fbf3f1396675b6085f2d052d1459f7f18bbd43d",
+    "vmware-results/sata-bios/install.log": "cf3ec7c7d929ba0c5f112bedf220933e48b34334c0db5abb7b061b82b127372b",
+    "vmware-results/sata-bios/real-folders.png": "6338f7fa4ab5083c0a05b66eb3d10c7ed098238c62654e7506502005525085c5",
+    "vmware-results/sata-bios/restart-0.log": "5c864b71b0246dfff74c1b7764b86387477836507ded9ab2d24406237a3783e8",
+    "vmware-results/sata-bios/restart-1.log": "5883f65a92d9be71cbc3f17da40fc28576ff8c682cca234fca9c63f5f2988975",
+    "vmware-results/sata-bios/results.json": "b6d4e032216c366dea74e65ef2c25fa28c2152841d58d7d9d9ea18eaf0422da7",
+    "vmware-results/sata-bios/review.png": "e3ea377949b9da833b719681aa56aacad29485aad082a2ec2ba9c8c2b43ac465",
+    "vmware-results/sata-bios/welcome.png": "782117f1919a44dcac9fa24abcd20a60898a5f8092ceff7d0fdc28089af13dbc",
+    "vmware-results/sata-efi/desktop-home.png": "9a9b46def9fe5c2b39b77920797f6ddd51f584275b758b1acd7a568319e63621",
+    "vmware-results/sata-efi/detached-desktop-0.png": "9a9b46def9fe5c2b39b77920797f6ddd51f584275b758b1acd7a568319e63621",
+    "vmware-results/sata-efi/detached-desktop-1.png": "9a9b46def9fe5c2b39b77920797f6ddd51f584275b758b1acd7a568319e63621",
+    "vmware-results/sata-efi/finish.png": "0fca97ebc8bf44df7d0ec4daca7360149f44bc345faa6590f42ff8bd9bb4a96a",
+    "vmware-results/sata-efi/install.log": "2a401bed2912fd0f2f484df028d89f0c0b9b55c325d36018f67b7c4666f3a0a9",
+    "vmware-results/sata-efi/real-folders.png": "2725f75c1eb2b26f8918f71d88ec7bee85640a4e0112f866cad27966d0e3a0ba",
+    "vmware-results/sata-efi/restart-0.log": "ee457e568999a82b1e17827814cf535180fd5e8c90886ea5b9ff666c947aa62d",
+    "vmware-results/sata-efi/restart-1.log": "cec75b6e5c9322a91d92124759a05e509d499c79ea5585f309bb3f89ae0c0844",
+    "vmware-results/sata-efi/results.json": "e12ef1f382e0f09552fbfc731eb4fce70d6b53afd114043db19fa7fb7190f50a",
+    "vmware-results/sata-efi/review.png": "8479dc85aecc61076d226db852c5a220df881d29633b29d386d7172326629aad",
+    "vmware-results/sata-efi/welcome.png": "a3a0426aeee299d326daa3ad14e4a52df1f6c76e9d4806ef2604e40e6d6a0686",
+    "vmware-results/sata-efi-starter/desktop-home.png": "7a803dfee9e90de0f16b5ff6f33a9f6b93b709652ae58f19502e45c1ca3d7e22",
+    "vmware-results/sata-efi-starter/detached-desktop-0.png": "b0cbd342ed5357b7499e759378c754535280bdcd26c7eec0f822538cecbe53fc",
+    "vmware-results/sata-efi-starter/detached-desktop-1.png": "b0cbd342ed5357b7499e759378c754535280bdcd26c7eec0f822538cecbe53fc",
+    "vmware-results/sata-efi-starter/finish.png": "0fca97ebc8bf44df7d0ec4daca7360149f44bc345faa6590f42ff8bd9bb4a96a",
+    "vmware-results/sata-efi-starter/install.log": "9fc0173e36b6d113af2532a3cd607be912253afe26f1e963224eeb366f6066f2",
+    "vmware-results/sata-efi-starter/launcher-focus.png": "4cb9a2f52f5a8c01d98e5b5a138a5630ed03c6717a7c6eab48398be27524a469",
+    "vmware-results/sata-efi-starter/original-windows-archive-task.png": "dbaf0c6a9e2fa2cfbab8c1c99995d15a2882ce1ca1e3dc617ffcb5f6746ffacf",
+    "vmware-results/sata-efi-starter/original-windows-program.png": "3f09826f77997cbb9483aa2f17bf7a5df1cd0d12864b6adedd5706bf262d537a",
+    "vmware-results/sata-efi-starter/real-folders.png": "df4875349fbfaf83b711955237e1affebaf9b6ff2d4d25ef10a1f215530cba49",
+    "vmware-results/sata-efi-starter/reinstalled-windows-product.png": "dbaf0c6a9e2fa2cfbab8c1c99995d15a2882ce1ca1e3dc617ffcb5f6746ffacf",
+    "vmware-results/sata-efi-starter/removed-windows-product.png": "ecd187bd94d4c89010d98b744c1d856fef01dc3f09660eeb7faf13fe958a3774",
+    "vmware-results/sata-efi-starter/restart-0.log": "b687299d2c50aa2c1bfa5f546cf8c159208d3610d3ca39491861290f061bc298",
+    "vmware-results/sata-efi-starter/restart-1.log": "08f4712eb76482123589cd6cff6c865efcc85d124b92f01dfbd5d78551a94af1",
+    "vmware-results/sata-efi-starter/results.json": "7b89302ce1f3b4740fadf614f9fc79a422e3880f41efc722bef988a972fe4585",
+    "vmware-results/sata-efi-starter/review.png": "8479dc85aecc61076d226db852c5a220df881d29633b29d386d7172326629aad",
+    "vmware-results/sata-efi-starter/welcome.png": "a3a0426aeee299d326daa3ad14e4a52df1f6c76e9d4806ef2604e40e6d6a0686",
+    "vmware-results/sata-efi-starter/windows-apps.png": "0213c38c4aa5f13457e9e421cdbd37cbb6e37424edc87568a8c1755beeb1c6af",
+    "window-host/results.json": "21aaad3daf737888dbb7992b7636334f373cc093154c25ea9dd30f840447756a"
+  }
+}

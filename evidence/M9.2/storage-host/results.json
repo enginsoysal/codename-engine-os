@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "scope": "Actual C registry host execution; real controller qualification remains separate",
+  "checks": [
+    "Real common storage registry rejects overflow, invalid bounds and missing buffers before invoking a driver",
+    "Capability admission requires matching identity, 512-byte sectors and both write/flush callbacks",
+    "Read-only and missing-flush devices cannot be installed; I/O and flush failures revoke admission"
+  ],
+  "source_sha256": {
+    "tests/m92/storage_host.c": "857a9991a05c29f3f4aaae6a3887ba17e692607d8251d0dd1e179a8b20a98c24",
+    "runtime/memory.c": "347823b0c99de119e0bf9d73dabdeadc3e448ac6c9045809d0dce3a132a1505e",
+    "kernel/storage/registry.c": "754c9d27d381f7165c1030ee0d84c8772f1dbfe4d45a6ddaece60a09c46884fa",
+    "include/engine/storage.h": "fb08a3a5b528efda26e9cf3c9c64ced3d34c794dba9a1e22940c4fef93c715a9"
+  }
+}

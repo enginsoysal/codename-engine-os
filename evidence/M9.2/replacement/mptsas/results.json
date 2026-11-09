@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "checks": [
+    "Native FAT32/Engine format, delete and create preserve the unrelated partition and complete other disk",
+    "full-width capacity-column click selects Disk 2 among equal-capacity GPT disks",
+    "separate erase choice and review consent before actual replacement",
+    "IDE ordinary restart loads Disk 2; QEMU LSI SAS boot remains separately unqualified",
+    "entire unselected Disk 1 SHA256 unchanged; selected volume metadata CRC independently checked"
+  ],
+  "build_id": "739982bfc3a704393db0464d145ebd71",
+  "iso_sha256": "bdf22eff371890867a7271a4461989a50d64feeec45f67699dba7b216e9c8bf2",
+  "retained_iso_restart_tested": false,
+  "scope": "native disk utility, guarded replacement and independent persisted-data verification; VMware separately qualifies SCSI startup",
+  "topology": "SATA keeper and LSI SAS target 0",
+  "unselected_disk_sha256": "773520e91c895d0ef4537b1999e77934307b4f643576f9e3b8d7325249d12d1a"
+}

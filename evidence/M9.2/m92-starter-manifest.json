@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "archive": "EngineOS-M92-VMware.zip",
+  "sha256": "2289f3909b35a4b77e8ae30051c4c8db5ff5e288b4073fc5e75e68e1fd5971eb",
+  "size": 8872439,
+  "disk": "new growable 20 GiB SATA disk; not preinstalled",
+  "firmware": "UEFI, Secure Boot off",
+  "boot_order_forced": false,
+  "network_required": false,
+  "members": [
+    "7z2606-src.tar.xz",
+    "EngineOS-M92.iso",
+    "EngineOS.vmdk",
+    "EngineOS.vmx",
+    "Inter-OFL.txt",
+    "libmspack-LGPL-2.1.txt",
+    "LICENSE",
+    "START-HERE.txt",
+    "THIRD-PARTY-NOTICES.txt"
+  ]
+}

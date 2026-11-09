@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "build_id": "739982bfc3a704393db0464d145ebd71",
+  "iso_sha256": "bdf22eff371890867a7271a4461989a50d64feeec45f67699dba7b216e9c8bf2",
+  "human_usability_study": false,
+  "questions": [
+    {
+      "question": "Is the ordinary path clear?",
+      "passed": true,
+      "evidence": "Seven visible setup steps, bordered full-row disk selection, clear review and real installed restart."
+    },
+    {
+      "question": "Is it convenient?",
+      "passed": true,
+      "evidence": "Exact extracted VMware package installs with enabled devices; no terminal command or separate driver installer."
+    },
+    {
+      "question": "Is it user friendly?",
+      "passed": true,
+      "evidence": "Separate destructive consent, navigable errors and retained document/folder data; a reachable caption restores off-screen windows."
+    },
+    {
+      "question": "Is the graphics result coherent?",
+      "passed": true,
+      "evidence": "Native clipped movement compares the whole viewport with a separate full repaint at 100/150/200 percent; real 4K capture."
+    },
+    {
+      "question": "Is essential text readable?",
+      "passed": true,
+      "evidence": "Reviewed normal installer/desktop and native HiDPI text use consistent antialiased typography; off-screen clipping is intentional and reversible."
+    }
+  ],
+  "reviewed_captures": [
+    "vmware-results/sata-efi-starter/welcome.png",
+    "vmware-results/sata-efi-starter/review.png",
+    "vmware-results/sata-efi-starter/reinstalled-windows-product.png",
+    "vmware-results/sata-efi-starter/real-folders.png",
+    "native-motion/M92-3840x2160/full-1.png",
+    "native-motion/M92-2560x1440/cached-0.png"
+  ],
+  "reviewed_capture_sha256": {
+    "vmware-results/sata-efi-starter/welcome.png": "a3a0426aeee299d326daa3ad14e4a52df1f6c76e9d4806ef2604e40e6d6a0686",
+    "vmware-results/sata-efi-starter/review.png": "8479dc85aecc61076d226db852c5a220df881d29633b29d386d7172326629aad",
+    "vmware-results/sata-efi-starter/reinstalled-windows-product.png": "dbaf0c6a9e2fa2cfbab8c1c99995d15a2882ce1ca1e3dc617ffcb5f6746ffacf",
+    "vmware-results/sata-efi-starter/real-folders.png": "df4875349fbfaf83b711955237e1affebaf9b6ff2d4d25ef10a1f215530cba49",
+    "native-motion/M92-3840x2160/full-1.png": "558c2286ce692725d8d88805943da9b31ff07c51a2f41fbe16dbd9f2f6f9aaa5",
+    "native-motion/M92-2560x1440/cached-0.png": "22ea5f1eb2778d47a6d27b4f1a1ebb98886bad4b3b6818a73af336c1b289002a"
+  },
+  "limits": [
+    "Agent scenario and native screenshot review; no child/older-adult human study",
+    "Correctness proof is distinct from smooth physical monitor frame rates or universal GPU support"
+  ]
+}

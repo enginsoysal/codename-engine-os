@@ -1,6 +1,6 @@
 # Engine OS M9.2 installation and hardware guide
 
-M9.2 qualification is in progress. Use the release only after its exact-artifact acceptance report is published. The broader hardware program remains open.
+M9.2 is qualified within M92-STORAGE-VM-v1. Use the matching [release files and checksums](../releases/m92-v0.9.2.md) and [acceptance report](../../evidence/M9.2/acceptance-results.json). The broader hardware program remains open.
 
 ## Start in VMware
 

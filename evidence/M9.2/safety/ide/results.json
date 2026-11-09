@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checks": [
+    "existing data rejected by default; full review and separate erase consent; Disk tools return; Back cancels without writes",
+    "missing disk and unsupported capacity produce in-place guidance without a misleading success",
+    "injected supported-controller write failure never reports success; Back returns to disk choice with personal choices retained"
+  ],
+  "build_id": "739982bfc3a704393db0464d145ebd71",
+  "iso_sha256": "bdf22eff371890867a7271a4461989a50d64feeec45f67699dba7b216e9c8bf2"
+}

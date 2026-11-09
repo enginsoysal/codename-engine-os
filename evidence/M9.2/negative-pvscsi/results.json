@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "build_id": "739982bfc3a704393db0464d145ebd71",
+  "iso_sha256": "bdf22eff371890867a7271a4461989a50d64feeec45f67699dba7b216e9c8bf2",
+  "first_inquiry_completion": {
+    "context": 1,
+    "reported_transferred_bytes": 0,
+    "status": 0
+  },
+  "checks": [
+    "QEMU PVSCSI reports zero transferred bytes for a successful 36-byte inquiry; strict transfer-length validation refuses admission",
+    "No installer success or disk modification; unsupported condition remains navigable"
+  ],
+  "qualified_for_installation": false,
+  "device_implementation": "QEMU PVSCSI; distinct from qualified VMware PVSCSI"
+}

@@ -1,10 +1,8 @@
 # Codename: Engine OS
 
-**Current implementation priority: M9.2 automatic writable storage and window boundaries.** IDE/SATA/SCSI installation and standalone startup, NVMe/VirtIO writes and safely clipped partially off-screen windows are being tested per controller. This work is not yet a qualified release. [Scope](docs/milestones/m9.2.md), [design](docs/architecture/storage-m92.md).
+**Current delivery: M9.2 automatic writable storage and reachable desktop windows (M92-STORAGE-VM-v1).** The named VMware IDE, SATA, LSI Logic, LSI SAS, PVSCSI and NVMe BIOS/UEFI profiles, plus compatible BusLogic BIOS, pass actual installation, persistence and two independent disk boots. Native clipping passes ordinary/150%/4K repaint and idle-memory checks. The broader hardware program remains open; recorded QEMU SAS restart failures and PVSCSI completion refusal are explicitly unqualified. [Release and downloads](docs/releases/m92-v0.9.2.md), [installation/controller guide](docs/handbook/install-m92.md), [acceptance](evidence/M9.2/acceptance-results.json), [design](docs/architecture/storage-m92.md).
 
-**VMware starter correction:** the original M9 ZIP can fail during enabled Ethernet initialization because PCIe root ports are missing. The earlier offline starter test missed this defect. Use the corrected M9.1 package; its M9 ISO is unchanged. [Corrected package and instructions](docs/handbook/install-m91.md). IDE/SCSI installation support is not added.
-
-**Current delivery: M9 graphics-first slice (M9-GFX-VM-v1).** Automatic supported VMware graphics/pointer setup, buffered composition and cached Files-window movement pass 12 exact-artifact gates. The broader M9 hardware program remains in progress. [Release/downloads](docs/releases/m9-v0.9.0.md), [VMware guide](docs/handbook/install-m9.md), [scope](docs/milestones/m9.md), [acceptance](evidence/M9/acceptance-results.json).
+M9.1 fixed the earlier VMware PCIe starter defect; M9.2 retains that corrected enabled-device configuration. Historical M9/M9.1 media and proof remain unchanged.
 
 An independent, MIT-licensed operating system with its own UEFI loader, kernel and native user runtime. MS-DOS and Windows 1.x–11 application compatibility is a long-term requirement, followed by Linux/macOS execution environments and ARM64. General compatibility is not available. M8 delivers a first bounded original Windows console/MSI profile; the wider compatibility program remains in progress.
 
