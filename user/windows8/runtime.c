@@ -19,7 +19,8 @@ void print8(const char*s){unsigned n=len8(s);while(n){unsigned part=n>4096?4096:
 void number8(uint64_t v){char s[32],r[24];unsigned n=0,p=0;do{r[n++]=(char)('0'+v%10);v/=10;}while(v);while(n)s[p++]=r[--n];s[p]=0;print8(s);}
 NORETURN void exit8(unsigned status){job8->status=status;sys8(W8_SYS_EXIT,status,0,0,0,0);for(;;)__asm__ volatile("ud2");}
 NORETURN void fail8(const char*s){copy8(job8->message,s,sizeof(job8->message));print8("\nEngine OS: ");print8(s);print8("\n");exit8(1);}
-typedef struct block8 {size_t size;struct block8*next;unsigned free,reserved;} block8;
+typedef struct __attribute__((aligned(16))) block8 {size_t size;struct block8*next;unsigned free,reserved;} block8;
+_Static_assert(sizeof(block8)==32,"Windows heap payloads require 16-byte alignment.");
 static block8 *heap8;static uint64_t heap_end8=W8_HEAP;
 void *alloc8(size_t bytes){
  if(!bytes)bytes=1;if(bytes>24*1024*1024)return 0;bytes=(bytes+15)&~(size_t)15;

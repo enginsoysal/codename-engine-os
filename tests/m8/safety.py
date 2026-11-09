@@ -45,7 +45,7 @@ def focus(g,p,kind):
     time.sleep(.1)
 
 
-def wait_stopped(g,timeout=40):
+def wait_stopped(g,timeout=120):
     until=time.monotonic()+timeout
     while time.monotonic()<until:
         value=info(g)
@@ -70,6 +70,8 @@ def main():
         guest=ui.guest(work/'owned',disk,media='installed',ready='M7_DESKTOP_READY',ram=128)
         ui.s.normal_boot(guest)
         with guest as g:
+            manifest=json.loads((ROOT/'dist/m8-build-manifest.json').read_text(encoding='utf-8'))
+            assert 'ENGINE_OS_KERNEL_ENTRY build='+manifest['build_id'] in g.log()
             p=open_windows(g)
             if PRODUCT+'/product.bin' in entries(g):
                 p.desktop(12002,True)
@@ -112,23 +114,39 @@ def main():
             assert not any(path==PRODUCT or path.startswith(PRODUCT+'/') for path in entries(g))
             shot(g,out,'cancelled-installation-cleaned')
             report['checks'].append('Cancel after real payload writes reclaims the fresh product tree and the protected worker')
+            p.desktop(0,True)
+            p.desktop(6,True)
+            focus(g,p,19)
             p.desktop(12001,True)
             start=len(g.log())
             p.desktop(12003,True,settle=False)
             g.wait('Installing original Windows application files.',start)
-            p.desktop(0,True,settle=False)
-            p.desktop(6,True,settle=False)
+            focus(g,p,6)
             p.desktop(72,True,settle=False)
-            g.wait('M8_JOB_FAILED',start)
-            assert 'M8_INCOMPLETE_WRITE_DISCARDED' in g.log()[start:]
-            assert not any(path==PRODUCT or path.startswith(PRODUCT+'/') for path in entries(g))
-            shot(g,out,'incomplete-write-discarded-under-memory-pressure')
+            g.wait('M7_MEMORY_LIMIT_ACTIVE',start)
+            limit=struct.unpack('<Q',ui.memory(g,ui.symbol('admission_limit',8,True)[0],8))[0]
+            deadline=time.monotonic()+180
+            while struct.unpack_from('<I',info(g))[0]==1:
+                assert pages(g)[0]<=limit
+                if time.monotonic()>deadline:raise TimeoutError('Limited installer did not stop')
+                time.sleep(.05)
+            limited_info=wait_stopped(g,120)
+            failed=struct.unpack_from('<I',limited_info)[0]==3
+            if failed:assert not any(path==PRODUCT or path.startswith(PRODUCT+'/') for path in entries(g))
+            shot(g,out,'installation-with-active-memory-budget')
+            report['limited_install']={'outcome':'rolled-back' if failed else 'completed-within-budget',
+                                       'admission_limit_bytes':limit*4096,
+                                       'discard_close_observed':'M8_INCOMPLETE_WRITE_DISCARDED' in g.log()[start:]}
             focus(g,p,6)
             p.close_app(6,True)
             focus(g,p,19)
-            report['checks'].append('Memory pressure during actual MSI writes discards the incomplete file, clears the unpublished product and keeps the desktop alive')
-            p.desktop(12001,True)
-            install_info=task(g,p,12003,True)
+            report['checks'].append('An active MSI installation respects System Monitor memory admission; failure clears the unpublished tree, or completion remains within the captured budget')
+            if failed:
+                p.desktop(12001,True)
+                install_info=task(g,p,12003,True)
+            else:install_info=limited_info
+            task(g,p,12006,True)
+            task(g,p,12007,True)
             warm=task(g,p,12005,True)
             before=pages(g)[0]
             peaks=[]

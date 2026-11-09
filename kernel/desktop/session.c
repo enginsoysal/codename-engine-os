@@ -986,7 +986,19 @@ NORETURN void desktop_start(const os_boot_info_v0 *boot,const m6_preferences *pr
 #endif
         }
 #ifdef ENGINE_M8
-        if(windows_work){static unsigned seen_revision8;w8_pump();unsigned revision=w8_current()->revision;if(revision!=seen_revision8||!w8_pending()){seen_revision8=revision;for(unsigned i=0;i<DESKTOP_WINDOWS;++i)if(model.windows[i].live&&model.windows[i].app==WINDOWS8){desktop_rect r=model.windows[i].bounds;const w8_info*job=w8_current();if(job->state==1&&job->command!=W8_RUN&&job->percent<95)invalidate((desktop_rect){r.x+20,r.y+350,r.width-40,135});else invalidate(r);}}}
+        if(windows_work){
+            static unsigned seen_revision8;static uint64_t next_paint8;
+            w8_pump();unsigned revision=w8_current()->revision,running=w8_pending();uint64_t now=m3_clock_ticks();
+            if((revision!=seen_revision8||!running)&&(!running||now>=next_paint8)){
+                seen_revision8=revision;next_paint8=now+10;
+                for(unsigned i=0;i<DESKTOP_WINDOWS;++i)if(model.windows[i].live&&model.windows[i].app==WINDOWS8){
+                    desktop_rect r=model.windows[i].bounds;const w8_info*job=w8_current();
+                    if(job->state==1&&job->command==W8_RUN)invalidate((desktop_rect){r.x+20,r.y+350,r.width-40,r.height-370});
+                    else if(job->state==1&&job->percent<95)invalidate((desktop_rect){r.x+20,r.y+350,r.width-40,135});
+                    else invalidate(r);
+                }
+            }
+        }
 #endif
         if(key<0){render();continue;}
         if(key==256)pointer();else{keyboard(key);
