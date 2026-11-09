@@ -93,6 +93,10 @@ unsigned size=0;while(guide[size])++size;if(v6_put(&volume,guidepath,size,source
  for(unsigned file=0;file<m6_file_count;++file){const m6_distribution_file*f=m6_files+file;if(!p->guide&&equals(f->path,"/Users/test/Documents/Welcome.txt"))continue;char path[256];unsigned n=0,off=0;if(!memcmp(f->path,"/Users/test/",12)){memcpy(path,"/Users/",7);n=7;for(unsigned j=0;j<userlen;++j)path[n++]=p->user[j];path[n++]='/';off=12;}for(;f->path[off]&&n<255;++off)path[n++]=f->path[off];if(f->path[off])return B_DENIED;path[n]=0;for(unsigned j=1;j<n;++j)if(path[j]=='/'){path[j]=0;unsigned status=directory(path);path[j]='/';if(status)return B_IO;}if(v6_put(&volume,path,f->size,source_memory,(void*)f->data))return B_IO;}
 
 #ifdef ENGINE_M7
+ #ifdef ENGINE_M8
+ extern unsigned w8_distribute(void*,const char*);
+ if(w8_distribute(&volume,user))return B_IO;
+ #endif
  if(app7_install(&volume,m7_calculator_selection()))return B_IO;
 #endif
  persistent=1;if(m6_save_settings(p)){persistent=0;return B_IO;}m6_progress(90,"Verifying partition and boot setup");if(gpt()||flush(selected)){persistent=0;return B_IO;}

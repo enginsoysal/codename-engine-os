@@ -102,6 +102,10 @@ static unsigned directory(v6_volume *volume,const char *path) {
     unsigned status=v6_mkdir(volume,path);return status==V6_EXISTS?0:status;
 }
 unsigned app7_install(v6_volume *volume,unsigned calculator) {
+#ifdef ENGINE_M8
+    extern unsigned w8_install_runtime(void*);
+    if(w8_install_runtime(volume))return V6_IO;
+#endif
 #ifdef ENGINE_M74
     extern const uint8_t miniz74_license[];extern const unsigned miniz74_license_size;
     if(calculator>1)return V6_INVALID;

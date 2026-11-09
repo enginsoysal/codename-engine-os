@@ -3,7 +3,7 @@ import hashlib,json,re
 from pathlib import Path,PurePosixPath
 from m1 import ROOT
 
-def load(path,desktop=False,standard_apps=False):
+def load(path,desktop=False,standard_apps=False,windows=False):
     base=(ROOT/'distros').resolve();path=Path(path).resolve()
     def local(p):
         p=Path(p).resolve()
@@ -22,7 +22,7 @@ def load(path,desktop=False,standard_apps=False):
         if not isinstance(d,dict) or set(d)!=expected:raise ValueError('Unsupported desktop options')
         if p['schema']==3:
             from m74 import catalogue
-            available={p['name'] for p in catalogue() if p['ready']}
+            available={p['name'] for p in catalogue(windows=windows) if p['ready']}
             if not isinstance(d['applications'],list) or any(not isinstance(v,str) or v not in available for v in d['applications']) or len(d['applications'])!=len(set(d['applications'])):raise ValueError('Invalid native application selection')
             # Deferred engines cannot be advertised as selectable working apps.
             if d['calculator']!=('calculator' in d['applications']):raise ValueError('Calculator toggle must match the native application selection')
@@ -54,7 +54,7 @@ def load(path,desktop=False,standard_apps=False):
         seen.add(r['target']);f=local(base/str(src));raw=f.read_bytes()
         if len(raw)>49152:raise ValueError('Distribution file exceeds the native 48 KiB file limit')
         inputs.append(f);files.append({'source':f.relative_to(ROOT).as_posix(),'target':r['target'],'sha256':hashlib.sha256(raw).hexdigest()})
-    return {**p,'resolved_files':files,'input_sha256':{f.relative_to(ROOT).as_posix():hashlib.sha256(f.read_bytes()).hexdigest() for f in inputs}}
+    return {**p,**({'windows_runtime':True} if windows else {}),'resolved_files':files,'input_sha256':{f.relative_to(ROOT).as_posix():hashlib.sha256(f.read_bytes()).hexdigest() for f in inputs}}
 
 def prepare(work,p):
     (work/'distro.json').write_bytes((json.dumps(p,indent=2)+'\n').encode())
@@ -67,7 +67,7 @@ def prepare(work,p):
     text+='#define DISTRO_DESKTOP_WALLPAPER 0x'+d['wallpaper'][1:]+'u\n'
     text+='#define DISTRO_DESKTOP_TAGLINE '+json.dumps(d['tagline'])+'\n'
     from m74 import catalogue
-    catalog=catalogue()
+    catalog=catalogue(windows=p.get('windows_runtime',False))
     selected=d.get('applications',[p['name'] for p in catalog if p['ready'] and (p['kind']!=4 or d['calculator'])])
     mask=sum(1<<p['kind'] for p in catalog if p['name'] in selected)
     text+='#define DISTRO_APPS74_MASK '+str(mask)+'u\n'

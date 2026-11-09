@@ -13,11 +13,14 @@
 #include <engine/network/clock.h>
 #include <engine/m4.h>
 #include <engine/m3.h>
+#ifdef ENGINE_M8
+#include <engine/windows8.h>
+#endif
 #include "build.h"
 #include "distro.h"
 
 enum { FILES=1, EDITOR, SETTINGS, CALCULATOR, DOWNLOADS, DETAILS, TERMINAL,
-       CLOCK74,CALENDAR74,DISKS74,SOFTWARE74,RECOVERY74,ARCHIVES74,IMAGES74,SCREENSHOT74,MEDIA74,BROWSER74,HELP74 };
+       CLOCK74,CALENDAR74,DISKS74,SOFTWARE74,RECOVERY74,ARCHIVES74,IMAGES74,SCREENSHOT74,MEDIA74,BROWSER74,HELP74,WINDOWS8 };
 enum { OPEN_FILES=1, OPEN_EDITOR, OPEN_SETTINGS, OPEN_CALCULATOR, OPEN_DOWNLOADS,
        OPEN_DETAILS, OPEN_TERMINAL, SAVE=20, COPY, CUT, PASTE, FILE_UP, FILE_NEW, FILE_FOLDER,
        STYLE_MINT=40, STYLE_LAVENDER, STYLE_AMBER, STYLE_DARK, STYLE_PAPER,
@@ -343,6 +346,9 @@ static void open_file74(const char *path){
     if(n>=4&&(equal(path+n-4,".zip")||equal(path+n-4,".ZIP")))kind=ARCHIVES74;
     if(n>=4&&(equal(path+n-4,".wav")||equal(path+n-4,".WAV")))kind=MEDIA74;
     if((n>=5&&equal(path+n-5,".html"))||(n>=4&&equal(path+n-4,".htm")))kind=BROWSER74;
+    #ifdef ENGINE_M8
+    if(n>=4&&(equal(path+n-4,".msi")||equal(path+n-4,".MSI")))kind=WINDOWS8;
+    #endif
     launch(kind,path);
 }
 #endif
@@ -959,7 +965,12 @@ NORETURN void desktop_start(const os_boot_info_v0 *boot,const m6_preferences *pr
         unsigned time_work=0,audio_work=0;
 #endif
         unsigned network_work=net7_work_pending();
-        if(key<0&&!network_work&&!time_work&&!audio_work){__asm__ volatile("sti; hlt":::"memory");continue;}
+#ifdef ENGINE_M8
+        unsigned windows_work=w8_pending();
+#else
+        unsigned windows_work=0;
+#endif
+        if(key<0&&!network_work&&!time_work&&!audio_work&&!windows_work){__asm__ volatile("sti; hlt":::"memory");continue;}
         __asm__ volatile("sti");
 #ifdef ENGINE_M74
         if(time_work)tick74();
@@ -974,6 +985,9 @@ NORETURN void desktop_start(const os_boot_info_v0 *boot,const m6_preferences *pr
             if(transfer&&transfer->app==DOWNLOADS&&current.state>=DOWNLOAD7_DONE)transfer_owner74=0;
 #endif
         }
+#ifdef ENGINE_M8
+        if(windows_work){static unsigned seen_revision8;w8_pump();unsigned revision=w8_current()->revision;if(revision!=seen_revision8||!w8_pending()){seen_revision8=revision;for(unsigned i=0;i<DESKTOP_WINDOWS;++i)if(model.windows[i].live&&model.windows[i].app==WINDOWS8){desktop_rect r=model.windows[i].bounds;const w8_info*job=w8_current();if(job->state==1&&job->command!=W8_RUN&&job->percent<95)invalidate((desktop_rect){r.x+20,r.y+350,r.width-40,135});else invalidate(r);}}}
+#endif
         if(key<0){render();continue;}
         if(key==256)pointer();else{keyboard(key);
 #ifdef ENGINE_M74

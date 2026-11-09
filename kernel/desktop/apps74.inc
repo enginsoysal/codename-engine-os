@@ -77,8 +77,14 @@ static void calendar_load74(application *app){
 #include "archives74.inc"
 #include "browser74.inc"
 #include "media74.inc"
+#ifdef ENGINE_M8
+#include "windows8.inc"
+#endif
 static void init74(unsigned kind,application *app){
     desktop_window *w=&model.windows[app-apps];uint64_t token=desktop_token(&model,(unsigned)(app-apps));
+    #ifdef ENGINE_M8
+    if(kind==WINDOWS8)init_windows8(app,token);
+    #endif
     if(kind==CLOCK74){app->operand=5;desktop_place(&model,token,(desktop_rect){((int)model.width-700)/2,80,700,510});}
     if(kind==CALENDAR74){
         clock7_time now;unsigned valid=!clock7_read(&now);app->year74=valid?now.year:2026;app->month74=valid?now.month:1;app->day74=valid?now.day:1;
@@ -106,7 +112,14 @@ static void init74(unsigned kind,application *app){
             "Archive Manager extracts Stored/Deflate ZIP files into a fresh Downloads folder. Image Viewer opens BMP pictures; Screenshot saves a native BMP in Pictures/Screenshots.\n\n"
             "Browser is a bounded HTML/text browser with checked HTTPS and Links. JavaScript, CSS layout, forms and embedded pictures are not supported.\n\n"
             "Media Player accepts 16-bit PCM WAV at 44.1/48 kHz, mono or stereo, using a supported analog HDA output. Other codecs and video are not implemented.\n\n"
+#ifdef ENGINE_M8
+            "Windows Apps installs and runs the included original 7-Zip 26.06 x64 console program from MSI. "
+            "Open Windows Apps, choose Install 7-Zip, confirm, then Open 7-Zip. Create and extract a test archive in Documents. "
+            "Remove app keeps your documents. Licenses are available inside Windows Apps. "
+            "Other Windows installers, Windows GUI programs and MS-DOS remain future work. "
+#else
             "This is an independent operating system. Windows and MS-DOS application compatibility is not implemented yet. "
+#endif
             "Virtual hardware support is limited to the documented profiles."
             ;send_app(app,APP7_LOAD,0,guide,sizeof(guide)-1);
     }
@@ -190,6 +203,9 @@ static void draw_calendar74(desktop_window *w,application *app,uint64_t token){
     ui73_fit(x,w->bounds.y+w->bounds.height-28,w->bounds.width-48,app->notice[0]?app->notice:app->dirty?"Unsaved note. Ctrl+S saves.":"Choose a day, type a note, then save. Notes stay on this computer.",1,ink());
 }
 static void draw74(desktop_window *w,application *app,uint64_t token){
+#ifdef ENGINE_M8
+    if(w->app==WINDOWS8){draw_windows8(w,app,token);return;}
+#endif
     int x=w->bounds.x+24,y=w->bounds.y+64;
     if(w->app==DISKS74||w->app==RECOVERY74){disks_draw74(w,app,token);return;}
     if(app->closing==5){
@@ -215,6 +231,9 @@ static void draw74(desktop_window *w,application *app,uint64_t token){
 static unsigned action74(desktop_window *w,application *app,uint64_t token,unsigned command){
     (void)token;
     if(command<10000)return 0;
+#ifdef ENGINE_M8
+    if(action_windows8(w,app,token,command))return 1;
+#endif
     if(calculator_action74(w,app,command))return 1;
     if(archives_action74(w,app,command))return 1;
     if(browser_action74(w,app,token,command))return 1;

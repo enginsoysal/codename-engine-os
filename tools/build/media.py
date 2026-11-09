@@ -9,7 +9,7 @@ ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'tools/local/python'))
 import pycdlib
 
-def fat32(files):
+def fat32(files,maximum=4*1024*1024):
     # Fixed 64 MiB profile, 512-byte clusters; three directories plus short-name files.
     sectors,reserved,fat_sectors=131072,32,1024
     data_start=reserved+2*fat_sectors
@@ -37,7 +37,7 @@ def fat32(files):
     next_cluster=5
     seen=set()
     for parent,name,payload in files:
-        if parent not in (2,4) or (parent,name) in seen or not payload or len(payload)>4*1024*1024:raise ValueError('fixture file constraints')
+        if parent not in (2,4) or (parent,name) in seen or not payload or len(payload)>maximum:raise ValueError('fixture file constraints')
         seen.add((parent,name));count=(len(payload)+511)//512
         if next_cluster+count>clusters+2:raise ValueError('FAT capacity')
         dirs[parent].append(entry(name,next_cluster,False,len(payload)))
@@ -75,9 +75,9 @@ def gpt(volume,label='Engine OS M1',first=2048,bios=None,bios_limit=0x200000):
     image[first*512:first*512+len(volume)]=volume;return image
 
 def package(output,efi,kernel,init,milestone='M1'):
-    if milestone not in ('M1','M2','M3','M4','M45','M5','M6','M7') and not re.fullmatch(r'M[67][A-Z0-9]{1,16}',milestone):raise ValueError('milestone')
+    if milestone not in ('M1','M2','M3','M4','M45','M5','M6','M7','M8') and not re.fullmatch(r'M[67][A-Z0-9]{1,16}',milestone):raise ValueError('milestone')
     output.mkdir(parents=True,exist_ok=True)
-    fat=fat32([(4,b'BOOTX64 EFI',efi),(2,b'KERNEL  ELF',kernel),(2,b'INIT    BIN',init)])
+    fat=fat32([(4,b'BOOTX64 EFI',efi),(2,b'KERNEL  ELF',kernel),(2,b'INIT    BIN',init)],maximum=12*1024*1024 if milestone.startswith('M8') else 4*1024*1024)
     (output/'efi-fat.img').write_bytes(fat);(output/f'EngineOS-{milestone}-usb.img').write_bytes(gpt(fat,'Engine OS '+milestone))
     iso=pycdlib.PyCdlib();iso.new(interchange_level=3,vol_ident='ENGINE_OS_'+milestone)
     iso.add_file(str(output/'efi-fat.img'),iso_path='/EFI.IMG;1')

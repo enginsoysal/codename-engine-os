@@ -160,3 +160,12 @@ Before physical tests: select an explicit test computer; never use the developme
 **Why/alternatives:** mandatory manual restarts delayed the first useful screen; forced-order fresh-VM tests missed retained-firmware discovery. A native test reproduced USB-to-installed UEFI Shell fallback. Register a readback-verified Engine OS short-form fallback firmware boot option before ExitBootServices, preserve foreign entries, and keep the fallback loader. Do not claim a guessed cause for the owner's separate No Media screenshot. Post-exit firmware calls require a wider ABI/memory boundary and were rejected here. The boot option may remain after cancelled setup; writable NVRAM is a qualified-profile requirement.
 
 **Verification/limits:** native complete folder tasks, independent metadata checks, unchanged data under unchecked erasure, actual M7.1 update, bounded resource/idle checks, same-VM/NVRAM unforced VMware starts, and the exact extracted public starter ZIP. Host C tests cover idempotency, foreign boot option retention, malformed/full state and denied writes. [Full mechanism, tradeoffs and evidence](desktop-m72.md), [milestone](../milestones/m7.2.md). No physical/universal hardware, foreign-app execution, ACL or general theme-engine claim.
+
+
+## M8 original Windows console and MSI profile
+
+**Choice/how:** an isolated lazy CPL3 ELF worker loads original AMD64 PE files and provides the selected Windows APIs. A digest-pinned MSI adapter reads original relational tables, expands the original cabinet through unmodified LGPL libmspack LZX code, journals owned files and publishes product registration last. A native frontend handles consent, original execution and removal. Large MSI data is a separately reserved boot module, keeping it out of the fixed kernel allocation.
+
+**Why/alternatives:** an original executable performing verified archive tasks demonstrates binary execution; host MSI execution, a native replacement or payload copying alone would not. A first console profile is testable without pretending Windows GUI/Explorer support exists. Recoverable file transactions and immutable grant boundaries protect the native system and user data.
+
+**Verification/limits:** [architecture, tradeoffs and boundaries](windows-runtime-m8.md), [first delivery contract](../milestones/m8-msi.md). General MSI, DOS, Win16/Win32, Windows GUI, services/drivers and universal Windows-version compatibility remain separate work. Host format/storage checks are distinct from complete guest execution and VMware qualification.

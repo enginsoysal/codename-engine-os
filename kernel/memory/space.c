@@ -8,7 +8,9 @@ uint64_t kernel_pd(unsigned i) {return i<4?pd_addresses[i]:0;}
 uint64_t kernel_stack_branch(void) {return stack_branch;}
 uint64_t kernel_space_init(const os_boot_info_v0 *boot) {
     if(boot->kernel.physical_address!=0x200000 || boot->kernel.byte_length>
-#ifdef ENGINE_M74
+#ifdef ENGINE_M8
+       0xc00000
+#elif defined(ENGINE_M74)
        0x800000
 #elif defined(ENGINE_M7)
        0x400000

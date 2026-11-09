@@ -119,6 +119,16 @@ unsigned v6_remove(v6_volume*v,const char*p){int n;unsigned s=prepare(v,p,&n);if
  zero(v->pending+n,sizeof(v6_entry));return commit(v);
 }
 uint64_t v6_capacity(const v6_volume*v){return v->blocks>=V6_DATA_START?(v->blocks-V6_DATA_START)*V6_PAGE:0;}
+#ifdef ENGINE_M8
+unsigned v6_rename(v6_volume*v,const char*source,const char*target,unsigned replace){
+ if(!valid_path(source)||!valid_path(target)||replace>1)return V6_INVALID;
+ int from;unsigned s=prepare(v,source,&from);if(s)return s;if(!v->entries[from].kind)return V6_NOTFOUND;
+ if(equal(source,target))return V6_OK;if(v->entries[from].kind!=1||!parent_exists(v,target))return V6_INVALID;
+ int to=find(v->entries,target);if(to>=0&&(!replace||v->entries[to].kind!=1))return V6_EXISTS;
+ if(to>=0)zero(v->pending+to,sizeof(v6_entry));zero(v->pending[from].path,256);unsigned i=0;do{v->pending[from].path[i]=target[i];}while(target[i++]);
+ return commit(v);
+}
+#endif
 uint64_t v6_used(const v6_volume*v){uint64_t n=0;for(unsigned i=0;i<V6_ENTRIES;++i)n+=count(v->entries[i].size)*V6_PAGE;return n;}
 #ifdef ENGINE_M74
 unsigned v6_read_scratch(v6_volume *v,const char *p,uint64_t off,void *data,unsigned cap,unsigned *bytes,void *scratch){

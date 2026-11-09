@@ -1,6 +1,8 @@
 # Codename: Engine OS
 
-An independent, MIT-licensed operating system with its own UEFI loader, kernel and native user runtime. MS-DOS and Windows 1.x–11 application compatibility is a long-term requirement, followed by Linux/macOS execution environments and ARM64. Those compatibility layers are not implemented yet.
+An independent, MIT-licensed operating system with its own UEFI loader, kernel and native user runtime. MS-DOS and Windows 1.x–11 application compatibility is a long-term requirement, followed by Linux/macOS execution environments and ARM64. General compatibility is not available. M8 implements a first bounded original Windows console/MSI profile, currently undergoing release qualification.
+
+**M8 in qualification:** original 7-Zip 26.06 x64 MSI installation, original executable/DLL execution and product removal. [Scope](docs/milestones/m8-msi.md), [runtime architecture](docs/architecture/windows-runtime-m8.md), [development guide](docs/handbook/windows-apps-m8.md). Build with `python tools/build/m8.py`; a build alone is not acceptance. M7.5 remains the latest accepted public release until M8 evidence and downloads are published.
 
 **Current delivery: M7.5 — clear installation and real installed restart.** Visible whole-row disk selection, useful disabled Next, automatic empty-disk setup, guarded erasure, retained choices and partial redraw. The final primary action restarts into the actual installed system, including the matching-ISO-connected case. Nine exact-artifact gates cover native 4K/64-MiB journeys, negative cases, equal-capacity disk isolation and VMware BIOS/UEFI restart plus independent disk boots. [Release/downloads](docs/releases/m75-v0.7.5.md), [installation guide](docs/handbook/install-m75.md), [design and reference review](docs/architecture/installer-m75.md), [acceptance](evidence/M7.5/acceptance-results.json). Agent novice review is not a human study; the owner's exact prior VM failure remains undiagnosed.
 
@@ -14,7 +16,7 @@ The historical [M5 release](https://github.com/enginsoysal/codename-engine-os/re
 
 ## Next product milestones
 
-**M6: real installation → M7: real desktop → M8: MS-DOS and Windows 1.x–11 applications.** M6 delivers a native graphical wizard, capacity-aware data volume, persistent local setup and tested ISO-assisted update, rollback and repair. M7 and M7.1 retain their historical named-scope acceptance. M7.3 adds native visual quality and HiDPI to the installed folder desktop; M8 is not started. [Desktop implementation status](docs/milestones/m7.md). [M6 implementation status](docs/milestones/m6.md). Existing technical acceptance remains historical; M5.1 does not satisfy the new complete product installation/desktop requirements. [Acceptance gates and choices](docs/roadmap/milestones.md) · [Current status](docs/roadmap/status.md). The product name remains **Engine OS**.
+**M6: real installation → M7: real desktop → M8: MS-DOS and Windows 1.x–11 applications.** M6 delivers a native graphical wizard, capacity-aware data volume, persistent local setup and tested ISO-assisted update, rollback and repair. M7 and M7.1 retain their historical named-scope acceptance. M7.3 adds native visual quality and HiDPI to the installed folder desktop; M8 is in progress with a separately qualified first Windows console/MSI profile. [Desktop implementation status](docs/milestones/m7.md). [M6 implementation status](docs/milestones/m6.md). Existing technical acceptance remains historical; M5.1 does not satisfy the new complete product installation/desktop requirements. [Acceptance gates and choices](docs/roadmap/milestones.md) · [Current status](docs/roadmap/status.md). The product name remains **Engine OS**.
 
 ## Install and start your desktop
 

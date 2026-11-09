@@ -18,9 +18,16 @@
     X(screenshot,15,Screenshot,"Screenshot",0,1) \
     X(media,16,MediaPlayer,"Media Player",0,1) \
     X(browser,17,Browser,"Browser",1,1) \
-    X(help,18,Help,"Help",1,1)
+    X(help,18,Help,"Help",1,1) \
+    APP8_CATALOG(X)
 
+#ifdef ENGINE_M8
+#define APP8_CATALOG(X) X(windows,19,WindowsApps,"Windows Apps",0,1)
+#define APP74_KINDS 20u
+#else
+#define APP8_CATALOG(X)
 #define APP74_KINDS 19u
+#endif
 #ifndef APP7_USER
 const char *app74_title(unsigned);
 unsigned app74_required(unsigned);

@@ -24,7 +24,11 @@ uint32_t bios_prepare(void){
         if(start<4096){add(start,end<4096?end:4096,0);start=end<4096?end:4096;}
         for(unsigned j=0;j<6&&start<end;++j){uint64_t a=reserved[j].physical_address,b=a+reserved[j].byte_length;if(b<=start||a>=end)continue;if(start<a)add(start,a,7);add(start>a?start:a,b<end?b:end,2);if(b>start)start=b;}if(start<end)add(start,end,7);
     }
-    boot.magic=OS_BOOT_MAGIC;boot.version=0;boot.structure_size=160;boot.memory_map=(os_boot_range){(uint32_t)(uintptr_t)map,map_count*40};boot.memory_descriptor_size=40;boot.memory_descriptor_version=1;boot.kernel=(os_boot_range){0x200000,BIOS_KERNEL_BYTES};boot.initimage=(os_boot_range){(uint32_t)(uintptr_t)bios_init,sizeof(bios_init)};boot.reservations=(os_boot_range){(uint32_t)(uintptr_t)reserved,sizeof(reserved)};
+    boot.magic=OS_BOOT_MAGIC;boot.version=0;boot.structure_size=160;boot.memory_map=(os_boot_range){(uint32_t)(uintptr_t)map,map_count*40};boot.memory_descriptor_size=40;boot.memory_descriptor_version=1;boot.kernel=(os_boot_range){0x200000,BIOS_KERNEL_BYTES};boot.initimage=(os_boot_range){(uint32_t)(uintptr_t)bios_init,sizeof(bios_init)};
+#ifdef BIOS_CORE_BYTES
+    boot.kernel.byte_length=BIOS_CORE_BYTES;boot.initimage=(os_boot_range){BIOS_INIT_ADDRESS,BIOS_INIT_BYTES};
+#endif
+    boot.reservations=(os_boot_range){(uint32_t)(uintptr_t)reserved,sizeof(reserved)};
     if(bios_video){const uint8_t *v=(void*)(uintptr_t)0x4200;uint16_t width,height,pitch;memcpy(&pitch,v+16,2);memcpy(&width,v+18,2);memcpy(&height,v+20,2);unsigned physical=os_read32(v+40);
         if(width&&height&&pitch>=(uint32_t)width*4&&v[25]==32&&v[31]==8&&v[33]==8&&v[35]==8&&v[34]==8&&((v[32]==16&&v[36]==0)||(v[32]==0&&v[36]==16))&&physical){boot.framebuffer=(os_boot_range){physical,(uint32_t)pitch*height};boot.framebuffer_width=width;boot.framebuffer_height=height;boot.framebuffer_stride_bytes=pitch;boot.framebuffer_format=v[32]==0?1:2;}}
     uint16_t ebda;memcpy(&ebda,(void*)(uintptr_t)0x40e,2);uint32_t root=ebda?rsdp((uint32_t)ebda<<4,((uint32_t)ebda<<4)+1024):0;if(!root)root=rsdp(0xe0000,0x100000);if(root){const uint8_t *p=(void*)(uintptr_t)root;boot.acpi=(os_boot_range){root,p[15]>=2?36:20};}

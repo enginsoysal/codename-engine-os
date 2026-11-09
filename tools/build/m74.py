@@ -3,12 +3,12 @@ import argparse
 import re
 from pathlib import Path
 
-def catalogue():
+def catalogue(windows=False):
     """Read fixed package identities, execution classes and readiness once."""
     from m1 import ROOT
     text=(ROOT/'include/engine/desktop/catalog74.h').read_text(encoding='utf-8')
     return [dict(name=name,kind=int(kind),folder=folder,title=title,worker=bool(int(worker)),ready=bool(int(ready)))
-            for name,kind,folder,title,worker,ready in re.findall(r'X\((\w+),(\d+),(\w+),"([^"]+)",([01]),([01])\)',text)]
+            for name,kind,folder,title,worker,ready in re.findall(r'X\((\w+),(\d+),(\w+),"([^"]+)",([01]),([01])\)',text) if windows or int(kind)<19]
 
 def applications():
     """Only actual ready CPL3 programs become executable build artifacts."""

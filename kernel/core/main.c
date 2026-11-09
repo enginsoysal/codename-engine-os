@@ -44,7 +44,13 @@ NORETURN void kernel_main(const os_boot_info_v0 *boot) {
            ranges[j].physical_address<ranges[i].physical_address+ranges[i].byte_length)reject("reserved memory overlap");
     }
     const uint8_t *init=(const uint8_t*)(uintptr_t)boot->initimage.physical_address;
-    if(boot->initimage.byte_length!=48 || memcmp(init,"ENGINIT1",8) || os_read32(init+8)!=48 ||
+    if(
+#ifdef ENGINE_M8
+       (boot->initimage.byte_length!=48&&(boot->initimage.byte_length<96||boot->initimage.byte_length>4*1024*1024||memcmp(init+48,"ENGMSI81",8)||os_read64(init+56)!=boot->initimage.byte_length-96)) ||
+#else
+       boot->initimage.byte_length!=48 ||
+#endif
+       memcmp(init,"ENGINIT1",8) || os_read32(init+8)!=48 ||
        memcmp(init+16,BUILD_ID,32) || os_read32(init+12)>
 #ifdef ENGINE_M5
        7)reject("initimage");
@@ -53,6 +59,10 @@ NORETURN void kernel_main(const os_boot_info_v0 *boot) {
 #else
        4)reject("initimage");
 #endif
+    #ifdef ENGINE_M8
+    extern unsigned w8_boot_package(const void*,unsigned);
+    if(boot->initimage.byte_length>48&&w8_boot_package(init+96,(unsigned)boot->initimage.byte_length-96))reject("M8 original MSI boot module digest");
+    #endif
     if(boot->framebuffer.byte_length && (!low_range(boot->framebuffer.physical_address,boot->framebuffer.byte_length) ||
        boot->framebuffer_width>8192 || boot->framebuffer_height>8192))reject("framebuffer bounds");
     display_boot(boot);
@@ -60,7 +70,11 @@ NORETURN void kernel_main(const os_boot_info_v0 *boot) {
     serial_text("OWN_GDT_TSS_IDT_OK cs=");serial_hex(cs);serial_text(" cr3=");serial_hex(cr3);serial_text("\n");
     serial_text("BOOTINFO_AND_MEMORY_OWNERSHIP_OK\n");
     serial_text("ENGINE_OS_KERNEL_ONLINE build=" BUILD_ID "\n");
+#ifdef ENGINE_M8
+    serial_text("M8_ORIGINAL_WINDOWS_CONSOLE_PROFILE_SEPARATE_FROM_GENERATION_QUALIFICATION\n");
+#else
     serial_text("WINDOWS_95_11_PROFILES_RESERVED_NOT_IMPLEMENTED\n");
+#endif
     uint32_t mode=os_read32(init+12);
     if(mode==2)kernel_fault_probe();
 #ifdef ENGINE_M2

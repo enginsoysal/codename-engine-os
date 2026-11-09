@@ -28,6 +28,9 @@ unsigned v6_mkdir(v6_volume*,const char*);
 unsigned v6_put(v6_volume*,const char*,uint64_t,v6_source,void*);
 unsigned v6_read(v6_volume*,const char*,uint64_t,void*,unsigned,unsigned*);
 unsigned v6_remove(v6_volume*,const char*);
+#ifdef ENGINE_M8
+unsigned v6_rename(v6_volume*,const char*,const char*,unsigned);
+#endif
 unsigned v6_verify(v6_volume*,const char*);
 uint64_t v6_capacity(const v6_volume*);
 uint64_t v6_used(const v6_volume*);

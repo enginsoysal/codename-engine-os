@@ -73,14 +73,32 @@ efi_status efi_main(efi_handle image,efi_system_table *system) {
     serial_text("M75_INSTALLED_LOADER\n");
 #endif
     uint64_t elf_size=0,init_size=0;
-    uint8_t *elf=read_file(root,(uint16_t*)u"\\KERNEL.ELF",4*1024*1024,&elf_size);
-    uint8_t *init=read_file(root,(uint16_t*)u"\\INIT.BIN",4096,&init_size);
+    uint8_t *elf=read_file(root,(uint16_t*)u"\\KERNEL.ELF",
+#ifdef ENGINE_M8
+       12*1024*1024,
+#else
+       4*1024*1024,
+#endif
+       &elf_size);
+    uint8_t *init=read_file(root,(uint16_t*)u"\\INIT.BIN",
+#ifdef ENGINE_M8
+        4*1024*1024,
+#else
+        4096,
+#endif
+        &init_size);
 #ifdef ENGINE_SECURE_PAYLOAD
     extern unsigned engine_payload_trust(efi_system_table*,const void*,size_t,const void*,size_t);
     if(engine_payload_trust(system,elf,elf_size,init,init_size))fail("payload SHA256 or firmware trust state");
 #endif
     if(EFI_ERROR(root->close(root)))fail("close root");
-    if(init_size!=48 || memcmp(init,"ENGINIT1",8) || os_read32(init+8)!=48 || os_read32(init+12)>
+    if(
+#ifdef ENGINE_M8
+       (init_size!=48&&(init_size<96||memcmp(init+48,"ENGMSI81",8)||os_read64(init+56)!=init_size-96)) ||
+#else
+       init_size!=48 ||
+#endif
+       memcmp(init,"ENGINIT1",8) || os_read32(init+8)!=48 || os_read32(init+12)>
 #ifdef ENGINE_M5
        7 ||
 #elif defined(ENGINE_M45)

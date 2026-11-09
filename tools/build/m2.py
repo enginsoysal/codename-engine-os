@@ -8,15 +8,16 @@ import struct
 from m1 import ROOT,pinned_tools,command,sha
 from media import package
 BUILD=ROOT/'build/m2'
-def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard",m7=False,m71=False,m72=False,m73=False,m74=False,m75=False):
+def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard",m7=False,m71=False,m72=False,m73=False,m74=False,m75=False,m8=False):
     global BUILD
+    m75=m75 or m8
     m74=m74 or m75
     m73=m73 or m74
     m72=m72 or m73
     m71=m71 or m72
     m7=m7 or m71
     m6=m6 or m7
-    flavor='m75' if m75 else 'm74' if m74 else 'm73' if m73 else 'm72' if m72 else 'm71' if m71 else 'm7' if m7 else 'm6'
+    flavor='m8' if m8 else 'm75' if m75 else 'm74' if m74 else 'm73' if m73 else 'm72' if m72 else 'm71' if m71 else 'm7' if m7 else 'm6'
     BUILD=ROOT/'build'/(flavor if m6 else milestone.lower())
     tools=pinned_tools();BUILD.mkdir(parents=True,exist_ok=True)
     sources=[]
@@ -45,8 +46,17 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
             if sha(ROOT/'third_party/miniz'/filename)!=expected:raise ValueError('Pinned miniz source changed: '+filename)
         for folder in ('third_party/miniz','third_party/miniz-port'):
             sources.extend(p for p in (ROOT/folder).iterdir() if p.is_file())
+    if m8:
+        for folder in ('7zip','libmspack'):
+            provenance=json.loads((ROOT/'third_party'/folder/'provenance.json').read_text(encoding='utf-8'))
+            pins={k:v['sha256'] for k,v in provenance['files'].items()} if folder=='7zip' else provenance['files_sha256']
+            for filename,expected in pins.items():
+                if sha(ROOT/'third_party'/folder/filename)!=expected:raise ValueError('Pinned M8 upstream bytes changed: '+filename)
+        sources.extend(sorted((ROOT/'tools/build').glob('m8*.py')))
+        for folder in ('third_party/7zip','third_party/libmspack','third_party/libmspack-port'):
+            sources.extend(p for p in (ROOT/folder).rglob('*') if p.is_file())
     hashes={p.relative_to(ROOT).as_posix():sha(p) for p in sorted(sources)}
-    identity={'milestone':'M75' if m75 else 'M74' if m74 else 'M73' if m73 else 'M72' if m72 else 'M71' if m71 else 'M7' if m7 else 'M6' if m6 else milestone,'source_sha256':hashes}
+    identity={'milestone':'M8' if m8 else 'M75' if m75 else 'M74' if m74 else 'M73' if m73 else 'M72' if m72 else 'M71' if m71 else 'M7' if m7 else 'M6' if m6 else milestone,'source_sha256':hashes}
     if m6:identity['revision']=m6_revision
     build_id=hashlib.sha256(json.dumps(identity,sort_keys=True).encode()).hexdigest()[:32]
     (BUILD/'build.h').write_text(f'#define BUILD_ID "{build_id}"\n',encoding='utf-8')
@@ -61,6 +71,7 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     if m73:common.append('-DENGINE_M73')
     if m74:common.append('-DENGINE_M74')
     if m75:common.append('-DENGINE_M75')
+    if m8:common.append('-DENGINE_M8')
     if m75 and m5_live:common.append('-DENGINE_SETUP_MEDIA75')
     if m7:
         common.extend(('-DENGINE_M7','-I',ROOT/'third_party/bearssl/inc','-I',ROOT/'third_party/bearssl-port'))
@@ -94,6 +105,9 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
                 image=BUILD/('APP7-'+app+'.ELF')
                 shutil.copyfile(image,BUILD/('APP7-'+app+'-debug.ELF'))
                 image.write_bytes(compact_elf(image.read_bytes()))
+    if m8:
+        from m8 import runtime
+        runtime(BUILD,tools,common)
     if milestone=='M5':
         common.append('-DENGINE_M5')
         if m6:
@@ -148,12 +162,13 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     if m71:inputs+=('kernel/install/disk71.c',)
     elif milestone=='M5' and not m6:inputs+=('kernel/install/m5.c','build/m5/installer-image.c')
     if m74:inputs+=('kernel/audio/hda74.c',)
+    if m8:inputs+=('kernel/windows8/process.c','kernel/windows8/enter.S','runtime/sha256.c')
     if distro and not m6:inputs+=('kernel/install/guided.c',)
     kernel=[compile_file(p,'kernel',p.endswith('.S')) for p in inputs]
     if m7:
         from bearssl import objects as bearssl_objects
-        dependency=bearssl_objects(ROOT/'build/m7/bearssl-linked',tools,
-            [*common,'-fno-pic','-fno-pie','-fno-asynchronous-unwind-tables'])
+        dependency=bearssl_objects(BUILD/'bearssl-linked' if m8 else ROOT/'build/m7/bearssl-linked',tools,
+            ([flag for flag in common if flag!='-DENGINE_SETUP_MEDIA75']+['-fno-pic','-fno-pie','-fno-asynchronous-unwind-tables']) if m8 else [*common,'-fno-pic','-fno-pie','-fno-asynchronous-unwind-tables'])
         kernel+=['--start-lib',*dependency,'--end-lib']
     link=['-T',ROOT/'kernel/arch/x86_64/linker.ld','--build-id=none','-Map='+str(BUILD/'kernel.map'),'-o',BUILD/'KERNEL.ELF',*kernel]
     if m7:
@@ -166,12 +181,16 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     if command([nm,'-u',BUILD/'KERNEL.ELF']).strip():raise RuntimeError('Undefined kernel symbols')
     map_path=BUILD/'kernel.map';map_path.write_text(map_path.read_text(encoding='utf-8').replace(str(ROOT),'.').replace(ROOT.as_posix(),'.'),encoding='utf-8')
     if m6 and any(sha(ROOT/p)!=value for p,value in hashes.items()):raise RuntimeError('Build inputs changed during compilation; discard mixed outputs and rebuild')
-    artifact_name=(('M75' if m75 else 'M74' if m74 else 'M73' if m73 else 'M72' if m72 else 'M71' if m71 else 'M7' if m7 else 'M6')+('' if m6_revision=='standard' else m6_revision.upper())) if m6 else milestone
+    artifact_name=(('M8' if m8 else 'M75' if m75 else 'M74' if m74 else 'M73' if m73 else 'M72' if m72 else 'M71' if m71 else 'M7' if m7 else 'M6')+('' if m6_revision=='standard' else m6_revision.upper())) if m6 else milestone
     if m73:
         from m5_layout import compact_elf
         shutil.copyfile(BUILD/'KERNEL.ELF',BUILD/'KERNEL-debug.ELF')
         (BUILD/'KERNEL.ELF').write_bytes(compact_elf((BUILD/'KERNEL.ELF').read_bytes()))
-    init=struct.pack('<8sII32s',b'ENGINIT1',48,0,build_id.encode());(BUILD/'INIT.BIN').write_bytes(init)
+    init=struct.pack('<8sII32s',b'ENGINIT1',48,0,build_id.encode())
+    if m8 and m5_live:
+        payload=(ROOT/'third_party/7zip/7z2606-x64.msi').read_bytes()
+        init+=struct.pack('<8sQ32s',b'ENGMSI81',len(payload),hashlib.sha256(payload).digest())+payload
+    (BUILD/'INIT.BIN').write_bytes(init)
     package(BUILD/'normal',(BUILD/'BOOTX64.EFI').read_bytes(),(BUILD/'KERNEL.ELF').read_bytes(),init,artifact_name)
     dist=ROOT/'dist';dist.mkdir(exist_ok=True)
     for name in (f'EngineOS-{artifact_name}.iso',f'EngineOS-{artifact_name}-usb.img'):shutil.copyfile(BUILD/'normal'/name,dist/name)
@@ -181,7 +200,11 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
         for app,kind in (applications() if m74 else [('editor',2),('calculator',4)]):shutil.copyfile(BUILD/('APP7-'+app+'.ELF'),dist/('EngineOS-'+artifact_name+'-'+app+'.elf'))
     artifacts={p.name:{'sha256':sha(p),'size':p.stat().st_size} for p in sorted(dist.glob(f'EngineOS-{artifact_name}*')) if p.is_file()}
     for name in artifacts:
-        if re.search(rb'[Cc]:[\\/]+Users[\\/]+',(dist/name).read_bytes()):raise RuntimeError('Host user path in '+name)
+        payload=(dist/name).read_bytes()
+        if m8:
+            from m8 import privacy_input
+            payload=privacy_input(payload)
+        if re.search(rb'[Cc]:[\\/]+Users[\\/]+',payload):raise RuntimeError('Host user path in '+name)
     manifest={'milestone':milestone,'build_id':build_id,'source_sha256':hashes,'artifacts':artifacts,'mode':'normal',
               'limits':(['native VM scope: 1/2/4 active xAPIC CPUs, fixed process affinity, serialized kernel',
                          'ACPI MADT, xAPIC, 64-bit HPET and startup page 0x8000 required',

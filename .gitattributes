@@ -26,3 +26,9 @@ third_party/inter/OFL.txt whitespace=-blank-at-eol
 
 # Preserve digest-pinned upstream miniz bytes, including its license line endings.
 third_party/miniz/** -text -whitespace
+
+# Preserve original M8 upstream packages and decoder sources byte for byte.
+third_party/7zip/** -text -whitespace
+third_party/libmspack/** -text -whitespace
+*.msi binary
+*.xz binary
