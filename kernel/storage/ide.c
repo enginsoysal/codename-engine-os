@@ -26,7 +26,17 @@ static unsigned flush92(unsigned context){if(context>=disk_count)return B_DENIED
 #endif
 
 static void channel(unsigned bdf,uint16_t io,uint16_t control,unsigned channel_number){
-    if(!io||!control||channel_count==8)return;for(unsigned i=0;i<channel_count;++i)if(channels[i]==io)return;channels[channel_count++]=io;out8(control,6);delay(control);out8(control,2);delay(control);
+    if(!io||!control||channel_count==8)return;for(unsigned i=0;i<channel_count;++i)if(channels[i]==io)return;channels[channel_count++]=io;out8(control,6);
+#ifdef ENGINE_M92
+    /* ATA software reset needs at least 5 us asserted and 2 ms to settle.
+       One bounded HPET tick covers each minimum before probing both units. */
+    uint64_t reset_end=m3_clock_ticks()+1;while(m3_clock_ticks()<reset_end)__asm__ volatile("pause");
+#endif
+    delay(control);out8(control,2);
+#ifdef ENGINE_M92
+    reset_end=m3_clock_ticks()+1;while(m3_clock_ticks()<reset_end)__asm__ volatile("pause");
+#endif
+    delay(control);
     for(unsigned slave=0;slave<2&&disk_count<8&&storage_count()<STORAGE_MAX;++slave){ide_disk d={io,control,slave,512,0,0};out8(io+6,(uint8_t)(0xa0|(slave<<4)));delay(control);unsigned status=in8(io+7);if(!status||status==255)continue;
         out8(io+2,0);out8(io+3,0);out8(io+4,0);out8(io+5,0);out8(io+7,0xec);delay(control);if(wait(&d,1))continue;uint16_t id[256];transfer(&d,id,512);
         d.lba48=!!(id[83]&(1u<<10));d.sectors=d.lba48?((uint64_t)id[100]|((uint64_t)id[101]<<16)|((uint64_t)id[102]<<32)|((uint64_t)id[103]<<48)):((uint64_t)id[60]|((uint64_t)id[61]<<16));
