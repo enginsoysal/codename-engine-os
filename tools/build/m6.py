@@ -126,7 +126,8 @@ def build(revision="standard",profile_path=None,desktop=False,disk_manager=False
         live['limits']+=['Bounded buffered software 2D composition and optional automatic VMware SVGA II presentation; no 3D or universal GPU driver']
     if hardware:
         live.update(qualification_scope='M92-STORAGE-VM-v1',release_version='0.9.2')
-        live['limits']+=['IDE/SCSI and off-screen movement require exact M9.2 controller/task acceptance; universal hardware is not implied']
+        live['limits'][0]='Requires matching M92-STORAGE-VM-v1 exact-artifact controller/task acceptance; broader hardware support remains in progress'
+        live['limits']+=['Installation requires a supported native controller with read/write/flush, 512-byte logical sectors and a 2-GiB to 2-TiB target; no 4Kn installation', 'Partially off-screen windows retain a reachable title-bar grip; no multi-monitor desktop']
     live['artifacts']={p.name:{'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'size':p.stat().st_size} for p in [ROOT/'dist'/('EngineOS-'+name+suffix) for suffix in ('.iso','-usb.img','-kernel.elf','-kernel.map','-user.elf')] if p.is_file()}
     if desktop:
         for suffix,source in [('.elf',installed/'KERNEL.ELF'),('.map',installed/'kernel.map')]:

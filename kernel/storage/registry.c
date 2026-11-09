@@ -10,7 +10,13 @@ void storage_inventory(void){
     if(!count){console_text("No readable storage devices discovered.\n");return;}
     for(unsigned i=0;i<count;++i){const storage_disk *d=&disks[i];console_text("Disk ");console_decimal(i);console_text(d->transport==STORAGE_AHCI?" SATA/AHCI":d->transport==STORAGE_NVME?" NVMe":d->transport==STORAGE_USB?" USB":d->transport==STORAGE_IDE?" ATA/PIO":d->transport==STORAGE_SCSI?" SCSI":" VirtIO");console_text(" - ");
         if(d->sector_bytes&&d->sectors<=UINT64_MAX/d->sector_bytes){console_decimal(d->sectors*d->sector_bytes/(1024*1024));console_text(" MiB");}else console_text("capacity overflow");
-        console_text(" - ");console_decimal(d->sector_bytes);console_text(" bytes/sector - ");if(d->status){console_text("read error ");console_decimal(d->status);}else console_text(d->readable?"readable":"unsupported sector/profile");console_text(d->marked?" - development volume\n":" - read-only discovery\n");}
+        console_text(" - ");console_decimal(d->sector_bytes);console_text(" bytes/sector - ");if(d->status){console_text("read error ");console_decimal(d->status);}else console_text(d->readable?"readable":"unsupported sector/profile");
+#ifdef ENGINE_M92
+        console_text(storage_can_write(d)?" - read/write/flush available\n":" - inspection only or unavailable\n");
+#else
+        console_text(d->marked?" - development volume\n":" - read-only discovery\n");
+#endif
+    }
 }
 static uint32_t pci(unsigned bdf,unsigned reg){uint32_t value,address=0x80000000u|(bdf<<8)|(reg&252);__asm__ volatile("outl %0,%1"::"a"(address),"Nd"((uint16_t)0xcf8));__asm__ volatile("inl %1,%0":"=a"(value):"Nd"((uint16_t)0xcfc));return value;}
 void hardware_inventory(void){unsigned shown=0;for(unsigned bus=0;bus<256&&shown<128;++bus)for(unsigned dev=0;dev<32&&shown<128;++dev){unsigned first=(bus<<8)|(dev<<3);if((pci(first,0)&65535)==65535)continue;unsigned functions=pci(first,12)&0x800000?8:1;for(unsigned f=0;f<functions&&shown<128;++f){unsigned bdf=first|f;if((pci(bdf,0)&65535)==65535)continue;unsigned cls=pci(bdf,8)>>8;console_text("PCI ");console_decimal(bus);console_text(":");console_decimal(dev);console_text(".");console_decimal(f);console_text(" class=");console_hex(cls);unsigned bound=0;for(unsigned i=0;i<count;++i)bound|=disks[i].bdf==bdf&&disks[i].readable;

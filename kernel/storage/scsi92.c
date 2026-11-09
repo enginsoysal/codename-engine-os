@@ -4,6 +4,7 @@
 #define ADAPTERS92 4u
 typedef struct {volatile uint32_t*regs;unsigned bdf,kind,dead,sequence,bar,irq;uint16_t io;uint64_t request,reply,data,sense,state;uint32_t producer,consumer;uint64_t commands,timeouts,interrupts,halts;} adapter92;
 typedef struct {unsigned adapter,target;uint32_t bytes;uint64_t sectors;} disk92;
+static volatile unsigned waiting92;
 static adapter92 adapters92[ADAPTERS92];static disk92 disks92[STORAGE_MAX];static unsigned adapter_count92,disk_count92;
 static uint32_t pci92(unsigned b,unsigned r){uint32_t v,a=0x80000000u|(b<<8)|(r&252);__asm__ volatile("outl %0,%1"::"a"(a),"Nd"((uint16_t)0xcf8));__asm__ volatile("inl %1,%0":"=a"(v):"Nd"((uint16_t)0xcfc));return v;}
 static void setpci92(unsigned b,unsigned r,uint32_t v){uint32_t a=0x80000000u|(b<<8)|(r&252);__asm__ volatile("outl %0,%1"::"a"(a),"Nd"((uint16_t)0xcf8));__asm__ volatile("outl %0,%1"::"a"(v),"Nd"((uint16_t)0xcfc));}
@@ -30,6 +31,7 @@ static unsigned handshake92(adapter92*a,uint8_t*request,unsigned bytes,uint8_t*r
 }
 static void idle92(adapter92*a){if(a->irq){++a->halts;__asm__ volatile("sti;hlt;cli":::"memory");}else __asm__ volatile("pause");}
 unsigned scsi92_irq(uint64_t*frame){
+ if(frame[15]==32&&waiting92){out8(0x20,0x20);return 1;}
  if(frame[15]!=150)return 0;for(unsigned i=0;i<adapter_count92;++i){adapter92*a=&adapters92[i];if(!a->irq||a->dead)continue;
   if(a->kind==1){if(a->regs[12]&8){++a->interrupts;a->regs[13]|=8;}}
   else if(a->kind==2){unsigned status=a->regs[0x100c/4];if(status){++a->interrupts;a->regs[0x100c/4]=status;}}
@@ -96,9 +98,9 @@ static unsigned buslogic_command92(adapter92*a,unsigned target,const uint8_t*cdb
 static unsigned command92(adapter92*a,unsigned target,const uint8_t*cdb,unsigned length,void*buffer,unsigned bytes,unsigned write){
  if(a->dead)return B_IO;if(length>16||!length||bytes>4096||(bytes&&!buffer))return B_DENIED;
  if(bytes){if(write)memcpy((void*)(uintptr_t)a->data,buffer,bytes);else memset((void*)(uintptr_t)a->data,0,bytes);}
- uint64_t flags=0;uint8_t mask=0;if(a->irq){__asm__ volatile("pushfq;popq %0;cli":"=r"(flags)::"memory");mask=in8(0x21);out8(0x21,mask&~1u);}
+ uint64_t flags=0;uint8_t mask=0;if(a->irq){__asm__ volatile("pushfq;popq %0;cli":"=r"(flags)::"memory");mask=in8(0x21);waiting92=1;out8(0x21,mask&~1u);}
  unsigned status=0,scsi=0;for(unsigned attempt=0;attempt<3;++attempt){++a->commands;status=a->kind==1?mpi_command92(a,target,cdb,length,bytes,write,&scsi):a->kind==2?pv_command92(a,target,cdb,length,bytes,write,&scsi):buslogic_command92(a,target,cdb,length,bytes,write,&scsi);if(status||!scsi)break;uint8_t*sense=(void*)(uintptr_t)a->sense;if(scsi!=2||(sense[2]&15)!=6)break;}
- if(a->irq){out8(0x21,mask);if(flags&512)__asm__ volatile("sti":::"memory");}
+ if(a->irq){out8(0x21,mask);waiting92=0;if(flags&512)__asm__ volatile("sti":::"memory");}
  if(status)return status;if(scsi)return B_IO;if(bytes&&!write)memcpy(buffer,(void*)(uintptr_t)a->data,bytes);return B_OK;
 }
 static unsigned transfer92(unsigned index,uint64_t lba,void*buffer,unsigned bytes,unsigned write){

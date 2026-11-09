@@ -95,9 +95,10 @@ def configure92(g,descriptor,controller,firmware):
     return base+observation
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--firmware',choices=['efi','bios'],default='efi');p.add_argument('--starter',action='store_true');p.add_argument('--controller',choices=['sata','ide','lsilogic','lsisas1068','pvscsi','buslogic','nvme'],default='sata');a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--firmware',choices=['efi','bios'],default='efi');p.add_argument('--starter',action='store_true');p.add_argument('--storage-only',action='store_true');p.add_argument('--controller',choices=['sata','ide','lsilogic','lsisas1068','pvscsi','buslogic','nvme'],default='sata');a=p.parse_args()
     work=ROOT/'build/m92/vmware'/a.controller/a.firmware/uuid.uuid4().hex;work.mkdir(parents=True)
     out=ROOT/'build/m92/vmware-results'/(a.controller+'-'+a.firmware+('-starter' if a.starter else ''));out.mkdir(parents=True,exist_ok=True)
+    meta=json.loads((ROOT/'dist/m92-build-manifest.json').read_text(encoding='utf-8'));iso_hash=hashlib.sha256((ROOT/'dist/EngineOS-M92.iso').read_bytes()).hexdigest();assert iso_hash==meta['artifacts']['EngineOS-M92.iso']['sha256']
     before=v.old.v.inventory();report={'passed':False,'firmware':a.firmware,'controller':a.controller,'checks':[],'owned_fixture_id':work.name}
     try:
         disk=sparse(work/'owned-flat.img',20*1024**3)
@@ -135,15 +136,17 @@ def main():
             report['dhcp_configured_with_shipped_nat']=True
             g.rfb.close();g.rfb=None
             v.shot(g,out,'desktop-home')
-            windows_tasks(g,out)
-            v.key(g,0xff1b)
+            assert 'ENGINE_OS_KERNEL_ENTRY build='+meta['build_id'] in g.read()
+            if not a.storage_only:
+                windows_tasks(g,out)
+                v.key(g,0xff1b)
             v.tab(g,8);v.enter(g);g.wait('M72_FOLDER_VISIT /Users/Owner/Documents')
             v.tab(g,4);v.enter(g)
             for char in 'vmware-folders':v.key(g,ord(char))
             v.enter(g);g.wait('M72_FOLDER_CREATED /Users/Owner/Documents/vmware-folders');v.shot(g,out,'real-folders');(out/'install.log').write_bytes(g.read().encode())
         if not a.starter:assert '/Users/Owner/Documents/vmware-folders' in s.directories(disk)
         nvram=list(g.folder.glob('*.nvram'))+list(g.folder.glob('nvram'));assert nvram or a.firmware=='bios'
-        report['checks'].append('offline 20-GiB real installation to immediate persistent desktop, keyboard-only folder creation, independent metadata verification')
+        report['checks'].append('Enabled-device 20-GiB real installation to immediate persistent desktop, keyboard-only folder creation, independent metadata verification')
         # Reopen this exact VMX/NVRAM. Disconnect the CD, retaining the SAME hard disk.
         cfg=g.vmx.read_text(encoding='utf-8');cfg=re.sub(r'(?im)^ide1:0.startConnected\s*=.*$', 'ide1:0.startConnected = "FALSE"',cfg)
         assert 'bios.bootOrder' not in cfg;g.vmx.write_bytes(cfg.encode());g.installed=True
@@ -161,15 +164,21 @@ def main():
             report['independent_container_reader_sha256']=hashlib.sha256(tool.read_bytes()).hexdigest()
         report['checks'].append('same VMX and retained NVRAM, optical drive still present but disconnected; two unforced hard-disk boots to desktop; actual folder retained')
         inspection=converted if a.starter else disk
-        from lifecycle import payloads
-        report['original_payload_sha256']=payloads(inspection)
-        source=s.s.document(inspection,'/Users/Owner/Documents/EngineOS-Windows.txt')
-        extracted=s.s.document(inspection,'/Users/Owner/Documents/EngineOS-Windows-Extracted/EngineOS-Windows.txt')
-        assert source==extracted
-        archive=s.s.document(inspection,'/Users/Owner/Documents/EngineOS-Windows.zip',8*1024**2)
-        with zipfile.ZipFile(io.BytesIO(archive)) as check:assert check.testzip() is None and check.read('EngineOS-Windows.txt')==source
-        report['document_sha256']=hashlib.sha256(source).hexdigest()
-        report['checks'].append('Original MSI install/run/ZIP/extract/remove/reinstall through real guest keys; independent container inspection verifies all 106 original payload hashes and exact archived/extracted document bytes')
+        report['persisted_distribution_sha256']={}
+        for entry in meta['distribution']['resolved_files']:
+            target=re.sub(r'^/Users/[^/]+/','/Users/Owner/',entry['target']);data=s.s.document(inspection,target,8*1024**2);digest=hashlib.sha256(data).hexdigest();assert digest==hashlib.sha256((ROOT/entry['source']).read_bytes()).hexdigest(),target;report['persisted_distribution_sha256'][target]=digest
+        report['checks'].append('Independent persisted-volume reads match every distribution document/binary sample byte for byte')
+        report['windows_lifecycle_exercised']=not a.storage_only
+        if not a.storage_only:
+            from lifecycle import payloads
+            report['original_payload_sha256']=payloads(inspection)
+            source=s.s.document(inspection,'/Users/Owner/Documents/EngineOS-Windows.txt')
+            extracted=s.s.document(inspection,'/Users/Owner/Documents/EngineOS-Windows-Extracted/EngineOS-Windows.txt')
+            assert source==extracted
+            archive=s.s.document(inspection,'/Users/Owner/Documents/EngineOS-Windows.zip',8*1024**2)
+            with zipfile.ZipFile(io.BytesIO(archive)) as check:assert check.testzip() is None and check.read('EngineOS-Windows.txt')==source
+            report['document_sha256']=hashlib.sha256(source).hexdigest()
+            report['checks'].append('Original MSI install/run/ZIP/extract/remove/reinstall through real guest keys; independent container inspection verifies all 106 original payload hashes and exact archived/extracted document bytes')
         meta=json.loads((ROOT/'dist/m92-build-manifest.json').read_text());report.update(passed=True,build_id=meta['build_id'],iso_sha256=meta['artifacts']['EngineOS-M92.iso']['sha256'],boot_order_forced=False,same_vm_reused=True,network_present=True)
     except Exception:
         report['error']=v.old.v.redact(traceback.format_exc());print(report['error'])
@@ -179,6 +188,7 @@ def main():
         after=v.old.v.inventory()
         if before==after or time.monotonic()>until:break
         time.sleep(.25)
+    assert hashlib.sha256((ROOT/'dist/EngineOS-M92.iso').read_bytes()).hexdigest()==iso_hash,'ISO changed during the guest lifecycle'
     report['existing_vm_inventory_unchanged']=before==after;report['passed']=report['passed'] and report['existing_vm_inventory_unchanged']
     (out/'results.json').write_bytes((json.dumps(report,indent=2)+'\n').encode());print('M9.2 VMware '+a.controller+' '+a.firmware+' '+('PASS' if report['passed'] else 'FAIL'),flush=True)
     if not report['passed']:raise SystemExit(1)
