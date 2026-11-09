@@ -4,13 +4,13 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2];TAG='m92-v0.9.2';REPO='enginsoysal/codename-engine-os'
 def gh(*args):return subprocess.check_output(['gh',*args],cwd=ROOT,text=True,encoding='utf-8')
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
-def load(path):return json.loads(Path(path).read_text())
+def load(path):return json.loads(Path(path).read_text(encoding='utf-8'))
 def main():
     p=argparse.ArgumentParser();p.add_argument('action',choices=['stage','publish','verify']);a=p.parse_args()
-    accepted=load(ROOT/'evidence/M92/acceptance-results.json');assert accepted['passed'] and accepted['scope_id']=='M92-STORAGE-VM-v1'
+    accepted=load(ROOT/'evidence/M9.2/acceptance-results.json');assert accepted['passed'] and accepted['scope_id']=='M92-STORAGE-VM-v1'
     files={name:ROOT/'dist'/name for name in accepted['artifacts']}
     for name,value in accepted['artifacts'].items():assert sha(files[name])==value['sha256'],name
-    shutil.copyfile(ROOT/'evidence/M92/acceptance-results.json',ROOT/'dist/m92-acceptance-results.json')
+    shutil.copyfile(ROOT/'evidence/M9.2/acceptance-results.json',ROOT/'dist/m92-acceptance-results.json')
     files.update({'7z2606-src.tar.xz':ROOT/'third_party/7zip/7z2606-src.tar.xz',
                   'm92-acceptance-results.json':ROOT/'dist/m92-acceptance-results.json',
                   'm92-build-manifest.json':ROOT/'dist/m92-build-manifest.json',
