@@ -59,7 +59,8 @@ unsigned input_irq(uint64_t *frame){
 #ifndef ENGINE_M92
        ||(frame[18]&3)
 #endif
-    )return 0;unsigned vector=(unsigned)frame[15];if(vector!=33&&vector!=36
+    ){return 0;}
+    unsigned vector=(unsigned)frame[15];if(vector!=33&&vector!=36
 #ifdef ENGINE_M6
        &&vector!=44
 #endif
