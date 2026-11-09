@@ -67,3 +67,16 @@ with Restart to Engine OS; matching media may stay connected. Homepage editing
 is separate from article publication; no new successful homepage edit is claimed.
 [Current installation guide](../docs/handbook/install-m75.md),
 [release](../docs/releases/m75-v0.7.5.md).
+
+## M8 first original Windows application
+
+Native downloads prefer `m8-v0.8.0` after publication, with its tested VMware ZIP,
+ISO, hashes, notices and original 7-Zip corresponding source. Committed English
+installation, app, architecture and recovery instructions synchronize through
+the existing content-only GitHub Actions publisher. The downloads article states
+the exact 7-Zip console profile and its limitations. Existing-ZIP update is not
+qualified; sample tasks choose fresh output names. Homepage composition remains
+a separate native Brix edit; article synchronization does not prove a homepage
+redesign. [Installation](../docs/handbook/install-m8.md),
+[Windows app guide](../docs/handbook/windows-apps-m8.md),
+[release](../docs/releases/m8-v0.8.0.md).

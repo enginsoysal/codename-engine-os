@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "requirement": "Original MS-DOS and Windows 1.x through Windows 11 applications and installers; install or set up, start repeatedly and perform registered tasks correctly",
-  "status": "architecture inventory; no application currently qualified",
+  "status": "one qualified original Win64 console/MSI profile; all general generation tracks remain planned",
   "initial_host_architecture": "x86_64",
   "planned_execution_routes": {
     "win16_ne": "isolated legacy runtime with segmented address/thunk support; CPU emulation where needed; WC2",
@@ -221,7 +221,42 @@
     "evidence_paths",
     "known_blockers"
   ],
-  "applications": [],
+  "applications": [
+    {
+      "id": "7zip-console-26.06-x64",
+      "name": "7-Zip Console",
+      "version": "26.06",
+      "publisher": "Igor Pavlov",
+      "architecture": "x86_64",
+      "installer_format": "MSI",
+      "installer_sha256": "6dc822569e777d9a3ecd5ffcbc22b55600af87e6c5d9810a64e8566cf5a4af9f",
+      "status": "qualified-console-profile",
+      "scope": "M8-MSI1-VM-v1",
+      "generation_targets": [
+        "10",
+        "11"
+      ],
+      "generation_targets_meaning": "application target families; not full Windows 10/11 OS or API qualification",
+      "execution_route": "original AMD64 PE executable and original DLL in protected CPL3 runtime",
+      "windows_gui_qualified": false,
+      "tasks": [
+        "original MSI installation in guest",
+        "first and repeated console launch",
+        "fresh ZIP create/extract with exact data checks",
+        "installed OS restart and detached startup",
+        "uninstall preserving user documents",
+        "reinstall"
+      ],
+      "limitations": [
+        "exact digest-pinned MSI console adapter only",
+        "Windows GUI and shell integration unavailable",
+        "existing ZIP update unsupported; sample UI chooses fresh outputs",
+        "DOS, Win16 and Win32 remain unqualified",
+        "single Windows thread and bounded files/heap/stack"
+      ],
+      "evidence": "evidence/M8/acceptance-results.json"
+    }
+  ],
   "empty_register_reason": "No original DOS/Windows application is currently qualified on Engine OS. M8 records exact versions, installers, formats, architectures and tasks; early Windows and DOS are independent gates.",
   "required_installation_paths": [
     "DOS file-copy/setup",

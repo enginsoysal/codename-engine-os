@@ -11,7 +11,7 @@ C17/assembly is the current implementation language; no new programming language
 | ISO/USB boot | M1 | Own kernel tested in QEMU; user-observed VMware M1 boot |
 | Install OS to disk and boot independently | M5 | Implemented within M5-VM-v1; [VM qualification](../../evidence/M5/acceptance-results.json). This does not implement Windows app installation. |
 | Protected process foundation | M2/M3 | Native64 isolation, threads/waits/VM/SMP verification only; no Windows APIs |
-| Win32/Win64/NT interfaces | M8.4/M8.5 | Planned, not implemented |
+| Win32/Win64/NT interfaces | M8.4/M8.5 | Selected Win64 interfaces qualify one original 7-Zip console profile; general Win32/NT remains planned |
 | DOS programs/games | M8.1 | Separate future legacy runtime |
 | Windows 1.x/2.x/3.x and 16-bit installers | M8.2/WC2 | Explicit separate route; not supplied by PE32/DOS alone |
 | 9x versus NT behavior | WC3 | Profiles/semantics must be implemented |
@@ -22,7 +22,7 @@ C17/assembly is the current implementation language; no new programming language
 
 ## WC1 — application/installer inventory
 
-Record exact app/version/hash, original target generation, installer and payload CPU architectures separately, APIs/runtimes, drivers, external services/hardware, installation/start/use/reboot/uninstall tasks, provenance and evidence. [Machine-readable inventory](windows-targets.json) contains thirteen generation groups, including separate DOS, Windows 1.x, 2.x, 3.x and NT 3.x profiles; no third-party app is currently qualified. M2 native probes are not Windows applications.
+Record exact app/version/hash, original target generation, installer and payload CPU architectures separately, APIs/runtimes, drivers, external services/hardware, installation/start/use/reboot/uninstall tasks, provenance and evidence. [Machine-readable inventory](windows-targets.json) contains thirteen generation groups, including separate DOS, Windows 1.x, 2.x, 3.x and NT 3.x profiles; one exact original 7-Zip 26.06 x64 console/MSI profile is qualified within M8-MSI1-VM-v1; general generation profiles remain planned. M2 native probes are not Windows applications.
 
 Why: a 32-bit application can use a 16-bit installer. Version labels do not identify dependencies. Acceptance requires a complete record for each published claim; a compatibility percentage needs a defined population. Proprietary installers do not enter the public repository automatically.
 
@@ -64,6 +64,6 @@ Acceptance for a published app/version/task matrix: no known critical or blockin
 
 ## Implementation order
 
-Complete the revised M6 real product installation and M7 real desktop contracts first. M8 then qualifies original DOS and Windows application workflows through the separately tracked M8.1–M8.7 routes. See [active milestone contracts](milestones.md). The product remains Engine OS; no application compatibility is implemented by this planning revision.
+Complete the revised M6 real product installation and M7 real desktop contracts first. M8 then qualifies original DOS and Windows application workflows through the separately tracked M8.1–M8.7 routes. See [active milestone contracts](milestones.md). The product remains Engine OS; the first bounded delivery is documented in the [M8 MSI contract](../milestones/m8-msi.md) and its exact acceptance report.
 
 Early Windows executable formats, segmented memory and APIs must be inspected per original version. Windows 95 compatibility does not establish Windows 1.x–3.x or MS-DOS compatibility. Installer and payload architectures are recorded separately.

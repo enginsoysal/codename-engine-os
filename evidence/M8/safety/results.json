@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "checks": [
+    "Text Editor-created unsupported MSI is refused through Files/Windows Apps without a volume-generation change or product creation",
+    "Cancel after real payload writes reclaims the fresh product tree and the protected worker",
+    "An active MSI installation respects System Monitor memory admission; failure clears the unpublished tree, or completion remains within the captured budget",
+    "Repeated sample tasks choose a new archive and extraction directory, preserving earlier results",
+    "Repeated original executable runs release all transient worker/writer pages after one-time transition-stack warmup",
+    "System Monitor memory admission limit refuses a new Windows job without leaking pages; closing Monitor restores successful execution",
+    "Both guest processors halt with no active Windows job",
+    "Independent post-test disk inspection confirms original and extracted personal document bytes are retained"
+  ],
+  "scope": "normal-UI first-profile failure and resource checks",
+  "limited_install": {
+    "outcome": "rolled-back",
+    "admission_limit_bytes": 18546688,
+    "discard_close_observed": true
+  },
+  "resource_measurements": {
+    "managed_idle_bytes": 208896,
+    "install_peak_worker_and_writer_bytes": 20238336,
+    "run_peak_worker_and_writer_bytes": [
+      5443584,
+      5443584,
+      5443584
+    ],
+    "retained_worker_pages_after_warmup": 0,
+    "guest_ram_mib": 128,
+    "excludes_static_kernel_boot_reservations_and_video_ram": true
+  },
+  "idle_frame_unchanged": true,
+  "build_id": "b7b21d8752c413c9a1fdcec268fb4dfc",
+  "iso_sha256": "c9ff89627da42e0efaea8baa4c48c425b525e77002cb6ce63410ae0fc3692589"
+}

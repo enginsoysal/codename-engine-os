@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "scope": "development original-MSI guest journey",
+  "checks": [
+    "Original MSI installed through native consent UI inside installed Engine OS",
+    "Original Windows executable completed info, ZIP create and ZIP extract tasks",
+    "Independent persisted-volume inspection verifies identical original/extracted document bytes"
+  ],
+  "firmware": "uefi",
+  "resolution": [
+    3840,
+    2160
+  ],
+  "ram_mib": 128,
+  "observed_guest_memory_bytes": 134217728,
+  "observed_processor_count": 2,
+  "original_executable_and_dll_sha256": {
+    "7z.exe": "dc0493429fe28136fcb177a0e77c9875cbb3b0bff5f2f8eeba4df302e98cef76",
+    "7z.dll": "500db9eb17f3c21b729ba41dd02ecfe1823da05028c7e4ba129084cc74cc364e"
+  },
+  "document_sha256": "e510a39daf9e86c90ccd4901b0c5546c9dee74ba79c58b2e092acd691cefc586",
+  "zip_sha256": "ff070323bd83e75d6f05b6c8fd029752342c93145f0917421ec038316d3959c1",
+  "actual_framebuffer": [
+    3840,
+    2160
+  ],
+  "build_id": "b7b21d8752c413c9a1fdcec268fb4dfc",
+  "iso_sha256": "c9ff89627da42e0efaea8baa4c48c425b525e77002cb6ce63410ae0fc3692589"
+}

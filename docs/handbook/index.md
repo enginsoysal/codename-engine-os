@@ -1,11 +1,12 @@
 # Engine OS user handbook
 
-Start with **Engine OS 0.7.5**. Extract the prepared VMware ZIP, open EngineOS.vmx and start. Select a disk row in the bordered list, follow Next, review, Install Engine OS and **Restart to Engine OS**. This starts the actual installed system. The matching ISO may stay connected. No commands or network are needed.
+Start with **Engine OS 0.8.0**. Extract the prepared VMware ZIP, open EngineOS.vmx and start. Select a disk row in the bordered list, follow Next, review, Install Engine OS and **Restart to Engine OS**. This starts the actual installed system. The matching ISO may stay connected. No commands or network are needed.
 
-- [Download and install in VMware, step by step](install-m75.md)
+- [Download and install in VMware, step by step](install-m8.md)
+- [Install, run and remove the original Windows 7-Zip console app](windows-apps-m8.md)
 - [Use the standard apps and manage optional packages](apps-m74.md)
 - [Explore the desktop and navigate your folders](desktop-m73.md)
-- [Current release, checksums and qualified limits](../releases/m75-v0.7.5.md)
+- [Current release, checksums and qualified limits](../releases/m8-v0.8.0.md)
 - [Repair boot files and review recovery limits](apps-m74.md#disks-and-recovery)
 - [Manage partitions and format safely](disk-manager-m71.md)
 - [Build and customize your own distribution](distributions.md)

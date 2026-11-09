@@ -31,7 +31,16 @@ def main(milestone="M2"):
     for old in ('ARCHITECTURE.md','DECISIONS.md','STATUS.md','MILESTONES.md','WINDOWS-COMPATIBILITY.md','M1.md'):
         if (ROOT/old).exists():raise RuntimeError('Old root documentation remains: '+old)
     inventory=json.loads((ROOT/'docs/roadmap/windows-targets.json').read_text(encoding='utf-8'))
-    assert {p['id'] for p in inventory['generation_profiles']}=={'msdos','win1x','win2x','win3x','nt3x','win95','win98-me','nt4-2000','xp','vista-7','8-81','10','11'} and inventory['applications']==[]
+    profiles={p['id'] for p in inventory['generation_profiles']}
+    assert profiles=={'msdos','win1x','win2x','win3x','nt3x','win95','win98-me','nt4-2000','xp','vista-7','8-81','10','11'}
+    for app in inventory['applications']:
+        assert app['id'] and app['version'] and app['architecture']=='x86_64'
+        assert set(app['generation_targets']).issubset(profiles)
+        assert app['scope']=='M8-MSI1-VM-v1' and app['installer_format']=='MSI'
+        assert app['status']=='qualified-console-profile' and not app['windows_gui_qualified']
+        assert re.fullmatch('[0-9a-f]{64}',app['installer_sha256'])
+        assert app['tasks'] and app['limitations']
+        assert (ROOT/app['evidence']).is_file()
     checks=[{'name':'English current documentation','passed':True,'documents':len(docs)},
             {'name':'local links and Python commands exist','passed':True},
             {'name':'all current Python sources parse','passed':True,'scripts':len(scripts)},

@@ -6,7 +6,7 @@ M7.5 follows owner-reported installation confusion and startup failure. The novi
 
 ## Historical owner priority — 7 November 2026
 
-**M7.3 is complete within M73-VM-v1:** native visual quality, clear guided steps, readable text and actual 4K sizing. Clarity, convenience, user friendliness, graphical quality and readability remain mandatory for later changes. [Delivery](../milestones/m7.3.md), [review](../architecture/usability-review-m73.md), [current tutorial](../handbook/install-m73.md). M8 remains deferred until the owner chooses the next work.
+**M7.3 is complete within M73-VM-v1:** native visual quality, clear guided steps, readable text and actual 4K sizing. Clarity, convenience, user friendliness, graphical quality and readability remain mandatory for later changes. [Delivery](../milestones/m7.3.md), [review](../architecture/usability-review-m73.md), [current tutorial](../handbook/install-m73.md). M8 now delivers its first separately bounded original MSI/console profile; the wider program remains in progress.
 
 ## Historical M7.2 priority — 7 November 2026
 
@@ -107,6 +107,8 @@ Include supported networking, automatic setup, name resolution, valid-time/certi
 The owner added this before M8 after testing M7 on an existing disk. Deliver native guided partition inspection, GPT/primary-MBR creation/deletion, FAT32/Engine quick formatting, safe cancel/consent and explicit whole-disk replacement through the installer. Preserve other partitions in individual operations, and qualify existing-disk installation through detached desktop boot. Logical partitions, resize/move, non-destructive conversion, secure erase and dual-boot installation remain outside this bounded release. [Contract, choices and acceptance](../milestones/m7.1.md).
 
 ## M8 — original MS-DOS and Windows 1.x through Windows 11 applications
+
+The first **M8-MSI1-VM-v1** delivery covers original 7-Zip 26.06 x64 MSI installation, console execution/use, removal and reinstall. [Exact scope](../milestones/m8-msi.md), [release](../releases/m8-v0.8.0.md). This does not close the tracks below.
 
 **Priority 3. Depends on:** M6, M7 and M7.1. Windows remains the first foreign application ecosystem. Explicitly include original MS-DOS programs/games, Windows 1.x/2.x/3.x applications, Windows 95/98/Me and the NT generations through Windows 11. Windows 95 support does not imply early Windows or DOS support. Installer and payload formats/architectures/version expectations are separate inventory fields.
 

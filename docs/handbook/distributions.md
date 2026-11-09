@@ -121,3 +121,10 @@ Build with `python tools/build/m51.py --profile distros/my-edition.json`. The ou
 ## Beyond the implemented profile fields
 
 MIT source permits forks and component changes. The native desktop is implemented; arbitrary compositor/shell replacement, language packs, new executable packages and runtime plugin customization need their own contracts before becoming profile choices. Unknown fields/packages are rejected, rather than silently accepted. Disk review, confirmation and recovery guards stay mandatory in every profile. [Product principles](../architecture/product-principles.md), [historical M5.1 contract](../milestones/m5.1.md).
+
+
+## M8 Windows-console edition
+
+Start from `distros/engineos-windows.json` and build with `python tools/build/m8.py --profile distros/my-edition.json`. The schema-3 `desktop.applications` list accepts `windows` as the optional Windows Apps frontend in an M8 build. Appearance, native optional apps and bounded data files retain their validated profile fields. Removing the frontend does not remove the desktop or other native apps.
+
+The reviewed original MSI is a separate, digest-pinned boot module and is copied to Downloads during installation; it is not an arbitrary executable profile hook. Changing the supported foreign runtime/package requires source and acceptance work. Windows Apps currently accepts only the reviewed 7-Zip package. The supplied Windows guide is a separate data package, preserving historical release inputs. [Runtime design](../architecture/windows-runtime-m8.md), [first-profile limits](../milestones/m8-msi.md).

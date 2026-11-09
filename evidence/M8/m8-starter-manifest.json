@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "archive": "EngineOS-M8-VMware.zip",
+  "sha256": "eaceabf3d5644b1ad3a2e454d21c7575ffb67d3b00b6623acbb3fdf79b0e23dd",
+  "size": 8797720,
+  "disk": "new growable 20 GiB SATA disk; not preinstalled",
+  "firmware": "UEFI, Secure Boot off",
+  "boot_order_forced": false,
+  "network_required": false,
+  "members": [
+    "7z2606-src.tar.xz",
+    "EngineOS-M8.iso",
+    "EngineOS.vmdk",
+    "EngineOS.vmx",
+    "Inter-OFL.txt",
+    "libmspack-LGPL-2.1.txt",
+    "LICENSE",
+    "START-HERE.txt",
+    "THIRD-PARTY-NOTICES.txt"
+  ]
+}

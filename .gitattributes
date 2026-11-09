@@ -32,3 +32,6 @@ third_party/7zip/** -text -whitespace
 third_party/libmspack/** -text -whitespace
 *.msi binary
 *.xz binary
+
+# M8 serial proofs retain their captured line endings and measured hashes.
+evidence/M8/**/*.log -text -whitespace

@@ -84,6 +84,11 @@ def main():
     report={'passed':False,'scope':'development original-MSI guest journey','checks':[],'firmware':args.firmware,'resolution':resolution,'ram_mib':args.ram}
     try:
         with ui.guest(work/'install',disk,resolution,args.firmware,ram=args.ram) as g:
+            memory=g.qmp('query-memory-size-summary')
+            assert memory['base-memory']==args.ram*1024**2 and not memory.get('plugged-memory',0)
+            report['observed_guest_memory_bytes']=memory['base-memory']
+            report['observed_processor_count']=len(g.qmp('query-cpus-fast'))
+            assert report['observed_processor_count']==2
             p=ui.Pointer(g)
             wizard(g,p,2)
             wizard(g,p,100)

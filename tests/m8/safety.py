@@ -37,12 +37,23 @@ def focus(g,p,kind):
     slots=[i for i in range(8) if struct.unpack_from('<I',raw,i*28+20)[0]==kind and raw[i*28+24]]
     assert len(slots)==1
     slot=slots[0]
-    count=ui.integer(g,'control_count',True)
-    raw=ui.memory(g,ui.symbol('controls',16384,True)[0],count*32)
-    buttons=[struct.unpack_from('<4iQI',raw,i*32) for i in range(count)]
-    x,y,w,h,token,action=next(b for b in buttons if b[5]==70 and (b[4]&0xffffffff)==slot+1)
-    p.logical(x+w//2,y+h//2,True)
-    time.sleep(.1)
+    deadline=time.monotonic()+30
+    while True:
+        painted=ui.memory(g,ui.symbol('paints',8,True)[0],8)
+        count=ui.integer(g,'control_count',True)
+        raw=ui.memory(g,ui.symbol('controls',16384,True)[0],count*32)
+        buttons=[struct.unpack_from('<4iQI',raw,i*32) for i in range(count)]
+        matches=[b for b in buttons if b[5]==70 and (b[4]&0xffffffff)==slot+1]
+        if time.monotonic()>deadline:raise TimeoutError('The native taskbar did not finish rendering')
+        if matches:
+            x,y,w,h,token,action=matches[0]
+            p.logical(x+w//2,y+h//2,True)
+            attempt=time.monotonic()+3
+            while time.monotonic()<attempt:
+                focused=struct.unpack('<I',ui.memory(g,ui.symbol('model',installed=True)[0]+236,4))[0]
+                if focused==slot and ui.memory(g,ui.symbol('paints',8,True)[0],8)!=painted:return
+                time.sleep(.025)
+        time.sleep(.025)
 
 
 def wait_stopped(g,timeout=120):
@@ -53,6 +64,16 @@ def wait_stopped(g,timeout=120):
             return value
         time.sleep(.025)
     raise TimeoutError('Windows task did not stop')
+
+
+def wait_clean_root(g,timeout=120):
+    # AHCI waits also halt a processor. HLT alone cannot identify completed cleanup.
+    deadline=time.monotonic()+timeout
+    while any(path==PRODUCT or path.startswith(PRODUCT+'/') for path in entries(g)):
+        if time.monotonic()>deadline:
+            raise AssertionError('Product cleanup did not finish: '+repr(info(g)[304:496]))
+        time.sleep(.05)
+    return wait_stopped(g)
 
 
 def main():
@@ -73,7 +94,7 @@ def main():
             manifest=json.loads((ROOT/'dist/m8-build-manifest.json').read_text(encoding='utf-8'))
             assert 'ENGINE_OS_KERNEL_ENTRY build='+manifest['build_id'] in g.log()
             p=open_windows(g)
-            if PRODUCT+'/product.bin' in entries(g):
+            if PRODUCT in entries(g):
                 p.desktop(12002,True)
                 task(g,p,12003,True)
             p.close_app(19,True)
@@ -109,7 +130,7 @@ def main():
             g.wait('Installing original Windows application files.',start)
             assert any(path.startswith(PRODUCT+'/') for path in entries(g))
             p.desktop(12008,True,settle=False)
-            value=wait_stopped(g)
+            value=wait_clean_root(g)
             assert struct.unpack_from('<I',value)[0]==3
             assert not any(path==PRODUCT or path.startswith(PRODUCT+'/') for path in entries(g))
             shot(g,out,'cancelled-installation-cleaned')
@@ -132,7 +153,7 @@ def main():
                 time.sleep(.05)
             limited_info=wait_stopped(g,120)
             failed=struct.unpack_from('<I',limited_info)[0]==3
-            if failed:assert not any(path==PRODUCT or path.startswith(PRODUCT+'/') for path in entries(g))
+            if failed:wait_clean_root(g)
             shot(g,out,'installation-with-active-memory-budget')
             report['limited_install']={'outcome':'rolled-back' if failed else 'completed-within-budget',
                                        'admission_limit_bytes':limit*4096,
@@ -145,8 +166,11 @@ def main():
                 p.desktop(12001,True)
                 install_info=task(g,p,12003,True)
             else:install_info=limited_info
+            before_archive=ui.s.s.document(disk,'/Users/Owner/Documents/EngineOS-Windows.zip',8*1024**2)
             task(g,p,12006,True)
             task(g,p,12007,True)
+            report['checks'].append('Repeated sample tasks choose a new archive and extraction directory, preserving earlier results')
+            shot(g,out,'repeated-archive-task-with-new-output')
             warm=task(g,p,12005,True)
             before=pages(g)[0]
             peaks=[]
@@ -187,6 +211,8 @@ def main():
             (out/'serial.log').write_bytes(g.log().encode())
         assert ui.s.s.document(disk,'/Users/Owner/Documents/EngineOS-Windows.txt')==source
         assert ui.s.s.document(disk,'/Users/Owner/Documents/EngineOS-Windows-Extracted/EngineOS-Windows.txt')==source
+        assert ui.s.s.document(disk,'/Users/Owner/Documents/EngineOS-Windows.zip',8*1024**2)==before_archive
+        assert ui.s.s.document(disk,'/Users/Owner/Documents/EngineOS-Windows-Extracted-2/EngineOS-Windows.txt')==source
         report['checks'].append('Independent post-test disk inspection confirms original and extracted personal document bytes are retained')
         report['passed']=True
     except Exception:

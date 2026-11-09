@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "scope": "actual C native-volume rename; host execution, no guest app claim",
+  "fault_cases": 146,
+  "checks": [
+    "invalid destinations do not modify disk",
+    "replace is atomic across every metadata write and flush, including torn writes",
+    "remount verifies complete old or new namespace and unchanged independent document"
+  ],
+  "source_sha256": {
+    "kernel/storage/volume6.c": "2dc904292535113addf5f8ecb8f351d61f9a2f1e04ace4d0415736ab7d42dc7e",
+    "include/engine/storage/volume6.h": "3393bb759190e7ff6039f68584f10ef68a3a32343d7c97dc66907751cb3e9569",
+    "tests/m8/rename.py": "5b397516f745ffbf5398c0537d4bb3599fedc695b0a08ac7c8c174f50f11a43a"
+  }
+}

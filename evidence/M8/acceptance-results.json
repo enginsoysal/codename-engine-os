@@ -1,0 +1,280 @@
+{
+  "passed": true,
+  "scope_id": "M8-MSI1-VM-v1",
+  "code_source_commit": "1bf41f0f4ecafca5a22a12ef9e238bdf0682707d",
+  "build_id": "b7b21d8752c413c9a1fdcec268fb4dfc",
+  "iso_sha256": "c9ff89627da42e0efaea8baa4c48c425b525e77002cb6ce63410ae0fc3692589",
+  "vmware_starter_sha256": "eaceabf3d5644b1ad3a2e454d21c7575ffb67d3b00b6623acbb3fdf79b0e23dd",
+  "gates": [
+    {
+      "report": "journey/uefi-3840x2160-128/results.json",
+      "passed": true
+    },
+    {
+      "report": "journey/bios-1280x800-64/results.json",
+      "passed": true
+    },
+    {
+      "report": "lifecycle/results.json",
+      "passed": true
+    },
+    {
+      "report": "safety/results.json",
+      "passed": true
+    },
+    {
+      "report": "recovery/results.json",
+      "passed": true
+    },
+    {
+      "report": "vmware/efi-starter/results.json",
+      "passed": true
+    },
+    {
+      "report": "vmware/bios/results.json",
+      "passed": true
+    },
+    {
+      "report": "format/results.json",
+      "passed": true
+    },
+    {
+      "report": "format/rename-results.json",
+      "passed": true
+    },
+    {
+      "report": "repository-results.json",
+      "passed": true
+    },
+    {
+      "report": "visual-review.json",
+      "passed": true
+    }
+  ],
+  "gate_count": 11,
+  "artifacts": {
+    "EngineOS-M8.iso": {
+      "sha256": "c9ff89627da42e0efaea8baa4c48c425b525e77002cb6ce63410ae0fc3692589",
+      "size": 74110976
+    },
+    "EngineOS-M8-usb.img": {
+      "sha256": "7079f2cb52563996838a0b2d7316e5b52084512aef4df32c42a85d8b3c7504df",
+      "size": 84934656
+    },
+    "EngineOS-M8-kernel.elf": {
+      "sha256": "a656c30eb6198dc7a4648f83f2630ddd334a84da2c8acc50d08a7612c2e56b64",
+      "size": 3268932
+    },
+    "EngineOS-M8-kernel.map": {
+      "sha256": "641185eb368c2dfcbebe181dcc356817efd13cd112f3a1b60e380e89eb49a6ec",
+      "size": 342650
+    },
+    "EngineOS-M8-user.elf": {
+      "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f",
+      "size": 68064
+    },
+    "EngineOS-M8-installed-kernel.elf": {
+      "sha256": "4497fac635a026e3706d36403afaa4767759899f8db417aca0e634d30a730895",
+      "size": 991556
+    },
+    "EngineOS-M8-installed-kernel.map": {
+      "sha256": "f45107716da21917666e6b604db9e024178efd450f065b272529e5cc0ac6d3e2",
+      "size": 342358
+    },
+    "EngineOS-M8-editor.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M8-calculator.elf": {
+      "sha256": "5193f62e9f16e90ad96905b6bc2e47152c9a524402c5db6f32c8f8e50e1af8a0",
+      "size": 12976
+    },
+    "EngineOS-M8-calendar.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M8-archives.elf": {
+      "sha256": "9008a959466f7288e7ef99dab89ecb8e40439e9ee693faf825b4c602b98f8a84",
+      "size": 17068
+    },
+    "EngineOS-M8-browser.elf": {
+      "sha256": "3046e4a9af08551315191e2907d572ebde73b54b389b6c3a37dfb41222140cc0",
+      "size": 12639
+    },
+    "EngineOS-M8-help.elf": {
+      "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+      "size": 8232
+    },
+    "EngineOS-M8-VMware.zip": {
+      "sha256": "eaceabf3d5644b1ad3a2e454d21c7575ffb67d3b00b6623acbb3fdf79b0e23dd",
+      "size": 8797720
+    },
+    "EngineOS-M8-THIRD-PARTY-NOTICES.txt": {
+      "sha256": "a5b136d0154a88301bd0e59a7b9ed9eeb335ae7b366620f9789aa53d3fd68ed6",
+      "size": 59662
+    }
+  },
+  "prior_frozen_proofs_verified": 1152,
+  "prior_binary_artifacts_verified": 112,
+  "original_payload_count": 106,
+  "original_package_sha256": "6dc822569e777d9a3ecd5ffcbc22b55600af87e6c5d9810a64e8566cf5a4af9f",
+  "original_executable_sha256": "dc0493429fe28136fcb177a0e77c9875cbb3b0bff5f2f8eeba4df302e98cef76",
+  "original_dll_sha256": "500db9eb17f3c21b729ba41dd02ecfe1823da05028c7e4ba129084cc74cc364e",
+  "resource_measurements": {
+    "managed_idle_bytes": 208896,
+    "install_peak_worker_and_writer_bytes": 20238336,
+    "run_peak_worker_and_writer_bytes": [
+      5443584,
+      5443584,
+      5443584
+    ],
+    "retained_worker_pages_after_warmup": 0,
+    "guest_ram_mib": 128,
+    "excludes_static_kernel_boot_reservations_and_video_ram": true
+  },
+  "installed_kernel_physical_span_bytes": 2574880,
+  "actual_4k_framebuffer": true,
+  "tested_64_mib_guest_configuration": true,
+  "human_usability_study": false,
+  "physical_hardware_qualified": false,
+  "general_windows_installer_service": false,
+  "windows_gui_qualified": false,
+  "dos_qualified": false,
+  "limitations": [
+    "Requires matching M8-MSI1-VM-v1 exact-artifact acceptance; the wider DOS/Windows program remains in progress",
+    "Only original 7-Zip 26.06 x64 MSI and console executable/DLL; Windows GUI and shell integration are unavailable",
+    "One protected Windows job and one Windows thread on one assigned processor; ZIP examples use -mmt=off",
+    "Windows heap 32 MiB, owned page budget 10000 pages, demand-grown stack up to 8 MiB; one writer up to 8 MiB",
+    "Native extent volume: 1024 entries, 63-byte components, 64-MiB native file limit; Windows I/O has separate bounds",
+    "Selected Win64 APIs and a digest-pinned MSI console adapter, not a general Windows Installer service",
+    "Named x86-64 VMware/QEMU BIOS and UEFI profiles only; Secure Boot disabled; no physical/ARM qualification",
+    "Fresh installation and same-build recovery; cross-release application migration is unqualified",
+    "Single local account without authentication or native ACLs; Windows writes are brokered to current user data",
+    "Real native scalable framebuffer UI; no Windows GPU acceleration, DirectX or universal device support",
+    "Native app capabilities and dependencies retain their documented M7.4 limits; no human usability study",
+    "Existing ZIP update is unsupported; the native example frontend chooses fresh numbered output paths",
+    "Disk-full, arbitrary API-fault injection, hostile executable fuzzing and modified-owned-file removal are not separately qualified by this release"
+  ],
+  "final_reproduction_harness_sha256": {
+    "tests/m8/database.py": "473e28dbd9022c305d7aed07d6bb8318601c6cba53724fcb916dea5c5c127a11",
+    "tests/m8/journey.py": "ea521380c1a5379f683da8557377b89fc838a9ee7aeeedac5a70a8b48a9b83a5",
+    "tests/m8/lifecycle.py": "814830e906d4231a1ef1db1651f54a3cce25caf4cd049295bf28a6111ff87d7f",
+    "tests/m8/recovery.py": "dee6b9e44272fa898e3b5b907dd3163338ea461ee8381d0a26a6f2a38e308b92",
+    "tests/m8/rename.py": "5b397516f745ffbf5398c0537d4bb3599fedc695b0a08ac7c8c174f50f11a43a",
+    "tests/m8/safety.py": "a03ec0a1520c4d5330a343562173e021ab90ed1d0a1170181337801fa71eea95",
+    "tests/m8/ui.py": "eb041967df0cac106390ed615db5523d701b31411675785169960d7ef7dadc16",
+    "tests/m8/verify.py": "9936d4b9eaf032314f04796f95d22c16be6bc0f298db07be9bbb9e05f45a111e",
+    "tests/m8/vmware.py": "ba4faad44b11c9e33a92a507a8a3b59eff46dd2d76d183aae5dbc0b03eec33a6"
+  },
+  "evidence_sha256": {
+    "format/rename-results.json": "f9124ebaba6370e5980a0f4ed3ff4a707a685b5bd8468729a1d1c818dda283dd",
+    "format/results.json": "bf14b40e728551ef3a9ef1fccc836b5c36d91afb211ad8913abb620e1292a321",
+    "journey/bios-1280x800-64/install-consent-capture.json": "be48d6a04cff37731ed6c0955c4f246c7f1eb90c66d719805efae720066f8419",
+    "journey/bios-1280x800-64/install-consent.png": "2c4dce8a5d481c6aa3f698b26ce079f07025f2e76088aeef7624c4b5aa022891",
+    "journey/bios-1280x800-64/installed-original-msi-capture.json": "fda8109cdd32f2a5c5babb59dc44a26a05e8136e8a9a6560af3e6a3e6c3bff83",
+    "journey/bios-1280x800-64/installed-original-msi.png": "2d8f7a4778bb41f2f93a25255bf4c65c0e7de5eaccb18351b4ea3e498a0856b7",
+    "journey/bios-1280x800-64/original-7zip-created-archive-capture.json": "fb8dd63ea099bcdced6fbb178cad70eedf7cda00937fe3cd88892eb6dc5c0748",
+    "journey/bios-1280x800-64/original-7zip-created-archive.png": "7524b71bd82be9acb4642636882d3325d0ecc82c7c1c33a75e30934be32fa0b3",
+    "journey/bios-1280x800-64/original-7zip-extracted-archive-capture.json": "89213c6dc402c53750baac91ff4adfee3ba0483bcc10c6749ce70429c7568f85",
+    "journey/bios-1280x800-64/original-7zip-extracted-archive.png": "cdbce8ff0ae2084367750a849238486bb57649f60e466c181b4baee5112efe95",
+    "journey/bios-1280x800-64/original-msi-preview-capture.json": "0a35b5b227ab1ad4111df09db7be8d33cc5d2f87a25bf7fd425bd7a88dc468ca",
+    "journey/bios-1280x800-64/original-msi-preview.png": "017e133466df7379e43f7de8180c3471705d5557d2d044f07e1dab9c8e808941",
+    "journey/bios-1280x800-64/original-windows-7zip-running-capture.json": "09032484a6c6481762690a22ecdbbc71d1dca06e7a741eaa2e41365c6024ee17",
+    "journey/bios-1280x800-64/original-windows-7zip-running.png": "937d8d1feef05ef8b9836c004f3e3c0c2f6bdc49c00354070a5a5bbfd93a23c7",
+    "journey/bios-1280x800-64/results.json": "ced8913fc427ed78b8a6793ff6cddee28cc1e51e84e62494f93a2d15dd3762a3",
+    "journey/bios-1280x800-64/serial.log": "9fd2f20d86f33bfa982d220759097add7fd6b97ada1c3da0e631abefc38447ce",
+    "journey/bios-1280x800-64/windows-apps-capture.json": "c544791b5d0b2a52d9700eae889d739aec5d6bfd1e1d06a276a54c4a24a9dbf4",
+    "journey/bios-1280x800-64/windows-apps.png": "5812e9b9764a18e24fd3358faa68bafeffd7c6f3f8aad984bb2b2e1e7d38a1a2",
+    "journey/uefi-3840x2160-128/install-consent-capture.json": "9d0b2cf027dfd320d9bce692a31f94b7ecfef224febde5f8910be6c3965a1ae6",
+    "journey/uefi-3840x2160-128/install-consent.png": "9e72ddba04286901e2fdc12f10e15e388082400b8a619c16f9a91d415b8a90aa",
+    "journey/uefi-3840x2160-128/installed-original-msi-capture.json": "83ec02c66f9ad8436c037ae0e8340001ee9023e23693fad3d2b0626889264b04",
+    "journey/uefi-3840x2160-128/installed-original-msi.png": "079979457b63ac6b97695b3ca6bb4dc042995dbe21896c966655fd5ff51b00d6",
+    "journey/uefi-3840x2160-128/original-7zip-created-archive-capture.json": "6b74f7509ca764b94b65666751cf34d61dfac28f74f583d518a553e1de3131b1",
+    "journey/uefi-3840x2160-128/original-7zip-created-archive.png": "116a6a5c7c4d3da084ec3d917c9dcb14de953cf4d4a22a1830e2f7aeae077e1e",
+    "journey/uefi-3840x2160-128/original-7zip-extracted-archive-capture.json": "38e3a0fd363ecb19574a7d3b1c976d4f562025455adf4bbb75863be3b7b4934a",
+    "journey/uefi-3840x2160-128/original-7zip-extracted-archive.png": "17c445df08176d05fa645e843cd088086d542000b0fe412350af87aa25dafc1c",
+    "journey/uefi-3840x2160-128/original-msi-preview-capture.json": "f37409f68a0913e53f0fbbe1843d207e04d7926b919f75a2a0aabc52b7b0a904",
+    "journey/uefi-3840x2160-128/original-msi-preview.png": "65b4d0686e45f90051929108f42b911fc5c90773980104a8ac3618c35eb99acf",
+    "journey/uefi-3840x2160-128/original-windows-7zip-running-capture.json": "fe1e963ec05067c2cf4e2f01e39a4134598ba84b7d8ce6ad25f8d7ccf78aa11f",
+    "journey/uefi-3840x2160-128/original-windows-7zip-running.png": "64ace0d5d81097ca32d85b587a5bf3a7550b9603741f134a39edab5e72c17c00",
+    "journey/uefi-3840x2160-128/results.json": "8a7bdcdf806f6936f740c4800df8a3dce8290f2fd0018960d0a5a8cb4595dfc2",
+    "journey/uefi-3840x2160-128/serial.log": "dc65faa0dda5f2ef0a81595f20eb09bc60341e1fd365d0e7e8334c74e619d205",
+    "journey/uefi-3840x2160-128/windows-apps-capture.json": "b591cfc74c156081d749ab906b3ff594e263c95993d849b6ebe4c49fffdbd354",
+    "journey/uefi-3840x2160-128/windows-apps.png": "ab591984e29fe44dd94de4a3ba29efa45060c1a9637b4ddacbf5dcd821e377fc",
+    "lifecycle/detached-original-windows-program-capture.json": "4dcfd3f9a24cdc08a25cb76e4d281d0767df092421d4206623cad10740c5a3b4",
+    "lifecycle/detached-original-windows-program.png": "1cf36fc59a543d5cf8e6a0f885f73d0100aa6deff81f3258787d406df0250688",
+    "lifecycle/reinstall.log": "65357febfeffd8286d8ec3419618336513360ca86b663ad193a3e84cdb5d4fc3",
+    "lifecycle/reinstalled-original-program-capture.json": "5f9fa72265cbd4ee0261cbba8ae08f14cf6641d76cd9650995d7becc5767fe26",
+    "lifecycle/reinstalled-original-program.png": "f541d47f5b72344e9aad296df43b3210b0a4f420c9969e50d500dd6d14529b9c",
+    "lifecycle/remove-consent-capture.json": "d0b16b794528b971920a075b298bf26dc77dab4f35a8fa20563aab92ff8e86cc",
+    "lifecycle/remove-consent.png": "497502a4c960ec5d012dfaac146f9ef2efeb957d1c3c990c4f132ba862e7cd9c",
+    "lifecycle/remove.log": "b679f196cd9d5537888ba6d8549bc84414763f064bdd9f140ced0b828b0cbd73",
+    "lifecycle/removed-capture.json": "71ac46627b292f2f246707a5dd19c20d4e1dd952a9aad210fa584a45a7de8dc6",
+    "lifecycle/removed.png": "5998ab9683ced4db62cbf9a31ec847df6da69b9b1c39ef5cd15f7f377b59e42b",
+    "lifecycle/results.json": "918df68aa928502358f912f2d3be06dff5032dde0054a9a9b68a9be7d3103d54",
+    "m8-build-manifest.json": "febcc86bac1672f85f902f0b2d19cbca53a44cd66a7d5a766ee8286279be45ac",
+    "m8-starter-manifest.json": "19753e728b71e8305b459ae4e469ae6c2eb77dd5d4eaefc6f5d1669cc2c93b28",
+    "README.md": "9543c7cc6730259010f53037255d12a0159f39909e5ab4e3e78d94e1bc1cfc6e",
+    "recovery/before-power-cut.log": "3c64e7598e431d064c95bc68192181fed06e02b335aef332fe362fc427c459a8",
+    "recovery/interrupted-product-cleared-capture.json": "0738a9a477b37bd705300f7779a8037c0982b742ba85d6386acefb80cdc5ac10",
+    "recovery/interrupted-product-cleared.png": "e12907ca09b0c9be886af3d485a3170a328d21a916c4c9b5fc86b42442352bb0",
+    "recovery/original-program-after-recovery-and-reinstall-capture.json": "4dcfd3f9a24cdc08a25cb76e4d281d0767df092421d4206623cad10740c5a3b4",
+    "recovery/original-program-after-recovery-and-reinstall.png": "1cf36fc59a543d5cf8e6a0f885f73d0100aa6deff81f3258787d406df0250688",
+    "recovery/recovery-and-reinstall.log": "598d82c1f30b2b15c23aab1a9e8ef643ceb219f51272c9ddfd306a7cf05d2ffe",
+    "recovery/recovery-offered-after-interrupted-cleanup-capture.json": "3588c85dd614083f6c767566c129350badb180adfc0772d0ea61b23eb7187956",
+    "recovery/recovery-offered-after-interrupted-cleanup.png": "3bbc9d79c78b136a2ddb91682da8c03b013057b4a7a45d97eb2f4d33357b83fb",
+    "recovery/results.json": "0355fbb402fd272465ba0da70d2e62f0958667312e372763042e2c31c56ae0e2",
+    "repository-results.json": "4cc016168c2c51ee122a3a5b67d59c0592892e76fa11bd2de1813234794cb08a",
+    "safety/cancelled-installation-cleaned-capture.json": "7a31c5366163651b34337cd94ca3e50f146ed215484c9ccbf26484a0e8d6e820",
+    "safety/cancelled-installation-cleaned.png": "b840a469b1f6a8eeddbeb3083bfe9fba770625925a074609fe75844de088b07b",
+    "safety/complete-local-license-viewer-capture.json": "c9d159656c35c69bb81f74d5ec5848b90277d19deacc91971cf3339ce48321ef",
+    "safety/complete-local-license-viewer.png": "892d9a098cc7c4ddd09b01141f0e852906008bb9a43a7ef87f21785e8ae268f5",
+    "safety/installation-with-active-memory-budget-capture.json": "55d5167ac0b73f20be40cc55f7aef0270ab97b6b765db883a2a7e99582c88151",
+    "safety/installation-with-active-memory-budget.png": "6aea6ab970e2da20320318ac8842cfe61aa452ddaf3acae54e52351ac1c6e400",
+    "safety/local-license-next-page-capture.json": "d50ea64f05ac347c4b4ffee6820f033c771363f342bad73c7d1cd53556ce5851",
+    "safety/local-license-next-page.png": "173ebfc90ade8818181e882ff6d7b715635ba4a1d4956b73be1f8fe306af27b2",
+    "safety/memory-admission-failure-keeps-desktop-capture.json": "537f34a60e2561c12fa38d105bf607ef2e3d8682472bf6c6b1a152790154d7e0",
+    "safety/memory-admission-failure-keeps-desktop.png": "4c3ebeb6d2d15d1a8c93671ed348adb3717713ea632479cc527df2128f21a7dc",
+    "safety/repeated-archive-task-with-new-output-capture.json": "d0333f1836dca8de58868a18e7907fef07a35d80b46ec9d3b08649c38f0ba35d",
+    "safety/repeated-archive-task-with-new-output.png": "db52b8fad9aff7fdf8423393c69b569c3131ea3aa5db23cce25127903c5fc0d7",
+    "safety/results.json": "d68f20b17cb737fa036a57bb06bc3b01ab0cef688fcd55c192c049101b566485",
+    "safety/serial.log": "1bf6510e6f524afb847cf270404eda1c21277aa65a4f97bb50bad92868dcfa87",
+    "safety/unsupported-msi-refused-without-writes-capture.json": "29cca279f37b744c6124e2c22eeaf8d7ae932c6007101f813ac2c7341269ac5f",
+    "safety/unsupported-msi-refused-without-writes.png": "c570d9c2fc2e92fda69d96f98830d4172fc1910c586987fcd42858fc81c7ad4b",
+    "visual-review.json": "98416e8cbe78163f84adb9e08370c4d9a7b21589034bb1152bd93ec4822fafc4",
+    "vmware/bios/desktop-home.png": "dff56a5e9e3a2d31eefd126693364fd518a17759ad99ce397c39214b6e5b9027",
+    "vmware/bios/detached-desktop-0.png": "b2bc7c4fda85a41939a0e79e9a037d1a3f4e5255708232b067d955bfdb3256a5",
+    "vmware/bios/detached-desktop-1.png": "32ecf60b60228f080d93a89baa1c4c2de6e508f7b2f3efdfc969c66224949b6f",
+    "vmware/bios/finish.png": "575fa5564d0bee7d027b03996045bedc4101f7fc4e30547da570d2945f11443c",
+    "vmware/bios/install.log": "7814ca486cc3ed9f7dedf1b04f6e42df577009b2391db392af246fb7c7ca617d",
+    "vmware/bios/launcher-focus.png": "745f55f43f9ef1c8df9e1894aeb7313ab3d46808979f637f8cac1c1adb20a524",
+    "vmware/bios/original-windows-archive-task.png": "8000d4bcbfa808c33470deca8c714314505d86e3236b3cbe2e899f5068ff53bb",
+    "vmware/bios/original-windows-program.png": "5a9f2f7c84894541d1d00795bcb5ccdbb62c5986f1dd56276e789e67f4e4d89f",
+    "vmware/bios/real-folders.png": "423afc01db76baba6adb566ac2344ed6acad87f3af60599d315cd5d0493ae448",
+    "vmware/bios/reinstalled-windows-product.png": "5a9f2f7c84894541d1d00795bcb5ccdbb62c5986f1dd56276e789e67f4e4d89f",
+    "vmware/bios/removed-windows-product.png": "f13462351a990250b9d152f35aa59bf3c8b242bdc7dc5391c84fc97ce0ab7f72",
+    "vmware/bios/restart-0.log": "41b4a2db9afcaf1c48e164045b63b3dc19036edc41e690b5a949b487bbc83b74",
+    "vmware/bios/restart-1.log": "2fdade0b589d77cb0031a07831de09a2dbd69be55602329738ee30485ca476c0",
+    "vmware/bios/results.json": "44d816310ec5df8b31324afbe69ceb2211058085e309c4597dbb78662ed71215",
+    "vmware/bios/review.png": "fab9f96ef992f68874c07756316383e7d20f660dcb0d4331870878f94b68c076",
+    "vmware/bios/welcome.png": "a6fc2cb0e21215d3720303c5f10fc0acaa82798c2ffb1d376ea0bc945878bb35",
+    "vmware/bios/windows-apps.png": "bc7b4e0244acd4eabd68c396adf23f42c75d70bef69486bacc7b5f48841a1aca",
+    "vmware/efi-starter/desktop-home.png": "5ba7bdb5d94b1264b3a655774d054e25f176eb655b84ca883bdb37bbfd0aff54",
+    "vmware/efi-starter/detached-desktop-0.png": "43ad04e6925b331b874a181bbb1509029491e078749e8f2fdcca72cca8f4970c",
+    "vmware/efi-starter/detached-desktop-1.png": "713dab90771aa558f4ecff5b72be5f1a02a4fd6972ad3550f1e16e38b9cddad2",
+    "vmware/efi-starter/finish.png": "b440e5f3102489f033e0334f7e103e07d13a04bdda70603a23c9f6bfcd723550",
+    "vmware/efi-starter/install.log": "47ccd03367856a92ae75f0c4aa6666d76077a2e250fca4b14e590c9576e525a5",
+    "vmware/efi-starter/launcher-focus.png": "dfaf753f345e2b5bca65635d6dfb5510ea263edca87bf3ad0033f1dd5b4ac6b5",
+    "vmware/efi-starter/original-windows-archive-task.png": "9ff0d83615aea73dfb1f32d0f0fd3a8e4d39001ccaff0f1bae593ac3e4719e35",
+    "vmware/efi-starter/original-windows-program.png": "9ff0d83615aea73dfb1f32d0f0fd3a8e4d39001ccaff0f1bae593ac3e4719e35",
+    "vmware/efi-starter/real-folders.png": "e02ebeeb42391229d4fd94da63be5a08b1e36127f50fb56911c166e59b3219be",
+    "vmware/efi-starter/reinstalled-windows-product.png": "cd249ca7276ea571a686dea426844581321328cec93cde48413420be344a4757",
+    "vmware/efi-starter/removed-windows-product.png": "18d12a27aa8eccba1481079de744ae15d0e5ca649363d1121efefe2752c674b0",
+    "vmware/efi-starter/restart-0.log": "f414570c0705203579ab1c935b8d178c2d7d1f56b1b2cc563faaa2e4c3cd78ab",
+    "vmware/efi-starter/restart-1.log": "d68fe96d784d855b4c500827873dc6543f72419bc473e76eac0087c063988b0d",
+    "vmware/efi-starter/results.json": "c5b653a94827fa1884f045256d90cdc526db099a947945d0f346f6abd189dddf",
+    "vmware/efi-starter/review.png": "b3187ff7cce0dfd97d09dfdad0955203e597464d3cf2c1372a8d5e9dfd868bb0",
+    "vmware/efi-starter/welcome.png": "558d6ef7132ccf56fd5eea5c99919c19afbed36d63dca1b619d1c2a37c21855a",
+    "vmware/efi-starter/windows-apps.png": "8ce8b8250ac4718f06335c567df3f2dcc6c1fc040a13170807416089d1e55a28"
+  }
+}
