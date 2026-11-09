@@ -1,5 +1,5 @@
 """Publish only the exact accepted M92 artifacts; anonymously verify primary downloads."""
-import argparse,datetime,hashlib,json,subprocess,urllib.request,shutil
+import argparse,datetime,hashlib,json,re,subprocess,urllib.request,shutil
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2];TAG='m92-v0.9.2';REPO='enginsoysal/codename-engine-os'
 def gh(*args):return subprocess.check_output(['gh',*args],cwd=ROOT,text=True,encoding='utf-8')
@@ -23,7 +23,16 @@ def main():
         assert not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True,encoding='utf-8').strip(),'Commit the final release first'
         commit=gh('api','repos/'+REPO+'/commits/main','--jq','.sha').strip()
         local=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True,encoding='utf-8').strip();assert local==commit,'Push the release commit first'
-        gh('release','create',TAG,'--repo',REPO,'--draft','--target',commit,'--title','Engine OS 0.9.2 - Automatic writable storage and reachable desktop windows','--notes-file','docs/releases/m92-v0.9.2.md')
+        # Repository-relative manual links need an absolute canonical target in
+        # the release body, whose URL is outside docs/releases/.
+        source=ROOT/'docs/releases/m92-v0.9.2.md'
+        def canonical(match):
+            label,link=match.group(1),match.group(2)
+            if re.match(r'^[a-z]+://|^#',link):return match.group(0)
+            target,mark,fragment=link.partition('#');path=(source.parent/target).resolve();assert path.is_relative_to(ROOT) and path.exists()
+            return '['+label+'](https://github.com/'+REPO+'/blob/'+commit+'/'+path.relative_to(ROOT).as_posix()+('#'+fragment if mark else '')+')'
+        notes=ROOT/'build/m92/release-notes.md';notes.write_text(re.sub(r'\[([^\]]+)\]\(([^)]+)\)',canonical,source.read_text(encoding='utf-8')),encoding='utf-8')
+        gh('release','create',TAG,'--repo',REPO,'--draft','--target',commit,'--title','Engine OS 0.9.2 - Automatic writable storage and reachable desktop windows','--notes-file',str(notes))
         gh('release','upload',TAG,'--repo',REPO,*[str(x) for x in files.values()])
     # GitHub's tag endpoint excludes unpublished drafts. Authenticated listing
     # exposes the owned draft so its complete asset set can be checked first.

@@ -44,9 +44,12 @@ evidence/M9.2/**/*.log -text -whitespace
 
 # Preserve the exact compiled M9.2 input bytes across Windows/Linux checkouts.
 # These six sources were compiled with CRLF; -text prevents silent normalization.
-kernel/desktop/session.c -text
-kernel/input/legacy.c -text
-kernel/storage/ide.c -text
-kernel/storage/registry.c -text
-kernel/storage/scsi92.c -text
-tools/build/m6.py -text
+kernel/desktop/session.c -text whitespace=cr-at-eol
+kernel/input/legacy.c -text whitespace=cr-at-eol
+kernel/storage/ide.c -text whitespace=cr-at-eol
+kernel/storage/registry.c -text whitespace=cr-at-eol
+kernel/storage/scsi92.c -text whitespace=cr-at-eol
+tools/build/m6.py -text whitespace=cr-at-eol
+
+# Preserve the exact executed/compiled qualification harness sources as well.
+tests/m92/** -text whitespace=cr-at-eol

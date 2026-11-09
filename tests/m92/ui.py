@@ -23,13 +23,29 @@ def guest(*args,controller='sata',**kwargs):
     return value
 
 
+def physical_boot(g,installed=False):
+    """Use original boot dimensions; a logical 150% viewport loses rounding pixels."""
+    import re,struct
+    reference=memory(g,symbol('view73',160,installed)[0],160)
+    values=re.findall(r'^\s*([0-9a-f]+)\s+[0-9a-f]+\s+8\s+\d+\s+screen$',MAPS74[installed],re.M)
+    candidates=[]
+    for address in values:
+        pointer=struct.unpack('<Q',memory(g,int(address,16),8))[0]
+        if not 0<pointer<2**32:continue
+        data=memory(g,pointer,160)
+        if struct.unpack_from('<Q',data)[0]!=0x304f464e49534f42:continue
+        stride,fmt,w,h=struct.unpack_from('<4I',data,136)
+        if data[80:96]!=reference[80:96] or not 320<=w<=4096 or not 200<=h<=2160 or stride<w*4:continue
+        candidates.append((w*h,data))
+    assert candidates,'No validated physical boot framebuffer found'
+    return max(candidates,key=lambda item:item[0])[1]
+
 def raw_shot(g,out,name,installed=False):
     """Decode actual stopped-guest VRAM, independent of timer-driven VGA cache."""
     import struct,hashlib,json
     from PIL import Image
-    boot=memory(g,symbol('view73',160,installed)[0],160)
+    boot=physical_boot(g,installed)
     address=struct.unpack_from('<Q',boot,80)[0];stride,fmt,w,h=struct.unpack_from('<4I',boot,136)
-    scale=integer(g,'scale73',installed);w=w*scale//2;h=h*scale//2
     assert 320<=w<=4096 and 200<=h<=2160 and stride>=w*4 and stride*h<=64*1024**2
     path=g.folder/(name+'-vram.bin');g.qmp('human-monitor-command',{'command-line':f'pmemsave 0x{address:x} 0x{stride*h:x} "{path.as_posix()}"'})
     data=path.read_bytes();assert len(data)==stride*h

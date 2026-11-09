@@ -21,6 +21,8 @@ def main():
   target=OUT/directory;target.mkdir(parents=True,exist_ok=True)
   for file in source.iterdir():
    if file.is_file() and file.suffix in ['.json','.png','.log'] and file.name not in ['last-run.log','difference.png']:
+    if file.suffix=='.log':
+     text=file.read_text(encoding='utf-8');assert not any(marker in text for marker in ['KERNEL_PANIC','M3_COMPLETE_FAIL','M2_ISOLATION_FAIL','M8_JOB_FAILED']),directory+'/'+file.name
     shutil.copyfile(file,target/('results.json' if file.name==filename else file.name))
   gates.append(directory+'/results.json');reports[directory]=value;return value
  pairs=[(c,f) for c in ['sata','ide','lsilogic','lsisas1068','pvscsi','nvme'] for f in ['efi','bios']]+[('buslogic','bios')]

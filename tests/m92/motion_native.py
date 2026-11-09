@@ -25,8 +25,8 @@ def main():
         wait(g,lambda:g.qmp('human-monitor-command',{'command-line':'info registers -a'}).count('HLT=1')==2)
         g.qmp('stop')
         try:
-            boot=ui.memory(g,ui.symbol('view73',160,True)[0],160)
-            address=struct.unpack_from('<Q',boot,80)[0];stride,fmt,w,h=struct.unpack_from('<4I',boot,136);scale=ui.integer(g,'scale73',True);w=w*scale//2;h=h*scale//2
+            boot=ui.physical_boot(g,True)
+            address=struct.unpack_from('<Q',boot,80)[0];stride,fmt,w,h=struct.unpack_from('<4I',boot,136)
             path=g.folder/(name+'.bin');g.qmp('human-monitor-command',{'command-line':f'pmemsave 0x{address:x} 0x{stride*h:x} "{path.as_posix()}"'})
             raw=path.read_bytes();picture=Image.frombytes('RGB',(stride//4,h),raw,'raw','BGRX' if fmt==2 else 'RGBX').crop((0,0,w,h));picture.save(out/(name+'.png'))
             return picture
