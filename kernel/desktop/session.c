@@ -132,10 +132,18 @@ static void whole(void) { invalidate((desktop_rect){0,0,(int32_t)model.width,(in
 static void task_damage(void) { invalidate((desktop_rect){0,(int32_t)model.height-60,(int32_t)model.width,60}); }
 static void notice(application *app,const char *text) { copy(app->notice,text,sizeof(app->notice)); }
 static void text(int x,int y,const char *value,unsigned scale,uint32_t color) {
+#ifdef ENGINE_M92
+    gui6_text((unsigned)x,(unsigned)y,value,scale,color);
+#else
     if(x>=0&&y>=0)gui6_text((unsigned)x,(unsigned)y,value,scale,color);
+#endif
 }
 static void rectangle(desktop_rect r,uint32_t color) {
-    if(r.width>0&&r.height>0&&r.x>=0&&r.y>=0)
+    if(r.width>0&&r.height>0
+#ifndef ENGINE_M92
+       &&r.x>=0&&r.y>=0
+#endif
+    )
         gui6_rect((unsigned)r.x,(unsigned)r.y,(unsigned)r.width,(unsigned)r.height,color);
 }
 static uint32_t ink(void) { return preferences.dark?0xe5eef2:0x1b3441; }
