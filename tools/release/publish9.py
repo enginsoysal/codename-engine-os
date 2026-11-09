@@ -2,7 +2,7 @@
 import argparse,datetime,hashlib,json,subprocess,urllib.request
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2];TAG='m9-v0.9.0';REPO='enginsoysal/codename-engine-os'
-def gh(*args):return subprocess.check_output(['gh',*args],cwd=ROOT,text=True)
+def gh(*args):return subprocess.check_output(['gh',*args],cwd=ROOT,text=True,encoding='utf-8')
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 def load(path):return json.loads(Path(path).read_text())
 def main():
@@ -18,10 +18,10 @@ def main():
     sums.write_bytes(''.join(sha(path)+'  '+name+'\n' for name,path in sorted(files.items())).encode())
     files[sums.name]=sums
     if a.action=='stage':
-        assert not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip(),'Commit the final release first'
+        assert not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True,encoding='utf-8').strip(),'Commit the final release first'
         commit=gh('api','repos/'+REPO+'/commits/main','--jq','.sha').strip()
-        local=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();assert local==commit,'Push the release commit first'
-        gh('release','create',TAG,'--repo',REPO,'--draft','--target',commit,'--title','Engine OS 0.9.0 â€” VMware graphics and automatic pointer setup','--notes-file','docs/releases/m9-v0.9.0.md')
+        local=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True,encoding='utf-8').strip();assert local==commit,'Push the release commit first'
+        gh('release','create',TAG,'--repo',REPO,'--draft','--target',commit,'--title','Engine OS 0.9.0 - VMware graphics and automatic pointer setup','--notes-file','docs/releases/m9-v0.9.0.md')
         gh('release','upload',TAG,'--repo',REPO,*[str(x) for x in files.values()])
     # GitHub's tag endpoint excludes unpublished drafts. Authenticated listing
     # exposes the owned draft so its complete asset set can be checked first.
