@@ -2,18 +2,8 @@
   "date": "2026-11-10",
   "scope": "Native BrixCanvas homepage follow-up; no OS build or release mutation",
   "publicUrl": "https://engineos.brixcanvas.com",
-  "observedPublicHomepage": "M7.3",
   "intendedHomepage": "M9.2",
-  "published": false,
-  "editor": {
-    "siteId": "b66d0e83-7987-4856-b702-e8d93234b6cd",
-    "nativeDraftPrepared": true,
-    "retainedForRecovery": true,
-    "saveHttpStatus": 500,
-    "saveMessage": "Your website could not be saved. Your edits are still in this window; try again.",
-    "requestCharacterCount": 1276487,
-    "requestContainsNativeBlogPosts": true
-  },
+  "published": true,
   "diagnosis": {
     "platformServerActionsBodySizeOverride": false,
     "frameworkDocumentedDefault": "1 MiB",
@@ -31,11 +21,42 @@
     "publisherOwnershipTests": "6 passed",
     "diffWhitespace": "passed"
   },
-  "publicationAcceptanceStillRequired": [
-    "Deploy and verify the platform correction through its normal release process",
-    "Save the native homepage against the latest site version",
-    "Fresh public homepage readback identifies M9.2",
-    "Current setup/hardware links and retained article inventory verified",
-    "Desktop/mobile appearance reviewed"
-  ]
+  "publicationAcceptanceStillRequired": [],
+  "initialPublicHomepage": "M7.3",
+  "observedPublicHomepage": "M9.2",
+  "initialEditor": {
+    "siteId": "b66d0e83-7987-4856-b702-e8d93234b6cd",
+    "nativeDraftPrepared": true,
+    "retainedForRecovery": true,
+    "saveHttpStatus": 500,
+    "saveMessage": "Your website could not be saved. Your edits are still in this window; try again.",
+    "requestCharacterCount": 1276487,
+    "requestContainsNativeBlogPosts": true
+  },
+  "resolution": {
+    "platformActionBodyCap": "4 MiB",
+    "preservedLiveApplication": true,
+    "nativeSaveHttpStatus": 200,
+    "nativeSaveMessage": "Saved ✓",
+    "requestCharacterCount": 1278039,
+    "nativeArticlesRetained": 145,
+    "sourceArticlesInPublicIndex": 143,
+    "freshPublicHomepage": "M9.2 present; M7.3 absent",
+    "manualSourceCommitAtFirstReadback": "d5c45bded77ee1b03443b62d6dd910104bdc06e7",
+    "officialM92IsoAndVmwareLinksVerified": true,
+    "isoSha256": "bdf22eff371890867a7271a4461989a50d64feeec45f67699dba7b216e9c8bf2",
+    "vmwareSha256": "2289f3909b35a4b77e8ae30051c4c8db5ff5e288b4073fc5e75e68e1fd5971eb",
+    "desktop": {
+      "clientWidth": 1270,
+      "scrollWidth": 1270,
+      "visualReview": "passed"
+    },
+    "mobile": {
+      "clientWidth": 309,
+      "scrollWidth": 309,
+      "menuNavigation": "passed",
+      "visualReview": "passed"
+    }
+  },
+  "githubSynchronization": "Final documentation synchronization pending the publication commit."
 }

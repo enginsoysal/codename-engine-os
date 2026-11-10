@@ -6,21 +6,24 @@ The Engine OS website belongs inside BrixCanvas. The requested public address is
 
 ### Homepage follow-up — 10 November 2026
 
-The public homepage still shows M7.3. M9.2 homepage copy and links are prepared
-in `website/brix/design.mjs` and in the authorized native BrixCanvas editor,
-retaining the existing layout. They are **not published**: native Save returns
-HTTP 500 and the editor explicitly retains the unsaved changes. Article and
-download synchronization does not update the homepage and must not be reported
-as homepage publication.
+The native homepage is **published and verified at M9.2**, retaining the
+preferred layout. `website/brix/design.mjs` records the matching English copy:
+current VMware setup, supported controller scope, display/resource evidence,
+explicit hardware/application limits and correct installation/restart guidance.
+Fresh public readback contains M9.2 and no M7.3 homepage reference. The M9.2
+manual and official ISO/VMware ZIP links and complete hashes were checked.
+All 145 native articles remain present (143 source articles plus the two
+generated index/download articles). Desktop and narrow mobile layouts were
+reviewed; measured document width equals viewport width without horizontal
+overflow, and the mobile menu exposes the main navigation.
 
-The observed Save action sends a 1,276,487-character document including native
-blog posts. The platform source has no override for Next.js's default 1 MiB
-Server Actions body limit. A bounded platform correction is being prepared
-separately; do not remove documentation, rotate credentials, introduce another
-hosting origin, or alter accepted OS releases to work around this failure.
-After the platform correction is deployed, save from a fresh site version and
-verify the public homepage, its current setup/hardware links and the preserved
-article inventory. See [follow-up evidence](../evidence/documentation/homepage-m92-followup.json).
+The previous Save failure is resolved. The editor sends the native blog data
+with its canvas, exceeding the framework's default 1 MiB action-body cap. The
+owner-approved bounded BrixCanvas correction retains the live application and
+raises only that cap to 4 MiB. A fresh native Save sent 1,278,039 characters
+with all 145 posts, received HTTP 200 and displayed **Saved ✓**. No article was
+removed and no credential or separate hosting workaround was used. See
+[follow-up evidence](../evidence/documentation/homepage-m92-followup.json).
 
 The BrixCanvas project is `Codename: Engine OS`, site ID `b66d0e83-7987-4856-b702-e8d93234b6cd`, initial preview slug `codename-engine-os-ltvck`. The homepage uses native Menu, Layout, Button, Text, Heading, Code and Alert Brix. Documentation belongs to the native Blog content model, grouped by handbook, roadmap, architecture, milestones, releases, developer guides and evidence. Native site-wide search reads article body text, titles and tags. No external website is the production origin.
 
@@ -40,7 +43,24 @@ The active `.github/workflows/brixcanvas-docs.yml` workflow runs on relevant `ma
 
 Edit generated documentation in the canonical GitHub files. Local edits to generated article bodies will be replaced on synchronization; manually authored articles without the Engine OS ownership marker remain untouched. Page design, menus, site access and unrelated app settings are outside the publisher's scope. Public rendering can retain the previous cached article for up to 60 seconds after an API write; verification reads the native API directly.
 
-Documentation and binaries remain canonical on GitHub. Native articles are generated copies and identify their source commit. Downloads link directly to official release assets. Original ISO files, immutable tags and frozen M45-VM-v1 acceptance evidence are unchanged. M4.5 and the earlier installation releases remain historical. M7.1 was accepted within M71-VM-v1; M7.3 is the current visual/HiDPI follow-up; original DOS/Windows execution remains M8. Native articles and the download index synchronize automatically, including the M7.1 installation, partition-management and recovery tutorials with exact checksums. The native homepage composition is updated alongside releases while retaining the preferred design; editable snapshot and guide links identify the current installer. [M7.1 homepage publication evidence](../evidence/documentation/m71-homepage-results.json) records its observed status. Browser edits use only the owner-authorized Edge extension or agent-owned browser; no host desktop takeover or new publishing permission is used. Historical articles/downloads remain available.
+Documentation and binaries remain canonical on GitHub. Native articles identify
+their source commit and downloads link directly to official release assets.
+M9.2 is the current qualified virtual-storage release; broader hardware and
+general DOS/Windows compatibility remain open. Accepted releases, tags, hashes
+and OS evidence are unchanged. Article/download updates are automatic; homepage
+editing is a separate native Brix operation. Browser work uses only the
+owner-authorized Edge extension or agent-owned browser. Historical guides,
+downloads and publication evidence remain available.
+
+### Website release acceptance
+
+1. Push canonical documentation and verify the content-sync job succeeds.
+2. Update the native homepage snapshot, current guide links and scope notice
+   from the latest site version. Article synchronization does not perform this step.
+3. Confirm native Save succeeds, then inspect a fresh public page, current
+   guide/download destinations, exact hashes, article retention and responsive layout.
+4. Record website evidence separately from OS qualification. A failed Save or
+   an article-only sync must never be reported as a completed homepage update.
 
 ## Correction of the earlier hosting approach
 
@@ -58,7 +78,7 @@ Current guides focus on the redesigned installer, immediate real persistent File
 
 Native downloads prefer m73-v0.7.3, including the matching VMware ZIP, full notices and SHA256 values. All committed English Markdown, including the new installation/desktop/recovery and graphics/design review documents, synchronizes into native Brix articles. The homepage keeps the approved native composition and points to M7.3 setup/recovery. Its manual native Brix edit follows the content-sync jobs so optimistic site versions do not conflict. New public readback verifies every canonical source commit and frozen M73-VM-v1 proof; earlier release assets/proofs remain unchanged. [Current guide](../docs/handbook/install-m73.md), [desktop](../docs/handbook/desktop-m73.md), [recovery](../docs/handbook/recovery-m73.md).
 
-## M7.4 application delivery
+## Historical M7.4 application delivery
 
 Native downloads prefer m74-v0.7.4 and its prepared VMware ZIP. English
 installation/app instructions, format limits, package ownership, resource
@@ -71,10 +91,10 @@ from article synchronization. [Install](../docs/handbook/install-m74.md),
 Publication readback: both M7.4 GitHub content-sync jobs succeeded. All 33
 public release asset digests and sizes match the local qualified artifacts; see
 [publication proof](../evidence/documentation/m74-release-publication.json).
-The public homepage still shows M7.3: the native editor rejected Save twice
-with an explicit save-error message. M7.4 edits remain in the authorized Edge
-editor for recovery. No successful homepage publication is claimed. Current
-articles and downloads are independent of this homepage-only blocker.
+At that delivery the public homepage remained at M7.3: the native editor
+rejected Save twice. Edits were retained for recovery and no successful
+homepage publication was claimed. The 10 November follow-up above resolves
+this historical homepage-only blocker separately from article synchronization.
 
 ## M7.5 installation follow-up
 
