@@ -1,5 +1,7 @@
 # Current status
 
+**Next delivery in progress: [M10 hardware foundation and everyday devices](../milestones/m10.md), phases 1 and 2.** Common device/capability reporting, integrated desktop input/display and useful writable removable USB tasks are required. M9.2 remains the downloadable qualified release until new-artifact acceptance passes. The new product name is deferred; the current domain remains active.
+
 **Current delivery: M9.2 automatic writable storage and reachable desktop windows (M92-STORAGE-VM-v1).** The named VMware IDE, SATA, LSI Logic, LSI SAS, PVSCSI and NVMe BIOS/UEFI profiles, plus compatible BusLogic BIOS, pass actual installation, persistence and two independent disk boots. Native clipping passes ordinary/150%/4K repaint and idle-memory checks. The broader hardware program remains open; recorded QEMU SAS restart failures and PVSCSI completion refusal are explicitly unqualified. [Release](../releases/m92-v0.9.2.md), [guide](../handbook/install-m92.md), [acceptance](../../evidence/M9.2/acceptance-results.json).
 
 **Historical M9.1 correction:** added the missing PCIe root-port configuration while retaining the M9 ISO. M9.2 is the current complete download package.

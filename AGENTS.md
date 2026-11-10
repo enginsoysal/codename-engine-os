@@ -13,6 +13,15 @@
 
 ## Product requirements
 
+- Owner priority, 10 November 2026: M10 implements phases 1 and 2 of the approved
+  hardware program before further Windows profiles. Deliver a common bounded
+  inventory/capability model and Settings → Devices, useful desktop input/display,
+  writable removable USB storage with graphical transfer/safe removal/reconnect,
+  and new exact-artifact VMware media/tests. Maintain honest virtual versus
+  physical qualification and preserve accepted releases. The owner deferred
+  the replacement name: retain the working Engine OS name and current domain
+  until a new name containing Engine is selected. See docs/milestones/m10.md.
+
 - Owner priority, 9 November 2026: complete real IDE/SATA/SCSI installation and independent startup through automatic native controller support. Installer admission must use verified read/write/flush capability rather than a SATA name check. Test each implemented controller/firmware combination with shipped devices enabled. Also support reachable partially off-screen window movement with safe signed clipping. Do not label the broader hardware program universally complete from a virtual controller matrix.
 
 - Owner-reported M9 starter failure, 9 November 2026: an enabled e1000e NIC without PCIe root ports crashed VMware. Starter qualification must retain every shipped device enabled and may add only owned observation channels. Offline tests remain separate. Drain COM1 observations while waiting for frames; test instrumentation must not stall the guest.
