@@ -4,6 +4,7 @@
 #include "../../kernel/storage/registry.c"
 void console_text(const char*s){(void)s;}void console_hex(uint64_t n){(void)n;}
 void usb_hardware_inventory(unsigned bdf){(void)bdf;}
+void hw10_refresh(void){}unsigned hw10_count(void){return 0;}const hw10_device*hw10_get(unsigned i){(void)i;return 0;}
 uint32_t m4_crc(const void*data,unsigned length){const uint8_t*p=data;uint32_t c=UINT32_MAX;for(unsigned i=0;i<length;++i){c^=p[i];for(unsigned b=0;b<8;++b)c=(c>>1)^(0xedb88320u&(0u-(c&1)));}return ~c;}
 static void quiet_serial10(const char*s){(void)s;}
 #define serial_text quiet_serial10

@@ -18,7 +18,7 @@ unsigned rem10_volume(unsigned disk,unsigned*part,unsigned*token){
  for(unsigned i=0;i<16;++i)if(!mount(disk,i,&v)){*part=i;return B_OK;}return B_UNSUPPORTED;
 }
 unsigned rem10_list(unsigned disk,unsigned token,unsigned part,const char*path,unsigned offset,rem10_entry*out,unsigned cap,unsigned*total){
- if(!lease10(disk,token)||!out||!cap||cap>16||!total)return B_DENIED;volume v;unsigned status=mount(disk,part,&v),cluster,size,attr;if(status)return status;if((status=resolve10(&v,path,&cluster,&size,&attr)))return status;if(!(attr&16))return B_DENIED;
+ if(!lease10(disk,token))return B_ABSENT;if(!out||!cap||cap>16||!total)return B_DENIED;volume v;unsigned status=mount(disk,part,&v),cluster,size,attr;if(status)return status;if((status=resolve10(&v,path,&cluster,&size,&attr)))return status;if(!(attr&16))return B_DENIED;
  listing10=out;listed10=0;skip10=offset;capacity10=cap;status=directory(&v,cluster,0,0,0,0);*total=listed10;listing10=0;return status;
 }
 static unsigned write_sector10(volume*v,uint64_t lba,const void*data){if(lba<v->start||lba>=v->start+v->count)return B_DENIED;return storage_device_io(v->disk,lba,(void*)data,v->bytes,1);}

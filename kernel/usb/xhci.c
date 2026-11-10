@@ -190,7 +190,13 @@ void usb_hardware_inventory(unsigned bdf){
     if(!controller_selected||bdf!=controller_bdf){console_text("USB controller unbound: one-controller profile or unavailable BAR\n");return;}
     console_text("USB controller initialization status: ");console_decimal(initialization_status);console_text("; IRQ/event engine: ");console_text(active?"active\n":"inactive\n");console_text("USB rejected root-port mask: ");console_hex(rejected_ports);console_text("\n");
     for(unsigned i=0;i<device_count;++i){device *d=&devices[i];if(!d->slot)continue;console_text("USB device ");console_decimal(i);console_text(" root port ");console_decimal(d->port);console_text(" route ");console_hex(d->route);console_text(d->kind==9?" hub":d->kind==1?" keyboard":d->kind==2?" mouse":d->kind==3?(d->uas?" UAS":" BOT"):" unclassified");
-        const storage_disk *disk=d->storage_index<STORAGE_MAX?storage_get(d->storage_index):0;console_text(d->dead?" - quarantined; DMA retained\n":d->kind==3?(disk&&disk->readable?" - read-only transfer verified\n":" - storage unavailable\n"):" - driver bound\n");if(d->kind==9){console_text("USB rejected hub-port mask: ");console_hex(d->rejected_children);console_text("\n");}}
+        const storage_disk *disk=d->storage_index<STORAGE_MAX?storage_get(d->storage_index):0;console_text(d->dead?" - quarantined; DMA retained\n":d->kind==3?(disk&&disk->readable?
+#ifdef ENGINE_M10
+(storage_writable(disk)?" - read/write/flush available\n":" - read-only transfer verified\n")
+#else
+" - read-only transfer verified\n"
+#endif
+:" - storage unavailable\n"):" - driver bound\n");if(d->kind==9){console_text("USB rejected hub-port mask: ");console_hex(d->rejected_children);console_text("\n");}}
 }
 unsigned usb_irq(uint64_t *frame){if(active&&bulk_waiting&&frame[15]==32){out8(0x20,0x20);return 1;}if(!active||frame[15]!=145)return 0;++irq_count;consume();*(volatile uint32_t*)(uintptr_t)0xfee000b0=0;return 1;}
 unsigned usb_mouse_pending(void){return __atomic_load_n(&mouse_dirty,__ATOMIC_ACQUIRE);}
@@ -251,7 +257,7 @@ static unsigned mass_probe(unsigned index){
     unsigned writable=0;if(!d->uas&&d->bytes==512){uint8_t mode[6]={0x1a,8,0x3f,0,4,0};if(!scsi_retry(d,mode,6,4)&&!(((uint8_t*)(uintptr_t)d->data)[2]&128)&&!mass_flush10(item.context))writable=1;}
     status=storage_register_io(item,mass_read,writable?mass_io10:0,writable?mass_flush10:0);
     if(!status)for(unsigned i=0;i<storage_count();++i){const storage_disk*r=storage_get(i);if(r->transport==STORAGE_USB&&r->bdf==item.bdf&&r->context==item.context){d->storage_index=i;break;}}
-    serial_text(writable?"M10_USB_WRITABLE\n":"M10_USB_READ_ONLY\n");
+    const storage_disk*registered=d->storage_index<storage_count()?storage_get(d->storage_index):0;serial_text(!registered||!registered->readable?"M10_USB_UNAVAILABLE\n":storage_writable(registered)?"M10_USB_WRITABLE\n":"M10_USB_READ_ONLY\n");
 #else
     status=storage_register(item,mass_read);
 #endif

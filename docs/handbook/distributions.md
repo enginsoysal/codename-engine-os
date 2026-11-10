@@ -1,6 +1,18 @@
-# Build your own Engine OS distribution
+# Build your own Engacer OS distribution
 
-## Current M9.2 hardware edition
+## M10 hardware edition
+
+Start from `distros/engacer-hardware.json`. In a separate checkout choose your own
+profile ID and use `python tools/build/m10.py --profile distros/my-edition.json --revision custom`.
+New outputs use `EngacerOS-M10CUSTOM`; do not overwrite the standard candidate or
+accepted earlier releases. Qualify changed recipes independently. The schema-3
+optional apps, theme, account defaults and bounded data packages remain configurable.
+Settings, Files, required services and destructive-operation guards remain protected.
+The built-in device/USB guide is a separate data package. Changing identity does
+not grant unsupported hardware capabilities. [M10 install guide](install-m10.md),
+[hardware design](../architecture/hardware-m10.md).
+
+## Historical M9.2 hardware edition
 
 Start from `distros/engineos-hardware.json`. Use a separate checkout for a custom edition, keep a distinct profile ID and build with `python tools/build/m92.py --profile distros/my-edition.json --revision custom`. The custom suffix produces separate `EngineOS-M92CUSTOM` media; qualify that edition independently. Do not overwrite the accepted standard release or infer that its checks qualify a changed profile.
 

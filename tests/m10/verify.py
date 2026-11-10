@@ -7,13 +7,19 @@ def main():
     meta=json.loads((ROOT/'dist/m10-build-manifest.json').read_text(encoding='utf-8'))
     iso=meta['artifacts']['EngacerOS-M10.iso']['sha256'];build=meta['build_id']
     assert sha(ROOT/'dist/EngacerOS-M10.iso')==iso
-    for name,digest in meta['source_sha256'].items():
-        assert sha(ROOT/name)==digest,'Build input changed: '+name
-        blob=subprocess.check_output(['git','show','HEAD:'+name],cwd=ROOT)
-        assert hashlib.sha256(blob).hexdigest()==digest,'Published build bytes differ: '+name
+    batch=subprocess.Popen(['git','cat-file','--batch'],cwd=ROOT,stdin=subprocess.PIPE,stdout=subprocess.PIPE)
+    try:
+        for name,digest in meta['source_sha256'].items():
+            assert sha(ROOT/name)==digest,'Build input changed: '+name
+            batch.stdin.write(('HEAD:'+name+'\n').encode());batch.stdin.flush()
+            header=batch.stdout.readline().split();assert len(header)==3 and header[1]==b'blob',name
+            blob=batch.stdout.read(int(header[2]));assert batch.stdout.read(1)==b'\n'
+            assert hashlib.sha256(blob).hexdigest()==digest,'Published build bytes differ: '+name
+    finally:
+        batch.stdin.close();batch.stdout.close();batch.wait(timeout=10)
     for name,info in meta['artifacts'].items():assert sha(ROOT/'dist'/name)==info['sha256'],name
     reports=[('filesystem-host',False),('input-host',False),('usb-negative',True),('usb-quota',True)]
-    reports += [('journey/'+name,True) for name in ['uefi-1280x800-128','uefi-1280x800-64','uefi-3840x2160-128-hub','bios-1280x800-128']]
+    reports += [('journey/'+name,True) for name in ['uefi-1280x800-128','uefi-1280x800-64','uefi-3840x2160-128-hub','bios-1280x800-128','uefi-1280x800-128-large-usb']]
     reports += [('native-motion/M10-'+size,True) for size in ['1280x800','2560x1440','3840x2160']]
     reports += [('motion-results/M10',True)]
     reports += [('vmware-results/'+c+'-'+f,True) for c in ['sata','ide','lsilogic','lsisas1068','pvscsi','nvme'] for f in ['efi','bios']]
@@ -41,7 +47,9 @@ def main():
     target=out/'known-unqualified';target.mkdir(exist_ok=True);shutil.copyfile(known,target/'uefi64-boot-usb.json')
     hashes['known-unqualified/uefi64-boot-usb.json']=sha(target/'uefi64-boot-usb.json')
     limits=meta['limits']+['64-MiB OVMF: USB storage connects after installed startup; boot-attached USB storage/init allocation remains a recorded unqualified failure. Standard VMware package uses 128 MiB.']
-    result={'passed':True,'scope_id':'M10-DEVICES-VM-v1','hardware_phases_1_and_2_complete_within_scope':True,'build_id':build,'iso_sha256':iso,'starter_sha256':starter['sha256'],'gates':proof,'known_unqualified':['64-MiB OVMF with boot-attached USB storage'], 'evidence_sha256':hashes,'limits':limits}
+    harness={p.relative_to(ROOT).as_posix():sha(p) for p in sorted((ROOT/'tests/m10').iterdir()) if p.suffix in ('.py','.c')}
+    harness['tools/release/vmware_starter10.py']=sha(ROOT/'tools/release/vmware_starter10.py')
+    result={'passed':True,'scope_id':'M10-DEVICES-VM-v1','hardware_phases_1_and_2_complete_within_scope':True,'build_id':build,'iso_sha256':iso,'starter_sha256':starter['sha256'],'gates':proof,'known_unqualified':['64-MiB OVMF with boot-attached USB storage'], 'evidence_sha256':hashes,'qualification_harness_sha256':harness,'limits':limits}
     (out/'acceptance-results.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8')
     print('M10 acceptance PASS:',len(proof),'exact-source/artifact gates')
 if __name__=='__main__':main()

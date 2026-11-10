@@ -30,7 +30,7 @@ Guidance must not require a heavyweight GUI stack or a polling input loop. Bound
 
 ## Current product delivery order
 
-The owner revision of 6 November 2026 sets M6 real product installation, M7 real desktop experience, then M8 original MS-DOS and Windows 1.x through Windows 11 application compatibility. M6 is complete within M6-VM-v1, with a native graphical installer, scalable volume and tested recovery; M7 is complete within M7-VM-v1 with a native installed desktop and checked HTTPS downloads; M8 is not started. Previous milestone evidence remains bounded historical proof. Engine OS remains the product name. Convenience, optional diagnostics, distribution freedom and measured CPU/RAM use apply to every stage. See [the current contracts](../roadmap/milestones.md).
+The owner revision of 6 November 2026 sets M6 real product installation, M7 real desktop experience, then M8 original MS-DOS and Windows 1.x through Windows 11 application compatibility. M6 is complete within M6-VM-v1, with a native graphical installer, scalable volume and tested recovery; M7 is complete within M7-VM-v1 with a native installed desktop and checked HTTPS downloads; M8 qualifies a first original Windows console/MSI profile; the wider DOS/Windows program remains in progress. M10 hardware phases 1 and 2 now take priority before further application profiles. Previous milestone evidence remains bounded historical proof. The owner selected Engacer OS for new M10 UI/media; historical Engine OS identities stay intact. Convenience, optional diagnostics, distribution freedom and measured CPU/RAM use apply to every stage. See [the current contracts](../roadmap/milestones.md).
 
 ## Graphical setup and removable optional apps
 

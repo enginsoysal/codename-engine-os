@@ -1,6 +1,15 @@
 # Milestones and acceptance contract
 
-## Current owner priority - 9 November 2026
+## Current owner priority - 10 November 2026
+
+M10 delivers the first two hardware phases before further Windows expansion:
+a bounded capability inventory and Settings > Devices, everyday input/display,
+FAT32 USB file copies, safe removal and reconnect. Exact artifact installation,
+independent startup, ordinary/4K presentation, resource and error tests govern
+acceptance. [Scope and later phases](../milestones/m10.md), [design](../architecture/hardware-m10.md), [user guide](../handbook/hardware-m10.md).
+The current product name is Engacer OS; earlier release identities remain historical.
+
+## Historical owner priority - 9 November 2026
 
 M9 automatic hardware support precedes further Windows application expansion. The first graphics slice is qualified within M9-GFX-VM-v1: supported VMware video/pointer binding, buffered cached window movement, resource/idle behavior, real installation and existing-app regression. The broader hardware program remains in progress. [Scope and remaining stages](../milestones/m9.md), [graphics decisions](../architecture/graphics-m9.md), [guide](../handbook/install-m9.md).
 

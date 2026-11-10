@@ -30,6 +30,7 @@ def main():
             fault={'driver':'raw','node-name':'fault','file':{'driver':'blkdebug','image':{'driver':'file','filename':str(bad)},'inject-error':[{'event':'read_aio','iotype':'read','errno':5,'sector':0,'once':False}]}}
             g.qmp('blockdev-add',fault);start=len(g.log());g.qmp('device_add',{'driver':'usb-storage','id':'fault','bus':'xhci.0','drive':'fault'})
             g.wait('M45_USB_MASS_STORAGE_READY status=0x0000000000000000',start)
+            assert 'M10_USB_UNAVAILABLE' in g.log()[start:]
             # Registration can succeed while its required first read fails.
             # Actual registry capability, rather than a registration log, wins.
             raw=ui.memory(g,ui.symbol('disks',640,True)[0]+40,40)

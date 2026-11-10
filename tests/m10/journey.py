@@ -39,18 +39,43 @@ def wait_launcher(g,value):
         if time.monotonic()>deadline:raise TimeoutError('Keyboard launcher state did not change')
         time.sleep(.025)
 
+def verify_display_status(g):
+    graphics=ui.memory(g,ui.symbol('graphics9',80,True)[0],80)
+    bdf,adapter,backend=struct.unpack_from('<3I',graphics,64)
+    entries=ui.memory(g,ui.symbol('inventory',5120,True)[0],5120)
+    matches=[]
+    for index in range(128):
+        row=entries[index*40:(index+1)*40];device,vendor,product,kind,state,caps=struct.unpack_from('<6I',row)
+        if device==bdf and (vendor|(product<<16))==adapter and kind>>16==3:
+            pointer=struct.unpack_from('<Q',row,32)[0]
+            detail=ui.memory(g,pointer,96).split(b'\0')[0].decode();matches.append(detail)
+            assert state==2 and caps==16,'Display must remain limited 2D'
+    assert len(matches)==1
+    expected={0:'Firmware framebuffer',1:'Buffered software 2D',2:'VMware 2D presentation'}
+    assert expected[backend] in matches[0]
+    return {'backend':backend,'detail':matches[0]}
+
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--firmware',choices=['uefi','bios'],default='uefi');parser.add_argument('--resolution',default='1280x800');parser.add_argument('--ram',type=int,default=128);parser.add_argument('--hub',action='store_true');a=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--firmware',choices=['uefi','bios'],default='uefi');parser.add_argument('--resolution',default='1280x800');parser.add_argument('--ram',type=int,default=128);parser.add_argument('--hub',action='store_true');parser.add_argument('--large-usb',action='store_true');a=parser.parse_args()
     resolution=tuple(map(int,a.resolution.split('x')))
-    out=ROOT/'build/m10/journey'/(a.firmware+'-'+a.resolution+'-'+str(a.ram)+('-hub' if a.hub else ''));out.mkdir(parents=True,exist_ok=True)
+    out=ROOT/'build/m10/journey'/(a.firmware+'-'+a.resolution+'-'+str(a.ram)+('-hub' if a.hub else '')+('-large-usb' if a.large_usb else ''));out.mkdir(parents=True,exist_ok=True)
     work=ui.q.new_work('m10-devices');disk=ui.q.sparse_disk(work/'owned.img',2*1024**3)
     (out/'owned-work.json').write_text(json.dumps({'disk':str(disk)})+'\n',encoding='utf-8')
-    usb=work/'owned-usb.img';payload=b'Engacer OS removable media round trip.\n';usb.write_bytes(fat32([(2,b'HELLO   TXT',payload)]))
+    usb=work/'owned-usb.img';payload=b'Engacer OS removable media round trip.\n'
+    if a.large_usb:
+        payload=bytes((i*37+11)&255 for i in range(65536+113))
+        ui.q.sparse_disk(usb,1024**3);sys.path.insert(0,str(ROOT/'tools/local/m10-python'))
+        from pyfatfs.PyFat import PyFat
+        from pyfatfs.PyFatFS import PyFatFS
+        writer=PyFat();writer.mkfs(str(usb),fat_type=PyFat.FAT_TYPE_FAT32,size=1024**3,label='ENGACERTEST',volume_id=0x454e4731);writer.close()
+        with PyFatFS(str(usb),preserve_case=True) as creator:creator.makedirs('/EFI/BOOT');creator.writebytes('/HELLO.TXT',payload)
+        with usb.open('rb') as stream:assert stream.read(512)[13]==8
+    else:usb.write_bytes(fat32([(2,b'HELLO   TXT',payload)]))
     extra=['-drive',f'if=none,id=removable,format=raw,file={usb}','-device','usb-storage,id=removable-device,bus=xhci.0,drive=removable']
     if a.hub:extra=['-device','usb-hub,id=hub,bus=xhci.0,port=3']+[v.replace('id=removable-device,bus=xhci.0,','id=removable-device,bus=xhci.0,port=3.1,') for v in extra]
     meta=json.loads((ROOT/'dist/m10-build-manifest.json').read_text(encoding='utf-8'));iso=ROOT/'dist/EngacerOS-M10.iso';digest=hashlib.sha256(iso.read_bytes()).hexdigest()
     late_usb=a.ram<=64 and a.firmware=='uefi'
-    report={'passed':False,'build_id':meta['build_id'],'iso_sha256':digest,'checks':[],'firmware':a.firmware,'resolution':resolution,'ram_mib':a.ram,'usb_attach_stage':'after installed startup' if late_usb else 'before firmware boot'}
+    report={'passed':False,'build_id':meta['build_id'],'iso_sha256':digest,'checks':[],'firmware':a.firmware,'resolution':resolution,'ram_mib':a.ram,'usb_attach_stage':'after installed startup' if late_usb else 'before firmware boot','usb_payload_bytes':len(payload),'usb_payload_sha256':hashlib.sha256(payload).hexdigest(),'usb_cluster_bytes':4096 if a.large_usb else 512}
     try:
         candidate=ui.guest(work/'install',disk,resolution,a.firmware,ram=a.ram,extra=[] if late_usb else extra)
         candidate.args=[v.replace('usb-kbd,bus=xhci.0','usb-kbd,id=keyboard,bus=xhci.0') for v in candidate.args]
@@ -73,6 +98,7 @@ def main():
             shot(g,out,'keyboard-reconnected-launcher');ui.h.key(g,'esc');wait_launcher(g,0)
             report['checks'].append('USB keyboard reconnect followed by real keyboard launcher open/close')
             p.desktop(0,True);p.desktop(3,True);p.desktop(20000,True);shot(g,out,'devices')
+            report['actual_display_status']=verify_display_status(g)
             assert ui.integer(g,'layout10',True)==0
             p.desktop(20006,True);assert ui.integer(g,'layout10',True)==1
             p.close_app(3,True);p.desktop(94,True);p.desktop(26,True)

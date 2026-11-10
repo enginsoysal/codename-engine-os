@@ -5,7 +5,7 @@
 - This standalone repository is the canonical project. Never place Engine OS sources, plans, build outputs or evidence in the unrelated BrixCanvas repository.
 - The old planning copy has been moved out of BrixCanvas into this repository's ignored `tools/local/legacy-planning` archive. It is historical and must not be published or treated as current source. Use this repository root explicitly as the working directory even when the chat opens elsewhere.
 - Read README.md, docs/roadmap/status.md and relevant architecture contracts before implementing changes.
-- Build an independent OS and kernel. The owner priority order is M6 real product installation, M7 real desktop, then M8 original MS-DOS and Windows 1.x through Windows 11 applications. Windows is the first foreign application ecosystem; Linux, macOS and ARM remain deferred extensions. Keep the product name Engine OS.
+- Build an independent OS and kernel. The owner priority order is M6 real product installation, M7 real desktop, then M8 original MS-DOS and Windows 1.x through Windows 11 applications. Windows is the first foreign application ecosystem; Linux, macOS and ARM remain deferred extensions. Use Engacer OS for new M10 UI/media, retaining historical Engine OS identities.
 - Keep milestone implementation and evidence separate from architecture claims. Never mark runtime behavior complete based on a stub, header or host reference test.
 - Record each substantial decision with how, why, alternatives, limitations and verification. Keep status and milestone documents consistent.
 - All committed documentation, code comments, UI strings and new release notes must be in English. Update architecture, status, tests/evidence and user instructions together whenever behavior or scope changes.
