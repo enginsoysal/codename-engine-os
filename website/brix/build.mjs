@@ -52,6 +52,8 @@ export function build(output){
  }
  const releases=JSON.parse(execFileSync('gh',['api','repos/enginsoysal/engacer-os/releases?per_page=100'],{cwd:root,encoding:'utf8',maxBuffer:4*1024*1024})).filter(r=>!r.draft);
  const downloads=[];const add=(type,props)=>downloads.push({id:`engine-downloads-${downloads.length+1}`,type,props});
+ const generationSource=`<p>Generated from <a href="${GH}/tree/${ref}">canonical source commit ${ref.slice(0,7)}</a> and official GitHub release metadata.</p>`;
+ add('richtext',{html:generationSource,size:14});
  const current=releases.some(r=>r.tag_name==='m10-v0.10.0')?'M10':releases.some(r=>r.tag_name==='m92-v0.9.2')?'M92':releases.some(r=>r.tag_name==='m91-v0.9.1')?'M91':releases.some(r=>r.tag_name==='m9-v0.9.0')?'M9':releases.some(r=>r.tag_name==='m8-v0.8.0')?'M8':releases.some(r=>r.tag_name==='m75-v0.7.5')?'M75':releases.some(r=>r.tag_name==='m74-v0.7.4')?'M74':releases.some(r=>r.tag_name==='m73-v0.7.3')?'M73':releases.some(r=>r.tag_name==='m72-v0.7.2')?'M72':releases.some(r=>r.tag_name==='m71-v0.7.1')?'M71':releases.some(r=>r.tag_name==='m7-v0.7.0')?'M7':'M6';
  const currentLabel=current==='M92'?'M9.2':current==='M91'?'M9.1':current==='M75'?'M7.5':current==='M74'?'M7.4':current==='M73'?'M7.3':current==='M72'?'M7.2':current==='M71'?'M7.1':current;
  const tag=current==='M10'?'m10-v0.10.0':current==='M92'?'m92-v0.9.2':current==='M91'?'m91-v0.9.1':current==='M9'?'m9-v0.9.0':current==='M8'?'m8-v0.8.0':current==='M75'?'m75-v0.7.5':current==='M74'?'m74-v0.7.4':current==='M73'?'m73-v0.7.3':current==='M72'?'m72-v0.7.2':current==='M71'?'m71-v0.7.1':current==='M7'?'m7-v0.7.0':'m6-v0.6.0';
@@ -77,6 +79,7 @@ if(['M9','M91','M92','M10'].includes(current))add('richtext',{html:`<p>M9 adds a
  }
  posts.push({id:'engine-downloads',slug:'downloads',title:'Downloads and SHA256 verification',status:'published',bodyFormat:'brix',blocks:downloads,category:'downloads',tags:['Downloads','Releases'],author:'Engacer OS project',date:new Date().toISOString().slice(0,10),featured:true,meta:[{key:'engine_source_path',value:'@releases'},{key:'engine_source_commit',value:ref}]});
  const index=[];const push=(type,props)=>index.push({id:`engine-docindex-${index.length+1}`,type,props});
+ push('richtext',{html:generationSource,size:14});
  push('text',{text:'English manuals, architecture, release guides and evidence from the canonical Engacer OS GitHub repository. Each guide is an ordinary editable BrixCanvas article. Downloads are original GitHub release assets.',size:17,color:'#152434'});
  push('richtext',{html:`<p><a href="${SITE}/blog/docs-handbook-index">Start with the handbook</a> · <a href="${SITE}/blog/downloads">Downloads &amp; checksums</a> · <a href="${SITE}/blog/docs-roadmap-status">Current capabilities and limitations</a></p>`,size:17});
  for(const [key,name] of Object.entries(categoryNames)){
