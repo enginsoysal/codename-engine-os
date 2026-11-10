@@ -9,7 +9,7 @@ from pathlib import Path
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[2]
-ORIGIN = "https://engineos.brixcanvas.com"
+ORIGIN = "https://engaceros.brixcanvas.com"
 ISO_SHA = "774ea677c74a7d593fb392160833a8f70c42af69a54a2b44f47b4bbc401ddc03"
 
 
@@ -106,7 +106,7 @@ def verify(payload, homepage_release="M7.4"):
         marker = next(m["value"] for m in post["meta"] if m["key"] == "engine_source_path")
         if marker.endswith(".md"):
             assert "Canonical source:" in page.text, f"Native article body missing: {route}"
-            expected = f"https://github.com/enginsoysal/codename-engine-os/blob/{ref}/{marker}"
+            expected = f"https://github.com/enginsoysal/engacer-os/blob/{ref}/{marker}"
             assert expected in page.links, f"Wrong source commit: {route}"
         if post["slug"] == "downloads":
             assert m74["iso_sha256"] in page.text, "Current M7.4 ISO checksum missing"

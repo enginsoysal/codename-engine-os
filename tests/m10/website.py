@@ -4,7 +4,7 @@ from datetime import datetime,timezone
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.request import Request,urlopen
-ROOT=Path(__file__).resolve().parents[2];SITE='https://engacer.brixcanvas.com'
+ROOT=Path(__file__).resolve().parents[2];SITE='https://engaceros.brixcanvas.com'
 class Page(HTMLParser):
     def __init__(self):super().__init__();self.parts=[];self.links=[];self.skip=0;self.lang='';self.iframes=0
     def handle_starttag(self,tag,attrs):
@@ -34,7 +34,7 @@ def main():
         if route!='/':assert ref[:7] in p.text or any('/blob/'+ref+'/' in link for link in p.links),route
         if route=='/':assert not any('engineos.brixcanvas.com' in link for link in p.links),'Stale homepage domain'
         checks.append({'route':route,'passed':True})
-    release=json.loads(subprocess.check_output(['gh','api','repos/enginsoysal/codename-engine-os/releases/tags/m10-v0.10.0'],cwd=ROOT))
+    release=json.loads(subprocess.check_output(['gh','api','repos/enginsoysal/engacer-os/releases/tags/m10-v0.10.0'],cwd=ROOT))
     assert not release['draft'];assets={a['name']:a for a in release['assets']}
     for name,digest in [('EngacerOS-M10.iso',meta['artifacts']['EngacerOS-M10.iso']['sha256']),('EngacerOS-M10-VMware.zip',starter['sha256'])]:
         asset=assets[name];assert asset['digest']=='sha256:'+digest

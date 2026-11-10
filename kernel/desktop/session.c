@@ -257,7 +257,7 @@ static uint64_t launch(unsigned kind,const char *path) {
     if(kind==SETTINGS)desktop_place(&model,token,(desktop_rect){((int)model.width-700)/2,((int)model.height-60-550)/2,700,550});
 #endif
     if(kind==TERMINAL){copy(app->text,"" ENGINE_PRODUCT_NAME " advanced terminal. Type help for commands.\nUse menu, exit or Escape to close this window.\nengine> ",sizeof(app->text));app->length=length(app->text);}
-    if(kind==DOWNLOADS){copy(app->text,"https://raw.githubusercontent.com/enginsoysal/codename-engine-os/main/LICENSE",sizeof(app->text));app->length=app->cursor=length(app->text);}
+    if(kind==DOWNLOADS){copy(app->text,"https://raw.githubusercontent.com/enginsoysal/engacer-os/main/LICENSE",sizeof(app->text));app->length=app->cursor=length(app->text);}
     if(kind==EDITOR){
         if(path){
             const v6_entry *file=entry(path);unsigned bytes=0;

@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 let sequence=0;
-const site='https://engacer.brixcanvas.com';
+const site='https://engaceros.brixcanvas.com';
 const ink='#152434',muted='#5a6976',teal='#087c71',dark='#101e2c',paper='#f7f9f9';
 const b=(type,props)=>({id:`engine-home-${++sequence}`,type,props});
 const text=(value,size=16,color=muted,more={})=>b('text',{text:value,size,color,padX:0,py:10,lineHeight:1.65,...more});
@@ -16,7 +16,7 @@ const card=(n,title,description,label,slug)=>[
 ];
 export function nativeDesign(){
  sequence=0;
- const header=b('menubrix',{brand:'E_  ENGACER OS',brandHref:'/',items:[{label:'Documentation',href:'/blog/documentation'},{label:'Downloads',href:'/blog/downloads'},{label:'GitHub ↗',href:'https://github.com/enginsoysal/codename-engine-os'},{label:'Search',href:'/search'}],mode:'inline',width:'full',shape:'square',size:'l',bg:dark,textColor:'#d5e1e8',hoverColor:'#35ceba',blur:false,border:false,shadow:false});
+ const header=b('menubrix',{brand:'E_  ENGACER OS',brandHref:'/',items:[{label:'Documentation',href:'/blog/documentation'},{label:'Downloads',href:'/blog/downloads'},{label:'GitHub ↗',href:'https://github.com/enginsoysal/engacer-os'},{label:'Search',href:'/search'}],mode:'inline',width:'full',shape:'square',size:'l',bg:dark,textColor:'#d5e1e8',hoverColor:'#35ceba',blur:false,border:false,shadow:false});
  header.style={bg:{color:dark}};
  const status=layout([[text('● Independent kernel. Open source.',11,'#50616c',{py:6})],[text('INDEPENDENT · BUILT FROM SCRATCH',10,'#50616c',{align:'right',letterSpacing:'1px',py:6})]],{bg:{kind:'color',color:'#eaf0f0'},borderBottom:1,borderColor:'#dbe3e6'});
  const terminal=layout([[
@@ -56,7 +56,7 @@ export function nativeDesign(){
    hero,heading('A good place to start',27,ink,{py:24}),cards,
    b('alert',{variant:'warning',title:'Before you install M10',text:'Extract the complete VMware ZIP and open EngacerOS.vmx. A new blank 20 GiB SATA disk and the matching ISO are included. Select the disk row, follow Next, review your choices and install, then choose Restart to Engacer OS. The ISO may stay connected; disconnect only CD/DVD to test independent disk startup. Existing-disk replacement requires explicit erase consent. Keep Secure Boot off for this unsigned development build. M10 adds Settings > Devices and guarded USB file copies, safe removal and reconnect on named virtual profiles. Physical hardware and 3D remain unqualified; earlier QEMU SAS limits are preserved. Windows Apps supports the included original 7-Zip console profile; general Windows/MSI and DOS compatibility remain in progress.'}),bottom,
  ]],{bg:{kind:'color',color:paper},padY:12});
- const footer=b('socialcircles',{copyright:'Engacer OS / MIT licensed · Documentation & releases on GitHub',bg:paper,circleBg:teal,items:[{label:'github',href:'https://github.com/enginsoysal/codename-engine-os'},{label:'website',href:`${site}/blog/documentation`}]});
+ const footer=b('socialcircles',{copyright:'Engacer OS / MIT licensed · Documentation & releases on GitHub',bg:paper,circleBg:teal,items:[{label:'github',href:'https://github.com/enginsoysal/engacer-os'},{label:'website',href:`${site}/blog/documentation`}]});
  return [header,status,main,footer];
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){

@@ -39,7 +39,7 @@ def main():
     starter=json.loads((ROOT/'dist/m10-starter-manifest.json').read_text(encoding='utf-8'))
     assert starter['passed'] and sha(ROOT/'dist'/starter['archive'])==starter['sha256']
     accepted=json.loads((out/'vmware-results/sata-efi-starter/results.json').read_text(encoding='utf-8'))
-    assert accepted['starter_sha256']==starter['sha256'] and accepted['windows_lifecycle_exercised']
+    assert accepted['starter_sha256']==starter['sha256'] and accepted['windows_lifecycle_exercised'] and accepted['devices_and_layout_frontend_verified']
     for relative in ['m10-build-manifest.json','m10-starter-manifest.json']:shutil.copyfile(ROOT/'dist'/relative,out/relative)
     hashes={p.relative_to(out).as_posix():sha(p) for p in sorted(out.rglob('*')) if p.is_file() and p.name!='acceptance-results.json'}
     known=ROOT/'build/m10/known-uefi64-boot-usb/results.json';failure=json.loads(known.read_text(encoding='utf-8'))

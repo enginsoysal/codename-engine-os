@@ -12,7 +12,7 @@ const fields=['title','status','excerpt','bodyFormat','blocks','category','tags'
 const canonical=value=>JSON.stringify(value,(_key,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.fromEntries(Object.entries(v).sort(([a],[b])=>a.localeCompare(b))):v);
 const select=p=>Object.fromEntries(fields.map(key=>[key,p[key]]));
 const source=p=>p.meta?.find(m=>m.key==='engine_source_path')?.value;
-const pending=p=>`Engine OS generated draft: ${source(p)}`;
+const pending=p=>`Engacer OS generated draft: ${source(p)}`;
 
 export function assertSite(settings){
  assert.equal(settings?.slug,slug,'The API key belongs to a different website; nothing was changed.');
@@ -29,7 +29,7 @@ export function planSync(desired,current){
    assert(!wanted.has(p.slug),'Duplicate generated article slug');wanted.add(p.slug);
    const old=bySlug.get(p.slug);
    if(!old){operations.push({kind:'create',post:p});continue;}
-   const recovery=old.status==='draft'&&old.excerpt===pending(p)&&['Engine OS project','Engacer OS project'].includes(old.author)&&!old.content&&!old.blocks?.length;
+   const recovery=old.status==='draft'&&[pending(p),`Engine OS generated draft: ${source(p)}`].includes(old.excerpt)&&['Engine OS project','Engacer OS project'].includes(old.author)&&!old.content&&!old.blocks?.length;
    assert(source(old)===source(p)||recovery,`Unmanaged slug collision at ${p.slug}; nothing was changed.`);
    if(canonical(select(old))!==canonical(select(p)))operations.push({kind:'update',post:p});
  }
@@ -68,7 +68,7 @@ async function publish(){
  for(const operation of operations){
    const p=operation.post,route=`/posts/${p.slug}`;
    if(operation.kind==='create'){
-     await api('/posts','POST',{title:p.title,slug:p.slug,status:'draft',excerpt:pending(p),author:'Engine OS project',content:''});
+     await api('/posts','POST',{title:p.title,slug:p.slug,status:'draft',excerpt:pending(p),author:'Engacer OS project',content:''});
      await api(route,'PATCH',{...select(p),content:''});result.created++;
    }else if(operation.kind==='update'){
      await api(route,'PATCH',{...select(p),content:''});result.updated++;
@@ -79,7 +79,7 @@ async function publish(){
  const final=await inventory(),bySlug=new Map(final.map(p=>[p.slug,p]));
  for(const p of desired){assert.equal(canonical(select(bySlug.get(p.slug))),canonical(select(p)),`Verification failed for ${p.slug}`);}
  for(const operation of operations.filter(o=>o.kind==='archive'))assert.equal(bySlug.get(operation.post.slug)?.status,'draft');
- const report={passed:true,checked_at:new Date().toISOString(),website:'https://engacer.brixcanvas.com',source_commit:payload.source_commit,articles:desired.length,...result,unrelated_articles_preserved:initial.filter(p=>!source(p)).length};
+ const report={passed:true,checked_at:new Date().toISOString(),website:'https://engaceros.brixcanvas.com',source_commit:payload.source_commit,articles:desired.length,...result,unrelated_articles_preserved:initial.filter(p=>!source(p)).length};
  const out=path.join(root,'build/brix/sync-results.json');fs.writeFileSync(out,JSON.stringify(report,null,2)+'\n');
  console.log(JSON.stringify(report));
 }

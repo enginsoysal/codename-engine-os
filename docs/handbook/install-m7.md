@@ -4,7 +4,7 @@ M7 v0.7.0 is accepted within M7-VM-v1. Use the exact ISO and SHA-256 in the [rel
 
 ## Prepare VMware
 
-1. Download [EngineOS-M7.iso](https://github.com/enginsoysal/codename-engine-os/releases/download/m7-v0.7.0/EngineOS-M7.iso) from the official release. Compare its SHA-256 with the release guide using `Get-FileHash -Algorithm SHA256 .\EngineOS-M7.iso` in PowerShell.
+1. Download [EngineOS-M7.iso](https://github.com/enginsoysal/engacer-os/releases/download/m7-v0.7.0/EngineOS-M7.iso) from the official release. Compare its SHA-256 with the release guide using `Get-FileHash -Algorithm SHA256 .\EngineOS-M7.iso` in PowerShell.
 2. Create a separate x86-64 VM. A FreeBSD 64-bit preset is suitable; this preset does not make Engine OS FreeBSD. Use **two vCPUs, 128 MiB RAM and a new 20-GiB SATA disk**. Eligible installation disks use 512-byte logical sectors and start at 2 GiB. Use BIOS or UEFI with **Secure Boot disabled**.
 3. Attach the ISO as CD/DVD and connect it at startup. The ISO opens the graphical installer. The desktop appears after installation and a disk-only restart.
 4. For downloads, use a connected **Intel e1000e** adapter with **NAT**. Do not use vmxnet3 or legacy e1000 for this release. The host CPU must expose RDRAND, and the virtual clock must have correct UTC. Offline desktop tasks still work without networking.

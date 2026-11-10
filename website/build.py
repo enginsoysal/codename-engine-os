@@ -26,7 +26,7 @@ def build(destination):
     titles = {p: next((line[2:] for line in text.splitlines() if line.startswith("# ")), p)
               for p, text in docs.items()}
     releases = json.loads(subprocess.check_output([
-        "gh", "api", "repos/enginsoysal/codename-engine-os/releases?per_page=100"
+        "gh", "api", "repos/enginsoysal/engacer-os/releases?per_page=100"
     ], cwd=ROOT).decode("utf-8"))
     # Store public release metadata only; never copy API authorization or local paths.
     fields = ("id", "tag_name", "name", "html_url", "published_at", "prerelease", "draft")

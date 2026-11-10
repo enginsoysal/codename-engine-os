@@ -1,6 +1,6 @@
 # Install Engine OS M6 in VMware
 
-Download [EngineOS-M6.iso](https://github.com/enginsoysal/codename-engine-os/releases/download/m6-v0.6.0/EngineOS-M6.iso). The [release notes](../releases/m6-v0.6.0.md) and [milestone status](../milestones/m6.md) identify its qualification. Use only the exact ISO identified by the published release and acceptance report. The browser design preview is not installation media.
+Download [EngineOS-M6.iso](https://github.com/enginsoysal/engacer-os/releases/download/m6-v0.6.0/EngineOS-M6.iso). The [release notes](../releases/m6-v0.6.0.md) and [milestone status](../milestones/m6.md) identify its qualification. Use only the exact ISO identified by the published release and acceptance report. The browser design preview is not installation media.
 
 ![Native Engine OS welcome screen](../../evidence/M6/qemu-uefi/welcome.png)
 

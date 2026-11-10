@@ -4,7 +4,7 @@ Candidate guide: use the M10 release only after its acceptance report is publish
 The prepared ZIP contains a new blank disk, not a preinstalled demonstration.
 
 1. Download **EngacerOS-M10-VMware.zip** from the official
-   [release page](https://github.com/enginsoysal/codename-engine-os/releases/tag/m10-v0.10.0).
+   [release page](https://github.com/enginsoysal/engacer-os/releases/tag/m10-v0.10.0).
    Extract the whole ZIP to a local folder. Keep its files together.
 2. In VMware Workstation, open **EngacerOS.vmx**. Choose **I Copied It** if asked.
    The FreeBSD guest-type setting selects VMware's hardware profile; Engacer OS

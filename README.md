@@ -18,7 +18,7 @@ An independent, MIT-licensed operating system with its own UEFI loader, kernel a
 
 **Historical completed follow-up: M7.2 — desktop-first installation and real folder navigation.** [Installer](docs/handbook/install-m72.md), [desktop controls](docs/handbook/desktop-m72.md), [scope](docs/milestones/m7.2.md), [exact acceptance](evidence/M7.2/acceptance-results.json). Named virtual profiles only; physical hardware and factory Secure Boot remain unqualified.
 
-The historical [M5 release](https://github.com/enginsoysal/codename-engine-os/releases/tag/m5-v0.5.0) provides BIOS/UEFI live media, a native text installer for a new SATA disk, media-detached installed boot, persistent native files and same-build boot recovery. There is no desktop, network stack or existing Windows app compatibility yet. That historical native data partition is 16 MiB with 48-KiB files; other disk capacity remains unallocated.
+The historical [M5 release](https://github.com/enginsoysal/engacer-os/releases/tag/m5-v0.5.0) provides BIOS/UEFI live media, a native text installer for a new SATA disk, media-detached installed boot, persistent native files and same-build boot recovery. There is no desktop, network stack or existing Windows app compatibility yet. That historical native data partition is 16 MiB with 48-KiB files; other disk capacity remains unallocated.
 
 ## Next product milestones
 
@@ -26,7 +26,7 @@ The historical [M5 release](https://github.com/enginsoysal/codename-engine-os/re
 
 ## Install and start your desktop
 
-[Download the prepared VMware VM](https://github.com/enginsoysal/codename-engine-os/releases/download/m92-v0.9.2/EngineOS-M92-VMware.zip) · [Standalone ISO](https://github.com/enginsoysal/codename-engine-os/releases/download/m92-v0.9.2/EngineOS-M92.iso) · [Step-by-step guide](docs/handbook/install-m92.md) · [Release and checksums](docs/releases/m92-v0.9.2.md).
+[Download the prepared VMware VM](https://github.com/enginsoysal/engacer-os/releases/download/m92-v0.9.2/EngineOS-M92-VMware.zip) · [Standalone ISO](https://github.com/enginsoysal/engacer-os/releases/download/m92-v0.9.2/EngineOS-M92.iso) · [Step-by-step guide](docs/handbook/install-m92.md) · [Release and checksums](docs/releases/m92-v0.9.2.md).
 
 Extract the entire ZIP, open EngineOS.vmx and start. Select a disk row in the bordered list, follow Next, review and Install Engine OS, then **Restart to Engine OS**. The matching ISO may remain attached. The new empty growable 20-GiB SATA disk is included. No commands, online account or network are required. On later independent boots disconnect only CD/DVD and keep the same hard disk connected. Use a fresh starter; cross-release package migration is unqualified. [Apps and limits](docs/handbook/apps-m74.md), [folder controls](docs/handbook/desktop-m73.md).
 
@@ -35,15 +35,15 @@ The ordinary path includes an actual reset and installed loader/kernel, not only
 ## Historical M7.1 installation
 
 
-[Download the M7.1 ISO](https://github.com/enginsoysal/codename-engine-os/releases/download/m71-v0.7.1/EngineOS-M71.iso) · [VMware tutorial](docs/handbook/install-m71.md) · [Disk manager](docs/handbook/disk-manager-m71.md) · [Release and checksum](docs/releases/m71-v0.7.1.md). For an existing disk you intend to replace: select it, enable Erase and install, follow Next and explicitly consent at final review. Manage disks handles individual data partitions while keeping others. OS installation still replaces the whole disk. The real desktop appears after powering off, detaching the ISO and booting SATA.
+[Download the M7.1 ISO](https://github.com/enginsoysal/engacer-os/releases/download/m71-v0.7.1/EngineOS-M71.iso) · [VMware tutorial](docs/handbook/install-m71.md) · [Disk manager](docs/handbook/disk-manager-m71.md) · [Release and checksum](docs/releases/m71-v0.7.1.md). For an existing disk you intend to replace: select it, enable Erase and install, follow Next and explicitly consent at final review. Manage disks handles individual data partitions while keeping others. OS installation still replaces the whole disk. The real desktop appears after powering off, detaching the ISO and booting SATA.
 
 ## Historical M7 installation
 
-[Download the M7 ISO](https://github.com/enginsoysal/codename-engine-os/releases/download/m7-v0.7.0/EngineOS-M7.iso) · [VMware tutorial](docs/handbook/install-m7.md) · [Desktop controls](docs/handbook/desktop-m7.md) · [Release/checksum](docs/releases/m7-v0.7.0.md). Follow the native wizard on a new SATA disk, power off, detach the ISO and boot into the real desktop. Use two CPUs, 128 MiB, Secure Boot off and e1000e NAT for downloads. Files, Editor, Settings, optional Calculator and HTTPS downloads work without terminal commands. Original DOS/Windows application execution remains M8.
+[Download the M7 ISO](https://github.com/enginsoysal/engacer-os/releases/download/m7-v0.7.0/EngineOS-M7.iso) · [VMware tutorial](docs/handbook/install-m7.md) · [Desktop controls](docs/handbook/desktop-m7.md) · [Release/checksum](docs/releases/m7-v0.7.0.md). Follow the native wizard on a new SATA disk, power off, detach the ISO and boot into the real desktop. Use two CPUs, 128 MiB, Secure Boot off and e1000e NAT for downloads. Files, Editor, Settings, optional Calculator and HTTPS downloads work without terminal commands. Original DOS/Windows application execution remains M8.
 
 ## Historical M6 installation
 
-[Native installation handbook](docs/handbook/install-m6.md) · [Implementation and qualification](docs/milestones/m6.md) · [Storage/recovery design](docs/architecture/storage-m6.md). The native implementation follows the accepted wizard design; it is not the HTML preview. [Download the M6 ISO](https://github.com/enginsoysal/codename-engine-os/releases/download/m6-v0.6.0/EngineOS-M6.iso). Create a new SATA disk of at least 2 GiB, use two CPUs and 128 MiB RAM, disable Secure Boot, then follow Next, review and Install. After Finish, power off, detach the ISO and boot the installed disk. No manual partition commands are required.
+[Native installation handbook](docs/handbook/install-m6.md) · [Implementation and qualification](docs/milestones/m6.md) · [Storage/recovery design](docs/architecture/storage-m6.md). The native implementation follows the accepted wizard design; it is not the HTML preview. [Download the M6 ISO](https://github.com/enginsoysal/engacer-os/releases/download/m6-v0.6.0/EngineOS-M6.iso). Create a new SATA disk of at least 2 GiB, use two CPUs and 128 MiB RAM, disable Secure Boot, then follow Next, review and Install. After Finish, power off, detach the ISO and boot the installed disk. No manual partition commands are required.
 
 The data partition uses the remaining aligned disk capacity after boot/system partitions. Files stream in 4-KiB buffers; a file over 2 MiB survives detached boots. Keyboard, USB mouse and PS/2 mouse are supported on the named profiles. [Recovery/update guide](docs/handbook/recovery-m6.md) · [Release notes and exact limits](docs/releases/m6-v0.6.0.md).
 
@@ -53,7 +53,7 @@ The data partition uses the remaining aligned disk capacity after boot/system pa
 
 The historical M5.1 welcome menu offers Try, Install, Repair, Advanced, Details and distribution information. Ordinary installation/repair requires displayed choices only, with real disk capacities, review/cancel and progress. Profiles choose actual branding, colour and data packages; the Forge example is a separately booted/installable ISO. This is a keyboard-driven text interface, not a desktop or general application package manager.
 
-[Download M5.1 ISO](https://github.com/enginsoysal/codename-engine-os/releases/download/m51-v0.5.1/EngineOS-M51.iso). Use a new SATA disk, two CPUs/128 MiB and Secure Boot disabled. Storage remains 16 MiB native data/48-KiB files with other capacity unallocated. Choose **2 - Install**, your displayed disk, then review and confirm. No `plan N` or sector token is required.
+[Download M5.1 ISO](https://github.com/enginsoysal/engacer-os/releases/download/m51-v0.5.1/EngineOS-M51.iso). Use a new SATA disk, two CPUs/128 MiB and Secure Boot disabled. Storage remains 16 MiB native data/48-KiB files with other capacity unallocated. Choose **2 - Install**, your displayed disk, then review and confirm. No `plan N` or sector token is required.
 
 ```powershell
 python tools/build/m51.py
@@ -62,13 +62,13 @@ python tools/vm/run.py --create-install-disk
 
 ## Historical M5 user handbook
 
-**[Documentation & downloads website](https://engacer.brixcanvas.com)** — English guides and official release downloads, built in BrixCanvas. [Website source and maintenance](website/README.md).
+**[Documentation & downloads website](https://engaceros.brixcanvas.com)** — English guides and official release downloads, built in BrixCanvas. [Website source and maintenance](website/README.md).
 
 **[Start here](docs/handbook/index.md)** · [Install in VMware](docs/handbook/install.md) · [Recovery](docs/handbook/recovery.md) · [M5 commands](docs/handbook/m5-console.md). M5 installs to a new SATA/512-byte-sector disk of at least 256 MiB after an explicit plan and confirmation. Live changes are temporary and are not copied into installation.
 
 ## Historical M5 build and test
 
-[Download M5 ISO](https://github.com/enginsoysal/codename-engine-os/releases/download/m5-v0.5.0/EngineOS-M5.iso). Use two CPUs, 128 MiB RAM, a new SATA disk and Secure Boot disabled. Run `disks`, then `plan N`; use only the exact confirmation printed for your target. After verified success, power off VMware, detach ISO/USB and boot the disk.
+[Download M5 ISO](https://github.com/enginsoysal/engacer-os/releases/download/m5-v0.5.0/EngineOS-M5.iso). Use two CPUs, 128 MiB RAM, a new SATA disk and Secure Boot disabled. Run `disks`, then `plan N`; use only the exact confirmation printed for your target. After verified success, power off VMware, detach ISO/USB and boot the disk.
 
 ```powershell
 python tools/build/m5.py
@@ -80,7 +80,7 @@ Select `--milestone M5` for that historical workflow; the current launcher defau
 
 ## Historical M4.5 boot instructions
 
-[Download the final ISO](https://github.com/enginsoysal/codename-engine-os/releases/download/m45-v0.4.5/EngineOS-M45.iso) · [VMware setup and expected screen](docs/releases/m45-v0.4.5.md) · [hashes and all assets](https://github.com/enginsoysal/codename-engine-os/releases/tag/m45-v0.4.5).
+[Download the final ISO](https://github.com/enginsoysal/engacer-os/releases/download/m45-v0.4.5/EngineOS-M45.iso) · [VMware setup and expected screen](docs/releases/m45-v0.4.5.md) · [hashes and all assets](https://github.com/enginsoysal/engacer-os/releases/tag/m45-v0.4.5).
 
 Use a separate x86-64 VMware VM with two vCPUs, 128 MiB RAM, ISO-connected CD/DVD and **Secure Boot disabled**. UEFI and BIOS are qualified; SATA/IDE and EFI NVMe have named native read tests. A disk is optional for boot. Expect **M4.5 DEVICE AND FILE CONSOLE** and `engine>`. Blank disks/no writable development filesystem are valid states. The guest profile label FreeBSD 64-bit does not supply a FreeBSD kernel.
 
@@ -133,7 +133,7 @@ The repository is independent from BrixCanvas. Do not put OS sources or outputs 
 
 ## Development commitments
 
-All current documentation, comments, UI strings and new release notes are English. Behavior changes must update architecture/status, verification and user instructions together. After each coherent update, run relevant checks, review, commit and push to [GitHub](https://github.com/enginsoysal/codename-engine-os). Never publish credentials, raw host-user paths, proprietary installers or ignored local archives.
+All current documentation, comments, UI strings and new release notes are English. Behavior changes must update architecture/status, verification and user instructions together. After each coherent update, run relevant checks, review, commit and push to [GitHub](https://github.com/enginsoysal/engacer-os). Never publish credentials, raw host-user paths, proprietary installers or ignored local archives.
 
 Resource efficiency is a primary requirement: shared immutable code, bounded allocation and queues, separate peak/retained/boot memory accounting, and HLT when idle. A small guest-RAM test does not establish a universal product minimum or remove application resource requirements.
 

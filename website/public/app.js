@@ -1,5 +1,5 @@
 import { marked } from './vendor/marked.esm.js';
-const REPO='enginsoysal/codename-engine-os', API=`https://api.github.com/repos/${REPO}`, GH=`https://github.com/${REPO}`;
+const REPO='enginsoysal/engacer-os', API=`https://api.github.com/repos/${REPO}`, GH=`https://github.com/${REPO}`;
 const main=document.querySelector('main'), sync=document.querySelector('#sync');
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let state, snapshot, releases=[], generation=0, navGeneration=0;

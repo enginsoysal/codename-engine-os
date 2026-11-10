@@ -1,6 +1,6 @@
 # Current status
 
-**Next delivery in progress: [M10 hardware foundation and everyday devices](../milestones/m10.md), phases 1 and 2.** Common device/capability reporting, integrated desktop input/display and useful writable removable USB tasks are required. M9.2 remains the downloadable qualified release until new-artifact acceptance passes. The owner selected Engacer OS for M10; the native BrixCanvas dashboard has saved engacer.brixcanvas.com. Homepage and article verification are in progress.
+**Next delivery in progress: [M10 hardware foundation and everyday devices](../milestones/m10.md), phases 1 and 2.** Common device/capability reporting, integrated desktop input/display and useful writable removable USB tasks are required. M9.2 remains the downloadable qualified release until new-artifact acceptance passes. The owner selected Engacer OS for M10; the native BrixCanvas dashboard has saved engaceros.brixcanvas.com. Homepage and article verification are in progress.
 
 **Current delivery: M9.2 automatic writable storage and reachable desktop windows (M92-STORAGE-VM-v1).** The named VMware IDE, SATA, LSI Logic, LSI SAS, PVSCSI and NVMe BIOS/UEFI profiles, plus compatible BusLogic BIOS, pass actual installation, persistence and two independent disk boots. Native clipping passes ordinary/150%/4K repaint and idle-memory checks. The broader hardware program remains open; recorded QEMU SAS restart failures and PVSCSI completion refusal are explicitly unqualified. [Release](../releases/m92-v0.9.2.md), [guide](../handbook/install-m92.md), [acceptance](../../evidence/M9.2/acceptance-results.json).
 
@@ -36,9 +36,9 @@ Convenience, optional advanced diagnostics, distribution freedom and measured CP
 
 ## Documentation website
 
-The public [Engine OS website](https://engacer.brixcanvas.com) uses native editable BrixCanvas blocks and the preferred local design. It publishes canonical Markdown guides, the documentation index and official downloads, with source commits. Automatic GitHub synchronization uses a site-specific content-only encrypted Actions secret. The first publication verified 55 articles; new M5 installation/recovery guides join the current index while earlier release guides remain historical. See [publisher evidence](../../evidence/documentation/github-sync-results.json) and [maintenance](../../website/README.md).
+The public [Engine OS website](https://engaceros.brixcanvas.com) uses native editable BrixCanvas blocks and the preferred local design. It publishes canonical Markdown guides, the documentation index and official downloads, with source commits. Automatic GitHub synchronization uses a site-specific content-only encrypted Actions secret. The first publication verified 55 articles; new M5 installation/recovery guides join the current index while earlier release guides remain historical. See [publisher evidence](../../evidence/documentation/github-sync-results.json) and [maintenance](../../website/README.md).
 
-Updated 2026-11-09. Canonical project: [enginsoysal/codename-engine-os](https://github.com/enginsoysal/codename-engine-os), public/MIT, independent from BrixCanvas. All current documents/UI/comments are English; code/tests and documentation are updated together. Every coherent verified update is committed and pushed.
+Updated 2026-11-09. Canonical project: [enginsoysal/engacer-os](https://github.com/enginsoysal/engacer-os), public/MIT, independent from BrixCanvas. All current documents/UI/comments are English; code/tests and documentation are updated together. Every coherent verified update is committed and pushed.
 
 | Milestone | Status | Evidence/boundary |
 |---|---|---|

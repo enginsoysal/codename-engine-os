@@ -33,7 +33,7 @@ def verify(base, directory):
     assert iso["digest"] == "sha256:774ea677c74a7d593fb392160833a8f70c42af69a54a2b44f47b4bbc401ddc03"
     for asset in release["assets"]:
         assert asset["browser_download_url"].startswith(
-            "https://github.com/enginsoysal/codename-engine-os/releases/download/m45-v0.4.5/")
+            "https://github.com/enginsoysal/engacer-os/releases/download/m45-v0.4.5/")
     acceptance = json.loads((ROOT / "evidence/M4.5/acceptance-results.json").read_text(encoding="utf-8"))
     assert acceptance["passed"] and acceptance["full_m45_complete"]
     assert acceptance["scope_id"] == "M45-VM-v1"

@@ -36,6 +36,31 @@ def slow_tab(g,count):
     for _ in range(count):
         v.tab(g);g.read();time.sleep(.2)
 
+def guest_click10(g,x,y):
+    for buttons in (0,1,0):
+        g.connect_display().socket.sendall(struct.pack('!BBHH',5,buttons,x,y));g.read();time.sleep(.1)
+
+def devices_task10(g,out):
+    from PIL import Image
+    v.key(g,0xffeb);v.shot(g,out,'devices-launcher')
+    display=g.connect_display();start=len(g.read());guest_click10(g,528,display.height-409)
+    g.wait('M7_WINDOW_OPEN app=0x0000000000000003',offset=start)
+    slow_tab(g,1);v.enter(g);v.shot(g,out,'devices')
+    left=(display.width-700)//2;top=(display.height-60-550)//2
+    y=top+550-135+35+18;us=left+22+170;dvorak=left+22+315
+    def selected(name,x):
+        deadline=time.monotonic()+30
+        while True:
+            v.shot(g,out,name)
+            with Image.open(out/(name+'.png')) as frame:
+                if frame.getpixel((x+5,y))[:3]==(98,229,189):return
+            if time.monotonic()>deadline:raise AssertionError('Layout selection was not drawn in the actual native Settings panel')
+            g.read();time.sleep(.05)
+    selected('devices-qwerty',us)
+    guest_click10(g,dvorak+70,y);selected('devices-dvorak',dvorak)
+    guest_click10(g,us+70,y);selected('devices-qwerty-saved',us)
+    v.key(g,0xff1b);g.read();time.sleep(.2)
+
 def open_windows(g,out):
     # This fixture uses the ordinary native launcher and an actual guest pointer.
     # Read the completed frame before targeting its visible Windows Apps tile.
@@ -133,6 +158,8 @@ def main():
             g.rfb.close();g.rfb=None
             v.shot(g,out,'desktop-home')
             assert 'ENGINE_OS_KERNEL_ENTRY build='+meta['build_id'] in g.read()
+            if a.starter:
+                devices_task10(g,out);report['devices_and_layout_frontend_verified']=True
             if not a.storage_only:
                 windows_tasks(g,out)
                 assert 'M92_INPUT_IRQ_CPL3_SERVICED' in g.read(),'No protected-worker keyboard IRQ observed'
@@ -162,6 +189,7 @@ def main():
             report['independent_container_reader_sha256']=hashlib.sha256(tool.read_bytes()).hexdigest()
         report['checks'].append('same VMX and retained NVRAM, optical drive still present but disconnected; two unforced hard-disk boots to desktop; actual folder retained')
         inspection=converted if a.starter else disk
+        if a.starter:assert s.s.document(inspection,'/System/Settings/keyboard10.bin')==struct.pack('<II',0x30314c4b,0)
         report['persisted_distribution_sha256']={}
         for entry in meta['distribution']['resolved_files']:
             target=re.sub(r'^/Users/[^/]+/','/Users/Owner/',entry['target']);data=s.s.document(inspection,target,8*1024**2);digest=hashlib.sha256(data).hexdigest();assert digest==hashlib.sha256((ROOT/entry['source']).read_bytes()).hexdigest(),target;report['persisted_distribution_sha256'][target]=digest

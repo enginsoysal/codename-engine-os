@@ -1,6 +1,6 @@
 # Independent components and customizable setup
 
-Owner requirement, 6 November 2026: Engine OS must offer a graphical Back/Next/Finish installer, extensive customization, and removable optional applications without breaking unrelated system functions. This is a delivery requirement, not a claim that a package manager or graphical installer is implemented.
+Owner requirement, 6 November 2026: Engacer OS must offer a graphical Back/Next/Finish installer, extensive customization, and removable optional applications without breaking unrelated system functions. This is a delivery requirement, not a claim that a package manager or graphical installer is implemented.
 
 ## Component boundaries
 

@@ -8,8 +8,8 @@ import {marked} from '../public/vendor/marked.esm.js';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const git=(...args)=>execFileSync('git',args,{cwd:root,encoding:'utf8',maxBuffer:8*1024*1024});
 export const slugFor=p=>'docs-'+p.replace(/\.md$/i,'').replace(/^docs\//,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-const GH='https://github.com/enginsoysal/codename-engine-os';
-const SITE='https://engacer.brixcanvas.com';
+const GH='https://github.com/enginsoysal/engacer-os';
+const SITE='https://engaceros.brixcanvas.com';
 const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const categoryFor=p=>p.startsWith('docs/')?p.split('/')[1]:p.startsWith('evidence/')?'evidence':p.startsWith('tools/')?'developer':p.startsWith('website/')?'website':'project';
 const categoryNames={handbook:'User handbook',architecture:'Architecture',milestones:'Milestones',releases:'Release guides',roadmap:'Roadmap & status',evidence:'Test evidence',developer:'Developer guides',website:'Website maintenance',project:'Project guides',downloads:'Downloads'};
@@ -23,7 +23,7 @@ export function build(output){
    if(/^https?:\/\//i.test(href)||/^mailto:/i.test(href))return href;
    if(href.startsWith('//')||/^[a-z][a-z0-9+.-]*:/i.test(href))return '#';
    const u=new URL(href,`https://source.local/${source}`),p=decodeURIComponent(u.pathname.slice(1));
-   if(image)return `https://raw.githubusercontent.com/enginsoysal/codename-engine-os/${ref}/${p}`;
+   if(image)return `https://raw.githubusercontent.com/enginsoysal/engacer-os/${ref}/${p}`;
    // Native heading Brix do not supply GitHub heading anchors; preserve exact anchor navigation at the source.
    return pathsSet.has(p)&&!u.hash?`${SITE}/blog/${slugFor(p)}`:`${GH}/blob/${ref}/${p}${u.hash}`;
  };
@@ -46,11 +46,11 @@ export function build(output){
        const t=token.tokens[0];add('image',{url:t.href,alt:t.text,naturalSize:true,radius:6});
      }else add('richtext',{html:marked.parser([token]),size:17});
    }
-   const post={id:slug,slug,title,status:'published',bodyFormat:'brix',blocks,excerpt:`${categoryNames[categoryFor(p)]} — ${title}. Synced from the canonical Engine OS repository.`,category:categoryFor(p),tags:['Engine OS',categoryNames[categoryFor(p)]],author:'Engacer OS project',date:new Date().toISOString().slice(0,10),featured:p==='docs/handbook/index.md',meta:[{key:'engine_source_path',value:p},{key:'engine_source_commit',value:ref}]};
+   const post={id:slug,slug,title,status:'published',bodyFormat:'brix',blocks,excerpt:`${categoryNames[categoryFor(p)]} — ${title}. Synced from the canonical Engacer OS repository.`,category:categoryFor(p),tags:['Engacer OS',categoryNames[categoryFor(p)]],author:'Engacer OS project',date:new Date().toISOString().slice(0,10),featured:p==='docs/handbook/index.md',meta:[{key:'engine_source_path',value:p},{key:'engine_source_commit',value:ref}]};
    if(Buffer.byteLength(JSON.stringify(post))>240*1024)throw Error(`Article exceeds the bounded API payload: ${p}`);
    posts.push(post);
  }
- const releases=JSON.parse(execFileSync('gh',['api','repos/enginsoysal/codename-engine-os/releases?per_page=100'],{cwd:root,encoding:'utf8',maxBuffer:4*1024*1024})).filter(r=>!r.draft);
+ const releases=JSON.parse(execFileSync('gh',['api','repos/enginsoysal/engacer-os/releases?per_page=100'],{cwd:root,encoding:'utf8',maxBuffer:4*1024*1024})).filter(r=>!r.draft);
  const downloads=[];const add=(type,props)=>downloads.push({id:`engine-downloads-${downloads.length+1}`,type,props});
  const current=releases.some(r=>r.tag_name==='m10-v0.10.0')?'M10':releases.some(r=>r.tag_name==='m92-v0.9.2')?'M92':releases.some(r=>r.tag_name==='m91-v0.9.1')?'M91':releases.some(r=>r.tag_name==='m9-v0.9.0')?'M9':releases.some(r=>r.tag_name==='m8-v0.8.0')?'M8':releases.some(r=>r.tag_name==='m75-v0.7.5')?'M75':releases.some(r=>r.tag_name==='m74-v0.7.4')?'M74':releases.some(r=>r.tag_name==='m73-v0.7.3')?'M73':releases.some(r=>r.tag_name==='m72-v0.7.2')?'M72':releases.some(r=>r.tag_name==='m71-v0.7.1')?'M71':releases.some(r=>r.tag_name==='m7-v0.7.0')?'M7':'M6';
  const currentLabel=current==='M92'?'M9.2':current==='M91'?'M9.1':current==='M75'?'M7.5':current==='M74'?'M7.4':current==='M73'?'M7.3':current==='M72'?'M7.2':current==='M71'?'M7.1':current;

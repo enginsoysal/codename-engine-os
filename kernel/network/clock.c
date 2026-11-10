@@ -38,7 +38,7 @@ unsigned clock7_read(clock7_time *out){
         for(unsigned i=0;i<9;++i)b[i]=rtc(registers[i]);
         if(!(rtc(0x0a)&0x80)&&!memcmp(a,b,sizeof(a))){valid=1;break;}
     }
-    /* Engine OS currently owns this PC RTC/NMI selector; restore NMI enabled. */
+    /* Engacer OS currently owns this PC RTC/NMI selector; restore NMI enabled. */
     out8(0x70,0);
     if(flags&512)__asm__ volatile("sti":::"memory");
     if(!valid||!(a[8]&0x80)||(a[7]&0x80))return 1;

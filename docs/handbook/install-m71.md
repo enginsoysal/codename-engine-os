@@ -2,7 +2,7 @@
 
 M7.1 v0.7.1 is accepted within M71-VM-v1. Use the exact tested ISO and SHA-256 in the [release guide](../releases/m71-v0.7.1.md).
 
-Download [EngineOS-M71.iso](https://github.com/enginsoysal/codename-engine-os/releases/download/m71-v0.7.1/EngineOS-M71.iso). Compare `Get-FileHash -Algorithm SHA256 .\EngineOS-M71.iso` with the published SHA-256. Download the accompanying third-party notices. The optical ISO and raw `EngineOS-M71-usb.img` are different artifacts.
+Download [EngineOS-M71.iso](https://github.com/enginsoysal/engacer-os/releases/download/m71-v0.7.1/EngineOS-M71.iso). Compare `Get-FileHash -Algorithm SHA256 .\EngineOS-M71.iso` with the published SHA-256. Download the accompanying third-party notices. The optical ISO and raw `EngineOS-M71-usb.img` are different artifacts.
 
 ## VMware settings
 

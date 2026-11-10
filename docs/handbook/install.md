@@ -6,7 +6,7 @@ This tutorial is for **M5 v0.5.0**, a text-based native installer. There is no d
 
 ## 1. Download and verify
 
-Download `EngineOS-M5.iso`, `M5-SHA256SUMS.txt` and `m5-build-manifest.json` from the [official M5 release](https://github.com/enginsoysal/codename-engine-os/releases/tag/m5-v0.5.0). Verify the ISO in PowerShell:
+Download `EngineOS-M5.iso`, `M5-SHA256SUMS.txt` and `m5-build-manifest.json` from the [official M5 release](https://github.com/enginsoysal/engacer-os/releases/tag/m5-v0.5.0). Verify the ISO in PowerShell:
 
 ```powershell
 Get-FileHash .\EngineOS-M5.iso -Algorithm SHA256

@@ -50,6 +50,9 @@ def verify_display_status(g):
             pointer=struct.unpack_from('<Q',row,32)[0]
             detail=ui.memory(g,pointer,96).split(b'\0')[0].decode();matches.append(detail)
             assert state==2 and caps==16,'Display must remain limited 2D'
+    if not adapter and backend==0:
+        assert not matches and struct.unpack_from('<Q',graphics)[0]==0
+        return {'backend':0,'detail':'Direct firmware framebuffer; no PCI presentation adapter binding'}
     assert len(matches)==1
     expected={0:'Firmware framebuffer',1:'Buffered software 2D',2:'VMware 2D presentation'}
     assert expected[backend] in matches[0]

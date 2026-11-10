@@ -4,7 +4,7 @@ This release focuses on two tasks: a guided graphical installation and a real de
 
 ## Easiest route: open the prepared VM
 
-1. [Download the VMware starter ZIP](https://github.com/enginsoysal/codename-engine-os/releases/download/m72-v0.7.2/EngineOS-M72-VMware.zip).
+1. [Download the VMware starter ZIP](https://github.com/enginsoysal/engacer-os/releases/download/m72-v0.7.2/EngineOS-M72-VMware.zip).
 2. Extract the **entire ZIP** into a new local folder. Open **EngineOS.vmx** in VMware Workstation. If asked, choose **I Copied It**.
 3. Start the VM. Its included growable 20-GiB SATA disk is new and empty. The installer ISO is already connected. It is an actual installation, not a preinstalled image.
 4. Choose **Next**, select **Disk 1**, then choose **Next**. Keep the default setup or change the welcome guide. Enter your name and choose your accent.
@@ -17,7 +17,7 @@ On UEFI startup the loader adds an Engine OS firmware fallback boot entry, keepi
 
 ## Use your existing VM instead
 
-[Download the standalone ISO](https://github.com/enginsoysal/codename-engine-os/releases/download/m72-v0.7.2/EngineOS-M72.iso). Power off the test VM. Keep a **SATA** hard disk of 2 GiB to 2 TiB, with 512-byte logical sectors, connected at power on. Connect the ISO as CD/DVD. BIOS and UEFI are tested; Secure Boot must be off. Other controllers can be inspectable without being supported installation targets.
+[Download the standalone ISO](https://github.com/enginsoysal/engacer-os/releases/download/m72-v0.7.2/EngineOS-M72.iso). Power off the test VM. Keep a **SATA** hard disk of 2 GiB to 2 TiB, with 512-byte logical sectors, connected at power on. Connect the ISO as CD/DVD. BIOS and UEFI are tested; Secure Boot must be off. Other controllers can be inspectable without being supported installation targets.
 
 For a disk containing data, select it and choose **Erase and install: ON**, then Next. Review requires a separate unchecked **Erase ALL data on the selected disk** confirmation. Installation replaces the whole selected disk. Back retains your choices; no installation write happens before confirmed Install. Use **Manage disks** for individual partition operations. [Disk-manager reference](disk-manager-m71.md).
 

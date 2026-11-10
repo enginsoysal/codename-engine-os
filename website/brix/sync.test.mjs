@@ -13,7 +13,7 @@ test('archive removed generated sources as drafts rather than delete them',()=>a
 test('recover only the exact, empty publisher-created draft',()=>{
  const old={slug:post.slug,status:'draft',author:'Engine OS project',excerpt:'Engine OS generated draft: docs/handbook/index.md',blocks:[]};
  assert.equal(planSync([post],[old])[0].kind,'update');
- assert.equal(planSync([post],[{...old,author:'Engacer OS project'}])[0].kind,'update');
+ assert.equal(planSync([post],[{...old,author:'Engacer OS project',excerpt:'Engacer OS generated draft: docs/handbook/index.md'}])[0].kind,'update');
  assert.throws(()=>planSync([post],[{...old,blocks:[{type:'text'}]}]),/Unmanaged slug collision/);
 });
 test('a mixed plan with a later collision is rejected before any operations are returned',()=>assert.throws(()=>planSync([post,{...post,slug:'second'}],[{slug:'second'}]),/Unmanaged slug collision/));
