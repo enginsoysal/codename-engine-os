@@ -101,3 +101,39 @@ user/windows8/runtime.c -text whitespace=cr-at-eol
 # Preserve all new M10 qualification harness/evidence bytes, including JSON.
 tests/m10/** -text whitespace=cr-at-eol
 evidence/M10/** -text -whitespace
+
+# Complete M10 source-byte audit: preserve compile inputs hidden by normalization.
+boot/uefi/bootentry72.inc -text whitespace=cr-at-eol
+boot/uefi/loader.c -text whitespace=cr-at-eol
+distros/engacer-hardware.json -text whitespace=cr-at-eol
+distros/packages/m10-hardware-guide/content.txt -text whitespace=cr-at-eol
+distros/packages/m10-hardware-guide/package.json -text whitespace=cr-at-eol
+include/engine/hardware10.h -text whitespace=cr-at-eol
+include/engine/install/m6.h -text whitespace=cr-at-eol
+kernel/core/display.c -text whitespace=cr-at-eol
+kernel/desktop/apps74.inc -text whitespace=cr-at-eol
+kernel/desktop/devices10-controls.inc -text whitespace=cr-at-eol
+kernel/desktop/devices10.inc -text whitespace=cr-at-eol
+kernel/desktop/disks74.inc -text whitespace=cr-at-eol
+kernel/desktop/files72.inc -text whitespace=cr-at-eol
+kernel/desktop/windows8.inc -text whitespace=cr-at-eol
+kernel/input/layout10.c -text whitespace=cr-at-eol
+kernel/input/vmmouse9.inc -text whitespace=cr-at-eol
+kernel/install/disk71-ui.inc -text whitespace=cr-at-eol
+kernel/install/disk71.c -text whitespace=cr-at-eol
+kernel/install/disk73-ui.inc -text whitespace=cr-at-eol
+kernel/install/disk74-service.inc -text whitespace=cr-at-eol
+kernel/install/entry6.c -text whitespace=cr-at-eol
+kernel/install/guided.c -text whitespace=cr-at-eol
+kernel/install/installer6.c -text whitespace=cr-at-eol
+kernel/install/layout.c -text whitespace=cr-at-eol
+kernel/install/m5.c -text whitespace=cr-at-eol
+kernel/install/wizard6.c -text whitespace=cr-at-eol
+kernel/install/wizard72-ui.inc -text whitespace=cr-at-eol
+kernel/install/wizard73-ui.inc -text whitespace=cr-at-eol
+kernel/install/wizard75-ui.inc -text whitespace=cr-at-eol
+kernel/storage/fat32.c -text whitespace=cr-at-eol
+kernel/storage/partitions.c -text whitespace=cr-at-eol
+tools/build/m2.py -text whitespace=cr-at-eol
+tools/build/media.py -text whitespace=cr-at-eol
+user/windows8/runtime.c -text whitespace=cr-at-eol
