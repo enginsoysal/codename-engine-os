@@ -1,0 +1,112 @@
+{
+  "optional_seo_endpoints": [
+    {
+      "url": "https://engaceros.brixcanvas.com/robots.txt",
+      "status": 404
+    },
+    {
+      "url": "https://engaceros.brixcanvas.com/sitemap.xml",
+      "status": 404
+    }
+  ],
+  "note": "These endpoints are not advertised navigation links; they remain absent SEO features, not silently counted as working pages.",
+  "automatic_external_access_refusals": [
+    {
+      "url": "https://uefi.org/specs/UEFI/2.10/05_GUID_Partition_Table_Format.html",
+      "status": 403,
+      "passed": false,
+      "error": "HTTP Error 403: Forbidden",
+      "classification": "blocked_or_temporarily_unverified"
+    },
+    {
+      "url": "https://uefi.org/specs/UEFI/2.10/12_Protocols_Console_Support.html",
+      "status": 403,
+      "passed": false,
+      "error": "HTTP Error 403: Forbidden",
+      "classification": "blocked_or_temporarily_unverified"
+    },
+    {
+      "url": "https://uefi.org/specs/UEFI/2.11/",
+      "status": 403,
+      "passed": false,
+      "error": "HTTP Error 403: Forbidden",
+      "classification": "blocked_or_temporarily_unverified"
+    },
+    {
+      "url": "https://uefi.org/specs/UEFI/2.11/03_Boot_Manager.html",
+      "status": 403,
+      "passed": false,
+      "error": "HTTP Error 403: Forbidden",
+      "classification": "blocked_or_temporarily_unverified"
+    },
+    {
+      "url": "https://uefi.org/specs/UEFI/2.11/32_Secure_Boot_and_Driver_Signing.html",
+      "status": 403,
+      "passed": false,
+      "error": "HTTP Error 403: Forbidden",
+      "classification": "blocked_or_temporarily_unverified"
+    },
+    {
+      "url": "https://www.intel.com/content/dam/doc/manual/pci-pci-x-family-gbe-controllers-software-dev-manual.pdf",
+      "status": 403,
+      "passed": false,
+      "error": "HTTP Error 403: Forbidden",
+      "classification": "blocked_or_temporarily_unverified"
+    },
+    {
+      "url": "https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-3a-part-1-manual.pdf",
+      "status": 403,
+      "passed": false,
+      "error": "HTTP Error 403: Forbidden",
+      "classification": "blocked_or_temporarily_unverified"
+    },
+    {
+      "url": "https://www.intel.com/content/dam/www/public/us/en/documents/product-specifications/high-definition-audio-specification.pdf",
+      "status": 403,
+      "passed": false,
+      "error": "HTTP Error 403: Forbidden",
+      "classification": "blocked_or_temporarily_unverified"
+    },
+    {
+      "url": "https://www.intel.com/content/dam/www/public/us/en/documents/technical-specifications/extensible-host-controler-interface-usb-xhci.pdf",
+      "status": 403,
+      "passed": false,
+      "error": "HTTP Error 403: Forbidden",
+      "classification": "blocked_or_temporarily_unverified"
+    },
+    {
+      "url": "https://www.intel.com/content/dam/www/public/us/en/documents/technical-specifications/serial-ata-ahci-spec-rev1-3-1.pdf",
+      "status": 403,
+      "passed": false,
+      "error": "HTTP Error 403: Forbidden",
+      "classification": "blocked_or_temporarily_unverified"
+    },
+    {
+      "url": "https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html",
+      "status": 403,
+      "passed": false,
+      "error": "HTTP Error 403: Forbidden",
+      "classification": "blocked_or_temporarily_unverified"
+    }
+  ],
+  "verified_in_normal_browser": [
+    "https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html"
+  ],
+  "remaining_unconfirmed_external_urls": [
+    "https://uefi.org/specs/UEFI/2.10/05_GUID_Partition_Table_Format.html",
+    "https://uefi.org/specs/UEFI/2.10/12_Protocols_Console_Support.html",
+    "https://uefi.org/specs/UEFI/2.11/",
+    "https://uefi.org/specs/UEFI/2.11/03_Boot_Manager.html",
+    "https://uefi.org/specs/UEFI/2.11/32_Secure_Boot_and_Driver_Signing.html",
+    "https://www.intel.com/content/dam/doc/manual/pci-pci-x-family-gbe-controllers-software-dev-manual.pdf",
+    "https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-3a-part-1-manual.pdf",
+    "https://www.intel.com/content/dam/www/public/us/en/documents/product-specifications/high-definition-audio-specification.pdf",
+    "https://www.intel.com/content/dam/www/public/us/en/documents/technical-specifications/extensible-host-controler-interface-usb-xhci.pdf",
+    "https://www.intel.com/content/dam/www/public/us/en/documents/technical-specifications/serial-ata-ahci-spec-rev1-3-1.pdf"
+  ],
+  "static_share_html_fallback": {
+    "platform_host_fallback_links": 612,
+    "live_browser_verified_links": 8,
+    "status": "Normal browser destinations are correct after JavaScript loads. The server-rendered/no-JavaScript fallback still needs a platform correction."
+  }
+}

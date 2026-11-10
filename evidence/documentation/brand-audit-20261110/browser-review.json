@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "website": "https://engaceros.brixcanvas.com",
+  "source_commit": "8557a83f3d352dc67c8675a922db305f16338d58",
+  "search_query": "Engacer",
+  "search_results": 153,
+  "historical_guide_title": "Install Engacer OS M7 in VMware (historical)",
+  "historical_notice_visible": true,
+  "original_filenames_preserved": true,
+  "external_checks": [
+    {
+      "url": "https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html",
+      "browser_verified": true,
+      "title": "Manuals for Intel 64 and IA-32 Architectures"
+    },
+    {
+      "url": "https://uefi.org/specs/UEFI/2.11/",
+      "browser_verified": false,
+      "reason": "Cloudflare security verification; no challenge was solved"
+    }
+  ]
+}

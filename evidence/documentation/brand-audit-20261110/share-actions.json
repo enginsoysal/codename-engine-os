@@ -1,0 +1,2460 @@
+{
+  "actions_submitted": 0,
+  "static_share_links_inspected": 612,
+  "server_target_hosts": {
+    "brixcanvas.com": 612
+  },
+  "static_targets": [
+    {
+      "url": "https://wa.me/?text=AHCI%20transfer%20adapter%20correction%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-1-history-ahci-transfer-size-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-1-history-ahci-transfer-size-readme"
+    },
+    {
+      "url": "https://wa.me/?text=Additional%20VMware%20Workstation%20qualification%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m3-vmware-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m3-vmware-readme"
+    },
+    {
+      "url": "https://wa.me/?text=Architecture%20decision%20record%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-decisions",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-decisions"
+    },
+    {
+      "url": "https://wa.me/?text=BIOS%20fixture%20coordinate%20correction%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-1-history-bios-next-coordinate-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-1-history-bios-next-coordinate-readme"
+    },
+    {
+      "url": "https://wa.me/?text=BearSSL%20freestanding%20adapter%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-third-party-bearssl-port-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-third-party-bearssl-port-readme"
+    },
+    {
+      "url": "https://wa.me/?text=BrixCanvas%20documentation%20website%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-website-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-website-readme"
+    },
+    {
+      "url": "https://wa.me/?text=Build%20and%20platform%20choices%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-build-platform",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-build-platform"
+    },
+    {
+      "url": "https://wa.me/?text=Build%20your%20own%20Engacer%20OS%20distribution%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-distributions",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-distributions"
+    },
+    {
+      "url": "https://wa.me/?text=Candidate%20harness%20corrections%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-history-final-candidate-harness-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-history-final-candidate-harness-readme"
+    },
+    {
+      "url": "https://wa.me/?text=Changelog%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-changelog",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-changelog"
+    },
+    {
+      "url": "https://wa.me/?text=Compatibility%20semantics%20and%20proof%20boundaries%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-compatibility",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-compatibility"
+    },
+    {
+      "url": "https://wa.me/?text=Context-switch%20measurement%20and%20CPU%20optimization%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m3-history-context-switch-performance",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m3-history-context-switch-performance"
+    },
+    {
+      "url": "https://wa.me/?text=Contributing%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-contributing",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-contributing"
+    },
+    {
+      "url": "https://wa.me/?text=Current%20status%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-roadmap-status",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-roadmap-status"
+    },
+    {
+      "url": "https://wa.me/?text=Custom%20profile%20source%20bytes%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-history-night-profile-line-endings-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-history-night-profile-line-endings-readme"
+    },
+    {
+      "url": "https://wa.me/?text=Desktop-first%20installation%20and%20Files%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-desktop-m72",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-desktop-m72"
+    },
+    {
+      "url": "https://wa.me/?text=Devices%20and%20USB%20files%20in%20Engacer%20OS%20M10%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-hardware-m10",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-hardware-m10"
+    },
+    {
+      "url": "https://wa.me/?text=Distribution%20recipes%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-distros-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-distros-readme"
+    },
+    {
+      "url": "https://wa.me/?text=Documentation%20%E2%80%94%20all%20guides%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocumentation",
+      "server_rendered_target": "https://brixcanvas.com/blog/documentation"
+    },
+    {
+      "url": "https://wa.me/?text=Downloads%20and%20SHA256%20verification%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdownloads",
+      "server_rendered_target": "https://brixcanvas.com/blog/downloads"
+    },
+    {
+      "url": "https://wa.me/?text=Engacer%20OS%20%E2%80%94%20project%20instructions%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-agents",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-agents"
+    },
+    {
+      "url": "https://wa.me/?text=Engacer%20OS%200.10.0%20%E2%80%94%20M10%20hardware%20phases%201%20and%202%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m10-v0-10-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m10-v0-10-0"
+    },
+    {
+      "url": "https://wa.me/?text=Engacer%20OS%200.7.2%20%E2%80%94%20install%2C%20open%20your%20desktop%2C%20explore%20your%20folders%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m72-v0-7-2",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m72-v0-7-2"
+    },
+    {
+      "url": "https://wa.me/?text=Engacer%20OS%200.7.4%20%E2%80%94%20standard%20applications%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m74-v0-7-4",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m74-v0-7-4"
+    },
+    {
+      "url": "https://wa.me/?text=Engacer%20OS%200.7.5%20%E2%80%94%20clear%20installation%20and%20real%20installed%20restart%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m75-v0-7-5",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m75-v0-7-5"
+    },
+    {
+      "url": "https://wa.me/?text=Engacer%20OS%200.8.0%20%E2%80%94%20first%20original%20Windows%20MSI%20application%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m8-v0-8-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m8-v0-8-0"
+    },
+    {
+      "url": "https://wa.me/?text=Engacer%20OS%200.9.0%20%E2%80%94%20first%20VMware%20graphics%20delivery%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m9-v0-9-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m9-v0-9-0"
+    },
+    {
+      "url": "https://wa.me/?text=Engacer%20OS%200.9.1%20%E2%80%94%20corrected%20VMware%20starter%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m91-v0-9-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m91-v0-9-1"
+    },
+    {
+      "url": "https://wa.me/?text=Engacer%20OS%200.9.2%20%E2%80%94%20automatic%20writable%20storage%20and%20reachable%20desktop%20windows%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m92-v0-9-2",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m92-v0-9-2"
+    },
+    {
+      "url": "https://wa.me/?text=Engacer%20OS%20M6%20v0.6.0%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m6-v0-6-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m6-v0-6-0"
+    },
+    {
+      "url": "https://wa.me/?text=Engacer%20OS%20M7%20desktop%20guide%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-desktop-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-desktop-m7"
+    },
+    {
+      "url": "https://wa.me/?text=Engacer%20OS%20M7%20v0.7.0%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m7-v0-7-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m7-v0-7-0"
+    },
+    {
+      "url": "https://wa.me/?text=Engacer%20OS%20M7.1%20v0.7.1%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m71-v0-7-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m71-v0-7-1"
+    },
+    {
+      "url": "https://wa.me/?text=Engacer%20OS%20M7.3%20%E2%80%94%20smooth%20native%20UI%20and%20HiDPI%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m73-v0-7-3",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m73-v0-7-3"
+    },
+    {
+      "url": "https://wa.me/?text=Engacer%20OS%20M7.3%20recovery%20and%20updates%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery-m73",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery-m73"
+    },
+    {
+      "url": "https://wa.me/?text=Engacer%20OS%20M9.2%20installation%20and%20hardware%20guide%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m92",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m92"
+    },
+    {
+      "url": "https://wa.me/?text=Engacer%20OS%20architecture%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-overview",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-overview"
+    },
+    {
+      "url": "https://wa.me/?text=Engacer%20OS%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-readme"
+    },
+    {
+      "url": "https://wa.me/?text=Engacer%20OS%20installation%20wizard%20design%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-installer-design",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-installer-design"
+    },
+    {
+      "url": "https://wa.me/?text=Engacer%20OS%20user%20handbook%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-index",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-index"
+    },
+    {
+      "url": "https://wa.me/?text=Files%2C%20storage%20and%20compatibility%20namespaces%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-filesystem",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-filesystem"
+    },
+    {
+      "url": "https://wa.me/?text=Host%20tools%20and%20entry%20points%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-tools-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-tools-readme"
+    },
+    {
+      "url": "https://wa.me/?text=Independent%20components%20and%20customizable%20setup%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-components",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-components"
+    },
+    {
+      "url": "https://wa.me/?text=Install%20Engacer%20OS%200.7.2%20in%20VMware%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m72",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m72"
+    },
+    {
+      "url": "https://wa.me/?text=Install%20Engacer%20OS%20M10%20in%20VMware%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m10",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m10"
+    },
+    {
+      "url": "https://wa.me/?text=Install%20Engacer%20OS%20M6%20in%20VMware%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m6",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m6"
+    },
+    {
+      "url": "https://wa.me/?text=Install%20Engacer%20OS%20M7%20in%20VMware%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m7"
+    },
+    {
+      "url": "https://wa.me/?text=Install%20Engacer%20OS%20M7.1%20in%20VMware%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m71",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m71"
+    },
+    {
+      "url": "https://wa.me/?text=Install%20Engacer%20OS%20M7.3%20in%20VMware%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m73",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m73"
+    },
+    {
+      "url": "https://wa.me/?text=Install%20Engacer%20OS%20M7.4%20in%20VMware%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m74",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m74"
+    },
+    {
+      "url": "https://wa.me/?text=Install%20Engacer%20OS%20M7.5%20in%20VMware%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m75",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m75"
+    },
+    {
+      "url": "https://wa.me/?text=Install%20Engacer%20OS%20M9%20and%20check%20window%20movement%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m9",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m9"
+    },
+    {
+      "url": "https://wa.me/?text=Install%20Engacer%20OS%20and%20try%20the%20original%20Windows%20app%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m8",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m8"
+    },
+    {
+      "url": "https://wa.me/?text=Install%20Engacer%20OS%20in%20VMware%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install"
+    },
+    {
+      "url": "https://wa.me/?text=Install%20Engacer%20OS%20with%20the%20guided%20menu%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m51",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m51"
+    },
+    {
+      "url": "https://wa.me/?text=Kernel%20contracts%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-kernel-contracts",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-kernel-contracts"
+    },
+    {
+      "url": "https://wa.me/?text=M0%20%E2%80%94%20completed%20architecture%2Ftoolchain%20baseline%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m0"
+    },
+    {
+      "url": "https://wa.me/?text=M0%20%E2%86%92%20M1%20handoff%20and%20current%20continuation%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m1-handoff",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m1-handoff"
+    },
+    {
+      "url": "https://wa.me/?text=M0%20evidence%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m0-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m0-readme"
+    },
+    {
+      "url": "https://wa.me/?text=M1%20%E2%80%94%20first%20own-kernel%20VM%20boot%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m1-v0-1-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m1-v0-1-0"
+    },
+    {
+      "url": "https://wa.me/?text=M1%20%E2%80%94%20original%20own-kernel%20boot%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m1"
+    },
+    {
+      "url": "https://wa.me/?text=M1%20evidence%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m1-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m1-readme"
+    },
+    {
+      "url": "https://wa.me/?text=M10%20%E2%80%94%20hardware%20foundation%20and%20everyday%20desktop%20devices%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m10",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m10"
+    },
+    {
+      "url": "https://wa.me/?text=M10%20%E2%80%94%20hardware%20phases%201%20and%202%20qualification%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m10-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m10-readme"
+    },
+    {
+      "url": "https://wa.me/?text=M10%20device%20and%20USB%20usability%20review%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-usability-review-m10",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-usability-review-m10"
+    },
+    {
+      "url": "https://wa.me/?text=M10%20hardware%20and%20removable-media%20architecture%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-hardware-m10",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-hardware-m10"
+    },
+    {
+      "url": "https://wa.me/?text=M10%20qualification%20commands%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-tests-m10-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-tests-m10-readme"
+    },
+    {
+      "url": "https://wa.me/?text=M2%20%E2%80%94%20protected%20native%20processes%20and%20efficient%20resource%20use%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m2",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m2"
+    },
+    {
+      "url": "https://wa.me/?text=M2%20v0.2.0%20%E2%80%94%20protected%20native%20processes%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m2-v0-2-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m2-v0-2-0"
+    },
+    {
+      "url": "https://wa.me/?text=M2%20verification%20evidence%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m2-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m2-readme"
+    },
+    {
+      "url": "https://wa.me/?text=M3%20%E2%80%94%20scheduling%2C%20memory%20policy%20and%20concurrency%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m3",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m3"
+    },
+    {
+      "url": "https://wa.me/?text=M3%20preemption%20increment%20%E2%80%94%20alpha.1%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m3-preemption-alpha-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m3-preemption-alpha-1"
+    },
+    {
+      "url": "https://wa.me/?text=M3%20regression%20during%20the%20M4%20increment%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m4-regression-note",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m4-regression-note"
+    },
+    {
+      "url": "https://wa.me/?text=M3%20v0.3.0%20%E2%80%94%20native%20scheduling%2C%20VM%20and%20SMP%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m3-v0-3-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m3-v0-3-0"
+    },
+    {
+      "url": "https://wa.me/?text=M3%20verification%20evidence%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m3-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m3-readme"
+    },
+    {
+      "url": "https://wa.me/?text=M4%20-%20storage%2C%20discovery%20and%20input%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4"
+    },
+    {
+      "url": "https://wa.me/?text=M4%20implementation%2C%20usage%20and%20limits%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-contract",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-contract"
+    },
+    {
+      "url": "https://wa.me/?text=M4%20qualification%20fixes%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m4-development-notes",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m4-development-notes"
+    },
+    {
+      "url": "https://wa.me/?text=M4%20storage%2Ffilesystem%2Finput%20evidence%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m4-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m4-readme"
+    },
+    {
+      "url": "https://wa.me/?text=M4%20storage-console%20alpha.1%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m4-storage-alpha-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m4-storage-alpha-1"
+    },
+    {
+      "url": "https://wa.me/?text=M4%20v0.4.0%20%E2%80%94%20persistent%20filesystem%20and%20input%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m4-v0-4-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m4-v0-4-0"
+    },
+    {
+      "url": "https://wa.me/?text=M4.5%20%E2%80%94%20completed%20virtual%20boot%20and%20hardware%20milestone%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5"
+    },
+    {
+      "url": "https://wa.me/?text=M4.5%20SMP%20pressure-response%20correction%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-smp-pressure",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-smp-pressure"
+    },
+    {
+      "url": "https://wa.me/?text=M4.5%20USB%20lifetime%20and%20extended%20read-only%20filesystem%20increment%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-usb-filesystems",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-usb-filesystems"
+    },
+    {
+      "url": "https://wa.me/?text=M4.5%20bounded%20USB%20topology%20and%20UAS%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-usb-topology",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-usb-topology"
+    },
+    {
+      "url": "https://wa.me/?text=M4.5%20console%20commands%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-console",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-console"
+    },
+    {
+      "url": "https://wa.me/?text=M4.5%20evidence%20%E2%80%94%20completed%20M45-VM-v1%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m4-5-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m4-5-readme"
+    },
+    {
+      "url": "https://wa.me/?text=M4.5%20hardware%20preview%204%20%E2%80%94%20persistent%20owner%20trust%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m45-hardware-alpha-4",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m45-hardware-alpha-4"
+    },
+    {
+      "url": "https://wa.me/?text=M4.5%20original%20BIOS%20and%20dual-firmware%20media%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-boot",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-boot"
+    },
+    {
+      "url": "https://wa.me/?text=M4.5%20owner%20signing%2C%20update%20and%20trust%20boundary%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-owner-trust",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-owner-trust"
+    },
+    {
+      "url": "https://wa.me/?text=M4.5%20storage%20and%20trust%20increments%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-storage",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-storage"
+    },
+    {
+      "url": "https://wa.me/?text=M4.5%20v0.4.5%20%E2%80%94%20final%20VM-scoped%20milestone%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m45-v0-4-5",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m45-v0-4-5"
+    },
+    {
+      "url": "https://wa.me/?text=M5%20%E2%80%94%20native%20live%20installation%20and%20recovery%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m5",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m5"
+    },
+    {
+      "url": "https://wa.me/?text=M5%20console%20command%20reference%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-m5-console",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-m5-console"
+    },
+    {
+      "url": "https://wa.me/?text=M5%20development%20diagnostics%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m5-development-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m5-development-readme"
+    },
+    {
+      "url": "https://wa.me/?text=M5%20native%20installation%20and%20recovery%20qualification%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m5-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m5-readme"
+    },
+    {
+      "url": "https://wa.me/?text=M5%20troubleshooting%20and%20recovery%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery"
+    },
+    {
+      "url": "https://wa.me/?text=M5%20v0.5.0%20%E2%80%94%20live%20installation%20and%20recovery%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m5-v0-5-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m5-v0-5-0"
+    },
+    {
+      "url": "https://wa.me/?text=M5.1%20%E2%80%94%20guided%20setup%20and%20custom%20distributions%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m5-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m5-1"
+    },
+    {
+      "url": "https://wa.me/?text=M5.1%20task%20and%20distribution%20evidence%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m5-1-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m5-1-readme"
+    },
+    {
+      "url": "https://wa.me/?text=M5.1%20v0.5.1%20%E2%80%94%20guided%20setup%20and%20distribution%20profiles%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m51-v0-5-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m51-v0-5-1"
+    },
+    {
+      "url": "https://wa.me/?text=M6%20%E2%80%94%20real%20product%20installation%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m6",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m6"
+    },
+    {
+      "url": "https://wa.me/?text=M6%20native%20storage%20and%20recovery%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-storage-m6",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-storage-m6"
+    },
+    {
+      "url": "https://wa.me/?text=M6%20qualification%20evidence%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m6-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m6-readme"
+    },
+    {
+      "url": "https://wa.me/?text=M7%20%E2%80%94%20real%20Engacer%20OS%20desktop%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7"
+    },
+    {
+      "url": "https://wa.me/?text=M7%20accepted%20desktop%20evidence%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-readme"
+    },
+    {
+      "url": "https://wa.me/?text=M7%20desktop%20and%20native%20application%20boundary%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-desktop-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-desktop-m7"
+    },
+    {
+      "url": "https://wa.me/?text=M7%20native%20networking%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-network-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-network-m7"
+    },
+    {
+      "url": "https://wa.me/?text=M7.1%20%E2%80%94%20installer%20disk%20and%20partition%20management%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7-1"
+    },
+    {
+      "url": "https://wa.me/?text=M7.1%20disk%20management%20design%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-disk-manager-m71",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-disk-manager-m71"
+    },
+    {
+      "url": "https://wa.me/?text=M7.1%20disk-manager%20evidence%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-1-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-1-readme"
+    },
+    {
+      "url": "https://wa.me/?text=M7.2%20%E2%80%94%20installation%20to%20a%20usable%20folder%20desktop%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7-2",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7-2"
+    },
+    {
+      "url": "https://wa.me/?text=M7.2%20native%20installer%20and%20folder%20desktop%20evidence%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-2-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-2-readme"
+    },
+    {
+      "url": "https://wa.me/?text=M7.3%20%E2%80%94%20native%20visual%20quality%20and%20HiDPI%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7-3",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7-3"
+    },
+    {
+      "url": "https://wa.me/?text=M7.3%20exact-artifact%20qualification%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-3-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-3-readme"
+    },
+    {
+      "url": "https://wa.me/?text=M7.3%20five-question%20design%20review%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-usability-review-m73",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-usability-review-m73"
+    },
+    {
+      "url": "https://wa.me/?text=M7.3%20native%20graphics%20and%20usability%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-graphics-m73",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-graphics-m73"
+    },
+    {
+      "url": "https://wa.me/?text=M7.4%20%E2%80%94%20independent%20standard%20applications%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7-4",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7-4"
+    },
+    {
+      "url": "https://wa.me/?text=M7.4%20application%20boundaries%20and%20resource%20decisions%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-applications-m74",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-applications-m74"
+    },
+    {
+      "url": "https://wa.me/?text=M7.4%20application%20guide%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-apps-m74",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-apps-m74"
+    },
+    {
+      "url": "https://wa.me/?text=M7.4%20standard-application%20evidence%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-4-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-4-readme"
+    },
+    {
+      "url": "https://wa.me/?text=M7.5%20exact-artifact%20evidence%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-5-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-5-readme"
+    },
+    {
+      "url": "https://wa.me/?text=M7.5%3A%20installer%20clarity%20and%20reliable%20installed%20startup%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7-5",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7-5"
+    },
+    {
+      "url": "https://wa.me/?text=M7.5%3A%20understandable%20installation%20and%20independent%20startup%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-installer-m75",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-installer-m75"
+    },
+    {
+      "url": "https://wa.me/?text=M8%20first%20delivery%3A%20an%20original%20MSI%20and%20Windows%20console%20application%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m8-msi",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m8-msi"
+    },
+    {
+      "url": "https://wa.me/?text=M8%20first%20original%20Windows%20MSI%20profile%20evidence%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m8-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m8-readme"
+    },
+    {
+      "url": "https://wa.me/?text=M9%20%E2%80%94%20automatic%20hardware%2C%20starting%20with%20responsive%20VM%20graphics%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m9",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m9"
+    },
+    {
+      "url": "https://wa.me/?text=M9%20graphics%20and%20input%20decisions%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-graphics-m9",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-graphics-m9"
+    },
+    {
+      "url": "https://wa.me/?text=M9.2%20%E2%80%94%20automatic%20writable%20storage%20and%20reachable%20off-screen%20windows%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m9-2",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m9-2"
+    },
+    {
+      "url": "https://wa.me/?text=M9.2%20storage%20and%20window-boundary%20decisions%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-storage-m92",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-storage-m92"
+    },
+    {
+      "url": "https://wa.me/?text=MS-DOS%20and%20Windows%201.x%E2%80%9311%20application%20requirement%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-roadmap-windows-compatibility",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-roadmap-windows-compatibility"
+    },
+    {
+      "url": "https://wa.me/?text=Manage%20disks%20and%20partitions%20in%20Engacer%20OS%20M7.1%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-disk-manager-m71",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-disk-manager-m71"
+    },
+    {
+      "url": "https://wa.me/?text=Milestones%20and%20acceptance%20contract%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-roadmap-milestones",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-roadmap-milestones"
+    },
+    {
+      "url": "https://wa.me/?text=Original%20Windows%20console%20execution%20%E2%80%94%20first%20M8%20profile%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-windows-runtime-m8",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-windows-runtime-m8"
+    },
+    {
+      "url": "https://wa.me/?text=Partial%20serial%20marker%20race%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-history-vmware-partial-serial-marker-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-history-vmware-partial-serial-marker-readme"
+    },
+    {
+      "url": "https://wa.me/?text=Physical%20qualification%20follow-up%20to%20M4.5%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-physical-qualification",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-physical-qualification"
+    },
+    {
+      "url": "https://wa.me/?text=Pinned%20public%20CA%20data%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-third-party-mozilla-ca-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-third-party-mozilla-ca-readme"
+    },
+    {
+      "url": "https://wa.me/?text=Prequalification%20observation%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m4-5-development-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m4-5-development-readme"
+    },
+    {
+      "url": "https://wa.me/?text=Product%20principles%3A%20convenience%2C%20clarity%20and%20distribution%20freedom%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-product-principles",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-product-principles"
+    },
+    {
+      "url": "https://wa.me/?text=Recover%20or%20update%20an%20M6%20installation%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery-m6",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery-m6"
+    },
+    {
+      "url": "https://wa.me/?text=Repair%2C%20update%20or%20roll%20back%20Engacer%20OS%20M7%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery-m7"
+    },
+    {
+      "url": "https://wa.me/?text=Retained%20development%20timing%20failure%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m3-history-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m3-history-readme"
+    },
+    {
+      "url": "https://wa.me/?text=Standard-app%20design%20review%20%E2%80%94%20M7.4%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-usability-review-m74",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-usability-review-m74"
+    },
+    {
+      "url": "https://wa.me/?text=Superseded%20future%20roadmap%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-roadmap-history-2026-11-06-previous-future-milestones",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-roadmap-history-2026-11-06-previous-future-milestones"
+    },
+    {
+      "url": "https://wa.me/?text=Update%20and%20recover%20Engacer%20OS%200.7.2%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery-m72",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery-m72"
+    },
+    {
+      "url": "https://wa.me/?text=Update%20and%20recover%20Engacer%20OS%20M7.1%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery-m71",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery-m71"
+    },
+    {
+      "url": "https://wa.me/?text=VMware%20keyboard%20adapter%20correction%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-1-history-vmware-style-navigation-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-1-history-vmware-style-navigation-readme"
+    },
+    {
+      "url": "https://wa.me/?text=VMware%20startup%20correction%3A%20Engacer%20OS%20M9.1%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m91",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m91"
+    },
+    {
+      "url": "https://wa.me/?text=VMware%20storage%3A%20why%20a%20blank%20disk%20does%20not%20appear%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-vmware-storage",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-vmware-storage"
+    },
+    {
+      "url": "https://wa.me/?text=Windows%20Apps%20%E2%80%94%20original%207-Zip%20console%20profile%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-windows-apps-m8",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-windows-apps-m8"
+    },
+    {
+      "url": "https://wa.me/?text=Your%20Engacer%20OS%20M7.3%20desktop%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-desktop-m73",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-desktop-m73"
+    },
+    {
+      "url": "https://wa.me/?text=Your%20Engacer%20OS%20desktop%20and%20folders%20(historical)%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-desktop-m72",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-desktop-m72"
+    },
+    {
+      "url": "https://wa.me/?text=miniz%20freestanding%20boundary%20https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-third-party-miniz-port-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-third-party-miniz-port-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-agents",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-agents"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-applications-m74",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-applications-m74"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-build-platform",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-build-platform"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-compatibility",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-compatibility"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-components",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-components"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-decisions",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-decisions"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-desktop-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-desktop-m7"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-desktop-m72",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-desktop-m72"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-disk-manager-m71",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-disk-manager-m71"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-filesystem",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-filesystem"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-graphics-m73",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-graphics-m73"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-graphics-m9",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-graphics-m9"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-hardware-m10",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-hardware-m10"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-installer-m75",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-installer-m75"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-kernel-contracts",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-kernel-contracts"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-network-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-network-m7"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-overview",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-overview"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-product-principles",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-product-principles"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-storage-m6",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-storage-m6"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-storage-m92",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-storage-m92"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-usability-review-m10",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-usability-review-m10"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-usability-review-m73",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-usability-review-m73"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-usability-review-m74",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-usability-review-m74"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-windows-runtime-m8",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-windows-runtime-m8"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-contributing",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-contributing"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-distros-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-distros-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m0-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m0-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m1-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m1-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m10-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m10-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m2-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m2-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m3-history-context-switch-performance",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m3-history-context-switch-performance"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m3-history-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m3-history-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m3-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m3-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m3-vmware-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m3-vmware-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m4-5-development-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m4-5-development-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m4-5-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m4-5-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m4-development-notes",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m4-development-notes"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m4-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m4-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m4-regression-note",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m4-regression-note"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m5-1-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m5-1-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m5-development-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m5-development-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m5-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m5-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m6-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m6-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-1-history-ahci-transfer-size-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-1-history-ahci-transfer-size-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-1-history-bios-next-coordinate-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-1-history-bios-next-coordinate-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-1-history-vmware-style-navigation-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-1-history-vmware-style-navigation-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-1-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-1-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-2-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-2-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-3-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-3-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-4-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-4-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-5-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-5-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-history-final-candidate-harness-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-history-final-candidate-harness-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-history-night-profile-line-endings-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-history-night-profile-line-endings-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-history-vmware-partial-serial-marker-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-history-vmware-partial-serial-marker-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m8-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m8-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-apps-m74",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-apps-m74"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-console",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-console"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-desktop-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-desktop-m7"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-desktop-m72",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-desktop-m72"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-desktop-m73",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-desktop-m73"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-disk-manager-m71",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-disk-manager-m71"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-distributions",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-distributions"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-hardware-m10",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-hardware-m10"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-index",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-index"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m10",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m10"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m51",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m51"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m6",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m6"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m7"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m71",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m71"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m72",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m72"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m73",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m73"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m74",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m74"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m75",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m75"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m8",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m8"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m9",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m9"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m91",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m91"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m92",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m92"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-installer-design",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-installer-design"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-m5-console",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-m5-console"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery-m6",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery-m6"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery-m7"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery-m71",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery-m71"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery-m72",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery-m72"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery-m73",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery-m73"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-vmware-storage",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-vmware-storage"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-windows-apps-m8",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-windows-apps-m8"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m0"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m1"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m1-handoff",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m1-handoff"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m10",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m10"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m2",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m2"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m3",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m3"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-boot",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-boot"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-owner-trust",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-owner-trust"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-physical-qualification",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-physical-qualification"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-smp-pressure",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-smp-pressure"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-storage",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-storage"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-usb-filesystems",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-usb-filesystems"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-usb-topology",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-usb-topology"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-contract",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-contract"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m5",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m5"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m5-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m5-1"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m6",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m6"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7-1"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7-2",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7-2"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7-3",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7-3"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7-4",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7-4"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7-5",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7-5"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m8-msi",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m8-msi"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m9",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m9"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m9-2",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m9-2"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-changelog",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-changelog"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m1-v0-1-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m1-v0-1-0"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m10-v0-10-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m10-v0-10-0"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m2-v0-2-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m2-v0-2-0"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m3-preemption-alpha-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m3-preemption-alpha-1"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m3-v0-3-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m3-v0-3-0"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m4-storage-alpha-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m4-storage-alpha-1"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m4-v0-4-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m4-v0-4-0"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m45-hardware-alpha-4",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m45-hardware-alpha-4"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m45-v0-4-5",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m45-v0-4-5"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m5-v0-5-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m5-v0-5-0"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m51-v0-5-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m51-v0-5-1"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m6-v0-6-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m6-v0-6-0"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m7-v0-7-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m7-v0-7-0"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m71-v0-7-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m71-v0-7-1"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m72-v0-7-2",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m72-v0-7-2"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m73-v0-7-3",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m73-v0-7-3"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m74-v0-7-4",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m74-v0-7-4"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m75-v0-7-5",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m75-v0-7-5"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m8-v0-8-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m8-v0-8-0"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m9-v0-9-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m9-v0-9-0"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m91-v0-9-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m91-v0-9-1"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m92-v0-9-2",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m92-v0-9-2"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-roadmap-history-2026-11-06-previous-future-milestones",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-roadmap-history-2026-11-06-previous-future-milestones"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-roadmap-milestones",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-roadmap-milestones"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-roadmap-status",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-roadmap-status"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-roadmap-windows-compatibility",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-roadmap-windows-compatibility"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-tests-m10-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-tests-m10-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-third-party-bearssl-port-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-third-party-bearssl-port-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-third-party-miniz-port-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-third-party-miniz-port-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-third-party-mozilla-ca-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-third-party-mozilla-ca-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-tools-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-tools-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-website-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-website-readme"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocumentation",
+      "server_rendered_target": "https://brixcanvas.com/blog/documentation"
+    },
+    {
+      "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdownloads",
+      "server_rendered_target": "https://brixcanvas.com/blog/downloads"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-agents",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-agents"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-applications-m74",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-applications-m74"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-build-platform",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-build-platform"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-compatibility",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-compatibility"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-components",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-components"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-decisions",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-decisions"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-desktop-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-desktop-m7"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-desktop-m72",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-desktop-m72"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-disk-manager-m71",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-disk-manager-m71"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-filesystem",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-filesystem"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-graphics-m73",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-graphics-m73"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-graphics-m9",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-graphics-m9"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-hardware-m10",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-hardware-m10"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-installer-m75",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-installer-m75"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-kernel-contracts",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-kernel-contracts"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-network-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-network-m7"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-overview",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-overview"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-product-principles",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-product-principles"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-storage-m6",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-storage-m6"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-storage-m92",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-storage-m92"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-usability-review-m10",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-usability-review-m10"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-usability-review-m73",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-usability-review-m73"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-usability-review-m74",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-usability-review-m74"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-windows-runtime-m8",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-windows-runtime-m8"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-contributing",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-contributing"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-distros-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-distros-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m0-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m0-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m1-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m1-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m10-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m10-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m2-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m2-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m3-history-context-switch-performance",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m3-history-context-switch-performance"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m3-history-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m3-history-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m3-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m3-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m3-vmware-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m3-vmware-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m4-5-development-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m4-5-development-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m4-5-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m4-5-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m4-development-notes",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m4-development-notes"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m4-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m4-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m4-regression-note",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m4-regression-note"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m5-1-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m5-1-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m5-development-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m5-development-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m5-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m5-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m6-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m6-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-1-history-ahci-transfer-size-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-1-history-ahci-transfer-size-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-1-history-bios-next-coordinate-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-1-history-bios-next-coordinate-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-1-history-vmware-style-navigation-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-1-history-vmware-style-navigation-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-1-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-1-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-2-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-2-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-3-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-3-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-4-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-4-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-5-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-5-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-history-final-candidate-harness-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-history-final-candidate-harness-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-history-night-profile-line-endings-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-history-night-profile-line-endings-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-history-vmware-partial-serial-marker-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-history-vmware-partial-serial-marker-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m8-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m8-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-apps-m74",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-apps-m74"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-console",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-console"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-desktop-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-desktop-m7"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-desktop-m72",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-desktop-m72"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-desktop-m73",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-desktop-m73"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-disk-manager-m71",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-disk-manager-m71"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-distributions",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-distributions"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-hardware-m10",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-hardware-m10"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-index",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-index"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m10",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m10"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m51",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m51"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m6",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m6"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m7"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m71",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m71"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m72",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m72"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m73",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m73"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m74",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m74"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m75",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m75"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m8",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m8"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m9",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m9"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m91",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m91"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m92",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m92"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-installer-design",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-installer-design"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-m5-console",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-m5-console"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery-m6",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery-m6"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery-m7"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery-m71",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery-m71"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery-m72",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery-m72"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery-m73",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery-m73"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-vmware-storage",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-vmware-storage"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-windows-apps-m8",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-windows-apps-m8"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m0"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m1"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m1-handoff",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m1-handoff"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m10",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m10"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m2",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m2"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m3",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m3"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-boot",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-boot"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-owner-trust",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-owner-trust"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-physical-qualification",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-physical-qualification"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-smp-pressure",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-smp-pressure"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-storage",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-storage"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-usb-filesystems",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-usb-filesystems"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-usb-topology",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-usb-topology"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-contract",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-contract"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m5",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m5"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m5-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m5-1"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m6",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m6"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7-1"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7-2",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7-2"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7-3",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7-3"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7-4",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7-4"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7-5",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7-5"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m8-msi",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m8-msi"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m9",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m9"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m9-2",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m9-2"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-changelog",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-changelog"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m1-v0-1-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m1-v0-1-0"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m10-v0-10-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m10-v0-10-0"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m2-v0-2-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m2-v0-2-0"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m3-preemption-alpha-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m3-preemption-alpha-1"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m3-v0-3-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m3-v0-3-0"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m4-storage-alpha-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m4-storage-alpha-1"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m4-v0-4-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m4-v0-4-0"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m45-hardware-alpha-4",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m45-hardware-alpha-4"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m45-v0-4-5",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m45-v0-4-5"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m5-v0-5-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m5-v0-5-0"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m51-v0-5-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m51-v0-5-1"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m6-v0-6-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m6-v0-6-0"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m7-v0-7-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m7-v0-7-0"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m71-v0-7-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m71-v0-7-1"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m72-v0-7-2",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m72-v0-7-2"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m73-v0-7-3",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m73-v0-7-3"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m74-v0-7-4",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m74-v0-7-4"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m75-v0-7-5",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m75-v0-7-5"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m8-v0-8-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m8-v0-8-0"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m9-v0-9-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m9-v0-9-0"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m91-v0-9-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m91-v0-9-1"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m92-v0-9-2",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m92-v0-9-2"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-roadmap-history-2026-11-06-previous-future-milestones",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-roadmap-history-2026-11-06-previous-future-milestones"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-roadmap-milestones",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-roadmap-milestones"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-roadmap-status",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-roadmap-status"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-roadmap-windows-compatibility",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-roadmap-windows-compatibility"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-tests-m10-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-tests-m10-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-third-party-bearssl-port-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-third-party-bearssl-port-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-third-party-miniz-port-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-third-party-miniz-port-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-third-party-mozilla-ca-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-third-party-mozilla-ca-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-tools-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-tools-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-website-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-website-readme"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocumentation",
+      "server_rendered_target": "https://brixcanvas.com/blog/documentation"
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdownloads",
+      "server_rendered_target": "https://brixcanvas.com/blog/downloads"
+    },
+    {
+      "url": "https://x.com/intent/post?text=AHCI%20transfer%20adapter%20correction%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-1-history-ahci-transfer-size-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-1-history-ahci-transfer-size-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Additional%20VMware%20Workstation%20qualification%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m3-vmware-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m3-vmware-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Architecture%20decision%20record&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-decisions",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-decisions"
+    },
+    {
+      "url": "https://x.com/intent/post?text=BIOS%20fixture%20coordinate%20correction%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-1-history-bios-next-coordinate-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-1-history-bios-next-coordinate-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=BearSSL%20freestanding%20adapter&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-third-party-bearssl-port-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-third-party-bearssl-port-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=BrixCanvas%20documentation%20website&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-website-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-website-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Build%20and%20platform%20choices&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-build-platform",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-build-platform"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Build%20your%20own%20Engacer%20OS%20distribution&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-distributions",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-distributions"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Candidate%20harness%20corrections%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-history-final-candidate-harness-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-history-final-candidate-harness-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Changelog&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-changelog",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-changelog"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Compatibility%20semantics%20and%20proof%20boundaries&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-compatibility",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-compatibility"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Context-switch%20measurement%20and%20CPU%20optimization%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m3-history-context-switch-performance",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m3-history-context-switch-performance"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Contributing&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-contributing",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-contributing"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Current%20status&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-roadmap-status",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-roadmap-status"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Custom%20profile%20source%20bytes%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-history-night-profile-line-endings-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-history-night-profile-line-endings-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Desktop-first%20installation%20and%20Files%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-desktop-m72",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-desktop-m72"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Devices%20and%20USB%20files%20in%20Engacer%20OS%20M10&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-hardware-m10",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-hardware-m10"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Distribution%20recipes&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-distros-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-distros-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Documentation%20%E2%80%94%20all%20guides&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocumentation",
+      "server_rendered_target": "https://brixcanvas.com/blog/documentation"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Downloads%20and%20SHA256%20verification&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdownloads",
+      "server_rendered_target": "https://brixcanvas.com/blog/downloads"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Engacer%20OS%20%E2%80%94%20project%20instructions&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-agents",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-agents"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Engacer%20OS%200.10.0%20%E2%80%94%20M10%20hardware%20phases%201%20and%202&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m10-v0-10-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m10-v0-10-0"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Engacer%20OS%200.7.2%20%E2%80%94%20install%2C%20open%20your%20desktop%2C%20explore%20your%20folders%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m72-v0-7-2",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m72-v0-7-2"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Engacer%20OS%200.7.4%20%E2%80%94%20standard%20applications%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m74-v0-7-4",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m74-v0-7-4"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Engacer%20OS%200.7.5%20%E2%80%94%20clear%20installation%20and%20real%20installed%20restart%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m75-v0-7-5",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m75-v0-7-5"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Engacer%20OS%200.8.0%20%E2%80%94%20first%20original%20Windows%20MSI%20application%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m8-v0-8-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m8-v0-8-0"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Engacer%20OS%200.9.0%20%E2%80%94%20first%20VMware%20graphics%20delivery%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m9-v0-9-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m9-v0-9-0"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Engacer%20OS%200.9.1%20%E2%80%94%20corrected%20VMware%20starter%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m91-v0-9-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m91-v0-9-1"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Engacer%20OS%200.9.2%20%E2%80%94%20automatic%20writable%20storage%20and%20reachable%20desktop%20windows%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m92-v0-9-2",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m92-v0-9-2"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Engacer%20OS%20M6%20v0.6.0%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m6-v0-6-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m6-v0-6-0"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Engacer%20OS%20M7%20desktop%20guide%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-desktop-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-desktop-m7"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Engacer%20OS%20M7%20v0.7.0%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m7-v0-7-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m7-v0-7-0"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Engacer%20OS%20M7.1%20v0.7.1%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m71-v0-7-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m71-v0-7-1"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Engacer%20OS%20M7.3%20%E2%80%94%20smooth%20native%20UI%20and%20HiDPI%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m73-v0-7-3",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m73-v0-7-3"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Engacer%20OS%20M7.3%20recovery%20and%20updates%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery-m73",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery-m73"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Engacer%20OS%20M9.2%20installation%20and%20hardware%20guide%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m92",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m92"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Engacer%20OS%20architecture&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-overview",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-overview"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Engacer%20OS%20installation%20wizard%20design%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-installer-design",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-installer-design"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Engacer%20OS%20user%20handbook&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-index",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-index"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Engacer%20OS&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Files%2C%20storage%20and%20compatibility%20namespaces&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-filesystem",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-filesystem"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Host%20tools%20and%20entry%20points&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-tools-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-tools-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Independent%20components%20and%20customizable%20setup&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-components",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-components"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Install%20Engacer%20OS%200.7.2%20in%20VMware%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m72",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m72"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Install%20Engacer%20OS%20M10%20in%20VMware&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m10",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m10"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Install%20Engacer%20OS%20M6%20in%20VMware%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m6",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m6"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Install%20Engacer%20OS%20M7%20in%20VMware%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m7"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Install%20Engacer%20OS%20M7.1%20in%20VMware%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m71",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m71"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Install%20Engacer%20OS%20M7.3%20in%20VMware%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m73",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m73"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Install%20Engacer%20OS%20M7.4%20in%20VMware%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m74",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m74"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Install%20Engacer%20OS%20M7.5%20in%20VMware%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m75",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m75"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Install%20Engacer%20OS%20M9%20and%20check%20window%20movement%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m9",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m9"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Install%20Engacer%20OS%20and%20try%20the%20original%20Windows%20app%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m8",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m8"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Install%20Engacer%20OS%20in%20VMware%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Install%20Engacer%20OS%20with%20the%20guided%20menu%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m51",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m51"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Kernel%20contracts&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-kernel-contracts",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-kernel-contracts"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M0%20%E2%80%94%20completed%20architecture%2Ftoolchain%20baseline%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m0"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M0%20%E2%86%92%20M1%20handoff%20and%20current%20continuation%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m1-handoff",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m1-handoff"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M0%20evidence%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m0-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m0-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M1%20%E2%80%94%20first%20own-kernel%20VM%20boot%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m1-v0-1-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m1-v0-1-0"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M1%20%E2%80%94%20original%20own-kernel%20boot%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m1"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M1%20evidence%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m1-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m1-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M10%20%E2%80%94%20hardware%20foundation%20and%20everyday%20desktop%20devices&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m10",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m10"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M10%20%E2%80%94%20hardware%20phases%201%20and%202%20qualification&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m10-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m10-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M10%20device%20and%20USB%20usability%20review&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-usability-review-m10",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-usability-review-m10"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M10%20hardware%20and%20removable-media%20architecture&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-hardware-m10",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-hardware-m10"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M10%20qualification%20commands&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-tests-m10-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-tests-m10-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M2%20%E2%80%94%20protected%20native%20processes%20and%20efficient%20resource%20use%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m2",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m2"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M2%20v0.2.0%20%E2%80%94%20protected%20native%20processes%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m2-v0-2-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m2-v0-2-0"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M2%20verification%20evidence%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m2-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m2-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M3%20%E2%80%94%20scheduling%2C%20memory%20policy%20and%20concurrency%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m3",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m3"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M3%20preemption%20increment%20%E2%80%94%20alpha.1%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m3-preemption-alpha-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m3-preemption-alpha-1"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M3%20regression%20during%20the%20M4%20increment%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m4-regression-note",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m4-regression-note"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M3%20v0.3.0%20%E2%80%94%20native%20scheduling%2C%20VM%20and%20SMP%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m3-v0-3-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m3-v0-3-0"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M3%20verification%20evidence%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m3-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m3-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M4%20-%20storage%2C%20discovery%20and%20input%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M4%20implementation%2C%20usage%20and%20limits%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-contract",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-contract"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M4%20qualification%20fixes%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m4-development-notes",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m4-development-notes"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M4%20storage%2Ffilesystem%2Finput%20evidence%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m4-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m4-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M4%20storage-console%20alpha.1%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m4-storage-alpha-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m4-storage-alpha-1"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M4%20v0.4.0%20%E2%80%94%20persistent%20filesystem%20and%20input%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m4-v0-4-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m4-v0-4-0"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M4.5%20%E2%80%94%20completed%20virtual%20boot%20and%20hardware%20milestone%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M4.5%20SMP%20pressure-response%20correction%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-smp-pressure",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-smp-pressure"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M4.5%20USB%20lifetime%20and%20extended%20read-only%20filesystem%20increment%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-usb-filesystems",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-usb-filesystems"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M4.5%20bounded%20USB%20topology%20and%20UAS%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-usb-topology",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-usb-topology"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M4.5%20console%20commands%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-console",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-console"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M4.5%20evidence%20%E2%80%94%20completed%20M45-VM-v1%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m4-5-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m4-5-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M4.5%20hardware%20preview%204%20%E2%80%94%20persistent%20owner%20trust%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m45-hardware-alpha-4",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m45-hardware-alpha-4"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M4.5%20original%20BIOS%20and%20dual-firmware%20media%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-boot",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-boot"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M4.5%20owner%20signing%2C%20update%20and%20trust%20boundary%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-owner-trust",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-owner-trust"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M4.5%20storage%20and%20trust%20increments%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-storage",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-storage"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M4.5%20v0.4.5%20%E2%80%94%20final%20VM-scoped%20milestone%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m45-v0-4-5",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m45-v0-4-5"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M5%20%E2%80%94%20native%20live%20installation%20and%20recovery%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m5",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m5"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M5%20console%20command%20reference%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-m5-console",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-m5-console"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M5%20development%20diagnostics%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m5-development-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m5-development-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M5%20native%20installation%20and%20recovery%20qualification%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m5-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m5-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M5%20troubleshooting%20and%20recovery%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M5%20v0.5.0%20%E2%80%94%20live%20installation%20and%20recovery%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m5-v0-5-0",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m5-v0-5-0"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M5.1%20%E2%80%94%20guided%20setup%20and%20custom%20distributions%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m5-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m5-1"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M5.1%20task%20and%20distribution%20evidence%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m5-1-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m5-1-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M5.1%20v0.5.1%20%E2%80%94%20guided%20setup%20and%20distribution%20profiles%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-releases-m51-v0-5-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-releases-m51-v0-5-1"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M6%20%E2%80%94%20real%20product%20installation%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m6",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m6"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M6%20native%20storage%20and%20recovery%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-storage-m6",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-storage-m6"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M6%20qualification%20evidence%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m6-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m6-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M7%20%E2%80%94%20real%20Engacer%20OS%20desktop%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M7%20accepted%20desktop%20evidence%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M7%20desktop%20and%20native%20application%20boundary%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-desktop-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-desktop-m7"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M7%20native%20networking%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-network-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-network-m7"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M7.1%20%E2%80%94%20installer%20disk%20and%20partition%20management%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7-1",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7-1"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M7.1%20disk%20management%20design%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-disk-manager-m71",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-disk-manager-m71"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M7.1%20disk-manager%20evidence%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-1-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-1-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M7.2%20%E2%80%94%20installation%20to%20a%20usable%20folder%20desktop%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7-2",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7-2"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M7.2%20native%20installer%20and%20folder%20desktop%20evidence%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-2-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-2-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M7.3%20%E2%80%94%20native%20visual%20quality%20and%20HiDPI%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7-3",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7-3"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M7.3%20exact-artifact%20qualification%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-3-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-3-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M7.3%20five-question%20design%20review%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-usability-review-m73",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-usability-review-m73"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M7.3%20native%20graphics%20and%20usability%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-graphics-m73",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-graphics-m73"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M7.4%20%E2%80%94%20independent%20standard%20applications%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7-4",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7-4"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M7.4%20application%20boundaries%20and%20resource%20decisions%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-applications-m74",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-applications-m74"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M7.4%20application%20guide%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-apps-m74",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-apps-m74"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M7.4%20standard-application%20evidence%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-4-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-4-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M7.5%20exact-artifact%20evidence%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-5-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-5-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M7.5%3A%20installer%20clarity%20and%20reliable%20installed%20startup%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m7-5",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m7-5"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M7.5%3A%20understandable%20installation%20and%20independent%20startup%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-installer-m75",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-installer-m75"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M8%20first%20delivery%3A%20an%20original%20MSI%20and%20Windows%20console%20application%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m8-msi",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m8-msi"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M8%20first%20original%20Windows%20MSI%20profile%20evidence%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m8-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m8-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M9%20%E2%80%94%20automatic%20hardware%2C%20starting%20with%20responsive%20VM%20graphics%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m9",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m9"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M9%20graphics%20and%20input%20decisions%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-graphics-m9",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-graphics-m9"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M9.2%20%E2%80%94%20automatic%20writable%20storage%20and%20reachable%20off-screen%20windows%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m9-2",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m9-2"
+    },
+    {
+      "url": "https://x.com/intent/post?text=M9.2%20storage%20and%20window-boundary%20decisions%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-storage-m92",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-storage-m92"
+    },
+    {
+      "url": "https://x.com/intent/post?text=MS-DOS%20and%20Windows%201.x%E2%80%9311%20application%20requirement&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-roadmap-windows-compatibility",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-roadmap-windows-compatibility"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Manage%20disks%20and%20partitions%20in%20Engacer%20OS%20M7.1%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-disk-manager-m71",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-disk-manager-m71"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Milestones%20and%20acceptance%20contract&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-roadmap-milestones",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-roadmap-milestones"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Original%20Windows%20console%20execution%20%E2%80%94%20first%20M8%20profile%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-windows-runtime-m8",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-windows-runtime-m8"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Partial%20serial%20marker%20race%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-history-vmware-partial-serial-marker-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-history-vmware-partial-serial-marker-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Physical%20qualification%20follow-up%20to%20M4.5%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-milestones-m4-5-physical-qualification",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-milestones-m4-5-physical-qualification"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Pinned%20public%20CA%20data&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-third-party-mozilla-ca-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-third-party-mozilla-ca-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Prequalification%20observation%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m4-5-development-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m4-5-development-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Product%20principles%3A%20convenience%2C%20clarity%20and%20distribution%20freedom&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-product-principles",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-product-principles"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Recover%20or%20update%20an%20M6%20installation%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery-m6",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery-m6"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Repair%2C%20update%20or%20roll%20back%20Engacer%20OS%20M7%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery-m7",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery-m7"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Retained%20development%20timing%20failure%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m3-history-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m3-history-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Standard-app%20design%20review%20%E2%80%94%20M7.4%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-architecture-usability-review-m74",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-architecture-usability-review-m74"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Superseded%20future%20roadmap&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-roadmap-history-2026-11-06-previous-future-milestones",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-roadmap-history-2026-11-06-previous-future-milestones"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Update%20and%20recover%20Engacer%20OS%200.7.2%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery-m72",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery-m72"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Update%20and%20recover%20Engacer%20OS%20M7.1%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-recovery-m71",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-recovery-m71"
+    },
+    {
+      "url": "https://x.com/intent/post?text=VMware%20keyboard%20adapter%20correction%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-evidence-m7-1-history-vmware-style-navigation-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-evidence-m7-1-history-vmware-style-navigation-readme"
+    },
+    {
+      "url": "https://x.com/intent/post?text=VMware%20startup%20correction%3A%20Engacer%20OS%20M9.1%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-install-m91",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-install-m91"
+    },
+    {
+      "url": "https://x.com/intent/post?text=VMware%20storage%3A%20why%20a%20blank%20disk%20does%20not%20appear%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-vmware-storage",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-vmware-storage"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Windows%20Apps%20%E2%80%94%20original%207-Zip%20console%20profile%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-windows-apps-m8",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-windows-apps-m8"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Your%20Engacer%20OS%20M7.3%20desktop%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-desktop-m73",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-desktop-m73"
+    },
+    {
+      "url": "https://x.com/intent/post?text=Your%20Engacer%20OS%20desktop%20and%20folders%20(historical)&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-handbook-desktop-m72",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-handbook-desktop-m72"
+    },
+    {
+      "url": "https://x.com/intent/post?text=miniz%20freestanding%20boundary&url=https%3A%2F%2Fbrixcanvas.com%2Fblog%2Fdocs-third-party-miniz-port-readme",
+      "server_rendered_target": "https://brixcanvas.com/blog/docs-third-party-miniz-port-readme"
+    }
+  ],
+  "live_browser_verified_links": 8,
+  "static_html_fallback_issue": true,
+  "note": "The static HTML fallback uses the platform host on some pages. The existing browser component replaces it with the real article URL after JavaScript loads; current and historical pages were checked without submitting shares."
+}

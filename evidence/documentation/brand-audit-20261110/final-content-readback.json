@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "source_commit": "1ca5d1b19d63777932a7f0bb5fccdc525770f7de",
+  "checks": [
+    {
+      "url": "https://engaceros.brixcanvas.com/blog/docs-handbook-distributions",
+      "source": "docs/handbook/distributions.md",
+      "source_commit": "1ca5d1b19d63777932a7f0bb5fccdc525770f7de",
+      "passed": true,
+      "requests": 1
+    },
+    {
+      "url": "https://engaceros.brixcanvas.com/blog/docs-roadmap-windows-compatibility",
+      "source": "docs/roadmap/windows-compatibility.md",
+      "source_commit": "1ca5d1b19d63777932a7f0bb5fccdc525770f7de",
+      "passed": true,
+      "requests": 1
+    },
+    {
+      "url": "https://engaceros.brixcanvas.com/blog/docs-architecture-product-principles",
+      "source": "docs/architecture/product-principles.md",
+      "source_commit": "1ca5d1b19d63777932a7f0bb5fccdc525770f7de",
+      "passed": true,
+      "requests": 1
+    },
+    {
+      "url": "https://engaceros.brixcanvas.com/blog/docs-roadmap-history-2026-11-06-previous-future-milestones",
+      "source": "docs/roadmap/history/2026-11-06-previous-future-milestones.md",
+      "source_commit": "1ca5d1b19d63777932a7f0bb5fccdc525770f7de",
+      "passed": true,
+      "requests": 1
+    },
+    {
+      "url": "https://engaceros.brixcanvas.com/blog/docs-third-party-bearssl-port-readme",
+      "source": "third_party/bearssl-port/README.md",
+      "source_commit": "1ca5d1b19d63777932a7f0bb5fccdc525770f7de",
+      "passed": true,
+      "requests": 1
+    },
+    {
+      "url": "https://engaceros.brixcanvas.com/blog/docs-third-party-miniz-port-readme",
+      "source": "third_party/miniz-port/README.md",
+      "source_commit": "1ca5d1b19d63777932a7f0bb5fccdc525770f7de",
+      "passed": true,
+      "requests": 1
+    },
+    {
+      "url": "https://engaceros.brixcanvas.com/blog/docs-third-party-mozilla-ca-readme",
+      "source": "third_party/mozilla-ca/README.md",
+      "source_commit": "1ca5d1b19d63777932a7f0bb5fccdc525770f7de",
+      "passed": true,
+      "requests": 1
+    },
+    {
+      "url": "https://engaceros.brixcanvas.com/blog/docs-architecture-overview",
+      "source": "docs/architecture/overview.md",
+      "source_commit": "1ca5d1b19d63777932a7f0bb5fccdc525770f7de",
+      "passed": true,
+      "requests": 1
+    }
+  ],
+  "scope": "Targeted follow-up after the complete 250-page branding/link crawl; no navigation paths, release files or OS build inputs changed in this follow-up."
+}

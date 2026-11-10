@@ -1,0 +1,50 @@
+{
+  "actions_submitted": 0,
+  "pages": [
+    {
+      "page": "https://engaceros.brixcanvas.com/blog/docs-handbook-install-m10",
+      "links": [
+        {
+          "href": "https://x.com/intent/post?text=Install%20Engacer%20OS%20M10%20in%20VMware&url=https%3A%2F%2Fengaceros.brixcanvas.com%2Fblog%2Fdocs-handbook-install-m10",
+          "text": "X"
+        },
+        {
+          "href": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fengaceros.brixcanvas.com%2Fblog%2Fdocs-handbook-install-m10",
+          "text": "Facebook"
+        },
+        {
+          "href": "https://wa.me/?text=Install%20Engacer%20OS%20M10%20in%20VMware%20https%3A%2F%2Fengaceros.brixcanvas.com%2Fblog%2Fdocs-handbook-install-m10",
+          "text": "WhatsApp"
+        },
+        {
+          "href": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fengaceros.brixcanvas.com%2Fblog%2Fdocs-handbook-install-m10",
+          "text": "LinkedIn"
+        }
+      ]
+    },
+    {
+      "page": "https://engaceros.brixcanvas.com/blog/docs-handbook-install-m7",
+      "links": [
+        {
+          "href": "https://x.com/intent/post?text=Install%20Engacer%20OS%20M7%20in%20VMware%20(historical)&url=https%3A%2F%2Fengaceros.brixcanvas.com%2Fblog%2Fdocs-handbook-install-m7",
+          "text": "X"
+        },
+        {
+          "href": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fengaceros.brixcanvas.com%2Fblog%2Fdocs-handbook-install-m7",
+          "text": "Facebook"
+        },
+        {
+          "href": "https://wa.me/?text=Install%20Engacer%20OS%20M7%20in%20VMware%20(historical)%20https%3A%2F%2Fengaceros.brixcanvas.com%2Fblog%2Fdocs-handbook-install-m7",
+          "text": "WhatsApp"
+        },
+        {
+          "href": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fengaceros.brixcanvas.com%2Fblog%2Fdocs-handbook-install-m7",
+          "text": "LinkedIn"
+        }
+      ]
+    }
+  ],
+  "passed": true,
+  "verified_links": 8,
+  "scope": "Live browser share URLs after JavaScript loads; no messages or posts submitted."
+}

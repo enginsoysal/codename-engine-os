@@ -1,0 +1,101 @@
+{
+  "passed": true,
+  "source_commit": "8557a83f3d352dc67c8675a922db305f16338d58",
+  "github_heading_anchors": [
+    {
+      "url": "https://github.com/enginsoysal/engacer-os/blob/8557a83f3d352dc67c8675a922db305f16338d58/docs/handbook/apps-m74.md#build-a-distribution-with-a-different-application-set",
+      "passed": true
+    },
+    {
+      "url": "https://github.com/enginsoysal/engacer-os/blob/8557a83f3d352dc67c8675a922db305f16338d58/docs/handbook/apps-m74.md#disks-and-recovery",
+      "passed": true
+    },
+    {
+      "url": "https://github.com/enginsoysal/engacer-os/blob/8557a83f3d352dc67c8675a922db305f16338d58/docs/handbook/apps-m74.md#standard-application-reference",
+      "passed": true
+    },
+    {
+      "url": "https://github.com/enginsoysal/engacer-os/blob/8557a83f3d352dc67c8675a922db305f16338d58/docs/handbook/disk-manager-m71.md#delete-clear-or-repair",
+      "passed": true
+    },
+    {
+      "url": "https://github.com/enginsoysal/engacer-os/blob/8557a83f3d352dc67c8675a922db305f16338d58/docs/handbook/install-m7.md#prepare-vmware",
+      "passed": true
+    }
+  ],
+  "images": [
+    {
+      "url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M1/boot-screen.png",
+      "status": 200,
+      "final_url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M1/boot-screen.png",
+      "passed": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M2/boot-screen.png",
+      "status": 200,
+      "final_url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M2/boot-screen.png",
+      "passed": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M3/boot-screen.png",
+      "status": 200,
+      "final_url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M3/boot-screen.png",
+      "passed": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M5.1/uefi-iso/review.png",
+      "status": 200,
+      "final_url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M5.1/uefi-iso/review.png",
+      "passed": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M5.1/uefi-iso/welcome.png",
+      "status": 200,
+      "final_url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M5.1/uefi-iso/welcome.png",
+      "passed": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M5/uefi-iso-128m-2cpu/installed.png",
+      "status": 200,
+      "final_url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M5/uefi-iso-128m-2cpu/installed.png",
+      "passed": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M6/qemu-uefi/review.png",
+      "status": 200,
+      "final_url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M6/qemu-uefi/review.png",
+      "passed": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M6/qemu-uefi/welcome.png",
+      "status": 200,
+      "final_url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M6/qemu-uefi/welcome.png",
+      "passed": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M7.1/vmware/efi/native-disk-manager.png",
+      "status": 200,
+      "final_url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M7.1/vmware/efi/native-disk-manager.png",
+      "passed": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M7.1/vmware/efi/whole-disk-review.png",
+      "status": 200,
+      "final_url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M7.1/vmware/efi/whole-disk-review.png",
+      "passed": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M7.3/uefi-3840x2160/08-home.png",
+      "status": 200,
+      "final_url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M7.3/uefi-3840x2160/08-home.png",
+      "passed": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M7/vmware/efi-visual/native-desktop-editor.png",
+      "status": 200,
+      "final_url": "https://raw.githubusercontent.com/enginsoysal/engacer-os/8557a83f3d352dc67c8675a922db305f16338d58/evidence/M7/vmware/efi-visual/native-desktop-editor.png",
+      "passed": true
+    }
+  ],
+  "method": "Exact Git Markdown headings and independent public image HTTP HEAD requests"
+}

@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "checked_at": "2026-11-10T13:35:12.389Z",
+  "website": "https://engaceros.brixcanvas.com",
+  "source_commit": "8557a83f3d352dc67c8675a922db305f16338d58",
+  "articles": 153,
+  "created": 0,
+  "updated": 153,
+  "archived": 0,
+  "unrelated_articles_preserved": 0,
+  "workflow_run": "https://github.com/enginsoysal/engacer-os/actions/runs/42825409300"
+}
