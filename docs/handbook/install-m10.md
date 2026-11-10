@@ -1,6 +1,6 @@
 # Install Engacer OS M10 in VMware
 
-Candidate guide: use the M10 release only after its acceptance report is published.
+M10 is qualified within M10-DEVICES-VM-v1; see the [release and exact hashes](../releases/m10-v0.10.0.md).
 The prepared ZIP contains a new blank disk, not a preinstalled demonstration.
 
 1. Download **EngacerOS-M10-VMware.zip** from the official

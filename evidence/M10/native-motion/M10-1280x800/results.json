@@ -1,0 +1,118 @@
+{
+  "passed": true,
+  "image": "M10",
+  "build_id": "7ec821b0295011de502cc76105ac5139",
+  "iso_sha256": "e82960f4fae6c31a64ecea47d0846c0b544a6ae8ae2b0d1bed88613bc8618633",
+  "measurement": "host relative-pointer event to completed native composition; includes QMP observation overhead; not monitor refresh rate",
+  "framebuffer": [
+    1280,
+    800
+  ],
+  "frames": 6,
+  "event_to_composed_ms": [
+    768.7722999980906,
+    1099.1966000001412,
+    860.053099997458,
+    827.7977999969153,
+    601.5719999995781,
+    1658.586400000786
+  ],
+  "comparisons": [
+    {
+      "position": [
+        -220,
+        82,
+        1080,
+        620
+      ],
+      "whole_viewport_matches_full_repaint": true
+    },
+    {
+      "position": [
+        100,
+        60,
+        1080,
+        620
+      ],
+      "whole_viewport_matches_full_repaint": true
+    },
+    {
+      "position": [
+        1040,
+        112,
+        1080,
+        620
+      ],
+      "whole_viewport_matches_full_repaint": true
+    },
+    {
+      "position": [
+        100,
+        60,
+        1080,
+        620
+      ],
+      "whole_viewport_matches_full_repaint": true
+    },
+    {
+      "position": [
+        100,
+        672,
+        1080,
+        620
+      ],
+      "whole_viewport_matches_full_repaint": true
+    },
+    {
+      "position": [
+        100,
+        60,
+        1080,
+        620
+      ],
+      "whole_viewport_matches_full_repaint": true
+    }
+  ],
+  "cached_matches_full_repaint": true,
+  "graphics": {
+    "shadow_bytes": 4096000,
+    "presented_pixels": 25103320,
+    "presents": 74,
+    "copy_pixels": 1490576,
+    "copy_frames": 7,
+    "fifo_updates": 0,
+    "fifo_copies": 0,
+    "fifo_failures": 0,
+    "adapter_bdf": 16,
+    "adapter_id": 286331444,
+    "backend": 1,
+    "capabilities": 0
+  },
+  "managed_bytes_before_drag": 4288512,
+  "managed_bytes_after_drag": 4288512,
+  "idle_processors_halted": true,
+  "idle_repaint_unchanged": true,
+  "native_drag_profile": {
+    "frames": 7,
+    "ticks_10ms": 359,
+    "longest_ticks_10ms": 104,
+    "bins_ticks_0_to_15_or_more": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      7
+    ]
+  }
+}

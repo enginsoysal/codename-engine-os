@@ -1,13 +1,23 @@
 # BrixCanvas documentation website
 
-The Engacer OS website belongs inside BrixCanvas. The native dashboard saved the owner-selected name and **https://engaceros.brixcanvas.com** on 2026-11-10. The internal site ID/slug and scoped publisher key stay unchanged; historical release identities stay intact. Homepage/article migration and public verification are in progress. OS sources remain in this independent repository; website content uses ordinary editable BrixCanvas Brix and articles.
+The Engacer OS website belongs inside BrixCanvas. The native dashboard saved the owner-selected name and **https://engaceros.brixcanvas.com** on 2026-11-10. The internal site ID/slug and scoped publisher key stay unchanged; historical release identities stay intact. M10 hardware phases 1 and 2 are the current qualified runtime release. Native homepage Save, responsive review, current article readback and exact download-hash verification are required separately for this publication. OS sources remain in this independent repository; website content uses ordinary editable BrixCanvas Brix and articles.
 
 ## Native website
 
-### Homepage follow-up — 10 November 2026
+### Current M10 publication — 10 November 2026
 
-The native homepage is **published and verified at M9.2**, retaining the
-preferred layout. `website/brix/design.mjs` records the matching English copy:
+The Engacer OS M10 homepage uses the four editable native sections from
+`website/brix/design.mjs`, the canonical engaceros.brixcanvas.com route and the
+renamed enginsoysal/engacer-os repository. Current setup, Devices/USB tasks and
+later hardware limits are linked directly. English Markdown articles and official
+GitHub downloads are synchronized automatically, with per-article source commits.
+The public check is `python tests/m10/website.py`; publication proof belongs under
+`evidence/documentation/homepage-m10`, separate from runtime qualification.
+
+### Historical M9.2 homepage follow-up
+
+The historical M9.2 native homepage was **published and verified**, retaining the
+preferred layout. The historical composition recorded the matching English copy:
 current VMware setup, supported controller scope, display/resource evidence,
 explicit hardware/application limits and correct installation/restart guidance.
 Fresh public readback contains M9.2 and no M7.3 homepage reference. The M9.2
@@ -25,7 +35,7 @@ with all 145 posts, received HTTP 200 and displayed **Saved ✓**. No article wa
 removed and no credential or separate hosting workaround was used. See
 [follow-up evidence](../evidence/documentation/homepage-m92-followup.json).
 
-The BrixCanvas project is `Codename: Engine OS`, site ID `b66d0e83-7987-4856-b702-e8d93234b6cd`, initial preview slug `codename-engine-os-ltvck`. The homepage uses native Menu, Layout, Button, Text, Heading, Code and Alert Brix. Documentation belongs to the native Blog content model, grouped by handbook, roadmap, architecture, milestones, releases, developer guides and evidence. Native site-wide search reads article body text, titles and tags. No external website is the production origin.
+The BrixCanvas project is `Engacer OS` (historically `Codename: Engine OS`), site ID `b66d0e83-7987-4856-b702-e8d93234b6cd`, initial preview slug `codename-engine-os-ltvck`. The homepage uses native Menu, Layout, Button, Text, Heading, Code and Alert Brix. Documentation belongs to the native Blog content model, grouped by handbook, roadmap, architecture, milestones, releases, developer guides and evidence. Native site-wide search reads article body text, titles and tags. No external website is the production origin.
 
 The owner preferred the initial local prototype's appearance over the generated BrixCanvas template. `website/brix/design.mjs` records the replacement native composition: navy Menu Brix, light status strip, two-column introduction/terminal, three guide cards, scope notice and minimal footer. The layout uses ordinary nested Layout, Heading, Text, Code, Button and Alert Brix, not an HTML embed. Import individual sections through BrixCanvas's native **Paste Brix** operation using its `brixcanvas: 1` clipboard format; all children remain editable. The site uses the native minimal/Inter font palette and English public locale.
 
@@ -45,7 +55,7 @@ Edit generated documentation in the canonical GitHub files. Local edits to gener
 
 Documentation and binaries remain canonical on GitHub. Native articles identify
 their source commit and downloads link directly to official release assets.
-M9.2 is the current qualified virtual-storage release; broader hardware and
+M10 is the current qualified phase-1/2 virtual-device release; broader hardware and
 general DOS/Windows compatibility remain open. Accepted releases, tags, hashes
 and OS evidence are unchanged. Article/download updates are automatic; homepage
 editing is a separate native Brix operation. Browser work uses only the

@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "scope": "Host execution of actual C code; native USB/controller tests remain separate",
+  "checks": [
+    "Actual C create-only FAT32 export; independent PyFatFS validates long names, unique short aliases and original payloads",
+    "Existing-name refusal performs no write",
+    "Actual C FAT32-to-native import persists a CRC-verified file",
+    "Forty registry reconnect generations reuse one bounded slot and reject stale filesystem leases",
+    "dirty refusal/recovery or independent directory-preservation verification",
+    "mirror refusal/recovery or independent directory-preservation verification",
+    "write-failure refusal/recovery or independent directory-preservation verification",
+    "deleted-hole refusal/recovery or independent directory-preservation verification",
+    "GPT-partitioned USB discovery, bounded partition-relative writes and independent FAT validation"
+  ],
+  "independent_reader": "pyfatfs 1.1.0 (test-only, not shipped)",
+  "source_sha256": {
+    "tests/m10/filesystem_host.c": "208c91aa9f252fa180106acf128300174491bfb4e9a0d2e0dce32e091eeb38fc",
+    "kernel/storage/partitions.c": "a7304d97df1a191e5f499f8be0d09b2cf5558ae3440474d0f3d71780a43c73f2",
+    "kernel/storage/volume6.c": "2dc904292535113addf5f8ecb8f351d61f9a2f1e04ace4d0415736ab7d42dc7e",
+    "runtime/memory.c": "347823b0c99de119e0bf9d73dabdeadc3e448ac6c9045809d0dce3a132a1505e",
+    "kernel/storage/fat32.c": "778e583cf4a950bf39aa559e8788d6c3a3441fbf88663f9e1c752cdd68b7cf9a",
+    "kernel/storage/fat32-write10.inc": "c44708355ec89159c39620ea7f65a76d339f5aaeb2f9c3ae295c74da3a9bb500",
+    "kernel/storage/registry.c": "4dff61c0c590ed5c653ccd008e764dead54c7c0bb1f4f7da750d0793d79094d2"
+  }
+}

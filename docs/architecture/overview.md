@@ -1,6 +1,6 @@
 # Engacer OS architecture
 
-M10 phases 1/2 add bounded hardware status, input layouts and guarded removable file transfers. [Design and limits](hardware-m10.md), [native user guide](../handbook/hardware-m10.md). Runtime qualification remains pending until the M10 release.
+M10 phases 1/2 add bounded hardware status, input layouts and guarded removable file transfers. [Design and limits](hardware-m10.md), [native user guide](../handbook/hardware-m10.md). The 27-gate M10-DEVICES-VM-v1 qualification binds these tasks to the published ISO and exact VMware ZIP.
 
 M9 now prioritizes automatic supported VMware graphics/input and window movement. One admitted RAM screen buffer, cached client movement, batched presentation and a separate cursor overlay supplement the earlier renderer. [Implementation decisions, memory accounting and limits](graphics-m9.md). No 3D or universal GPU claim is made.
 

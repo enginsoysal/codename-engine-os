@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "build_id": "7ec821b0295011de502cc76105ac5139",
+  "iso_sha256": "e82960f4fae6c31a64ecea47d0846c0b544a6ae8ae2b0d1bed88613bc8618633",
+  "checks": [
+    "Graphical installation and installed desktop startup with retained ISO",
+    "USB keyboard reconnect followed by real keyboard launcher open/close",
+    "Native Settings Devices, saved layouts and real Dvorak typing into a persisted folder name",
+    "Real mouse wheel scrolls the focused native USB folder down and back up",
+    "Native USB Files selection and copy to Downloads",
+    "Native Downloads To USB and flushed create-only export",
+    "Controller flush and native safe-removal action",
+    "Actual USB device detach/reconnect rebinds automatically and reuses the registry slot",
+    "Independent installed-volume inspection validates copied USB bytes",
+    "Independent FAT implementation verifies the graphical round trip and unchanged original",
+    "Two ordinary independent disk boots without ISO, persistent layout and installed desktop"
+  ],
+  "firmware": "uefi",
+  "resolution": [
+    1280,
+    800
+  ],
+  "ram_mib": 128,
+  "usb_attach_stage": "before firmware boot",
+  "usb_payload_bytes": 39,
+  "usb_payload_sha256": "f611ba0a20793de82c42e4fb9a3597af76d9ab1047ee64ec3304dc343f625380",
+  "usb_cluster_bytes": 512,
+  "actual_display_status": {
+    "backend": 1,
+    "detail": "Buffered software 2D; no GPU acceleration."
+  },
+  "managed_bytes_before_reconnect": 4317184,
+  "managed_bytes_after_reconnect": 4317184,
+  "actual_framebuffer": [
+    1280,
+    800
+  ]
+}

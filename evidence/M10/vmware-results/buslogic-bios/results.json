@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "firmware": "bios",
+  "controller": "buslogic",
+  "checks": [
+    "Enabled-device 20-GiB real installation to immediate persistent desktop, keyboard-only folder creation, independent metadata verification",
+    "same VMX and retained NVRAM, optical drive still present but disconnected; two unforced hard-disk boots to desktop; actual folder retained",
+    "Independent persisted-volume reads match every distribution document/binary sample byte for byte"
+  ],
+  "owned_fixture_id": "41b5b07fc6fa4428b328da8285e8fcb1",
+  "dhcp_configured_with_shipped_nat": true,
+  "persisted_distribution_sha256": {
+    "/Users/Owner/Documents/Welcome.txt": "ddc0f749db63148bc7178701c6401c223f451e2738af6544b58a5bd42b33c3f0",
+    "/Users/Owner/Downloads/ArchiveSample.zip": "d9901670502a168d99e282769cc767901a58ed2890c4a2b4c5ba46054426e859",
+    "/Users/Owner/Pictures/ColorStudy.bmp": "13743257b3389ea8e83202e82864369228b2092dc27dc396741081aa5cd6bfe3",
+    "/Users/Owner/Music/Chime.wav": "5cb76cbf638407893f5b18353e82aedc4c82e10b7e55fd0f515e9aa54085646f"
+  },
+  "windows_lifecycle_exercised": false,
+  "build_id": "7ec821b0295011de502cc76105ac5139",
+  "iso_sha256": "e82960f4fae6c31a64ecea47d0846c0b544a6ae8ae2b0d1bed88613bc8618633",
+  "boot_order_forced": false,
+  "same_vm_reused": true,
+  "network_present": true,
+  "existing_vm_inventory_unchanged": true
+}

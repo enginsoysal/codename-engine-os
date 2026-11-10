@@ -1,47 +1,59 @@
 # Current status
 
-**Next delivery in progress: [M10 hardware foundation and everyday devices](../milestones/m10.md), phases 1 and 2.** Common device/capability reporting, integrated desktop input/display and useful writable removable USB tasks are required. M9.2 remains the downloadable qualified release until new-artifact acceptance passes. The owner selected Engacer OS for M10; the native BrixCanvas dashboard has saved engaceros.brixcanvas.com. Homepage and article verification are in progress.
+Updated 10 November 2026. **Engacer OS M10 / 0.10.0 is the current delivery.**
+Hardware phases **1 and 2 are complete within M10-DEVICES-VM-v1**, with
+[27 exact-source/artifact gates](../../evidence/M10/acceptance-results.json).
+[Release/downloads and controller matrix](../releases/m10-v0.10.0.md),
+[VMware tutorial](../handbook/install-m10.md),
+[Devices and USB tasks](../handbook/hardware-m10.md),
+[architecture](../architecture/hardware-m10.md).
 
-**Current delivery: M9.2 automatic writable storage and reachable desktop windows (M92-STORAGE-VM-v1).** The named VMware IDE, SATA, LSI Logic, LSI SAS, PVSCSI and NVMe BIOS/UEFI profiles, plus compatible BusLogic BIOS, pass actual installation, persistence and two independent disk boots. Native clipping passes ordinary/150%/4K repaint and idle-memory checks. The broader hardware program remains open; recorded QEMU SAS restart failures and PVSCSI completion refusal are explicitly unqualified. [Release](../releases/m92-v0.9.2.md), [guide](../handbook/install-m92.md), [acceptance](../../evidence/M9.2/acceptance-results.json).
+The new ISO and exact blank-disk VMware starter are branded Engacer OS.
+The canonical public/MIT repository is
+[enginsoysal/engacer-os](https://github.com/enginsoysal/engacer-os), independent
+from BrixCanvas. The native English documentation site is
+[engaceros.brixcanvas.com](https://engaceros.brixcanvas.com).
+Current guides and official download articles update automatically from GitHub;
+homepage editing and public release verification are separate required checks.
+Historical Engine OS tags, binaries, evidence and internal ABI identities remain
+unchanged. The previous releases below are historical qualification, not new media.
 
-**Historical M9.1 correction:** added the missing PCIe root-port configuration while retaining the M9 ISO. M9.2 is the current complete download package.
+## Current delivered scope
 
-**M9 graphics-first slice is qualified within M9-GFX-VM-v1:** automatic supported VMware video/pointer binding, bounded buffered composition, cached movement and correct native ordinary/4K frames. Twelve exact-artifact gates include installed BIOS/UEFI lifecycles, original app regression, a 64-MiB guest journey, bounded-buffer fallback, resource/idle checks and a measured sequential M8/M9 comparison. [Release/downloads](../releases/m9-v0.9.0.md), [guide](../handbook/install-m9.md), [acceptance](../../evidence/M9/acceptance-results.json). Broader M9 hardware support, runtime display changes and 3D remain in progress. [Remaining stages](../milestones/m9.md).
+Common bounded device/capability reporting, Settings → Devices, saved US layouts,
+working qualified keyboard/mouse/wheel/hubs/reconnect, guarded FAT32 USB file copies
+and safe removal. New-artifact VMware controller installation/persistence/two
+independent boots and the original 7-Zip MSI/console lifecycle pass. Native
+ordinary/150%/4K movement, repaint, stable retained pages and halted idle CPUs have
+separate proof. All normal tasks use the native graphical interface.
 
-**M8 first delivery is qualified within M8-MSI1-VM-v1:** original 7-Zip 26.06 x64 MSI install, original console executable/DLL, fresh archive creation/extraction, removal and reinstall. Native UI, resources, interrupted cleanup and owned VMware BIOS/UEFI lifecycles have exact-artifact evidence. [Scope](../milestones/m8-msi.md), [release/downloads](../releases/m8-v0.8.0.md), [installation](../handbook/install-m8.md), [app guide](../handbook/windows-apps-m8.md), [acceptance](../../evidence/M8/acceptance-results.json). This closes the requested first-app slice, not the wider DOS/Windows program. Existing ZIP update and Windows GUI remain unsupported; examples use fresh numbered outputs.
+The standard VMware profile has 128 MiB and a new growable 20-GiB SATA disk.
+64-MiB OVMF with boot-attached USB storage remains a recorded unqualified allocation
+failure; its successful low-RAM journey connects USB after installed startup.
+USB writes have bounded clean mirrored FAT32/BOT requirements. No universal
+hardware, physical/ARM, vendor GPU 3D or general Windows compatibility is claimed.
+See the release's exact limits; configured guest RAM is not memory consumption.
 
-**M7.5 is qualified within M75-VM-v1: understandable installation and actual installed startup.** Nine exact-artifact gates cover explicit disk lists, guarded erasure, retained choices, partial redraw, real progress/errors, actual 4K/64-MiB journeys and VMware BIOS/UEFI retained-ISO restart plus two detached boots. [Scope](../milestones/m7.5.md), [guide](../handbook/install-m75.md), [release](../releases/m75-v0.7.5.md), [acceptance](../../evidence/M7.5/acceptance-results.json). The owner's original VM failure remains undiagnosed; human novice studies and physical hardware are not claimed.
+## Next hardware phases
 
-**M7.4 delivers the first bounded standard app suite within M74-VM-v1.** Thirteen gates bind eighteen native providers, independent optional-package removal/reinstall, private-data retention, actual 4K, 64-MiB operation, real ZIP/HTTPS/HDA PCM tasks and VMware BIOS/UEFI lifecycles to exact artifacts. [Acceptance](../../evidence/M7.4/acceptance-results.json), [release and downloads](../releases/m74-v0.7.4.md), [app manual](../handbook/apps-m74.md), [scope and follow-ups](../milestones/m7.4.md). Richer codecs/web rendering, Calendar reminders, advanced editing and additional desktop integrations remain unimplemented follow-ups.
+3. Useful Ethernet/Wi-Fi configuration, downloads and reconnect.
+4. Comprehensive speakers/headphones/microphone and audio device selection.
+5. Qualified vendor GPU acceleration, APIs, display and power/error handling.
+6. Original Windows Steam/game tasks with GPU, audio, input and persistent saves.
+7. Laptops/docks/power, Bluetooth, other peripherals and separately qualified ARM.
 
-**M7.3 is complete within M73-VM-v1.** Seventeen exact-artifact gates cover the smooth native wizard/folder desktop, actual 4K, scaling/persistence, disk safety, error recovery, resource idle and VMware lifecycles. [Scope](../milestones/m7.3.md), [acceptance](../../evidence/M7.3/acceptance-results.json), [release](../releases/m73-v0.7.3.md), [graphics](../architecture/graphics-m73.md), [installation guide](../handbook/install-m73.md). Physical/ARM qualification and M8 remain separate.
+The wider MS-DOS and Windows 1.x–11 program remains open; only the named original
+7-Zip x64 console/MSI profile is qualified. Linux/macOS remain later execution
+environments. Recognition is not usable hardware, and a launch is not a complete
+application task. [Full hardware contract](../milestones/m10.md),
+[Windows program](windows-compatibility.md).
 
-## Historical M7.2 delivery — 7 November 2026
-
-**M7.2 is complete within M72-VM-v1: installation and a visible folder desktop before more applications.** The native wizard now ends with Open desktop against the persistent installed volume. Files foregrounds Home, sidebar locations, Back/Forward/Up, named folders and protected system browsing. A new empty-disk VMware starter ZIP removes VM setup ambiguity. UEFI boot registration addresses a reproduced retained-NVRAM USB boot failure; exact-artifact gates include unforced same-VM VMware boots. [Installer](../handbook/install-m72.md), [desktop](../handbook/desktop-m72.md), [scope](../milestones/m7.2.md), [acceptance](../../evidence/M7.2/acceptance-results.json). The original user VM failure is not conclusively diagnosed. At that historical release, M8 remained deferred.
-
-## Owner priority revision — 6 November 2026
-
-The product remains **Engine OS**. The next delivery order is:
-
-1. **M6 — real product installation:** guided ISO/USB installation, useful disk capacity and large files, persistent users/settings/data, independent disk boot, tested update/recovery behavior and clear failures.
-2. **M7 — real desktop experience:** a native graphical session with windows, launcher, file manager, editor, settings, networking and real downloads; normal tasks require no terminal commands.
-3. **M8 — original MS-DOS and Windows 1.x through Windows 11 applications:** separate DOS, early Windows, 9x and NT/Win32/Win64 tracks, including original installers and useful application tasks.
-
-**M6 is complete within M6-VM-v1 and M7 within M7-VM-v1**; M8 is now in progress under the bounded first-delivery contract linked above. The [M7 desktop](../milestones/m7.md) passes 26 exact-artifact gates, including native documents, networking/HTTPS, app containment, resource pressure, custom distro and VMware BIOS/UEFI tasks. [Acceptance](../../evidence/M7/acceptance-results.json), [VMware tutorial](../handbook/install-m7.md). Completed M0–M5.1 remain historical technical achievements within their named scopes. The historical M5.1 installer is a working bounded prototype, not completion of the new product installation or desktop requirements. The native M6 wizard, scalable installed volume, user preferences, data distribution selection and ISO-assisted update/rollback/repair are implemented. The historical M6 artifact passes the [M6 acceptance gates](../../evidence/M6/acceptance-results.json); [release and VMware instructions](../releases/m6-v0.6.0.md) identify that earlier ISO. The current M7 ISO and desktop guide are linked above. Completion is bounded by the named virtual profiles. See [M6 delivery slices](../milestones/m6.md). [Detailed gates and implementation choices](milestones.md).
-
-**M7.1 is complete within M71-VM-v1:** native disk/partition management and explicit existing-disk replacement, qualified by 15 gates and 322 unchanged prior proofs. [Acceptance](../../evidence/M7.1/acceptance-results.json), [VMware tutorial](../handbook/install-m71.md), [disk-manager manual](../handbook/disk-manager-m71.md), [release](../releases/m71-v0.7.1.md). At that historical release, M8 had not started.
-
-Convenience, optional advanced diagnostics, distribution freedom and measured CPU/RAM efficiency remain requirements throughout. A splash screen, loader, theme or successful launch alone cannot close these milestones.
-
-## Documentation website
-
-The public [Engine OS website](https://engaceros.brixcanvas.com) uses native editable BrixCanvas blocks and the preferred local design. It publishes canonical Markdown guides, the documentation index and official downloads, with source commits. Automatic GitHub synchronization uses a site-specific content-only encrypted Actions secret. The first publication verified 55 articles; new M5 installation/recovery guides join the current index while earlier release guides remain historical. See [publisher evidence](../../evidence/documentation/github-sync-results.json) and [maintenance](../../website/README.md).
-
-Updated 2026-11-09. Canonical project: [enginsoysal/engacer-os](https://github.com/enginsoysal/engacer-os), public/MIT, independent from BrixCanvas. All current documents/UI/comments are English; code/tests and documentation are updated together. Every coherent verified update is committed and pushed.
+## Historical milestone register
 
 | Milestone | Status | Evidence/boundary |
 |---|---|---|
+| M10 hardware phases 1 and 2 | Complete within M10-DEVICES-VM-v1 | [27 exact-source/artifact gates](../../evidence/M10/acceptance-results.json), [release](../releases/m10-v0.10.0.md), [Devices/USB guide](../handbook/hardware-m10.md); later hardware phases remain open |
+| M9.2 automatic writable storage | Historical complete within M92-STORAGE-VM-v1 | [Acceptance](../../evidence/M9.2/acceptance-results.json); its controller matrix is requalified on M10 |
 | M0 architecture/toolchain | Complete | [51 technical checks](../../evidence/M0/README.md); no app compatibility claim |
 | M1 own-kernel boot | Complete, virtual scope | [Historical evidence](../../evidence/M1/README.md); one VMware boot user-observed |
 | M2 protected native processes | Complete within native-only, single-active-CPU scope | [Current M2 evidence](../../evidence/M2/README.md), [fresh acceptance](../../evidence/M2/acceptance-results.json) |
@@ -59,24 +71,8 @@ Updated 2026-11-09. Canonical project: [enginsoysal/engacer-os](https://github.c
 | M7 real desktop | Complete within M7-VM-v1 | [Exact acceptance](../../evidence/M7/acceptance-results.json), [delivery/limits](../milestones/m7.md), [VMware installation](../handbook/install-m7.md), [desktop controls](../handbook/desktop-m7.md); original DOS/Windows execution remains M8 |
 | M5.1 guided UX/distributions | Complete within M51-VM-v1 | [Contract](../milestones/m5.1.md), [guided tutorial](../handbook/install-m51.md), [custom distributions](../handbook/distributions.md), [acceptance](../../evidence/M5.1/acceptance-results.json) |
 
-## M2 delivered scope
 
-Private user address spaces, CPL3 entry/checked return, native syscalls, controlled copy-in/out, bounded generation/rights/type-checked objects, mailbox IPC and explicit shared memory. Shared code reduces duplication; private pages are zeroed and reaped. Thirteen initial roles plus 32 fresh survivors yield 45 starts, 35 exits and ten contained failures in the specified workload. The normal ISO runs these checks then shows results and halts.
-
-Resource reports separate peak/retained managed pages from retained boot resources. Qualification includes low guest RAM, quotas/reuse and actual CPU halt/idle-time observations. Exact final values/build ID are in the acceptance/boot/visual reports, not guessed from guest RAM settings.
-
-## M4 delivered scope
-
-Original class-bound AHCI reset, one outstanding MSI/HLT request, 4 KiB DMA batches and timeout/error quarantine. Bounded writable ext2 and native root, 48 KiB direct files, exact case/UTF-8 and kernel file-handle mediation. Dirty-volume write refusal and independent offline recovery to a new copy are explicit; no journal or arbitrary power-loss guarantee. Own xHCI boot keyboard/mouse uses a supervisor MMIO window and MSI-X/MSI; PS/2/COM1 remain diagnostic fallbacks. Named QEMU ISO/USB, low-RAM, input/resource/error/recovery and VMware SATA persistence tests pass. Installer/live/install/recovery workflow is M5; physical devices, hotplug/hubs, guest semantics and untrusted file syscalls are outside this bounded profile.
-
-## Limits and next work
-
-M2 has one active CPU, cooperative trusted native probes, no preemption/starvation defense, no general pressure/reclaim, no arbitrary app/file loading and no Windows APIs. Boot/firmware resources remain reserved. M3 retains that regression phase and adds real preemptible threads, x87/SSE/FS-base TLS, hardware-clock deadlines, event/message waits, cancellation, anonymous reserve/commit/decommit/COW, admission-budget/OOM recovery and active SMP. Native user execution is checked on every discovered qualified CPU. Processes have fixed affinity; extended XSAVE, migration, fine-grained locking, file paging/reclaim and physical qualification remain future work. M4 adds the bounded storage/input profile above. M4.5 closes the named VM boot/storage/input/trust acceptance contract; M5 implements installation/recovery; the next product delivery order is real installation in M6, desktop/networking in M7, then DOS/Windows compatibility in M8.
-
-MS-DOS and Windows 1.x–11 remain a broad target qualified per original installer/version/architecture/task through WC1–WC7. It is not a universal flawless-start guarantee. Physical hardware and arbitrary VMware-version/device coverage remain unqualified and outside M45-VM-v1. Additional [VMware Workstation 26.0.1 serial/runtime cases](../../evidence/M3/vmware/README.md) pass on 1/2/4 CPUs with the same normal ISO at 128 MiB; broader version/device coverage and VMware framebuffer capture are not claimed.
-
-Only `Complete` plus successful fresh linked evidence counts as milestone completion; mocks, generated files or a splash screen are insufficient. Failed checks/blockers must remain visible. Earlier local planning is archived under ignored `tools/local/legacy-planning`; never place new OS output back in BrixCanvas.
-
-## M5 implementation and resource boundary
-
-Original sparse-bundle installer, SATA/512-byte blank-target GPT/EFI/BIOS setup, explicit confirmation and copy readback, installed boot and persistent native files. The live overlay allocates changed pages on demand, capped at 512 KiB. The installed ext2 profile is 16 MiB with 48-KiB files; other disk capacity remains unallocated. Same-build boot repair preserves initialized data. Arbitrary upgrades/rollback and power-loss atomicity are not implemented. Multiple eligible SATA targets refuse automatic persistent selection. [Installation](../handbook/install.md), [commands](../handbook/m5-console.md), [recovery](../handbook/recovery.md), [exact contract](../milestones/m5.md).
+Accepted historical reports and artifacts are immutable. Reproduce them only in
+a separate checkout. Every new behavior updates English design, user instructions,
+tests/evidence and GitHub together. No splash screen, stub or host-only probe
+qualifies a runtime milestone.

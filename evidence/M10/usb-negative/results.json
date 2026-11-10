@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "build_id": "7ec821b0295011de502cc76105ac5139",
+  "iso_sha256": "e82960f4fae6c31a64ecea47d0846c0b544a6ae8ae2b0d1bed88613bc8618633",
+  "checks": [
+    "Actual USB MODE SENSE write protection: native export refused with unchanged backing bytes",
+    "Actual USB sector-zero I/O error contained without exposing a readable drive or successful copy",
+    "Reconnection after failure rebinds; malformed FAT boot metadata is refused by native Files"
+  ],
+  "unchanged_backing_sha256": {
+    "readonly.img": "5b78fc1a2fc71a43276b3ed232b641c58ee6af0515580b7273d66cb04cc9fca4",
+    "error.img": "5b78fc1a2fc71a43276b3ed232b641c58ee6af0515580b7273d66cb04cc9fca4",
+    "malformed.img": "cdd398ec3b4d79546f2c136483331425cb64235ab90dc8f2faf384bdcc6d382f"
+  }
+}

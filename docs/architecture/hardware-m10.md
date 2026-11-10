@@ -129,4 +129,4 @@ startup, Settings, file transfer, flush/removal/reconnect and independent backin
 image inspection. VMware must retain all shipped devices, ordinary NVRAM and
 independent optical-detached boots. Actual 4K framebuffer, clipped composition,
 retained pages and halted idle CPUs are separate gates. A host pass or screenshot
-alone cannot qualify the release. See the final acceptance report once published.
+alone cannot qualify the release. See the [27-gate exact-source/artifact acceptance](../../evidence/M10/acceptance-results.json) and [qualification commands](../../tests/m10/README.md).

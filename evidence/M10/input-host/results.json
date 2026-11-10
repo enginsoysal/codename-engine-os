@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "scope": "Production input logic on host; native controller/input tasks tested separately",
+  "checks": [
+    "US QWERTY and Dvorak, Shift/Caps Lock, invalid layout refusal",
+    "Bounded wheel accumulation and transition-only wake events",
+    "Descriptor-proven wheel admission; malformed, report-ID, oversized and absolute-axis refusals"
+  ],
+  "source_sha256": {
+    "tests/m10/input_host.c": "a9ceacbf8d88c3039b291d06f8213f1f51faf6fae272c3ffdea3ff7ffb58ae02",
+    "kernel/input/layout10.c": "8c06ef6320128448825bec047bb5269228f54c5b43b10bf83193c5bd12395e33",
+    "include/engine/hid10.h": "d89865be2929d2397b1956c18d7855c80fbfdffd5c28c98299d2277607216d6d"
+  }
+}

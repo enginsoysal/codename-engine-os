@@ -1,5 +1,13 @@
 # Changelog
 
+## M10 v0.10.0 — 2026-11-10
+
+Engacer OS rebrand and hardware phases 1/2 complete within M10-DEVICES-VM-v1: common actual device capabilities, Devices settings, saved layouts, wheel/HID/hubs, guarded FAT32 USB transfers/flush/safe removal/reconnect, boot streaming and exact-artifact controller/desktop/original-app regression. [Release, downloads and limits](m10-v0.10.0.md), [27-gate acceptance](../../evidence/M10/acceptance-results.json). Physical hardware, vendor GPU 3D and later hardware phases remain open.
+
+## Historical later release guides
+
+[M9.2 storage](m92-v0.9.2.md), [M9.1 starter fix](m91-v0.9.1.md), [M9 graphics](m9-v0.9.0.md), [M8 original app](m8-v0.8.0.md), [M7.5 installation](m75-v0.7.5.md), [M7.4 apps](m74-v0.7.4.md), [M7.3 visual quality](m73-v0.7.3.md), [M7.2 installed desktop](m72-v0.7.2.md). Their original Engine OS binaries and accepted proof remain unchanged.
+
 ## M7.1 v0.7.1 — 2026-11-07
 
 Native installer disk manager with GPT/primary-MBR data-partition creation/deletion, actual FAT32/Engine quick formatting, GPT initialization/explicit copy repair and protected entries. Existing-disk installation follows full read-only planning and requires separate whole-disk consent. Equal-capacity disk isolation, cancel/refusal, actual VMware BIOS/UEFI, USB, Night distro, update/rollback/repair and desktop/pressure/TLS regressions pass 15 gates within M71-VM-v1. [Release](m71-v0.7.1.md), [installation](../handbook/install-m71.md), [disk utility](../handbook/disk-manager-m71.md), [acceptance](../../evidence/M7.1/acceptance-results.json). No resize, conversion, secure wipe, selected-partition OS installation or original Windows/DOS runtime claim.

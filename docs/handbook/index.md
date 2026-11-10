@@ -1,16 +1,16 @@
 # Engacer OS user handbook
 
-M10 hardware development: [Devices and USB file transfer](hardware-m10.md). Use the qualified current release below until M10 acceptance is published. Historical releases retain the Engine OS name.
+M10 hardware phases 1 and 2 are qualified within M10-DEVICES-VM-v1. [Devices and USB file transfer](hardware-m10.md). Historical releases retain the Engine OS name.
 
-Start with **Engine OS 0.9.2**. Extract the complete prepared VMware ZIP, open EngineOS.vmx and choose I Copied It if asked. Start, select the disk row in the bordered list, follow Next, review and install, then choose **Restart to Engine OS**. The matching ISO may stay connected. No terminal command, network connection or guest driver installer is needed.
+Start with **Engacer OS 0.10.0**. Extract the complete prepared VMware ZIP, open EngacerOS.vmx and choose I Copied It if asked. Start, select the disk row in the bordered list, follow Next, review and install, then choose **Restart to Engacer OS**. The matching ISO may stay connected. No terminal command, network connection or guest driver installer is needed.
 
-The installer now uses actual write/flush capability. The VMware controller matrix includes IDE, SATA, supported LSI/PVSCSI/BusLogic SCSI and NVMe, with firmware limits stated per row. Broader physical hardware and two recorded QEMU SAS restart topologies remain unqualified.
+Settings → Devices shows useful support states and saved keyboard choices. Files → USB drives provides qualified FAT32 file copies, safe removal and reconnect. The installer uses actual write/flush capability. The VMware controller matrix includes IDE, SATA, supported LSI/PVSCSI/BusLogic SCSI and NVMe, with firmware limits stated per row. Broader physical hardware and two recorded QEMU SAS restart topologies remain unqualified.
 
-- [Download, install and check controller support](install-m92.md)
+- [Download, install and check controller support](install-m10.md)
 - [Install, run and remove the original Windows 7-Zip console app](windows-apps-m8.md)
 - [Use the standard apps and manage optional packages](apps-m74.md)
 - [Explore the desktop and navigate your folders](desktop-m73.md)
-- [Current release, checksums and qualified limits](../releases/m92-v0.9.2.md)
+- [Current release, checksums and qualified limits](../releases/m10-v0.10.0.md)
 - [Repair boot files and review recovery limits](apps-m74.md#disks-and-recovery)
 - [Manage partitions and format safely](disk-manager-m71.md)
 - [Build and customize your own distribution](distributions.md)

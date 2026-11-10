@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "archive": "EngacerOS-M10-VMware.zip",
+  "sha256": "aeabfc133e6592d606737063cf15b81555af5d69bcdb73fd15d524b43566f2ff",
+  "size": 8961662,
+  "disk": "new growable 20 GiB SATA disk; not preinstalled",
+  "firmware": "UEFI, Secure Boot off",
+  "boot_order_forced": false,
+  "network_required": false,
+  "members": [
+    "7z2606-src.tar.xz",
+    "EngacerOS-M10.iso",
+    "EngacerOS.vmdk",
+    "EngacerOS.vmx",
+    "Inter-OFL.txt",
+    "libmspack-LGPL-2.1.txt",
+    "LICENSE",
+    "START-HERE.txt",
+    "THIRD-PARTY-NOTICES.txt"
+  ]
+}

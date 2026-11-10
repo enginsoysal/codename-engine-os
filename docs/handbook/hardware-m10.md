@@ -1,8 +1,8 @@
 # Devices and USB files in Engacer OS M10
 
-Development guide. M10 is not a qualified download until its release and exact
-acceptance report are published. Use a fresh disposable VM for this development
-version. Historical Engine OS releases retain their original names.
+M10 is qualified within M10-DEVICES-VM-v1. Use a fresh disposable VM and the
+[official release](../releases/m10-v0.10.0.md). Historical Engine OS releases
+retain their original names.
 
 ## See what is usable
 
