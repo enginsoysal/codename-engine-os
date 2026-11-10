@@ -1,6 +1,21 @@
 # Host tools and entry points
 
-## Current M7.2
+## M10 hardware edition
+
+Build with `python tools/build/m10.py`, then package with
+`python tools/release/vmware_starter10.py`. New media uses Engacer OS branding.
+Freeze all source inputs, media, maps and the exact VMware ZIP throughout the
+[complete M10 qualification sequence](../tests/m10/README.md). The verifier
+checks published source bytes and artifact hashes, native tasks, the VMware
+controller matrix and original-app regression. A successful build alone is not
+release acceptance. [Current status](../docs/roadmap/status.md),
+[hardware architecture](../docs/architecture/hardware-m10.md),
+[installation guide](../docs/handbook/install-m10.md).
+
+Accepted historical artifacts and evidence are immutable. Reproduce them in a
+separate checkout, and use a distinct revision for new work.
+
+## Historical M7.2
 
 Build with `python tools/build/m72.py`, then package the new blank-disk VMware VM with `python tools/release/vmware_starter.py`. Do not regenerate the archive after qualification: its exact hash identifies the tested disk/VMX/ISO package. Run `python tests/m72/qualify.py` and the separate source/proof verifier described in [M7.2 evidence](../evidence/M7.2/README.md). These tools operate owned disposable guests/images only. [User tutorial](../docs/handbook/install-m72.md).
 

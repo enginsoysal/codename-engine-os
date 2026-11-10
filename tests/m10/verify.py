@@ -32,6 +32,9 @@ def main():
         target=out/folder;target.mkdir(parents=True,exist_ok=True)
         # Owned-work pointers and raw VRAM are local fixtures, not public proof.
         for file in source.parent.iterdir():
+            # A previous development failure may remain beside a later pass.
+            # Keep it locally; it is not evidence for the accepted run.
+            if file.name=='last-run.log':continue
             if file.name=='results.json' or file.suffix=='.png' or file.name.endswith('-capture.json') or file.name.endswith('.log'):
                 raw=file.read_bytes();assert b'C:\\Users\\' not in raw and b'C:/Users/' not in raw,'Private path in '+str(file.relative_to(ROOT))
                 shutil.copyfile(file,target/file.name)

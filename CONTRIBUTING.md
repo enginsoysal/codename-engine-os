@@ -1,6 +1,12 @@
 # Contributing
 
-Codename: Engine OS is an early own-kernel project. Current completed scope is [M3 native VM scheduling/VM/SMP](docs/milestones/m3.md), built on [M2 native isolation](docs/milestones/m2.md); there is no installer or Windows app support. Read [architecture](docs/architecture/overview.md), [decisions](docs/architecture/decisions.md), [status](docs/roadmap/status.md) and [agent instructions](AGENTS.md) first.
+Engacer OS is an independent own-kernel project with a native graphical installer,
+installed folder desktop and a bounded original 7-Zip Windows console/MSI profile.
+M10 develops hardware phases 1 and 2; the [current status](docs/roadmap/status.md)
+identifies the accepted release and remaining limits. Read the
+[architecture](docs/architecture/overview.md), [decisions](docs/architecture/decisions.md)
+and [agent instructions](AGENTS.md) first. Historical Engine OS artifacts remain
+verifiable under their original identities.
 
 ## Language, structure and documentation
 
@@ -15,11 +21,13 @@ Use the five questions in [product principles](docs/architecture/product-princip
 ## Verification and resources
 
 ```powershell
-python tools/build/m2.py
-python tests/m2/verify.py
+python tools/build/m10.py
+python tools/release/vmware_starter10.py
+# Follow the complete tests/m10/README.md sequence on frozen artifacts.
+python tests/m10/verify.py
 ```
 
-Use the [pinned host tools](tools/README.md). Full qualification currently requires Windows-host reference checks, QEMU/OVMF and Pillow for screenshot conversion. Tests run on disposable images without host disk/directory exposure. M0 can be run separately through `python tests/m0/verify.py`; M1's historical path is `python tests/m1/verify.py`.
+Use the [pinned host tools](tools/README.md). M10 qualification requires the pinned compiler, QEMU/OVMF, VMware Workstation, Pillow and the test-only FAT dependencies in tests/m10/requirements.txt. Tests run on disposable images without host disk/directory exposure. M0 can be run separately through `python tests/m0/verify.py`; M1's historical path is `python tests/m1/verify.py`.
 
 CPU/RAM efficiency is a primary acceptance criterion. Bound allocations, queues and logging; share immutable code; measure peak/retained/boot categories separately and verify idle halting. Never equate configured guest memory with kernel consumption. Do not trade away correctness/isolation for a small reported number.
 
