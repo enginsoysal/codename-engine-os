@@ -1,6 +1,8 @@
 # Build and platform choices
 
-Current baseline: M0–M4.5 within their qualified native VM scopes. M4.5 closes M45-VM-v1; physical/factory trust are separate follow-ups. [Decisions](decisions.md), [tools](../../tools/README.md), [M2 usage](../milestones/m2.md).
+Current delivery is [Engacer OS M10](../releases/m10-v0.10.0.md), with the native graphical installer, installed desktop and phase-1/2 hardware tasks. [M10 boot streaming and device design](hardware-m10.md), [current build tools](../../tools/README.md).
+
+Historical foundation: M0–M4.5 within their qualified native VM scopes. M4.5 closes M45-VM-v1; physical/factory trust are separate follow-ups. [Decisions](decisions.md), [tools](../../tools/README.md), [M2 usage](../milestones/m2.md).
 
 ## C17, assembly and LLVM
 
@@ -26,15 +28,15 @@ Kernel entry uses an aligned private stack, interrupts off, DF clear and a Syste
 
 FAT32 is the EFI partition format, using `EFI/BOOT/BOOTX64.EFI`. The image author is a restricted host tool with fixed short-name directories and bounded boot files, not a kernel filesystem implementation. A GPT USB disk and EFI El Torito optical ISO are tested separately. pycdlib 1.22.0 is the pinned pure-Python ISO author; its wheel hash and LGPL notice are recorded. This avoids requiring WSL/xorriso on the current Windows host.
 
-The current init file is a fixed 48-byte manifest: `ENGINIT1`, length, development mode and 32-byte build ID. Normal public images use mode 0. Modes 1–4 are test-only exit/panic/corrupt-header/mapkey fixtures; M45 additionally accepts modes 5/6 for FAT32/extended-ext2 native tests. This is not an executable system archive or Secure Boot trust chain.
+The historical M0–M4.5 init fixture is a fixed 48-byte manifest: `ENGINIT1`, length, development mode and 32-byte build ID. Normal public images use mode 0. Modes 1–4 are test-only exit/panic/corrupt-header/mapkey fixtures; M45 additionally accepts modes 5/6 for FAT32/extended-ext2 native tests. That historical fixture is not an executable system archive or Secure Boot trust chain. M5 and later use actual installation/system bundles; M10 includes its selected native/Windows payloads and streams the kernel directly into reserved pages. See [storage](storage-m6.md), [Windows runtime](windows-runtime-m8.md) and [M10 startup limits](hardware-m10.md).
 
 M4 implements the selected bounded ext2 profile: 4 KiB blocks, 128-byte inodes, classic direct pointers and an explicit feature allowlist. See the [M4 contract](../milestones/m4-contract.md) for file/name/handle limits, writable namespace, flush ordering and offline recovery. FAT32 is too limited for general application storage; NTFS/ext4 or a new format are larger initial projects. Large files and guest metadata remain gates before Steam/Adobe claims. Without journaling this is not a crash-safe consumer storage solution; immutable update versions do not make metadata transactional.
 
 ## VM reference and resource policy
 
-Pinned QEMU pc-q35-11.1, TCG and bundled x64 OVMF; private variable copies, read-only firmware code, no network/host disk sharing. COM1 supplies logs and GOP supplies a CPU framebuffer. After firmware handoff, the original kernel xHCI driver owns input. The separate M45 stack adds bounded hub routing and read-only BOT/UAS transport with native fault/lifetime tests; see [USB scope](../milestones/m4.5-usb-topology.md). GDB binds loopback only.
+Pinned QEMU pc-q35-11.1, TCG and bundled x64 OVMF with private variable copies and read-only firmware code. Historical offline probes have no network; later network/VMware tasks use explicitly configured networking. No host block device is exposed. COM1 supplies logs and GOP supplies a CPU framebuffer. After firmware handoff, the original kernel xHCI driver owns input. The separate M45 stack adds bounded hub routing and read-only BOT/UAS transport with native fault/lifetime tests; see [USB scope](../milestones/m4.5-usb-topology.md). GDB binds loopback only.
 
-M0/M1 used two configured vCPUs, with only the bootstrap kernel active. The preserved M2 profile uses one vCPU. The current M3 launcher defaults to two active CPUs/128 MiB; its test matrix covers 1/2/4 CPUs and 64/128/512/2048 MiB. Configured guest RAM is not kernel consumption. Page/accounting reports distinguish managed peak/retained pages, boot reservations, firmware/device memory and host-QEMU CPU time. After the finite demo, HLT must be observed rather than a polling loop.
+M0/M1 used two configured vCPUs, with only the bootstrap kernel active. The preserved M2 profile uses one vCPU. The historical M3 launcher defaults to two active CPUs/128 MiB; its test matrix covers 1/2/4 CPUs and 64/128/512/2048 MiB. Configured guest RAM is not kernel consumption. Page/accounting reports distinguish managed peak/retained pages, boot reservations, firmware/device memory and host-QEMU CPU time. After the finite demo, HLT must be observed rather than a polling loop.
 
 M2 only uses UEFI conventional pages below 1 GiB and keeps loader/firmware allocations reserved. M3 adds locked allocation, conservative commit/COW and test-budget pressure recovery, HPET time, PIT/APIC timer preemption and ACPI INIT/SIPI SMP. Cache/file-backed reclaim, extended XSAVE, migration and general physical-platform coverage remain future work. Beyond the user-observed M1 boot, [M3 VMware Workstation 26.0.1 serial/runtime qualification](../../evidence/M3/vmware/README.md) passes on 1/2/4 CPUs with 128 MiB. This does not qualify every VMware configuration; physical hardware is untested.
 

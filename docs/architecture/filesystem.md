@@ -1,10 +1,12 @@
 # Files, storage and compatibility namespaces
 
-Approved target architecture. [M4](../milestones/m4-contract.md) implements a bounded persistent ext2/VFS with the root categories below and a test account. M5 adds a separate 64-MiB boot ESP, a bounded 16-MiB persistent native partition and an on-demand volatile live overlay. System version metadata records the installed build; general versioned mount activation, guest path/ACL adapters, untrusted-user file syscalls and app installation remain later work. See the [M5 contract](../milestones/m5.md). These OS paths are not directories to create on the development host. The kernel diagnostic console is trusted and does not enforce the future multi-user/system-immutability policy.
+Current implementation: [M6 native storage](storage-m6.md), [M8 app path/grant adapters](windows-runtime-m8.md) and [M10 removable FAT32 copies](hardware-m10.md). The tree below remains the broader target namespace; not every versioned mount view is implemented.
+
+Historical foundation. [M4](../milestones/m4-contract.md) implements a bounded persistent ext2/VFS with the root categories below and a test account. M5 adds a separate 64-MiB boot ESP, a bounded 16-MiB persistent native partition and an on-demand volatile live overlay. System version metadata records the installed build; general versioned mount activation, guest path/ACL adapters, untrusted-user file syscalls and app installation remain later work. See the [M5 contract](../milestones/m5.md). These OS paths are not directories to create on the development host. The kernel diagnostic console is trusted and does not enforce the future multi-user/system-immutability policy.
 
 ## M6 native implementation
 
-M6 replaces the internal demonstration volume with a capacity-aware native extent volume, while retaining earlier filesystem readers separately. Its actual system bundles, data layout, update/recovery mechanism and explicit limits are documented in [M6 storage](storage-m6.md). The root tree below remains the target namespace: current M6/M7 creates the base categories, selected user folders and system settings; generalized version mount views, guest path/ACL adapters and untrusted app-file services remain future work.
+M6 replaces the internal demonstration volume with a capacity-aware native extent volume, while retaining earlier filesystem readers separately. Its actual system bundles, data layout, update/recovery mechanism and explicit limits are documented in [M6 storage](storage-m6.md). The root tree below remains the target namespace: M6 and later create the base categories, selected user folders and system settings. M8 adds bounded original-app path aliases and checked file grants. Generalized version mount views and comprehensive guest ACL/namespace semantics remain future work.
 
 ## Native root
 

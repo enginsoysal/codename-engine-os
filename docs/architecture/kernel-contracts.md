@@ -1,6 +1,6 @@
 # Kernel contracts
 
-These contracts distinguish the preserved M2 baseline from the current M3 native thread runtime. [Public headers](../../include/engine/process.h), [native operation constants](../../include/engine/user.h), [M3 mechanisms/limits](../milestones/m3.md), [fresh evidence](../../evidence/M3/README.md). Neither native profile implements Windows/Linux/Darwin calls.
+These foundation contracts describe the historical M2 baseline and M3 native thread runtime, retained underneath later milestones. Current M10 device/resource ownership is in [hardware design](hardware-m10.md). The separately qualified [M8 Windows runtime](windows-runtime-m8.md) implements the bounded original 7-Zip Win64 profile; this native-foundation document does not define its guest APIs. [Public headers](../../include/engine/process.h), [native operation constants](../../include/engine/user.h), [M3 mechanisms/limits](../milestones/m3.md), [fresh evidence](../../evidence/M3/README.md). Neither native profile implements Windows/Linux/Darwin calls.
 
 ## Objects and authority
 
