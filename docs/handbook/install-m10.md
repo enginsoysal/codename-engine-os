@@ -35,6 +35,11 @@ logical sectors, from 2 GiB through 2 TiB. IDE, SATA, SCSI and NVMe need their
 specific supported controller interfaces; their generic class names are not a
 promise about every physical controller.
 
+The low-memory 64-MiB OVMF test connects USB storage after the installed desktop
+starts. Booting that firmware with USB storage already attached can exhaust its
+contiguous allocation for the original MSI boot bundle; that combination remains
+unqualified. Use the 128-MiB prepared VMware profile for the ordinary setup.
+
 Attach **EngacerOS-M10.iso** to CD/DVD and connect it at power on. For USB tasks
 enable a supported xHCI controller. Ordinary 4K/scaling depends on a firmware
 mode available before boot; it does not provide runtime monitor mode changes.

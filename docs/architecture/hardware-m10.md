@@ -109,6 +109,12 @@ older whole-buffer owner-signing build mode until a streaming payload verifier
 is implemented and independently qualified. Historical release loaders retain
 their original whole-file path and frozen evidence.
 
+The 64-MiB OVMF profile is qualified with USB storage connected after installed
+startup. A separate boot-attached USB-storage run remains unqualified: that
+firmware topology leaves no suitable contiguous allocation for the approximately
+2-MiB original MSI init bundle and is refused before installation. It is retained
+as a failed case, not counted as a pass. The prepared VMware profile uses 128 MiB.
+
 ## Verification boundaries
 
 Host checks execute the real C registry, FAT broker and native volume using

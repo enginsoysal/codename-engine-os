@@ -44,13 +44,15 @@ def main():
     resolution=tuple(map(int,a.resolution.split('x')))
     out=ROOT/'build/m10/journey'/(a.firmware+'-'+a.resolution+'-'+str(a.ram)+('-hub' if a.hub else ''));out.mkdir(parents=True,exist_ok=True)
     work=ui.q.new_work('m10-devices');disk=ui.q.sparse_disk(work/'owned.img',2*1024**3)
+    (out/'owned-work.json').write_text(json.dumps({'disk':str(disk)})+'\n',encoding='utf-8')
     usb=work/'owned-usb.img';payload=b'Engacer OS removable media round trip.\n';usb.write_bytes(fat32([(2,b'HELLO   TXT',payload)]))
     extra=['-drive',f'if=none,id=removable,format=raw,file={usb}','-device','usb-storage,id=removable-device,bus=xhci.0,drive=removable']
     if a.hub:extra=['-device','usb-hub,id=hub,bus=xhci.0,port=3']+[v.replace('id=removable-device,bus=xhci.0,','id=removable-device,bus=xhci.0,port=3.1,') for v in extra]
     meta=json.loads((ROOT/'dist/m10-build-manifest.json').read_text(encoding='utf-8'));iso=ROOT/'dist/EngacerOS-M10.iso';digest=hashlib.sha256(iso.read_bytes()).hexdigest()
-    report={'passed':False,'build_id':meta['build_id'],'iso_sha256':digest,'checks':[],'firmware':a.firmware,'resolution':resolution,'ram_mib':a.ram}
+    late_usb=a.ram<=64 and a.firmware=='uefi'
+    report={'passed':False,'build_id':meta['build_id'],'iso_sha256':digest,'checks':[],'firmware':a.firmware,'resolution':resolution,'ram_mib':a.ram,'usb_attach_stage':'after installed startup' if late_usb else 'before firmware boot'}
     try:
-        candidate=ui.guest(work/'install',disk,resolution,a.firmware,ram=a.ram,extra=extra)
+        candidate=ui.guest(work/'install',disk,resolution,a.firmware,ram=a.ram,extra=[] if late_usb else extra)
         candidate.args=[v.replace('usb-kbd,bus=xhci.0','usb-kbd,id=keyboard,bus=xhci.0') for v in candidate.args]
         with candidate as g:
             p=ui.Pointer(g);shot(g,out,'welcome',False)
@@ -61,6 +63,10 @@ def main():
             assert 'M6_INSTALLED_VOLUME' in g.log()[start:]
             p=ui.Pointer(g);shot(g,out,'installed-desktop')
             report['checks'].append('Graphical installation and installed desktop startup with retained ISO')
+            if late_usb:
+                g.qmp('blockdev-add',{'node-name':'removable','driver':'raw','file':{'driver':'file','filename':str(usb)}})
+                start=len(g.log());g.qmp('device_add',{'driver':'usb-storage','id':'removable-device','bus':'xhci.0','drive':'removable'})
+                g.wait('M10_USB_WRITABLE',start)
             start=len(g.log());g.qmp('device_del',{'id':'keyboard'});g.wait('M45_USB_DISCONNECTED',start)
             start=len(g.log());g.qmp('device_add',{'driver':'usb-kbd','id':'keyboard-new','bus':'xhci.0'});g.wait('M4_USB_KEYBOARD_ONLINE',start)
             ui.h.key(g,'f10');wait_launcher(g,1)
@@ -120,6 +126,9 @@ def main():
                 assert ui.integer(g,'layout10',True)==0
                 shot(g,out,'independent-disk-boot-'+str(number))
         report['checks'].append('Two ordinary independent disk boots without ISO, persistent layout and installed desktop')
+        capture=json.loads((out/'installed-desktop-capture.json').read_text(encoding='utf-8'))
+        report['actual_framebuffer']=[capture['width'],capture['height']]
+        if a.firmware=='uefi':assert report['actual_framebuffer']==list(resolution)
         report['passed']=True
     except Exception:
         report['error']=traceback.format_exc().replace(str(ROOT),'<project-root>');raise

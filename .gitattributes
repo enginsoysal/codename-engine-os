@@ -97,3 +97,7 @@ tools/build/m2.py -text whitespace=cr-at-eol
 tools/build/media.py -text whitespace=cr-at-eol
 tools/release/vmware_starter10.py -text whitespace=cr-at-eol
 user/windows8/runtime.c -text whitespace=cr-at-eol
+
+# Preserve all new M10 qualification harness/evidence bytes, including JSON.
+tests/m10/** -text whitespace=cr-at-eol
+evidence/M10/** -text -whitespace
