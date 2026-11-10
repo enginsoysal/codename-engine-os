@@ -4,6 +4,24 @@ The Engine OS website belongs inside BrixCanvas. The requested public address is
 
 ## Native website
 
+### Homepage follow-up — 10 November 2026
+
+The public homepage still shows M7.3. M9.2 homepage copy and links are prepared
+in `website/brix/design.mjs` and in the authorized native BrixCanvas editor,
+retaining the existing layout. They are **not published**: native Save returns
+HTTP 500 and the editor explicitly retains the unsaved changes. Article and
+download synchronization does not update the homepage and must not be reported
+as homepage publication.
+
+The observed Save action sends a 1,276,487-character document including native
+blog posts. The platform source has no override for Next.js's default 1 MiB
+Server Actions body limit. A bounded platform correction is being prepared
+separately; do not remove documentation, rotate credentials, introduce another
+hosting origin, or alter accepted OS releases to work around this failure.
+After the platform correction is deployed, save from a fresh site version and
+verify the public homepage, its current setup/hardware links and the preserved
+article inventory. See [follow-up evidence](../evidence/documentation/homepage-m92-followup.json).
+
 The BrixCanvas project is `Codename: Engine OS`, site ID `b66d0e83-7987-4856-b702-e8d93234b6cd`, initial preview slug `codename-engine-os-ltvck`. The homepage uses native Menu, Layout, Button, Text, Heading, Code and Alert Brix. Documentation belongs to the native Blog content model, grouped by handbook, roadmap, architecture, milestones, releases, developer guides and evidence. Native site-wide search reads article body text, titles and tags. No external website is the production origin.
 
 The owner preferred the initial local prototype's appearance over the generated BrixCanvas template. `website/brix/design.mjs` records the replacement native composition: navy Menu Brix, light status strip, two-column introduction/terminal, three guide cards, scope notice and minimal footer. The layout uses ordinary nested Layout, Heading, Text, Code, Button and Alert Brix, not an HTML embed. Import individual sections through BrixCanvas's native **Paste Brix** operation using its `brixcanvas: 1` clipboard format; all children remain editable. The site uses the native minimal/Inter font palette and English public locale.
