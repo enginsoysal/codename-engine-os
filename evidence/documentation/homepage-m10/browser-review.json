@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "website": "https://engaceros.brixcanvas.com",
+  "product": "Engacer OS",
+  "native_brixcanvas": true,
+  "native_editor_save_observed": "Saved checkmark after explicit Save",
+  "root_sections": 4,
+  "desktop": {
+    "viewport": [
+      1280,
+      720
+    ],
+    "document_width": 1270,
+    "horizontal_overflow": false,
+    "screenshot": "desktop.png"
+  },
+  "mobile": {
+    "viewport": [
+      390,
+      844
+    ],
+    "document_width": 390,
+    "horizontal_overflow": false,
+    "menu_opened_and_closed": true,
+    "screenshots": [
+      "mobile.png",
+      "mobile-menu.png"
+    ]
+  },
+  "temporary_viewport_overrides_cleared": true,
+  "user_desktop_controlled": false,
+  "article_and_release_verification": "public-readback.json and github-sync.json are separate checks"
+}

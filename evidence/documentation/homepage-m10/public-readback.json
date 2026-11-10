@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "checked_at": "2026-11-10T12:53:19.421960+00:00",
+  "website": "https://engaceros.brixcanvas.com",
+  "source_commit": "823070c433ebf59d23bd267e982211c7801e71cd",
+  "release": "https://github.com/enginsoysal/engacer-os/releases/tag/m10-v0.10.0",
+  "build_id": "7ec821b0295011de502cc76105ac5139",
+  "checks": [
+    {
+      "route": "/",
+      "passed": true
+    },
+    {
+      "route": "/blog/docs-handbook-install-m10",
+      "passed": true
+    },
+    {
+      "route": "/blog/docs-handbook-hardware-m10",
+      "passed": true
+    },
+    {
+      "route": "/blog/documentation",
+      "passed": true
+    },
+    {
+      "route": "/blog/downloads",
+      "passed": true
+    },
+    {
+      "asset": "EngacerOS-M10.iso",
+      "passed": true,
+      "sha256": "e82960f4fae6c31a64ecea47d0846c0b544a6ae8ae2b0d1bed88613bc8618633"
+    },
+    {
+      "asset": "EngacerOS-M10-VMware.zip",
+      "passed": true,
+      "sha256": "aeabfc133e6592d606737063cf15b81555af5d69bcdb73fd15d524b43566f2ff"
+    }
+  ],
+  "native_editor_save_and_visual_review": "separate browser screenshots"
+}

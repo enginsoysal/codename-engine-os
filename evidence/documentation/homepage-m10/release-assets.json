@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "checked_at": "2026-11-10T12:52:14.407844+00:00",
+  "release": "https://github.com/enginsoysal/engacer-os/releases/tag/m10-v0.10.0",
+  "tag": "m10-v0.10.0",
+  "target_commit": "bf0740455ca017c0a263d636da5adb24eeece20a",
+  "assets": [
+    {
+      "name": "EngacerOS-M10-SHA256SUMS.txt",
+      "size": 555,
+      "sha256": "b920b3203741d6d1395d0e2902d91e391090a14f76a43c0e5a50febb5c8e1a91",
+      "public_url": "https://github.com/enginsoysal/engacer-os/releases/download/m10-v0.10.0/EngacerOS-M10-SHA256SUMS.txt"
+    },
+    {
+      "name": "EngacerOS-M10-THIRD-PARTY-NOTICES.txt",
+      "size": 59664,
+      "sha256": "5f46f751bb2a3fbbdd831c72350fc5bf9e8df5b7573051b7a3d21718c10ad05c",
+      "public_url": "https://github.com/enginsoysal/engacer-os/releases/download/m10-v0.10.0/EngacerOS-M10-THIRD-PARTY-NOTICES.txt"
+    },
+    {
+      "name": "EngacerOS-M10-VMware.zip",
+      "size": 8961662,
+      "sha256": "aeabfc133e6592d606737063cf15b81555af5d69bcdb73fd15d524b43566f2ff",
+      "public_url": "https://github.com/enginsoysal/engacer-os/releases/download/m10-v0.10.0/EngacerOS-M10-VMware.zip"
+    },
+    {
+      "name": "EngacerOS-M10.iso",
+      "size": 74274816,
+      "sha256": "e82960f4fae6c31a64ecea47d0846c0b544a6ae8ae2b0d1bed88613bc8618633",
+      "public_url": "https://github.com/enginsoysal/engacer-os/releases/download/m10-v0.10.0/EngacerOS-M10.iso"
+    },
+    {
+      "name": "m10-acceptance-results.json",
+      "size": 63993,
+      "sha256": "a5ccef70e70d36c6f35ee23b147adcd7a2c6afd23ca03917fdf368410e939bb5",
+      "public_url": "https://github.com/enginsoysal/engacer-os/releases/download/m10-v0.10.0/m10-acceptance-results.json"
+    },
+    {
+      "name": "m10-build-manifest.json",
+      "size": 73164,
+      "sha256": "cef5840a5ae46e6282b5b7931dd33a5ed88e2105378f1d29260c21f6835ffcb6",
+      "public_url": "https://github.com/enginsoysal/engacer-os/releases/download/m10-v0.10.0/m10-build-manifest.json"
+    },
+    {
+      "name": "m10-starter-manifest.json",
+      "size": 551,
+      "sha256": "987fa8cbd925ab726a3d1121bf6b2e50f8235c39c1dae3e1f86244090539fe00",
+      "public_url": "https://github.com/enginsoysal/engacer-os/releases/download/m10-v0.10.0/m10-starter-manifest.json"
+    }
+  ],
+  "verification": "GitHub asset digest and size matched frozen local files; public ISO/ZIP download hashing is a separate public-readback check"
+}
