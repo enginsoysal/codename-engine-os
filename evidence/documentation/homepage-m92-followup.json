@@ -56,6 +56,10 @@
       "scrollWidth": 309,
       "menuNavigation": "passed",
       "visualReview": "passed"
+    },
+    "screenshots": {
+      "desktop": "homepage-m92/desktop.jpg",
+      "mobile": "homepage-m92/mobile.jpg"
     }
   },
   "githubSynchronization": {
@@ -67,6 +71,7 @@
     "updated": 145,
     "created": 0,
     "archived": 0,
-    "freshHomepageAfterSync": "M9.2 remains published; current setup/hardware links retained"
+    "freshHomepageAfterSync": "M9.2 remains published; current setup/hardware links retained",
+    "finalPublicManualCanonicalSourceVerified": true
   }
 }
