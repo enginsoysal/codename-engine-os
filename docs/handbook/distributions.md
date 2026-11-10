@@ -12,6 +12,12 @@ The built-in device/USB guide is a separate data package. Changing identity does
 not grant unsupported hardware capabilities. [M10 install guide](install-m10.md),
 [hardware design](../architecture/hardware-m10.md).
 
+## Historical profiles below
+
+The remaining sections document older Engine OS releases. Their original names,
+commands and profile files deliberately match those releases. For a new current
+Engacer OS distribution, use the M10 hardware profile above.
+
 ## Historical M9.2 hardware edition
 
 Start from `distros/engineos-hardware.json`. Use a separate checkout for a custom edition, keep a distinct profile ID and build with `python tools/build/m92.py --profile distros/my-edition.json --revision custom`. The custom suffix produces separate `EngineOS-M92CUSTOM` media; qualify that edition independently. Do not overwrite the accepted standard release or infer that its checks qualify a changed profile.
@@ -94,7 +100,7 @@ The main build command is `python tools/build/m6.py`. Current schema-1 recipes r
 
 ## Historical M5.1 recipes
 
-The Forge example below belongs to the immutable M5.1 demonstration. The current product remains Engine OS; use Engine OS Minimal above for M6.
+The Forge example below belongs to the immutable M5.1 demonstration. At the M6 release, the default identity was Engine OS; its Minimal profile remains historical. Use the M10 Engacer OS profile above for new work.
 
 M5.1 provides working recipe-based ISO customization. It does not require changes to kernel code for branding, accent, welcome text or included data files. Both the example **Forge Community OS** and the standard edition are built and booted during qualification.
 

@@ -64,6 +64,6 @@ Acceptance for a published app/version/task matrix: no known critical or blockin
 
 ## Implementation order
 
-Complete the revised M6 real product installation and M7 real desktop contracts first. M8 then qualifies original DOS and Windows application workflows through the separately tracked M8.1–M8.7 routes. See [active milestone contracts](milestones.md). The product remains Engine OS; the first bounded delivery is documented in the [M8 MSI contract](../milestones/m8-msi.md) and its exact acceptance report.
+Engacer OS has qualified installation, an installed desktop and M10 hardware phases 1 and 2 within their named virtual scopes. Further hardware phases precede broader original DOS and Windows workflows in M8.1–M8.7. See [active milestone contracts](milestones.md). The first bounded Windows delivery remains the [M8 MSI contract](../milestones/m8-msi.md) and its exact acceptance report.
 
 Early Windows executable formats, segmented memory and APIs must be inspected per original version. Windows 95 compatibility does not establish Windows 1.x–3.x or MS-DOS compatibility. Installer and payload architectures are recorded separately.

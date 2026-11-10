@@ -37,6 +37,7 @@ export function build(output){
    const add=(type,props)=>blocks.push({id:`${slug}-${blocks.length+1}`,type,props});
    add('richtext',{html:`<p><strong>Canonical source:</strong> <a href="${GH}/blob/${ref}/${p}">${escape(p)}</a> · commit ${ref.slice(0,7)} · <a href="${SITE}/blog/documentation">All guides</a></p>`,size:14});
    if(identity.historical)add('richtext',{html:`<p><strong>Historical documentation.</strong> The current product is Engacer OS. Older releases used the name Engine OS; their original screen labels, commands, filenames and test records below remain unchanged. <a href="${SITE}/blog/docs-handbook-index">Use the current handbook</a> for the latest release.</p>`,size:15});
+   if(['third_party/bearssl-port/README.md','third_party/miniz-port/README.md','third_party/mozilla-ca/README.md'].includes(p))add('richtext',{html:'<p><strong>Pinned source documentation.</strong> The current project is Engacer OS. This source record is part of the accepted build identity; its earlier product names and original notices are preserved.</p>',size:15});
    for(const token of tokens){
      if(token.type==='space'||token.type==='def')continue;
      if(token.type==='heading'){
