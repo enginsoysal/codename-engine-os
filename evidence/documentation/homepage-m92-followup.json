@@ -58,5 +58,15 @@
       "visualReview": "passed"
     }
   },
-  "githubSynchronization": "Final documentation synchronization pending the publication commit."
+  "githubSynchronization": {
+    "passed": true,
+    "sourceCommit": "47ac2aacfee4698b7d7e3048ee1b98765fefbb2a",
+    "workflow": "https://github.com/enginsoysal/codename-engine-os/actions/runs/42785606615",
+    "checkedAt": "2026-11-10T08:51:56.420Z",
+    "articles": 145,
+    "updated": 145,
+    "created": 0,
+    "archived": 0,
+    "freshHomepageAfterSync": "M9.2 remains published; current setup/hardware links retained"
+  }
 }
