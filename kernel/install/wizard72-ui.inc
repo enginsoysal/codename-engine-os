@@ -13,7 +13,7 @@ static void render72(void){
  for(unsigned row=0;row<screen->framebuffer_height;++row){unsigned shade=18+row*12/screen->framebuffer_height;gui6_rect(0,row,screen->framebuffer_width,1,(shade<<16)|((shade+16)<<8)|(shade+22));}
  gui6_rect(left+6,top+8,width,height,0x07151a);gui6_rect(left,top,width,height,0xf6f7f1);
  gui6_rect(left,top,196,height,0x102c32);gui6_rect(left,top,196,5,accent);
- label(left+24,top+30,"E",4,accent);label(left+64,top+38,"Engine OS",2,0xf1f7f2);
+ label(left+24,top+30,"E",4,accent);label(left+64,top+38,"" ENGINE_PRODUCT_NAME "",2,0xf1f7f2);
  label(left+24,top+86,"MAKE IT YOURS",1,0x9bc0ba);
  const char *names[]={"Welcome","Your disk","Your setup","Your style","Review","Installing","Your desktop"};
  for(unsigned i=0;i<7;++i){unsigned sy=top+132+i*49;
@@ -33,12 +33,12 @@ static void render72(void){
  if(validation)label(x,y+367,validation,1,0x95472f);
  }
  if(step==1){label(x,y,"Where should we live?",3,ink);
- label(x,y+41,"Choose the disk for Engine OS. Your files will live here.",1,muted);
+ label(x,y+41,"Choose the disk for " ENGINE_PRODUCT_NAME ". Your files will live here.",1,muted);
  unsigned count=storage_count();if(!count){label(x,y+105,"No supported disk is connected.",2,0x95472f);label(x,y+143,"VMware: add a supported hard disk and connect it at power on.",1,muted);}
  for(unsigned row=0;row<4;++row){unsigned i=disk_page*4+row;if(i>=count)break;const storage_disk*d=storage_get(i);
  char name[24]="Disk ";decimal(i+1,name+5);unsigned dy=y+77+row*55;
  button(x,dy,135,name,100+i,chosen==i);char size[48];decimal(d->sectors/2097152,size);unsigned n=0;while(size[n])++n;const char*s=" GiB  /  ";for(unsigned j=0;s[j];++j)size[n++]=s[j];size[n]=0;label(x+154,dy+10,size,2,ink);
- label(x+310,dy+14,storage_writable(d)&&d->sector_bytes==512?"Disk - installation supported":"Browse only - unsupported install target",1,muted);}
+ label(x+310,dy+14,m6_target_writable(d)&&d->sector_bytes==512?"Disk - installation supported":"Browse only - unsupported install target",1,muted);}
  if(count>4){button(x+420,y+77,60,"<",94,0);button(x+490,y+77,60,">",95,0);}
  label(x,y+307,"Installation uses the whole disk. Review before erasing.",1,0x95472f);
  if(!maintenance){button(x,y+333,220,"Manage disks",90,0);button(x+235,y+333,310,replace_selected?"Erase and install: ON":"Erase and install: OFF",91,replace_selected);}
@@ -53,7 +53,7 @@ static void render72(void){
  button(x,y+190,135,"Mint",31,accent==0x62e5bd);button(x+150,y+190,135,"Lavender",32,accent==0x9caeff);button(x+300,y+190,135,"Amber",33,accent==0xf4c47c);
  label(x,y+259,"Change the look later in desktop Settings.",1,muted);label(x,y+286,"Your name and choices are saved on disk.",1,muted);
  if(validation)label(x,y+331,validation,1,0x95472f);}
- if(step==4){label(x,y,"One last look.",4,ink);label(x,y+57,maintenance?"Verified boot maintenance; your personal files stay.":"Engine OS will use the whole selected disk.",1,0x95472f);
+ if(step==4){label(x,y,"One last look.",4,ink);label(x,y+57,maintenance?"Verified boot maintenance; your personal files stay.":"" ENGINE_PRODUCT_NAME " will use the whole selected disk.",1,0x95472f);
  gui6_rect(x,y+92,width-295,155,0xe7eee5);char number[24];decimal(chosen+1,number);label(x+18,y+112,"INSTALLATION DISK",1,muted);label(x+220,y+108,number,2,ink);
  label(x+18,y+151,"YOUR NAME",1,muted);label(x+220,y+147,preferences.user,2,ink);
  decimal((m6_plan()->data.last-m6_plan()->data.first+1)/2048,number);label(x+18,y+190,"FILE SPACE (MiB)",1,muted);label(x+220,y+186,number,2,ink);

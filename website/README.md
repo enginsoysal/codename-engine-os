@@ -1,6 +1,6 @@
 # BrixCanvas documentation website
 
-The Engine OS website belongs inside BrixCanvas. The requested public address is **https://engineos.brixcanvas.com**. The shorter address was selected from the owner's options on 2026-11-06. OS sources remain in this independent repository; website content uses ordinary editable BrixCanvas Brix and articles.
+The Engacer OS website belongs inside BrixCanvas. The native dashboard saved the owner-selected name and **https://engacer.brixcanvas.com** on 2026-11-10. The internal site ID/slug and scoped publisher key stay unchanged; historical release identities stay intact. Homepage/article migration and public verification are in progress. OS sources remain in this independent repository; website content uses ordinary editable BrixCanvas Brix and articles.
 
 ## Native website
 

@@ -1,7 +1,16 @@
 #include <engine/storage.h>
 static storage_disk disks[STORAGE_MAX];static storage_reader readers[STORAGE_MAX];static unsigned count;
 void console_decimal(uint64_t value){char out[21];unsigned i=20;out[i]=0;do{out[--i]=(char)('0'+value%10);value/=10;}while(value);console_text(out+i);}
-unsigned storage_register(storage_disk disk,storage_reader reader){if(count==STORAGE_MAX)return B_DENIED;if(disk.readable){uint8_t first[4096];disk.status=reader(disk.context,0,first);if(disk.status)disk.readable=0;}disks[count]=disk;readers[count++]=reader;return B_OK;}
+#ifdef ENGINE_M10
+static unsigned registration_slot(storage_disk disk){if(disk.transport==STORAGE_USB)for(unsigned i=0;i<count;++i)if(disks[i].transport==STORAGE_USB&&!disks[i].readable&&disks[i].status==B_ABSENT)return i;return count;}
+#endif
+unsigned storage_register(storage_disk disk,storage_reader reader){
+ unsigned index=count;
+#ifdef ENGINE_M10
+ index=registration_slot(disk);
+#endif
+ if(index==STORAGE_MAX||!reader)return B_DENIED;if(disk.readable){uint8_t first[4096];disk.status=reader(disk.context,0,first);if(disk.status)disk.readable=0;}disks[index]=disk;readers[index]=reader;if(index==count)++count;return B_OK;
+}
 unsigned storage_count(void){return count;}
 void storage_unavailable(unsigned index){if(index<count){disks[index].readable=0;disks[index].status=B_ABSENT;}}
 const storage_disk *storage_get(unsigned index){return index<count?&disks[index]:0;}
@@ -26,7 +35,11 @@ unsigned storage_selftest(void){uint8_t data[4096];for(unsigned i=0;i<count;++i)
 #ifdef ENGINE_M92
 static storage_io transfers92[STORAGE_MAX];static storage_sync syncs92[STORAGE_MAX];
 unsigned storage_register_io(storage_disk disk,storage_reader reader,storage_io io,storage_sync sync){
- unsigned index=count;if(index==STORAGE_MAX||!reader)return B_DENIED;unsigned s=storage_register(disk,reader);if(!s){transfers92[index]=io;syncs92[index]=sync;}return s;
+ unsigned index=count;
+#ifdef ENGINE_M10
+ index=registration_slot(disk);
+#endif
+ if(index==STORAGE_MAX||!reader)return B_DENIED;unsigned s=storage_register(disk,reader);if(!s){transfers92[index]=io;syncs92[index]=sync;}return s;
 }
 unsigned storage_can_write(const storage_disk*d){
  if(!d||!d->readable||d->sector_bytes!=512)return 0;

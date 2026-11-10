@@ -101,7 +101,7 @@ static unsigned gpt_write(unsigned disk){
     static const uint8_t esp[16]={0x28,0x73,0x2a,0xc1,0x1f,0xf8,0xd2,0x11,0xba,0x4b,0,0xa0,0xc9,0x3e,0xc9,0x3b};
     static const uint8_t bios[16]={0x48,0x61,0x68,0x21,0x49,0x64,0x6f,0x6e,0x74,0x4e,0x65,0x65,0x64,0x45,0x46,0x49};
     static const uint8_t data[16]={0xaf,0x3d,0xc6,0x0f,0x83,0x84,0x72,0x47,0x8e,0x79,0x3d,0x69,0xd8,0x47,0x7d,0xe4};
-    memset(entries,0,sizeof(entries));partition(0,esp,M5_ESP,M5_DATA-1,"Engine OS EFI");partition(1,bios,64,M5_ESP-1,"Engine BIOS");partition(2,data,M5_DATA,M5_END-1,"Engine native data");
+    memset(entries,0,sizeof(entries));partition(0,esp,M5_ESP,M5_DATA-1,"" ENGINE_PRODUCT_NAME " EFI");partition(1,bios,64,M5_ESP-1,"Engine BIOS");partition(2,data,M5_DATA,M5_END-1,"Engine native data");
     for(unsigned i=0;i<32;++i){unsigned s=verified_write(disk,2+i,entries+i*512,512);if(!s)s=verified_write(disk,target.sectors-33+i,entries+i*512,512);if(s)return s;}
     header(page,1,target.sectors-1,2);unsigned s=verified_write(disk,1,page,512);if(s)return s;header(page,target.sectors-1,1,target.sectors-33);s=verified_write(disk,target.sectors-1,page,512);if(s)return s;
     if(io(disk,0,page,512,0))return B_IO;memset(page+446,0,64);page[450]=0xee;w32(page+454,1);w32(page+458,(uint32_t)(target.sectors-1));return verified_write(disk,0,page,512);

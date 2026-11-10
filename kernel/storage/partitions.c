@@ -1,4 +1,11 @@
 #include <engine/storage.h>
+#ifdef ENGINE_M10
+static unsigned quiet10;
+static void part_text10(const char*s){if(!quiet10)console_text(s);}
+static void part_decimal10(uint64_t v){if(!quiet10)console_decimal(v);}
+#define console_text part_text10
+#define console_decimal part_decimal10
+#endif
 typedef struct {uint64_t start,end;unsigned type;} partition;
 static uint8_t sector[4096],header_copy[4096];static partition found[128];static unsigned used;
 static uint32_t r32(const void *p){uint32_t v;memcpy(&v,p,4);return v;}
@@ -40,4 +47,12 @@ unsigned storage_partitions(unsigned disk){
     }else console_text("MBR: ");
     console_decimal(used);console_text(" partitions\n");for(unsigned i=0;i<used;++i){console_text("  ");console_decimal(i);console_text(" LBA ");console_decimal(found[i].start);console_text("..");console_decimal(found[i].end);console_text(" - ");filesystem(disk,found[i].start,found[i].end-found[i].start+1);console_text("\n");}return B_OK;
 }
-unsigned storage_partition(unsigned disk,unsigned index,uint64_t *start,uint64_t *count){unsigned s=storage_partitions(disk);if(s)return s;if(index>=used)return B_DENIED;*start=found[index].start;*count=found[index].end-found[index].start+1;return B_OK;}
+unsigned storage_partition(unsigned disk,unsigned index,uint64_t *start,uint64_t *count){
+#ifdef ENGINE_M10
+ ++quiet10;
+#endif
+ unsigned s=storage_partitions(disk);
+#ifdef ENGINE_M10
+ --quiet10;
+#endif
+if(s)return s;if(index>=used)return B_DENIED;*start=found[index].start;*count=found[index].end-found[index].start+1;return B_OK;}

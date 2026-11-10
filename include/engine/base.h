@@ -2,6 +2,7 @@
 #define ENGINE_BASE_H
 #include <stdint.h>
 #include <stddef.h>
+#include <engine/product.h>
 #define NORETURN __attribute__((noreturn))
 static inline void out8(uint16_t port, uint8_t value) { __asm__ volatile("outb %0,%1"::"a"(value),"Nd"(port)); }
 static inline uint8_t in8(uint16_t port) { uint8_t v; __asm__ volatile("inb %1,%0":"=a"(v):"Nd"(port)); return v; }

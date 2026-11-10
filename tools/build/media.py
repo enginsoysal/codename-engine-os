@@ -75,11 +75,12 @@ def gpt(volume,label='Engine OS M1',first=2048,bios=None,bios_limit=0x200000):
     image[first*512:first*512+len(volume)]=volume;return image
 
 def package(output,efi,kernel,init,milestone='M1'):
-    if milestone not in ('M1','M2','M3','M4','M45','M5','M6','M7','M8','M9') and not re.fullmatch(r'M[6789][A-Z0-9]{1,16}',milestone):raise ValueError('milestone')
+    if milestone not in ('M1','M2','M3','M4','M45','M5','M6','M7','M8','M9') and not re.fullmatch(r'M(?:[6789][A-Z0-9]{1,16}|10[A-Z0-9]{0,15})',milestone):raise ValueError('milestone')
+    stem='EngacerOS' if milestone.startswith('M10') else 'EngineOS'
     output.mkdir(parents=True,exist_ok=True)
-    fat=fat32([(4,b'BOOTX64 EFI',efi),(2,b'KERNEL  ELF',kernel),(2,b'INIT    BIN',init)],maximum=12*1024*1024 if milestone.startswith(('M8','M9')) else 4*1024*1024)
-    (output/'efi-fat.img').write_bytes(fat);(output/f'EngineOS-{milestone}-usb.img').write_bytes(gpt(fat,'Engine OS '+milestone))
-    iso=pycdlib.PyCdlib();iso.new(interchange_level=3,vol_ident='ENGINE_OS_'+milestone)
+    fat=fat32([(4,b'BOOTX64 EFI',efi),(2,b'KERNEL  ELF',kernel),(2,b'INIT    BIN',init)],maximum=12*1024*1024 if milestone.startswith(('M8','M9','M10')) else 4*1024*1024)
+    (output/'efi-fat.img').write_bytes(fat);(output/f'{stem}-{milestone}-usb.img').write_bytes(gpt(fat,('Engacer OS ' if milestone.startswith('M10') else 'Engine OS ')+milestone))
+    iso=pycdlib.PyCdlib();iso.new(interchange_level=3,vol_ident=('ENGACER_OS_' if milestone.startswith('M10') else 'ENGINE_OS_')+milestone)
     iso.add_file(str(output/'efi-fat.img'),iso_path='/EFI.IMG;1')
     iso.add_eltorito('/EFI.IMG;1',platform_id=0xef,efi=True,boot_load_size=1)
-    iso.write(str(output/f'EngineOS-{milestone}.iso'));iso.close()
+    iso.write(str(output/f'{stem}-{milestone}.iso'));iso.close()

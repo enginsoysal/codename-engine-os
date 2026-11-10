@@ -1,4 +1,6 @@
-# Codename: Engine OS
+# Engacer OS
+
+M10 phases 1 and 2 are in development under the new name. [Hardware design](docs/architecture/hardware-m10.md), [device and USB guide](docs/handbook/hardware-m10.md). Release qualification is still pending.
 
 **Current delivery: M9.2 automatic writable storage and reachable desktop windows (M92-STORAGE-VM-v1).** The named VMware IDE, SATA, LSI Logic, LSI SAS, PVSCSI and NVMe BIOS/UEFI profiles, plus compatible BusLogic BIOS, pass actual installation, persistence and two independent disk boots. Native clipping passes ordinary/150%/4K repaint and idle-memory checks. The broader hardware program remains open; recorded QEMU SAS restart failures and PVSCSI completion refusal are explicitly unqualified. [Release and downloads](docs/releases/m92-v0.9.2.md), [installation/controller guide](docs/handbook/install-m92.md), [acceptance](evidence/M9.2/acceptance-results.json), [design](docs/architecture/storage-m92.md).
 
@@ -20,11 +22,11 @@ The historical [M5 release](https://github.com/enginsoysal/codename-engine-os/re
 
 ## Next product milestones
 
-**M6: real installation → M7: real desktop → M8: MS-DOS and Windows 1.x–11 applications.** M6 delivers a native graphical wizard, capacity-aware data volume, persistent local setup and tested ISO-assisted update, rollback and repair. M7 and M7.1 retain their historical named-scope acceptance. M7.3 adds native visual quality and HiDPI to the installed folder desktop; M8 now has a separately qualified first Windows console/MSI profile; the remaining tracks stay in progress. [Desktop implementation status](docs/milestones/m7.md). [M6 implementation status](docs/milestones/m6.md). Existing technical acceptance remains historical; M5.1 does not satisfy the new complete product installation/desktop requirements. [Acceptance gates and choices](docs/roadmap/milestones.md) · [Current status](docs/roadmap/status.md). The product name remains **Engine OS**.
+**M6: real installation → M7: real desktop → M8: MS-DOS and Windows 1.x–11 applications.** M6 delivers a native graphical wizard, capacity-aware data volume, persistent local setup and tested ISO-assisted update, rollback and repair. M7 and M7.1 retain their historical named-scope acceptance. M7.3 adds native visual quality and HiDPI to the installed folder desktop; M8 now has a separately qualified first Windows console/MSI profile; the remaining tracks stay in progress. [Desktop implementation status](docs/milestones/m7.md). [M6 implementation status](docs/milestones/m6.md). Existing technical acceptance remains historical; M5.1 does not satisfy the new complete product installation/desktop requirements. [Acceptance gates and choices](docs/roadmap/milestones.md) · [Current status](docs/roadmap/status.md). The current product name is **Engacer OS**; historical Engine OS artifacts retain their names.
 
 ## Install and start your desktop
 
-[Download the prepared VMware VM](https://github.com/enginsoysal/codename-engine-os/releases/download/m91-v0.9.1/EngineOS-M91-VMware.zip) · [Standalone ISO](https://github.com/enginsoysal/codename-engine-os/releases/download/m9-v0.9.0/EngineOS-M9.iso) · [Step-by-step guide](docs/handbook/install-m9.md) · [Release and checksums](docs/releases/m9-v0.9.0.md).
+[Download the prepared VMware VM](https://github.com/enginsoysal/codename-engine-os/releases/download/m92-v0.9.2/EngineOS-M92-VMware.zip) · [Standalone ISO](https://github.com/enginsoysal/codename-engine-os/releases/download/m92-v0.9.2/EngineOS-M92.iso) · [Step-by-step guide](docs/handbook/install-m92.md) · [Release and checksums](docs/releases/m92-v0.9.2.md).
 
 Extract the entire ZIP, open EngineOS.vmx and start. Select a disk row in the bordered list, follow Next, review and Install Engine OS, then **Restart to Engine OS**. The matching ISO may remain attached. The new empty growable 20-GiB SATA disk is included. No commands, online account or network are required. On later independent boots disconnect only CD/DVD and keep the same hard disk connected. Use a fresh starter; cross-release package migration is unqualified. [Apps and limits](docs/handbook/apps-m74.md), [folder controls](docs/handbook/desktop-m73.md).
 
@@ -60,7 +62,7 @@ python tools/vm/run.py --create-install-disk
 
 ## Historical M5 user handbook
 
-**[Documentation & downloads website](https://engineos.brixcanvas.com)** — English guides and official release downloads, built in BrixCanvas. [Website source and maintenance](website/README.md).
+**[Documentation & downloads website](https://engacer.brixcanvas.com)** — English guides and official release downloads, built in BrixCanvas. [Website source and maintenance](website/README.md).
 
 **[Start here](docs/handbook/index.md)** · [Install in VMware](docs/handbook/install.md) · [Recovery](docs/handbook/recovery.md) · [M5 commands](docs/handbook/m5-console.md). M5 installs to a new SATA/512-byte-sector disk of at least 256 MiB after an explicit plan and confirmation. Live changes are temporary and are not copied into installation.
 

@@ -39,10 +39,14 @@ static void *read_file(efi_file *root,uint16_t *path,uint64_t maximum,uint64_t *
     if(EFI_ERROR(file->get_info(file,&info_guid,&info_size,info)) || info_size<80)fail("file info");
     uint64_t size=os_read64(info+8);
     if(!size || size>maximum)fail("boot file size");
-    void *buffer=allocate((size+4095)/4096,2);uint64_t actual=size;
+    void *buffer=allocate((size+4095)/4096,2);
+    uint64_t actual=size;
     if(EFI_ERROR(file->read(file,&actual,buffer))||actual!=size)fail("short boot file");
     if(EFI_ERROR(file->close(file)))fail("close file");*length=size;return buffer;
 }
+#ifdef ENGINE_M10
+#include "stream10.inc"
+#endif
 #ifdef ENGINE_SETUP_MEDIA75
 #include "chain75.inc"
 #endif
@@ -72,7 +76,11 @@ efi_status efi_main(efi_handle image,efi_system_table *system) {
 #elif defined(ENGINE_M75)
     serial_text("M75_INSTALLED_LOADER\n");
 #endif
-    uint64_t elf_size=0,init_size=0;
+    uint64_t init_size=0;
+#ifdef ENGINE_M10
+    elf_plan plan;kernel_stream10(root,&plan);
+#else
+    uint64_t elf_size=0;
     uint8_t *elf=read_file(root,(uint16_t*)u"\\KERNEL.ELF",
 #ifdef ENGINE_M8
        12*1024*1024,
@@ -80,6 +88,7 @@ efi_status efi_main(efi_handle image,efi_system_table *system) {
        4*1024*1024,
 #endif
        &elf_size);
+#endif
     uint8_t *init=read_file(root,(uint16_t*)u"\\INIT.BIN",
 #ifdef ENGINE_M8
         4*1024*1024,
@@ -107,7 +116,9 @@ efi_status efi_main(efi_handle image,efi_system_table *system) {
        4 ||
 #endif
        memcmp(init+16,BUILD_ID,32))fail("initimage manifest");
+#ifndef ENGINE_M10
     elf_plan plan;if(elf_validate(elf,elf_size,&plan))fail("ELF validation");
+#endif
 #ifdef ENGINE_M72
     efi_runtime_services*rt=system->runtime;
     if(!rt||!table_valid(&rt->header,UINT64_C(0x56524553544e5552),sizeof(*rt)))fail("runtime services table");
@@ -116,14 +127,16 @@ efi_status efi_main(efi_handle image,efi_system_table *system) {
         serial_text("M72_UEFI_BOOT_REGISTER_FAILED status=");serial_hex(registration);serial_text("\n");
         typedef struct {void*reset;efi_status(*write)(void*,uint16_t*);} boot72_console;
         boot72_console*output=system->output;
-        if(output&&output->write)output->write(output,(uint16_t*)u"\r\nEngine OS could not save its firmware startup entry.\r\nEnable writable UEFI variables or use the BIOS test profile.\r\nNo installation disk has been erased. See the installation guide.\r\n");
-        fail("Engine OS firmware boot registration; NVRAM must be writable");
+        if(output&&output->write)output->write(output,(uint16_t*)u"\r\n" ENGINE_PRODUCT_NAME " could not save its firmware startup entry.\r\nEnable writable UEFI variables or use the BIOS test profile.\r\nNo installation disk has been erased. See the installation guide.\r\n");
+        fail("" ENGINE_PRODUCT_NAME " firmware boot registration; NVRAM must be writable");
     }
     serial_text("M72_UEFI_BOOT_REGISTERED\n");
 #endif
+#ifndef ENGINE_M10
     uint64_t kernel_address=plan.low,kernel_pages=(plan.high-plan.low)/4096;
     if(EFI_ERROR(bs->allocate_pages(2,1,kernel_pages,&kernel_address)))fail("kernel fixed allocation");
-    reserve(kernel_address,kernel_pages*4096);memset((void*)(uintptr_t)kernel_address,0,(size_t)(kernel_pages*4096));
+    reserve(kernel_address,kernel_pages*4096);
+    memset((void*)(uintptr_t)kernel_address,0,(size_t)(kernel_pages*4096));
     elf_header h;memcpy(&h,elf,sizeof(h));
     for(uint16_t i=0;i<h.phnum;++i) {
         elf_segment p;memcpy(&p,elf+h.phoff+(uint64_t)i*56,sizeof(p));
@@ -136,6 +149,7 @@ efi_status efi_main(efi_handle image,efi_system_table *system) {
     for(unsigned i=0;i<reservation_count;++i)if(reservations[i].physical_address==temporary_address&&reservations[i].byte_length==temporary_bytes){for(unsigned j=i+1;j<reservation_count;++j)reservations[j-1]=reservations[j];--reservation_count;removed=1;break;}
     if(!removed)fail("temporary reservation ownership");serial_text("UEFI_TEMP_KERNEL_BUFFER_RELEASED bytes=");serial_hex(temporary_bytes);serial_text("\n");elf=0;
 #endif
+#endif /* Whole-file loader retained for historical profiles. */
 #ifdef ENGINE_M3
     uint64_t trampoline=0x8000;
     if(EFI_ERROR(bs->allocate_pages(2,1,1,&trampoline)))fail("AP trampoline allocation");

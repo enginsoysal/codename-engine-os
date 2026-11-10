@@ -17,7 +17,7 @@ static void tap75(unsigned x,unsigned y,unsigned w,unsigned h,const char*text,un
  if(kind!=2&&controls<24){unsigned i=controls++;buttons[i]=(control){x,y,w,h,action};title75[i]=text;kind75[i]=kind;}
  ui73_fit(x+16,y+(h-22)/2,w-32,text,2,ink);
 }
-static unsigned suitable75(const storage_disk*d){return d&&d->readable&&storage_writable(d)&&d->sector_bytes==512&&d->sectors>=UINT64_C(4194304)&&d->sectors<=UINT64_C(4294967296);}
+static unsigned suitable75(const storage_disk*d){return d&&d->readable&&m6_target_writable(d)&&d->sector_bytes==512&&d->sectors>=UINT64_C(4194304)&&d->sectors<=UINT64_C(4294967296);}
 static void inspect75(unsigned disk){const storage_disk*d=storage_get(disk);chosen_state75=3;if(!suitable75(d))return;unsigned status=m6_prepare(disk);chosen_state75=status==B_OK?1:status==B_IO?4:2;m6_cancel();}
 static void diskname75(unsigned disk,char*out){memcpy(out,"Disk ",5);decimal(disk+1,out+5);}
 static void capacity75(const storage_disk*d,char*out){decimal(d->sectors/2097152,out);unsigned n=0;while(out[n])++n;memcpy(out+n," GiB",5);}
@@ -59,11 +59,11 @@ static void render72(void){
  char steptext[32]="STEP ";decimal(step+1,steptext+5);unsigned n=0;while(steptext[n])++n;memcpy(steptext+n," OF 7",6);label(x,top+29,steptext,1,muted);
  gui6_rect(x,top+65,cw,4,0xdbe6ec);gui6_rect(x,top+65,cw*(step+1)/7,4,0x239e80);
  controls=0;
- if(step==0){label(x,y,"Let's set up Engine OS.",4,ink);ui73_paragraph(x,y+55,cw,2,"A few simple choices. Your own desktop, ready to use.",muted);art75(x,y+116,cw);
+ if(step==0){label(x,y,"Let's set up " ENGINE_PRODUCT_NAME ".",4,ink);ui73_paragraph(x,y+55,cw,2,"A few simple choices. Your own desktop, ready to use.",muted);art75(x,y+116,cw);
   label(x,y+268,"1. Choose where to install",2,ink);label(x,y+307,"2. Make it yours",2,ink);label(x,y+346,"3. Review, install and restart",2,ink);
   ui73_paragraph(x,y+395,cw,2,validation?validation:"We will ask before erasing anything. You do not need an internet connection.",validation?0x994334:muted);
  }
- if(step==1){label(x,y,maintenance?"Choose your Engine OS disk":"Choose an installation disk",4,ink);ui73_paragraph(x,y+49,cw,2,"Click a row in the list. The selected row is highlighted.",muted);
+ if(step==1){label(x,y,maintenance?"Choose your " ENGINE_PRODUCT_NAME " disk":"Choose an installation disk",4,ink);ui73_paragraph(x,y+49,cw,2,"Click a row in the list. The selected row is highlighted.",muted);
   unsigned count=storage_count();ui73_round(x,y+98,cw,266,10,0xc5d5dd);ui73_round(x+2,y+100,cw-4,262,8,0xffffff);
   label(x+20,y+113,"INSTALLATION DISKS",1,muted);label(x+cw-118,y+113,"CAPACITY",1,muted);
   if(!count)ui73_paragraph(x+22,y+166,cw-44,2,"No disk found. Power off VMware, add a supported hard disk and connect it at power on. Then start again.",0x994334);
@@ -95,17 +95,17 @@ static void render72(void){
  if(step==5){label(x,y,"Making it yours.",4,ink);ui73_paragraph(x,y+56,cw,2,"Keep the computer on. We are saving and checking your system.",muted);art75(x,y+119,cw);ui73_paragraph(x,y+272,cw,2,stage?stage:"Preparing the installation",ink);
   ui73_round(x,y+335,cw,14,7,0xd8e4eb);if(percent)ui73_round(x,y+335,cw*percent/100,14,7,0x229d80);char value[24];decimal(percent,value);unsigned at=0;while(value[at])++at;memcpy(value+at,"%",2);label(x,y+373,value,3,ink);
  }
- if(step==6){label(x,y,"You're ready to go.",4,ink);ui73_paragraph(x,y+54,cw,2,"Engine OS is installed on your disk. Your choices have been saved.",muted);art75(x,y+116,cw);
-  label(x,y+268,"Next: start your installed system.",3,ink);ui73_paragraph(x,y+312,cw,2,"Choose Restart. Engine OS will start from the hard disk. You can leave this matching installer connected.",muted);
+ if(step==6){label(x,y,"You're ready to go.",4,ink);ui73_paragraph(x,y+54,cw,2,"" ENGINE_PRODUCT_NAME " is installed on your disk. Your choices have been saved.",muted);art75(x,y+116,cw);
+  label(x,y+268,"Next: start your installed system.",3,ink);ui73_paragraph(x,y+312,cw,2,"Choose Restart. " ENGINE_PRODUCT_NAME " will start from the hard disk. You can leave this matching installer connected.",muted);
   ui73_paragraph(x,y+383,cw,2,"Keep the hard disk connected. You can disconnect the installation ISO later.",muted);if(!maintenance)tap75(x,y+434,250,42,"Open desktop now",3,0);
  }
  gui6_rect(left+196,bottom-8,width-214,1,0xdce6ec);
  if(step==0){tap75(x,bottom+8,188,48,"Recovery & details",50,0);tap75(x+202,bottom+8,228,48,"Open installed system",83,0);}
  else if(step<5)tap75(x,bottom+8,120,48,"Back",1,0);
  if(step<5){unsigned disabled=step==1&&(chosen>=storage_count()||(!maintenance&&(chosen_state75==3||chosen_state75==4||(chosen_state75==2&&!replace_selected))));if(step==4&&!maintenance&&replace_selected&&!replace_consent)disabled=1;
-  tap75(left+width-242,bottom+8,214,48,step==4?(maintenance?"Apply repair":"Install Engine OS"):"Next",2,disabled?2:1);
+  tap75(left+width-242,bottom+8,214,48,step==4?(maintenance?"Apply repair":"Install " ENGINE_PRODUCT_NAME ""):"Next",2,disabled?2:1);
  }
- if(step==6)tap75(left+width-298,bottom+8,270,48,"Restart to Engine OS",84,1);
+ if(step==6)tap75(left+width-298,bottom+8,270,48,"Restart to " ENGINE_PRODUCT_NAME "",84,1);
  if(last_step75!=step){focus=0;for(unsigned i=0;i<controls;++i)if(kind75[i]==1)focus=i;}
  else focus=oldfocus<controls?oldfocus:0;
  if(focus<controls)outline75(buttons[focus],0x19846e);

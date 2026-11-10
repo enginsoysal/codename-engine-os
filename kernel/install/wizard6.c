@@ -21,7 +21,7 @@ static const char *failure,*stage,*notice,*validation;
 #ifdef ENGINE_M7
 static unsigned calculator_selection=DISTRO_DESKTOP_CALCULATOR;
 unsigned m7_calculator_selection(void){return calculator_selection;}
-#define DESKTOP_FINISH_TEXT "Start again to enter your installed Engine OS desktop."
+#define DESKTOP_FINISH_TEXT "Start again to enter your installed " ENGINE_PRODUCT_NAME " desktop."
 #else
 #define DESKTOP_FINISH_TEXT "The desktop will follow in a later release."
 #endif
@@ -110,7 +110,7 @@ static void render(void){
  if(step==0){label(x,y,"A fresh start.",4,0xffffff);label(x,y+45,"Made yours.",4,0xffffff);label(x,y+115,"A guided setup, with room to choose.",2,0xa5bac2);label(x,y+150,"Review every change before installation.",1,0xa5bac2);gui6_rect(x,y+195,width-250,75,0x1a2c34);label(x+15,y+212,"Your system. Your choices.",2,0xffffff);label(x+15,y+244,DISTRO_WELCOME,1,0xa5bac2);label(x,y+300,"Unsigned BIOS/UEFI media: disable Secure Boot.",1,0x9fb2ba);}
  if(step==1){label(x,y,"Choose your disk.",3,0xffffff);label(x,y+50,
 #ifdef ENGINE_M71
- maintenance?"Select an existing Engine OS system.":"Select a supported disk. Manage partitions or choose whole-disk replacement.",
+ maintenance?"Select an existing " ENGINE_PRODUCT_NAME " system.":"Select a supported disk. Manage partitions or choose whole-disk replacement.",
 #else
  "Only a new supported supported disk can be installed.",
 #endif
@@ -124,7 +124,7 @@ static void render(void){
  if(!maintenance){button(x,y+340,220,"Manage disks",90,0);button(x+235,y+340,310,replace_selected?"Erase and install: ON":"Erase and install: OFF",91,replace_selected);}
  if(validation)label(x,y+405,validation,1,0xf4b29d);
 #endif
-label(x,y+310,maintenance?"Select an Engine OS installation to maintain.":"Installation prepares the WHOLE selected disk.",1,0xf4b29d);}
+label(x,y+310,maintenance?"Select an " ENGINE_PRODUCT_NAME " installation to maintain.":"Installation prepares the WHOLE selected disk.",1,0xf4b29d);}
  if(step==2){label(x,y,"Keep what you need.",3,0xffffff);label(x,y+55,"Base system and recovery are required.",1,0x9fb2ba);button(x,y+105,300,preferences.guide?"Welcome guide: On":"Welcome guide: Off",20,0);
 #ifdef ENGINE_M7
  button(x,y+160,300,calculator_selection?"Calculator: On":"Calculator: Off",21,0);
@@ -145,7 +145,7 @@ label(x,y+310,maintenance?"Select an Engine OS installation to maintain.":"Insta
 #endif
  label(x,y+280,maintenance==1?"Repair replays the active verified boot slot.":maintenance==2?"Update stages this ISO into the inactive slot.":maintenance==3?"Rollback restores the previous verified boot slot.":"Back changes choices. Install begins disk writes.",1,0xf4b29d);}
  if(step==5){label(x,y,"Getting things ready.",3,0xffffff);label(x,y+70,stage?stage:"Preparing",1,0xa5bac2);gui6_rect(x,y+125,width-250,12,0x35464c);gui6_rect(x,y+125,(width-250)*percent/100,12,accent);textnum(x,y+165,percent," percent verified");label(x,y+230,"Do not disconnect the disk during installation.",1,0xa5bac2);}
- if(step>=6){label(x,y,maintenance==1?"Boot repair complete.":maintenance==2?"Update complete.":maintenance==3?"Rollback complete.":"Installation complete.",3,0xffffff);label(x,y+65,maintenance?"Verified boot files. User data was not formatted.":"Verified system files and persistent user setup.",1,0xa5bac2);label(x,y+115,"1. Power off this virtual machine.",2,0xffffff);label(x,y+155,"2. Disconnect the ISO or USB media.",2,0xffffff);label(x,y+195,"3. Start it again to boot Engine OS.",2,0xffffff);label(x,y+270,DESKTOP_FINISH_TEXT,1,accent);}
+ if(step>=6){label(x,y,maintenance==1?"Boot repair complete.":maintenance==2?"Update complete.":maintenance==3?"Rollback complete.":"Installation complete.",3,0xffffff);label(x,y+65,maintenance?"Verified boot files. User data was not formatted.":"Verified system files and persistent user setup.",1,0xa5bac2);label(x,y+115,"1. Power off this virtual machine.",2,0xffffff);label(x,y+155,"2. Disconnect the ISO or USB media.",2,0xffffff);label(x,y+195,"3. Start it again to boot " ENGINE_PRODUCT_NAME ".",2,0xffffff);label(x,y+270,DESKTOP_FINISH_TEXT,1,accent);}
  gui6_rect(left+1,bottom-1,width-2,1,0x35464e);label(left+20,bottom+28,"Tab / Enter or mouse",1,0x9fb2ba);if(!busy&&step<5){if(step)button(left+width-300,bottom+14,120,"Back",1,0);button(left+width-160,bottom+14,135,step==4?(maintenance?"Confirm":"Install"):"Next",2,1);}if(step==6)button(left+width-160,bottom+14,135,"Finish",3,1);if(!busy&&step==0){button(body,bottom+14,120,"Details",50,0);button(body+140,bottom+14,120,"Repair",80,0);button(body+280,bottom+14,120,"Update",81,0);button(body+420,bottom+14,140,"Rollback",82,0);}focus=old<controls?old:0;
 }
 #ifdef ENGINE_M9
@@ -212,7 +212,7 @@ render();return;}
 #ifdef ENGINE_M73
  extern unsigned verbose73;verbose73=1;
 #endif
- terminal=1;command_length=command_overflow=0;console_begin(screen);console_text("Engine OS advanced terminal. Type menu to return.\nPersistent file access is available after installed boot.\nType help for commands.\nengine> ");serial_text("M6_TERMINAL_READY\n");return;}
+ terminal=1;command_length=command_overflow=0;console_begin(screen);console_text("" ENGINE_PRODUCT_NAME " advanced terminal. Type menu to return.\nPersistent file access is available after installed boot.\nType help for commands.\nengine> ");serial_text("M6_TERMINAL_READY\n");return;}
 
  if(a==50){diagnostics=1;focus=0;render();return;}if(a==62){diagnostics=0;focus=0;render();return;}if(a==63){failure=0;maintenance=0;step=
 #ifdef ENGINE_M75
@@ -254,13 +254,13 @@ if(maintenance&&step==4)step=1;else if(step)--step;if(!step)maintenance=0;focus=
  if(chosen>=storage_count()){validation="Select a disk row first, then choose Next.";render();return;}
 #ifdef ENGINE_M73
  if(!maintenance){const storage_disk*d=storage_get(chosen);
-  if(!storage_writable(d)||d->sector_bytes!=512){validation="Choose a supported hard disk with 512-byte sectors. Other disks can be inspected in Manage disks.";render();return;}
+  if(!m6_target_writable(d)||d->sector_bytes!=512){validation="Choose a supported hard disk with 512-byte sectors. Other disks can be inspected in Manage disks.";render();return;}
   if(d->sectors<UINT64_C(4194304)){validation="This disk is too small. Choose a supported disk of at least 2 GiB.";render();return;}
   if(d->sectors>UINT64_C(4294967296)){validation="This disk exceeds the current 2 TiB installation limit. Choose a smaller test disk.";render();return;}
  }
 #endif
  unsigned s=maintenance?m6_maintenance_prepare(chosen,maintenance):replace_selected?m71_prepare_replace(chosen):m6_prepare(chosen);
- if(s){validation=s==B_IO?"Disk I/O failed. Check the disk connection.":maintenance?"No compatible Engine OS installation was found.":replace_selected?"Use a readable supported disk, 512-byte sectors, 2 GiB to 2 TiB.":
+ if(s){validation=s==B_IO?"Disk I/O failed. Check the disk connection.":maintenance?"No compatible " ENGINE_PRODUCT_NAME " installation was found.":replace_selected?"Use a readable supported disk, 512-byte sectors, 2 GiB to 2 TiB.":
 #ifdef ENGINE_M75
 "This disk contains data. Choose Use the whole disk, then confirm erasing it at Review."
 #else

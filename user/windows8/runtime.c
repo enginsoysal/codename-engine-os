@@ -1,3 +1,4 @@
+#include <engine/product.h>
 #include "runtime.h"
 w8_mailbox *const job8=(void*)(uintptr_t)W8_MAILBOX;
 uint64_t sys8(uint64_t n,uint64_t a,uint64_t b,uint64_t c,uint64_t d,uint64_t e){
@@ -18,7 +19,7 @@ size_t strlen(const char*s){return len8(s);}
 void print8(const char*s){unsigned n=len8(s);while(n){unsigned part=n>4096?4096:n;sys8(W8_SYS_OUTPUT,(uint64_t)s,part,0,0,0);s+=part;n-=part;}}
 void number8(uint64_t v){char s[32],r[24];unsigned n=0,p=0;do{r[n++]=(char)('0'+v%10);v/=10;}while(v);while(n)s[p++]=r[--n];s[p]=0;print8(s);}
 NORETURN void exit8(unsigned status){job8->status=status;sys8(W8_SYS_EXIT,status,0,0,0,0);for(;;)__asm__ volatile("ud2");}
-NORETURN void fail8(const char*s){copy8(job8->message,s,sizeof(job8->message));print8("\nEngine OS: ");print8(s);print8("\n");exit8(1);}
+NORETURN void fail8(const char*s){copy8(job8->message,s,sizeof(job8->message));print8("\n" ENGINE_PRODUCT_NAME ": ");print8(s);print8("\n");exit8(1);}
 typedef struct __attribute__((aligned(16))) block8 {size_t size;struct block8*next;unsigned free,reserved;} block8;
 _Static_assert(sizeof(block8)==32,"Windows heap payloads require 16-byte alignment.");
 static block8 *heap8;static uint64_t heap_end8=W8_HEAP;

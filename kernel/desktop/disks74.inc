@@ -28,11 +28,11 @@ static void disks_draw74(desktop_window *w,application *app,uint64_t token){
     int x=w->bounds.x+24,y=w->bounds.y+62,width=w->bounds.width-48;
     if(w->app==RECOVERY74){
         if(app->closing==6){text(x,y,app->year74==1?"Repair boot files?":"Return to the previous system?",2,ink());
-            ui73_paragraph(x,y+55,width,5,"Engine OS will verify a complete recovery slot before replaying its boot files. Your documents and the existing partition table are kept. Keep the disk connected. Restart afterwards to use the selected system.",ink());
+            ui73_paragraph(x,y+55,width,5,"" ENGINE_PRODUCT_NAME " will verify a complete recovery slot before replaying its boot files. Your documents and the existing partition table are kept. Keep the disk connected. Restart afterwards to use the selected system.",ink());
             button(token,x,y+220,220,app->entered?"[X] I understand":"[ ] I understand",DISK_CONSENT74,0);
             button(token,x,y+275,140,"Cancel",DISK_CANCEL74,0);button(token,x+155,y+275,170,"Apply recovery",DISK_APPLY74,1);
         }else{
-            text(x,y,"Keep Engine OS recoverable",2,ink());
+            text(x,y,"Keep " ENGINE_PRODUCT_NAME " recoverable",2,ink());
             ui73_paragraph(x,y+48,width,4,"Repair restores verified boot files for this installation. Rollback needs a complete previous recovery slot. Keep your installation ISO available for offline recovery and system updates.",ink());
             button(token,x,y+175,210,"Repair boot files",RECOVERY_REPAIR74,0);button(token,x+225,y+175,225,"Previous system",RECOVERY_ROLLBACK74,0);
             button(token,x,y+235,230,"Read recovery guidance",RECOVERY_GUIDE74,0);

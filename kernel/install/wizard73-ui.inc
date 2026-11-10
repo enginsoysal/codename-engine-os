@@ -31,12 +31,12 @@ static void render72(void){
  if(validation)ui73_paragraph(x,y+355,cw,2,validation,0x9a4434);
  else ui73_paragraph(x,y+355,cw,2,"UEFI setup adds a startup entry. Your disk still needs a separate installation confirmation.",muted);
  }
- if(step==1){label(x,y,"Where should Engine OS live?",4,ink);
- ui73_paragraph(x,y+52,cw,2,maintenance?"Choose the existing Engine OS disk to maintain.":"Select your installation disk. Its capacity and connection are shown below.",muted);
+ if(step==1){label(x,y,"Where should " ENGINE_PRODUCT_NAME " live?",4,ink);
+ ui73_paragraph(x,y+52,cw,2,maintenance?"Choose the existing " ENGINE_PRODUCT_NAME " disk to maintain.":"Select your installation disk. Its capacity and connection are shown below.",muted);
  unsigned count=storage_count();if(!count)ui73_paragraph(x,y+124,cw,3,"No supported disk is connected. In VMware, add a supported hard disk and enable Connect at power on.",0x9a4434);
  for(unsigned row=0;row<4;++row){unsigned i=disk_page*4+row;if(i>=count)break;const storage_disk*d=storage_get(i);unsigned dy=y+100+row*48;char name[24]="Disk ";decimal(i+1,name+5);
  button(x,dy,120,name,100+i,chosen==i);char size[40];decimal(d->sectors<(UINT64_C(2097152))?d->sectors/2048:d->sectors/2097152,size);unsigned n=0;while(size[n])++n;const char*tail=d->sectors<UINT64_C(2097152)?" MiB":" GiB";for(unsigned j=0;tail[j];++j)size[n++]=tail[j];size[n]=0;
- label(x+144,dy+10,size,2,ink);ui73_fit(x+255,dy+10,cw-255,storage_writable(d)&&d->sector_bytes==512&&d->sectors>=UINT64_C(4194304)&&d->sectors<=UINT64_C(4294967296)?"Ready for installation":"Available for inspection only",1,muted);}
+ label(x+144,dy+10,size,2,ink);ui73_fit(x+255,dy+10,cw-255,m6_target_writable(d)&&d->sector_bytes==512&&d->sectors>=UINT64_C(4194304)&&d->sectors<=UINT64_C(4294967296)?"Ready for installation":"Available for inspection only",1,muted);}
  if(count>4){button(x+cw-132,y+286,56,"<",94,0);button(x+cw-66,y+286,56,">",95,0);}
  if(!maintenance){button(x,y+322,220,"Manage disks",90,0);button(x+235,y+322,310,replace_selected?"Erase and install: On":"Erase and install: Off",91,replace_selected);}
  ui73_paragraph(x,y+380,cw,2,validation?validation:maintenance?"Maintenance keeps personal files; review before applying changes.":"Installation uses the whole selected disk. Existing data requires a separate erase confirmation.",validation?0x9a4434:muted);}

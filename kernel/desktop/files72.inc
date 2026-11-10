@@ -54,6 +54,9 @@ static void folder_dialog72(desktop_window*w,application*app,uint64_t token){
  text(x,y+242,app->notice[0]?app->notice:"Type a name, then choose Create folder. Escape cancels.",1,ink());
 }
 static void draw_files72(desktop_window *w,application *app,uint64_t token){
+#ifdef ENGINE_M10
+ if(app->usb_mode10){draw_usb10(w,app,token);return;}
+#endif
  int x=w->bounds.x+16,y=w->bounds.y+49,cw=w->bounds.width;
  button(token,x,y,54,"<",NAV_BACK,0);button(token,x+62,y,54,">",NAV_FORWARD,0);button(token,x+124,y,54,"Up",FILE_UP,0);
  button(token,x+190,y,130,"New folder",FILE_FOLDER,1);
@@ -63,6 +66,9 @@ static void draw_files72(desktop_window *w,application *app,uint64_t token){
  text(x+12,y+65,"YOUR PLACES",1,ink());
  const char*places[]={"Home","Desktop","Documents","Downloads","Pictures","System drive"};
  for(unsigned i=0;i<6;++i){button(token,x+8,y+92+(int)i*37,side-20,"",NAV_HOME+i,0);unsigned scale=length(places[i])*12u<=(unsigned)(side-36)?2:1;text(x+16,y+101+(int)i*37+(scale==1?4:0),places[i],scale,ink());}
+#ifdef ENGINE_M10
+ button(token,x+8,y+92+6*37,side-20,"USB drives",USB_OPEN10,0);
+#endif
  text(list,y+53,"LOCATION",1,ink());
  char path[128];unsigned columns=list_width>10?(unsigned)(list_width-10)/6:1,n=length(app->path);if(columns>127)columns=127;
  if(n>columns){copy(path,"...",128);append(path,app->path+n-(columns>3?columns-3:0),128);}else copy(path,app->path,128);
@@ -76,14 +82,29 @@ static void draw_files72(desktop_window *w,application *app,uint64_t token){
  unsigned total=children72(app);
  if(app->offset>=total)app->offset=total?total-1:0;
  for(unsigned i=0;i<rows;++i){const v6_entry*file=child_at(app,app->offset+i);if(!file)break;int fy=y+106+(int)i*44;
- button(token,list,fy,list_width-78,"",FILE_ROW+app->offset+i,0);
+ button(token,list,fy,list_width-
+#ifdef ENGINE_M10
+ 160
+#else
+ 78
+#endif
+ ,"",FILE_ROW+app->offset+i,0);
  if(file->kind==2)folder_icon72(list+10,fy+5,22,0xf0ce87);else {rectangle((desktop_rect){list+13,fy+4,17,23},0xf7f8ee);rectangle((desktop_rect){list+17,fy+10,9,2},0x88a4a0);}
  char name[64];unsigned limit=list_width>140?(unsigned)(list_width-140)/12:1;if(limit>63)limit=63;const char*full=file->path+(equal(app->path,"/")?1:length(app->path)+1);copy(name,full,limit+1);
  if(length(full)>limit&&limit>=3){name[limit-3]='.';name[limit-2]='.';name[limit-1]='.';}
  #ifdef ENGINE_M73
- ui73_fit(list+42,fy+8,list_width-128,full,1,ink());
+ ui73_fit(list+42,fy+8,list_width-
+#ifdef ENGINE_M10
+ 210
+#else
+ 128
+#endif
+ ,full,1,ink());
 #else
  text(list+42,fy+8,name,2,ink());
+#endif
+#ifdef ENGINE_M10
+ if(file->kind==1&&writable72(file->path))button(token,list+list_width-155,fy,78,"To USB",USB_SEND10+app->offset+i,0);
 #endif
  if(writable72(file->path))button(token,list+list_width-70,fy,70,"Delete",FILE_DELETE_ROW+app->offset+i,0);
  }

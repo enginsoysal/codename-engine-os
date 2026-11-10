@@ -1,4 +1,7 @@
 #include <engine/m4.h>
+#ifdef ENGINE_M10
+#include <engine/hardware10.h>
+#endif
 #ifdef ENGINE_M6
 #include <engine/install/m6.h>
 #endif
@@ -27,6 +30,9 @@ static void mouse_byte(uint8_t value){
     if(vm9_input())return;
 #endif
     if(mouse_packet[0]&0xc0)return;
+#ifdef ENGINE_M10
+    if(mouse_bytes==4){int wheel=(int)(mouse_packet[3]&15);if(wheel&8)wheel-=16;if(wheel)input10_wheel(-wheel);}
+#endif
     int dx=(int)mouse_packet[1]-((mouse_packet[0]&0x10)?256:0),dy=(int)mouse_packet[2]-((mouse_packet[0]&0x20)?256:0);m6_pointer_report(dx,-dy,mouse_packet[0]&7);
 }
 #endif
@@ -42,7 +48,15 @@ if(writable()){out8(0x64,0x60);if(writable())out8(0x60,config);}}
     }
     #ifdef ENGINE_M6
     if(writable())out8(0x64,0xa8);
-    unsigned mouse=0;if(mouse_command(0xf6)&&mouse_command(0xf2)){int id=mouse_reply();if(id==0||id==3||id==4){mouse_bytes=id?4:3;mouse=mouse_command(0xf4);}}serial_text(mouse?"M6_PS2_MOUSE_ONLINE\n":"M6_PS2_MOUSE_UNAVAILABLE\n");
+
+#ifdef ENGINE_M10
+    if(mouse_command(0xf6)){unsigned wheel=mouse_command(0xf3)&&mouse_command(200)&&mouse_command(0xf3)&&mouse_command(100)&&mouse_command(0xf3)&&mouse_command(80);if(!wheel)(void)mouse_command(0xf6);}
+#endif
+    unsigned mouse=0;if(
+#ifndef ENGINE_M10
+    mouse_command(0xf6)&&
+#endif
+    mouse_command(0xf2)){int id=mouse_reply();if(id==0||id==3||id==4){mouse_bytes=id?4:3;mouse=mouse_command(0xf4);}}serial_text(mouse?"M6_PS2_MOUSE_ONLINE\n":"M6_PS2_MOUSE_UNAVAILABLE\n");
 #ifdef ENGINE_M9
     if(mouse)vm9_start();
 #endif
@@ -88,11 +102,20 @@ unsigned input_irq(uint64_t *frame){
         if(code==56){alt_modifier=1;extended=0;continue;}if(code==184){alt_modifier=0;extended=0;continue;}
         if(code==68||(extended&&code==91)){enqueue(137);extended=0;continue;}
         if(!(code&128)&&extended){unsigned c=code==75?128:code==77?129:code==71?130:code==79?131:code==83?132:code==72?133:code==80?134:0;if(c)enqueue((uint8_t)c);extended=0;continue;}
+#ifdef ENGINE_M10
+        if(code==58){input10_toggle_caps();continue;}
+#endif
         if(code==1){enqueue(27);continue;}
 #endif
         if(code&128){extended=0;continue;}if(extended){extended=0;continue;}if(code<58){uint8_t c=(uint8_t)(shift?upper[code]:plain[code]);
 #ifdef ENGINE_M7
         if(c==9)c=(uint8_t)(alt_modifier?135:shift?136:9);
+        #ifdef ENGINE_M10
+        {
+         static const uint8_t hid[58]={0,0,30,31,32,33,34,35,36,37,38,39,45,46,42,43,20,26,8,21,23,28,24,12,18,19,47,48,40,0,4,22,7,9,10,11,13,14,15,51,52,53,0,49,29,27,6,25,5,17,16,54,55,56,0,0,0,44};
+         if(hid[code])c=(uint8_t)input10_hid(hid[code],shift!=0);
+        }
+#endif
         if(control_modifier&&c>='a'&&c<='z')c=(uint8_t)(c-'a'+1);
         if(control_modifier&&c>='A'&&c<='Z')c=(uint8_t)(c-'A'+1);
 #endif

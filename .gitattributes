@@ -53,3 +53,47 @@ tools/build/m6.py -text whitespace=cr-at-eol
 
 # Preserve the exact executed/compiled qualification harness sources as well.
 tests/m92/** -text whitespace=cr-at-eol
+
+# Preserve exact M10 compiled and executed input bytes on all checkouts.
+boot/uefi/bootentry72.inc -text whitespace=cr-at-eol
+boot/uefi/loader.c -text whitespace=cr-at-eol
+distros/engacer-hardware.json -text whitespace=cr-at-eol
+distros/packages/m10-hardware-guide/content.txt -text whitespace=cr-at-eol
+distros/packages/m10-hardware-guide/package.json -text whitespace=cr-at-eol
+include/engine/hardware10.h -text whitespace=cr-at-eol
+include/engine/install/m6.h -text whitespace=cr-at-eol
+kernel/core/display.c -text whitespace=cr-at-eol
+kernel/desktop/apps74.inc -text whitespace=cr-at-eol
+kernel/desktop/devices10-controls.inc -text whitespace=cr-at-eol
+kernel/desktop/devices10.inc -text whitespace=cr-at-eol
+kernel/desktop/disks74.inc -text whitespace=cr-at-eol
+kernel/desktop/files72.inc -text whitespace=cr-at-eol
+kernel/desktop/windows8.inc -text whitespace=cr-at-eol
+kernel/hardware/devices10.c -text whitespace=cr-at-eol
+kernel/input/layout10.c -text whitespace=cr-at-eol
+kernel/input/vmmouse9.inc -text whitespace=cr-at-eol
+kernel/install/disk71-ui.inc -text whitespace=cr-at-eol
+kernel/install/guided.c -text whitespace=cr-at-eol
+kernel/install/installer6.c -text whitespace=cr-at-eol
+kernel/install/m5.c -text whitespace=cr-at-eol
+kernel/install/wizard6.c -text whitespace=cr-at-eol
+kernel/install/wizard72-ui.inc -text whitespace=cr-at-eol
+kernel/install/wizard73-ui.inc -text whitespace=cr-at-eol
+kernel/install/wizard75-ui.inc -text whitespace=cr-at-eol
+kernel/storage/fat32-write10.inc -text whitespace=cr-at-eol
+kernel/storage/fat32.c -text whitespace=cr-at-eol
+kernel/storage/partitions.c -text whitespace=cr-at-eol
+kernel/usb/xhci.c -text whitespace=cr-at-eol
+tests/m10/filesystem_host.py -text whitespace=cr-at-eol
+tests/m10/journey.py -text whitespace=cr-at-eol
+tests/m10/matrix.py -text whitespace=cr-at-eol
+tests/m10/motion_native.py -text whitespace=cr-at-eol
+tests/m10/motion_vmware.py -text whitespace=cr-at-eol
+tests/m10/probe_vmware.py -text whitespace=cr-at-eol
+tests/m10/ui.py -text whitespace=cr-at-eol
+tests/m10/vmware.py -text whitespace=cr-at-eol
+tools/build/bios.py -text whitespace=cr-at-eol
+tools/build/m2.py -text whitespace=cr-at-eol
+tools/build/media.py -text whitespace=cr-at-eol
+tools/release/vmware_starter10.py -text whitespace=cr-at-eol
+user/windows8/runtime.c -text whitespace=cr-at-eol

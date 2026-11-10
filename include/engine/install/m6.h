@@ -14,6 +14,13 @@ extern const m6_distribution_file m6_files[];
 extern const unsigned m6_file_count;
 extern const uint8_t m6_bundle[];
 extern const unsigned m6_bundle_size,m6_bundle_crc;
+/* Removable file transfer is qualified separately from OS installation. */
+static inline unsigned m6_target_writable(const storage_disk*d){
+#ifdef ENGINE_M10
+ if(d&&d->transport==STORAGE_USB)return 0;
+#endif
+ return storage_writable(d);
+}
 unsigned m6_live(void);
 unsigned m6_prepare(unsigned);
 #ifdef ENGINE_M71

@@ -26,7 +26,7 @@ class Guest:
         self.image_name=image_name
         self.expected_build_id=None
         if media!='installed':
-            meta=json.loads((ROOT/'dist'/(image_name.removeprefix('EngineOS-').lower()+'-build-manifest.json')).read_text(encoding='utf-8'))
+            meta=json.loads((ROOT/'dist'/(image_name.removeprefix('EngineOS-').removeprefix('EngacerOS-').lower()+'-build-manifest.json')).read_text(encoding='utf-8'))
             filename=image_name+('.iso' if media!='usb' else '-usb.img')
             assert digest(ROOT/'dist'/filename)==meta['artifacts'][filename]['sha256'],'Media bytes differ from the declared build'
             self.expected_build_id=meta['build_id']

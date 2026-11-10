@@ -9,7 +9,7 @@ static void boot72_name(uint16_t *name,unsigned number){
 }
 static efi_status boot72_register(efi_runtime_services*rt){
  if(!rt||!rt->get_variable||!rt->set_variable)return EFI_INVALID_PARAMETER;
- const uint16_t description[]=u"Engine OS";
+ const uint16_t description[]=ENGINE_PRODUCT_UTF16;
  const uint16_t path[]=u"\\EFI\\BOOT\\BOOTX64.EFI";
  uint8_t option[256]={0},current[256];uint16_t order[256],next[257],name[9];
  unsigned path_bytes=4+sizeof(path)+4,bytes=6+sizeof(description)+path_bytes;

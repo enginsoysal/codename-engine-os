@@ -43,6 +43,6 @@ jobs:
           BRIXCANVAS_ENGINEOS_KEY: ${{ secrets.BRIXCANVAS_ENGINEOS_KEY }}
         run: |
           node website/brix/sync.mjs
-          echo 'Updated native articles on https://engineos.brixcanvas.com' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Updated native articles on https://engacer.brixcanvas.com' >> "$GITHUB_STEP_SUMMARY"
           echo 'The publisher verified its website identity and every generated article.' >> "$GITHUB_STEP_SUMMARY"
           echo 'Homepage design/version copy is a separate native Brix edit: verify Save and fresh public readback before declaring a website release complete. See website/README.md.' >> "$GITHUB_STEP_SUMMARY"

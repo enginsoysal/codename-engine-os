@@ -8,8 +8,9 @@ import struct
 from m1 import ROOT,pinned_tools,command,sha
 from media import package
 BUILD=ROOT/'build/m2'
-def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard",m7=False,m71=False,m72=False,m73=False,m74=False,m75=False,m8=False,m9=False,m92=False):
+def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard",m7=False,m71=False,m72=False,m73=False,m74=False,m75=False,m8=False,m9=False,m92=False,m10=False):
     global BUILD
+    m92=m92 or m10
     m9=m9 or m92
     m8=m8 or m9
     m75=m75 or m8
@@ -19,7 +20,7 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     m71=m71 or m72
     m7=m7 or m71
     m6=m6 or m7
-    flavor='m92' if m92 else 'm9' if m9 else 'm8' if m8 else 'm75' if m75 else 'm74' if m74 else 'm73' if m73 else 'm72' if m72 else 'm71' if m71 else 'm7' if m7 else 'm6'
+    flavor='m10' if m10 else 'm92' if m92 else 'm9' if m9 else 'm8' if m8 else 'm75' if m75 else 'm74' if m74 else 'm73' if m73 else 'm72' if m72 else 'm71' if m71 else 'm7' if m7 else 'm6'
     BUILD=ROOT/'build'/(flavor if m6 else milestone.lower())
     tools=pinned_tools();BUILD.mkdir(parents=True,exist_ok=True)
     sources=[]
@@ -58,8 +59,9 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
         for folder in ('third_party/7zip','third_party/libmspack','third_party/libmspack-port'):
             sources.extend(p for p in (ROOT/folder).rglob('*') if p.is_file())
     if m9:sources.extend(sorted((ROOT/'tools/build').glob('m9*.py')))
+    if m10:sources.extend(sorted((ROOT/'tools/build').glob('m10*.py')))
     hashes={p.relative_to(ROOT).as_posix():sha(p) for p in sorted(sources)}
-    identity={'milestone':'M92' if m92 else 'M9' if m9 else 'M8' if m8 else 'M75' if m75 else 'M74' if m74 else 'M73' if m73 else 'M72' if m72 else 'M71' if m71 else 'M7' if m7 else 'M6' if m6 else milestone,'source_sha256':hashes}
+    identity={'milestone':'M10' if m10 else 'M92' if m92 else 'M9' if m9 else 'M8' if m8 else 'M75' if m75 else 'M74' if m74 else 'M73' if m73 else 'M72' if m72 else 'M71' if m71 else 'M7' if m7 else 'M6' if m6 else milestone,'source_sha256':hashes}
     if m6:identity['revision']=m6_revision
     build_id=hashlib.sha256(json.dumps(identity,sort_keys=True).encode()).hexdigest()[:32]
     (BUILD/'build.h').write_text(f'#define BUILD_ID "{build_id}"\n',encoding='utf-8')
@@ -77,6 +79,7 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     if m8:common.append('-DENGINE_M8')
     if m9:common.append('-DENGINE_M9')
     if m92:common.append('-DENGINE_M92')
+    if m10:common.append('-DENGINE_M10')
     if m75 and m5_live:common.append('-DENGINE_SETUP_MEDIA75')
     if m7:
         common.extend(('-DENGINE_M7','-I',ROOT/'third_party/bearssl/inc','-I',ROOT/'third_party/bearssl-port'))
@@ -161,6 +164,7 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     if milestone in ('M4','M45','M5'):inputs+=(('kernel/storage/ahci45.c' if milestone in ('M45','M5') else 'kernel/storage/ahci.c'),'kernel/storage/ext2.c','kernel/storage/fs_test.c','kernel/input/legacy.c',('kernel/usb/xhci.c' if milestone in ('M45','M5') else 'kernel/input/xhci.c'),'kernel/core/console.c','kernel/m4/main.c')
     if milestone in ('M45','M5'):inputs+=('kernel/storage/registry.c','kernel/storage/partitions.c','kernel/storage/nvme.c','kernel/storage/ide.c','kernel/storage/virtio_blk.c','kernel/storage/fat32.c','kernel/storage/fat_test.c','kernel/storage/ext2_read.c','kernel/storage/ext2_read_test.c')
     if m92:inputs+=('kernel/storage/scsi92.c',)
+    if m10:inputs+=('kernel/hardware/devices10.c','kernel/input/layout10.c')
     if m6:
         inputs=tuple(p for p in inputs if p not in ('kernel/storage/ext2.c','kernel/storage/fs_test.c','kernel/m4/main.c'))
         inputs+=('kernel/install/layout.c','kernel/storage/volume6.c','kernel/install/installer6.c','kernel/install/wizard6.c','build/'+flavor+'/installer-image.c','kernel/install/entry6.c')
@@ -187,7 +191,7 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
     if command([nm,'-u',BUILD/'KERNEL.ELF']).strip():raise RuntimeError('Undefined kernel symbols')
     map_path=BUILD/'kernel.map';map_path.write_text(map_path.read_text(encoding='utf-8').replace(str(ROOT),'.').replace(ROOT.as_posix(),'.'),encoding='utf-8')
     if m6 and any(sha(ROOT/p)!=value for p,value in hashes.items()):raise RuntimeError('Build inputs changed during compilation; discard mixed outputs and rebuild')
-    artifact_name=(('M92' if m92 else 'M9' if m9 else 'M8' if m8 else 'M75' if m75 else 'M74' if m74 else 'M73' if m73 else 'M72' if m72 else 'M71' if m71 else 'M7' if m7 else 'M6')+('' if m6_revision=='standard' else m6_revision.upper())) if m6 else milestone
+    artifact_name=(('M10' if m10 else 'M92' if m92 else 'M9' if m9 else 'M8' if m8 else 'M75' if m75 else 'M74' if m74 else 'M73' if m73 else 'M72' if m72 else 'M71' if m71 else 'M7' if m7 else 'M6')+('' if m6_revision=='standard' else m6_revision.upper())) if m6 else milestone
     if m73:
         from m5_layout import compact_elf
         shutil.copyfile(BUILD/'KERNEL.ELF',BUILD/'KERNEL-debug.ELF')
@@ -197,14 +201,15 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
         payload=(ROOT/'third_party/7zip/7z2606-x64.msi').read_bytes()
         init+=struct.pack('<8sQ32s',b'ENGMSI81',len(payload),hashlib.sha256(payload).digest())+payload
     (BUILD/'INIT.BIN').write_bytes(init)
+    stem='EngacerOS' if m10 else 'EngineOS'
     package(BUILD/'normal',(BUILD/'BOOTX64.EFI').read_bytes(),(BUILD/'KERNEL.ELF').read_bytes(),init,artifact_name)
     dist=ROOT/'dist';dist.mkdir(exist_ok=True)
-    for name in (f'EngineOS-{artifact_name}.iso',f'EngineOS-{artifact_name}-usb.img'):shutil.copyfile(BUILD/'normal'/name,dist/name)
-    for filename,name in (('KERNEL.ELF',f'EngineOS-{artifact_name}-kernel.elf'),('kernel.map',f'EngineOS-{artifact_name}-kernel.map'),('USER.ELF',f'EngineOS-{artifact_name}-user.elf')):
+    for name in (f'{stem}-{artifact_name}.iso',f'{stem}-{artifact_name}-usb.img'):shutil.copyfile(BUILD/'normal'/name,dist/name)
+    for filename,name in (('KERNEL.ELF',f'{stem}-{artifact_name}-kernel.elf'),('kernel.map',f'{stem}-{artifact_name}-kernel.map'),('USER.ELF',f'{stem}-{artifact_name}-user.elf')):
         shutil.copyfile(BUILD/filename,dist/name)
     if m7:
-        for app,kind in (applications() if m74 else [('editor',2),('calculator',4)]):shutil.copyfile(BUILD/('APP7-'+app+'.ELF'),dist/('EngineOS-'+artifact_name+'-'+app+'.elf'))
-    artifacts={p.name:{'sha256':sha(p),'size':p.stat().st_size} for p in sorted(dist.glob(f'EngineOS-{artifact_name}*')) if p.is_file()}
+        for app,kind in (applications() if m74 else [('editor',2),('calculator',4)]):shutil.copyfile(BUILD/('APP7-'+app+'.ELF'),dist/(stem+'-'+artifact_name+'-'+app+'.elf'))
+    artifacts={p.name:{'sha256':sha(p),'size':p.stat().st_size} for p in sorted(dist.glob(f'{stem}-{artifact_name}*')) if p.is_file()}
     for name in artifacts:
         payload=(dist/name).read_bytes()
         if m8:
@@ -220,5 +225,5 @@ def main(milestone='M2',m5_live=False,distro=None,m6=False,m6_revision="standard
                        ['early allocator manages conventional memory below 1 GiB']}
     (dist/f'{artifact_name.lower()}-build-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
     (dist/f'{artifact_name}-SHA256SUMS.txt').write_text(''.join(f'{v["sha256"]}  {k}\n' for k,v in artifacts.items()),encoding='utf-8')
-    print(json.dumps({'build_id':build_id,'iso':f'dist/EngineOS-{artifact_name}.iso'},indent=2));return manifest
+    print(json.dumps({'build_id':build_id,'iso':f'dist/{stem}-{artifact_name}.iso'},indent=2));return manifest
 if __name__=='__main__':main()

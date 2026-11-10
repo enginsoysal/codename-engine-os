@@ -29,7 +29,7 @@ static void draw_windows8(desktop_window*w,application*app,uint64_t token){
  ui73_paragraph(x,y+84,width,2,"Runs the original Windows program. Its Windows file-manager interface and Explorer menus are not supported yet.",ink());
  if(app->number){
   text(x,y+145,app->number==1?"Install 7-Zip Console?":"Remove 7-Zip Console?",2,ink());
-  ui73_paragraph(x,y+194,width,5,app->number==1?"Engine OS will verify the included MSI before changing files, then install its 106 original files in a separate application folder. Your documents stay separate. The console program is supported; the Windows GUI is unavailable.":"Unchanged application files and product registrations will be removed. Your documents and modified application files will be kept. You can install the application again later.",ink());
+  ui73_paragraph(x,y+194,width,5,app->number==1?"" ENGINE_PRODUCT_NAME " will verify the included MSI before changing files, then install its 106 original files in a separate application folder. Your documents stay separate. The console program is supported; the Windows GUI is unavailable.":"Unchanged application files and product registrations will be removed. Your documents and modified application files will be kept. You can install the application again later.",ink());
   button(token,x,y+340,150,"Go back",BACK8,0);button(token,x+166,y+340,190,app->number==1?"Install 7-Zip":"Remove 7-Zip",CONFIRM8,1);
   button(token,x+372,y+340,150,"Licenses",LICENSE8,0);return;
  }
@@ -97,7 +97,7 @@ static unsigned action_windows8(desktop_window*w,application*app,uint64_t token,
  }
  if(job){
   char user[256];root_path(user,"");unsigned n=length(user);if(n&&user[n-1]=='/')user[n-1]=0;
-  if(command==ZIP8){char path[256];root_path(path,"Documents/EngineOS-Windows.txt");if(!entry(path)){static const char sample[]="Created in Engine OS and archived by the original Windows 7-Zip application.\n";if(v6_put(m6_volume(),path,sizeof(sample)-1,memory_source,(void*)sample)){notice(app,"The sample document could not be created.");invalidate(w->bounds);return 1;}}}
+  if(command==ZIP8){char path[256];root_path(path,"Documents/EngineOS-Windows.txt");if(!entry(path)){static const char sample[]="Created in " ENGINE_PRODUCT_NAME " and archived by the original Windows 7-Zip application.\n";if(v6_put(m6_volume(),path,sizeof(sample)-1,memory_source,(void*)sample)){notice(app,"The sample document could not be created.");invalidate(w->bounds);return 1;}}}
   unsigned result=w8_start(job,source,PRODUCT_ROOT8,user,arguments);notice(app,result?"The Windows task could not start. Open System Monitor for memory details.":"");app->offset=0;
  }invalidate(w->bounds);return 1;
 }

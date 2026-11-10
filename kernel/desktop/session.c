@@ -5,6 +5,9 @@
 #endif
 #endif
 #include <engine/desktop/session.h>
+#ifdef ENGINE_M10
+#include <engine/hardware10.h>
+#endif
 #include <engine/desktop/app.h>
 #ifdef ENGINE_M74
 #include <engine/desktop/catalog74.h>
@@ -46,6 +49,10 @@ typedef struct {
     unsigned closing,offset,stopped,existed;
     uint32_t source_crc;
     char pending[256];
+#ifdef ENGINE_M10
+    unsigned hardware_view10,usb_mode10,usb_disk10,usb_part10,usb_context10,usb_selected10;
+    char usb_path10[256],usb_source10[256];
+#endif
     unsigned name_cursor,name_selected;
 #ifdef ENGINE_M74
     unsigned year74,month74,day74;
@@ -53,6 +60,9 @@ typedef struct {
     unsigned count74;
 #endif
 } application;
+#ifdef ENGINE_M10
+#include "devices10-controls.inc"
+#endif
 typedef struct { desktop_rect rect; uint64_t window; unsigned action; } control;
 typedef struct { uint64_t magic; uint32_t accent, dark, calculator, reserved; } preferences7;
 
@@ -246,7 +256,7 @@ static uint64_t launch(unsigned kind,const char *path) {
 #ifdef ENGINE_M73
     if(kind==SETTINGS)desktop_place(&model,token,(desktop_rect){((int)model.width-700)/2,((int)model.height-60-550)/2,700,550});
 #endif
-    if(kind==TERMINAL){copy(app->text,"Engine OS advanced terminal. Type help for commands.\nUse menu, exit or Escape to close this window.\nengine> ",sizeof(app->text));app->length=length(app->text);}
+    if(kind==TERMINAL){copy(app->text,"" ENGINE_PRODUCT_NAME " advanced terminal. Type help for commands.\nUse menu, exit or Escape to close this window.\nengine> ",sizeof(app->text));app->length=length(app->text);}
     if(kind==DOWNLOADS){copy(app->text,"https://raw.githubusercontent.com/enginsoysal/codename-engine-os/main/LICENSE",sizeof(app->text));app->length=app->cursor=length(app->text);}
     if(kind==EDITOR){
         if(path){
@@ -364,6 +374,9 @@ static void open_file74(const char *path){
 }
 #endif
 #include "files72.inc"
+#ifdef ENGINE_M10
+#include "devices10.inc"
+#endif
 static void init_files72(application *app){
     memset(&navigation[app-apps],0,sizeof(navigation[0]));char home[256];home72(home);visit72(app,home,1);
 }
@@ -387,11 +400,17 @@ static void draw_files(desktop_window *w,application *app,uint64_t token) {
     text(x,w->bounds.y+w->bounds.height-24,app->notice[0]?app->notice:"Click a folder or a text file. Arrow keys scroll the list.",1,ink());
 }
 static void draw_settings(desktop_window *w,application *app,uint64_t token) {
+#ifdef ENGINE_M10
+    if(app->hardware_view10){draw_devices10(w,app,token);return;}
+#endif
 #ifdef ENGINE_M74
     if(app->offset==74){draw74(w,app,token);return;}
 #endif
     int x=w->bounds.x+20,y=w->bounds.y+55;
-    text(x,y,"Make Engine OS yours",2,ink());
+    text(x,y,"Make " ENGINE_PRODUCT_NAME " yours",2,ink());
+#ifdef ENGINE_M10
+    button(token,x+370,y-8,145,"Devices",DEVICES10,0);
+#endif
     text(x,y+40,"Accent",1,ink());
     button(token,x,y+60,90,"Mint",STYLE_MINT,preferences.accent==0x62e5bd);
     button(token,x+100,y+60,90,"Lavender",STYLE_LAVENDER,preferences.accent==0x9caeff);
@@ -541,9 +560,9 @@ static void draw_window(unsigned slot) {
     }
     if(w->app==DETAILS){char value[32];text(r.x+20,r.y+65,
 #ifdef ENGINE_M9
-        "Engine OS 0.9",
+        "" ENGINE_PRODUCT_NAME " 0.9",
 #else
-        "Engine OS 0.7",
+        "" ENGINE_PRODUCT_NAME " 0.7",
 #endif
         2,ink());text(r.x+20,r.y+105,BUILD_ID,1,ink());
         decimal(value,pages_stats().current_pages*4096);text(r.x+20,r.y+145,"Managed bytes",1,ink());text(r.x+230,r.y+145,value,1,ink());
@@ -624,13 +643,13 @@ static void render(void) {
 #else
     if(model.width>=1000)text((int)model.width-180,bar+23,
 #ifdef ENGINE_M73
- "Engine OS 0.7.3",
+ "" ENGINE_PRODUCT_NAME " 0.7.3",
 #elif defined(ENGINE_M72)
- "Engine OS 0.7.2",
+ "" ENGINE_PRODUCT_NAME " 0.7.2",
 #elif defined(ENGINE_M71)
- "Engine OS 0.7.1",
+ "" ENGINE_PRODUCT_NAME " 0.7.1",
 #else
- "Engine OS 0.7",
+ "" ENGINE_PRODUCT_NAME " 0.7",
 #endif
 1,0x95b1bd);
 #endif
@@ -684,6 +703,9 @@ static void action(uint64_t token,unsigned command) {
     if(!token){if(!command){launcher^=1;whole();return;}launch(command,0);whole();return;}
     desktop_window *w=desktop_lookup(&model,token);if(!w)return;
     unsigned slot=(unsigned)(w-model.windows);application *app=&apps[slot];
+#ifdef ENGINE_M10
+    if(devices_action10(w,app,token,command))return;
+#endif
 #ifdef ENGINE_M74
     if(action74(w,app,token,command))return;
 #endif
@@ -921,6 +943,9 @@ if(r.height<minimum)r.height=minimum;}else{r.x+=dx;r.y+=dy;}
 }
 
 static void keyboard(int key) {
+#ifdef ENGINE_M10
+    if(key==138){int wheel=input10_take_wheel();if(model.focused<DESKTOP_WINDOWS&&model.windows[model.focused].live&&model.windows[model.focused].app==FILES){application*a=&apps[model.focused];unsigned total=0;if(a->usb_mode10==2){if(usb_listing10(a,0,1,&total))total=0;}else if(!a->usb_mode10)total=children72(a);int position=(int)a->offset-wheel*3;if(position<0)position=0;if(total&&(unsigned)position>=total)position=(int)total-1;a->offset=(unsigned)position;invalidate(model.windows[model.focused].bounds);}return;}
+#endif
     if(key==137){launcher^=1;control_active=0;whole();return;}
     if(key==135){if(model.count){desktop_focus(&model,desktop_token(&model,model.order[0]));control_active=0;whole();}return;}
     if(key==9||key==136){
@@ -1029,6 +1054,9 @@ NORETURN void desktop_start(const os_boot_info_v0 *boot,const m6_preferences *pr
 #ifdef ENGINE_M74
     (void)pages_window_peak(1);
 #endif
+#ifdef ENGINE_M10
+    unsigned keyboard10[2],keyboard_bytes10=0;if(!v6_verify(m6_volume(),"/System/Settings/keyboard10.bin")&&!v6_read(m6_volume(),"/System/Settings/keyboard10.bin",0,keyboard10,sizeof(keyboard10),&keyboard_bytes10)&&keyboard_bytes10==sizeof(keyboard10)&&keyboard10[0]==0x30314c4b&&keyboard10[1]<2)input10_set_layout(keyboard10[1]);hw10_refresh();
+#endif
     desktop_init(&model,display->framebuffer_width,display->framebuffer_height);
     usb_mouse_state(&pointer_x,&pointer_y,&previous_buttons);
     launch(FILES,0);render();resource_log();serial_text("M7_DESKTOP_READY build=" BUILD_ID "\n");
@@ -1041,7 +1069,11 @@ NORETURN void desktop_start(const os_boot_info_v0 *boot,const m6_preferences *pr
 #endif
     for(;;){
         __asm__ volatile("cli");
-        if(usb_work_pending()){usb_process_changes();continue;}
+        if(usb_work_pending()){usb_process_changes();
+#ifdef ENGINE_M10
+            hw10_refresh();for(unsigned i=0;i<DESKTOP_WINDOWS;++i)if(model.windows[i].live&&(model.windows[i].app==FILES||model.windows[i].app==SETTINGS))invalidate(model.windows[i].bounds);__asm__ volatile("sti":::"memory");render();
+#endif
+            continue;}
 #ifdef ENGINE_M74
         int key=carried_key74>=0?carried_key74:input_pop();carried_key74=-1;
 #else

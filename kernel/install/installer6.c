@@ -17,7 +17,7 @@ static uint32_t r32(const void*p){uint32_t v;memcpy(&v,p,4);return v;}
 static uint64_t r64(const void*p){uint64_t v;memcpy(&v,p,8);return v;}
 static void w32(void*p,uint32_t v){memcpy(p,&v,4);}
 static void w64(void*p,uint64_t v){memcpy(p,&v,8);}
-static unsigned io(unsigned disk,uint64_t lba,void*p,unsigned bytes,unsigned write){const storage_disk*d=storage_get(disk);return !d||!storage_writable(d)||d->sector_bytes!=512?B_DENIED:storage_device_io(disk,lba,p,bytes,write);}
+static unsigned io(unsigned disk,uint64_t lba,void*p,unsigned bytes,unsigned write){const storage_disk*d=storage_get(disk);return !d||!m6_target_writable(d)||d->sector_bytes!=512?B_DENIED:storage_device_io(disk,lba,p,bytes,write);}
 static unsigned flush(unsigned disk){const storage_disk*d=storage_get(disk);return d?storage_device_flush(disk):B_DENIED;}
 static unsigned verified(unsigned disk,uint64_t lba,void*p,unsigned bytes){if(io(disk,lba,p,bytes,1)||io(disk,lba,check,bytes,0)||memcmp(p,check,bytes))return B_IO;return B_OK;}
 static unsigned read_volume(void*ctx,uint64_t block,void*p,unsigned bytes){(void)ctx;if(block>=volume.blocks||bytes!=4096)return B_DENIED;return io(selected,layout.data.first+block*8,p,bytes,0);}
@@ -27,7 +27,7 @@ static void configure_volume(void){memset(&volume,0,sizeof(volume));volume.block
 static unsigned activation(unsigned);
 static unsigned blank(unsigned disk){const storage_disk*d=storage_get(disk);for(unsigned i=0;i<97;++i){uint64_t lba=i<64?i:d->sectors-(i-63);if(io(disk,lba,page,512,0))return B_IO;for(unsigned j=0;j<512;++j)if(page[j])return B_DENIED;}return B_OK;}
 unsigned m6_live(void){return m6_bundle_size!=0;}
-unsigned m6_prepare(unsigned disk){m6_cancel();const storage_disk*d=storage_get(disk);if(!m6_live()||!d||!d->readable||!storage_writable(d)||engine_install_plan(d->sectors,d->sector_bytes,&layout))return B_DENIED;unsigned s=blank(disk);restarting=0;if(s==B_DENIED){if(io(disk,40,record,512,0)||memcmp(record,"ENGINEI6",8)||r64(record+8)!=d->sectors||r32(record+72)!=1||r32(record+508)!=m4_crc(record,508))return B_DENIED;if(activation(disk)!=B_DENIED)return B_DENIED;restarting=1;}else if(s)return s;target=*d;selected=disk;if(io(disk,0,identity,512,0)){m6_cancel();return B_IO;}return B_OK;}
+unsigned m6_prepare(unsigned disk){m6_cancel();const storage_disk*d=storage_get(disk);if(!m6_live()||!d||!d->readable||!m6_target_writable(d)||engine_install_plan(d->sectors,d->sector_bytes,&layout))return B_DENIED;unsigned s=blank(disk);restarting=0;if(s==B_DENIED){if(io(disk,40,record,512,0)||memcmp(record,"ENGINEI6",8)||r64(record+8)!=d->sectors||r32(record+72)!=1||r32(record+508)!=m4_crc(record,508))return B_DENIED;if(activation(disk)!=B_DENIED)return B_DENIED;restarting=1;}else if(s)return s;target=*d;selected=disk;if(io(disk,0,identity,512,0)){m6_cancel();return B_IO;}return B_OK;}
 void m6_cancel(void){if(!persistent)selected=UINT32_MAX;
 #ifdef ENGINE_M71
  replace_disk=0;
@@ -39,7 +39,7 @@ static unsigned utility_write(void*c,uint64_t l,void*p,unsigned n){return io((un
 static unsigned utility_flush(void*c){return flush((unsigned)(uintptr_t)c);}
 static d71_device utility(unsigned disk){const storage_disk*d=storage_get(disk);return (d71_device){(void*)(uintptr_t)disk,utility_read,utility_write,utility_flush,d?d->sectors:0,d?d->sector_bytes:0};}
 v6_volume*m71_workspace(void){return !persistent?&volume:0;}
-unsigned m71_prepare_replace(unsigned disk){m6_cancel();const storage_disk*d=storage_get(disk);if(!m6_live()||!d||!d->readable||!storage_writable(d)||engine_install_plan(d->sectors,d->sector_bytes,&layout))return B_DENIED;
+unsigned m71_prepare_replace(unsigned disk){m6_cancel();const storage_disk*d=storage_get(disk);if(!m6_live()||!d||!d->readable||!m6_target_writable(d)||engine_install_plan(d->sectors,d->sector_bytes,&layout))return B_DENIED;
  d71_device dev=utility(disk);if(d71_scan(&dev,&replacement)||d71_prepare(&dev,&replacement,D71_ERASE,0,0,0,0,&erase_plan))return B_IO;
  target=*d;selected=disk;restarting=0;if(io(disk,0,identity,512,0))return B_IO;replace_disk=1;return B_OK;
 }
@@ -85,9 +85,9 @@ unsigned m6_install(const m6_preferences*p){const storage_disk*d=storage_get(sel
  for(unsigned i=0;i<5;++i){const char*names[]={"Desktop","Documents","Downloads","Pictures","AppData"};char sub[256];memcpy(sub,user,7+userlen);sub[7+userlen]='/';unsigned k=0;do{sub[8+userlen+k]=names[i][k];}while(names[i][k++]);if(directory(sub))return B_IO;}
  if(p->guide){char guidepath[256];memcpy(guidepath,user,7+userlen);const char*tail="/Documents/Welcome.txt";unsigned j=0;do{guidepath[7+userlen+j]=tail[j];}while(tail[j++]);const char*guide=
 #ifdef ENGINE_M7
- "Welcome to Engine OS. Open Files, Text Editor, Settings and Downloads from your desktop. Your documents persist on disk.\n";
+ "Welcome to " ENGINE_PRODUCT_NAME ". Open Files, Text Editor, Settings and Downloads from your desktop. Your documents persist on disk.\n";
 #else
- "Welcome to Engine OS. Your documents persist on disk. The full desktop follows in M7. Remove this guide independently of the base system.\n";
+ "Welcome to " ENGINE_PRODUCT_NAME ". Your documents persist on disk. The full desktop follows in M7. Remove this guide independently of the base system.\n";
 #endif
 unsigned size=0;while(guide[size])++size;if(v6_put(&volume,guidepath,size,source_memory,(void*)guide))return B_IO;}
  for(unsigned file=0;file<m6_file_count;++file){const m6_distribution_file*f=m6_files+file;if(!p->guide&&equals(f->path,"/Users/test/Documents/Welcome.txt"))continue;char path[256];unsigned n=0,off=0;if(!memcmp(f->path,"/Users/test/",12)){memcpy(path,"/Users/",7);n=7;for(unsigned j=0;j<userlen;++j)path[n++]=p->user[j];path[n++]='/';off=12;}for(;f->path[off]&&n<255;++off)path[n++]=f->path[off];if(f->path[off])return B_DENIED;path[n]=0;for(unsigned j=1;j<n;++j)if(path[j]=='/'){path[j]=0;unsigned status=directory(path);path[j]='/';if(status)return B_IO;}if(v6_put(&volume,path,f->size,source_memory,(void*)f->data))return B_IO;}
@@ -110,7 +110,7 @@ unsigned m6_open(void){
  if(m6_live())return B_ABSENT;
 #endif
  unsigned found=UINT32_MAX,matches=0;
- for(unsigned i=0;i<storage_count();++i){const storage_disk*d=storage_get(i);engine_install_layout plan;if(!d||engine_install_plan(d->sectors,d->sector_bytes,&plan)||!storage_writable(d))continue;
+ for(unsigned i=0;i<storage_count();++i){const storage_disk*d=storage_get(i);engine_install_layout plan;if(!d||engine_install_plan(d->sectors,d->sector_bytes,&plan)||!m6_target_writable(d))continue;
  if(!activation(i)){found=i;++matches;}}
  if(matches!=1)return B_DENIED;selected=found;target=*storage_get(found);if(activation(found))return B_IO;if(memcmp(record+24,BUILD_ID,32)){serial_text("M6_BOOT_VERSION_MISMATCH\n");return B_IO;}if(engine_install_plan(target.sectors,target.sector_bytes,&layout))return B_DENIED;if(valid_layout())return B_IO;configure_volume();unsigned s=v6_mount(&volume);if(s)return s;persistent=1;serial_text("M6_INSTALLED_VOLUME\n");return B_OK;
 }
@@ -151,7 +151,7 @@ static unsigned replay_slot(unsigned slot){unsigned bytes,sum;if(slot_header(slo
  offset+=zero?4:4100;if(i%16==0)m6_progress(10+i*70/count,"Restoring verified boot files");}return flush(selected);
 }
 unsigned m6_maintenance_prepare(unsigned disk,unsigned mode){
- if(!m6_live()||mode<1||mode>3)return B_DENIED;const storage_disk*d=storage_get(disk);if(!d||!storage_writable(d)||engine_install_plan(d->sectors,d->sector_bytes,&layout)||activation(disk))return B_DENIED;
+ if(!m6_live()||mode<1||mode>3)return B_DENIED;const storage_disk*d=storage_get(disk);if(!d||!m6_target_writable(d)||engine_install_plan(d->sectors,d->sector_bytes,&layout)||activation(disk))return B_DENIED;
  target=*d;selected=disk;active_slot=r32(record+76);maintenance_mode=mode;if(io(disk,0,identity,512,0))return B_IO;unsigned bytes,sum;return slot_header(mode==3?(active_slot^1):active_slot,&bytes,&sum);
 }
 unsigned m6_maintenance(void){const storage_disk*d=storage_get(selected);if(!d||memcmp(d,&target,sizeof(*d))||io(selected,0,page,512,0)||memcmp(page,identity,512))return B_DENIED;
@@ -165,7 +165,7 @@ unsigned recovery74_prepare(unsigned mode){
     /* Never retarget selected: it is the live volume's backing-device context. */
     if(!persistent||!volume.mounted||(mode!=1&&mode!=3))return B_DENIED;
     const storage_disk *d=storage_get(selected);
-    if(!d||!storage_writable(d)||activation(selected))return B_DENIED;
+    if(!d||!m6_target_writable(d)||activation(selected))return B_DENIED;
     target=*d;active_slot=r32(record+76);maintenance_mode=mode;
     unsigned bytes,sum;
     if(io(selected,0,identity,512,0))return B_IO;

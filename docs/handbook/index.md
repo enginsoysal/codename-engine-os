@@ -1,4 +1,6 @@
-# Engine OS user handbook
+# Engacer OS user handbook
+
+M10 hardware development: [Devices and USB file transfer](hardware-m10.md). Use the qualified current release below until M10 acceptance is published. Historical releases retain the Engine OS name.
 
 Start with **Engine OS 0.9.2**. Extract the complete prepared VMware ZIP, open EngineOS.vmx and choose I Copied It if asked. Start, select the disk row in the bordered list, follow Next, review and install, then choose **Restart to Engine OS**. The matching ISO may stay connected. No terminal command, network connection or guest driver installer is needed.
 
@@ -16,7 +18,7 @@ The installer now uses actual write/flush capability. The VMware controller matr
 
 The prepared VM has a new empty growable 20-GiB SATA disk, two CPUs, 128 MiB RAM, NAT networking, HDA audio and Secure Boot off. Use this fresh starter for this storage release; cross-version package-cache migration is not qualified. UEFI startup adds a dedicated boot entry and requires writable firmware variables. Existing-disk replacement requires separate final erasure consent. For a separate disk-only test disconnect only CD/DVD and keep the SATA hard disk connected. The new tests retain the same VMware configuration/NVRAM and use ordinary disk discovery, without forced boot priority.
 
-[Online documentation and downloads](https://engineos.brixcanvas.com) update from canonical GitHub Markdown and official release assets. [Website maintenance](../../website/README.md).
+[Online documentation and downloads](https://engacer.brixcanvas.com) update from canonical GitHub Markdown and official release assets. [Website maintenance](../../website/README.md).
 
 ## Historical and advanced references
 

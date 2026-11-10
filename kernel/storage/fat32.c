@@ -1,10 +1,21 @@
 #include <engine/storage.h>
+#ifdef ENGINE_M10
+#include <engine/hardware10.h>
+#include <engine/install/m6.h>
+static unsigned emit10(const char*,unsigned,unsigned);
+#endif
 typedef struct {unsigned disk,bytes,spc,fats,fat_index,mirrored;uint64_t start,count,fat_start,data_start,fat_sectors,clusters;unsigned root;} volume;
 static uint8_t sector[4096],fat_sector[4096];
 static uint16_t r16(const void *p){uint16_t x;memcpy(&x,p,2);return x;}
 static uint32_t r32(const void *p){uint32_t x;memcpy(&x,p,4);return x;}
 static unsigned mount(unsigned disk,unsigned part,volume *v){
-    const storage_disk *d=storage_get(disk);if(!d||!d->readable)return B_DENIED;uint64_t start,count;unsigned s=storage_partition(disk,part,&start,&count);if(s)return s;if(storage_read(disk,start,sector))return B_IO;
+    const storage_disk *d=storage_get(disk);if(!d||!d->readable)return B_DENIED;uint64_t start=0,count=d->sectors;unsigned s=0;
+#ifdef ENGINE_M10
+ if(part!=UINT32_MAX){s=storage_partition(disk,part,&start,&count);}
+#else
+ s=storage_partition(disk,part,&start,&count);
+#endif
+ if(s)return s;if(storage_read(disk,start,sector))return B_IO;
     unsigned bytes=r16(sector+11),spc=sector[13],reserved=r16(sector+14),fats=sector[16],fat_size=r32(sector+36),total=r32(sector+32),flags=r16(sector+40),root=r32(sector+44);
     if(sector[510]!=0x55||sector[511]!=0xaa||bytes!=d->sector_bytes||!spc||(spc&(spc-1))||spc>128||!reserved||(fats!=1&&fats!=2)||r16(sector+17)||r16(sector+19)||r16(sector+22)||r16(sector+42)||!fat_size||!total||total>count||(flags&0xff70))return B_UNSUPPORTED;
     uint64_t metadata=(uint64_t)reserved+(uint64_t)fats*fat_size;if(metadata>=total)return B_DENIED;uint64_t clusters=(total-metadata)/spc;if(clusters<65525||clusters>=0x0ffffff5||((uint64_t)fat_size*bytes)/4<clusters+2||root<2||root>=clusters+2)return B_DENIED;
@@ -32,7 +43,11 @@ static unsigned directory(volume *v,unsigned cluster,const char *wanted,uint32_t
                     static const uint8_t offsets[13]={1,3,5,7,9,14,16,18,20,22,24,28,30};for(unsigned i=0;i<13;++i)units[(number-1)*13+i]=r16(entry+offsets[i]);--expected;continue;}
                 if(attr&8){expected=have_lfn=0;continue;}char name[256];if(have_lfn){if(expected||checksum(entry)!=lfn_sum)return B_DENIED;unsigned s=long_name(units,name);if(s)return s;}
                 else{unsigned n=0;for(unsigned i=0;i<8&&entry[i]!=' ';++i){if(entry[i]>=128)return B_UNSUPPORTED;name[n++]=(char)entry[i];}if(entry[8]!=' '){name[n++]='.';for(unsigned i=8;i<11&&entry[i]!=' ';++i){if(entry[i]>=128)return B_UNSUPPORTED;name[n++]=(char)entry[i];}}name[n]=0;}
-                expected=have_lfn=0;if(wanted&&equal(name,wanted)){*file_cluster=((uint32_t)r16(entry+20)<<16)|r16(entry+26);*file_size=r32(entry+28);*attribute=attr;return B_OK;}if(!wanted){console_text(name);console_text(attr&16?"/\n":"\n");}
+                expected=have_lfn=0;if(wanted&&equal(name,wanted)){*file_cluster=((uint32_t)r16(entry+20)<<16)|r16(entry+26);*file_size=r32(entry+28);*attribute=attr;return B_OK;}if(!wanted){
+#ifdef ENGINE_M10
+ if(!emit10(name,attr&16?2:1,r32(entry+28)))
+#endif
+ {console_text(name);console_text(attr&16?"/\n":"\n");}}
             }
         }
         unsigned s=next_cluster(v,cluster,&cluster);if(s)return s;if(slow&&(s=next_cluster(v,slow,&slow)))return s;if(fast&&(s=next_cluster(v,fast,&fast)))return s;if(fast&&(s=next_cluster(v,fast,&fast)))return s;if(slow&&fast&&slow==fast)return B_DENIED;
@@ -47,3 +62,7 @@ unsigned fat_read(unsigned disk,unsigned part,const char *path,void *buffer,unsi
         if((s=next_cluster(&v,cluster,&cluster)))return s;if(copied<file_size){if(slow&&(s=next_cluster(&v,slow,&slow)))return s;if(fast&&(s=next_cluster(&v,fast,&fast)))return s;if(fast&&(s=next_cluster(&v,fast,&fast)))return s;if(slow&&fast&&slow==fast)return B_DENIED;}
     }return cluster?B_DENIED:B_OK;
 }
+
+#ifdef ENGINE_M10
+#include "fat32-write10.inc"
+#endif

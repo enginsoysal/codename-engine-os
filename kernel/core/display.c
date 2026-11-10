@@ -100,7 +100,7 @@ void display_boot(const os_boot_info_v0 *boot) {
     screen=boot;if(!boot->framebuffer.byte_length)return;
 #ifdef ENGINE_M73
     const os_boot_info_v0*v=ui73_begin(boot);rect73(0,0,v->framebuffer_width,v->framebuffer_height,0x101f2c);
-    unsigned x=v->framebuffer_width/2-120,y=v->framebuffer_height/2-40;text73(x,y,"Engine OS",4,0xf2f8fa);text73(x,y+56,"Preparing your workspace...",1,0xa7bbc7);return;
+    unsigned x=v->framebuffer_width/2-120,y=v->framebuffer_height/2-40;text73(x,y,"" ENGINE_PRODUCT_NAME "",4,0xf2f8fa);text73(x,y+56,"Preparing your workspace...",1,0xa7bbc7);return;
 #endif
     uint32_t accent=color(0x39d5bb),background=color(0x101d2b);
     for(unsigned y=0;y<boot->framebuffer_height;++y) {
@@ -133,7 +133,7 @@ void display_boot(const os_boot_info_v0 *boot) {
 }
 void kernel_panic_screen(void) {
 #ifdef ENGINE_M73
- if(active73){gui7_clip_reset();rect73(0,0,view73.framebuffer_width,view73.framebuffer_height,0x102a3a);text73(60,100,"Engine OS needs to stop.",4,0xffffff);ui73_paragraph(60,170,view73.framebuffer_width-120,3,"Restart with the ISO connected for recovery. Technical details are available in the serial log.",0xb7cbd8);
+ if(active73){gui7_clip_reset();rect73(0,0,view73.framebuffer_width,view73.framebuffer_height,0x102a3a);text73(60,100,"" ENGINE_PRODUCT_NAME " needs to stop.",4,0xffffff);ui73_paragraph(60,170,view73.framebuffer_width-120,3,"Restart with the ISO connected for recovery. Technical details are available in the serial log.",0xb7cbd8);
 #ifdef ENGINE_M9
  graphics9_flush();
 #endif
@@ -185,7 +185,7 @@ void display_m2_result(unsigned failures,uint64_t peak,uint64_t retained,unsigne
 #ifdef ENGINE_M4
 void display_console_setup(void){
 #ifdef ENGINE_M73
- extern unsigned verbose73;if(verbose73){rect73(0,0,view73.framebuffer_width,view73.framebuffer_height,0x101d2b);text73(16,26,"Engine OS - Advanced terminal",3,0xffffff);}return;
+ extern unsigned verbose73;if(verbose73){rect73(0,0,view73.framebuffer_width,view73.framebuffer_height,0x101d2b);text73(16,26,"" ENGINE_PRODUCT_NAME " - Advanced terminal",3,0xffffff);}return;
 #endif
     if(!screen||!screen->framebuffer.byte_length)return;
     uint32_t bg=color(0x101d2b),accent=color(

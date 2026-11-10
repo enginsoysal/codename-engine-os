@@ -20,6 +20,10 @@ static unsigned vm9_input(void){
   unsigned status=vm9_call(40,0).a,words=status&65535;
   if((status&0xffff0000)==0xffff0000||(words&3)){absolute9=0;vm9_call(41,0xf5);serial_text("M9_VMWARE_POINTER_FALLBACK\n");return 0;}
   if(!words)return 1;vm9_result packet=vm9_call(39,4);
+
+#ifdef ENGINE_M10
+  if((int8_t)packet.d)input10_wheel(-(int8_t)packet.d);
+#endif
   unsigned buttons=((packet.a&0x20)?1:0)|((packet.a&0x10)?2:0)|((packet.a&8)?4:0);
   if(packet.a&0x10000)m6_pointer_report((int32_t)packet.b,-(int32_t)packet.c,buttons);
   else if(packet.b<=65535&&packet.c<=65535){extern void m9_pointer_absolute(unsigned,unsigned,unsigned);m9_pointer_absolute(packet.b,packet.c,buttons);}

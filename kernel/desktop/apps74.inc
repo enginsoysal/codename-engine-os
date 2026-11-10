@@ -93,7 +93,7 @@ static void init74(unsigned kind,application *app){
     if(kind==SOFTWARE74)desktop_place(&model,token,(desktop_rect){((int)model.width-820)/2,50,820,620});
     if(kind==CALCULATOR)desktop_place(&model,token,(desktop_rect){((int)model.width-700)/2,30,700,650});
     if(kind==HELP74){
-        static const char guide[]="Welcome to Engine OS\n\n"
+        static const char guide[]="Welcome to " ENGINE_PRODUCT_NAME "\n\n"
             "Start opens your installed applications. Click a window title to bring it forward; drag its title to move it. "
             "The upper-right cross closes a window. Unsaved notes ask before closing.\n\n"
             "Files: Home contains your documents, downloads and pictures. Use the sidebar, Back, Forward and Up to browse. "
@@ -245,7 +245,7 @@ static unsigned action74(desktop_window *w,application *app,uint64_t token,unsig
     if(command>=PACKAGE_OPEN74&&command<PACKAGE_OPEN74+APP74_KINDS){launch(command-PACKAGE_OPEN74,0);whole();return 1;}
     if((w->app==SOFTWARE74||w->app==SETTINGS)&&command>=PACKAGE_CHANGE74&&command<PACKAGE_CHANGE74+APP74_KINDS){
         unsigned kind=command-PACKAGE_CHANGE74;
-        if(app74_required(kind)){notice(app,"This component is required by Engine OS and cannot be removed.");}
+        if(app74_required(kind)){notice(app,"This component is required by " ENGINE_PRODUCT_NAME " and cannot be removed.");}
         else if(app7_available(kind)){app->operand=kind;app->closing=5;notice(app,"");}
         else{unsigned status=app7_package(kind,1);preferences.calculator=app7_available(CALCULATOR);
             notice(app,status?"Installation failed. The existing system was kept.":"Installed from the verified offline package cache.");}

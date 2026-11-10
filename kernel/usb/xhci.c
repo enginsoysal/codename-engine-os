@@ -1,7 +1,15 @@
 #include <engine/storage.h>
+#ifdef ENGINE_M10
+#include <engine/hardware10.h>
+#include <engine/hid10.h>
+#endif
 typedef struct {volatile uint64_t parameter;volatile uint32_t status,control;} trb;
 typedef struct {trb *base;unsigned index,cycle;} ring;
-typedef struct {unsigned slot,port,kind,endpoint,packet,interval,parent,hub_port,route,depth,speed,hub_ports,rejected_children,tt_slot,tt_port,protocol;uint64_t input,output,buffer;ring control,interrupt,bulk_out,uas_status;uint64_t data,sectors;unsigned out_endpoint,bytes,tag,dead,storage_index,generation,uas,status_endpoint,uas_command_complete,uas_abort_data_stopped;uint64_t reads,wait_halts;uint8_t last[8];} device;
+typedef struct {unsigned slot,port,kind,endpoint,packet,interval,parent,hub_port,route,depth,speed,hub_ports,rejected_children,tt_slot,tt_port,protocol;uint64_t input,output,buffer;ring control,interrupt,bulk_out,uas_status;uint64_t data,sectors;unsigned out_endpoint,bytes,tag,dead,storage_index,generation,uas,status_endpoint,uas_command_complete,uas_abort_data_stopped;uint64_t reads,wait_halts;uint8_t last[8];
+#ifdef ENGINE_M10
+unsigned wheel10;
+#endif
+} device;
 #define USB_MAX_DEVICES 8
 static device devices[USB_MAX_DEVICES];static unsigned device_count,active,context_size,event_index,event_cycle=1,mouse_dirty,mouse_buttons;static int mouse_x=600,mouse_y=80;
 static int mouse_limit_x=1200,mouse_limit_y=650;
@@ -30,6 +38,9 @@ static uint64_t push(ring *r,uint64_t parameter,uint32_t status,uint32_t control
     trb *t=&r->base[r->index++];t->parameter=parameter;t->status=status;__asm__ volatile("mfence":::"memory");t->control=control|r->cycle;return (uint64_t)(uintptr_t)t;
 }
 static char key(unsigned code,unsigned shifted){
+#ifdef ENGINE_M10
+ if(code>=4&&code<=56)return (char)input10_hid(code,shifted);
+#endif
     if(code>=4&&code<=29)return (char)((shifted?'A':'a')+code-4);
     if(code>=30&&code<=39)return (shifted?"!@#$%^&*()":"1234567890")[code-30];
 #ifdef ENGINE_M7
@@ -57,14 +68,25 @@ void m9_pointer_absolute(unsigned x,unsigned y,unsigned buttons){
 #endif
 static void input_complete(device *d,unsigned bytes){
     uint8_t *data=(uint8_t*)(uintptr_t)(d->buffer+512);if(d->kind==9){for(unsigned i=0;i<bytes;++i)if(data[i]){__atomic_fetch_or(&pending_hubs,1u<<(unsigned)(d-devices),__ATOMIC_RELEASE);break;}return;}
-    if(d->kind==1&&bytes>=8){for(unsigned i=2;i<8;++i)if(data[i]>3){unsigned old=0;for(unsigned j=2;j<8;++j)old|=d->last[j]==data[i];if(!old){char c=key(data[i],data[0]&0x22);
+    if(d->kind==1&&bytes>=8){for(unsigned i=2;i<8;++i)if(data[i]>3){unsigned old=0;for(unsigned j=2;j<8;++j)old|=d->last[j]==data[i];if(!old){
+#ifdef ENGINE_M10
+if(data[i]==57){input10_toggle_caps();continue;}
+#endif
+char c=key(data[i],data[0]&0x22);
 #ifdef ENGINE_M7
+#ifdef ENGINE_M10
+if(data[0]&0x11){if(c>='a'&&c<='z')c=(char)(c-'a'+1);else if(c>='A'&&c<='Z')c=(char)(c-'A'+1);}
+#else
 if((data[0]&0x11)&&data[i]>=4&&data[i]<=29)c=(char)(data[i]-3);
+#endif
 if(data[i]==43)c=(char)((data[0]&0x44)?135:(data[0]&0x22)?136:9);
 if(data[i]==67)c=(char)137;
 #endif
 if(c){input_feed((uint8_t)c);++key_events;}}}memcpy(d->last,data,8);}
     if(d->kind==2&&bytes>=3){
+#ifdef ENGINE_M10
+        if(d->wheel10&&bytes>=4&&(int8_t)data[3])input10_wheel((int8_t)data[3]);
+#endif
 #ifdef ENGINE_M6
         m6_pointer_report((int8_t)data[1],(int8_t)data[2],data[0]&7);
 #else
@@ -111,7 +133,13 @@ static unsigned enumerate_path(unsigned port_number,unsigned index,unsigned pare
     if(actual!=packet){input[1]=2;ep[1]=(actual<<16)|(4u<<3)|(3u<<1);if(!command(d->input,(13u<<10)|(d->slot<<24)))return 0;}
     if(!control(d,128,6,0x200,0,9))return 0;unsigned total=(unsigned)data[2]|((unsigned)data[3]<<8),configuration=data[5];if(total<9||total>256||!control(d,128,6,0x200,0,total))return 0;
     unsigned interface=0,alternate=0,kind=0,endpoint=0,maxpacket=0,interval=0,out_endpoint=0,out_packet=0,uas_address[5]={0},uas_packet[5]={0},uas_stream[5]={0},last_address=0,last_packet=0,last_streams=0;
+#ifdef ENGINE_M10
+ unsigned report_length10=0;
+#endif
     for(unsigned off=0;off+2<=total;){unsigned len=data[off],type=data[off+1];if(len<2||len>total-off)return 0;if(type==4&&len>=9){interface=data[off+2];alternate=data[off+3];kind=data[off+5]==3&&data[off+6]==1?data[off+7]:data[off+5]==8&&data[off+6]==6&&data[off+7]==80?3:data[off+5]==8&&data[off+6]==6&&data[off+7]==98?4:data[off+5]==9?9:0;}
+#ifdef ENGINE_M10
+        if(kind==2&&type==0x21&&len>=9&&data[off+6]==0x22)report_length10=(unsigned)data[off+7]|((unsigned)data[off+8]<<8);
+#endif
         if(kind==4&&type==5&&len>=7){if((data[off+3]&3)!=2)return 0;last_address=data[off+2];last_packet=(unsigned)data[off+4]|((unsigned)data[off+5]<<8);last_streams=0;}
         if(kind==4&&type==0x30&&len>=6){last_streams=data[off+3]&31;for(unsigned i=1;i<=4;++i)if(uas_address[i]==last_address)uas_stream[i]=last_streams;}
         if(kind==4&&type==0x24&&len>=4){unsigned pipe=data[off+2];if(!pipe||pipe>4||uas_address[pipe]||!last_address||!last_packet)return 0;uas_address[pipe]=last_address;uas_packet[pipe]=last_packet;uas_stream[pipe]=last_streams;}
@@ -121,6 +149,9 @@ static unsigned enumerate_path(unsigned port_number,unsigned index,unsigned pare
     if(kind==3){if(!endpoint||!out_endpoint||!maxpacket||!out_packet||maxpacket>1024||out_packet>1024||!speed||speed==2||speed>4||(speed==1&&(maxpacket>64||out_packet>64))||(speed==3&&(maxpacket>512||out_packet>512)))return 0;d->kind=3;if(!control(d,0,9,configuration,0,0)||!mass_configure(d,endpoint,out_endpoint,maxpacket,out_packet))return 0;if(index>=device_count)device_count=index+1;return 1;}
     if((kind!=1&&kind!=2&&kind!=9)||!endpoint||!maxpacket||maxpacket>64||!interval||(speed>=3&&interval>16))return 0;d->kind=kind;d->endpoint=endpoint*2+1;d->packet=maxpacket;d->interval=interval;
     if(!control(d,0,9,configuration,0,0)||((kind==1||kind==2)&&!control(d,0x21,11,0,interface,0)))return 0;
+#ifdef ENGINE_M10
+    if(kind==2&&maxpacket>=4&&report_length10&&report_length10<=256&&control(d,0x81,6,0x2200,interface,report_length10)&&hid10_boot_wheel((void*)(uintptr_t)d->buffer,report_length10)&&control(d,0x21,11,1,interface,0)){d->wheel10=1;serial_text("M10_USB_WHEEL_DESCRIPTOR_VERIFIED\n");}
+#endif
     /* SET_IDLE is optional for boot mice; interrupt completion still reports changes. */
     if(d->kind==1&&!control(d,0x21,10,0,interface,0))return 0;
     memset((void*)(uintptr_t)d->input,0,4096);input=context(d->input,0);slot=context(d->input,1);memcpy(slot,(void*)(uintptr_t)d->output,context_size);slot[0]=(slot[0]&~(31u<<27))|(d->endpoint<<27);input[1]=1|(1u<<d->endpoint);
@@ -186,12 +217,23 @@ static unsigned bulk(device *d,unsigned input,uint64_t address,unsigned length){
 static void be32(uint8_t *p,uint32_t v){for(unsigned i=0;i<4;++i)p[i]=(uint8_t)(v>>(24-i*8));}
 static void be64(uint8_t *p,uint64_t v){for(unsigned i=0;i<8;++i)p[i]=(uint8_t)(v>>(56-i*8));}
 static uint32_t from_be32(const uint8_t *p){return ((uint32_t)p[0]<<24)|((uint32_t)p[1]<<16)|((uint32_t)p[2]<<8)|p[3];}
-static unsigned scsi(device *d,const uint8_t *cdb,unsigned cdb_bytes,unsigned length){
-    if(d->dead||!cdb_bytes||cdb_bytes>16||length>4096)return B_DENIED;if(d->uas)return uas_scsi(d,cdb,cdb_bytes,length);uint8_t *cbw=(void*)(uintptr_t)(d->buffer+512),*csw=(void*)(uintptr_t)(d->buffer+576);memset(cbw,0,31);memset(csw,0,13);uint32_t signature=0x43425355,tag=++d->tag;memcpy(cbw,&signature,4);memcpy(cbw+4,&tag,4);memcpy(cbw+8,&length,4);cbw[12]=length?128:0;cbw[14]=(uint8_t)cdb_bytes;memcpy(cbw+15,cdb,cdb_bytes);
-    unsigned status=bulk(d,0,d->buffer+512,31);if(!status&&length)status=bulk(d,1,d->data,length);if(!status)status=bulk(d,1,d->buffer+576,13);
+static unsigned scsi_direction(device *d,const uint8_t *cdb,unsigned cdb_bytes,unsigned length,unsigned writing){
+    if(d->dead||!cdb_bytes||cdb_bytes>16||length>4096)return B_DENIED;if(d->uas)return writing?B_UNSUPPORTED:uas_scsi(d,cdb,cdb_bytes,length);uint8_t *cbw=(void*)(uintptr_t)(d->buffer+512),*csw=(void*)(uintptr_t)(d->buffer+576);memset(cbw,0,31);memset(csw,0,13);uint32_t signature=0x43425355,tag=++d->tag;memcpy(cbw,&signature,4);memcpy(cbw+4,&tag,4);memcpy(cbw+8,&length,4);cbw[12]=length&&!writing?128:0;cbw[14]=(uint8_t)cdb_bytes;memcpy(cbw+15,cdb,cdb_bytes);
+    unsigned status=bulk(d,0,d->buffer+512,31);if(!status&&length)status=bulk(d,!writing,d->data,length);if(!status)status=bulk(d,1,d->buffer+576,13);
     uint32_t actual_signature,actual_tag,residue;memcpy(&actual_signature,csw,4);memcpy(&actual_tag,csw+4,4);memcpy(&residue,csw+8,4);if(!status&&csw[12]){serial_text("M45_USB_SCSI_STATUS=");serial_hex(csw[12]);serial_text(" opcode=");serial_hex(cdb[0]);serial_text("\n");}if(!status){if(actual_signature!=0x53425355||actual_tag!=tag||residue>length||csw[12]>2)status=B_IO;else if(csw[12]==1)return B_ABSENT;else if(residue||csw[12])status=B_IO;}
     if(status){d->dead=1;serial_text("M45_USB_BOT_QUARANTINED status=");serial_hex(status);serial_text("\n");}return status;
 }
+static unsigned scsi_retry(device*,const uint8_t*,unsigned,unsigned);
+static unsigned scsi(device*d,const uint8_t*c,unsigned n,unsigned bytes){return scsi_direction(d,c,n,bytes,0);}
+#ifdef ENGINE_M10
+static device *mass_current10(unsigned token){unsigned index=token&255;return index<device_count&&devices[index].generation==(token>>8)&&devices[index].slot&&devices[index].kind==3&&!devices[index].dead?&devices[index]:0;}
+static unsigned mass_io10(unsigned token,uint64_t lba,void*buffer,unsigned bytes,unsigned writing){
+ device*d=mass_current10(token);if(!d)return B_ABSENT;if(!buffer||!bytes||bytes>4096||bytes%d->bytes||lba>=d->sectors||bytes/d->bytes>d->sectors-lba)return B_DENIED;if(d->uas&&writing)return B_UNSUPPORTED;
+ uint8_t cdb[16]={0};unsigned n=10;if(lba<=UINT32_MAX){cdb[0]=writing?0x2a:0x28;be32(cdb+2,(uint32_t)lba);cdb[7]=(uint8_t)((bytes/d->bytes)>>8);cdb[8]=(uint8_t)(bytes/d->bytes);}else{n=16;cdb[0]=writing?0x8a:0x88;be64(cdb+2,lba);be32(cdb+10,bytes/d->bytes);}
+ if(writing)memcpy((void*)(uintptr_t)d->data,buffer,bytes);unsigned status=writing?scsi_direction(d,cdb,n,bytes,1):scsi_retry(d,cdb,n,bytes);if(!status&&!writing)memcpy(buffer,(void*)(uintptr_t)d->data,bytes);return status;
+}
+static unsigned mass_flush10(unsigned token){device*d=mass_current10(token);if(!d)return B_ABSENT;uint8_t cdb[10]={0x35};return scsi_retry(d,cdb,10,0);}
+#endif
 static unsigned scsi_retry(device *d,const uint8_t *cdb,unsigned cdb_bytes,unsigned length){
     for(unsigned attempt=0;attempt<3;++attempt){unsigned status=scsi(d,cdb,cdb_bytes,length);if(status!=B_ABSENT)return status;uint8_t sense[6]={3,0,0,0,18,0};if(scsi(d,sense,6,18))return B_IO;const uint8_t *data=(void*)(uintptr_t)d->data;unsigned response=data[0]&127,key=response==0x70||response==0x71?data[2]&15:response==0x72||response==0x73?data[1]&15:255;serial_text("M45_USB_SCSI_SENSE key=");serial_hex(key);serial_text("\n");if(key!=6)return B_IO;}
     return B_IO;
@@ -204,7 +246,16 @@ static unsigned mass_probe(unsigned index){
     device *d=&devices[index];uint8_t cdb[16]={0x12,0,0,0,36};unsigned status=scsi_retry(d,cdb,6,36);if(status)return status;uint8_t *data=(void*)(uintptr_t)d->data;if((data[0]&31)!=0)return B_UNSUPPORTED;
     memset(cdb,0,16);cdb[0]=0x25;if((status=scsi_retry(d,cdb,10,8)))return status;uint64_t last=from_be32(data);d->bytes=from_be32(data+4);
     if(last==UINT32_MAX){memset(cdb,0,16);cdb[0]=0x9e;cdb[1]=0x10;be32(cdb+10,32);if((status=scsi_retry(d,cdb,16,32)))return status;last=((uint64_t)from_be32(data)<<32)|from_be32(data+4);d->bytes=from_be32(data+8);}
-    if(last==UINT64_MAX||(d->bytes!=512&&d->bytes!=4096))return B_UNSUPPORTED;d->sectors=last+1;d->storage_index=storage_count();storage_disk item={STORAGE_USB,controller_bdf,d->port,d->bytes,1,0,d->sectors,(d->generation<<8)|index,0};status=storage_register(item,mass_read);serial_text("M45_USB_MASS_STORAGE_READY status=");serial_hex(status);serial_text("\n");return status;
+    if(last==UINT64_MAX||(d->bytes!=512&&d->bytes!=4096))return B_UNSUPPORTED;d->sectors=last+1;d->storage_index=storage_count();storage_disk item={STORAGE_USB,controller_bdf,d->port,d->bytes,1,0,d->sectors,(d->generation<<8)|index,0};
+#ifdef ENGINE_M10
+    unsigned writable=0;if(!d->uas&&d->bytes==512){uint8_t mode[6]={0x1a,8,0x3f,0,4,0};if(!scsi_retry(d,mode,6,4)&&!(((uint8_t*)(uintptr_t)d->data)[2]&128)&&!mass_flush10(item.context))writable=1;}
+    status=storage_register_io(item,mass_read,writable?mass_io10:0,writable?mass_flush10:0);
+    if(!status)for(unsigned i=0;i<storage_count();++i){const storage_disk*r=storage_get(i);if(r->transport==STORAGE_USB&&r->bdf==item.bdf&&r->context==item.context){d->storage_index=i;break;}}
+    serial_text(writable?"M10_USB_WRITABLE\n":"M10_USB_READ_ONLY\n");
+#else
+    status=storage_register(item,mass_read);
+#endif
+    serial_text("M45_USB_MASS_STORAGE_READY status=");serial_hex(status);serial_text("\n");return status;
 }
 
 static void release_device(unsigned index){
@@ -339,5 +390,16 @@ void usb_mouse_state(unsigned*x,unsigned*y,unsigned*b){
     extern unsigned ui73_scale(void);unsigned factor=ui73_scale();*x=*x*2/factor;*y=*y*2/factor;
 #endif
     if(flags&512)__asm__ volatile("sti":::"memory");
+}
+#endif
+
+#ifdef ENGINE_M10
+usb10_info usb10_current(void){usb10_info s={.active=active,.bdf=controller_bdf,.status=initialization_status,.pages=dma_pages,.keys=key_events,.motion=mouse_events};for(unsigned i=0;i<device_count;++i){device*d=&devices[i];if(!d->slot||d->dead)continue;s.keyboards+=d->kind==1;s.mice+=d->kind==2;s.disks+=d->kind==3;s.hubs+=d->kind==9;}return s;}
+unsigned usb10_eject(unsigned disk,unsigned token){
+ device*d=mass_current10(token);if(!d||d->storage_index!=disk)return B_ABSENT;
+ const storage_disk*r=storage_get(disk);if(r&&storage_writable(r)&&mass_flush10(token))return B_IO;
+ unsigned index=(unsigned)(d-devices),parent=d->parent,port=d->port,child=d->hub_port;release_tree(index);if(devices[index].slot)return B_IO;
+ if(parent<USB_MAX_DEVICES)devices[parent].rejected_children|=1u<<child;else rejected_ports|=1u<<(port-1);
+ serial_text("M10_USB_SAFE_TO_REMOVE\n");return B_OK;
 }
 #endif

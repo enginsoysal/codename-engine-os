@@ -18,9 +18,12 @@
   inventory/capability model and Settings → Devices, useful desktop input/display,
   writable removable USB storage with graphical transfer/safe removal/reconnect,
   and new exact-artifact VMware media/tests. Maintain honest virtual versus
-  physical qualification and preserve accepted releases. The owner deferred
-  the replacement name: retain the working Engine OS name and current domain
-  until a new name containing Engine is selected. See docs/milestones/m10.md.
+  physical qualification and preserve accepted releases. The owner subsequently
+  selected Engacer OS: use that brand for new M10 UI/media/docs, preserving
+  historical Engine OS artifacts and internal contracts. Verify the intended
+  engacer.brixcanvas.com route before retiring the old address. This naming
+  instruction supersedes the earlier Engine OS naming requirement above.
+  See docs/milestones/m10.md.
 
 - Owner priority, 9 November 2026: complete real IDE/SATA/SCSI installation and independent startup through automatic native controller support. Installer admission must use verified read/write/flush capability rather than a SATA name check. Test each implemented controller/firmware combination with shipped devices enabled. Also support reachable partially off-screen window movement with safe signed clipping. Do not label the broader hardware program universally complete from a virtual controller matrix.
 
