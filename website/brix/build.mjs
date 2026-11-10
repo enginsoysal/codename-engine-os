@@ -4,6 +4,7 @@ import path from 'node:path';
 import {execFileSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {marked} from '../public/vendor/marked.esm.js';
+import {canonicalPublicUrl,articleBranding} from './branding.mjs';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const git=(...args)=>execFileSync('git',args,{cwd:root,encoding:'utf8',maxBuffer:8*1024*1024});
@@ -20,7 +21,7 @@ export function build(output){
  const pathsSet=new Set(paths),slugs=new Set(),posts=[];
  const titleFor=(p,text)=>text.match(/^#\s+(.+)$/m)?.[1]||p.split('/').pop();
  const link=(href,source,image=false)=>{
-   if(/^https?:\/\//i.test(href)||/^mailto:/i.test(href))return href;
+   if(/^https?:\/\//i.test(href)||/^mailto:/i.test(href))return canonicalPublicUrl(href);
    if(href.startsWith('//')||/^[a-z][a-z0-9+.-]*:/i.test(href))return '#';
    const u=new URL(href,`https://source.local/${source}`),p=decodeURIComponent(u.pathname.slice(1));
    if(image)return `https://raw.githubusercontent.com/enginsoysal/engacer-os/${ref}/${p}`;
@@ -28,17 +29,18 @@ export function build(output){
    return pathsSet.has(p)&&!u.hash?`${SITE}/blog/${slugFor(p)}`:`${GH}/blob/${ref}/${p}${u.hash}`;
  };
  for(const p of paths){
-   const text=git('show',`${ref}:${p}`),title=titleFor(p,text),slug=slugFor(p);
+   const text=git('show',`${ref}:${p}`),identity=articleBranding(p,titleFor(p,text)),title=identity.title,slug=slugFor(p);
    if(slugs.has(slug))throw Error(`Documentation slug collision: ${slug}`);slugs.add(slug);
    const tokens=marked.lexer(text);
    marked.walkTokens(tokens,t=>{if(t.type==='link'||t.type==='image')t.href=link(t.href,p,t.type==='image')});
    const blocks=[];
    const add=(type,props)=>blocks.push({id:`${slug}-${blocks.length+1}`,type,props});
    add('richtext',{html:`<p><strong>Canonical source:</strong> <a href="${GH}/blob/${ref}/${p}">${escape(p)}</a> · commit ${ref.slice(0,7)} · <a href="${SITE}/blog/documentation">All guides</a></p>`,size:14});
+   if(identity.historical)add('richtext',{html:`<p><strong>Historical documentation.</strong> The current product is Engacer OS. Older releases used the name Engine OS; their original screen labels, commands, filenames and test records below remain unchanged. <a href="${SITE}/blog/docs-handbook-index">Use the current handbook</a> for the latest release.</p>`,size:15});
    for(const token of tokens){
      if(token.type==='space'||token.type==='def')continue;
      if(token.type==='heading'){
-       if(token.depth===1&&blocks.length===1)continue;
+       if(token.depth===1&&token===tokens.find(t=>t.type==='heading'))continue;
        add('heading',{text:token.text.replace(/[*`]/g,''),level:Math.max(2,token.depth),size:token.depth<=2?30:23,color:'#152434',weight:700,padX:0,py:14});
      }else if(token.type==='code')add('code',{code:token.text,language:token.lang||'text'});
      else if(token.type==='hr')add('divider',{});
@@ -72,7 +74,8 @@ if(['M9','M91','M92','M10'].includes(current))add('richtext',{html:`<p>M9 adds a
  let stable=false;
  for(const r of releases){
    const label=r.prerelease?'Historical preview':stable?'Earlier release':'Latest stable';if(!r.prerelease)stable=true;
-   add('heading',{text:`${r.name||r.tag_name} — ${label}`,level:2,size:27,color:'#152434'});
+   const displayName=(r.name||r.tag_name).replace(/\b(?:Codename:\s*)?Engine OS\b/gi,'Engacer OS');
+   add('heading',{text:`${displayName} — ${label}`,level:2,size:27,color:'#152434'});
    add('richtext',{html:`<p>Published ${escape(r.published_at?.slice(0,10)||'unknown')} · <a href="${escape(r.html_url)}">Official release notes</a></p>`,size:15});
    const assets=[...r.assets].sort((a,b)=>{const rank=n=>/^EngineOS-(?:M6(?:U1|MINIMAL)|M7NIGHT|M71NIGHT|M74MINIMAL)\.iso$/i.test(n)?4:/\.iso$/i.test(n)?0:/\.img$/i.test(n)?1:/sha256/i.test(n)?2:3;return rank(a.name)-rank(b.name)});
    for(const a of assets)add('richtext',{html:`<p><a href="${escape(a.browser_download_url)}"><strong>Download ${escape(a.name)}</strong></a> — ${(a.size/1048576).toFixed(2)} MiB</p>${a.digest?`<pre><code>${escape(a.digest)}</code></pre>`:''}`,size:16});

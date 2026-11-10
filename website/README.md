@@ -45,13 +45,31 @@ The owner preferred the initial local prototype's appearance over the generated 
 
 Run `node website/brix/build.mjs`. The converter uses the retained MIT-licensed Marked module in `website/public/vendor/`; upstream notices remain alongside it. Import through **Tools > Import content**. The native importer validates the post schema and merges new posts/categories by slug without overwriting existing posts. Subsequent automatic updates therefore need the content API rather than repeated imports.
 
+## Brand and link audit
+
+Current website navigation, article titles, authors, tags and source links use
+**Engacer OS**, `engaceros.brixcanvas.com` and `enginsoysal/engacer-os`.
+The publisher normalizes legacy website/repository URLs while preserving the
+exact path, release tag, asset filename, source commit and fragment. Older guide
+titles use the new brand with a historical label and a visible explanation;
+original instructions and immutable evidence retain their original screen labels
+and binary names. This avoids presenting an old installer as the current release.
+
+Run `node --test website/brix/branding.test.mjs website/brix/sync.test.mjs` before
+publication. `python -X utf8 website/brix/audit.py` crawls every generated article
+and discovered public navigation page, records metadata and old-name contexts,
+and checks canonical links. Its default reports go to ignored build outputs;
+accepted OS proof is never overwritten by a website audit.
+`python -X utf8 website/brix/audit_links.py --input build/brix/audit.json --output build/brix/link-audit.json` validates the observed repository objects, live release assets and external HTTP references. HTTP 308 redirects are followed on the pinned Python 3.10 host; redirect loops and missing pages remain failures. Vendor access refusals/timeouts are recorded as unverified, not mislabeled as working or broken. Share/message actions are never submitted. Public audit reports
+belong in a new folder under `evidence/documentation/`.
+
 ## Automatic updates
 
 `website/brix/sync.mjs` uses the existing BrixCanvas content API, restricted to this site's `read_content` and `write_content` scopes. It checks the expected site slug/name before writing, validates every slug ownership marker before the first mutation, preserves unrelated articles and sends at most one request per second. New content is created as a clearly marked empty draft and then filled with native blocks. A failed draft is recoverable only if that exact marker and empty body still match. Removed source documents become drafts; the publisher never deletes them. Every generated article is read back and verified.
 
 The active `.github/workflows/brixcanvas-docs.yml` workflow runs on relevant `main` pushes, release publication/edits and manual dispatch. Repository variable `BRIXCANVAS_ENGINEOS_SYNC_ENABLED` is `true`; the site-specific credential is stored only as encrypted repository secret `BRIXCANVAS_ENGINEOS_KEY`. The owner approved creating this content-only key on 2026-11-06. The first real [GitHub publication](https://github.com/enginsoysal/engacer-os/actions/runs/42209026210) updated and read back all 55 articles successfully. See [workflow evidence](../evidence/documentation/github-sync-results.json). The key must never enter source, logs or public artifacts. Disable future synchronization by setting the variable to `false`; revoke access through this site's Integrations panel. Run `node --test website/brix/sync.test.mjs` and `node website/brix/sync.mjs --dry-run` without a credential to validate preparation.
 
-Edit generated documentation in the canonical GitHub files. Local edits to generated article bodies will be replaced on synchronization; manually authored articles without the Engine OS ownership marker remain untouched. Page design, menus, site access and unrelated app settings are outside the publisher's scope. Public rendering can retain the previous cached article for up to 60 seconds after an API write; verification reads the native API directly.
+Edit generated documentation in the canonical GitHub files. Local edits to generated article bodies will be replaced on synchronization; manually authored articles without the stable publisher ownership marker remain untouched. Page design, menus, site access and unrelated app settings are outside the publisher's scope. Public rendering can retain the previous cached article for up to 60 seconds after an API write; verification reads the native API directly.
 
 Documentation and binaries remain canonical on GitHub. Native articles identify
 their source commit and downloads link directly to official release assets.

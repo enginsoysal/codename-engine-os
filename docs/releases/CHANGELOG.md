@@ -39,12 +39,12 @@ Native BIOS/UEFI live installation to a blank SATA target: confirmed GPT/ESP/16-
 
 ## 2026-11-06 — native BrixCanvas website correction
 
-- Build the website in the owner's BrixCanvas workspace at `engineos.brixcanvas.com`, using native editable Brix and article content. Remove the incorrectly introduced separate-hosting workflow and restore original BrixCanvas Front Door route settings.
+- Build the website in the owner's BrixCanvas workspace at `engaceros.brixcanvas.com`, using native editable Brix and article content. Remove the incorrectly introduced separate-hosting workflow and restore original BrixCanvas Front Door route settings.
 - Add committed-Markdown conversion to native articles, a documentation index and official downloads/checksums. Keep OS source separate and frozen M4.5 evidence unchanged.
 
 ## 2026-11-06 — initial documentation website prototype
 
-- Add the English documentation/download hub at `engineos.brixcanvas.com`, with current GitHub Markdown, full-text search, release-tag documentation, official assets/digests and clearly dated fallback data.
+- Add the English documentation/download hub at `engaceros.brixcanvas.com`, with current GitHub Markdown, full-text search, release-tag documentation, official assets/digests and clearly dated fallback data.
 - Keep frontend source in `website/`, deployment separate from BrixCanvas, and M4.5 runtime evidence unchanged. Documentation and releases update on load/refresh; frontend changes require a Site redeploy.
 
 ## M4.5 handbook clarification — 2026-11-06
