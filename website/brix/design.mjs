@@ -2,6 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+const progress=JSON.parse(fs.readFileSync(new URL('../../docs/milestones/m11-progress.json',import.meta.url),'utf8'));
 let sequence=0;
 const site='https://engaceros.brixcanvas.com';
 const ink='#152434',muted='#5a6976',teal='#087c71',dark='#101e2c',paper='#f7f9f9';
@@ -23,7 +24,9 @@ export function nativeDesign(){
    text('PROJECT SNAPSHOT / X86-64',10,'#90a6b8',{letterSpacing:'1.5px',py:10}),
    heading('ENGACER OS',18,'#e4edf1',{py:12}),
    text('Original kernel · BIOS + UEFI boot',13,'#35ceba'),
-   text('M10 · Devices · Input · USB files',12,'#90a6b8'),
+   text('Tested download: '+progress.qualified_download+' · Devices · USB files',12,'#90a6b8'),
+   text(progress.current_stage+' · '+progress.stages.find(s=>s.id===progress.current_stage).title,13,'#35ceba'),
+   text('Completed stages: '+progress.stages.filter(s=>s.status==='complete').map(s=>s.id).join(', '),12,'#90a6b8'),
    b('code',{code:'Next → Review → Install → Restart\nIDE / SATA / supported SCSI / NVMe\nDevices · USB file copies · Safe removal'}),
  ]],{bg:{kind:'color',color:dark},border:1,borderColor:'#35ceba',radius:4,padY:18,minH:320,valign:'center'});
  const hero=layout([[
@@ -39,7 +42,7 @@ export function nativeDesign(){
  const cards=layout([
    card('01 / FIRST BOOT','Run it in VMware','Extract the M10 VMware ZIP, open EngacerOS.vmx, follow the guided installer, then restart into your installed desktop.','Open the setup guide ↗','docs-handbook-install-m10'),
    card('02 / CUSTOMIZE','Build your own distro.','Choose your accent, wallpaper, window style and default content with a validated distribution profile.','Open the distro guide ↗','docs-handbook-distributions'),
-   card('03 / HARDWARE','Hardware support, clearly stated','See supported storage, keyboard, mouse and FAT32 USB tasks. Network/audio expansion and vendor GPU acceleration remain later phases.','View hardware support ↗','docs-milestones-m10'),
+   card('03 / DESKTOP AND SETUP','Follow the M11 refresh',progress.current_stage+' is complete. Follow the ordered interaction, Files, Start, windows, setup and final qualification stages. Design concepts are clearly separated from runtime proof.','View M11 progress ↗','docs-milestones-m11'),
  ],{bg:{kind:'color',color:'#ffffff'},border:1,borderColor:'#dbe3e6',divided:true,ruleColor:'#dbe3e6',radius:4,padY:24});
  cards.props.columns.forEach(column=>{column.width=100/3;});
  const bottom=layout([[

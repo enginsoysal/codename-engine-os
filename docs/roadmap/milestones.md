@@ -1,6 +1,15 @@
 # Milestones and acceptance contract
 
-## Current owner priority - 10 November 2026
+## Current owner priority - 11 November 2026
+
+[M11.0 through M11.6](../milestones/m11.md) refresh installation and the desktop:
+selection and double-click, real Files operations, Start/categories/taskbar,
+window behavior and visuals, guided setup, then exact final media qualification.
+Each stage must pass its checks, update English documentation, push to GitHub
+and verify the public website before the next begins. M11.0 is a completed design
+contract; runtime stages remain pending and M10 remains the qualified download.
+
+## Historical owner priority - 10 November 2026
 
 M10 delivers the first two hardware phases before further Windows expansion:
 a bounded capability inventory and Settings > Devices, everyday input/display,

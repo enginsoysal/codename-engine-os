@@ -1,6 +1,6 @@
 # Current status
 
-Updated 10 November 2026. **Engacer OS M10 / 0.10.0 is the current delivery.**
+Updated 11 November 2026. **Engacer OS M10 / 0.10.0 is the current delivery.**
 Hardware phases **1 and 2 are complete within M10-DEVICES-VM-v1**, with
 [27 exact-source/artifact gates](../../evidence/M10/acceptance-results.json).
 [Release/downloads and controller matrix](../releases/m10-v0.10.0.md),
@@ -17,6 +17,16 @@ Current guides and official download articles update automatically from GitHub;
 homepage editing and public release verification are separate required checks.
 Historical Engine OS tags, binaries, evidence and internal ABI identities remain
 unchanged. The previous releases below are historical qualification, not new media.
+
+## Current development priority
+
+[M11: familiar setup and desktop](../milestones/m11.md) proceeds strictly from
+M11.0 through M11.6, with GitHub and public website verification between stages.
+**M11.0 design is complete:** [interaction and visual contract](../architecture/desktop-m11.md),
+four original concept screens, resource/safety bounds and the
+[user-flow guide](../handbook/desktop-install-m11.md). These are design evidence;
+M11.1 through M11.6 runtime implementation and qualification remain pending.
+The current tested download stays M10. Later hardware phases resume afterward.
 
 ## Current delivered scope
 

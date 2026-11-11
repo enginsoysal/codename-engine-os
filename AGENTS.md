@@ -13,6 +13,14 @@
 
 ## Product requirements
 
+- Owner priority, 11 November 2026: execute M11.0 through M11.6 strictly in order.
+  Close each stage with its required checks, English documentation, GitHub push
+  and verified public article/homepage update before implementing the next stage.
+  Follow docs/milestones/m11.md and docs/architecture/desktop-m11.md. Keep the
+  M10 delivery immutable and use isolated M11 build/artifact/evidence paths.
+  The qualified download remains M10 until M11.6; design concepts are not native
+  runtime evidence. This priority precedes later hardware and Windows expansion.
+
 - Owner priority, 10 November 2026: M10 implements phases 1 and 2 of the approved
   hardware program before further Windows profiles. Deliver a common bounded
   inventory/capability model and Settings → Devices, useful desktop input/display,

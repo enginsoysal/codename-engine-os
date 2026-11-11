@@ -1,0 +1,19 @@
+{
+  "stage": "M11.0",
+  "scope": "Design only; no new runtime claim",
+  "reviewed": [
+    "installer-disk.svg",
+    "files-selection.svg",
+    "context-menu.svg",
+    "start-menu.svg"
+  ],
+  "criteria": {
+    "clarity": "Explicit selected disk and disabled USB installation target; separate destructive review",
+    "convenience": "Visible disk list, Back/Next and contextual actions",
+    "usability": "Single-select/double-open contract, keyboard alternatives and recovery",
+    "appearance": "Original mint/teal composition, consistent surfaces and hierarchy",
+    "readability": "Consistent body/secondary/heading sizes; no observed text overlap"
+  },
+  "review_type": "Agent design review, not a human usability study",
+  "next_stage_gate": "GitHub and anonymous public article/homepage publication required before M11.1"
+}
