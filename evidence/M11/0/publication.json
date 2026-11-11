@@ -1,0 +1,17 @@
+{
+  "stage": "M11.0",
+  "passed": true,
+  "source_commit": "46fc2b8d8f4ffdebd3f57529d60e4a673a6ae1cc",
+  "workflow": "https://github.com/enginsoysal/engacer-os/actions/runs/43002143520",
+  "content_sync": "success",
+  "native_homepage_save": "Saved check mark observed",
+  "public_homepage": "https://engaceros.brixcanvas.com/",
+  "public_milestone": "https://engaceros.brixcanvas.com/blog/docs-milestones-m11",
+  "observed": [
+    "M11.0 design contract complete",
+    "Tested download M10",
+    "Milestone article canonical source 46fc2b8"
+  ],
+  "next_stage_authorized": "M11.1",
+  "checked_at": "2026-11-11T10:20:42.272364+00:00"
+}
