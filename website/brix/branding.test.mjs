@@ -16,7 +16,9 @@ test('old guide titles use the new brand and clearly identify their historical r
  assert.deepEqual(articleBranding('docs/handbook/install-m7.md','Install Engine OS M7 in VMware'),{title:'Install Engacer OS M7 in VMware (historical)',historical:true});
  assert.equal(articleBranding('docs/releases/m92-v0.9.2.md','Engine OS 0.9.2').historical,true);
  assert.equal(articleBranding('evidence/M9.2/README.md','M9.2 proof').historical,true);
- assert.deepEqual(articleBranding('docs/handbook/install-m10.md','Install Engacer OS M10'),{title:'Install Engacer OS M10',historical:false});
+ assert.deepEqual(articleBranding('docs/handbook/install-m10.md','Install Engacer OS M10'),{title:'Install Engacer OS M10 (historical)',historical:true});
+ assert.equal(articleBranding('evidence/M11/4/README.md','M11.4 proof').historical,false);
+ assert.equal(articleBranding('docs/handbook/install-m114.md','Install Engacer OS M11.4').historical,false);
  assert.equal(articleBranding('README.md','Engacer OS').historical,false);
  assert.equal(articleBranding('docs/roadmap/history/2026-11-06-previous-future-milestones.md','Superseded future roadmap').historical,true);
 });

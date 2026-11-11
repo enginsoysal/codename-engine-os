@@ -143,7 +143,7 @@ def build(revision="standard",profile_path=None,desktop=False,disk_manager=False
                          'USB file transfer does not qualify USB OS installation or partition formatting; those operations are refused',
                          'Ethernet/Wi-Fi expansion, audio expansion, vendor GPU 3D, Steam gaming and physical/ARM profiles remain later phases']
     if m11:
-        live.update(qualification_scope='M11-DEVELOPMENT',release_version='0.11.0+'+revision)
+        live.update(qualification_scope='M11-'+revision.upper()+'-VM-v1',release_version=profile['version'])
         live['limits'][0]='Partial M11 development candidate; each stage requires its own native evidence; final qualification is M11.6'
     live['artifacts']={p.name:{'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'size':p.stat().st_size} for p in [ROOT/'dist'/(stem+'-'+name+suffix) for suffix in ('.iso','-usb.img','-kernel.elf','-kernel.map','-user.elf')] if p.is_file()}
     if desktop:

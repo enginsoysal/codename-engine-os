@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "checks": [
+    "Caption maximize button and double-click restore the exact original normal bounds",
+    "All four edges and four corners resize the real window with app minimum constraints",
+    "Escape cancels a captured move and restores the complete original geometry",
+    "Visible snap preview, left/right snap and Windows-key maximize/restore preserve normal geometry",
+    "Alt+Space exposes keyboard Move/Size; Enter keeps and Escape cancels without closing work",
+    "Window operations retain no managed pages or new allocation failures; idle leaves paints unchanged and every CPU halted",
+    "Alt+Tab/Alt+Shift+Tab use a visible bounded MRU switcher, Alt release commits and Escape retains focus",
+    "Alt+F4 preserves dirty editor text behind the explicit save/discard review",
+    "Light wallpaper contrast, dark windows, accent and real 150% display scale preview and save as bounded per-user data",
+    "Independent installed disk-only startup reloads exact appearance and saved normal app geometry",
+    "Actual 3840x2160 physical framebuffer renders at automatic 200% scale without resizing a screenshot"
+  ],
+  "iso_sha256": "ae392db4c4b4491ebe1cc959d107b8d97abcb44cd534fb321e1a349c28e34fa5",
+  "window_operations_retained_managed_page_delta": 0,
+  "managed_current_bytes": 9408512,
+  "managed_peak_bytes": 9408512,
+  "record_hex": "4531314101000000ffae9c000100000000000000e9e4d7000100000000000000000000000000000000000000000000004000000000000000c0040000e4020000c400000074000000bc020000d601000044020000be000000bc0200002602000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+}

@@ -107,6 +107,8 @@ static unsigned marquee11;static uint64_t marquee_window11;static desktop_rect m
 static uint8_t marquee_saved11[V6_ENTRIES/8];static unsigned marquee_desktop_saved11;
 #include "files11-state.inc"
 #include "start11-state.inc"
+#include "window11-state.inc"
+#include "appearance11-state.inc"
 static unsigned selected_row11(application*,unsigned);
 static void draw_context11(void);
 static unsigned keyboard11(int);
@@ -180,6 +182,10 @@ static void rectangle(desktop_rect r,uint32_t color) {
 }
 static uint32_t ink(void) { return preferences.dark?0xe5eef2:0x1b3441; }
 static uint32_t paper(void) { return preferences.dark?0x172933:0xf8fafb; }
+#ifndef ENGINE_M11
+#define desktop_ink11() 0xe2eee7
+#define desktop_label_ink11(row) 0xe2eee7
+#endif
 
 static void button(uint64_t window,int x,int y,int width,const char *label,unsigned action,unsigned primary) {
     desktop_rect r={x,y,width,
@@ -311,6 +317,9 @@ static uint64_t launch(unsigned kind,const char *path) {
 #ifdef ENGINE_M74
     if(!app->stopped){if(path&&kind>=CLOCK74)copy(app->path,path,256);init74(kind,app);}
 #endif
+    #ifdef ENGINE_M11
+    window_admit11(token);
+#endif
     launcher=0;task_damage();serial_text("M7_WINDOW_OPEN app=");serial_hex(kind);serial_text("\n");return token;
 }
 
@@ -339,8 +348,8 @@ static void save_as(application *app){
 }
 static void draw_editor(desktop_window *w,application *app,uint64_t token) {
     int x=w->bounds.x+14,y=w->bounds.y+48,right=w->bounds.x+w->bounds.width-14;
-    button(token,x,y,75,"Save",SAVE,1);button(token,x+85,y,85,"Copy all",COPY,0);
-    button(token,x+170,y,75,"Cut all",CUT,0);button(token,x+255,y,75,"Paste",PASTE,0);button(token,x+340,y,100,"Save as",SAVE_AS,0);
+    button(token,x,y,75,"Save",SAVE,1);button(token,x+83,y,85,"Copy all",COPY,0);
+    button(token,x+176,y,75,"Cut all",CUT,0);button(token,x+259,y,75,"Paste",PASTE,0);button(token,x+342,y,100,"Save as",SAVE_AS,0);
 #ifdef ENGINE_M73
     ui73_fit(x,y+44,right-x,app->path,1,ink());
 #else
@@ -449,6 +458,9 @@ static void draw_settings(desktop_window *w,application *app,uint64_t token) {
 #ifdef ENGINE_M74
     if(app->offset==74){draw74(w,app,token);return;}
 #endif
+#ifdef ENGINE_M11
+    appearance_settings11(w,app,token);return;
+#endif
     int x=w->bounds.x+20,y=w->bounds.y+55;
     text(x,y,"Make " ENGINE_PRODUCT_NAME " yours",2,ink());
 #ifdef ENGINE_M10
@@ -538,6 +550,8 @@ static void draw_terminal(desktop_window *w,application *app,uint64_t token){
 #include "power11.inc"
 #include "start11-actions.inc"
 #include "start11-keys.inc"
+#include "window11.inc"
+#include "appearance11.inc"
 #endif
 unsigned desktop74_in_use(unsigned kind){
     for(unsigned i=0;i<DESKTOP_WINDOWS;++i)if(model.windows[i].live&&model.windows[i].app==kind)return 1;return 0;
@@ -562,8 +576,12 @@ static void draw_window(unsigned slot) {
     rectangle((desktop_rect){r.x+1,r.y+1,r.width-2,r.height-2},paper());
     rectangle((desktop_rect){r.x+1,r.y+1,r.width-2,34},preferences.dark?0x253c49:0xdce8ec);
 #endif
+#ifdef ENGINE_M11
+    window_caption11(w);
+#else
     text(r.x+14,r.y+12,titles[w->app],2,ink());
     text(r.x+r.width-77,r.y+12,"_",2,ink());text(r.x+r.width-42,r.y+12,"x",2,ink());
+#endif
     if(app->stopped){text(r.x+22,r.y+80,"Application stopped",2,ink());text(r.x+22,r.y+120,app->notice,1,ink());return;}
     #ifdef ENGINE_M72
     if(app->closing==4){folder_dialog72(w,app,token);return;}
@@ -622,7 +640,9 @@ static void draw_window(unsigned slot) {
         clock7_time utc;if(!clock7_read(&utc)){char clock[64];decimal(clock,utc.year);append(clock,"-",64);decimal(number,utc.month);append(clock,number,64);append(clock,"-",64);decimal(number,utc.day);append(clock,number,64);append(clock," UTC ",64);decimal(number,utc.hour);append(clock,number,64);append(clock,":",64);decimal(number,utc.minute);append(clock,number,64);text(r.x+200,r.y+420,clock,1,ink());}
     }
     if(w->app==DETAILS){char value[32];text(r.x+20,r.y+65,
-#ifdef ENGINE_M9
+#ifdef ENGINE_M11
+        "" ENGINE_PRODUCT_NAME " " DISTRO_VERSION,
+#elif defined(ENGINE_M9)
         "" ENGINE_PRODUCT_NAME " 0.9",
 #else
         "" ENGINE_PRODUCT_NAME " 0.7",
@@ -662,24 +682,30 @@ static void render(void) {
 #ifdef ENGINE_M72
     /* Restrict wallpaper work to the damaged rows; no extra framebuffer allocation. */
     for(int row=dirty.y;row<dirty.y+dirty.height;++row){unsigned shade=(unsigned)row*24/model.height;
-        uint32_t base=DISTRO_DESKTOP_WALLPAPER;unsigned r=(base>>16)&255,g=(base>>8)&255,b=base&255;
+        uint32_t base=
+#ifdef ENGINE_M11
+appearance11.wallpaper;shade=appearance11.pattern==1?0:appearance11.pattern==2?((unsigned)row*40/model.height):shade;
+#else
+DISTRO_DESKTOP_WALLPAPER;
+#endif
+unsigned r=(base>>16)&255,g=(base>>8)&255,b=base&255;
         gui6_rect(0,(unsigned)row,model.width,1,((r+shade>255?255:r+shade)<<16)|((g+shade>255?255:g+shade)<<8)|(b+shade>255?255:b+shade));}
 #ifndef ENGINE_M73
     for(unsigned i=0;i<12;++i){int ax=(int)model.width-420+(int)i*34,ay=100+(int)i*24;rectangle((desktop_rect){ax,ay,180,5},0x31595c);}
 #endif
 #endif
-    text(36,30,DISTRO_NAME,3,0xd8e9ec);text(38,64,DISTRO_DESKTOP_TAGLINE,1,0x8aabb7);
+    text(36,30,DISTRO_NAME,3,desktop_ink11());text(38,64,DISTRO_DESKTOP_TAGLINE,1,desktop_ink11());
 #ifdef ENGINE_M72
 #ifdef ENGINE_M11
     for(unsigned selected=0;selected<3;++selected)if(desktop_selection11&(1u<<selected))ui73_round(30,110+(int)selected*95,120,85,6,0x315b62);
 #endif
-    folder_icon72(40,125,42,0xf0ce87);text(38,175,"My files",1,0xe2eee7);
-    folder_icon72(40,220,42,0xf0ce87);text(38,270,"Documents",1,0xe2eee7);
+    folder_icon72(40,125,42,0xf0ce87);text(38,175,"My files",1,desktop_label_ink11(0));
+    folder_icon72(40,220,42,0xf0ce87);text(38,270,"Documents",1,desktop_label_ink11(1));
 #ifdef ENGINE_M73
     ui73_round(40,315,42,42,10,preferences.accent);
-    for(unsigned i=0;i<3;++i){unsigned cy=326+i*10;gui6_rect(48,cy,26,2,0x17382f);ui73_round(i==1?62:52,cy-3,7,8,3,0x17382f);}text(38,365,"Appearance",1,0xe2eee7);
+    for(unsigned i=0;i<3;++i){unsigned cy=326+i*10;gui6_rect(48,cy,26,2,0x17382f);ui73_round(i==1?62:52,cy-3,7,8,3,0x17382f);}text(38,365,"Appearance",1,desktop_label_ink11(2));
 #else
-    gui6_rect(40,318,42,36,preferences.accent);text(52,329,"S",2,0x17382f);text(38,365,"Appearance",1,0xe2eee7);
+    gui6_rect(40,318,42,36,preferences.accent);text(52,329,"S",2,0x17382f);text(38,365,"Appearance",1,desktop_label_ink11(2));
 #endif
 #else
     const char *icons[]={"Files","Text Editor","Settings","Calculator","Downloads"};
@@ -727,7 +753,7 @@ static void render(void) {
 #endif
 #endif
 #ifdef ENGINE_M11
-    start_draw11();
+    /* Owner dialogs are below the global launcher. */
 #else
     if(launcher){
 #ifdef ENGINE_M74
@@ -749,6 +775,8 @@ static void render(void) {
 #ifdef ENGINE_M11
     if(marquee11){desktop_rect r=marquee_rect11;rectangle((desktop_rect){r.x,r.y,r.width,1},preferences.accent);rectangle((desktop_rect){r.x,r.y+r.height-1,r.width,1},preferences.accent);rectangle((desktop_rect){r.x,r.y,1,r.height},preferences.accent);rectangle((desktop_rect){r.x+r.width-1,r.y,1,r.height},preferences.accent);}
     files_draw_overlay11();
+    start_draw11();
+    window_overlay11();
     draw_context11();
 #endif
     gui7_clip_reset();usb_mouse_draw();++paints;painted_pixels+=(uint64_t)dirty.width*dirty.height;
@@ -783,6 +811,9 @@ static void insert(application *app,const char *bytes,unsigned count) {
 
 static void action(uint64_t token,unsigned command) {
 #ifdef ENGINE_M11
+    if(command>=45000&&command<=45004){desktop_window*w=desktop_lookup(&model,token);if(!w||w->app!=SETTINGS)return;if(command<45003){const unsigned colors[]={0x142c35,0x182039,0xd7e4e9};appearance11.wallpaper=colors[command-45000];}else if(command==45003)appearance11.pattern=(appearance11.pattern+1)%3;else{start_open11();start_manage11=3;}whole();return;}
+    if(command==PREFERENCES_SAVE){desktop_window*w=desktop_lookup(&model,token);if(w&&w->app==SETTINGS){unsigned status=appearance_save11();notice(&apps[w-model.windows],status?"Preferences could not be saved. Your files are unchanged.":"Appearance and normal window sizes saved for your user.");serial_text(status?"M11_APPEARANCE_SAVE_FAILED\n":"M11_APPEARANCE_SAVED\n");whole();return;}}
+    if(window_action11(token,command))return;
     if(start_action11(token,command))return;
     if(file_action11(token,command))return;
 #endif
@@ -910,6 +941,9 @@ static void action(uint64_t token,unsigned command) {
         if(!changed)notice(app,"That size leaves too little room. Choose a smaller size.");
         else{display=changed;model.width=display->framebuffer_width;model.height=display->framebuffer_height;
             for(unsigned i=0;i<DESKTOP_WINDOWS;++i)if(model.windows[i].live)desktop_place(&model,desktop_token(&model,i),model.windows[i].bounds);
+#ifdef ENGINE_M11
+            window_reflow11();
+#endif
             usb_mouse_state(&pointer_x,&pointer_y,&previous_buttons);notice(app,"Display size changed. Save preferences to keep this choice.");whole();}
     }
 #endif
@@ -981,11 +1015,12 @@ static void pointer(void) {
     if(buttons!=previous_buttons)interaction11.target_identity=hit11.kind==I11_ITEM?file_item_identity11(hit11):start_identity11(hit11);
     dispatch_modifiers11=input11_pointer_modifiers();
     unsigned event11=i11_pointer(&interaction11,hit11,(int)x,(int)y,buttons,input11_pointer_ms());
+    if((event11&I11_CANCEL)&&(buttons&3)&&dragging){window_drag_end11(1);i11_cancel(&interaction11);}
     if(event11&I11_DRAG){
         if(interaction11.down.kind==I11_ITEM)(void)files_begin_drag11(interaction11.down,dispatch_modifiers11);
         if(interaction11.down.kind==I11_BACKGROUND&&!context11&&!launcher&&!interaction11.down.window){marquee11=1;marquee_window11=0;marquee_desktop_saved11=desktop_selection11;memcpy(marquee_desktop_files_saved11,desktop_files_selected11,sizeof(desktop_files_selected11));desktop_focus11=1;}
         if(interaction11.down.kind==I11_BACKGROUND&&interaction11.down.window){desktop_window*mw=desktop_lookup(&model,interaction11.down.window);if(mw&&mw->app==FILES&&!apps[mw-model.windows].usb_mode10&&!apps[mw-model.windows].closing){marquee11=1;marquee_window11=interaction11.down.window;memcpy(marquee_saved11,selected11[mw-model.windows],sizeof(marquee_saved11));}}
-        if(interaction11.down.kind==I11_CAPTION){desktop_window*dw=desktop_lookup(&model,interaction11.down.window);if(dw){dragging=1;drag_window=interaction11.down.window;drag_x=(unsigned)interaction11.x;drag_y=(unsigned)interaction11.y;drag_bounds=dw->bounds;drag_resize=interaction11.down.action==31003;}}
+        if(interaction11.down.kind==I11_CAPTION)window_drag_begin11(interaction11.down);
     }
     if(file_drag11){if(buttons&1)files_drag_motion11(x,y,dispatch_modifiers11);else files_drop11(hit11,dispatch_modifiers11);}
     if(marquee11){if(buttons&1)marquee_update11((int)x,(int)y);else{marquee11=0;whole();}}
@@ -994,12 +1029,23 @@ static void pointer(void) {
 #else
     unsigned pressed=(buttons&1)&&!(previous_buttons&1),released=!(buttons&1)&&(previous_buttons&1);
 #endif
-    if(released){dragging=0;
+    if(released){
+#ifdef ENGINE_M11
+      if(dragging&&!window_keyboard_move11)window_drag_end11(0);
+#endif
+#ifdef ENGINE_M11
+      if(!window_keyboard_move11)dragging=0;
+#else
+      dragging=0;
+#endif
 #ifdef ENGINE_M9
       if(drag9.frames){serial_text("M9_DRAG_PROFILE frames=");serial_hex(drag9.frames);serial_text(" ticks=");serial_hex(drag9.ticks);serial_text(" max_ticks=");serial_hex(drag9.longest);serial_text(" cached=");serial_hex(graphics9_current()->copy_frames);serial_text("\n");}
 #endif
     }
     if(dragging&&(buttons&1)){
+#ifdef ENGINE_M11
+        window_drag_update11(x,y);
+#else
         desktop_rect r=drag_bounds;int dx=(int)x-(int)drag_x,dy=(int)y-(int)drag_y;
         if(drag_resize){r.width+=dx;r.height+=dy;if(r.width<480)r.width=480;desktop_window *resizing=desktop_lookup(&model,drag_window);int minimum=resizing&&resizing->app==DOWNLOADS?460:420;
 #ifdef ENGINE_M73
@@ -1028,6 +1074,7 @@ if(r.height<minimum)r.height=minimum;}else{r.x+=dx;r.y+=dy;}
         desktop_place(&model,drag_window,r);
 #ifdef ENGINE_M9
         if(cache9)(void)move_cached9(old9,moving9->bounds);
+#endif
 #endif
     }
 #ifndef ENGINE_M11
@@ -1058,7 +1105,10 @@ if(r.height<minimum)r.height=minimum;}else{r.x+=dx;r.y+=dy;}
     }
 #endif
     /* Preserve the previously drawn cursor region until damage has been consumed. */
-    render();pointer_x=x;pointer_y=y;previous_buttons=buttons;usb_mouse_draw();
+#ifdef ENGINE_M11
+    if(x!=pointer_x||y!=pointer_y){for(unsigned i=0;i<model.count;++i){desktop_window*w=&model.windows[model.order[i]];desktop_rect r=w->bounds;if(!w->minimized&&(((int)y>=r.y&&(int)y<r.y+40)||((int)pointer_y>=r.y&&(int)pointer_y<r.y+40))&&((int)x>r.x+r.width-144||(int)pointer_x>r.x+r.width-144))invalidate((desktop_rect){r.x,r.y,r.width,40});}}
+#endif
+    pointer_x=x;pointer_y=y;render();previous_buttons=buttons;usb_mouse_draw();
 #ifdef ENGINE_M9
     if(moved9){uint64_t elapsed=m3_clock_ticks()-began9;++drag9.frames;drag9.ticks+=elapsed;if(elapsed>drag9.longest)drag9.longest=elapsed;++drag9.bins[elapsed<15?elapsed:15];}
 #endif
@@ -1189,7 +1239,7 @@ NORETURN void desktop_start(const os_boot_info_v0 *boot,const m6_preferences *pr
     desktop_init(&model,display->framebuffer_width,display->framebuffer_height);
     usb_mouse_state(&pointer_x,&pointer_y,&previous_buttons);
 #ifdef ENGINE_M11
-    file_settings_load11();power_init11(boot);start_load11();
+    appearance_load11();file_settings_load11();power_init11(boot);start_load11();
 #endif
     launch(FILES,0);render();resource_log();serial_text("M7_DESKTOP_READY build=" BUILD_ID "\n");
 #ifdef ENGINE_M74

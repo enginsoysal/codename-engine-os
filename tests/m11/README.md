@@ -5,7 +5,7 @@ order and publication gates are defined in [the milestone](../../docs/milestones
 
 The accepted input-stage commands below describe its historical source revision
 `e833630`. Reproduce that stage only in a separate checkout; its evidence and
-artifacts are frozen. The current wrapper targets the stage-3 candidate.
+artifacts are frozen. The current wrapper targets the stage-4 candidate.
 
 ```powershell
 python tests/m11/interaction_host.py
@@ -74,3 +74,35 @@ and an explicit PS/2-only topology, reaches the final catalogue page and checks
 window admission and pin order. Neither writes guest memory. Host validation is
 separate from actual menu or power evidence. General ACPI/physical qualification
 and the final enabled-device VMware/controller/original-app matrix remain M11.6.
+
+## M11.4 windows and appearance delivery
+
+The exact accepted candidate uses build `33e8ddd4cbc611aae509acb0d4325b4b`.
+Preserve STAGE4 media/maps and evidence after publication; reproduce only in a
+separate checkout. The commands used for this stage were:
+
+```powershell
+python tools/build/m11.py --revision stage4
+python tests/m11/interaction_host.py
+python tests/m11/windows.py
+python tests/m11/window_keys.py
+python tests/m11/window_motion.py
+python tools/release/vmware_starter11.py --revision stage4
+python tests/m11/vmware_windows.py --revision stage4
+python tests/m11/verify_windows.py
+```
+
+The main journey independently checks the installed guide and appearance bytes,
+real installation/reset, all window commands, scale fitting, dirty-close review
+and actual 4K. The key and motion journeys reuse only that matching disposable
+installed fixture, sequentially so no guests write the same disk concurrently.
+Motion compares every viewport pixel after cached movement with a full repaint
+forced through ordinary Start open/close input. Managed-page, idle and host/QMP
+timings are recorded separately from FPS or total configured RAM. USB and PS2
+shortcuts have distinct profiles. The exact archived VMware starter retains all
+shipped devices, installs, restarts with its ISO and starts twice without it.
+No test writes guest memory or controls the host desktop.
+
+Publication additionally requires source-index/committed-blob digest checks,
+the visible GitHub release, full English docs/homepage/download readback and the
+separate public proof before M11.5 implementation begins.

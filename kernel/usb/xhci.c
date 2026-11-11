@@ -8,6 +8,9 @@ typedef struct {trb *base;unsigned index,cycle;} ring;
 typedef struct {unsigned slot,port,kind,endpoint,packet,interval,parent,hub_port,route,depth,speed,hub_ports,rejected_children,tt_slot,tt_port,protocol;uint64_t input,output,buffer;ring control,interrupt,bulk_out,uas_status;uint64_t data,sectors;unsigned out_endpoint,bytes,tag,dead,storage_index,generation,uas,status_endpoint,uas_command_complete,uas_abort_data_stopped;uint64_t reads,wait_halts;uint8_t last[8];
 #ifdef ENGINE_M10
 unsigned wheel10;
+#ifdef ENGINE_M11
+unsigned gui_used11;
+#endif
 #endif
 } device;
 #define USB_MAX_DEVICES 8
@@ -87,7 +90,9 @@ static void input_complete(device *d,unsigned bytes){
     if(d->kind==1&&bytes>=8){
 #ifdef ENGINE_M11
 input11_usb_modifiers(data[0]);
-if((data[0]&0x88)&&!(d->last[0]&0x88)){input_feed(137);++key_events;}
+if((data[0]&0x88)&&!(d->last[0]&0x88))d->gui_used11=0;
+if(!(data[0]&0x88)&&(d->last[0]&0x88)&&!d->gui_used11){input_feed(137);++key_events;}
+if(!(data[0]&0x44)&&(d->last[0]&0x44)){input_feed(142);++key_events;}
 #endif
 for(unsigned i=2;i<8;++i)if(data[i]>3){unsigned old=0;for(unsigned j=2;j<8;++j)old|=d->last[j]==data[i];if(!old){
 #ifdef ENGINE_M10
@@ -103,6 +108,10 @@ if((data[0]&0x11)&&data[i]>=4&&data[i]<=29)c=(char)(data[i]-3);
 if(data[i]==43)c=(char)((data[0]&0x44)?135:(data[0]&0x22)?136:9);
 if(data[i]==67)c=(char)137;
 #ifdef ENGINE_M11
+if(data[0]&0x88){d->gui_used11=1;c=(char)(data[i]==80?146:data[i]==79?147:data[i]==82?148:data[i]==81?149:data[i]==8?150:0);}
+else if((data[0]&0x44)&&data[i]==43)c=(char)((data[0]&0x22)?143:135);
+else if((data[0]&0x44)&&data[i]==61)c=(char)144;
+else if((data[0]&0x44)&&data[i]==44)c=(char)145;
 if(data[i]==41&&(data[0]&0x11))c=(char)137;
 if(data[i]==59)c=(char)139;
 if(data[i]==67&&(data[0]&0x22))c=(char)140;

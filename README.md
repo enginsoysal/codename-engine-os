@@ -4,11 +4,14 @@ An independent, MIT-licensed operating system with its own BIOS/UEFI loaders,
 kernel and native desktop. Convenience, readable graphics, customization and
 bounded CPU/RAM use are product requirements.
 
-**Current release: M10 / 0.10.0 — hardware phases 1 and 2**, qualified within
-**M10-DEVICES-VM-v1**. [Release and checksums](docs/releases/m10-v0.10.0.md),
-[27-gate acceptance](evidence/M10/acceptance-results.json),
-[current status](docs/roadmap/status.md). This is a development OS qualified on
-named virtual profiles; physical hardware and universal compatibility are not claimed.
+**Current delivery: M11.4 / 0.11.4 — native windows and appearance**, qualified
+within **M11-STAGE4-VM-v1**. [Release and checksums](docs/releases/m114-v0.11.4.md),
+[exact-source acceptance](evidence/M11/4/acceptance-results.json),
+[current status](docs/roadmap/status.md). Sixteen native tasks, twelve exact
+cached/full-frame comparisons and the enabled-device VMware SATA/UEFI starter
+include real installation, retained-ISO restart and two disk-only starts.
+This is named virtual-profile qualification; broader M11.6 regression, physical
+hardware, vendor GPU 3D and universal Windows compatibility are not claimed.
 
 **Current development: [M11 desktop and setup refresh](docs/milestones/m11.md).**
 M11.0 defines the interaction and visual contract. M11.1 implements native
@@ -18,13 +21,17 @@ M11.2 adds [genuine Files operations](docs/handbook/files-m11.md), with
 [23 native tasks, 288 fault cases and matching-source acceptance](evidence/M11/2/acceptance-results.json).
 M11.3 adds [Start, categories and taskbar](docs/handbook/start-m11.md), with
 [22 native tasks and exact-source acceptance](evidence/M11/3/acceptance-results.json).
-Later stages follow in order; the qualified download remains M10 until M11.6 passes.
+M11.4 adds [maximize/restore, snapping, Alt+Tab and per-user appearance](docs/handbook/windows-m11.md),
+with ordinary/150%/actual-4K evidence and 768 bytes of extra fixed desktop state.
+M11.5 expanded setup and M11.6 full qualification follow in order. Each remaining
+stage includes a visible release, matching test media, English manuals and a
+freshly verified public website before the next stage begins.
 
 ## Try it in VMware
 
-[Download the prepared VMware ZIP](https://github.com/enginsoysal/engacer-os/releases/download/m10-v0.10.0/EngacerOS-M10-VMware.zip) ·
-[Standalone ISO](https://github.com/enginsoysal/engacer-os/releases/download/m10-v0.10.0/EngacerOS-M10.iso) ·
-[Step-by-step installation](docs/handbook/install-m10.md) ·
+[Download the prepared VMware ZIP](https://github.com/enginsoysal/engacer-os/releases/download/m114-v0.11.4/EngacerOS-M11STAGE4-VMware.zip) ·
+[Standalone ISO](https://github.com/enginsoysal/engacer-os/releases/download/m114-v0.11.4/EngacerOS-M11STAGE4.iso) ·
+[Step-by-step installation](docs/handbook/install-m114.md) ·
 [English documentation and downloads](https://engaceros.brixcanvas.com).
 
 Extract the whole ZIP, open **EngacerOS.vmx**, and choose **I Copied It** if asked.
@@ -36,7 +43,11 @@ terminal command or guest driver installer is required. Keep Secure Boot off.
 The matching ISO may remain attached. For an independent boot, disconnect only
 CD/DVD and keep the same installed hard disk connected.
 
-## What M10 delivers
+## Inherited M10 hardware baseline
+
+[M10's immutable release](docs/releases/m10-v0.10.0.md) has its own 27-gate
+hardware/controller acceptance. Its results do not qualify new M11 bytes;
+use the current release guide for the newly tested stage profiles.
 
 - Automatic supported-device binding and common capability/status reporting in
   **Start → Settings → Devices**. Ready, Limited, Detected and Unavailable reflect

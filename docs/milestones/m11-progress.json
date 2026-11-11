@@ -2,8 +2,8 @@
   "schema": 1,
   "product": "Engacer OS",
   "updated": "2026-11-11",
-  "qualified_download": "M10",
-  "current_stage": "M11.3",
+  "qualified_download": "M11.4",
+  "current_stage": "M11.4",
   "stages": [
     {
       "id": "M11.0",
@@ -27,7 +27,7 @@
     },
     {
       "id": "M11.4",
-      "status": "not_started",
+      "status": "complete",
       "title": "Window behavior and visual system"
     },
     {
@@ -41,5 +41,8 @@
       "title": "Full qualification and final VMware media"
     }
   ],
-  "publication": "Public website verification is recorded separately before starting the next stage."
+  "publication": "Each remaining stage requires its visible GitHub release, exact test media and complete fresh public site/manual/download verification before the next starts.",
+  "release_guide": "install-m114",
+  "release_tag": "m114-v0.11.4",
+  "release_image": "EngacerOS-M11STAGE4"
 }

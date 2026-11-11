@@ -22,6 +22,6 @@ int input10_take_wheel(void){return __atomic_exchange_n(&wheel10,0,__ATOMIC_ACQ_
 #ifdef ENGINE_M11
 static unsigned usb_modifiers11,legacy_modifiers11;
 unsigned input11_modifiers(void){return usb_modifiers11|legacy_modifiers11;}
-void input11_usb_modifiers(unsigned value){usb_modifiers11=((value&0x11)?1u:0u)|((value&0x22)?2u:0u)|((value&0x44)?4u:0u);}
-void input11_legacy_modifiers(unsigned value){legacy_modifiers11=value&7u;}
+void input11_usb_modifiers(unsigned value){usb_modifiers11=((value&0x11)?1u:0u)|((value&0x22)?2u:0u)|((value&0x44)?4u:0u)|((value&0x88)?8u:0u);}
+void input11_legacy_modifiers(unsigned value){legacy_modifiers11=value&15u;}
 #endif

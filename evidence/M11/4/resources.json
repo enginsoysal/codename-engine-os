@@ -1,0 +1,239 @@
+{
+  "passed": true,
+  "scope": "Fixed native desktop BSS/data is separate from total kernel, font, firmware and shared framebuffer memory; configured RAM is not consumption",
+  "stages": {
+    "STAGE1": {
+      "bytes": 120344,
+      "sections": {
+        "bss": 120324,
+        "data": 20
+      },
+      "map_sha256": "0ad194bff3500857f5dc669aeedbf110aa4364104d1e2de4376461baa718e3d3"
+    },
+    "STAGE3": {
+      "bytes": 543044,
+      "sections": {
+        "bss": 543016,
+        "data": 28
+      },
+      "map_sha256": "662f9449e52bf853920e2140f73e423f5826f4a973540097e2081647963afd23"
+    },
+    "STAGE4": {
+      "bytes": 543812,
+      "sections": {
+        "bss": 543784,
+        "data": 28
+      },
+      "map_sha256": "7e6beae949d7f7e100f036306c1a18824ad3578b2f67d52eaa6e117aca717e01"
+    }
+  },
+  "added_from_stage3_bytes": 768,
+  "added_from_stage1_bytes": 423468,
+  "total_budget_bytes": 524288,
+  "font": {
+    "font": "Inter",
+    "license": "OFL-1.1",
+    "source_sha256": "29160a80ff49ddcab2c97711247e08b1fab27a484a329ce8b813d820dc559031",
+    "sizes": [
+      16,
+      24,
+      32,
+      36,
+      48,
+      64
+    ],
+    "secondary_sizes": [
+      14,
+      21,
+      28
+    ],
+    "weights": [
+      400,
+      600
+    ],
+    "glyphs": 1045,
+    "coverage_bytes": 270910,
+    "pillow": "12.3.0",
+    "freetype": "2.14.3",
+    "header_sha256": "34ad31e2916267de5fec7d68b76f5132aa816c46544534d540a393d3c494c0f7"
+  },
+  "native": [
+    {
+      "physical": [
+        1280,
+        800
+      ],
+      "scale_percent": 100,
+      "comparisons": [
+        {
+          "bounds": [
+            -160,
+            142,
+            1216,
+            740
+          ],
+          "cached_equals_full_viewport": true
+        },
+        {
+          "bounds": [
+            1080,
+            142,
+            1216,
+            740
+          ],
+          "cached_equals_full_viewport": true
+        },
+        {
+          "bounds": [
+            460,
+            692,
+            1216,
+            740
+          ],
+          "cached_equals_full_viewport": true
+        },
+        {
+          "bounds": [
+            460,
+            182,
+            1216,
+            740
+          ],
+          "cached_equals_full_viewport": true
+        }
+      ],
+      "managed_bytes_before": 4247552,
+      "managed_bytes_after": 4247552,
+      "managed_peak_bytes": 4247552,
+      "cached_copy_frames": 13,
+      "event_to_drain_ms": [
+        1000.930199999857,
+        1459.2136999999639,
+        922.6109000010183,
+        1373.8980000016454
+      ],
+      "median_ms": 1187.4141000007512,
+      "measurement": "Host event to completed native composition including QMP observation, not display refresh/FPS",
+      "all_cpus_halted_when_idle": true,
+      "idle_paints_unchanged": true
+    },
+    {
+      "physical": [
+        1920,
+        1200
+      ],
+      "scale_percent": 150,
+      "comparisons": [
+        {
+          "bounds": [
+            -160,
+            142,
+            1216,
+            740
+          ],
+          "cached_equals_full_viewport": true
+        },
+        {
+          "bounds": [
+            1080,
+            142,
+            1216,
+            740
+          ],
+          "cached_equals_full_viewport": true
+        },
+        {
+          "bounds": [
+            460,
+            692,
+            1216,
+            740
+          ],
+          "cached_equals_full_viewport": true
+        },
+        {
+          "bounds": [
+            460,
+            182,
+            1216,
+            740
+          ],
+          "cached_equals_full_viewport": true
+        }
+      ],
+      "managed_bytes_before": 9408512,
+      "managed_bytes_after": 9408512,
+      "managed_peak_bytes": 9408512,
+      "cached_copy_frames": 3,
+      "event_to_drain_ms": [
+        2521.597400002065,
+        2436.9172000006074,
+        1459.967199996754,
+        2389.509900000121
+      ],
+      "median_ms": 2413.213550000364,
+      "measurement": "Host event to completed native composition including QMP observation, not display refresh/FPS",
+      "all_cpus_halted_when_idle": true,
+      "idle_paints_unchanged": true
+    },
+    {
+      "physical": [
+        3840,
+        2160
+      ],
+      "scale_percent": 200,
+      "comparisons": [
+        {
+          "bounds": [
+            -160,
+            142,
+            1216,
+            740
+          ],
+          "cached_equals_full_viewport": true
+        },
+        {
+          "bounds": [
+            1720,
+            142,
+            1216,
+            740
+          ],
+          "cached_equals_full_viewport": true
+        },
+        {
+          "bounds": [
+            780,
+            972,
+            1216,
+            740
+          ],
+          "cached_equals_full_viewport": true
+        },
+        {
+          "bounds": [
+            780,
+            182,
+            1216,
+            740
+          ],
+          "cached_equals_full_viewport": true
+        }
+      ],
+      "managed_bytes_before": 33370112,
+      "managed_bytes_after": 33370112,
+      "managed_peak_bytes": 33370112,
+      "cached_copy_frames": 12,
+      "event_to_drain_ms": [
+        2052.8875999989395,
+        3736.109100002068,
+        2942.329100002098,
+        5875.79199999891
+      ],
+      "median_ms": 3339.219100002083,
+      "measurement": "Host event to completed native composition including QMP observation, not display refresh/FPS",
+      "all_cpus_halted_when_idle": true,
+      "idle_paints_unchanged": true
+    }
+  ]
+}

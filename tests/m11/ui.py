@@ -1,7 +1,7 @@
 """Use ordinary guest input with isolated M11 media and map identities."""
 import os,importlib.util
 from pathlib import Path
-os.environ["ENGINE74_IMAGE"]=os.environ.get("ENGACER11_IMAGE","EngacerOS-M11STAGE3")
+os.environ["ENGINE74_IMAGE"]=os.environ.get("ENGACER11_IMAGE","EngacerOS-M11STAGE4")
 spec=importlib.util.spec_from_file_location("shared74",Path(__file__).resolve().parents[1]/"m74/ui.py")
 shared=importlib.util.module_from_spec(spec);spec.loader.exec_module(shared)
 globals().update({k:v for k,v in vars(shared).items() if not k.startswith("__")})

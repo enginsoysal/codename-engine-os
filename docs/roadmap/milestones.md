@@ -6,10 +6,15 @@
 selection and double-click, real Files operations, Start/categories/taskbar,
 window behavior and visuals, guided setup, then exact final media qualification.
 Each stage must pass its checks, update English documentation, push to GitHub
-and verify the public website before the next begins. M11.0 design and M11.1
-native interaction are complete within their stage criteria; see
-[fourteen native input tasks](../../evidence/M11/1/acceptance-results.json).
-M11.2 through M11.6 remain pending and M10 remains the qualified download.
+and verify the public website before the next begins. M11.0 through M11.4 are
+complete within their stage criteria: [input](../../evidence/M11/1/acceptance-results.json),
+[Files](../../evidence/M11/2/acceptance-results.json),
+[Start/taskbar](../../evidence/M11/3/acceptance-results.json) and
+[windows/appearance](../../evidence/M11/4/acceptance-results.json).
+The owner's M11.4 clarification requires a visible release, exact test media,
+English manuals and fresh complete site/download verification at each remaining
+stage. [M11.4 delivery](../releases/m114-v0.11.4.md) precedes M11.5 expanded setup
+and M11.6 full regression. M10 remains an immutable historical qualification.
 
 ## Historical owner priority - 10 November 2026
 

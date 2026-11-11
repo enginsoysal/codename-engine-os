@@ -129,6 +129,9 @@ void ui73_shadow(unsigned x,unsigned y,unsigned w,unsigned h){
  round_alpha73(x-i,y-i+4,w+2*i,h+2*i,12+i,0x081824,3);
 }
 static const font73_face *face73(unsigned role){
+#ifdef ENGINE_M11
+ if(role==5)return &font73_faces[12+scale73-2];
+#endif
  unsigned logical=role>=4?32:role==3?24:16,actual=logical*scale73/2;
  unsigned index=actual==16?0:actual==24?1:actual==32?2:actual==36?3:actual==48?4:5;
  return &font73_faces[index+(role>=3?6:0)];

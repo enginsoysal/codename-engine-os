@@ -1,6 +1,29 @@
 # Build your own Engacer OS distribution
 
-## M10 hardware edition
+## M11 desktop edition
+
+Start from `distros/engacer-desktop.json`, select your own profile ID in a separate
+checkout and build a distinct recipe:
+
+```powershell
+python tools/build/m11.py --profile distros/my-edition.json --revision custom
+```
+
+Outputs use `EngacerOS-M11CUSTOM`. Keep accepted STAGE1/STAGE2/STAGE3/STAGE4 media
+unchanged and qualify your changed recipe independently. Schema 3 controls the
+name/version, welcome message, accent, wallpaper, light/dark default, optional
+native apps and bounded data packages. `m11-desktop-guide` supplies the current
+offline Welcome text and original sample media; it is not a dependency of the
+kernel or desktop. Omitting a guide or optional Calculator must not remove Files,
+Settings or required shared services. Destructive-operation guards stay enforced.
+
+The native Appearance and Start customization routes save per-user choices
+separately from distribution defaults. [Window/appearance guide](windows-m11.md),
+[Start categories and pins](start-m11.md), [current install guide](install-m114.md).
+Changing branding or theme does not grant unsupported hardware capabilities,
+arbitrary driver plugins, Windows APIs or a different kernel at runtime.
+
+## Historical M10 hardware edition
 
 Start from `distros/engacer-hardware.json`. In a separate checkout choose your own
 profile ID and use `python tools/build/m10.py --profile distros/my-edition.json --revision custom`.
@@ -16,7 +39,7 @@ not grant unsupported hardware capabilities. [M10 install guide](install-m10.md)
 
 The remaining sections document older Engine OS releases. Their original names,
 commands and profile files deliberately match those releases. For a new current
-Engacer OS distribution, use the M10 hardware profile above.
+Engacer OS desktop distribution, use the M11 profile above.
 
 ## Historical M9.2 hardware edition
 

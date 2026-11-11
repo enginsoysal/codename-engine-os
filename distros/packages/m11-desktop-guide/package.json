@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "id": "m11-desktop-guide",
+  "files": [
+    {"source": "packages/m11-desktop-guide/content.txt", "target": "/Users/test/Documents/Welcome.txt"},
+    {"source": "packages/apps-guide/ArchiveSample.zip", "target": "/Users/test/Downloads/ArchiveSample.zip"},
+    {"source": "packages/apps-guide/ColorStudy.bmp", "target": "/Users/test/Pictures/ColorStudy.bmp"},
+    {"source": "packages/apps-guide/Chime.wav", "target": "/Users/test/Music/Chime.wav"}
+  ]
+}

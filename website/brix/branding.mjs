@@ -16,7 +16,7 @@ export function canonicalPublicUrl(href){
 export function articleBranding(source,originalTitle){
  const title=originalTitle.replace(/\b(?:Codename:\s*)?Engine OS\b/gi,'Engacer OS');
  const match=source.match(/\/(?:[^/]*-)?m(\d+)(?:[^/]*)\.md$/i);
- const oldMilestones=new Set([0,1,2,3,4,5,6,7,8,9,45,51,71,72,73,74,75,91,92]);
- const historical=(match&&oldMilestones.has(Number(match[1])))||/^evidence\/M(?!10(?:\/|$))/i.test(source)||source.startsWith('docs/roadmap/history/')||title!==originalTitle||['docs/handbook/console.md','docs/handbook/vmware-storage.md','docs/handbook/m5-console.md','docs/handbook/recovery.md'].includes(source);
+ const oldMilestones=new Set([0,1,2,3,4,5,6,7,8,9,10,45,51,71,72,73,74,75,91,92]);
+ const historical=(match&&oldMilestones.has(Number(match[1])))||/^evidence\/M(?!11(?:\/|$))/i.test(source)||source.startsWith('docs/roadmap/history/')||title!==originalTitle||['docs/handbook/console.md','docs/handbook/vmware-storage.md','docs/handbook/m5-console.md','docs/handbook/recovery.md'].includes(source);
  return {title:title+(historical?' (historical)':''),historical:Boolean(historical)};
 }

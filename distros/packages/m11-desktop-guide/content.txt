@@ -1,0 +1,85 @@
+WELCOME TO ENGACER OS M11.4
+
+YOUR FIRST STEPS
+Click a file or desktop icon once to select it. Double-click or press Enter
+to open it. Buttons, Start results and menu commands run with one click.
+Right-click an item for its actions. Escape closes a menu or cancels a drag.
+No terminal command is needed for ordinary desktop tasks.
+
+YOUR FILES
+Open My files or Documents. Home, Back, Forward, Up and Places help you move
+between folders. Edit lets you type a folder address. Use Details or Icons
+and Sort to choose a view. Extensions are shown; timestamps are not invented.
+New folder and New text file ask for a name. Double-click a personal text
+file to open Text Editor. Save or Ctrl+S keeps your work.
+
+Ctrl selects several individual items; Shift selects a range. Ctrl+A selects
+the folder contents. Ctrl+C copies, Ctrl+X cuts and Ctrl+V pastes. Drag onto
+a folder to move native items; hold Ctrl to copy. A name conflict offers Keep
+both, Skip or a separate file-replacement review. Folder merging is not offered.
+Transfers are bounded to 128 selected roots, 1024 nodes and 64 MiB per file.
+The native editor handles printable ASCII text up to 8191 bytes.
+
+Delete moves supported native user items to the real Recycle Bin. Use Places
+to open it, then Restore to return an item. Permanent deletion needs a separate
+review. Undo supports the last unchanged eligible native operation; it does
+not undo formatting or every application action. System paths stay protected.
+
+START AND TASKBAR
+Press either Windows key, Ctrl+Escape or F10 to open Start. Type to search your
+installed apps locally. Pinned, All apps and Categories provide different views.
+Right-click an app or folder to pin it. Customize lets you rename, hide or
+reorder categories and pins, and choose left or centered taskbar alignment.
+Removing a pin never removes its app or folder. The taskbar separates pinned
+launchers from actual open windows. Click a window to minimize or restore it.
+The desktop supports eight windows; close one before opening a ninth.
+
+ARRANGE YOUR WINDOWS
+Drag a title bar to move. Double-click it, or use the middle title-bar button,
+to maximize or restore. Drag any edge or corner to resize. Move to a screen
+edge for a snap preview, then release to keep it. Escape cancels the move.
+Apps keep a usable minimum size; some cannot fit in half a narrow display.
+Windows+Left/Right snaps, Windows+Up maximizes and Windows+Down restores or
+minimizes. Windows+E opens Files. Alt+Space opens the window command menu.
+Hold Alt and press Tab to see the switcher. Shift+Tab reverses, releasing Alt
+chooses and Escape cancels. Alt+F4 uses the normal unsaved-work close review.
+
+MAKE IT YOURS
+Open Appearance or Settings. Preview light/dark windows, an accent, wallpaper
+and Auto/100%/150%/200% display size. Save preferences keeps your appearance
+and normal sizes of currently open apps for your user. A larger text size
+needs enough screen space; the interface explains a size it cannot use.
+Auto adapts to the actual screen. Available physical modes depend on firmware.
+
+YOUR APPS AND DEVICES
+Settings > Applications manages the verified offline app packages. Removing
+an optional app keeps your documents and unrelated apps. Required desktop
+components remain protected. Removing a pin is separate from uninstalling.
+Settings > Devices reports actual built-in capabilities and keyboard layout.
+Network, audio, GPU and USB qualification is specific to the release profile;
+recognizing a device does not prove full acceleration or universal support.
+
+USB FILES
+Files > USB drives browses supported media. USB copies are one-file create-only
+operations; existing files are not replaced. Right-click an eligible native
+file for Copy to USB. Use Safe remove before unplugging, and keep the drive
+connected during a copy. FAT32/BOT/512-byte-sector and other documented provider
+limits apply. USB OS installation and USB partition formatting are unavailable.
+
+SAMPLE CONTENT
+Try Pictures/ColorStudy.bmp, Downloads/ArchiveSample.zip or Music/Chime.wav.
+Image Viewer handles uncompressed BMP, Archive Manager handles bounded
+non-encrypted Stored/Deflate ZIP, and Media Player handles supported PCM WAV.
+The native Browser is a limited local/HTTPS document viewer, not a modern web
+browser. MS-DOS and wider Windows compatibility remain separate development.
+
+HELP AND RELEASE SCOPE
+This M11.4 delivery covers windows and appearance on its named VM profiles.
+M11.5 expands setup; M11.6 performs the full final regression matrix. The older
+M10 controller matrix does not itself qualify these new installation bytes.
+Keep the matching ISO for recovery. Restart to Engacer OS after installation;
+the matching ISO may remain attached. A live-session desktop is not an installed
+boot. For a disk-only check, disconnect only CD/DVD and retain the installed disk.
+
+English guides, release downloads and checksums: https://engaceros.brixcanvas.com
+Source and releases: https://github.com/enginsoysal/engacer-os

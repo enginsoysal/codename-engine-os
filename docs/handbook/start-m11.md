@@ -1,8 +1,11 @@
 # M11.3 — Start and taskbar guide
 
 This guide describes the M11.3 development stage, with
-[22 native tasks and exact-source acceptance](../../evidence/M11/3/acceptance-results.json). The public tested download remains M10 until M11.6; older ISOs do not
-contain these new controls. [M11 stage order](../milestones/m11.md).
+[22 native tasks and exact-source acceptance](../../evidence/M11/3/acceptance-results.json).
+The controls are included in the [M11.4 stage delivery](install-m114.md), with
+[windows/appearance](windows-m11.md). Older M10 ISOs do not contain them.
+Expanded setup and full final regression remain M11.5 and M11.6.
+[M11 stage order](../milestones/m11.md).
 
 ## Open an app
 

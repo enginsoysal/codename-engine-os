@@ -1,5 +1,13 @@
 # Engacer OS architecture
 
+M11.1–M11.4 add shared release-driven interaction, native Files transactions,
+customizable Start/taskbar and bounded windows/appearance to the independent
+kernel. [Current release](../releases/m114-v0.11.4.md), [M11 contract](desktop-m11.md),
+[Files](files-m11.md), [Start](start-m11.md), [windows](windows-m11.md).
+Each stage has separate exact evidence. Expanded setup is M11.5; full new-artifact
+controller/application qualification is M11.6. Older records below are baselines,
+not automatic qualification of newly built media.
+
 M10 phases 1/2 add bounded hardware status, input layouts and guarded removable file transfers. [Design and limits](hardware-m10.md), [native user guide](../handbook/hardware-m10.md). The 27-gate M10-DEVICES-VM-v1 qualification binds these tasks to the published ISO and exact VMware ZIP.
 
 M9 now prioritizes automatic supported VMware graphics/input and window movement. One admitted RAM screen buffer, cached client movement, batched presentation and a separate cursor overlay supplement the earlier renderer. [Implementation decisions, memory accounting and limits](graphics-m9.md). No 3D or universal GPU claim is made.

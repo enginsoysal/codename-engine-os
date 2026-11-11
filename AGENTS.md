@@ -13,13 +13,25 @@
 
 ## Product requirements
 
+- Owner clarification during M11.4, 11 November 2026: close every remaining
+  stage as a complete public delivery before proceeding: matching tests, English
+  manuals, GitHub source and a visible release with matching downloadable media,
+  plus complete fresh website/homepage/download readback. Commits alone are
+  insufficient. Stage releases must state their actual qualification; broader
+  M11.6 regression remains pending until tested. This supersedes withholding all
+  M11 stage downloads until M11.6. Do not attribute the M10 controller matrix to
+  an untested M11 artifact. Only remove obsolete local derived files after
+  verifying canonical source/evidence and release assets are on GitHub; preserve
+  active work and tests. Respect automatic approval rejections.
+
 - Owner priority, 11 November 2026: execute M11.0 through M11.6 strictly in order.
   Close each stage with its required checks, English documentation, GitHub push
   and verified public article/homepage update before implementing the next stage.
   Follow docs/milestones/m11.md and docs/architecture/desktop-m11.md. Keep the
   M10 delivery immutable and use isolated M11 build/artifact/evidence paths.
-  The qualified download remains M10 until M11.6; design concepts are not native
-  runtime evidence. This priority precedes later hardware and Windows expansion.
+  Design concepts are not native runtime evidence. The later M11.4 clarification
+  above adds separately scoped stage releases/downloads before M11.6 full
+  qualification. This priority precedes later hardware and Windows expansion.
 
 - Owner priority, 10 November 2026: M10 implements phases 1 and 2 of the approved
   hardware program before further Windows profiles. Deliver a common bounded
@@ -74,10 +86,10 @@ M9.2 known/unqualified QEMU reports are preserved as failures, not successful st
 
 M10 hardware phases 1 and 2 are accepted within M10-DEVICES-VM-v1. Its ISO, exact VMware ZIP, manifests and evidence are immutable after publication. New work must use a new milestone/revision and preserve these bytes. The canonical product/repository/site are Engacer OS, enginsoysal/engacer-os and engaceros.brixcanvas.com. Legacy internal identifiers and historical artifacts remain stable.
 
-M11.0 design and M11.1/M11.2/M11.3 native evidence and STAGE1/STAGE2/STAGE3 candidate
+M11.0 design and M11.1/M11.2/M11.3/M11.4 native evidence and STAGE1/STAGE2/STAGE3/STAGE4
 artifacts are accepted stage records, separate from final M11 qualification.
 Preserve their bytes and evidence after their publication gates. Subsequent
-stages use STAGE4 and later output prefixes; never rebuild STAGE1/STAGE2/STAGE3 in place.
-The public homepage must lead with current M11 progress while identifying M10
-as the tested download until M11.6. Keep the documentation index ordered by
+stages use STAGE5 and later output prefixes; never rebuild STAGE1/STAGE2/STAGE3/STAGE4 in place.
+The public homepage must lead with current M11 progress and the matching separately
+scoped stage release. Preserve M10 as historical qualification. Keep the index ordered by
 reader task, with current installation/use before internals and historical guides.

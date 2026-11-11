@@ -4,13 +4,16 @@ Status: M11.0 design baseline, 11 November 2026. Implementation follows the
 [strict stage sequence](../milestones/m11.md). The original SVG screens below
 describe the intended presentation; they are not screenshots of working M11 code.
 M11.1 now has a separately qualified [native input implementation](input-m11.md);
-the other runtime stages retain their own acceptance gates.
+native Files, Start/taskbar and windows/appearance are now separately qualified
+through M11.4. [Current windows implementation](windows-m11.md),
+[release](../releases/m114-v0.11.4.md). Expanded setup is M11.5 and full regression
+is M11.6; each remaining stage has a visible release and public verification gate.
 
 ## Familiar behavior, original implementation
 
-The current shell dispatches many actions on primary-button press and treats
-file rows and desktop icons as immediate actions. Its launcher is a fixed app
-grid. Extend the existing native shell and providers with a shared interaction
+The M10 baseline shell dispatched many actions on primary-button press and treated
+file rows and desktop icons as immediate actions. Its launcher was a fixed app
+grid. The approved change extends the existing native shell and providers with a shared interaction
 model, rather than importing a browser/electron UI or replacing the independent
 kernel. Existing clipped composition, Inter coverage masks, scaling and native
 volume are retained. Optional applications remain removable independently.

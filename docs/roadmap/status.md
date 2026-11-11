@@ -1,12 +1,14 @@
 # Current status
 
-Updated 11 November 2026. **Engacer OS M10 / 0.10.0 is the current delivery.**
-Hardware phases **1 and 2 are complete within M10-DEVICES-VM-v1**, with
-[27 exact-source/artifact gates](../../evidence/M10/acceptance-results.json).
-[Release/downloads and controller matrix](../releases/m10-v0.10.0.md),
-[VMware tutorial](../handbook/install-m10.md),
-[Devices and USB tasks](../handbook/hardware-m10.md),
-[architecture](../architecture/hardware-m10.md).
+Updated 11 November 2026. **Engacer OS M11.4 / 0.11.4 is the current stage delivery.**
+Native windows/appearance pass **M11-STAGE4-VM-v1**:
+[16 native tasks, 12 exact frame comparisons and matching-source acceptance](../../evidence/M11/4/acceptance-results.json).
+[Release/downloads and limits](../releases/m114-v0.11.4.md) ·
+[VMware installation](../handbook/install-m114.md) · [window guide](../handbook/windows-m11.md).
+M11.5 expanded setup and M11.6 full regression follow in order.
+The immutable earlier M10 delivery completed hardware phases 1/2 within its own
+[27-gate scope](../../evidence/M10/acceptance-results.json). Its older controller
+matrix does not qualify these new M11 bytes.
 
 The new ISO and exact blank-disk VMware starter are branded Engacer OS.
 The canonical public/MIT repository is
@@ -43,11 +45,21 @@ cover local search, editable categories/pins, taskbar order/alignment, real
 window restoration, optional removal, input parity, quota, saved preferences
 and actual virtual restart/S5. [Guide](../handbook/start-m11.md) ·
 [decisions and explicit power limits](../architecture/start-m11.md).
-Fixed desktop BSS/data adds 12,256 bytes. M11.4 through M11.6 and final
-VMware/display/controller/original-app qualification remain pending.
-The current tested download stays M10. Later hardware phases resume afterward.
+Fixed desktop BSS/data adds 12,256 bytes.
+**M11.4 native windows and appearance are complete within their stage scope:**
+[exact source/artifact evidence](../../evidence/M11/4/acceptance-results.json)
+covers maximize/restore, all resize edges/corners, snapping/preview/cancel,
+Alt+Tab, USB/PS2 shortcuts, dirty-close review, per-user appearance/normal geometry,
+actual ordinary/150%/4K buffers and independent saved startup. The exact enabled-
+device VMware SATA/UEFI starter installs, restarts with the ISO and boots without
+it twice. Cached/full viewport pixels match in twelve comparisons. Added fixed
+desktop state is 768 bytes; retained managed pages and idle paints stay unchanged.
+[Guide](../handbook/windows-m11.md) · [decisions](../architecture/windows-m11.md).
+Each remaining stage now includes a visible release and full public site/manual/
+download update before proceeding. M11.5 and M11.6 remain pending; later hardware
+phases resume afterward.
 
-## Current delivered scope
+## Inherited hardware baseline and qualification limits
 
 Common bounded device/capability reporting, Settings → Devices, saved US layouts,
 working qualified keyboard/mouse/wheel/hubs/reconnect, guarded FAT32 USB file copies

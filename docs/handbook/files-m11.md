@@ -2,9 +2,10 @@
 
 This guide describes the native M11.2 development stage, qualified by
 [23 guest tasks and storage-fault checks](../../evidence/M11/2/acceptance-results.json).
-The public qualified download remains M10 until M11.6. Do not expect these new actions in
-an older ISO. Installation and window/Start improvements follow in later M11
-stages, in order.
+These actions are included in the [M11.4 stage delivery](install-m114.md), together
+with [Start/taskbar](start-m11.md) and [windows/appearance](windows-m11.md).
+Older M10 ISOs do not contain them. Expanded setup and full final regression
+remain M11.5 and M11.6; each stage has its own exact qualification.
 
 ## Find your files
 

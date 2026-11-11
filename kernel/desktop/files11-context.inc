@@ -7,6 +7,7 @@ static void files_places_menu11(uint64_t token){file_menu_begin11(token,pointer_
 static void files_sort_menu11(uint64_t token){file_menu_begin11(token,pointer_x,pointer_y);file_menu_add11("Name",F11_SORT_NAME,1);file_menu_add11("Size",F11_SORT_SIZE,1);file_menu_add11("Type",F11_SORT_TYPE,1);file_menu_add11("Reverse order",F11_DIRECTION,1);file_menu_fit11();}
 static const v6_entry *file_target_entry11(i11_target t){desktop_window*w=file_owner_window11(t.window);if(w&&t.action>=FILE_ROW&&t.action<FILE_ROW+V6_ENTRIES)return child_at(&apps[w-model.windows],t.action-FILE_ROW);if(!t.window&&t.action>=F11_DESKTOP_ITEM&&t.action<F11_DESKTOP_ITEM+V6_ENTRIES)return desktop_child11(t.action-F11_DESKTOP_ITEM);return 0;}
 static void files_context_open11(i11_target t,unsigned x,unsigned y){
+ if(window_menu11(t,x,y))return;
  if(start_context11(t,x,y))return;
  file_menu_begin11(t.window,x,y);context_action11=t.action;file_context_path11[0]=0;desktop_window*w=desktop_lookup(&model,t.window);application*a=w?&apps[w-model.windows]:0;
  if(w&&(t.kind==I11_CAPTION||(t.action>=31000&&t.action<=31003)||w->app!=FILES)){

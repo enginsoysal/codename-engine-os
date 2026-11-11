@@ -1,5 +1,18 @@
 # Changelog
 
+## M11.4 v0.11.4 — 2026-11-11
+
+Native maximize/restore, all-edge/corner resizing, snap preview/cancel, window
+menus, Alt+Tab with Alt-release commit, USB/PS2 shortcuts, per-user light/dark/
+accent/wallpaper/scale/normal geometry and original physical-size Inter masks.
+The offline guide matches M11 selection, Files, Start and window behavior.
+Sixteen native tasks, twelve exact cached/full frame comparisons, halted idle,
+unchanged retained pages and the exact enabled-device VMware SATA/UEFI starter's
+installation/retained-ISO reset/two detached boots pass within M11-STAGE4-VM-v1.
+Added fixed desktop state is 768 bytes. M11.5 setup and M11.6 full regression
+remain next. [Release](m114-v0.11.4.md), [installation](../handbook/install-m114.md),
+[exact evidence](../../evidence/M11/4/acceptance-results.json).
+
 ## M10 v0.10.0 — 2026-11-10
 
 Engacer OS rebrand and hardware phases 1/2 complete within M10-DEVICES-VM-v1: common actual device capabilities, Devices settings, saved layouts, wheel/HID/hubs, guarded FAT32 USB transfers/flush/safe removal/reconnect, boot streaming and exact-artifact controller/desktop/original-app regression. [Release, downloads and limits](m10-v0.10.0.md), [27-gate acceptance](../../evidence/M10/acceptance-results.json). Physical hardware, vendor GPU 3D and later hardware phases remain open.

@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "stage": "M11.4",
+  "version": "0.11.4",
+  "scope": "Native QEMU ordinary/150%/4K and exact enabled-device VMware SATA/UEFI starter installation, retained-ISO restart and two disk-only starts; full controller/original-app regression remains M11.6",
+  "build_id": "33e8ddd4cbc611aae509acb0d4325b4b",
+  "iso_sha256": "ae392db4c4b4491ebe1cc959d107b8d97abcb44cd534fb321e1a349c28e34fa5",
+  "vmware_zip_sha256": "ab62dfca8e8e2003a8f5e5fb14c9150ebde2b751735da6aa59983b0742587ae5",
+  "source_inputs_verified": 556,
+  "artifacts_verified": 14,
+  "native_tasks": [
+    "Caption maximize button and double-click restore the exact original normal bounds",
+    "All four edges and four corners resize the real window with app minimum constraints",
+    "Escape cancels a captured move and restores the complete original geometry",
+    "Visible snap preview, left/right snap and Windows-key maximize/restore preserve normal geometry",
+    "Alt+Space exposes keyboard Move/Size; Enter keeps and Escape cancels without closing work",
+    "Window operations retain no managed pages or new allocation failures; idle leaves paints unchanged and every CPU halted",
+    "Alt+Tab/Alt+Shift+Tab use a visible bounded MRU switcher, Alt release commits and Escape retains focus",
+    "Alt+F4 preserves dirty editor text behind the explicit save/discard review",
+    "Light wallpaper contrast, dark windows, accent and real 150% display scale preview and save as bounded per-user data",
+    "Independent installed disk-only startup reloads exact appearance and saved normal app geometry",
+    "Actual 3840x2160 physical framebuffer renders at automatic 200% scale without resizing a screenshot",
+    "USB: both Windows keys, released modifiers, Win+E/arrows, forward/reverse Alt+Tab, Alt+Space, Alt+F4, Ctrl+Escape and truthful app-minimum snap refusal",
+    "PS2: both Windows keys, released modifiers, Win+E/arrows, forward/reverse Alt+Tab, Alt+Space, Alt+F4, Ctrl+Escape and truthful app-minimum snap refusal",
+    "Exact archived blank 20-GiB SATA starter installs in owned VMware with all shipped devices enabled; retained ISO restarts into the actual installed kernel and obtains DHCP",
+    "Ordinary guest mouse and Windows-key Start search exercise maximize/restore and native Appearance/save without controlling the host desktop",
+    "Two independent VMware boots retain the same installed disk, firmware variables and VM configuration with only the ISO disconnected; no forced boot order"
+  ],
+  "motion_profiles": 3,
+  "cached_full_frame_comparisons": 12,
+  "host_checks": [
+    "Single selection and double-open on matching target",
+    "Triple click, other target and timeout do not double-open",
+    "Secondary button never activates primary action",
+    "Threshold drag and release-outside cancellation",
+    "Button activation on release, Escape cancellation and bounded interval",
+    "Changed item identity cancels release and prevents a double-open",
+    "Mixed primary/secondary button chords never activate a primary action"
+  ],
+  "added_fixed_desktop_bytes": 768,
+  "test_source_sha256": {
+    "tests/m11/windows.py": "cdf353af647c84c20d4f83bf3aa1ae31f671b3e31a7bed61dc715a336dee6108",
+    "tests/m11/window_keys.py": "05590ea61ee3879f25cd75f8eef3a9fb9b8d551d9041d644b1fbcb570a1f8fb5",
+    "tests/m11/window_motion.py": "24c2327e2ec96b955d8102427f81123786435e47aa44ee2ad936b99947515eb9",
+    "tests/m11/vmware_windows.py": "61259b25bb6f683121ccd9114213f046bb474918fc541328c42389f1fc3598e4",
+    "tests/m11/verify_windows.py": "ec461ee871c80c8696222e14315dd0e72465f3f000a000bc7401b3519fdcc238",
+    "tests/m11/ui.py": "df145e8a597acb8ec2d830f298f2316bc9bd889d07c032342cc10b37e0d770e5",
+    "tools/release/vmware_starter11.py": "d4b3e7c34a84c27331c5407885d1a6ec682023179aea46e39d85543a187c8f6d"
+  },
+  "publication": "A separate visible GitHub release, complete English manual/site/download update and fresh public proof must close before M11.5"
+}

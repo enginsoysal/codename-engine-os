@@ -1,14 +1,14 @@
 # M11 installation and desktop guide — staged development
 
-This describes the approved M11 workflow. Check the
-[stage status](../milestones/m11.md) before expecting a feature in downloadable
-media. M10 remains the qualified download until M11.6. M11.0 provides designs;
-M11.1 now implements native selection, double-click, context/focus and release
-behavior in a separately tested development candidate. File operations, Start,
-window/visual changes and the expanded setup below belong to M11.2–M11.6 and
-remain staged work. New media identify their exact qualified scope.
+M11.0 through M11.4 are implemented and qualified within their individual stage
+scopes. Use the [M11.4 installation tutorial](install-m114.md) for its actual
+seven-step wizard and downloads. [Files](files-m11.md), [Start/taskbar](start-m11.md)
+and [windows/appearance](windows-m11.md) describe current native behavior.
+The expanded installation journey below is the ordered M11.5 contract;
+full final regression is M11.6. Each remaining stage has its own public release,
+manuals and fresh website/download verification before proceeding.
 
-## Installing
+## Planned M11.5 installation journey
 
 Start from the prepared disposable VMware package, choose I Copied It if asked,
 and boot the matching ISO. Follow Welcome, keyboard, disk, components, user/style
@@ -27,7 +27,7 @@ Click a file, folder or desktop icon once to select it. Double-click or press
 Enter to open it. Buttons and Start entries run with one click. Ctrl adds/removes
 individual selected items; Shift extends a range. Drag empty space to select a
 rectangle. Right-click the selection for its actions; Escape closes the menu.
-M11.1 provides the initial Open/help/Close menu. In Settings, click the double-click
+Menus now expose genuine provider-dependent actions. In Settings, click the double-click
 interval to cycle 200, 500 and 900 ms; the choice is saved and restored on restart.
 
 Use Copy/Cut then Paste, or drag with a visible copy/move indication. Name conflicts
@@ -54,9 +54,9 @@ ordinary/4K readability and error-path tests are required. Design images and a
 live installer desktop are not completion evidence. Original Windows application
 compatibility retains its separate bounded profile and roadmap.
 
-## Implemented through M11.3
+## Implemented through M11.4
 
-The interaction stage, [native Files](files-m11.md) and
-[Start/taskbar](start-m11.md) have real guest and persistent-disk evidence.
-The window/setup sections above remain the ordered M11.4–M11.5 contract. Downloadable M11 media follow M11.6; use the
-current M10 installation manual for the existing public release.
+The interaction stage, [native Files](files-m11.md), [Start/taskbar](start-m11.md)
+and [windows/appearance](windows-m11.md) have actual guest and saved-disk evidence.
+[M11.4 release](../releases/m114-v0.11.4.md) includes its exact tested VMware
+starter. The expanded setup and complete final regression remain M11.5 and M11.6.

@@ -2,11 +2,11 @@
   "schema": 3,
   "id": "engacer",
   "name": "Engacer OS",
-  "version": "0.11.0",
+  "version": "0.11.4",
   "welcome": "Make yourself at home. Your apps, your files, your choice.",
   "accent": "#62e5bd",
   "packages": [
-    "m10-hardware-guide"
+    "m11-desktop-guide"
   ],
   "files": [],
   "desktop": {

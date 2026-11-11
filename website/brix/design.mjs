@@ -24,7 +24,7 @@ export function nativeDesign(){
    text('PROJECT SNAPSHOT / X86-64',10,'#90a6b8',{letterSpacing:'1.5px',py:10}),
    heading('ENGACER OS',18,'#e4edf1',{py:12}),
    text('Original kernel · BIOS + UEFI boot',13,'#35ceba'),
-   text('Tested download: '+progress.qualified_download+' · Devices · USB files',12,'#90a6b8'),
+   text('Published delivery: '+progress.qualified_download+' · Scoped native tests',12,'#90a6b8'),
    text(progress.current_stage+' · '+progress.stages.find(s=>s.id===progress.current_stage).title,13,'#35ceba'),
    text('Completed stages: '+progress.stages.filter(s=>s.status==='complete').map(s=>s.id).join(', '),12,'#90a6b8'),
    b('code',{code:'Next → Review → Install → Restart\nIDE / SATA / supported SCSI / NVMe\nDevices · USB file copies · Safe removal'}),
@@ -32,16 +32,16 @@ export function nativeDesign(){
  const hero=layout([[
    text('THE ENGACER OS KNOWLEDGE BASE',11,teal,{letterSpacing:'1.6px',weight:600,py:12}),
    heading('The M11 desktop',52,ink,{level:1,py:0,letterSpacing:'-1.8px'}),
-   heading('is taking shape.',52,teal,{py:0,letterSpacing:'-1.8px'}),
-   text(progress.current_stage+' completed: '+progress.stages.find(s=>s.id===progress.current_stage).title+'. Follow the tested work stage by stage. The final M11 ISO follows M11.6 qualification; the current tested download is '+progress.qualified_download+'.',18,muted,{py:20}),
+   heading('made familiar.',52,teal,{py:0,letterSpacing:'-1.8px'}),
+   text(progress.current_stage+' completed: '+progress.stages.find(s=>s.id===progress.current_stage).title+'. Try its matching VMware package, read the stage manuals and explore the evidence. Expanded setup follows in M11.5; full regression is M11.6.',18,muted,{py:20}),
    layout([[button('See M11 progress →',`${site}/blog/docs-milestones-m11`,{size:'sm'})],[button('Get the ISO ↓',`${site}/blog/downloads`,{variant:'outline',bg:ink,size:'sm'})]]),
  ],[terminal]],{padY:52,valign:'center'});
  hero.props.columns[0].width=55;hero.props.columns[1].width=45;
  hero.props.columns[0].children.at(-1).props.columns[0].width=60;
  hero.props.columns[0].children.at(-1).props.columns[1].width=40;
  const cards=layout([
-   card('01 / CURRENT DEVELOPMENT','Start, made yours.','Local search, Pinned, All apps, editable categories, folder shortcuts and a separate taskbar window group. Real restart and scoped virtual shutdown include safety reviews.','Read the Start guide ↗','docs-handbook-start-m11'),
-   card('02 / TESTED DOWNLOAD','Install in VMware','The current qualified download is '+progress.qualified_download+'. Use its prepared VMware ZIP and matching installation guide while the M11 stages are completed.','Open the setup guide ↗','docs-handbook-install-m10'),
+   card('01 / CURRENT DELIVERY','Your windows. Your way.','Maximize, restore, snap, resize and switch with Alt+Tab. Choose light or dark, wallpaper, accent and display size; save your appearance per user.','Read the windows guide ↗','docs-handbook-windows-m11'),
+   card('02 / TESTED DOWNLOAD','Install in VMware','The current qualified download is '+progress.qualified_download+'. Use its prepared VMware ZIP and matching installation guide while the M11 stages are completed.','Open the setup guide ↗','docs-handbook-'+(progress.release_guide||'install-m10')),
    card('03 / MAKE IT YOURS','Build your own distro.','Choose your accent, wallpaper, window style and default content with a validated distribution profile.','Open the distro guide ↗','docs-handbook-distributions'),
  ],{bg:{kind:'color',color:'#ffffff'},border:1,borderColor:'#dbe3e6',divided:true,ruleColor:'#dbe3e6',radius:4,padY:24});
  cards.props.columns.forEach(column=>{column.width=100/3;});
@@ -56,8 +56,8 @@ export function nativeDesign(){
  ]],{padY:32,borderBottom:1,borderColor:'#dbe3e6'});
  bottom.props.columns.forEach(column=>{column.width=50;});
  const main=layout([[
-   hero,heading('From the real M11.3 VM',27,ink,{py:18}),b('image',{url:'https://raw.githubusercontent.com/enginsoysal/engacer-os/main/evidence/M11/3/native/start-pinned.png',alt:'Native Engacer OS M11.3 Start: local search, catalogue and real app/folder pins. Actual VM capture, not a design concept.',naturalSize:true,radius:8}),heading('A good place to start',27,ink,{py:24}),cards,
-   b('alert',{variant:'info',title:'Development progress and tested downloads',text:progress.stages.filter(s=>s.status==='complete').map(s=>s.id).join(', ')+' are completed stages, with native test evidence and English guides. The remaining stages follow in order before final M11 VMware media. '+progress.qualified_download+' is the existing qualified download. Qualification covers named virtual profiles; physical hardware, 3D and general Windows compatibility remain unqualified.'}),bottom,
+   hero,heading('From the real M11.4 VM',27,ink,{py:18}),b('image',{url:'https://raw.githubusercontent.com/enginsoysal/engacer-os/main/evidence/M11/4/vmware/appearance.png',alt:'Native Engacer OS M11.4 Appearance and Files in the actual tested VMware guest. Original Inter typography, scalable controls and real windows; not a design concept.',naturalSize:true,radius:8}),heading('A good place to start',27,ink,{py:24}),cards,
+   b('alert',{variant:'info',title:'Development progress and tested downloads',text:progress.stages.filter(s=>s.status==='complete').map(s=>s.id).join(', ')+' are completed stages, with native test evidence and English guides. The remaining stages follow in order before final M11 VMware media. '+progress.qualified_download+' is the published stage delivery. Read its matching release scope; the M10 matrix does not qualify new bytes. Qualification covers named virtual profiles; physical hardware, 3D and general Windows compatibility remain unqualified.'}),bottom,
  ]],{bg:{kind:'color',color:paper},padY:12});
  const footer=b('socialcircles',{copyright:'Engacer OS / MIT licensed · Documentation & releases on GitHub',bg:paper,circleBg:teal,items:[{label:'github',href:'https://github.com/enginsoysal/engacer-os'},{label:'website',href:`${site}/blog/documentation`}]});
  return [header,status,main,footer];

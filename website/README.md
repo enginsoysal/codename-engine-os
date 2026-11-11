@@ -1,10 +1,10 @@
 # BrixCanvas documentation website
 
-The Engacer OS website belongs inside BrixCanvas. The native dashboard saved the owner-selected name and **https://engaceros.brixcanvas.com** on 2026-11-10. The internal site ID/slug and scoped publisher key stay unchanged; historical release identities stay intact. M10 hardware phases 1 and 2 are the current qualified runtime release. Native homepage Save, responsive review, current article readback and exact download-hash verification are required separately for this publication. OS sources remain in this independent repository; website content uses ordinary editable BrixCanvas Brix and articles.
+The Engacer OS website belongs inside BrixCanvas. The native dashboard saved the owner-selected name and **https://engaceros.brixcanvas.com** on 2026-11-10. The internal site ID/slug and scoped publisher key stay unchanged; historical release identities stay intact. M11.4 windows/appearance is the current separately scoped stage delivery. Native homepage Save, responsive review, current article readback and exact download-hash verification are required separately for every publication. OS sources remain in this independent repository; website content uses ordinary editable BrixCanvas Brix and articles.
 
 ## Native website
 
-### Current M10 publication — 10 November 2026
+### Historical M10 publication — 10 November 2026
 
 The Engacer OS M10 homepage uses the four editable native sections from
 `website/brix/design.mjs`, the canonical engaceros.brixcanvas.com route and the
@@ -73,7 +73,8 @@ Edit generated documentation in the canonical GitHub files. Local edits to gener
 
 Documentation and binaries remain canonical on GitHub. Native articles identify
 their source commit and downloads link directly to official release assets.
-M10 is the current qualified phase-1/2 virtual-device release; broader hardware and
+M10 is the earlier qualified phase-1/2 virtual-device release; M11.4 is the new
+window/appearance stage delivery, with its own test scope. Broader hardware and
 general DOS/Windows compatibility remain open. Accepted releases, tags, hashes
 and OS evidence are unchanged. Article/download updates are automatic; homepage
 editing is a separate native Brix operation. Browser work uses only the
@@ -161,8 +162,11 @@ BrixCanvas homepage. [Guide](../docs/handbook/install-m9.md),
 ## M11 reader navigation
 
 The public homepage leads with the latest completed M11 stage and a clearly
-labeled native VM capture. Its tested-download label remains M10 until final
-M11.6 media qualify. Update the homepage after each ordered stage; a GitHub
+labeled native VM capture. The owner's M11.4 clarification requires a visible
+GitHub stage release and matching test media after each remaining stage, with
+its actual qualification. The downloads selector requires the matching ISO,
+VMware ZIP and build manifest before promoting a stage. Full final regression
+remains M11.6. Update the homepage after each ordered stage; a GitHub
 article sync alone does not change the native homepage sections.
 
 The Documentation index is ordered by reader task: Start here, current M11
@@ -171,3 +175,12 @@ website maintenance, then the historical archive. Curated current installation
 and Files guides come before technical and historical material. Numeric titles
 sort naturally and every generated article appears exactly once. The publisher's
 navigation tests preserve this order and keep uncategorized references visible.
+
+M11.4 changes the full homepage image/feature card to native windows/Appearance,
+links its current installation guide and release, labels M10 as historical and
+keeps Files/Start/windows user guides before technical and archived articles.
+The publisher tests cover release-asset completeness and source ownership.
+Record the successful Actions sync, native Save, fresh anonymous home/guide/index/
+downloads readback, image readiness and official asset SHA256 readback under
+`evidence/M11/4` before proceeding to M11.5. Never save a stale editor blog
+snapshot after CI: reload the editor after synchronization first.

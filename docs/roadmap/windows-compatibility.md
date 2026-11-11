@@ -8,8 +8,8 @@ C17/assembly is the current implementation language; no new programming language
 
 | Requirement | Route | Current truth |
 |---|---|---|
-| Bootable media | M1 foundation, M10 current | Own BIOS/UEFI loaders and kernel; current ISO and independent disk startup qualified per [M10 virtual profile](../releases/m10-v0.10.0.md). Historical USB-boot evidence stays separate. |
-| Install OS to disk and boot independently | M6–M10 | Native graphical installation and two detached disk boots on the [current controller matrix](../releases/m10-v0.10.0.md). This is distinct from Windows app installation. |
+| Bootable media | M1 foundation, M11.4 stage delivery | Own BIOS/UEFI loaders and kernel; new stage media and independent startup have [their own qualification](../releases/m114-v0.11.4.md). Earlier broad M10/USB evidence stays separate; full M11 regression is M11.6. |
+| Install OS to disk and boot independently | M6–M11.4 | Native graphical installation, retained-ISO reset and two detached VMware SATA/UEFI boots on [exact new stage media](../releases/m114-v0.11.4.md). The older M10 controller matrix does not qualify new bytes. This is distinct from Windows app installation. |
 | Protected process foundation | M2/M3 | Native64 isolation, threads/waits/VM/SMP verification only; no Windows APIs |
 | Win32/Win64/NT interfaces | M8.4/M8.5 | Selected Win64 interfaces qualify one original 7-Zip console profile; general Win32/NT remains planned |
 | DOS programs/games | M8.1 | Separate future legacy runtime |

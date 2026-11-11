@@ -8,6 +8,9 @@
 static unsigned ready,head,tail,shift,extended;static uint8_t queue[256];static uint64_t dropped;
 #ifdef ENGINE_M7
 static unsigned control_modifier,alt_modifier;
+#ifdef ENGINE_M11
+static unsigned gui_modifier11,gui_used11;
+#endif
 #endif
 static const char plain[58]={0,0,'1','2','3','4','5','6','7','8','9','0','-','=',8,9,'q','w','e','r','t','y','u','i','o','p','[',']',10,0,'a','s','d','f','g','h','j','k','l',';',39,'`',0,92,'z','x','c','v','b','n','m',',','.','/',0,'*',0,' '};
 static const char upper[58]={0,0,'!','@','#','$','%','^','&','*','(',')','_','+',8,9,'Q','W','E','R','T','Y','U','I','O','P','{','}',10,0,'A','S','D','F','G','H','J','K','L',':',34,'~',0,'|','Z','X','C','V','B','N','M','<','>','?',0,'*',0,' '};
@@ -97,45 +100,55 @@ unsigned input_irq(uint64_t *frame){
         }
 #ifdef ENGINE_M11
         /* Publish the current state before queuing an ordinary key. */
-        input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u));
+        input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u)|(gui_modifier11?8u:0u));
+        if(extended&&(code==91||code==92)){if(!gui_modifier11)gui_used11=0;gui_modifier11|=code==91?1:2;input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u)|8u);extended=0;continue;}
+        if(extended&&(code==219||code==220)){gui_modifier11&=~(code==219?1u:2u);input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u)|(gui_modifier11?8u:0u));if(!gui_modifier11&&!gui_used11)enqueue(137);extended=0;continue;}
+        if(gui_modifier11&&!(code&128)){unsigned c=extended?(code==75?146:code==77?147:code==72?148:code==80?149:0):code==18?150:0;gui_used11=1;if(c)enqueue(c);extended=0;continue;}
+        if(alt_modifier&&code==62){enqueue(144);continue;}
+        if(alt_modifier&&code==57){enqueue(145);continue;}
+        if(alt_modifier&&code==15){enqueue(shift?143:135);continue;}
         if(code==60){enqueue(139);continue;}
         if(code==68&&shift){enqueue(140);continue;}
 #endif
         if(code==0xe0){extended=1;continue;}if(code==0xfa)continue;
         if(code==42){shift|=1;
 #ifdef ENGINE_M11
-input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u));
+input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u)|(gui_modifier11?8u:0u));
 #endif
 continue;}if(code==54){shift|=2;
 #ifdef ENGINE_M11
-input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u));
+input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u)|(gui_modifier11?8u:0u));
 #endif
 continue;}if(code==170){shift&=~1u;
 #ifdef ENGINE_M11
-input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u));
+input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u)|(gui_modifier11?8u:0u));
 #endif
 continue;}if(code==182){shift&=~2u;
 #ifdef ENGINE_M11
-input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u));
+input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u)|(gui_modifier11?8u:0u));
 #endif
 continue;}
 #ifdef ENGINE_M7
         if(code==29){control_modifier=1;
 #ifdef ENGINE_M11
-input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u));
+input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u)|(gui_modifier11?8u:0u));
 #endif
 extended=0;continue;}if(code==157){control_modifier=0;
 #ifdef ENGINE_M11
-input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u));
+input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u)|(gui_modifier11?8u:0u));
 #endif
 extended=0;continue;}
         if(code==56){alt_modifier=1;
 #ifdef ENGINE_M11
-input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u));
+input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u)|(gui_modifier11?8u:0u));
 #endif
-extended=0;continue;}if(code==184){alt_modifier=0;
+extended=0;continue;}if(code==184){
 #ifdef ENGINE_M11
-input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u));
+enqueue(142);
+#endif
+alt_modifier=0;
+#ifdef ENGINE_M11
+input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u)|(gui_modifier11?8u:0u));
 #endif
 extended=0;continue;}
         if(code==68||(extended&&(code==91

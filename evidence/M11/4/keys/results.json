@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "iso_sha256": "ae392db4c4b4491ebe1cc959d107b8d97abcb44cd534fb321e1a349c28e34fa5",
+  "checks": [
+    "USB: both Windows keys, released modifiers, Win+E/arrows, forward/reverse Alt+Tab, Alt+Space, Alt+F4, Ctrl+Escape and truthful app-minimum snap refusal",
+    "PS2: both Windows keys, released modifiers, Win+E/arrows, forward/reverse Alt+Tab, Alt+Space, Alt+F4, Ctrl+Escape and truthful app-minimum snap refusal"
+  ]
+}
