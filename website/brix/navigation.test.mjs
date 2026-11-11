@@ -15,3 +15,11 @@ test('numeric names sort naturally and every uncategorized article stays discove
  const groups=documentationGroups(posts);assert.deepEqual(groups[0].posts.map(p=>p.title),['Guide 2','Guide 10']);
  assert.deepEqual(groups.flatMap(g=>g.posts.map(p=>p.slug)).sort(),['a','b','c']);
 });
+
+test('a new stage replaces the previous install/release in Start here; history stays last',()=>{
+ const posts=[post('docs/handbook/index.md','Handbook'),post('docs/handbook/install-m10.md','Install M10 (historical)'),post('docs/handbook/install-m114.md','Install M11.4'),post('docs/releases/m10-v0.10.0.md','M10 release (historical)','releases'),post('docs/releases/m114-v0.11.4.md','M11.4 release','releases')];
+ const groups=documentationGroups(posts);
+ assert.deepEqual(groups[0].posts.map(p=>p.title),['Handbook','Install M11.4','M11.4 release']);
+ assert.deepEqual(new Set(groups.at(-1).posts.map(p=>p.title)),new Set(['Install M10 (historical)','M10 release (historical)']));
+ assert.equal(groups.flatMap(g=>g.posts).length,posts.length);
+});
