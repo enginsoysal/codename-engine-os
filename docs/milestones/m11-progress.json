@@ -3,7 +3,7 @@
   "product": "Engacer OS",
   "updated": "2026-11-11",
   "qualified_download": "M10",
-  "current_stage": "M11.2",
+  "current_stage": "M11.3",
   "stages": [
     {
       "id": "M11.0",
@@ -22,7 +22,7 @@
     },
     {
       "id": "M11.3",
-      "status": "not_started",
+      "status": "complete",
       "title": "Start, categories and taskbar"
     },
     {

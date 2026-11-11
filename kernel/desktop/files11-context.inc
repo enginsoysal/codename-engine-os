@@ -7,6 +7,7 @@ static void files_places_menu11(uint64_t token){file_menu_begin11(token,pointer_
 static void files_sort_menu11(uint64_t token){file_menu_begin11(token,pointer_x,pointer_y);file_menu_add11("Name",F11_SORT_NAME,1);file_menu_add11("Size",F11_SORT_SIZE,1);file_menu_add11("Type",F11_SORT_TYPE,1);file_menu_add11("Reverse order",F11_DIRECTION,1);file_menu_fit11();}
 static const v6_entry *file_target_entry11(i11_target t){desktop_window*w=file_owner_window11(t.window);if(w&&t.action>=FILE_ROW&&t.action<FILE_ROW+V6_ENTRIES)return child_at(&apps[w-model.windows],t.action-FILE_ROW);if(!t.window&&t.action>=F11_DESKTOP_ITEM&&t.action<F11_DESKTOP_ITEM+V6_ENTRIES)return desktop_child11(t.action-F11_DESKTOP_ITEM);return 0;}
 static void files_context_open11(i11_target t,unsigned x,unsigned y){
+ if(start_context11(t,x,y))return;
  file_menu_begin11(t.window,x,y);context_action11=t.action;file_context_path11[0]=0;desktop_window*w=desktop_lookup(&model,t.window);application*a=w?&apps[w-model.windows]:0;
  if(w&&(t.kind==I11_CAPTION||(t.action>=31000&&t.action<=31003)||w->app!=FILES)){
   if(w->app==EDITOR&&t.kind!=I11_CAPTION&&t.action<31000){file_menu_add11("Copy document",COPY,1);file_menu_add11("Cut document",CUT,1);file_menu_add11("Paste text",PASTE,clipboard_kind11!=2&&clipboard_length!=0);}
@@ -25,10 +26,10 @@ static void files_context_open11(i11_target t,unsigned x,unsigned y){
   if(file_is_bin11(path)){file_menu_add11("Restore selected items",F11_RESTORE,a&&file_selected_count11(a));file_menu_add11("Empty Recycle Bin...",F11_EMPTY,a&&children72(a));file_menu_add11("Properties",F11_PROPERTIES,1);}
   else{file_menu_add11("New folder...",FILE_FOLDER,writable);file_menu_add11("New text file...",F11_NEW_TEXT,writable);file_menu_add11("Paste",F11_PASTE,writable&&clipboard_kind11==2&&file_clip11.count);file_menu_add11("Undo last supported action",F11_UNDO,file_undo_state11.kind!=0);if(a){file_menu_add11(file_windows11[a-apps].view?"Use details view":"Use icon view",F11_VIEW,1);file_menu_add11("Sort by...",F11_SORT,1);}else file_menu_add11("Open Desktop in Files",F11_PLACE+1,1);if(!t.window)file_menu_add11("Personalize",OPEN_SETTINGS,1);if(!writable)copy(file_menu_reason11,"This location is protected. Use Home for your own files.",128);}
  }
- file_menu_fit11();
+ start_offer_folder11(t);file_menu_fit11();
 }
 static void files_context_invoke11(unsigned index){if(index>=file_menu_count11||!file_menu_items11[index].enabled)return;unsigned command=file_menu_items11[index].command;uint64_t token=context_window11;context11=0;whole();
- if(command==31001){close_window(token,0);task_damage();return;}if(command==31002){desktop_minimize(&model,token,1);task_damage();return;}
+ if(command==31001){desktop_focus11=0;desktop_focus(&model,token);close_window(token,0);task_damage();return;}if(command==31002){desktop_minimize(&model,token,1);task_damage();return;}
  if(!token&&command>=30000&&command<=30002){if(command==30002)launch(SETTINGS,0);else{char path[256];if(command==30001)root_path(path,"Documents");else home72(path);launch(FILES,path);}desktop_focus11=0;whole();return;}
  action(token,command);
 }

@@ -5,7 +5,7 @@ order and publication gates are defined in [the milestone](../../docs/milestones
 
 The accepted input-stage commands below describe its historical source revision
 `e833630`. Reproduce that stage only in a separate checkout; its evidence and
-artifacts are frozen. The current wrapper targets the stage-2 candidate.
+artifacts are frozen. The current wrapper targets the stage-3 candidate.
 
 ```powershell
 python tests/m11/interaction_host.py
@@ -26,9 +26,10 @@ or maps while a harness is using them. Final qualification needs the separate
 M11.6 controller, application, error and display matrix; this stage is not a claim
 of complete hardware or Windows compatibility.
 
-## M11.2 candidate
+## Accepted M11.2 record
 
-Freeze current production source and build before running native tasks:
+The commands below document source revision `ac94d20`. Reproduce only in a
+separate checkout and preserve the accepted STAGE2 media/maps and evidence:
 
 ```powershell
 python tests/m11/interaction_host.py
@@ -51,3 +52,25 @@ from exact linker maps; it is not configured RAM or total kernel memory.
 The input classifier also checks identity changes during a click and between
 clicks. Native listing order can change while entries are created: a recycled
 row number alone must never activate a different file.
+
+## M11.3 candidate
+
+Freeze the current production source and build before native checks:
+
+```powershell
+python tests/m11/start_host.py
+python tests/m11/interaction_host.py
+python tools/build/m11.py --revision stage3
+python tests/m11/start.py
+python tests/m11/start_controls.py
+python tests/m11/verify_start.py
+```
+
+The main journey installs an owned disk, edits categories/pins, validates real
+catalogue launches/removal and independent preference bytes, observes an actual
+installed reset and QEMU S5 process exit, then boots without the ISO. The controls
+journey reuses only that matching owned fixture, verifies USB-HID event counters
+and an explicit PS/2-only topology, reaches the final catalogue page and checks
+window admission and pin order. Neither writes guest memory. Host validation is
+separate from actual menu or power evidence. General ACPI/physical qualification
+and the final enabled-device VMware/controller/original-app matrix remain M11.6.

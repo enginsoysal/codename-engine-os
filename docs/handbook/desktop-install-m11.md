@@ -54,9 +54,9 @@ ordinary/4K readability and error-path tests are required. Design images and a
 live installer desktop are not completion evidence. Original Windows application
 compatibility retains its separate bounded profile and roadmap.
 
-## Implemented through M11.2
+## Implemented through M11.3
 
-The interaction stage and [native Files guide](files-m11.md) now have real guest
-and persistent-disk evidence. The Start/window/setup sections above remain the
-ordered contract for M11.3–M11.5. Downloadable M11 media follow M11.6; use the
+The interaction stage, [native Files](files-m11.md) and
+[Start/taskbar](start-m11.md) have real guest and persistent-disk evidence.
+The window/setup sections above remain the ordered M11.4–M11.5 contract. Downloadable M11 media follow M11.6; use the
 current M10 installation manual for the existing public release.

@@ -16,6 +16,8 @@ selection, double-click, context/focus and release-driven controls with
 [14 native tasks and matching-source acceptance](evidence/M11/1/acceptance-results.json).
 M11.2 adds [genuine Files operations](docs/handbook/files-m11.md), with
 [23 native tasks, 288 fault cases and matching-source acceptance](evidence/M11/2/acceptance-results.json).
+M11.3 adds [Start, categories and taskbar](docs/handbook/start-m11.md), with
+[22 native tasks and exact-source acceptance](evidence/M11/3/acceptance-results.json).
 Later stages follow in order; the qualified download remains M10 until M11.6 passes.
 
 ## Try it in VMware

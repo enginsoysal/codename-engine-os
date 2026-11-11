@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "checks": [
+    "Local search filters the installed catalogue without launching a process or allocating managed pages for each key",
+    "Enter launches the original installed Calculator from its catalogue identity",
+    "Default categories filter actual installed apps while keeping the Start menu open",
+    "Create, rename, hide and reorder update bounded real category preferences",
+    "Context category assignment persists; a hidden category does not remove its app from search",
+    "Start pins can be renamed and reordered without renaming or removing the installed app",
+    "App context actions persist independent Start and taskbar pins",
+    "Taskbar alignment is configurable; the default-layout review initially selects Cancel",
+    "Pinned launchers and actual window buttons separately launch, minimize and restore the same real window",
+    "A native folder pin follows a real folder rename, then opens the actual renamed folder",
+    "Optional app removal prunes both pin sets and live search; reinstall does not create stale launch paths",
+    "Power confirmation refuses unsaved documents and keeps the session running",
+    "Actual confirmed installed restart boots the same build and restores independently checked custom preferences",
+    "Confirmed Restore defaults resets layout only and preserves the user folder",
+    "Confirmed ACPI S5 shuts down the actual owned QEMU guest rather than displaying a fake power screen",
+    "Detached disk startup preserves the installed OS, restored preferences and user folder after shutdown"
+  ],
+  "iso_sha256": "9467bd0c4e62668e82f54295d79f30624d10544b922541472efdf0e5c46dce6f",
+  "custom_preferences_sha256": "d2f0745eb3579bb8c0baddeae9b90ea3f69d0e8bbe0ebb2f8470a7ec9937535d"
+}

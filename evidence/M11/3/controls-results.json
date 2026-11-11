@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "iso_sha256": "9467bd0c4e62668e82f54295d79f30624d10544b922541472efdf0e5c46dce6f",
+  "checks": [
+    "USB HID keyboard opens and closes Start with both Windows keys, Ctrl+Escape and F10",
+    "The paged installed catalogue reaches and launches its final Windows Apps entry",
+    "List/grid view changes real registered item geometry and saves the requested view",
+    "Taskbar pins reorder through explicit Up/Down controls while catalogue IDs and open windows remain intact",
+    "Eight-window admission refuses a ninth launch with a visible explanation and keeps all existing windows",
+    "PS/2 keyboard opens and closes Start with both Windows keys, Ctrl+Escape and F10"
+  ]
+}

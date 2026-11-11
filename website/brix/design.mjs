@@ -40,7 +40,7 @@ export function nativeDesign(){
  hero.props.columns[0].children.at(-1).props.columns[0].width=60;
  hero.props.columns[0].children.at(-1).props.columns[1].width=40;
  const cards=layout([
-   card('01 / CURRENT DEVELOPMENT','Files, the familiar way.','Selection, double-open, real copy and move, rename, Recycle Bin, restore and keyboard/context actions. Read the M11.2 guide and its tested limits.','Read the Files guide ↗','docs-handbook-files-m11'),
+   card('01 / CURRENT DEVELOPMENT','Start, made yours.','Local search, Pinned, All apps, editable categories, folder shortcuts and a separate taskbar window group. Real restart and scoped virtual shutdown include safety reviews.','Read the Start guide ↗','docs-handbook-start-m11'),
    card('02 / TESTED DOWNLOAD','Install in VMware','The current qualified download is '+progress.qualified_download+'. Use its prepared VMware ZIP and matching installation guide while the M11 stages are completed.','Open the setup guide ↗','docs-handbook-install-m10'),
    card('03 / MAKE IT YOURS','Build your own distro.','Choose your accent, wallpaper, window style and default content with a validated distribution profile.','Open the distro guide ↗','docs-handbook-distributions'),
  ],{bg:{kind:'color',color:'#ffffff'},border:1,borderColor:'#dbe3e6',divided:true,ruleColor:'#dbe3e6',radius:4,padY:24});
@@ -56,7 +56,7 @@ export function nativeDesign(){
  ]],{padY:32,borderBottom:1,borderColor:'#dbe3e6'});
  bottom.props.columns.forEach(column=>{column.width=50;});
  const main=layout([[
-   hero,heading('From the real M11.2 VM',27,ink,{py:18}),b('image',{url:'https://raw.githubusercontent.com/enginsoysal/engacer-os/main/evidence/M11/2/native/files-created.png',alt:'Native Engacer OS M11.2 Files: real folders, text document, selection and file actions. Actual VM capture, not a design concept.',naturalSize:true,radius:8}),heading('A good place to start',27,ink,{py:24}),cards,
+   hero,heading('From the real M11.3 VM',27,ink,{py:18}),b('image',{url:'https://raw.githubusercontent.com/enginsoysal/engacer-os/main/evidence/M11/3/native/start-pinned.png',alt:'Native Engacer OS M11.3 Start: local search, catalogue and real app/folder pins. Actual VM capture, not a design concept.',naturalSize:true,radius:8}),heading('A good place to start',27,ink,{py:24}),cards,
    b('alert',{variant:'info',title:'Development progress and tested downloads',text:progress.stages.filter(s=>s.status==='complete').map(s=>s.id).join(', ')+' are completed stages, with native test evidence and English guides. The remaining stages follow in order before final M11 VMware media. '+progress.qualified_download+' is the existing qualified download. Qualification covers named virtual profiles; physical hardware, 3D and general Windows compatibility remain unqualified.'}),bottom,
  ]],{bg:{kind:'color',color:paper},padY:12});
  const footer=b('socialcircles',{copyright:'Engacer OS / MIT licensed · Documentation & releases on GitHub',bg:paper,circleBg:teal,items:[{label:'github',href:'https://github.com/enginsoysal/engacer-os'},{label:'website',href:`${site}/blog/documentation`}]});

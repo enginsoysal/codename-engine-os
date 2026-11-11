@@ -138,12 +138,22 @@ extended=0;continue;}if(code==184){alt_modifier=0;
 input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u));
 #endif
 extended=0;continue;}
-        if(code==68||(extended&&code==91)){enqueue(137);extended=0;continue;}
+        if(code==68||(extended&&(code==91
+#ifdef ENGINE_M11
+||code==92
+#endif
+))){enqueue(137);extended=0;continue;}
         if(!(code&128)&&extended){unsigned c=code==75?128:code==77?129:code==71?130:code==79?131:code==83?132:code==72?133:code==80?134:0;if(c)enqueue((uint8_t)c);extended=0;continue;}
 #ifdef ENGINE_M10
         if(code==58){input10_toggle_caps();continue;}
 #endif
-        if(code==1){enqueue(27);continue;}
+        if(code==1){enqueue(
+#ifdef ENGINE_M11
+control_modifier?137:27
+#else
+27
+#endif
+);continue;}
 #endif
         if(code&128){extended=0;continue;}if(extended){extended=0;continue;}if(code<58){uint8_t c=(uint8_t)(shift?upper[code]:plain[code]);
 #ifdef ENGINE_M7

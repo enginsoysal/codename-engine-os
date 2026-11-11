@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "scope": "Production validation on host; native launch/preferences/power checks remain required",
+  "checks": [
+    "Version/magic/count/view/tab/alignment bounds",
+    "Category permutation, unique case-folded names and bounded text",
+    "App/folder pin identity, duplicate and path bounds",
+    "Taskbar identity/count/duplicate bounds",
+    "Static S5 package integer, length, truncation, ambiguity and state bounds"
+  ],
+  "source_sha256": {
+    "include/engine/desktop/start11.h": "9660a8a647fe0c22818ada64bda8e73bf1bb1d0d2a2f80bc9941841f9914f9b8",
+    "include/engine/desktop/power11.h": "f8da253fbfba9b7ca00f050e81ab1b3caecc2b830cedcc8a0300b9cd2da5aea0",
+    "tests/m11/start_host.c": "22cf45e3f7d531772ecc4680ad8346eca07a7bfa498c1c86dfd8d9f66ccb6d9f",
+    "tests/m11/start_host.py": "0f285d21cd5f025e328e7988b1e549a779f9306b827a8d0c0e2aac6c35ea8528"
+  }
+}

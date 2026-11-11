@@ -106,6 +106,7 @@ static uint64_t context_window11;
 static unsigned marquee11;static uint64_t marquee_window11;static desktop_rect marquee_rect11;
 static uint8_t marquee_saved11[V6_ENTRIES/8];static unsigned marquee_desktop_saved11;
 #include "files11-state.inc"
+#include "start11-state.inc"
 static unsigned selected_row11(application*,unsigned);
 static void draw_context11(void);
 static unsigned keyboard11(int);
@@ -532,11 +533,20 @@ static void draw_terminal(desktop_window *w,application *app,uint64_t token){
 #include "files11-keys.inc"
 #include "files11-desktop.inc"
 #include "files11-ui.inc"
+#include "start11-model.inc"
+#include "start11-ui.inc"
+#include "power11.inc"
+#include "start11-actions.inc"
+#include "start11-keys.inc"
 #endif
 unsigned desktop74_in_use(unsigned kind){
     for(unsigned i=0;i<DESKTOP_WINDOWS;++i)if(model.windows[i].live&&model.windows[i].app==kind)return 1;return 0;
 }
-void desktop74_removed(unsigned kind){if(kind==CLOCK74)memset(&time74,0,sizeof(time74));}
+void desktop74_removed(unsigned kind){if(kind==CLOCK74)memset(&time74,0,sizeof(time74));
+#ifdef ENGINE_M11
+ start_removed11(kind);
+#endif
+}
 #endif
 static void draw_window(unsigned slot) {
     desktop_window *w=&model.windows[slot];if(w->minimized)return;
@@ -692,6 +702,9 @@ static void render(void) {
     int bar=(int)model.height-60;
     if(shell_notice[0]){gui6_rect(20,(unsigned)bar-40,model.width-40,30,paper());text(30,bar-30,shell_notice,1,ink());}
     gui6_rect(0,(unsigned)bar,model.width,60,0x0b1922);
+#ifdef ENGINE_M11
+    start_taskbar11(bar);
+#else
     button(0,16,bar+15,100,"E  Start",0,launcher);
     unsigned available=model.width-140-(model.width>=1000?180:0),step=model.count?available/model.count:100;
     if(step>100)step=100;
@@ -712,6 +725,10 @@ static void render(void) {
 #endif
 1,0x95b1bd);
 #endif
+#endif
+#ifdef ENGINE_M11
+    start_draw11();
+#else
     if(launcher){
 #ifdef ENGINE_M74
         int width=620,height=420,left=16,top=bar-height-12;
@@ -728,6 +745,7 @@ static void render(void) {
             button(0,30,bar-293+(int)row++*38,270,titles[i],i,0);}
 #endif
     }
+#endif
 #ifdef ENGINE_M11
     if(marquee11){desktop_rect r=marquee_rect11;rectangle((desktop_rect){r.x,r.y,r.width,1},preferences.accent);rectangle((desktop_rect){r.x,r.y+r.height-1,r.width,1},preferences.accent);rectangle((desktop_rect){r.x,r.y,1,r.height},preferences.accent);rectangle((desktop_rect){r.x+r.width-1,r.y,1,r.height},preferences.accent);}
     files_draw_overlay11();
@@ -765,6 +783,7 @@ static void insert(application *app,const char *bytes,unsigned count) {
 
 static void action(uint64_t token,unsigned command) {
 #ifdef ENGINE_M11
+    if(start_action11(token,command))return;
     if(file_action11(token,command))return;
 #endif
     if(!token){if(!command){launcher^=1;whole();return;}launch(command,0);whole();return;}
@@ -959,7 +978,7 @@ static void pointer(void) {
 #ifdef ENGINE_M11
     unsigned released=!(buttons&1)&&(previous_buttons&1);
     i11_target hit11=target11((int)x,(int)y);
-    if(buttons!=previous_buttons)interaction11.target_identity=hit11.kind==I11_ITEM?file_item_identity11(hit11):0;
+    if(buttons!=previous_buttons)interaction11.target_identity=hit11.kind==I11_ITEM?file_item_identity11(hit11):start_identity11(hit11);
     dispatch_modifiers11=input11_pointer_modifiers();
     unsigned event11=i11_pointer(&interaction11,hit11,(int)x,(int)y,buttons,input11_pointer_ms());
     if(event11&I11_DRAG){
@@ -970,7 +989,7 @@ static void pointer(void) {
     }
     if(file_drag11){if(buttons&1)files_drag_motion11(x,y,dispatch_modifiers11);else files_drop11(hit11,dispatch_modifiers11);}
     if(marquee11){if(buttons&1)marquee_update11((int)x,(int)y);else{marquee11=0;whole();}}
-    if((buttons&1)&&!(previous_buttons&1)&&hit11.window){desktop_focus11=0;desktop_focus(&model,hit11.window);task_damage();}
+    if((buttons&1)&&!(previous_buttons&1)&&hit11.window&&hit11.action!=70){desktop_focus11=0;desktop_focus(&model,hit11.window);task_damage();}
     if(event11&(I11_SELECT|I11_ACTIVATE|I11_CONTEXT))dispatch11(hit11,event11,x,y);
 #else
     unsigned pressed=(buttons&1)&&!(previous_buttons&1),released=!(buttons&1)&&(previous_buttons&1);
@@ -1170,7 +1189,7 @@ NORETURN void desktop_start(const os_boot_info_v0 *boot,const m6_preferences *pr
     desktop_init(&model,display->framebuffer_width,display->framebuffer_height);
     usb_mouse_state(&pointer_x,&pointer_y,&previous_buttons);
 #ifdef ENGINE_M11
-    file_settings_load11();
+    file_settings_load11();power_init11(boot);start_load11();
 #endif
     launch(FILES,0);render();resource_log();serial_text("M7_DESKTOP_READY build=" BUILD_ID "\n");
 #ifdef ENGINE_M74

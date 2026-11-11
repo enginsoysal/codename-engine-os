@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "scope": "Exact installed desktop object fixed BSS/data delta; not total OS or configured RAM",
+  "stages": {
+    "STAGE2": {
+      "bytes": 530788,
+      "sections": {
+        "bss": 530768,
+        "data": 20
+      },
+      "map_sha256": "378f03da6cb7b4cc6fe29fa987d18115543c9c28ca8bd3510b4673a1e6d5530e"
+    },
+    "STAGE3": {
+      "bytes": 543044,
+      "sections": {
+        "bss": 543016,
+        "data": 28
+      },
+      "map_sha256": "662f9449e52bf853920e2140f73e423f5826f4a973540097e2081647963afd23"
+    }
+  },
+  "added_bytes": 12256,
+  "budget_bytes": 65536,
+  "native_search_retained_managed_pages_unchanged": true
+}

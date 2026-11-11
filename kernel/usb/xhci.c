@@ -87,6 +87,7 @@ static void input_complete(device *d,unsigned bytes){
     if(d->kind==1&&bytes>=8){
 #ifdef ENGINE_M11
 input11_usb_modifiers(data[0]);
+if((data[0]&0x88)&&!(d->last[0]&0x88)){input_feed(137);++key_events;}
 #endif
 for(unsigned i=2;i<8;++i)if(data[i]>3){unsigned old=0;for(unsigned j=2;j<8;++j)old|=d->last[j]==data[i];if(!old){
 #ifdef ENGINE_M10
@@ -102,6 +103,7 @@ if((data[0]&0x11)&&data[i]>=4&&data[i]<=29)c=(char)(data[i]-3);
 if(data[i]==43)c=(char)((data[0]&0x44)?135:(data[0]&0x22)?136:9);
 if(data[i]==67)c=(char)137;
 #ifdef ENGINE_M11
+if(data[i]==41&&(data[0]&0x11))c=(char)137;
 if(data[i]==59)c=(char)139;
 if(data[i]==67&&(data[0]&0x22))c=(char)140;
 if(data[i]==101)c=(char)140;

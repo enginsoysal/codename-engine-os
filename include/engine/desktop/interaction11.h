@@ -16,6 +16,7 @@ static inline void i11_cancel(i11_state*s){s->captured=0;s->dragged=0;s->last_va
 static inline unsigned i11_pointer(i11_state*s,i11_target target,int x,int y,unsigned buttons,uint64_t ms){
  unsigned old=s->buttons;s->buttons=buttons;
  if((buttons&3)&&!(old&3)){s->down=target;s->down_identity=s->target_identity;s->x=x;s->y=y;s->captured=buttons&3;s->dragged=0;return 0;}
+ if(s->captured&&(buttons&3)&&(buttons&3)!=s->captured){i11_cancel(s);return I11_CANCEL;}
  if(s->captured&&(buttons&3)&&i11_far(x,y,s->x,s->y)){s->last_valid=0;if(!s->dragged){s->dragged=1;return I11_DRAG;}return 0;}
  if(s->captured&&!(buttons&3)){
   unsigned held=s->captured;s->captured=0;

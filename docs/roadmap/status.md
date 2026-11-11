@@ -37,7 +37,14 @@ cover real file/subtree copy, move, rename, recycle/restore, guarded replacement
 Undo, shortcuts, associations, drag/drop, Properties and persistent views/sorting.
 [Files guide](../handbook/files-m11.md) · [decisions](../architecture/files-m11.md).
 The extra desktop fixed state is 410,444 bytes, below its 512-KiB budget.
-M11.3 through M11.6 implementation and final qualification remain pending.
+**M11.3 Start and taskbar are complete within their native stage scope:**
+[22 native tasks and production checks](../../evidence/M11/3/acceptance-results.json)
+cover local search, editable categories/pins, taskbar order/alignment, real
+window restoration, optional removal, input parity, quota, saved preferences
+and actual virtual restart/S5. [Guide](../handbook/start-m11.md) ·
+[decisions and explicit power limits](../architecture/start-m11.md).
+Fixed desktop BSS/data adds 12,256 bytes. M11.4 through M11.6 and final
+VMware/display/controller/original-app qualification remain pending.
 The current tested download stays M10. Later hardware phases resume afterward.
 
 ## Current delivered scope

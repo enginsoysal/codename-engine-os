@@ -25,9 +25,9 @@ The prepared VM has a new empty growable 20-GiB SATA disk, two CPUs, 128 MiB RAM
 [M5.1 numbered setup](install-m51.md), [M5 command-based installation](install.md), [old recovery](recovery.md), [old command reference](m5-console.md), [M4.5 storage](vmware-storage.md) and [console](console.md) describe their respective historical releases. M5/M5.1 data formats are not migrated by M6. Old releases and accepted evidence remain immutable.
 
 M11 desktop and installation work now precedes further hardware and Windows expansion.
-M11.0 design, M11.1 native input and M11.2 genuine Files operations are complete
+M11.0 design, M11.1 input, M11.2 Files and M11.3 Start/taskbar are complete
 within their stage scopes. [M11 progress](../milestones/m11.md) ·
-[Files user guide](files-m11.md) · [setup/desktop contract](desktop-install-m11.md).
+[Files user guide](files-m11.md) · [Start/taskbar guide](start-m11.md) · [setup/desktop contract](desktop-install-m11.md).
 The tested public download remains M10 until the final M11.6 qualification.
 The earlier [M9 graphics record](../milestones/m9.md) remains historical; it does
 not claim 3D acceleration or runtime physical-mode switching.
