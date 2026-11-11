@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "stage": "M11.3",
+  "source_commit": "f70c29e90e98dccb441f61129e13c7e08a9e5094",
+  "github_actions_run": "https://github.com/enginsoysal/engacer-os/actions/runs/43026470801",
+  "actions_conclusion": "success",
+  "public_homepage": "https://engaceros.brixcanvas.com/",
+  "public_guide": "https://engaceros.brixcanvas.com/blog/docs-handbook-start-m11",
+  "public_documentation_index": "https://engaceros.brixcanvas.com/blog/documentation",
+  "verified": [
+    "Native homepage Save clicked; saved check mark observed before public readback",
+    "Fresh public homepage leads with completed M11.3 and stages 0 through 3",
+    "M10 remains accurately identified as the qualified download until M11.6",
+    "Actual native Start image loaded at original 1280-pixel width",
+    "Fresh Start guide identifies canonical source commit f70c29e and 22 native tasks",
+    "Current M11 Files and Start guides precede their technical records in the reader-first index",
+    "The automatic article publication and readback job completed successfully"
+  ],
+  "next_stage_gate": "Closed before implementing M11.4",
+  "screenshots": ["public-homepage.png", "public-start-guide.png", "public-documentation-index.png"]
+}
