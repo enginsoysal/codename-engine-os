@@ -1,0 +1,19 @@
+{
+  "stage": "M11.1",
+  "passed": true,
+  "source_commit": "e83363075cb4ab1aed837b890c31fdf8560ffb87",
+  "tested_source_blobs_verified": 535,
+  "workflow": "https://github.com/enginsoysal/engacer-os/actions/runs/43007897388",
+  "content_sync": "success",
+  "native_homepage_save": "Saved check mark observed",
+  "public_homepage": "https://engaceros.brixcanvas.com/",
+  "public_guide": "https://engaceros.brixcanvas.com/blog/docs-architecture-input-m11",
+  "observed": [
+    "M11.1 complete; completed stages M11.0 and M11.1",
+    "Qualified tested download remains M10",
+    "Input guide identifies source commit e833630 and fourteen native tasks"
+  ],
+  "accepted_m10_iso_and_vmware_zip": "Original digests reverified unchanged",
+  "next_stage_authorized": "M11.2",
+  "checked": "2026-11-11"
+}
