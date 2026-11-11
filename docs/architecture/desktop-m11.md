@@ -3,6 +3,8 @@
 Status: M11.0 design baseline, 11 November 2026. Implementation follows the
 [strict stage sequence](../milestones/m11.md). The original SVG screens below
 describe the intended presentation; they are not screenshots of working M11 code.
+M11.1 now has a separately qualified [native input implementation](input-m11.md);
+the other runtime stages retain their own acceptance gates.
 
 ## Familiar behavior, original implementation
 

@@ -18,3 +18,10 @@ unsigned input10_hid(unsigned code,unsigned shifted){
 }
 void input10_wheel(int delta){int old=__atomic_load_n(&wheel10,__ATOMIC_RELAXED),next;do{next=old+delta;if(next>32)next=32;if(next<-32)next=-32;}while(!__atomic_compare_exchange_n(&wheel10,&old,next,0,__ATOMIC_RELEASE,__ATOMIC_RELAXED));if(!old&&next)input_feed(138);}
 int input10_take_wheel(void){return __atomic_exchange_n(&wheel10,0,__ATOMIC_ACQ_REL);}
+
+#ifdef ENGINE_M11
+static unsigned usb_modifiers11,legacy_modifiers11;
+unsigned input11_modifiers(void){return usb_modifiers11|legacy_modifiers11;}
+void input11_usb_modifiers(unsigned value){usb_modifiers11=((value&0x11)?1u:0u)|((value&0x22)?2u:0u)|((value&0x44)?4u:0u);}
+void input11_legacy_modifiers(unsigned value){legacy_modifiers11=value&7u;}
+#endif

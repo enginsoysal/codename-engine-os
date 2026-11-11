@@ -24,6 +24,9 @@
 #endif
 #include "build.h"
 #include "distro.h"
+#ifdef ENGINE_M11
+#include <engine/desktop/interaction11.h>
+#endif
 
 enum { FILES=1, EDITOR, SETTINGS, CALCULATOR, DOWNLOADS, DETAILS, TERMINAL,
        CLOCK74,CALENDAR74,DISKS74,SOFTWARE74,RECOVERY74,ARCHIVES74,IMAGES74,SCREENSHOT74,MEDIA74,BROWSER74,HELP74,WINDOWS8 };
@@ -90,6 +93,19 @@ static uint64_t transfer_owner74;
 static unsigned control_active,focused_action;
 static uint64_t focused_control_window;
 static const os_boot_info_v0 *display;
+#ifdef ENGINE_M11
+static i11_state interaction11;static unsigned dispatch_modifiers11;
+static uint8_t selected11[DESKTOP_WINDOWS][V6_ENTRIES/8];
+static unsigned selection_anchor11[DESKTOP_WINDOWS],selection_focus11[DESKTOP_WINDOWS];
+static unsigned desktop_selection11,desktop_focus11,desktop_item_focus11,desktop_anchor11,context_choice11,context11,context_x11,context_y11,context_action11;
+static uint64_t context_window11;
+static unsigned marquee11;static uint64_t marquee_window11;static desktop_rect marquee_rect11;
+static uint8_t marquee_saved11[V6_ENTRIES/8];static unsigned marquee_desktop_saved11;
+static unsigned selected_row11(application*,unsigned);
+static void draw_context11(void);
+static unsigned keyboard11(int);
+#endif
+
 #ifdef ENGINE_M74
 #define TITLE74(symbol,kind,id,title,worker,ready) [kind]=title,
 static const char *titles[APP74_KINDS]={[0]="",[1]="Files",[3]="Settings",APP74_CATALOG(TITLE74)};
@@ -430,6 +446,9 @@ static void draw_settings(desktop_window *w,application *app,uint64_t token) {
     const char *sizes[]={"Auto","100%","150%","200%"};unsigned choice=ui73_scale_choice();
     for(unsigned i=0;i<4;++i)button(token,x+(int)i*100,y+286,90,sizes[i],SCALE_AUTO+i,choice==(i?i+1:0));
     button(token,x,y+338,170,"Save preferences",PREFERENCES_SAVE,1);
+#ifdef ENGINE_M11
+    char speed11[40],number11[16];decimal(number11,interaction11.double_ms?interaction11.double_ms:500);copy(speed11,"Double-click: ",40);append(speed11,number11,40);append(speed11," ms",40);button(token,x+190,y+338,260,speed11,32100,0);
+#endif
 #else
     button(token,x,y+260,170,"Save preferences",PREFERENCES_SAVE,1);
 #endif
@@ -607,6 +626,9 @@ static void render(void) {
 #endif
     text(36,30,DISTRO_NAME,3,0xd8e9ec);text(38,64,DISTRO_DESKTOP_TAGLINE,1,0x8aabb7);
 #ifdef ENGINE_M72
+#ifdef ENGINE_M11
+    for(unsigned selected=0;selected<3;++selected)if(desktop_selection11&(1u<<selected))ui73_round(30,110+(int)selected*95,120,85,6,0x315b62);
+#endif
     folder_icon72(40,125,42,0xf0ce87);text(38,175,"My files",1,0xe2eee7);
     folder_icon72(40,220,42,0xf0ce87);text(38,270,"Documents",1,0xe2eee7);
 #ifdef ENGINE_M73
@@ -669,6 +691,10 @@ static void render(void) {
             button(0,30,bar-293+(int)row++*38,270,titles[i],i,0);}
 #endif
     }
+#ifdef ENGINE_M11
+    if(marquee11){desktop_rect r=marquee_rect11;rectangle((desktop_rect){r.x,r.y,r.width,1},preferences.accent);rectangle((desktop_rect){r.x,r.y+r.height-1,r.width,1},preferences.accent);rectangle((desktop_rect){r.x,r.y,1,r.height},preferences.accent);rectangle((desktop_rect){r.x+r.width-1,r.y,1,r.height},preferences.accent);}
+    draw_context11();
+#endif
     gui7_clip_reset();usb_mouse_draw();++paints;painted_pixels+=(uint64_t)dirty.width*dirty.height;
 }
 
@@ -703,6 +729,9 @@ static void action(uint64_t token,unsigned command) {
     if(!token){if(!command){launcher^=1;whole();return;}launch(command,0);whole();return;}
     desktop_window *w=desktop_lookup(&model,token);if(!w)return;
     unsigned slot=(unsigned)(w-model.windows);application *app=&apps[slot];
+#ifdef ENGINE_M11
+    if(command==32100){unsigned value=interaction11.double_ms?interaction11.double_ms:500;value=value==200?500:value==500?900:200;unsigned data11[2]={0x31314955,value};unsigned result=v6_put(m6_volume(),"/System/Settings/input11.bin",sizeof(data11),memory_source,data11);if(!result)interaction11.double_ms=value;notice(app,result?"The click preference could not be saved.":"Double-click interval saved. Click again to cycle 200, 500 and 900 ms.");invalidate(w->bounds);return;}
+#endif
 #ifdef ENGINE_M10
     if(devices_action10(w,app,token,command))return;
 #endif
@@ -868,13 +897,31 @@ static unsigned move_cached9(desktop_rect old,desktop_rect moved){
  return 1;
 }
 #endif
+#ifdef ENGINE_M11
+#include "interaction11.inc"
+#endif
 static void pointer(void) {
     unsigned x,y,buttons;usb_mouse_state(&x,&y,&buttons);
 #ifdef ENGINE_M9
     if(x==pointer_x&&y==pointer_y&&buttons==previous_buttons)return;
     uint64_t began9=m3_clock_ticks();unsigned moved9=dragging&&(buttons&1);
 #endif
+#ifdef ENGINE_M11
+    unsigned released=!(buttons&1)&&(previous_buttons&1);
+    i11_target hit11=target11((int)x,(int)y);
+    dispatch_modifiers11=input11_pointer_modifiers();
+    unsigned event11=i11_pointer(&interaction11,hit11,(int)x,(int)y,buttons,input11_pointer_ms());
+    if(event11&I11_DRAG){
+        if(interaction11.down.kind==I11_BACKGROUND&&!context11&&!launcher&&!interaction11.down.window){marquee11=1;marquee_window11=0;marquee_desktop_saved11=desktop_selection11;desktop_focus11=1;}
+        if(interaction11.down.kind==I11_BACKGROUND&&interaction11.down.window){desktop_window*mw=desktop_lookup(&model,interaction11.down.window);if(mw&&mw->app==FILES&&!apps[mw-model.windows].usb_mode10&&!apps[mw-model.windows].closing){marquee11=1;marquee_window11=interaction11.down.window;memcpy(marquee_saved11,selected11[mw-model.windows],sizeof(marquee_saved11));}}
+        if(interaction11.down.kind==I11_CAPTION){desktop_window*dw=desktop_lookup(&model,interaction11.down.window);if(dw){dragging=1;drag_window=interaction11.down.window;drag_x=(unsigned)interaction11.x;drag_y=(unsigned)interaction11.y;drag_bounds=dw->bounds;drag_resize=interaction11.down.action==31003;}}
+    }
+    if(marquee11){if(buttons&1)marquee_update11((int)x,(int)y);else{marquee11=0;whole();}}
+    if((buttons&1)&&!(previous_buttons&1)&&hit11.window){desktop_focus11=0;desktop_focus(&model,hit11.window);task_damage();}
+    if(event11&(I11_SELECT|I11_ACTIVATE|I11_CONTEXT))dispatch11(hit11,event11,x,y);
+#else
     unsigned pressed=(buttons&1)&&!(previous_buttons&1),released=!(buttons&1)&&(previous_buttons&1);
+#endif
     if(released){dragging=0;
 #ifdef ENGINE_M9
       if(drag9.frames){serial_text("M9_DRAG_PROFILE frames=");serial_hex(drag9.frames);serial_text(" ticks=");serial_hex(drag9.ticks);serial_text(" max_ticks=");serial_hex(drag9.longest);serial_text(" cached=");serial_hex(graphics9_current()->copy_frames);serial_text("\n");}
@@ -910,7 +957,9 @@ if(r.height<minimum)r.height=minimum;}else{r.x+=dx;r.y+=dy;}
 #ifdef ENGINE_M9
         if(cache9)(void)move_cached9(old9,moving9->bounds);
 #endif
-    }else if(pressed){
+    }
+#ifndef ENGINE_M11
+    else if(pressed){
         if(control_active){control_active=0;whole();}
         uint64_t token=desktop_hit(&model,(int)x,(int)y);desktop_window *w=desktop_lookup(&model,token);
         int handled=0;
@@ -935,6 +984,7 @@ if(r.height<minimum)r.height=minimum;}else{r.x+=dx;r.y+=dy;}
 #endif
         else if(!handled&&launcher){launcher=0;whole();}
     }
+#endif
     /* Preserve the previously drawn cursor region until damage has been consumed. */
     render();pointer_x=x;pointer_y=y;previous_buttons=buttons;usb_mouse_draw();
 #ifdef ENGINE_M9
@@ -943,6 +993,9 @@ if(r.height<minimum)r.height=minimum;}else{r.x+=dx;r.y+=dy;}
 }
 
 static void keyboard(int key) {
+#ifdef ENGINE_M11
+    if(keyboard11(key))return;
+#endif
 #ifdef ENGINE_M10
     if(key==138){int wheel=input10_take_wheel();if(model.focused<DESKTOP_WINDOWS&&model.windows[model.focused].live&&model.windows[model.focused].app==FILES){application*a=&apps[model.focused];unsigned total=0;if(a->usb_mode10==2){if(usb_listing10(a,0,1,&total))total=0;}else if(!a->usb_mode10)total=children72(a);int position=(int)a->offset-wheel*3;if(position<0)position=0;if(total&&(unsigned)position>=total)position=(int)total-1;a->offset=(unsigned)position;invalidate(model.windows[model.focused].bounds);}return;}
 #endif
@@ -1056,6 +1109,10 @@ NORETURN void desktop_start(const os_boot_info_v0 *boot,const m6_preferences *pr
 #endif
 #ifdef ENGINE_M10
     unsigned keyboard10[2],keyboard_bytes10=0;if(!v6_verify(m6_volume(),"/System/Settings/keyboard10.bin")&&!v6_read(m6_volume(),"/System/Settings/keyboard10.bin",0,keyboard10,sizeof(keyboard10),&keyboard_bytes10)&&keyboard_bytes10==sizeof(keyboard10)&&keyboard10[0]==0x30314c4b&&keyboard10[1]<2)input10_set_layout(keyboard10[1]);hw10_refresh();
+#endif
+#ifdef ENGINE_M11
+    unsigned input_settings11[2],input_bytes11=0;
+    if(!v6_verify(m6_volume(),"/System/Settings/input11.bin")&&!v6_read(m6_volume(),"/System/Settings/input11.bin",0,input_settings11,sizeof(input_settings11),&input_bytes11)&&input_bytes11==sizeof(input_settings11)&&input_settings11[0]==0x31314955&&input_settings11[1]>=200&&input_settings11[1]<=900)interaction11.double_ms=input_settings11[1];
 #endif
     desktop_init(&model,display->framebuffer_width,display->framebuffer_height);
     usb_mouse_state(&pointer_x,&pointer_y,&previous_buttons);

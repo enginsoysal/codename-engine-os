@@ -10,6 +10,11 @@
 #include <engine/install/m6.h>
 #include "build.h"
 #include "distro.h"
+#ifdef ENGINE_M11
+#include <engine/desktop/interaction11.h>
+#include <engine/hardware10.h>
+static i11_state setup_input11;
+#endif
 #ifdef ENGINE_M71
 #include <engine/install/disk71.h>
 #endif
@@ -301,10 +306,24 @@ NORETURN void m6_start(const os_boot_info_v0*boot){
 #ifdef ENGINE_M7
  if(installed&&!failure)desktop_start(boot,&preferences);
 #endif
- render();serial_text("M6_WIZARD_READY\n");unsigned last_buttons=0;
+ render();serial_text("M6_WIZARD_READY\n");
+#ifndef ENGINE_M11
+ unsigned last_buttons=0;
+#endif
  for(;;){__asm__ volatile("cli");if(usb_work_pending()){usb_process_changes();continue;}int key=input_pop();if(key<0){__asm__ volatile("sti; hlt":::"memory");continue;}__asm__ volatile("sti");
+#ifdef ENGINE_M11
+ if(key==141){i11_cancel(&setup_input11);continue;}
+#endif
  if(terminal){if(key==256){unsigned x,y,b;usb_mouse_state(&x,&y,&b);usb_mouse_draw();continue;}if(key==8&&command_length){--command_length;console_text("\b");}else if(key==10){console_text("\n");terminal_command();}else if(key>=32&&key<=126){if(command_length<sizeof(command)-1&&!command_overflow){command[command_length++]=(char)key;char echo[2]={(char)key,0};console_text(echo);}else command_overflow=1;}continue;}
- if(key==256){unsigned x,y,b;usb_mouse_state(&x,&y,&b);if((b&1)&&!(last_buttons&1)){for(unsigned i=0;i<controls;++i){control*c=&buttons[i];if(x>=c->x&&x<c->x+c->w&&y>=c->y&&y<c->y+c->h){focus=i;action(c->action);break;}}}last_buttons=b;usb_mouse_draw();continue;}
+ if(key==256){unsigned x,y,b;usb_mouse_state(&x,&y,&b);
+#ifdef ENGINE_M11
+ i11_target target={0,0,I11_NONE};unsigned hit=0;
+ for(unsigned i=0;i<controls;++i){control*c=&buttons[i];if(x>=c->x&&x<c->x+c->w&&y>=c->y&&y<c->y+c->h){target=(i11_target){0,c->action,I11_BUTTON};hit=i;break;}}
+ if(i11_pointer(&setup_input11,target,(int)x,(int)y,b,input11_pointer_ms())&I11_ACTIVATE){focus=hit;action(target.action);}
+#else
+ if((b&1)&&!(last_buttons&1)){for(unsigned i=0;i<controls;++i){control*c=&buttons[i];if(x>=c->x&&x<c->x+c->w&&y>=c->y&&y<c->y+c->h){focus=i;action(c->action);break;}}}last_buttons=b;
+#endif
+ usb_mouse_draw();continue;}
 
 #ifdef ENGINE_M7
  if(key==136&&controls){focus=(focus+controls-1)%controls;render();continue;}

@@ -1,0 +1,11 @@
+{
+  "case": "Double-click timing under repaint",
+  "earlier_candidate": "a78d4c49ddbba0a54c11e7a1df051b01",
+  "earlier_iso_sha256": "ed0d41002228a581b763330054a289835e38316b6380e545f0ab8cd05aafbac0",
+  "earlier_result": "A real 0.25-second pointer gesture selected twice without opening the folder",
+  "cause": "The broker classified elapsed time when consuming events after painting, rather than using queued arrival times",
+  "correction": "Queue monotonic arrival milliseconds and modifiers with each button edge",
+  "corrected_candidate": "afffb78c52b20d4e68d941f9879ac6f8",
+  "verification": "The same timed real pointer task opens the actual folder; see native-results.json and native/install.log",
+  "historical_failure_preserved": true
+}

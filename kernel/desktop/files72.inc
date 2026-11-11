@@ -26,6 +26,9 @@ static void visit72(application *app,const char *path,unsigned remember){
  if(nav->count==8){for(unsigned i=1;i<8;++i)copy(nav->path[i-1],nav->path[i],256);nav->count=7;}
  copy(nav->path[nav->count],path,256);nav->position=nav->count++;}
  copy(app->path,path,256);app->offset=0;app->notice[0]=0;
+#ifdef ENGINE_M11
+ interaction11.last_valid=0;memset(selected11[app-apps],0,sizeof(selected11[0]));selection_anchor11[app-apps]=selection_focus11[app-apps]=0;
+#endif
  serial_text("M72_FOLDER_VISIT ");serial_text(path);serial_text("\n");
 }
 static void create_folder72(application *app){
@@ -88,7 +91,13 @@ static void draw_files72(desktop_window *w,application *app,uint64_t token){
 #else
  78
 #endif
- ,"",FILE_ROW+app->offset+i,0);
+ ,"",FILE_ROW+app->offset+i,
+#ifdef ENGINE_M11
+ selected_row11(app,app->offset+i)
+#else
+ 0
+#endif
+ );
  if(file->kind==2)folder_icon72(list+10,fy+5,22,0xf0ce87);else {rectangle((desktop_rect){list+13,fy+4,17,23},0xf7f8ee);rectangle((desktop_rect){list+17,fy+10,9,2},0x88a4a0);}
  char name[64];unsigned limit=list_width>140?(unsigned)(list_width-140)/12:1;if(limit>63)limit=63;const char*full=file->path+(equal(app->path,"/")?1:length(app->path)+1);copy(name,full,limit+1);
  if(length(full)>limit&&limit>=3){name[limit-3]='.';name[limit-2]='.';name[limit-1]='.';}
@@ -112,7 +121,13 @@ static void draw_files72(desktop_window *w,application *app,uint64_t token){
  int by=w->bounds.y+w->bounds.height-70;
  button(token,list,by,64,"<",NAV_PREVIOUS,0);button(token,list+72,by,64,">",NAV_NEXT,0);
  char count[48],value[24];decimal(value,total);copy(count,value,48);append(count," items",48);text(list+152,by+11,count,1,ink());
- text(x,w->bounds.y+w->bounds.height-23,app->notice[0]?app->notice:writable72(app->path)?"Click a folder to open it. Your files are saved on disk.":"System folders are read-only here. Your personal files are in Home.",1,ink());
+ text(x,w->bounds.y+w->bounds.height-23,app->notice[0]?app->notice:writable72(app->path)?
+#ifdef ENGINE_M11
+ "Click to select. Double-click or Enter opens. Right-click for actions."
+#else
+ "Click a folder to open it. Your files are saved on disk."
+#endif
+:"System folders are read-only here. Your personal files are in Home.",1,ink());
 }
 static unsigned files_action72(desktop_window*w,application*app,uint64_t token,unsigned command){
  if(w->app!=FILES)return 0;

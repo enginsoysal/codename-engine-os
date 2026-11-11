@@ -95,11 +95,49 @@ unsigned input_irq(uint64_t *frame){
 #endif
             continue;
         }
+#ifdef ENGINE_M11
+        /* Publish the current state before queuing an ordinary key. */
+        input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u));
+        if(code==60){enqueue(139);continue;}
+        if(code==68&&shift){enqueue(140);continue;}
+#endif
         if(code==0xe0){extended=1;continue;}if(code==0xfa)continue;
-        if(code==42){shift|=1;continue;}if(code==54){shift|=2;continue;}if(code==170){shift&=~1u;continue;}if(code==182){shift&=~2u;continue;}
+        if(code==42){shift|=1;
+#ifdef ENGINE_M11
+input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u));
+#endif
+continue;}if(code==54){shift|=2;
+#ifdef ENGINE_M11
+input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u));
+#endif
+continue;}if(code==170){shift&=~1u;
+#ifdef ENGINE_M11
+input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u));
+#endif
+continue;}if(code==182){shift&=~2u;
+#ifdef ENGINE_M11
+input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u));
+#endif
+continue;}
 #ifdef ENGINE_M7
-        if(code==29){control_modifier=1;extended=0;continue;}if(code==157){control_modifier=0;extended=0;continue;}
-        if(code==56){alt_modifier=1;extended=0;continue;}if(code==184){alt_modifier=0;extended=0;continue;}
+        if(code==29){control_modifier=1;
+#ifdef ENGINE_M11
+input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u));
+#endif
+extended=0;continue;}if(code==157){control_modifier=0;
+#ifdef ENGINE_M11
+input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u));
+#endif
+extended=0;continue;}
+        if(code==56){alt_modifier=1;
+#ifdef ENGINE_M11
+input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u));
+#endif
+extended=0;continue;}if(code==184){alt_modifier=0;
+#ifdef ENGINE_M11
+input11_legacy_modifiers((control_modifier?1u:0u)|(shift?2u:0u)|(alt_modifier?4u:0u));
+#endif
+extended=0;continue;}
         if(code==68||(extended&&code==91)){enqueue(137);extended=0;continue;}
         if(!(code&128)&&extended){unsigned c=code==75?128:code==77?129:code==71?130:code==79?131:code==83?132:code==72?133:code==80?134:0;if(c)enqueue((uint8_t)c);extended=0;continue;}
 #ifdef ENGINE_M10

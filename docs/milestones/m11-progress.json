@@ -3,10 +3,10 @@
   "product": "Engacer OS",
   "updated": "2026-11-11",
   "qualified_download": "M10",
-  "current_stage": "M11.0",
+  "current_stage": "M11.1",
   "stages": [
     {"id": "M11.0", "status": "complete", "title": "Interaction and visual design contract"},
-    {"id": "M11.1", "status": "not_started", "title": "Selection, double-click, context and focus"},
+    {"id": "M11.1", "status": "complete", "title": "Selection, double-click, context and focus"},
     {"id": "M11.2", "status": "not_started", "title": "Files and genuine file operations"},
     {"id": "M11.3", "status": "not_started", "title": "Start, categories and taskbar"},
     {"id": "M11.4", "status": "not_started", "title": "Window behavior and visual system"},

@@ -11,6 +11,13 @@ const hw10_device *hw10_get(unsigned);
 usb10_info usb10_current(void);
 unsigned usb10_eject(unsigned,unsigned);
 unsigned input10_layout(void);
+#ifdef ENGINE_M11
+unsigned input11_modifiers(void);
+unsigned input11_pointer_modifiers(void);
+uint64_t input11_pointer_ms(void);
+void input11_usb_modifiers(unsigned);
+void input11_legacy_modifiers(unsigned);
+#endif
 void input10_toggle_caps(void);
 void input10_set_layout(unsigned);
 unsigned input10_hid(unsigned,unsigned);

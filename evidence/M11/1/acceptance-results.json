@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "stage": "M11.1",
+  "scope": "Native interaction stage; not final M11 media qualification",
+  "build_id": "afffb78c52b20d4e68d941f9879ac6f8",
+  "iso_sha256": "e29208a6cc73043b4846c3b84a668e885829981d3dd52b4000e46dab51592903",
+  "source_inputs_verified": 535,
+  "artifacts_verified": 13,
+  "native_tasks": [
+    "Single desktop-icon click selects without launching",
+    "Ctrl toggles and Shift extends actual desktop icon selection",
+    "Background marquee selects actual desktop icons without launching",
+    "Enter opens selected desktop icon",
+    "Single Files row click selects without navigating",
+    "Right release opens a native context menu; Escape consumes cancellation",
+    "Shift+F10, arrows and Enter operate the menu without activating the underlying row",
+    "Release outside a pressed control cancels activation",
+    "Arrow keyboard route changes the selected native row",
+    "Ctrl adds a second actual Files item without opening it",
+    "Files background marquee selects three real entries and releases capture",
+    "Caption capture respects the drag threshold, then moves the actual window",
+    "Double-click opens the real selected folder once",
+    "Click interval saved through Settings, independent disk-byte verification and detached disk startup"
+  ],
+  "host_checks": [
+    "Single selection and double-open on matching target",
+    "Triple click, other target and timeout do not double-open",
+    "Secondary button never activates primary action",
+    "Threshold drag and release-outside cancellation",
+    "Button activation on release, Escape cancellation and bounded interval"
+  ],
+  "independent_boot": true,
+  "publication": "Separate required public website gate before M11.2"
+}

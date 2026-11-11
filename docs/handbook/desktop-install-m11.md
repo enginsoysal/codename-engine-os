@@ -2,8 +2,11 @@
 
 This describes the approved M11 workflow. Check the
 [stage status](../milestones/m11.md) before expecting a feature in downloadable
-media. M10 remains the qualified download until M11.6. M11.0 provides designs,
-not a working new desktop. New M11 releases will identify their exact scope.
+media. M10 remains the qualified download until M11.6. M11.0 provides designs;
+M11.1 now implements native selection, double-click, context/focus and release
+behavior in a separately tested development candidate. File operations, Start,
+window/visual changes and the expanded setup below belong to M11.2–M11.6 and
+remain staged work. New media identify their exact qualified scope.
 
 ## Installing
 
@@ -24,6 +27,8 @@ Click a file, folder or desktop icon once to select it. Double-click or press
 Enter to open it. Buttons and Start entries run with one click. Ctrl adds/removes
 individual selected items; Shift extends a range. Drag empty space to select a
 rectangle. Right-click the selection for its actions; Escape closes the menu.
+M11.1 provides the initial Open/help/Close menu. In Settings, click the double-click
+interval to cycle 200, 500 and 900 ms; the choice is saved and restored on restart.
 
 Use Copy/Cut then Paste, or drag with a visible copy/move indication. Name conflicts
 must present a choice rather than overwrite silently. Recycle native user files

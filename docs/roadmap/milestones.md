@@ -6,8 +6,10 @@
 selection and double-click, real Files operations, Start/categories/taskbar,
 window behavior and visuals, guided setup, then exact final media qualification.
 Each stage must pass its checks, update English documentation, push to GitHub
-and verify the public website before the next begins. M11.0 is a completed design
-contract; runtime stages remain pending and M10 remains the qualified download.
+and verify the public website before the next begins. M11.0 design and M11.1
+native interaction are complete within their stage criteria; see
+[fourteen native input tasks](../../evidence/M11/1/acceptance-results.json).
+M11.2 through M11.6 remain pending and M10 remains the qualified download.
 
 ## Historical owner priority - 10 November 2026
 

@@ -11,8 +11,10 @@ bounded CPU/RAM use are product requirements.
 named virtual profiles; physical hardware and universal compatibility are not claimed.
 
 **Current development: [M11 desktop and setup refresh](docs/milestones/m11.md).**
-M11.0 defines the interaction and visual contract. Runtime stages follow in order;
-the qualified downloadable release remains M10 until M11.6 passes.
+M11.0 defines the interaction and visual contract. M11.1 implements native
+selection, double-click, context/focus and release-driven controls with
+[14 native tasks and matching-source acceptance](evidence/M11/1/acceptance-results.json).
+Later stages follow in order; the qualified download remains M10 until M11.6 passes.
 
 ## Try it in VMware
 

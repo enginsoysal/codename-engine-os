@@ -1,0 +1,10 @@
+{
+  "checked": "2026-11-11",
+  "scope": "Official behavior references; original Engacer implementation and artwork",
+  "references": [
+    {"title": "Windows 7 Mouse and Pointers", "url": "https://learn.microsoft.com/en-us/windows/win32/uxguide/inter-mouse", "note": "Legacy interaction guidance, not a current Windows 11 visual specification"},
+    {"title": "File Explorer in Windows", "url": "https://support.microsoft.com/en-us/windows/experience/fileexplorer/file-explorer-in-windows"},
+    {"title": "Customize the Windows Start Menu", "url": "https://support.microsoft.com/en-gb/windows/experience/personalization/customize-the-windows-start-menu"},
+    {"title": "Reinstall Windows with installation media", "url": "https://support.microsoft.com/en-us/windows/deployment/install-upgrade/reinstall-windows-with-the-installation-media"}
+  ]
+}

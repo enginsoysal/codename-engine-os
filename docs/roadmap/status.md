@@ -24,8 +24,14 @@ unchanged. The previous releases below are historical qualification, not new med
 M11.0 through M11.6, with GitHub and public website verification between stages.
 **M11.0 design is complete:** [interaction and visual contract](../architecture/desktop-m11.md),
 four original concept screens, resource/safety bounds and the
-[user-flow guide](../handbook/desktop-install-m11.md). These are design evidence;
-M11.1 through M11.6 runtime implementation and qualification remain pending.
+[user-flow guide](../handbook/desktop-install-m11.md). These are design evidence.
+**M11.1 native input is complete within its stage scope:** fourteen actual guest
+tasks, production classifier checks, 535 source inputs and thirteen artifact
+digests pass [the stage acceptance](../../evidence/M11/1/acceptance-results.json).
+Selection/double-open, context/keyboard focus, Ctrl/Shift/marquee, release-outside,
+drag threshold and the saved click interval include installed and detached startup.
+[Implementation and decisions](../architecture/input-m11.md).
+M11.2 through M11.6 implementation and final qualification remain pending.
 The current tested download stays M10. Later hardware phases resume afterward.
 
 ## Current delivered scope

@@ -17,7 +17,16 @@ static int mouse_limit_x=1200,mouse_limit_y=650;
 static unsigned mouse_width9=1215,mouse_height9=674;
 #endif
 #ifdef ENGINE_M6
-static unsigned mouse_press_pending,mouse_press_x,mouse_press_y;
+static unsigned mouse_press_pending;
+#ifndef ENGINE_M11
+static unsigned mouse_press_x,mouse_press_y;
+#endif
+#ifdef ENGINE_M11
+typedef struct {uint64_t ms;unsigned x,y,buttons,modifiers;} mouse_edge11;
+static mouse_edge11 mouse_edges11[16];static unsigned mouse_head11,mouse_tail11,mouse_block11;static uint64_t mouse_overflows11,pointer_ms11;static unsigned pointer_modifiers11;
+uint64_t input11_pointer_ms(void){return pointer_ms11;}
+unsigned input11_pointer_modifiers(void){return pointer_modifiers11;}
+#endif
 #endif
 static uint64_t mouse_events,key_events,irq_count,dma_pages;
 static volatile uint32_t *op,*runtime,*doorbell;static uint64_t *dcbaa;static trb *events;static ring commands;
@@ -56,7 +65,14 @@ static void submit_input(device *d){push(&d->interrupt,d->buffer+512,d->packet,(
 void m6_pointer_report(int dx,int dy,unsigned buttons){
     mouse_x+=dx;mouse_y+=dy;if(mouse_x<0)mouse_x=0;if(mouse_y<0)mouse_y=0;if(mouse_x>mouse_limit_x)mouse_x=mouse_limit_x;if(mouse_y>mouse_limit_y)mouse_y=mouse_limit_y;
     unsigned old_buttons=mouse_buttons;mouse_buttons=buttons&7;
+#ifdef ENGINE_M11
+    if(mouse_block11&&!mouse_buttons)mouse_block11=0;
+    if(mouse_buttons!=old_buttons&&!mouse_block11){unsigned next=(mouse_head11+1)&15,reported=mouse_buttons;
+        if(next==mouse_tail11){mouse_head11=mouse_tail11=0;mouse_block11=mouse_buttons!=0;reported=0;++mouse_overflows11;input_feed(141);}
+        mouse_edges11[mouse_head11]=(mouse_edge11){m3_clock_ticks()*10,(unsigned)mouse_x,(unsigned)mouse_y,reported,input11_modifiers()};mouse_head11=(mouse_head11+1)&15;mouse_press_pending=1;}
+#else
     if((mouse_buttons&1)&&!(old_buttons&1)&&!mouse_press_pending){mouse_press_x=(unsigned)mouse_x;mouse_press_y=(unsigned)mouse_y;mouse_press_pending=1;}
+#endif
     ++mouse_events;__atomic_store_n(&mouse_dirty,1,__ATOMIC_RELEASE);
 }
 #ifdef ENGINE_M9
@@ -68,7 +84,11 @@ void m9_pointer_absolute(unsigned x,unsigned y,unsigned buttons){
 #endif
 static void input_complete(device *d,unsigned bytes){
     uint8_t *data=(uint8_t*)(uintptr_t)(d->buffer+512);if(d->kind==9){for(unsigned i=0;i<bytes;++i)if(data[i]){__atomic_fetch_or(&pending_hubs,1u<<(unsigned)(d-devices),__ATOMIC_RELEASE);break;}return;}
-    if(d->kind==1&&bytes>=8){for(unsigned i=2;i<8;++i)if(data[i]>3){unsigned old=0;for(unsigned j=2;j<8;++j)old|=d->last[j]==data[i];if(!old){
+    if(d->kind==1&&bytes>=8){
+#ifdef ENGINE_M11
+input11_usb_modifiers(data[0]);
+#endif
+for(unsigned i=2;i<8;++i)if(data[i]>3){unsigned old=0;for(unsigned j=2;j<8;++j)old|=d->last[j]==data[i];if(!old){
 #ifdef ENGINE_M10
 if(data[i]==57){input10_toggle_caps();continue;}
 #endif
@@ -81,6 +101,11 @@ if((data[0]&0x11)&&data[i]>=4&&data[i]<=29)c=(char)(data[i]-3);
 #endif
 if(data[i]==43)c=(char)((data[0]&0x44)?135:(data[0]&0x22)?136:9);
 if(data[i]==67)c=(char)137;
+#ifdef ENGINE_M11
+if(data[i]==59)c=(char)139;
+if(data[i]==67&&(data[0]&0x22))c=(char)140;
+if(data[i]==101)c=(char)140;
+#endif
 #endif
 if(c){input_feed((uint8_t)c);++key_events;}}}memcpy(d->last,data,8);}
     if(d->kind==2&&bytes>=3){
@@ -205,7 +230,11 @@ void usb_mouse_draw(void){
 __atomic_store_n(&mouse_dirty,0,__ATOMIC_RELEASE);
 #endif
 extern void display_mouse(unsigned,unsigned);display_mouse((unsigned)mouse_x,(unsigned)mouse_y);}
-void usb_info(void){unsigned online=0;for(unsigned i=0;i<device_count;++i)online+=devices[i].slot&&!devices[i].dead;console_text("USB devices=");console_hex(online);console_text(" driver pages=");console_hex(dma_pages);console_text(" IRQs=");console_hex(irq_count);console_text("\nUSB keys=");console_hex(key_events);console_text(" mouse events=");console_hex(mouse_events);console_text(" buttons=");console_hex(mouse_buttons);console_text("\n");page_stats memory=pages_stats();console_text("Managed current bytes=");console_hex(memory.current_pages*4096);console_text(" peak bytes=");console_hex(memory.peak_pages*4096);console_text("\n");}
+void usb_info(void){
+#ifdef ENGINE_M11
+serial_text("M11_POINTER_QUEUE_OVERFLOWS=");serial_hex(mouse_overflows11);serial_text("\n");
+#endif
+unsigned online=0;for(unsigned i=0;i<device_count;++i)online+=devices[i].slot&&!devices[i].dead;console_text("USB devices=");console_hex(online);console_text(" driver pages=");console_hex(dma_pages);console_text(" IRQs=");console_hex(irq_count);console_text("\nUSB keys=");console_hex(key_events);console_text(" mouse events=");console_hex(mouse_events);console_text(" buttons=");console_hex(mouse_buttons);console_text("\n");page_stats memory=pages_stats();console_text("Managed current bytes=");console_hex(memory.current_pages*4096);console_text(" peak bytes=");console_hex(memory.peak_pages*4096);console_text("\n");}
 
 static unsigned mass_configure(device *d,unsigned in,unsigned out,unsigned in_packet,unsigned out_packet){
     d->endpoint=in*2+1;d->out_endpoint=out*2;d->storage_index=STORAGE_MAX;d->data=page();if(!d->data||!ring_init(&d->bulk_out))return 0;
@@ -265,7 +294,11 @@ static unsigned mass_probe(unsigned index){
 }
 
 static void release_device(unsigned index){
-    device *d=&devices[index];d->dead=1;if(d->kind==3&&d->storage_index<STORAGE_MAX)storage_unavailable(d->storage_index);
+    device *d=&devices[index];
+#ifdef ENGINE_M11
+    if(d->slot&&(d->kind==1||d->kind==2)){input11_usb_modifiers(0);input_feed(141);if(d->kind==2){mouse_head11=mouse_tail11=mouse_press_pending=mouse_buttons=mouse_block11=0;__atomic_store_n(&mouse_dirty,1,__ATOMIC_RELEASE);}}
+#endif
+    d->dead=1;if(d->kind==3&&d->storage_index<STORAGE_MAX)storage_unavailable(d->storage_index);
     if(d->slot){if(!command(0,(10u<<10)|(d->slot<<24))){serial_text("M45_USB_DISABLE_FAILED_DMA_RETAINED\n");return;}consume();dcbaa[d->slot]=0;__asm__ volatile("mfence":::"memory");}
     uint64_t pages[]={d->input,d->output,d->buffer,(uint64_t)(uintptr_t)d->control.base,(uint64_t)(uintptr_t)d->interrupt.base,(uint64_t)(uintptr_t)d->bulk_out.base,d->data,(uint64_t)(uintptr_t)d->uas_status.base};for(unsigned i=0;i<8;++i)if(pages[i]){page_free(pages[i]);--dma_pages;}
     unsigned generation=d->generation+1;memset(d,0,sizeof(*d));d->generation=generation;d->storage_index=STORAGE_MAX;
@@ -390,8 +423,20 @@ void usb_mouse_limits(unsigned w,unsigned h){
 void usb_mouse_state(unsigned*x,unsigned*y,unsigned*b){
     /* Snapshot the BSP-routed IRQ state without losing a press/release during repaint. */
     uint64_t flags;__asm__ volatile("pushfq; popq %0; cli":"=r"(flags)::"memory");
+#ifdef ENGINE_M11
+    if(mouse_head11!=mouse_tail11){mouse_edge11 edge=mouse_edges11[mouse_tail11];mouse_tail11=(mouse_tail11+1)&15;*x=edge.x;*y=edge.y;*b=edge.buttons;pointer_ms11=edge.ms;pointer_modifiers11=edge.modifiers;mouse_press_pending=mouse_head11!=mouse_tail11;__atomic_store_n(&mouse_dirty,1,__ATOMIC_RELEASE);}
+#else
     if(mouse_press_pending){*x=mouse_press_x;*y=mouse_press_y;*b=mouse_buttons|1u;mouse_press_pending=0;__atomic_store_n(&mouse_dirty,1,__ATOMIC_RELEASE);}
-    else{*x=(unsigned)mouse_x;*y=(unsigned)mouse_y;*b=mouse_buttons;__atomic_store_n(&mouse_dirty,0,__ATOMIC_RELEASE);}
+#endif
+    else{
+#ifdef ENGINE_M11
+ pointer_ms11=m3_clock_ticks()*10;pointer_modifiers11=input11_modifiers();
+#endif
+ *x=(unsigned)mouse_x;*y=(unsigned)mouse_y;*b=
+#ifdef ENGINE_M11
+ mouse_block11?0:
+#endif
+ mouse_buttons;__atomic_store_n(&mouse_dirty,0,__ATOMIC_RELEASE);}
 #ifdef ENGINE_M73
     extern unsigned ui73_scale(void);unsigned factor=ui73_scale();*x=*x*2/factor;*y=*y*2/factor;
 #endif

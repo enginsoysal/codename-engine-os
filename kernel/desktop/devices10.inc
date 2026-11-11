@@ -23,7 +23,13 @@ static void draw_usb10(desktop_window*w,application*app,uint64_t token){
  }else{
   button(token,x,y+44,95,"Drives",USB_DRIVES10,0);button(token,x+105,y+44,80,"Up",USB_UP10,0);ui73_fit(x+200,y+55,width-205,app->usb_path10,1,ink());
   unsigned rows=usb_visible10(w),total=0,status=usb_listing10(app,app->offset,rows,&total);if(status){usb_notice10(app,status);ui73_paragraph(x,y+115,width,2,app->notice,ink());}
-  else for(unsigned i=0;i<rows&&app->offset+i<total;++i){rem10_entry*e=&usb_rows10[i];int top=y+105+(int)i*43;button(token,x,top,width,"",USB_ROW10+i,app->usb_selected10==app->offset+i+1);if(e->kind==2)folder_icon72(x+12,top+8,20,0xf0ce87);else{rectangle((desktop_rect){x+15,top+7,16,24},0xf7f8ee);rectangle((desktop_rect){x+18,top+13,10,2},0x88a4a0);}ui73_fit(x+44,top+10,width-55,e->name,1,ink());}
+  else for(unsigned i=0;i<rows&&app->offset+i<total;++i){rem10_entry*e=&usb_rows10[i];int top=y+105+(int)i*43;button(token,x,top,width,"",USB_ROW10+i,
+#ifdef ENGINE_M11
+ selected_row11(app,app->offset+i)
+#else
+ app->usb_selected10==app->offset+i+1
+#endif
+ );if(e->kind==2)folder_icon72(x+12,top+8,20,0xf0ce87);else{rectangle((desktop_rect){x+15,top+7,16,24},0xf7f8ee);rectangle((desktop_rect){x+18,top+13,10,2},0x88a4a0);}ui73_fit(x+44,top+10,width-55,e->name,1,ink());}
   if(!status&&!total)text(x,y+128,"This folder is empty.",2,ink());
   int bottom=w->bounds.y+w->bounds.height-145;button(token,x,bottom,80,"<",USB_PREV10,0);button(token,x+90,bottom,80,">",USB_NEXT10,0);
   if(app->usb_source10[0])button(token,x+185,bottom,width-185,"Copy here",USB_EXPORT10,1);else button(token,x+185,bottom,width-185,"Copy selected to Downloads",USB_IMPORT10,1);
@@ -42,6 +48,10 @@ static unsigned devices_action10(desktop_window*w,application*app,uint64_t token
   else return 0;invalidate(w->bounds);return 1;
  }
  if(w->app!=FILES)return 0;
+#ifdef ENGINE_M11
+ if(command==USB_OPEN10||command==USB_CLOSE10||command==USB_DRIVES10||command==USB_UP10||(command>=USB_DISK10&&command<USB_DISK10+STORAGE_MAX)){memset(selected11[app-apps],0,sizeof(selected11[0]));interaction11.last_valid=0;}
+ if(command==USB_IMPORT10){unsigned count=0;for(unsigned n=0;n<V6_ENTRIES;++n)count+=selected_row11(app,n);if(count>1){notice(app,"USB transfer accepts one selected file at a time. Select one file to copy.");invalidate(w->bounds);return 1;}}
+#endif
  if(command>=USB_SEND10&&command<USB_SEND10+V6_ENTRIES){const v6_entry*f=child_at(app,command-USB_SEND10);if(f&&f->kind==1&&writable72(f->path)){copy(app->usb_source10,f->path,256);app->usb_mode10=1;app->offset=0;app->notice[0]=0;}}
  else if(command==USB_OPEN10){app->usb_mode10=1;app->offset=0;app->usb_source10[0]=0;app->notice[0]=0;}
  else if(command==USB_CLOSE10){app->usb_mode10=0;app->offset=0;app->usb_source10[0]=0;}
@@ -51,7 +61,15 @@ static unsigned devices_action10(desktop_window*w,application*app,uint64_t token
   if(command==USB_UP10){unsigned n=length(app->usb_path10);while(n>1&&app->usb_path10[n-1]!='/')--n;if(n>1)app->usb_path10[n-1]=0;else copy(app->usb_path10,"/",256);app->offset=app->usb_selected10=0;}
   else if(command==USB_PREV10)app->offset=app->offset>=usb_visible10(w)?app->offset-usb_visible10(w):0;
   else if(command==USB_NEXT10){unsigned total;if(!usb_listing10(app,app->offset,6,&total)&&app->offset+usb_visible10(w)<total)app->offset+=usb_visible10(w);}
-  else if(command>=USB_ROW10&&command<USB_ROW10+6){unsigned total,status=usb_listing10(app,app->offset,6,&total),row=command-USB_ROW10;if(status)usb_notice10(app,status);else if(app->offset+row<total){rem10_entry*e=&usb_rows10[row];if(e->kind==2){if(length(app->usb_path10)+length(e->name)+2>=256)notice(app,"This path is too long.");else{if(!equal(app->usb_path10,"/"))append(app->usb_path10,"/",256);append(app->usb_path10,e->name,256);app->offset=app->usb_selected10=0;app->notice[0]=0;}}else app->usb_selected10=app->offset+row+1;}}
+  else if(command>=USB_ROW10&&command<USB_ROW10+6){unsigned total,status=usb_listing10(app,app->offset,6,&total),row=command-USB_ROW10;if(status)usb_notice10(app,status);else if(app->offset+row<total){rem10_entry*e=&usb_rows10[row];if(e->kind==2){if(length(app->usb_path10)+length(e->name)+2>=256)notice(app,"This path is too long.");else{if(!equal(app->usb_path10,"/"))append(app->usb_path10,"/",256);append(app->usb_path10,e->name,256);app->offset=app->usb_selected10=0;app->notice[0]=0;
+#ifdef ENGINE_M11
+ memset(selected11[app-apps],0,sizeof(selected11[0]));interaction11.last_valid=0;
+#endif
+}}else {app->usb_selected10=app->offset+row+1;
+#ifdef ENGINE_M11
+ notice(app,"Copy this USB file to Downloads, then open it there.");
+#endif
+ }}}
   else if(command==USB_EJECT10){unsigned status=usb10_eject(app->usb_disk10,app->usb_context10);if(status)usb_notice10(app,status);else{app->usb_mode10=1;app->offset=0;notice(app,"Safe to remove the USB drive. Reconnect it to use it again.");hw10_refresh();}}
   else if(command==USB_EXPORT10&&app->usb_source10[0]){notice(app,"Copying to USB. Please keep the drive connected.");invalidate(w->bounds);render();unsigned status=rem10_export(app->usb_disk10,app->usb_context10,app->usb_part10,app->usb_path10,app->usb_source10);if(status)usb_notice10(app,status);else{notice(app,"Copied and flushed to USB. Use Safe remove before unplugging.");app->usb_source10[0]=0;app->offset=0;}}
   else if(command==USB_IMPORT10){unsigned total,status=app->usb_selected10?usb_listing10(app,app->usb_selected10-1,1,&total):B_DENIED;if(status||!app->usb_selected10||app->usb_selected10>total||usb_rows10[0].kind!=1)notice(app,"Select a file first.");else{char source[256],target[256];copy(source,app->usb_path10,256);if(!equal(source,"/"))append(source,"/",256);if(length(source)+length(usb_rows10[0].name)>=256||length(usb_rows10[0].name)>55){notice(app,"Use a shorter file name before copying to your Downloads.");invalidate(w->bounds);return 1;}append(source,usb_rows10[0].name,256);root_path(target,"Downloads");append(target,"/",256);append(target,usb_rows10[0].name,256);if(entry(target))unique_path(target,"Downloads",usb_rows10[0].name,"");notice(app,"Copying to Downloads. Please keep the drive connected.");invalidate(w->bounds);render();status=target[0]?rem10_import(app->usb_disk10,app->usb_context10,app->usb_part10,source,target):B_DENIED;if(status)usb_notice10(app,status);else notice(app,"Copied to Downloads. Your existing files were kept.");}}
