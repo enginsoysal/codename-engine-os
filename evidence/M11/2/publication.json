@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "stage": "M11.2",
+  "source_commit": "ac94d20aa9ab922e73cac2a5970043bb36c18e59",
+  "github_actions_run": "https://github.com/enginsoysal/engacer-os/actions/runs/43019409380",
+  "actions_conclusion": "success",
+  "public_homepage": "https://engaceros.brixcanvas.com/",
+  "public_guide": "https://engaceros.brixcanvas.com/blog/docs-handbook-files-m11",
+  "public_documentation_index": "https://engaceros.brixcanvas.com/blog/documentation",
+  "verified": [
+    "Native BrixCanvas homepage explicitly saved; Saved check mark observed",
+    "Fresh public homepage leads with M11.2 and completed stages 0, 1 and 2",
+    "M10 remains accurately identified as the qualified download",
+    "Native Files VM image loaded at its original 1280-pixel width",
+    "Fresh Files guide contains canonical source commit ac94d20",
+    "Documentation index orders current installation, M11, daily use, internals and history",
+    "Publisher verifies all 160 generated articles; twelve publisher tests and three audit tests pass"
+  ],
+  "next_stage_gate": "Closed before implementing M11.3",
+  "screenshots": ["public-homepage.png", "public-files-guide.png", "public-documentation-index.png"]
+}
