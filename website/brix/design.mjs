@@ -31,18 +31,18 @@ export function nativeDesign(){
  ]],{bg:{kind:'color',color:dark},border:1,borderColor:'#35ceba',radius:4,padY:18,minH:320,valign:'center'});
  const hero=layout([[
    text('THE ENGACER OS KNOWLEDGE BASE',11,teal,{letterSpacing:'1.6px',weight:600,py:12}),
-   heading('From first boot.',60,ink,{level:1,py:0,letterSpacing:'-1.8px'}),
-   heading('To what comes next.',60,teal,{py:0,letterSpacing:'-1.8px'}),
-   text('An independent operating system, built from scratch. Find the setup guides, explore the architecture, and download the latest bootable release.',18,muted,{py:20}),
-   layout([[button('Start with the handbook →',`${site}/blog/docs-handbook-index`,{size:'sm'})],[button('Get the ISO ↓',`${site}/blog/downloads`,{variant:'outline',bg:ink,size:'sm'})]]),
+   heading('The M11 desktop',52,ink,{level:1,py:0,letterSpacing:'-1.8px'}),
+   heading('is taking shape.',52,teal,{py:0,letterSpacing:'-1.8px'}),
+   text(progress.current_stage+' completed: '+progress.stages.find(s=>s.id===progress.current_stage).title+'. Follow the tested work stage by stage. The final M11 ISO follows M11.6 qualification; the current tested download is '+progress.qualified_download+'.',18,muted,{py:20}),
+   layout([[button('See M11 progress →',`${site}/blog/docs-milestones-m11`,{size:'sm'})],[button('Get the ISO ↓',`${site}/blog/downloads`,{variant:'outline',bg:ink,size:'sm'})]]),
  ],[terminal]],{padY:52,valign:'center'});
  hero.props.columns[0].width=55;hero.props.columns[1].width=45;
  hero.props.columns[0].children.at(-1).props.columns[0].width=60;
  hero.props.columns[0].children.at(-1).props.columns[1].width=40;
  const cards=layout([
-   card('01 / FIRST BOOT','Run it in VMware','Extract the M10 VMware ZIP, open EngacerOS.vmx, follow the guided installer, then restart into your installed desktop.','Open the setup guide ↗','docs-handbook-install-m10'),
-   card('02 / CUSTOMIZE','Build your own distro.','Choose your accent, wallpaper, window style and default content with a validated distribution profile.','Open the distro guide ↗','docs-handbook-distributions'),
-   card('03 / DESKTOP AND SETUP','Follow the M11 refresh',progress.current_stage+' is complete. Follow the ordered interaction, Files, Start, windows, setup and final qualification stages. Design concepts are clearly separated from runtime proof.','View M11 progress ↗','docs-milestones-m11'),
+   card('01 / CURRENT DEVELOPMENT','Files, the familiar way.','Selection, double-open, real copy and move, rename, Recycle Bin, restore and keyboard/context actions. Read the M11.2 guide and its tested limits.','Read the Files guide ↗','docs-handbook-files-m11'),
+   card('02 / TESTED DOWNLOAD','Install in VMware','The current qualified download is '+progress.qualified_download+'. Use its prepared VMware ZIP and matching installation guide while the M11 stages are completed.','Open the setup guide ↗','docs-handbook-install-m10'),
+   card('03 / MAKE IT YOURS','Build your own distro.','Choose your accent, wallpaper, window style and default content with a validated distribution profile.','Open the distro guide ↗','docs-handbook-distributions'),
  ],{bg:{kind:'color',color:'#ffffff'},border:1,borderColor:'#dbe3e6',divided:true,ruleColor:'#dbe3e6',radius:4,padY:24});
  cards.props.columns.forEach(column=>{column.width=100/3;});
  const bottom=layout([[
@@ -56,8 +56,8 @@ export function nativeDesign(){
  ]],{padY:32,borderBottom:1,borderColor:'#dbe3e6'});
  bottom.props.columns.forEach(column=>{column.width=50;});
  const main=layout([[
-   hero,heading('A good place to start',27,ink,{py:24}),cards,
-   b('alert',{variant:'warning',title:'Before you install M10',text:'Extract the complete VMware ZIP and open EngacerOS.vmx. A new blank 20 GiB SATA disk and the matching ISO are included. Select the disk row, follow Next, review your choices and install, then choose Restart to Engacer OS. The ISO may stay connected; disconnect only CD/DVD to test independent disk startup. Existing-disk replacement requires explicit erase consent. Keep Secure Boot off for this unsigned development build. M10 adds Settings > Devices and guarded USB file copies, safe removal and reconnect on named virtual profiles. Physical hardware and 3D remain unqualified; earlier QEMU SAS limits are preserved. Windows Apps supports the included original 7-Zip console profile; general Windows/MSI and DOS compatibility remain in progress.'}),bottom,
+   hero,heading('From the real M11.2 VM',27,ink,{py:18}),b('image',{url:'https://raw.githubusercontent.com/enginsoysal/engacer-os/main/evidence/M11/2/native/files-created.png',alt:'Native Engacer OS M11.2 Files: real folders, text document, selection and file actions. Actual VM capture, not a design concept.',naturalSize:true,radius:8}),heading('A good place to start',27,ink,{py:24}),cards,
+   b('alert',{variant:'info',title:'Development progress and tested downloads',text:progress.stages.filter(s=>s.status==='complete').map(s=>s.id).join(', ')+' are completed stages, with native test evidence and English guides. The remaining stages follow in order before final M11 VMware media. '+progress.qualified_download+' is the existing qualified download. Qualification covers named virtual profiles; physical hardware, 3D and general Windows compatibility remain unqualified.'}),bottom,
  ]],{bg:{kind:'color',color:paper},padY:12});
  const footer=b('socialcircles',{copyright:'Engacer OS / MIT licensed · Documentation & releases on GitHub',bg:paper,circleBg:teal,items:[{label:'github',href:'https://github.com/enginsoysal/engacer-os'},{label:'website',href:`${site}/blog/documentation`}]});
  return [header,status,main,footer];

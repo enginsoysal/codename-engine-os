@@ -5,6 +5,7 @@ import {execFileSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {marked} from '../public/vendor/marked.esm.js';
 import {canonicalPublicUrl,articleBranding} from './branding.mjs';
+import {documentationGroups} from './navigation.mjs';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const git=(...args)=>execFileSync('git',args,{cwd:root,encoding:'utf8',maxBuffer:8*1024*1024});
@@ -86,10 +87,10 @@ if(['M9','M91','M92','M10'].includes(current))add('richtext',{html:`<p>M9 adds a
  push('richtext',{html:generationSource,size:14});
  push('text',{text:'English manuals, architecture, release guides and evidence from the canonical Engacer OS GitHub repository. Each guide is an ordinary editable BrixCanvas article. Downloads are original GitHub release assets.',size:17,color:'#152434'});
  push('richtext',{html:`<p><a href="${SITE}/blog/docs-handbook-index">Start with the handbook</a> · <a href="${SITE}/blog/downloads">Downloads &amp; checksums</a> · <a href="${SITE}/blog/docs-roadmap-status">Current capabilities and limitations</a></p>`,size:17});
- for(const [key,name] of Object.entries(categoryNames)){
-   const matching=posts.filter(p=>p.category===key);if(!matching.length)continue;
-   push('heading',{text:name,level:2,size:27,color:'#152434'});
-   push('richtext',{html:'<ul>'+matching.map(p=>`<li><a href="${SITE}/blog/${p.slug}">${escape(p.title)}</a></li>`).join('')+'</ul>',size:17});
+ for(const group of documentationGroups(posts)){
+   push('heading',{text:group.title,level:2,size:27,color:'#152434'});
+   push('text',{text:group.description,size:17,color:'#526674'});
+   push('richtext',{html:'<ul>'+group.posts.map(p=>`<li><a href="${SITE}/blog/${p.slug}">${escape(p.title)}</a></li>`).join('')+'</ul>',size:17});
  }
  posts.push({id:'engine-documentation',slug:'documentation',title:'Documentation — all guides',status:'published',bodyFormat:'brix',blocks:index,category:'handbook',tags:['Handbook','Index'],author:'Engacer OS project',date:new Date().toISOString().slice(0,10),featured:true,meta:[{key:'engine_source_path',value:'@index'},{key:'engine_source_commit',value:ref}]});
  const result={version:1,source_commit:ref,generated:new Date().toISOString(),site_id:'b66d0e83-7987-4856-b702-e8d93234b6cd',site_slug:'codename-engine-os-ltvck',page:{blog:{posts,categories:Object.entries(categoryNames).map(([handle,title])=>({handle,title}))}}};

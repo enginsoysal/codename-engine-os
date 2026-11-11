@@ -27,7 +27,7 @@ static void visit72(application *app,const char *path,unsigned remember){
  copy(nav->path[nav->count],path,256);nav->position=nav->count++;}
  copy(app->path,path,256);app->offset=0;app->notice[0]=0;
 #ifdef ENGINE_M11
- interaction11.last_valid=0;memset(selected11[app-apps],0,sizeof(selected11[0]));selection_anchor11[app-apps]=selection_focus11[app-apps]=0;
+ file_visit11(app);interaction11.last_valid=0;memset(selected11[app-apps],0,sizeof(selected11[0]));selection_anchor11[app-apps]=selection_focus11[app-apps]=0;
 #endif
  serial_text("M72_FOLDER_VISIT ");serial_text(path);serial_text("\n");
 }
@@ -40,6 +40,9 @@ static void create_folder72(application *app){
  char path[256];copy(path,app->path,256);append(path,"/",256);append(path,app->pending,256);
  unsigned result=v6_mkdir(m6_volume(),path);
  if(result){notice(app,result==V6_EXISTS?"That name is already in use. Choose another.":"The folder could not be saved. Your files were kept.");return;}
+#ifdef ENGINE_M11
+ file_created_folder11(path);
+#endif
  app->closing=0;app->offset=0;notice(app,"Folder created and saved to disk.");serial_text("M72_FOLDER_CREATED ");serial_text(path);serial_text("\n");
 }
 static void folder_dialog72(desktop_window*w,application*app,uint64_t token){
@@ -57,6 +60,9 @@ static void folder_dialog72(desktop_window*w,application*app,uint64_t token){
  text(x,y+242,app->notice[0]?app->notice:"Type a name, then choose Create folder. Escape cancels.",1,ink());
 }
 static void draw_files72(desktop_window *w,application *app,uint64_t token){
+#ifdef ENGINE_M11
+ draw_files11(w,app,token);return;
+#endif
 #ifdef ENGINE_M10
  if(app->usb_mode10){draw_usb10(w,app,token);return;}
 #endif

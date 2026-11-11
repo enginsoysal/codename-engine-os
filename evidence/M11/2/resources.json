@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "scope": "Exact installed desktop object BSS delta; separate from managed pages, framebuffer and configured RAM",
+  "baseline_bytes": 120324,
+  "candidate_bytes": 530768,
+  "added_bytes": 410444,
+  "budget_bytes": 524288,
+  "maps": {
+    "STAGE1": "0ad194bff3500857f5dc669aeedbf110aa4364104d1e2de4376461baa718e3d3",
+    "STAGE2": "378f03da6cb7b4cc6fe29fa987d18115543c9c28ca8bd3510b4673a1e6d5530e"
+  }
+}

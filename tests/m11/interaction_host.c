@@ -15,5 +15,10 @@ unsigned interaction11_checks(void){
  s.double_ms=200;CHECK(!i11_pointer(&s,a,10,10,1,1400));CHECK(i11_pointer(&s,a,10,10,0,1410)==I11_SELECT);
  CHECK(!i11_pointer(&s,a,10,10,1,1700));CHECK(i11_pointer(&s,a,10,10,0,1710)==I11_SELECT);
  CHECK(!i11_far(10,10,14,14));CHECK(i11_far(10,10,15,10));
+ i11_cancel(&s);s.buttons=0;s.target_identity=41;
+ CHECK(!i11_pointer(&s,a,10,10,1,1800));s.target_identity=42;
+ CHECK(i11_pointer(&s,a,10,10,0,1810)==I11_CANCEL);
+ CHECK(!i11_pointer(&s,a,10,10,1,1900));CHECK(i11_pointer(&s,a,10,10,0,1910)==I11_SELECT);
+ s.target_identity=43;CHECK(!i11_pointer(&s,a,10,10,1,1950));CHECK(i11_pointer(&s,a,10,10,0,1960)==I11_SELECT);
  return 0;
 }

@@ -31,7 +31,13 @@ digests pass [the stage acceptance](../../evidence/M11/1/acceptance-results.json
 Selection/double-open, context/keyboard focus, Ctrl/Shift/marquee, release-outside,
 drag threshold and the saved click interval include installed and detached startup.
 [Implementation and decisions](../architecture/input-m11.md).
-M11.2 through M11.6 implementation and final qualification remain pending.
+**M11.2 native Files is complete within its stage scope:**
+[23 guest tasks, 288 storage fault cases and exact-source acceptance](../../evidence/M11/2/acceptance-results.json)
+cover real file/subtree copy, move, rename, recycle/restore, guarded replacement,
+Undo, shortcuts, associations, drag/drop, Properties and persistent views/sorting.
+[Files guide](../handbook/files-m11.md) · [decisions](../architecture/files-m11.md).
+The extra desktop fixed state is 410,444 bytes, below its 512-KiB budget.
+M11.3 through M11.6 implementation and final qualification remain pending.
 The current tested download stays M10. Later hardware phases resume afterward.
 
 ## Current delivered scope

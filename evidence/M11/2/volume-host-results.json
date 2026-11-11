@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "scope": "Production native storage on host; actual GUI and reboot tasks are separate required gates",
+  "checks": [
+    "Unchanged IEEE/native disk format checked against independent zlib CRCs",
+    "Self-descendant, collision and overlong component refusals perform no writes",
+    "One subtree metadata transaction preserves descendant bytes and unrelated prefix neighbors",
+    "All 144 I/O acknowledgement points, with ordinary and torn failures, remount as complete old or new subtree",
+    "Cancellation aborts unpublished destination data and preserves source bytes",
+    "One-page verification is bounded; premature finish and wrong source CRC cannot publish",
+    "Verified copy publishes exact bytes only after sealing, readback and source-CRC agreement",
+    "Subtree removal preserves similarly prefixed unrelated files",
+    "A falsely successful corrupted data write is detected before publication; source remains intact"
+  ],
+  "fault_cases": 288,
+  "source_sha256": {
+    "kernel/storage/volume6.c": "61e552e7378700a0e53f581a41ce6a4d5ff5b3ad5ccd0e9ab4249ebda7d382b5",
+    "include/engine/storage/volume6.h": "2e3a82311fb478eaa816f7ef772fd82dcfdf8981ffc678d5088b60d1c22a8ec8",
+    "tests/m11/volume_host.py": "6a4d9744239bc1def1cac3f22119761ffd6ed87ef70c3a61c1c1010938d6e649"
+  }
+}

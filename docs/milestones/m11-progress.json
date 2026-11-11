@@ -3,15 +3,43 @@
   "product": "Engacer OS",
   "updated": "2026-11-11",
   "qualified_download": "M10",
-  "current_stage": "M11.1",
+  "current_stage": "M11.2",
   "stages": [
-    {"id": "M11.0", "status": "complete", "title": "Interaction and visual design contract"},
-    {"id": "M11.1", "status": "complete", "title": "Selection, double-click, context and focus"},
-    {"id": "M11.2", "status": "not_started", "title": "Files and genuine file operations"},
-    {"id": "M11.3", "status": "not_started", "title": "Start, categories and taskbar"},
-    {"id": "M11.4", "status": "not_started", "title": "Window behavior and visual system"},
-    {"id": "M11.5", "status": "not_started", "title": "Guided installation and installed startup"},
-    {"id": "M11.6", "status": "not_started", "title": "Full qualification and final VMware media"}
+    {
+      "id": "M11.0",
+      "status": "complete",
+      "title": "Interaction and visual design contract"
+    },
+    {
+      "id": "M11.1",
+      "status": "complete",
+      "title": "Selection, double-click, context and focus"
+    },
+    {
+      "id": "M11.2",
+      "status": "complete",
+      "title": "Files and genuine file operations"
+    },
+    {
+      "id": "M11.3",
+      "status": "not_started",
+      "title": "Start, categories and taskbar"
+    },
+    {
+      "id": "M11.4",
+      "status": "not_started",
+      "title": "Window behavior and visual system"
+    },
+    {
+      "id": "M11.5",
+      "status": "not_started",
+      "title": "Guided installation and installed startup"
+    },
+    {
+      "id": "M11.6",
+      "status": "not_started",
+      "title": "Full qualification and final VMware media"
+    }
   ],
   "publication": "Public website verification is recorded separately before starting the next stage."
 }

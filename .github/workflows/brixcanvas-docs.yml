@@ -36,7 +36,7 @@ jobs:
         with:
           node-version: '24'
       - name: Verify publisher ownership and recovery boundaries
-        run: node --test website/brix/branding.test.mjs website/brix/sync.test.mjs
+        run: node --test website/brix/branding.test.mjs website/brix/sync.test.mjs website/brix/navigation.test.mjs
       - name: Verify audit redirect and failure handling
         run: python website/brix/audit_test.py
       - name: Synchronize and verify native BrixCanvas articles

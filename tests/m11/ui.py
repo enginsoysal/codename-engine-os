@@ -1,7 +1,7 @@
 """Reuse normal guest input with M10 development map identities."""
 import os,importlib.util
 from pathlib import Path
-os.environ["ENGINE74_IMAGE"]=os.environ.get("ENGACER11_IMAGE","EngacerOS-M11STAGE1")
+os.environ["ENGINE74_IMAGE"]=os.environ.get("ENGACER11_IMAGE","EngacerOS-M11STAGE2")
 spec=importlib.util.spec_from_file_location("shared74",Path(__file__).resolve().parents[1]/"m74/ui.py")
 shared=importlib.util.module_from_spec(spec);spec.loader.exec_module(shared)
 globals().update({k:v for k,v in vars(shared).items() if not k.startswith("__")})
@@ -64,7 +64,8 @@ class Pointer(_BasePointer):
             dirty=integer(self.guest,'mouse_dirty',installed)
             pending=integer(self.guest,'mouse_head11',installed)!=integer(self.guest,'mouse_tail11',installed)
             halted=self.guest.qmp('human-monitor-command',{'command-line':'info registers -a'}).count('HLT=1')==len(self.guest.qmp('query-cpus-fast'))
-            if not dirty and not pending and halted:return
+            queued=integer(self.guest,'head',installed)!=integer(self.guest,'tail',installed)
+            if not dirty and not pending and not queued and halted:return
             if time.monotonic()>deadline:raise TimeoutError('Guest did not consume the previous pointer edge')
             time.sleep(.025)
     def click(self,x,y):
@@ -74,7 +75,7 @@ class Pointer(_BasePointer):
     def desktop(self,action,installed=False,settle=True):
         g=self.guest;until=time.monotonic()+15
         while True:
-            count=integer(g,'control_count',installed);raw=memory(g,symbol('controls',16384,installed)[0],count*32)
+            count=integer(g,'control_count',installed);raw=memory(g,symbol('controls',65536,installed)[0],count*32)
             matches=[struct.unpack_from('<iiiiQI',raw,i*32) for i in range(count) if struct.unpack_from('<iiiiQI',raw,i*32)[5]==action]
             if matches:break
             if time.monotonic()>until:raise AssertionError((action,count))

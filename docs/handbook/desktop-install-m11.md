@@ -53,3 +53,10 @@ An installed reboot, persistent files/preferences, actual mouse/keyboard tasks,
 ordinary/4K readability and error-path tests are required. Design images and a
 live installer desktop are not completion evidence. Original Windows application
 compatibility retains its separate bounded profile and roadmap.
+
+## Implemented through M11.2
+
+The interaction stage and [native Files guide](files-m11.md) now have real guest
+and persistent-disk evidence. The Start/window/setup sections above remain the
+ordered contract for M11.3–M11.5. Downloadable M11 media follow M11.6; use the
+current M10 installation manual for the existing public release.

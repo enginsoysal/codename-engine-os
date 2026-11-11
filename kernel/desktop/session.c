@@ -72,7 +72,11 @@ typedef struct { uint64_t magic; uint32_t accent, dark, calculator, reserved; } 
 static desktop_model model;
 static application apps[DESKTOP_WINDOWS];
 #ifdef ENGINE_M74
+#ifdef ENGINE_M11
+#define DESKTOP_CONTROLS 2048u
+#else
 #define DESKTOP_CONTROLS 512u
+#endif
 #else
 #define DESKTOP_CONTROLS 288u
 #endif
@@ -101,6 +105,7 @@ static unsigned desktop_selection11,desktop_focus11,desktop_item_focus11,desktop
 static uint64_t context_window11;
 static unsigned marquee11;static uint64_t marquee_window11;static desktop_rect marquee_rect11;
 static uint8_t marquee_saved11[V6_ENTRIES/8];static unsigned marquee_desktop_saved11;
+#include "files11-state.inc"
 static unsigned selected_row11(application*,unsigned);
 static void draw_context11(void);
 static unsigned keyboard11(int);
@@ -223,6 +228,9 @@ static unsigned send_app(application *app,unsigned command,unsigned key,const vo
 
 #ifdef ENGINE_M72
 static void init_files72(application *app);
+#ifdef ENGINE_M11
+static void visit72(application*,const char*,unsigned);
+#endif
 #endif
 #ifdef ENGINE_M74
 static void init74(unsigned,application *);
@@ -259,12 +267,20 @@ static uint64_t launch(unsigned kind,const char *path) {
     if(kind==FILES){
 #ifdef ENGINE_M72
 #ifdef ENGINE_M73
-        int fw=model.width>1200?1080:(int)model.width-112,fh=model.height>900?720:(int)model.height-180;
+        int fw=model.width>1200?1080:(int)model.width-112,fh=model.height>900?720:(int)model.height-
+#ifdef ENGINE_M11
+100;
+#else
+180;
+#endif
         desktop_place(&model,token,(desktop_rect){((int)model.width-fw)/2,((int)model.height-60-fh)/2,fw,fh});
 #else
         desktop_place(&model,token,(desktop_rect){200,94,(int32_t)model.width-244,(int32_t)model.height-188});
 #endif
         init_files72(app);
+#ifdef ENGINE_M11
+        if(path)visit72(app,path,1);
+#endif
 #else
         root_path(app->path,"Documents");
 #endif
@@ -364,6 +380,9 @@ static void draw_editor(desktop_window *w,application *app,uint64_t token) {
 }
 
 static const v6_entry *child_at(application *app,unsigned wanted) {
+#ifdef ENGINE_M11
+    return ordered_child11(app,wanted);
+#else
     v6_volume *v=m6_volume();unsigned size=length(app->path),count=0;
 #ifdef ENGINE_M72
     if(equal(app->path,"/"))size=0;
@@ -374,10 +393,14 @@ static const v6_entry *child_at(application *app,unsigned wanted) {
         if(!tail[n]&&count++==wanted)return file;
     }
     return 0;
+#endif
 }
 #ifdef ENGINE_M72
 #ifdef ENGINE_M74
 static void open_file74(const char *path){
+#ifdef ENGINE_M11
+    file_open11(path,0);return;
+#endif
     unsigned n=length(path),kind=EDITOR;
     if(n>=4&&(equal(path+n-4,".bmp")||equal(path+n-4,".BMP")))kind=IMAGES74;
     if(n>=4&&(equal(path+n-4,".zip")||equal(path+n-4,".ZIP")))kind=ARCHIVES74;
@@ -392,6 +415,9 @@ static void open_file74(const char *path){
 #include "files72.inc"
 #ifdef ENGINE_M10
 #include "devices10.inc"
+#endif
+#ifdef ENGINE_M11
+#include "files11-model.inc"
 #endif
 static void init_files72(application *app){
     memset(&navigation[app-apps],0,sizeof(navigation[0]));char home[256];home72(home);visit72(app,home,1);
@@ -499,6 +525,14 @@ static void draw_terminal(desktop_window *w,application *app,uint64_t token){
 
 #ifdef ENGINE_M74
 #include "apps74.inc"
+#ifdef ENGINE_M11
+#include "files11-ops.inc"
+#include "files11-actions.inc"
+#include "files11-context.inc"
+#include "files11-keys.inc"
+#include "files11-desktop.inc"
+#include "files11-ui.inc"
+#endif
 unsigned desktop74_in_use(unsigned kind){
     for(unsigned i=0;i<DESKTOP_WINDOWS;++i)if(model.windows[i].live&&model.windows[i].app==kind)return 1;return 0;
 }
@@ -643,6 +677,9 @@ static void render(void) {
         gui6_rect(38,110+i*83,38,36,preferences.accent);text(49,121+i*83,i==0?"F":i==1?"T":i==2?"S":i==3?"+":"D",2,0x12352e);
         text(38,155+i*83,icons[i],1,0xc4d9df);}
 #endif
+#ifdef ENGINE_M11
+    draw_desktop_files11();
+#endif
     for(unsigned i=0;i<model.count;++i){
         desktop_rect window=model.windows[model.order[i]].bounds;
         int x=window.x>dirty.x?window.x:dirty.x,y=window.y>dirty.y?window.y:dirty.y;
@@ -693,6 +730,7 @@ static void render(void) {
     }
 #ifdef ENGINE_M11
     if(marquee11){desktop_rect r=marquee_rect11;rectangle((desktop_rect){r.x,r.y,r.width,1},preferences.accent);rectangle((desktop_rect){r.x,r.y+r.height-1,r.width,1},preferences.accent);rectangle((desktop_rect){r.x,r.y,1,r.height},preferences.accent);rectangle((desktop_rect){r.x+r.width-1,r.y,1,r.height},preferences.accent);}
+    files_draw_overlay11();
     draw_context11();
 #endif
     gui7_clip_reset();usb_mouse_draw();++paints;painted_pixels+=(uint64_t)dirty.width*dirty.height;
@@ -726,6 +764,9 @@ static void insert(application *app,const char *bytes,unsigned count) {
 }
 
 static void action(uint64_t token,unsigned command) {
+#ifdef ENGINE_M11
+    if(file_action11(token,command))return;
+#endif
     if(!token){if(!command){launcher^=1;whole();return;}launch(command,0);whole();return;}
     desktop_window *w=desktop_lookup(&model,token);if(!w)return;
     unsigned slot=(unsigned)(w-model.windows);application *app=&apps[slot];
@@ -755,9 +796,18 @@ static void action(uint64_t token,unsigned command) {
         copy(app->pending,name,sizeof(app->pending));app->name_cursor=length(app->pending);app->name_selected=1;app->closing=3;notice(app,"Choose a new name. The original file will be kept.");}
     if(command==CONFIRM_FILENAME&&w->app==EDITOR&&app->closing==3)save_as(app);
     if(command==FILENAME_FOCUS&&app->closing==3){app->name_selected=0;app->name_cursor=length(app->pending);}
-    if((command==COPY||command==CUT)&&w->app==EDITOR){memcpy(clipboard,app->text,app->length+1);clipboard_length=app->length;notice(app,"Document copied to the clipboard.");
+    if((command==COPY||command==CUT)&&w->app==EDITOR){
+#ifdef ENGINE_M11
+        clipboard_kind11=1;file_clip11.count=0;
+#endif
+        memcpy(clipboard,app->text,app->length+1);clipboard_length=app->length;notice(app,"Document copied to the clipboard.");
         if(command==CUT)send_app(app,APP7_CLEAR,0,0,0);}
-    if(command==PASTE&&w->app==EDITOR)insert(app,clipboard,clipboard_length);
+    if(command==PASTE&&w->app==EDITOR){
+#ifdef ENGINE_M11
+        if(clipboard_kind11==2)notice(app,"The clipboard contains files. Paste them in Files.");else
+#endif
+        insert(app,clipboard,clipboard_length);
+    }
     if(command==FILE_UP&&w->app==FILES){char root[256];root_path(root,"");unsigned n=length(app->path),min=length(root)-1;while(n>min&&app->path[n-1]!='/')--n;if(n>min)app->path[n-1]=0;app->offset=0;}
     if(command==FILE_NEW&&w->app==FILES){uint64_t opened=launch(EDITOR,0);desktop_window *created=desktop_lookup(&model,opened);
         if(created)unique_in(apps[created-model.windows].path,app->path,"Note",".txt");task_damage();}
@@ -909,13 +959,16 @@ static void pointer(void) {
 #ifdef ENGINE_M11
     unsigned released=!(buttons&1)&&(previous_buttons&1);
     i11_target hit11=target11((int)x,(int)y);
+    if(buttons!=previous_buttons)interaction11.target_identity=hit11.kind==I11_ITEM?file_item_identity11(hit11):0;
     dispatch_modifiers11=input11_pointer_modifiers();
     unsigned event11=i11_pointer(&interaction11,hit11,(int)x,(int)y,buttons,input11_pointer_ms());
     if(event11&I11_DRAG){
-        if(interaction11.down.kind==I11_BACKGROUND&&!context11&&!launcher&&!interaction11.down.window){marquee11=1;marquee_window11=0;marquee_desktop_saved11=desktop_selection11;desktop_focus11=1;}
+        if(interaction11.down.kind==I11_ITEM)(void)files_begin_drag11(interaction11.down,dispatch_modifiers11);
+        if(interaction11.down.kind==I11_BACKGROUND&&!context11&&!launcher&&!interaction11.down.window){marquee11=1;marquee_window11=0;marquee_desktop_saved11=desktop_selection11;memcpy(marquee_desktop_files_saved11,desktop_files_selected11,sizeof(desktop_files_selected11));desktop_focus11=1;}
         if(interaction11.down.kind==I11_BACKGROUND&&interaction11.down.window){desktop_window*mw=desktop_lookup(&model,interaction11.down.window);if(mw&&mw->app==FILES&&!apps[mw-model.windows].usb_mode10&&!apps[mw-model.windows].closing){marquee11=1;marquee_window11=interaction11.down.window;memcpy(marquee_saved11,selected11[mw-model.windows],sizeof(marquee_saved11));}}
         if(interaction11.down.kind==I11_CAPTION){desktop_window*dw=desktop_lookup(&model,interaction11.down.window);if(dw){dragging=1;drag_window=interaction11.down.window;drag_x=(unsigned)interaction11.x;drag_y=(unsigned)interaction11.y;drag_bounds=dw->bounds;drag_resize=interaction11.down.action==31003;}}
     }
+    if(file_drag11){if(buttons&1)files_drag_motion11(x,y,dispatch_modifiers11);else files_drop11(hit11,dispatch_modifiers11);}
     if(marquee11){if(buttons&1)marquee_update11((int)x,(int)y);else{marquee11=0;whole();}}
     if((buttons&1)&&!(previous_buttons&1)&&hit11.window){desktop_focus11=0;desktop_focus(&model,hit11.window);task_damage();}
     if(event11&(I11_SELECT|I11_ACTIVATE|I11_CONTEXT))dispatch11(hit11,event11,x,y);
@@ -1116,6 +1169,9 @@ NORETURN void desktop_start(const os_boot_info_v0 *boot,const m6_preferences *pr
 #endif
     desktop_init(&model,display->framebuffer_width,display->framebuffer_height);
     usb_mouse_state(&pointer_x,&pointer_y,&previous_buttons);
+#ifdef ENGINE_M11
+    file_settings_load11();
+#endif
     launch(FILES,0);render();resource_log();serial_text("M7_DESKTOP_READY build=" BUILD_ID "\n");
 #ifdef ENGINE_M74
     clock74_start();
@@ -1142,12 +1198,19 @@ NORETURN void desktop_start(const os_boot_info_v0 *boot,const m6_preferences *pr
         unsigned time_work=0,audio_work=0;
 #endif
         unsigned network_work=net7_work_pending();
+#ifdef ENGINE_M11
+        unsigned file_work11=files_pending11();
+#endif
 #ifdef ENGINE_M8
         unsigned windows_work=w8_pending();
 #else
         unsigned windows_work=0;
 #endif
-        if(key<0&&!network_work&&!time_work&&!audio_work&&!windows_work){__asm__ volatile("sti; hlt":::"memory");continue;}
+        if(key<0&&!network_work&&!time_work&&!audio_work&&!windows_work
+#ifdef ENGINE_M11
+        &&!file_work11
+#endif
+        ){__asm__ volatile("sti; hlt":::"memory");continue;}
         __asm__ volatile("sti");
 #ifdef ENGINE_M74
         if(time_work)tick74();
@@ -1177,7 +1240,11 @@ NORETURN void desktop_start(const os_boot_info_v0 *boot,const m6_preferences *pr
             }
         }
 #endif
-        if(key<0){render();continue;}
+        if(key<0){
+#ifdef ENGINE_M11
+            files_pump11();files_poll11();
+#endif
+            render();continue;}
         if(key==256)pointer();else{keyboard(key);
 #ifdef ENGINE_M74
             /* Coalesce queued text edits, preserving the first non-text event.
@@ -1193,5 +1260,8 @@ NORETURN void desktop_start(const os_boot_info_v0 *boot,const m6_preferences *pr
             }
 #endif
             render();}
+#ifdef ENGINE_M11
+        files_pump11();files_poll11();render();
+#endif
     }
 }

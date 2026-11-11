@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "scope": "Production pointer classifier on host; not native integration proof",
+  "checks": [
+    "Single selection and double-open on matching target",
+    "Triple click, other target and timeout do not double-open",
+    "Secondary button never activates primary action",
+    "Threshold drag and release-outside cancellation",
+    "Button activation on release, Escape cancellation and bounded interval"
+  ],
+  "source_sha256": {
+    "include/engine/desktop/interaction11.h": "b3daafa624b7a685e526fc4a52c2ef378c6e1ca68a8800b4e0cac3f641851887",
+    "tests/m11/interaction_host.c": "bbcc977d651db0d508022a19fbc0f2365ca205d9e76f7f6a0f05d1e7f3d3c854"
+  }
+}

@@ -157,3 +157,17 @@ the retained original Windows console profile. Broader M9 hardware support
 remains in progress. Article/download synchronization does not edit the native
 BrixCanvas homepage. [Guide](../docs/handbook/install-m9.md),
 [scope](../docs/milestones/m9.md), [release](../docs/releases/m9-v0.9.0.md).
+
+## M11 reader navigation
+
+The public homepage leads with the latest completed M11 stage and a clearly
+labeled native VM capture. Its tested-download label remains M10 until final
+M11.6 media qualify. Update the homepage after each ordered stage; a GitHub
+article sync alone does not change the native homepage sections.
+
+The Documentation index is ordered by reader task: Start here, current M11
+work, daily use/customization, architecture/development, roadmap/evidence,
+website maintenance, then the historical archive. Curated current installation
+and Files guides come before technical and historical material. Numeric titles
+sort naturally and every generated article appears exactly once. The publisher's
+navigation tests preserve this order and keep uncategorized references visible.

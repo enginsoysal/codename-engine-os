@@ -32,6 +32,13 @@ unsigned v6_remove(v6_volume*,const char*);
 unsigned v6_rename(v6_volume*,const char*,const char*,unsigned);
 #endif
 unsigned v6_verify(v6_volume*,const char*);
+#ifdef ENGINE_M11
+unsigned v6_move_tree11(v6_volume*,const char*,const char*,unsigned);
+unsigned v6_remove_tree11(v6_volume*,const char*);
+unsigned v6_stream_seal11(v6_volume*);
+unsigned v6_stream_check11(v6_volume*,unsigned*);
+unsigned v6_stream_finish_expected11(v6_volume*,uint64_t,uint32_t);
+#endif
 uint64_t v6_capacity(const v6_volume*);
 uint64_t v6_used(const v6_volume*);
 #ifdef ENGINE_M7
