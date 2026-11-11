@@ -1,0 +1,192 @@
+{
+  "passed": true,
+  "stage": "M11.4",
+  "checked_at": "2026-11-11T14:31:01.991316+00:00",
+  "runtime_source_commit": "bdf98c648a8aea3efa86ba9a262831096e4aec30",
+  "publication_source_commit": "abaa32cf60fe2859ebe72e4c712eaa9e49132828",
+  "github_release": {
+    "passed": true,
+    "latest_release": "m114-v0.11.4",
+    "release_url": "https://github.com/enginsoysal/engacer-os/releases/tag/m114-v0.11.4",
+    "source_commit": "bdf98c648a8aea3efa86ba9a262831096e4aec30",
+    "official_assets_verified": [
+      {
+        "name": "EngacerOS-M11STAGE4.iso",
+        "sha256": "ae392db4c4b4491ebe1cc959d107b8d97abcb44cd534fb321e1a349c28e34fa5",
+        "bytes": 75356160,
+        "url": "https://github.com/enginsoysal/engacer-os/releases/download/m114-v0.11.4/EngacerOS-M11STAGE4.iso"
+      },
+      {
+        "name": "EngacerOS-M11STAGE4-usb.img",
+        "sha256": "8a29b39fabf47d68940199ea1d058f843a825c3d0f81c44622144efd365b383f",
+        "bytes": 84934656,
+        "url": "https://github.com/enginsoysal/engacer-os/releases/download/m114-v0.11.4/EngacerOS-M11STAGE4-usb.img"
+      },
+      {
+        "name": "EngacerOS-M11STAGE4-kernel.elf",
+        "sha256": "c6c38cb6d0b99436d319aa354d3d5ffabc5066497473f1be0a3589f20c5d07cb",
+        "bytes": 4088156,
+        "url": "https://github.com/enginsoysal/engacer-os/releases/download/m114-v0.11.4/EngacerOS-M11STAGE4-kernel.elf"
+      },
+      {
+        "name": "EngacerOS-M11STAGE4-kernel.map",
+        "sha256": "b3a6178bc27acf04fdb1833836268c78b3bfa500c1e6f97dc7247ee32842e5aa",
+        "bytes": 376840,
+        "url": "https://github.com/enginsoysal/engacer-os/releases/download/m114-v0.11.4/EngacerOS-M11STAGE4-kernel.map"
+      },
+      {
+        "name": "EngacerOS-M11STAGE4-user.elf",
+        "sha256": "c82c7f44394c65fbd9295a1b30d32e1684a243932ba7ffc9aa098c9b87de963f",
+        "bytes": 68064,
+        "url": "https://github.com/enginsoysal/engacer-os/releases/download/m114-v0.11.4/EngacerOS-M11STAGE4-user.elf"
+      },
+      {
+        "name": "EngacerOS-M11STAGE4-installed-kernel.elf",
+        "sha256": "48b30446cd9db55a7b787006679f6030216f94ca442e1760dd808a4d00c7c147",
+        "bytes": 1261916,
+        "url": "https://github.com/enginsoysal/engacer-os/releases/download/m114-v0.11.4/EngacerOS-M11STAGE4-installed-kernel.elf"
+      },
+      {
+        "name": "EngacerOS-M11STAGE4-installed-kernel.map",
+        "sha256": "7e6beae949d7f7e100f036306c1a18824ad3578b2f67d52eaa6e117aca717e01",
+        "bytes": 376548,
+        "url": "https://github.com/enginsoysal/engacer-os/releases/download/m114-v0.11.4/EngacerOS-M11STAGE4-installed-kernel.map"
+      },
+      {
+        "name": "EngacerOS-M11STAGE4-editor.elf",
+        "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+        "bytes": 8232,
+        "url": "https://github.com/enginsoysal/engacer-os/releases/download/m114-v0.11.4/EngacerOS-M11STAGE4-editor.elf"
+      },
+      {
+        "name": "EngacerOS-M11STAGE4-calculator.elf",
+        "sha256": "5193f62e9f16e90ad96905b6bc2e47152c9a524402c5db6f32c8f8e50e1af8a0",
+        "bytes": 12976,
+        "url": "https://github.com/enginsoysal/engacer-os/releases/download/m114-v0.11.4/EngacerOS-M11STAGE4-calculator.elf"
+      },
+      {
+        "name": "EngacerOS-M11STAGE4-calendar.elf",
+        "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+        "bytes": 8232,
+        "url": "https://github.com/enginsoysal/engacer-os/releases/download/m114-v0.11.4/EngacerOS-M11STAGE4-calendar.elf"
+      },
+      {
+        "name": "EngacerOS-M11STAGE4-archives.elf",
+        "sha256": "9008a959466f7288e7ef99dab89ecb8e40439e9ee693faf825b4c602b98f8a84",
+        "bytes": 17068,
+        "url": "https://github.com/enginsoysal/engacer-os/releases/download/m114-v0.11.4/EngacerOS-M11STAGE4-archives.elf"
+      },
+      {
+        "name": "EngacerOS-M11STAGE4-browser.elf",
+        "sha256": "3046e4a9af08551315191e2907d572ebde73b54b389b6c3a37dfb41222140cc0",
+        "bytes": 12639,
+        "url": "https://github.com/enginsoysal/engacer-os/releases/download/m114-v0.11.4/EngacerOS-M11STAGE4-browser.elf"
+      },
+      {
+        "name": "EngacerOS-M11STAGE4-help.elf",
+        "sha256": "bb015366040ca6ba15e81ee97411ab1107b02047b97deb5672743cdb903ba151",
+        "bytes": 8232,
+        "url": "https://github.com/enginsoysal/engacer-os/releases/download/m114-v0.11.4/EngacerOS-M11STAGE4-help.elf"
+      },
+      {
+        "name": "EngacerOS-M11STAGE4-VMware.zip",
+        "sha256": "ab62dfca8e8e2003a8f5e5fb14c9150ebde2b751735da6aa59983b0742587ae5",
+        "bytes": 9660460,
+        "url": "https://github.com/enginsoysal/engacer-os/releases/download/m114-v0.11.4/EngacerOS-M11STAGE4-VMware.zip"
+      },
+      {
+        "name": "m11stage4-build-manifest.json",
+        "sha256": "1acd615cc9aa5e7aed52e68c645643635dbcd2e0ad2decc37b540dd6783dbe26",
+        "bytes": 75893,
+        "url": "https://github.com/enginsoysal/engacer-os/releases/download/m114-v0.11.4/m11stage4-build-manifest.json"
+      },
+      {
+        "name": "m11stage4-starter-manifest.json",
+        "sha256": "f5e3768ca8e10ae5660c8d4821069fcee9175ee2242e334aed3e08eef18dd2fc",
+        "bytes": 652,
+        "url": "https://github.com/enginsoysal/engacer-os/releases/download/m114-v0.11.4/m11stage4-starter-manifest.json"
+      },
+      {
+        "name": "EngacerOS-M11STAGE4-THIRD-PARTY-NOTICES.txt",
+        "sha256": "38d474c23f23e74b75cbfa3a0d46e3bbfc208f205c3e01291e50a715b747ae52",
+        "bytes": 59409,
+        "url": "https://github.com/enginsoysal/engacer-os/releases/download/m114-v0.11.4/EngacerOS-M11STAGE4-THIRD-PARTY-NOTICES.txt"
+      },
+      {
+        "name": "7z2606-src.tar.xz",
+        "sha256": "a4e374c8f864f51df48c2cfd0e1413ec3b2ea030deae852d6a655402ebb61ac4",
+        "bytes": 1567328,
+        "url": "https://github.com/enginsoysal/engacer-os/releases/download/m114-v0.11.4/7z2606-src.tar.xz"
+      },
+      {
+        "name": "COPYING.LIB",
+        "sha256": "a190dc9c8043755d90f8b0a75fa66b9e42d4af4c980bf5ddc633f0124db3cee7",
+        "bytes": 26430,
+        "url": "https://github.com/enginsoysal/engacer-os/releases/download/m114-v0.11.4/COPYING.LIB"
+      },
+      {
+        "name": "M11STAGE4-SHA256SUMS.txt",
+        "sha256": "c3286922ca9a52692f7fa353e67bbbf1c42cafb0c5073688bb63310cddb3cec1",
+        "bytes": 1839,
+        "url": "https://github.com/enginsoysal/engacer-os/releases/download/m114-v0.11.4/M11STAGE4-SHA256SUMS.txt"
+      }
+    ],
+    "downloaded_zip_bytes_verified": true
+  },
+  "github_actions": [
+    {
+      "run": 43036854478,
+      "event": "push",
+      "conclusion": "success"
+    },
+    {
+      "run": 43037009100,
+      "event": "release",
+      "conclusion": "success"
+    },
+    {
+      "run": 43037933084,
+      "event": "push",
+      "conclusion": "success"
+    }
+  ],
+  "website": "https://engaceros.brixcanvas.com",
+  "native_editor_confirmation": "Saved checkmark observed after full four-section replacement; editor reloaded after article synchronization to preserve all 168 posts",
+  "homepage_stage": "M11.4",
+  "native_image_ready": {
+    "width": 1024,
+    "height": 768,
+    "path": "evidence/M11/4/vmware/appearance.png"
+  },
+  "desktop_viewport": {
+    "width": 1280,
+    "scroll_width": 1270
+  },
+  "mobile_viewport": {
+    "width": 390,
+    "scroll_width": 380,
+    "navigation_opened": true,
+    "override_reset": true
+  },
+  "current_guide_index_downloads_source_verified": "abaa32c",
+  "current_install_and_release_only_in_start_here": true,
+  "historical_guides_in_final_archive": true,
+  "official_latest_release": "m114-v0.11.4",
+  "official_asset_digests_verified": 20,
+  "downloaded_zip_bytes_verified": true,
+  "articles": 168,
+  "public_pages_checked": 273,
+  "unique_links": 1722,
+  "broken_pages": 0,
+  "stale_links": 0,
+  "branding_errors": 0,
+  "transient_connection_reset_rechecked_http_200": true,
+  "screenshot_sha256": {
+    "homepage-public.png": "0c37756503e0d31449c2ec7afb97290cd3e7110598744492bcf772b153af7f1b",
+    "homepage-mobile.png": "d3166d5736d297107a669158f6411c6c068ec19b828e9c4db21c360c6436beab",
+    "documentation-public.png": "0cfca457117d3887027e692fb1ad3d6c3a57c50e4689ceb71100f96dc4b67448",
+    "install-guide-public.png": "594c1e875beb676e66a647af0aa9093419f30e63ddfd498373222d46ec7c4cc8",
+    "downloads-public.png": "74925345522477b6b3b6a1a054621f8954132dc20e1bf81957306bdaf07ad6af"
+  },
+  "next_stage": "M11.5; implementation may begin only after this proof is pushed"
+}
